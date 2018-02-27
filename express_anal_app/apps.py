@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MainAppConfig(AppConfig):
+class ExpressAnalApp(AppConfig):
     name = 'express_anal_app'

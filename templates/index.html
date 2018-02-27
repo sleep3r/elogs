@@ -1,0 +1,9 @@
+{% if hello_list %}
+    <ul>
+    {% for who in hello_list %}
+        <li>Hello {{who}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Fuck you!</p>
+{% endif %}
