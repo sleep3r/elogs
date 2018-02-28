@@ -40,3 +40,11 @@ def leaching_jrk(request):
     }
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
+
+def electrolysis(request):
+    context = {
+        'title': "Реактивная табличка",
+        'subtitle': "Цех Электроиза"
+    }
+    template = loader.get_template('react-table.html')
+    return HttpResponse(template.render(context, request))
