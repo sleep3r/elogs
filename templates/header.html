@@ -58,27 +58,9 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-
                 <br/>
                 <h3>Аналитика завода</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-sitemap"></i>Список цехов<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Обжиг</a>
-                        <li><a>Выщелачивание<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Журнал экспресс анализа</a></li>
-                            <li><a href="index.html">Журнал учёта</a></li>
-                            <li><a href="index2.html">Журнал расхода кислоты</a></li>
-                          </ul>
-                        </li>
-                        <li><a href="index3.html">Электролиз</a>
-                        </li>
-                    </ul>
-                  </li>
-
-                </ul>
-
+                {% include "menu.html" %}
               </div>
             </div>
             <!-- /sidebar menu -->
@@ -101,3 +83,9 @@
             <!-- /menu footer buttons -->
           </div>
         </div>
+        <!-- top navigation -->
+        {% include "top_nav.html" %}
+        <!-- /top navigation -->
+
+         <!-- page content -->
+         <div class="right_col" role="main">
