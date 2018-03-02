@@ -7,6 +7,6 @@ urlpatterns = [
     url('jea', views.leaching_jea),
     url('ju', views.leaching_ju),
     url('jrk', views.leaching_jrk),
-    url('main', views.electrolysis)
-
+    url('main', views.electrolysis),
+    url('edit', views.electrolysisEdit)
 ]
