@@ -19,9 +19,12 @@
                 </tr>
                 <tr>
                     {% for subColumn in table.level2 %}
-                    <th class="rotate"><div><span>{{subColumn|safe}}</span></div></th>
+                    <th class="rotate">
+                        <div>
+                            <span>{{subColumn|safe}}</span>
+                        </div>
+                    </th>
                     {% endfor %}
-
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +57,6 @@
                 <td rowspan="6">26</td>
                 <td rowspan="6">27</td>
                 <td rowspan="6">28</td>
-
             </tr>
             <tr>
                 <td>10<sup>00</sup></td>
@@ -82,7 +84,6 @@
                 <td>23</td>
                 <td>24</td>
                 <td>25</td>
-
             </tr>
             <tr>
                 <td>12<sup>00</sup></td>
@@ -110,9 +111,6 @@
                 <td>23</td>
                 <td>24</td>
                 <td>25</td>
-
-
-
             </tr>
             <tr>
                 <td>14<sup>00</sup></td>
@@ -140,8 +138,6 @@
                 <td>23</td>
                 <td>24</td>
                 <td>25</td>
-
-
             </tr>
             <tr>
                 <td>16<sup>00</sup></td>
@@ -169,8 +165,6 @@
                 <td>23</td>
                 <td>24</td>
                 <td>25</td>
-
-
             </tr>
             </tbody>
         </table>

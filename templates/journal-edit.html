@@ -1,0 +1,30 @@
+{% include "header.html" %}
+<div class="page-title">
+    <div class="title_left">
+      <h3>{{title}}</h3>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+      <h3>Лист 1</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    {{dump}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+
+
+{% include "footer.html" %}
