@@ -1,9 +1,15 @@
 import json
+import random
+from itertools import product
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 # forms
 from django import forms
+from django.urls import reverse
+
+from express_anal_app.models import DenserAnal, Shift, Employee
+from dateutil.parser import parse
 
 class PostForm(forms.Form):
     content = forms.CharField(max_length=255)
@@ -24,6 +30,7 @@ def index(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
+
 def electrolysis(request):
     context = {
         'title': "Журнал Экспресс анализа",
@@ -31,6 +38,7 @@ def electrolysis(request):
     }
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
+
 
 def leaching_ju(request):
     context = {
@@ -40,6 +48,7 @@ def leaching_ju(request):
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
 
+
 def leaching_jrk(request):
     context = {
         'title': "Журнал расхода серной кислоты",
@@ -48,13 +57,6 @@ def leaching_jrk(request):
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
 
-# def electrolysis(request):
-#     context = {
-#         'title': "Реактивная табличка",
-#         'subtitle': "Цех Электроиза"
-#     }
-#     template = loader.get_template('react-table.html')
-#     return HttpResponse(template.render(context, request))
 
 def electrolysisEdit(request):
     if request.method == 'GET':
@@ -73,7 +75,6 @@ def electrolysisEdit(request):
     }
     template = loader.get_template('react-table-edit.html')
     return HttpResponse(template.render(context, request))
-
 
 
 def leaching_jea(request):
@@ -363,7 +364,6 @@ def leaching_jea(request):
         'bchc': bchc
 
     }
-
 
 
     template = loader.get_template('react-table.html')

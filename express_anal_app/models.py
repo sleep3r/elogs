@@ -4,6 +4,7 @@ from django.db import models
 
 
 # TODO: Do we set null=TRUE?
+from login_app.models import Employee
 
 
 class Journal(models.Model):
@@ -11,12 +12,7 @@ class Journal(models.Model):
     description = models.TextField()
 
 
-class Employee(models.Model):
-    name = models.CharField(max_length=64)
-    position = models.CharField(max_length=128)
-
-
-class Shift(models.Model):  # TODO: add everywhere links to
+class Shift(models.Model):
     order = models.DecimalField(max_digits=1, decimal_places=0)
     master = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='leaching_shift_masters')
     laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='leaching_shift_labornats')
@@ -167,7 +163,7 @@ class Reagents(JournalTable):  # TODO: Надо осмыслить эту их �
     mg = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     magnaglobe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fence_state = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: should be text
+    fence_state = models.CharField(max_length=255, blank=True)
 
     delivered = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     accepted = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
@@ -181,7 +177,7 @@ class Reagents(JournalTable):  # TODO: Надо осмыслить эту их �
                                                     ('4', 'empty'),))
 
 
-class VIU(JournalTable):  # TODO: WHF?? needs understanding and total fix
+class VEU(JournalTable):
     hot = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     cold = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     comment = models.CharField(max_length=128, blank=True)
@@ -203,7 +199,7 @@ class SelfSecurity(JournalTable):
     bignote = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
 
 
-class Electrolysis(JournalTable):  # TODO: a shit with time?
+class Electrolysis(JournalTable):
     series = models.DateTimeField()
     loads1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     loads2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)

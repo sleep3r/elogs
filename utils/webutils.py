@@ -1,4 +1,6 @@
 import json
+import secrets
+import string
 import time
 from collections import defaultdict
 from traceback import print_exc
@@ -10,7 +12,7 @@ from utils.errors import SemanticError, AccessError
 
 # view accepts HttpRequest
 # view returns dict or defaultdict
-from utils.settings import webURL
+from utils.settings import webURL, CSRF_LENGTH
 
 
 def processView(auth_required=True):
@@ -50,3 +52,6 @@ def processView(auth_required=True):
 
         return csrf_exempt(w)
     return real_decorator
+
+def generate_csrf():
+    return ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(CSRF_LENGTH))
