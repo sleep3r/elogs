@@ -1,15 +1,29 @@
 import json
 
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+
+
 from django.template import loader
 # forms
 from django import forms
+from django.forms import ModelForm
+
+
+# -------------- django web forms -----------------------
+from express_anal_app.models import DenserAnal
+
 
 class PostForm(forms.Form):
     content = forms.CharField(max_length=255)
-
     created_at = forms.DateTimeField()
 
+class DenserForm(ModelForm):
+    class Meta:
+        model = DenserAnal
+        fields = ['point','sink','ph', 'cu', 'fe', 'liq_sol']
+
+# ------------- end forms -----------------------------
 
 def index(request):
     context = {
@@ -21,6 +35,7 @@ def index(request):
             { 'title': "Надо пошурудить в печи",  'time': "08:00"}
         ]
     }
+
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
@@ -62,11 +77,8 @@ def electrolysisEdit(request):
     else:
         form = PostForm(request.POST) # Bind data from request.POST into a PostForm
         if form.is_valid():
-            content = form.cleaned_data['content']
-            created_at = form.cleaned_data['created_at']
-
-            return HttpResponseRedirect(reverse('post_detail',
-                                                kwargs={'post_id': '31337'}))
+            dump = form.cleaned_data['ph']
+            # created_at = form.cleaned_data['created_at']
 
     context = {
         'form': form
@@ -75,6 +87,25 @@ def electrolysisEdit(request):
     return HttpResponse(template.render(context, request))
 
 
+def leaching_jea_edit(request):
+    dump = ''
+    if request.method == 'GET':
+        form = DenserForm()
+    else:
+        form = DenserForm(request.POST) # Bind data from request.POST into a PostForm
+        if form.is_valid():
+            dump = form.cleaned_data['ph']
+            form.save()
+            return HttpResponseRedirect
+
+    context = {
+        'title': "Журнал Экспресс анализа (Edit)",
+        'subtitle': "Цех выщелачивания",
+        'form': form,
+        'dump': dump
+    }
+    template = loader.get_template('journal-edit.html')
+    return HttpResponse(template.render(context, request))
 
 def leaching_jea(request):
     context = {
