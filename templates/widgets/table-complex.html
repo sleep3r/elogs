@@ -1,0 +1,81 @@
+
+<style>
+th { text-align: center; }
+
+th.rotate {
+  height: 140px;
+  white-space: nowrap;
+
+}
+
+th.rotate > div {
+  transform:
+    translate(5px, 51px)
+    rotate(270deg);
+  width: 1px;
+}
+
+th.rotate > div > span {
+  padding: 5px 50px;
+  text-align: left;
+}
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
+                <th colspan="6" >Сгуститель 10</th>
+                <th colspan="6" >Сгуститель 11</th>
+                <th colspan="6" >Сгуститель 12</th>
+            </tr>
+            <tr>
+                <th colspan="4">ВС 10сг.</th>
+                <th colspan="2">НС 10сг.</th>
+
+                <th colspan="4">ВС 11сг.</th>
+                <th colspan="2">НС 11сг.</th>
+
+                <th colspan="4">ВС 12сг.</th>
+                <th colspan="2">НС 12сг.</th>
+            </tr>
+            <tr>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Медь</span></div></th>
+                <th class="rotate"><div><span>Железо</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Медь</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Медь</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Медь</span></div></th>
+                <th class="rotate"><div><span>Железо</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in table.rows %}
+            <tr>
+                <th scope="row" >{{item.title}}</th>
+                {% for value in item.values %}
+                <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
