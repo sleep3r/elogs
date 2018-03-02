@@ -19,6 +19,8 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^express_anal', include('express_anal_app.urls')),
-    url('^', include('express_anal_app.urls'))
+    url('^express_anal', include('express_anal_app.urls')),
+    url('leaching', include('express_anal_app.urls')),
+    url('electrolysis', include('express_anal_app.urls')),
+    url('^$',include('express_anal_app.urls'))
 ]

@@ -1,0 +1,16 @@
+{% include "header.html" %}
+<!-- top tiles -->
+{%  include "widgets/tile_count.html" %}
+<!-- /top tiles -->
+<div class="page-title">
+    <div class="title_left">
+      <h3>{{title}}</h3>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    {% include "widgets/table.html" %}
+  </div>
+</div>
+{% include "footer.html" %}
