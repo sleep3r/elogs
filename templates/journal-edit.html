@@ -12,17 +12,44 @@
 </div>
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
-    {{dump}}
+    <br/>
+    {% if error_messages %}
+    <div class="alert alert-danger" role="alert">
+      {% for error in error_messages %}
+        {{ error }}
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
-    <form action="" method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Submit" />
-    </form>
+    <div class="x_panel">
+      <div class="x_title">{{ form_title }}</div>
+      <div class="x_content">
+            <form action="" method="POST" class="form-horizontal form-label-left">
+              {% csrf_token %}
+
+              {% for hidden_field in form.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %}
+
+              {% for field in form.visible_fields %}
+              <div class="form-group">
+                    {{ field.errors }}
+                  <label class="control-label col-md-3 col-sm-3 col-xs-3">
+                    {{ field.label_tag }}
+                  </label>
+                 <div class="col-md-9 col-sm-9 col-xs-9">
+                     {{ field  }}
+                 </div>
+              </div>
+              {% endfor %}
+              <input type="submit" class="btn btn-success" value="Submit" />
+            </form>
+      </div>
+    </div>
   </div>
 </div>
 
