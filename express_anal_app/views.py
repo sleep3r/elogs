@@ -8,6 +8,8 @@ from django.template import loader
 # forms
 from django import forms
 from django.forms import ModelForm
+from django.utils import timezone
+import datetime
 
 
 # -------------- django web forms -----------------------
@@ -19,9 +21,19 @@ class PostForm(forms.Form):
     created_at = forms.DateTimeField()
 
 class DenserForm(ModelForm):
+    error_css_class = 'label label-danger'
+    def __init__(self, *args, **kwargs):
+        super(DenserForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = DenserAnal
-        fields = ['point','sink','ph', 'cu', 'fe', 'liq_sol']
+        fields = ['point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
+        widgets = {
+            'time': forms.DateInput(attrs={ 'type':'hidden', 'class':'form-control has-feedback-left'}),
+        }
+
 
 # ------------- end forms -----------------------------
 
@@ -63,13 +75,6 @@ def leaching_jrk(request):
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
 
-# def electrolysis(request):
-#     context = {
-#         'title': "Реактивная табличка",
-#         'subtitle': "Цех Электроиза"
-#     }
-#     template = loader.get_template('react-table.html')
-#     return HttpResponse(template.render(context, request))
 
 def electrolysisEdit(request):
     if request.method == 'GET':
@@ -88,24 +93,47 @@ def electrolysisEdit(request):
 
 
 def leaching_jea_edit(request):
-    dump = ''
+    error_messages = ''
+    cleaned_data = ''
+
     if request.method == 'GET':
-        form = DenserForm()
+        currentDate = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
+
+        form = DenserForm(initial={
+            'point':'1',
+            'sink': '0',
+            'ph':'0.2',
+            'cu':'0.3',
+            'fe': '0.4',
+            'liq_sol': '1.0',
+            'time': currentDate})
+
+        form.error_css_class = 'label label-danger'
+
     else:
         form = DenserForm(request.POST) # Bind data from request.POST into a PostForm
+        form.error_css_class = 'label label-danger'
+        form.time = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
         if form.is_valid():
-            dump = form.cleaned_data['ph']
+            error_messages = ''
+            form.time = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
             form.save()
-            return HttpResponseRedirect
+            return HttpResponseRedirect(request.path_info)
+        else:
+            error_messages = form.errors
 
+        cleaned_data = form.cleaned_data
     context = {
         'title': "Журнал Экспресс анализа (Edit)",
         'subtitle': "Цех выщелачивания",
+        'form_title': "Заполнить форму",
         'form': form,
-        'dump': dump
+        'error_messages': error_messages,
+        'data': cleaned_data
     }
     template = loader.get_template('journal-edit.html')
     return HttpResponse(template.render(context, request))
+
 
 def leaching_jea(request):
     context = {
