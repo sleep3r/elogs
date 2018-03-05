@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'express_anal_app.apps.ExpressAnalApp',
     'login_app.apps.LoginApp',
+    'express_anal_app.apps.ExpressAnalApp',
 ]
 
 MIDDLEWARE = [

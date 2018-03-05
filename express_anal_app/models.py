@@ -228,6 +228,7 @@ class ShiftInfo(JournalTable):
     out_sol_t = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_sol_c = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: fuck!
+    out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: fuck!
     out_cu_kek = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_cd_sponge = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_electr = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
