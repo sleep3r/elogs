@@ -8,131 +8,146 @@ from login_app.models import Employee
 
 
 class Journal(models.Model):
-    name = models.CharField(max_length=1000, blank=False, null=False)
-    description = models.TextField()
+    name = models.CharField(max_length=1000, blank=False, null=False, verbose_name='Название журнала')
+    description = models.TextField(verbose_name='Описание таблицы')
+
+    def __str__(self):
+        return self.name
 
 
 class Shift(models.Model):
-    order = models.DecimalField(max_digits=1, decimal_places=0)
-    master = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='leaching_shift_masters')
-    laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='leaching_shift_labornats')
-    plant = models.CharField(max_length=1, choices=(('0', 'furnace'),
-                                                    ('1', 'leaching'),
-                                                    ('2', 'electrolysis'),))
+    date = models.DateField( verbose_name='Дата начала смены')
+    order = models.DecimalField(max_digits=1, decimal_places=0, verbose_name='Номер смены (1, 2)')
+    master = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
+                               related_name='leaching_shift_masters', verbose_name='Мастер смены')
+    laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
+                                 related_name='leaching_shift_labornats', verbose_name='Лаборант')
+    plant = models.CharField(max_length=1, verbose_name='Цех', choices=(('0', 'обжиг'),
+                                                                        ('1', 'выщелачивание'),
+                                                                        ('2', 'электролиз'),))
+    def __str__(self):
+        return f'<{self.date}> {self.order} смена, {self.plant}'
 
 
 class JournalTable(models.Model):
-    shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True)
-    time = models.DateTimeField()
-    journal = models.ForeignKey(Journal, on_delete=models.SET_NULL, null=True)
+    shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True, verbose_name='Смена')
+    time = models.DateTimeField('Время анализа/создания записи')
+    journal = models.ForeignKey(Journal, on_delete=models.SET_NULL, null=True, verbose_name='Журнал')
+
+    def __str__(self):
+        return f'{self.journal}, запись {self.time}'
 
 
 # Low Sink High Sink
 class LeachingExpressAnal(JournalTable):  # The name is shit!
-    point = models.CharField(max_length=1, choices=(('0', 'lshs'),
-                                                    ('1', 'larox'),
-                                                    ('2', 'purified'),
-                                                    ('3', 'errors'),))
+    point = models.CharField(max_length=1, verbose_name='Место измерения', choices=(('0', 'ВСНС'),
+                                                    ('1', 'Ларокс'),
+                                                    ('2', 'Очищенный раствор'),
+                                                    ('3', 'Упр. несоответствия продукции'),))
 
-    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    solid_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    current = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Co')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
+    cu_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu ст.1')
+    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
+    solid_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
+    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe')
+    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='As')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Твердое г\л')
+    current = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Выход по току')
+    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Уд. вес')
 
 
 class ProductionErrors(JournalTable):
-    norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    error = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    correction = models.CharField(max_length=512)
-    verified = models.BooleanField(default=False)
+    norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Норма')
+    fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Факт')
+    error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Несоответствие')
+    correction = models.CharField(max_length=512, verbose_name='Коррекция')
+    verified = models.BooleanField(default=False, verbose_name='Проверено')
 
 
 class DenserAnal(JournalTable):
-    point = models.CharField(max_length=1, choices=(('0', '10'),
+    point = models.CharField(max_length=1, verbose_name='Сгуститель №', choices=(('0', '10'),
                                                     ('1', '11'),
                                                     ('2', '12'),))
 
-    sink = models.CharField(max_length=1, choices=(('0', 'upper'),
-                                                    ('1', 'lower')))
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    sink = models.CharField(max_length=1, verbose_name='Слив', choices=(('0', 'ВС'),
+                                                    ('1', 'НС')))
+    ph = models.DecimalField(max_digits=10, verbose_name='pH', decimal_places=5, blank=True)
+    cu = models.DecimalField(max_digits=10, verbose_name='Cu', decimal_places=5, blank=True)
+    fe = models.DecimalField(max_digits=10, verbose_name='Fe', decimal_places=5, blank=True)
+    liq_sol = models.DecimalField(max_digits=10, verbose_name='Ж:Т', decimal_places=5, blank=True)
 
 
 class ZnPulpAnal(JournalTable):
-    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
+    t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='t0')
 
 
 class CuPulpAnal(JournalTable):  # TODO: comment?? shitti values
-    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    before = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    after = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
+    before = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='До')
+    after = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='После')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
 
 
 class FeSolutionAnal(JournalTable):
-    h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    As = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    Cl = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='H2SO4')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
+    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe')
+    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Уд. вес')
+    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='As')
+    cl = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cl')
 
 
 class DailyAnalysis(JournalTable):  # shit next to Fe
-    shlippe_sb = models.CharField(max_length=64, blank=True)
-    activ_sas = models.CharField(max_length=64, blank=True)  # SAS is how american shitheads call ПАВ
-    circulation_denser = models.CharField(max_length=64, blank=True)
-    fe_hi1 = models.CharField(max_length=64, blank=True)
-    fe_hi2 = models.CharField(max_length=64, blank=True)
+    shlippe_sb = models.CharField(max_length=64, blank=True, verbose_name='Концентрация Sb в р-ре соли Шлиппе')
+    activ_sas = models.CharField(max_length=64, blank=True, verbose_name='Активность ПАВ')
+    circulation_denser = models.CharField(max_length=64, blank=True, verbose_name='Анализы оборот. сгуст.')
+    fe_hi1 = models.CharField(max_length=64, blank=True, verbose_name='Высоко Fe р-р')
+    fe_hi2 = models.CharField(max_length=64, blank=True, verbose_name='Высоко Fe р-р 2')
 
 
 class HydroMetal(JournalTable):
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    acid = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe_total = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    mann_num = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
+    acid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Кисл-ть')
+    fe2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe двухвал')
+    fe_total = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe общее')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Медь')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Сурьма')
+    sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Отстой')
+    mann_num = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Манн №')
 
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
+                                 null=True, verbose_name='Аппаратчик-гидрометаллург')
 
 
 class CinderDensity(JournalTable):
-    gran = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    gran_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    gran = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ситовой огарка')
+    gran_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ситовой огарка средний')
+    fe_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Общее Fe среднее')
+    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe Стружка Fe')
 
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
+                                 null=True, verbose_name='Аппаратчик-гидрометаллург')
 
 
 class Agitators(JournalTable):
-    before = models.BooleanField()
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # here they write % symbol
-    comment = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    before = models.BooleanField(verbose_name='До')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
+    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Co')
+    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
+    h2so4 = models.DecimalField(max_digits=10, decimal_places=5,
+                                blank=True, verbose_name='H2SO4')  # here they write % symbol
+    comment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Комментарий')
 
-    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)  # maybe this should be in shift info
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, # мб их в shift_info
+                                 null=True, verbose_name='Аппаратчик-гидрометаллург')
 
 
 class NeutralDenser(JournalTable):

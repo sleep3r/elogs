@@ -25,3 +25,6 @@ from express_anal_app.models import *
 admin.site.register(Employee)
 admin.site.register(LeachingExpressAnal)
 admin.site.register(DenserAnal)
+admin.site.register(Shift)
+admin.site.register(Journal)
+admin.site.register(Journal)
