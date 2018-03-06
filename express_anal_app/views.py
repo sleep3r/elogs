@@ -11,14 +11,17 @@ from django.forms import ModelForm
 from django.utils import timezone
 
 import datetime
-from express_anal_app import  helpers
+from express_anal_app import helpers
+from express_anal_app import tables
+import pprint
+
 
 from collections import defaultdict
 def deep_dict():
     return defaultdict(deep_dict)
 
 # -------------- django web forms -----------------------
-from express_anal_app.models import DenserAnal
+from express_anal_app.models import *
 
 
 class PostForm(forms.Form):
@@ -60,14 +63,16 @@ def index(request):
 def leaching_ju(request):
 
     rows = DenserAnal.objects.all()
-    items = deep_dict()
+    shift = Shift.objects.all()[0]
 
     helpers.dump(rows)
 
+    data = tables.get_densers_table(shift).get_dict()
     sgustiteli = {
         'title': 'Сгустители',
         'columns': ['10', "11", "12"],
-        'data': helpers.denserData(),
+        'data': data, # helpers.denserData(),
+        'dump': pprint.pformat(data, indent=4)
     }
 
     context = {
