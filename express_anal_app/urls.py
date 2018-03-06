@@ -1,7 +1,6 @@
 from django.conf.urls import url, include
 
 from express_anal_app import views
-from express_anal_app.utils import fill_database
 
 urlpatterns = [
     url('^$', views.index),
