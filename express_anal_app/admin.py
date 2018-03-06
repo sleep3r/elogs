@@ -13,6 +13,18 @@ from express_anal_app.models import *
 #     can_delete = False
 #     verbose_name_plural = 'employee'
 
+class DenserAnalAdmin(admin.ModelAdmin):
+    model = DenserAnal
+    verbose_name_plural = 'Сгустители'
+    list_display = [ 'ph', 'shift_id', 'point', 'sink', 'cu', 'fe', 'time', 'shift', 'journal']
+    list_display_links = ['ph']
+    # list_editable = [ 'point', 'sink', 'time', 'shift', 'journal' ]
+
+class JournalTableAdmin(admin.ModelAdmin):
+    model = JournalTable
+    verbose_name_plural = 'Жарнулы'
+    list_display = [ 'shift', 'time', 'journal']
+
 
 # Define a new User admin
 # class UserAdmin(BaseUserAdmin):
@@ -24,4 +36,6 @@ from express_anal_app.models import *
 #
 admin.site.register(Employee)
 admin.site.register(LeachingExpressAnal)
-admin.site.register(DenserAnal)
+admin.site.register(Journal)
+admin.site.register(JournalTable, JournalTableAdmin)
+admin.site.register(DenserAnal, DenserAnalAdmin)
