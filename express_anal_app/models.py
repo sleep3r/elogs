@@ -22,9 +22,9 @@ class Shift(models.Model):
                                related_name='leaching_shift_masters', verbose_name='Мастер смены')
     laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
                                  related_name='leaching_shift_labornats', verbose_name='Лаборант')
-    plant = models.CharField(max_length=1, verbose_name='Цех', choices=(('0', 'обжиг'),
-                                                                        ('1', 'выщелачивание'),
-                                                                        ('2', 'электролиз'),))
+    plant = models.CharField(max_length=1, verbose_name='Цех', choices=(('furnace', 'Обжиг'),
+                                                                        ('leaching', 'Выщелачивание'),
+                                                                        ('electrolysis', 'Электролиз'),))
     def __str__(self):
         return f'<{self.date}> {self.order} смена, {self.plant}'
 
@@ -40,10 +40,10 @@ class JournalTable(models.Model):
 
 # Low Sink High Sink
 class LeachingExpressAnal(JournalTable):  # The name is shit!
-    point = models.CharField(max_length=1, verbose_name='Место измерения', choices=(('0', 'ВСНС'),
-                                                    ('1', 'Ларокс'),
-                                                    ('2', 'Очищенный раствор'),
-                                                    ('3', 'Упр. несоответствия продукции'),))
+    point = models.CharField(max_length=1, verbose_name='Место измерения', choices=(('0', 'lshs'),
+                                                    ('larox', 'Ларокс'),
+                                                    ('purified', 'Очищенный раствор'),
+                                                    ('prod_correction', 'Упр. Несоответствия продукции'),))
 
     co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Co')
     sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
@@ -68,12 +68,12 @@ class ProductionErrors(JournalTable):
 
 
 class DenserAnal(JournalTable):
-    point = models.CharField(max_length=1, verbose_name='Сгуститель №', choices=(('0', '10'),
-                                                    ('1', '11'),
-                                                    ('2', '12'),))
+    point = models.CharField(max_length=1, verbose_name='Сгуститель №', choices=(('10', 'Сгуститель №10'),
+                                                    ('11', 'Сгуститель №11'),
+                                                    ('12', 'Сгуститель №12'),))
 
-    sink = models.CharField(max_length=1, verbose_name='Слив', choices=(('0', 'ВС'),
-                                                    ('1', 'НС')))
+    sink = models.CharField(max_length=1, verbose_name='Слив', choices=(('ls', 'ВС'),
+                                                    ('hs', 'НС')))
     ph = models.DecimalField(max_digits=10, verbose_name='pH', decimal_places=5, blank=True)
     cu = models.DecimalField(max_digits=10, verbose_name='Cu', decimal_places=5, blank=True)
     fe = models.DecimalField(max_digits=10, verbose_name='Fe', decimal_places=5, blank=True)
@@ -185,11 +185,11 @@ class Reagents(JournalTable):  # TODO: Надо осмыслить эту их �
     consumption = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     taken_away = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
 
-    stage = models.CharField(max_length=1, choices=(('0', '1'),
-                                                    ('1', '2'),
-                                                    ('2', '3'),
-                                                    ('3', 'cd'),
-                                                    ('4', 'empty'),))
+    stage = models.CharField(max_length=1, choices=(('1', '1ст'),
+                                                    ('2', '2ст'),
+                                                    ('3', '3ст'),
+                                                    ('cd', 'Сd'),
+                                                    ('empty', 'empty'),))
 
 
 class VEU(JournalTable):
@@ -227,7 +227,6 @@ class Electrolysis(JournalTable):
 class ShiftInfo(JournalTable):
     out_sol_t = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_sol_c = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: fuck!
     out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: fuck!
     out_cu_kek = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     out_cd_sponge = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
