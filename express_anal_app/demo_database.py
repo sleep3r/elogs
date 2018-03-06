@@ -3,10 +3,11 @@ from itertools import product
 
 from dateutil.parser import parse
 
-from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors
+from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors, ZnPulpAnal, \
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis
 
 
-def fill_denser_anal():
+def fill_denser_anal_table():
     shift = Shift.objects.all()[0]
     journal = Journal.objects.get(name='Журнал экспресс анализов')
 
@@ -51,12 +52,46 @@ def fill_express_anal_table():
             pe.save()
 
 
+def fill_solutions_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
+
+    for t in times:
+        zpa = ZnPulpAnal(shift=shift, journal=journal, time=t)
+        for attr in ['liq_sol', 'ph', 't0']:
+            setattr(zpa, attr, random.uniform(0, 100))
+        zpa.save()
+
+        cpa = CuPulpAnal(shift=shift, journal=journal, time=t)
+        for attr in ['liq_sol', 'before', 'after', 'solid']:
+            setattr(cpa, attr, random.uniform(0, 100))
+        cpa.save()
+
+        fsa = FeSolutionAnal(shift=shift, journal=journal, time=t)
+        for attr in ['h2so4', 'solid', 'sb', 'cu', 'fe', 'density', 'arsenic', 'cl']:
+            setattr(fsa, attr, random.uniform(0, 100))
+        fsa.save()
+
+        da = DailyAnalysis(shift=shift, journal=journal, time=t)
+        for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
+            setattr(da, attr, random.uniform(0, 100))
+        da.save()
+
+
 def clean_database():
-    DenserAnal.objects.all().delete()
-    ProductionErrors.objects.all().delete()
-    LeachingExpressAnal.objects.all().delete()
+    model_tables = [
+        DenserAnal,  # densers table
+        ProductionErrors, LeachingExpressAnal,  # express anal table
+        ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis  # solutions table
+    ]
+
+    for t in model_tables:
+        t.objects.all().delete()
 
 
 def fill_database():
     fill_express_anal_table()
-    fill_express_anal_table()
+    fill_denser_anal_table()
+    fill_solutions_table()

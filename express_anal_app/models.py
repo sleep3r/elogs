@@ -251,4 +251,3 @@ class Schieht(JournalTable):
 class NeutralSolution(JournalTable):  # should it be text
     tank_name = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     value = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-
