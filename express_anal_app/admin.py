@@ -34,8 +34,11 @@ class JournalTableAdmin(admin.ModelAdmin):
 # admin.site.unregister(User)
 # admin.site.register(User, UserAdmin)
 #
-admin.site.register(Employee)
 admin.site.register(LeachingExpressAnal)
 admin.site.register(Journal)
+admin.site.register(Shift)
 admin.site.register(JournalTable, JournalTableAdmin)
 admin.site.register(DenserAnal, DenserAnalAdmin)
+
+
+

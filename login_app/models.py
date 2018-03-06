@@ -10,4 +10,7 @@ class Employee(models.Model):
     position = models.CharField(max_length=128)
     csrf = models.CharField(max_length=CSRF_LENGTH, default='')
 
+    def __str__(self):
+        return f'{self.name} {self.position}'
+
 
