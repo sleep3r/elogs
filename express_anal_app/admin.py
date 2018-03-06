@@ -18,7 +18,7 @@ from express_anal_app.models import *
 class DenserAnalAdmin(admin.ModelAdmin):
     model = DenserAnal
     verbose_name_plural = 'Сгустители'
-    list_display = [ 'ph', 'shift_id', 'point', 'sink', 'cu', 'fe', 'time', 'shift', 'journal']
+    list_display = [ 'ph', 'cu', 'fe', 'liq_sol','shift_id', 'point', 'sink', 'time', 'shift', 'journal', ]
     list_display_links = ['ph']
     # list_editable = [ 'point', 'sink', 'time', 'shift', 'journal' ]
 
