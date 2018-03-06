@@ -26,53 +26,47 @@ th.rotate > div > span {
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
+
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
-                <th colspan="6" >Сгуститель 10</th>
-                <th colspan="6" >Сгуститель 11</th>
-                <th colspan="6" >Сгуститель 12</th>
+                {% for nomer in table.columns %}
+                <th colspan="6" >Сгуститель {{nomer}}</th>
+                {% endfor %}
             </tr>
             <tr>
-                <th colspan="4">ВС 10сг.</th>
-                <th colspan="2">НС 10сг.</th>
-
-                <th colspan="4">ВС 11сг.</th>
-                <th colspan="2">НС 11сг.</th>
-
-                <th colspan="4">ВС 12сг.</th>
-                <th colspan="2">НС 12сг.</th>
+                {% for nomer in table.columns %}
+                <th colspan="4">ВС {{nomer}}сг.</th>
+                <th colspan="2">НС {{nomer}}сг.</th>
+                {% endfor %}
             </tr>
             <tr>
+                {% for n in table.columns %}
                 <th class="rotate"><div><span>pH</span></div></th>
                 <th class="rotate"><div><span>Медь</span></div></th>
                 <th class="rotate"><div><span>Железо</span></div></th>
                 <th class="rotate"><div><span>Ж:Т</span></div></th>
+
                 <th class="rotate"><div><span>pH</span></div></th>
                 <th class="rotate"><div><span>Ж:Т</span></div></th>
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Медь</span></div></th>
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Медь</span></div></th>
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Ж:Т</span></div></th>
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Медь</span></div></th>
-                <th class="rotate"><div><span>Железо</span></div></th>
-                <th class="rotate"><div><span>Ж:Т</span></div></th>
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                {% endfor %}
             </tr>
             </thead>
             <tbody>
-            {% for item in table.rows %}
-            <tr>
-                <th scope="row" >{{item.title}}</th>
-                {% for value in item.values %}
-                <td>{{value}}</td>
-                {% endfor %}
-            </tr>
+                {% for row in table.data.rows %}
+                <tr>
+                    <td>{{row.time}}<sup>00</sup></td>
+                    {% for denser in row.denser %}
+                    <td>{{denser.upper.ph}}</td>
+                    <td>{{denser.upper.cu}}</td>
+                    <td>{{denser.upper.fe}}</td>
+                    <td>{{denser.upper.liqSol}}</td>
+
+                    <td>{{denser.lower.ph}}</td>
+                    <td>{{denser.lower.liqSol}}</td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
             </tbody>
         </table>
