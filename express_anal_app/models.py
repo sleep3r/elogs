@@ -45,24 +45,24 @@ class LeachingExpressAnal(JournalTable):  # The name is shit!
                                                     ('purified', 'Очищенный раствор'),
                                                     ('prod_correction', 'Упр. Несоответствия продукции'),))
 
-    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Co')
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
-    cu_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu ст.1')
-    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
-    solid_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
-    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe')
-    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='As')
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Твердое г\л')
-    current = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Выход по току')
-    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Уд. вес')
+    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Co')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Sb')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cu')
+    cu_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cu ст.1')
+    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cd')
+    solid_st1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cd')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='pH')
+    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe')
+    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='As')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Твердое г\л')
+    current = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Выход по току')
+    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Уд. вес')
 
 
 class ProductionErrors(JournalTable):
-    norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Норма')
-    fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Факт')
-    error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Несоответствие')
+    norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Норма')
+    fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Факт')
+    error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Несоответствие')
     correction = models.CharField(max_length=512, verbose_name='Коррекция')
     verified = models.BooleanField(default=False, verbose_name='Проверено')
 
@@ -72,12 +72,12 @@ class DenserAnal(JournalTable):
                                                     ('11', 'Сгуститель №11'),
                                                     ('12', 'Сгуститель №12'),))
 
-    sink = models.CharField(max_length=5, verbose_name='Слив', choices=(('ls', 'ВС'),
-                                                    ('hs', 'НС')))
-    ph = models.DecimalField(max_digits=10, verbose_name='pH', decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, verbose_name='Cu', decimal_places=5, blank=True)
-    fe = models.DecimalField(max_digits=10, verbose_name='Fe', decimal_places=5, blank=True)
-    liq_sol = models.DecimalField(max_digits=10, verbose_name='Ж:Т', decimal_places=5, blank=True)
+    sink = models.CharField(max_length=5, verbose_name='Слив', choices=(('ls', 'НС'),
+                                                    ('hs', 'ВС')))
+    ph = models.DecimalField(max_digits=10, verbose_name='pH', decimal_places=5, blank=True, null=True)
+    cu = models.DecimalField(max_digits=10, verbose_name='Cu', decimal_places=5, blank=True, null=True)
+    fe = models.DecimalField(max_digits=10, verbose_name='Fe', decimal_places=5, blank=True, null=True)
+    liq_sol = models.DecimalField(max_digits=10, verbose_name='Ж:Т', decimal_places=5, blank=True, null=True)
 
 
 class ZnPulpAnal(JournalTable):

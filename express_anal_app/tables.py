@@ -1,6 +1,7 @@
 import random
 from collections import defaultdict
 
+from express_anal_app.demo_database import fill_denser_anal, clean_database, fill_database
 from express_anal_app.models import DenserAnal, Shift, LeachingExpressAnal, Journal
 from pprint import pprint
 from dateutil.parser import parse
@@ -9,7 +10,7 @@ from itertools import product
 
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
-from utils.test import deep_dict
+from utils.deep_dict import deep_dict
 
 
 def get_densers_table(shift=None):
@@ -23,25 +24,7 @@ def get_densers_table(shift=None):
         for attr in ['ph', 'cu', 'fe', 'liq_sol']:
             res[d.time][d.point][d.sink][attr] = getattr(d, attr)
 
-    return res
-
-
-def fill_database():
-    # laborant = Employee.objects.get(user__username='pupkin')
-    # master = Employee.objects.get(user__username='abdul')
-
-    shift = Shift.objects.all()[0]
-    journal = Journal.objects.get(name='Журнал экспресс анализов')
-
-    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
-    sinks = ['ls', 'hs']
-    points = ['10', '11', '12']
-
-    for t, s, p in product(times, sinks, points):
-        da = DenserAnal(shift=shift, journal=journal, time=t, sink=s, point=p)
-        for attr in ['ph', 'cu', 'fe', 'liq_sol']:
-            setattr(da, attr, random.uniform(0, 100))
-        da.save()
+    return res.clear_empty().get_dict()
 
 
 def get_leaching_express_anal_table(shift=None):
@@ -52,16 +35,18 @@ def get_leaching_express_anal_table(shift=None):
     res = deep_dict()
 
     for d in data:
-        for attr in ['ph', 'cu', 'fe', 'liq_sol']:
-            res[d.time][d.point][d.sink][attr] = getattr(d, attr)
+        for attr in ['co', 'sb', 'cu', 'cu_st1', 'cd', 'solid_st1', 'ph', 'fe', 'arsenic', 'solid', 'current', 'density']:
+            val = getattr(d, attr)
+            if val is not None:
+                res[d.time][d.point][attr] = val
 
-    return res
+    return res.clear_empty().get_dict()
 
 
-
-# this method can be called by typing "python manage.py my_command
+# this method can be called by typing "python manage.py my_command"
 def command_to_process():
-    DenserAnal.objects.all().delete()
+    clean_database()
     fill_database()
-    a = get_densers_table()
-    pprint(a.get_dict())
+
+    a = get_leaching_express_anal_table()
+    pprint(a)
