@@ -9,11 +9,19 @@ from django.template import loader
 from django import forms
 from django.forms import ModelForm
 from django.utils import timezone
-import datetime
 
+import datetime
+from express_anal_app import helpers
+from express_anal_app import tables
+import pprint
+
+
+from collections import defaultdict
+def deep_dict():
+    return defaultdict(deep_dict)
 
 # -------------- django web forms -----------------------
-from express_anal_app.models import DenserAnal
+from express_anal_app.models import *
 
 
 class PostForm(forms.Form):
@@ -51,21 +59,41 @@ def index(request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
+
+def leaching_ju(request):
+
+    rows = DenserAnal.objects.all()
+    shift = Shift.objects.all()[0]
+
+    helpers.dump(rows)
+
+    data = tables.get_densers_table(shift).get_dict()
+    sgustiteli = {
+        'title': 'Сгустители',
+        'columns': ['10', "11", "12"],
+        'data': data, # helpers.denserData(),
+        'dump': pprint.pformat(data, indent=4)
+    }
+
+    context = {
+        'title': "Журнал учёта ",
+        'subtitle': "Цех выщелачивания",
+        'sgustiteli': sgustiteli
+    }
+
+    template = loader.get_template('sgustiteli.html')
+    return HttpResponse(template.render(context, request))
+
 def electrolysis(request):
+
     context = {
         'title': "Журнал Экспресс анализа",
         'subtitle': "Цех выщелачивания"
     }
+
     template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
 
-def leaching_ju(request):
-    context = {
-        'title': "Журнал учёта ",
-        'subtitle': "Цех выщелачивания"
-    }
-    template = loader.get_template('journal.html')
-    return HttpResponse(template.render(context, request))
 
 def leaching_jrk(request):
     context = {

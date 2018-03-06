@@ -1,0 +1,21 @@
+{% include "header.html" %}
+<div class="page-title">
+    <div class="title_left">
+      <h3>{{title}}</h3>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+      <h3>Лист 1</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7 col-sm-7 col-xs-12" >
+    {% include "widgets/table-sgustiteli.html" with table=sgustiteli %}
+  </div>
+</div>
+
+
+{% include "footer.html" %}
