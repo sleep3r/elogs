@@ -40,7 +40,7 @@ class JournalTable(models.Model):
 
 # Low Sink High Sink
 class LeachingExpressAnal(JournalTable):  # The name is shit!
-    point = models.CharField(max_length=1, verbose_name='Место измерения', choices=(('0', 'lshs'),
+    point = models.CharField(max_length=20, verbose_name='Место измерения', choices=(('0', 'lshs'),
                                                     ('larox', 'Ларокс'),
                                                     ('purified', 'Очищенный раствор'),
                                                     ('prod_correction', 'Упр. Несоответствия продукции'),))
@@ -68,11 +68,11 @@ class ProductionErrors(JournalTable):
 
 
 class DenserAnal(JournalTable):
-    point = models.CharField(max_length=1, verbose_name='Сгуститель №', choices=(('10', 'Сгуститель №10'),
+    point = models.CharField(max_length=20, verbose_name='Сгуститель №', choices=(('10', 'Сгуститель №10'),
                                                     ('11', 'Сгуститель №11'),
                                                     ('12', 'Сгуститель №12'),))
 
-    sink = models.CharField(max_length=1, verbose_name='Слив', choices=(('ls', 'ВС'),
+    sink = models.CharField(max_length=5, verbose_name='Слив', choices=(('ls', 'ВС'),
                                                     ('hs', 'НС')))
     ph = models.DecimalField(max_digits=10, verbose_name='pH', decimal_places=5, blank=True)
     cu = models.DecimalField(max_digits=10, verbose_name='Cu', decimal_places=5, blank=True)
@@ -185,7 +185,7 @@ class Reagents(JournalTable):  # TODO: Надо осмыслить эту их �
     consumption = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
     taken_away = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
 
-    stage = models.CharField(max_length=1, choices=(('1', '1ст'),
+    stage = models.CharField(max_length=20, choices=(('1', '1ст'),
                                                     ('2', '2ст'),
                                                     ('3', '3ст'),
                                                     ('cd', 'Сd'),
