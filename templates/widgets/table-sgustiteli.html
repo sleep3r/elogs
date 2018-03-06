@@ -64,13 +64,13 @@ tr.mini td {
                 <tr class="mini">
                     <td>{{dt.time | date:"H" }}<sup>00</sup></td>
                     {% for key, denser in row.items %}
-                    <td>{{denser.ВС.ph |floatformat:2}}</td>
-                    <td>{{denser.ВС.cu |floatformat:2}}</td>
-                    <td>{{denser.ВС.fe |floatformat:2}}</td>
-                    <td>{{denser.ВС.liq_sol |floatformat:2}}</td>
+                    <td>{{denser.hs.ph |floatformat:2}}</td>
+                    <td>{{denser.hs.cu |floatformat:2}}</td>
+                    <td>{{denser.hs.fe |floatformat:2}}</td>
+                    <td>{{denser.hs.liq_sol |floatformat:2}}</td>
 
-                    <td>{{denser.НС.ph |floatformat:2}}</td>
-                    <td>{{denser.НС.liq_sol |floatformat:2}}</td>
+                    <td>{{denser.ls.ph |floatformat:2}}</td>
+                    <td>{{denser.ls.liq_sol |floatformat:2}}</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
