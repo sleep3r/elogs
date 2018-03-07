@@ -71,6 +71,7 @@ def leaching_ju(request):
 
     data_densers = tables.get_densers_table(shift)
     data_bchc = tables.get_leaching_express_anal_table(shift)
+    data_znpulp = tables.get_solutions_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -93,8 +94,8 @@ def leaching_ju(request):
     znpulp = {
         'title': 'Пульпа',
         'columns': ['10', "11", "12"],
-        'data': data_densers,  # helpers.denserData(),
-        'dump': pprint.pformat(data_densers, indent=4)
+        'data': data_znpulp,  # helpers.denserData(),
+        'dump': pprint.pformat(data_znpulp, indent=4)
     }
 
     context = {
