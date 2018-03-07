@@ -69,21 +69,43 @@ def leaching_ju(request):
 
     helpers.dump(rows)
 
-    data = tables.get_densers_table(shift)
-    sgustiteli = {
+    data_densers = tables.get_densers_table(shift)
+    data_bchc = tables.get_leaching_express_anal_table(shift)
+
+    bchc = {
+        'title': 'BCHC',
+        'columns': ['BCHC', "Ларокс", "Очищенный раствор"],
+        'level2': ["Кобальт Co", "Сурьма", "Медь", "Кадмий", "Твердое После 1ст", "pH (BCHC)", "Железо", "As",
+                   "Твёрдое ", "Уд. вес",
+                   "Кобальт", "Сурьма", "Кадмий", "Твердое", "pH", "Кадмий", "Кобальт", "Сурьма", "Медь", "Железо",
+                   "Выход по току", "Уд. вес", "Норма", "Факт", "Несоответствие", "Коррекция", "Мастер"],
+        'data': data_bchc,
+        'dump': pprint.pformat(data_bchc, indent=2)
+    }
+
+    densers = {
         'title': 'Сгустители',
         'columns': ['10', "11", "12"],
-        'data': data, # helpers.denserData(),
-        'dump': pprint.pformat(data, indent=4)
+        'data': data_densers, # helpers.denserData(),
+        'dump': pprint.pformat(data_densers, indent=4)
+    }
+
+    znpulp = {
+        'title': 'Пульпа',
+        'columns': ['10', "11", "12"],
+        'data': data_densers,  # helpers.denserData(),
+        'dump': pprint.pformat(data_densers, indent=4)
     }
 
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
-        'sgustiteli': sgustiteli
+        'bchc': bchc,
+        'sgustiteli': densers,
+        'znpulp': znpulp
     }
 
-    template = loader.get_template('sgustiteli.html')
+    template = loader.get_template('densers.html')
     return HttpResponse(template.render(context, request))
 
 def electrolysis(request):
