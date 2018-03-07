@@ -89,10 +89,9 @@ def get_solutions_table(shift=None):
                 res[d.time]['fe_sol'][attr] = val
 
     # TODO: номер может не соответствовать
-    temp_res = res  # sorting and adding numbers blocks
-    res = deep_dict()
-    for i, k in enumerate(sorted(temp_res.keys())):
-        res[k][i] = temp_res[k]
+
+    for i, k in enumerate(sorted(res.keys())):
+        res[k]['num'] = i
 
     return res.clear_empty().get_dict()
 
