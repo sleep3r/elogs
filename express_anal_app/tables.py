@@ -88,8 +88,6 @@ def get_solutions_table(shift=None):
             if val is not None:
                 res[d.time]['fe_sol'][attr] = val
 
-    # TODO: номер может не соответствовать
-
     for i, k in enumerate(sorted(res.keys())):
         res[k]['num'] = i
 
@@ -115,7 +113,7 @@ def get_hydrometal1_table(shift=None):
 
     res = deep_dict()
     for d in HydroMetal.objects.filter(shift=shift):
-        add_model_to_dict(d, res[d.time][d.mann_num])
+        add_model_to_dict(d, res[d.time][str(d.mann_num)])
 
     return res.clear_empty().get_dict()
 
@@ -125,19 +123,14 @@ def get_cinder_gran_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    for d in HydroMetal.objects.filter(shift=shift):
-        add_model_to_dict(d, res)
-
     data = CinderDensity.objects.filter(shift=shift)[0]
-    res = deep_dict()
-    for d in HydroMetal.objects.filter(shift=shift):
-        add_model_to_dict(d, res, attrs=['gran'])
-
-    res2 = {}
-    for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
+    for attr in ['gran_avg', 'fe_avg', 'fe_shave']:
         val = getattr(data, attr)
         if val is not None:
-            res2[attr] = val
+            res[attr] = val
+
+    for d in CinderDensity.objects.filter(shift=shift):
+        add_model_to_dict(d, res['grans'][d.time], attrs=['gran'])
 
     return res.clear_empty().get_dict()
 

@@ -1,4 +1,6 @@
 import time
+
+from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -120,7 +122,7 @@ class HydroMetal(JournalTable):
     cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Медь')
     sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Сурьма')
     sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Отстой')
-    mann_num = models.DecimalField(max_digits=10, decimal_places=5, blank=True,
+    mann_num = models.DecimalField(max_digits=1, decimal_places=0, blank=True,
                                    null=True, verbose_name='Манн №', choices=((1, '1 Манн'), (4, '4 Манн')))
 
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,

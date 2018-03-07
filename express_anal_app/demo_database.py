@@ -88,8 +88,8 @@ def fill_hydrometal1_table():
 
     for t in times:
         for m in [1, 4]:
-            attrs = ['ph', 'acid', 'fe2', 'fe_total'] if (m==1) else ['ph', 'cu',  'fe2', 'sb', 'sediment']
-            hm = HydroMetal(shift=shift, journal=journal, time=t)
+            attrs = ['ph', 'acid', 'fe2', 'fe_total'] if (m == 1) else ['ph', 'cu',  'fe2', 'sb', 'sediment']
+            hm = HydroMetal(shift=shift, journal=journal, time=t, mann_num=m)
             for attr in attrs:
                 setattr(hm, attr, random.uniform(0, 100))
             hm.employee = shift.laborant
@@ -117,6 +117,6 @@ def clean_database():
 
 def fill_database():
     fill_express_anal_table()
-    fill_express_anal_table()
+    fill_denser_anal_table()
     fill_solutions_table()
     fill_hydrometal1_table()
