@@ -29,7 +29,7 @@ tr.mini td {
     <div class="x_title">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
-        <pre>{{table.dump}}</pre>
+        <!--<pre>{{table.dump}}</pre>-->
     </div>
     <div class="x_content">
 
@@ -67,10 +67,10 @@ tr.mini td {
                     <td denser-number="{{key}}">{{denser.hs.ph |floatformat:2}}</td>
                     <td>{{denser.hs.cu |floatformat:2}}</td>
                     <td>{{denser.hs.fe |floatformat:2}}</td>
-                    <td>{{denser.hs.liq_sol |floatformat:2}}</td>
+                    <td>{{denser.hs.liq_sol |floatformat:2}}:1</td>
 
                     <td>{{denser.ls.ph |floatformat:2}}</td>
-                    <td>{{denser.ls.liq_sol |floatformat:2}}</td>
+                    <td>0.{{denser.ls.liq_sol |floatformat:0}}:1</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}

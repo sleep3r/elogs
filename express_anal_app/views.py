@@ -67,7 +67,7 @@ def leaching_ju(request):
 
     helpers.dump(rows)
 
-    data = tables.get_densers_table(shift).get_dict()
+    data = tables.get_densers_table(shift)
     sgustiteli = {
         'title': 'Сгустители',
         'columns': ['10', "11", "12"],
