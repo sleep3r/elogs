@@ -4,7 +4,7 @@ from itertools import product
 from dateutil.parser import parse
 
 from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity
 
 
 def fill_denser_anal_table():
@@ -80,11 +80,35 @@ def fill_solutions_table():
         da.save()
 
 
+def fill_hydrometal1_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
+
+    for t in times:
+        for m in [1, 4]:
+            attrs = ['ph', 'acid', 'fe2', 'fe_total'] if (m==1) else ['ph', 'cu',  'fe2', 'sb', 'sediment']
+            hm = HydroMetal(shift=shift, journal=journal, time=t)
+            for attr in attrs:
+                setattr(hm, attr, random.uniform(0, 100))
+            hm.employee = shift.laborant
+            hm.save()
+
+        attrs = ['gran', 'gran_avg', 'fe_avg', 'fe_shave']
+        cd = CinderDensity()
+        for attr in attrs:
+            setattr(cd, attr, random.uniform(0, 100))
+        cd.employee = shift.laborant
+        cd.save()
+
+
 def clean_database():
     model_tables = [
         DenserAnal,  # densers table
         ProductionErrors, LeachingExpressAnal,  # express anal table
-        ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis  # solutions table
+        ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis,  # solutions table
+        HydroMetal, CinderDensity,  # for hydrometal
     ]
 
     for t in model_tables:
@@ -95,3 +119,4 @@ def fill_database():
     fill_express_anal_table()
     fill_denser_anal_table()
     fill_solutions_table()
+    fill_hydrometal1_table()

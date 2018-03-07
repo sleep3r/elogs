@@ -113,24 +113,25 @@ class DailyAnalysis(JournalTable):  # shit next to Fe
 
 
 class HydroMetal(JournalTable):
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
-    acid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Кисл-ть')
-    fe2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe двухвал')
-    fe_total = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe общее')
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Медь')
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Сурьма')
-    sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Отстой')
-    mann_num = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Манн №')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='pH')
+    acid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Кисл-ть')
+    fe2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe двухвал')
+    fe_total = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe общее')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Медь')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Сурьма')
+    sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Отстой')
+    mann_num = models.DecimalField(max_digits=10, decimal_places=5, blank=True,
+                                   null=True, verbose_name='Манн №', choices=((1, '1 Манн'), (4, '4 Манн')))
 
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
 
 
 class CinderDensity(JournalTable):
-    gran = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ситовой огарка')
-    gran_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ситовой огарка средний')
-    fe_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Общее Fe среднее')
-    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe Стружка Fe')
+    gran = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ситовой огарка')
+    gran_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ситовой огарка средний')
+    fe_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Общее Fe среднее')
+    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe Стружка Fe')
 
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
