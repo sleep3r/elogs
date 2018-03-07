@@ -1,5 +1,9 @@
 <style>
     td { text-align: center; }
+
+    tr.mini td {
+        font-size: 10px;
+    }
 </style>
 <div class="x_panel">
     <div class="x_title">
@@ -36,15 +40,13 @@
                     <th>Cl</th>
                     <td>{{table.data.second.shlippe_sb |floatformat:2}}</td>
                     <td>{{table.data.second.activ_sas |floatformat:2}}</td>
-                    <td>{{table.data.second.fe_hi1}}</td>
-                    <td>{{table.data}}</td>
+                    <td>{{table.data.second.fe_hi1 |floatformat:2}}</td>
                 </tr>
             </thead>
             <tbody>
             {% for dt, row in table.data.first.items %}
-            <tr>
-                <td>{{row}}</td>
-                <td>{{row.zn_pulp.liq_sol}}</td>
+            <tr class="mini">
+                <td>{{row.zn_pulp.liq_sol |floatformat:2}}:1</td>
                 <td>{{row.zn_pulp.ph |floatformat:2}}</td>
                 <td>{{row.zn_pulp.t0 |floatformat:2}}</td>
 
@@ -63,9 +65,9 @@
                 <td>{{row.fe_sol.cl |floatformat:2}}</td>
                 {% if row.num == 0 %}
                 <th colspan="2">Анализы оборот. сгуст.</th>
-                {% else %}
-                <td rowspan="5" >{{table.data.second.circulation_denser}}</td>
-                <td colspan="2" rowspan="4">{{table.data.second.fe_hi1}}</td>
+                <td rowspan="5" >{{table.data.second.fe_hi2 |floatformat:2}}</td>
+                {% elif row.num == 1 %}
+                <td colspan="2" rowspan="4">{{table.data.second.circulation_denser}}</td>
                 {% endif %}
             </tr>
             {% endfor %}
