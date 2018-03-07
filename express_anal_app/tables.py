@@ -148,5 +148,5 @@ def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_solutions_table()
+    a = get_hydrometal1_table()
     pprint(a)
