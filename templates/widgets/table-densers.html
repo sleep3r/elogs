@@ -62,15 +62,15 @@ tr.mini td {
             <tbody>
                 {% for dt, row in table.data.items %}
                 <tr class="mini">
-                    <td>{{dt.time | date:"H" }}<sup>00</sup></td>
+                    <td>{{dt.time | date:"H" }}<sup>{{dt.time |date:"i" }}</sup></td> <!-- | date:"H" -->
                     {% for key, denser in row.items %}
-                    <td>{{denser.hs.ph |floatformat:2}}</td>
+                    <td denser-number="{{key}}">{{denser.hs.ph |floatformat:2}}</td>
                     <td>{{denser.hs.cu |floatformat:2}}</td>
                     <td>{{denser.hs.fe |floatformat:2}}</td>
-                    <td>{{denser.hs.liq_sol |floatformat:2}}</td>
+                    <td>{{denser.hs.liq_sol |floatformat:2}}:1</td>
 
                     <td>{{denser.ls.ph |floatformat:2}}</td>
-                    <td>{{denser.ls.liq_sol |floatformat:2}}</td>
+                    <td>0.{{denser.ls.liq_sol |floatformat:0}}:1</td>
                     {% endfor %}
                 </tr>
                 {% endfor %}

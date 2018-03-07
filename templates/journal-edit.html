@@ -35,7 +35,25 @@
               {{ hidden_field }}
               {% endfor %}
 
-              {% for field in form.visible_fields %}
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">
+                        Журнал
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <input type="text" value="{{journal}}" class="form-control" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-3">
+                        Смена
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <input type="text" value="{{shift}}" class="form-control" disabled>
+                    </div>
+                </div>
+
+                {% for field in form.visible_fields %}
               <div class="form-group">
                     {{ field.errors }}
                   <label class="control-label col-md-3 col-sm-3 col-xs-3">
@@ -46,7 +64,7 @@
                  </div>
               </div>
               {% endfor %}
-              <input type="submit" class="btn btn-success" value="Submit" />
+              <input type="submit" class="btn btn-success" value="Сохранить" />
             </form>
       </div>
     </div>

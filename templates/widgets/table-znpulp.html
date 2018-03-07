@@ -1,0 +1,81 @@
+
+<style>
+th { text-align: center; }
+
+th.rotate {
+  height: 140px;
+  white-space: nowrap;
+
+}
+
+th.rotate > div {
+  transform:
+    translate(5px, 51px)
+    rotate(270deg);
+  width: 1px;
+}
+
+th.rotate > div > span {
+  padding: 5px 50px;
+  text-align: left;
+}
+
+tr.mini td {
+    font-size: 10px;
+}
+
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <div class="clearfix"></div>
+        <!--<pre>{{table.dump}}</pre>-->
+    </div>
+    <div class="x_content">
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
+                {% for nomer in table.columns %}
+                <th colspan="6" >Сгуститель {{nomer}}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for nomer in table.columns %}
+                <th colspan="4">ВС {{nomer}}сг.</th>
+                <th colspan="2">НС {{nomer}}сг.</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for n in table.columns %}
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Медь</span></div></th>
+                <th class="rotate"><div><span>Железо</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+
+                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for dt, row in table.data.items %}
+                <tr class="mini">
+                    <td>{{dt.time | date:"H" }}<sup>{{dt.time |date:"i" }}</sup></td> <!-- | date:"H" -->
+                    {% for key, denser in row.items %}
+                    <td denser-number="{{key}}">{{denser.hs.ph |floatformat:2}}</td>
+                    <td>{{denser.hs.cu |floatformat:2}}</td>
+                    <td>{{denser.hs.fe |floatformat:2}}</td>
+                    <td>{{denser.hs.liq_sol |floatformat:2}}:1</td>
+
+                    <td>{{denser.ls.ph |floatformat:2}}</td>
+                    <td>0.{{denser.ls.liq_sol |floatformat:0}}:1</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
