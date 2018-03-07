@@ -59,4 +59,4 @@ def clean_database():
 
 def fill_database():
     fill_express_anal_table()
-    fill_express_anal_table()
+    fill_denser_anal()
