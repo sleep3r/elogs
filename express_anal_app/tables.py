@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from express_anal_app.demo_database import fill_denser_anal_table, clean_database, fill_database
 from express_anal_app.models import DenserAnal, Shift, LeachingExpressAnal, Journal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal
 from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
@@ -78,16 +78,35 @@ def get_solutions_table(shift=None):
             if val is not None:
                 res[d.time]['fe_sol'][attr] = val
 
-    data = DailyAnalysis.objects.filter(shift=shift)
+    return res.clear_empty().get_dict()
+
+
+def get_solutions2_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+    data = DailyAnalysis.objects.filter(shift=shift)[0]
+
+    res = {}
     for d in data:
         for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
             val = getattr(d, attr)
             if val is not None:
-                res[d.time]['daily'][attr] = val
+                res[attr] = val
+    return res
+
+
+def get_hydrometal1_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    data = HydroMetal.objects.filter(shift=shift)
+    res = deep_dict()
+
+    for d in data:
+        for attr in ['ph', 'cu', 'fe', 'liq_sol']:
+            res[d.time][d.point][d.sink][attr] = getattr(d, attr)
 
     return res.clear_empty().get_dict()
-
-
 
 
 # this method can be called by typing "python manage.py my_command"
