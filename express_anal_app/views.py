@@ -37,9 +37,11 @@ class DenserForm(ModelForm):
 
     class Meta:
         model = DenserAnal
-        fields = ['point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
+        fields = ['journal', 'shift', 'point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
         widgets = {
-            'time': forms.DateInput(attrs={ 'type':'hidden', 'class':'form-control has-feedback-left'}),
+            'time': forms.DateInput(attrs={'type': 'hidden', 'class':'form-control has-feedback-left'}),
+            'journal': forms.HiddenInput(attrs={'style': 'display:none'}),
+            'shift': forms.HiddenInput(attrs={'type': 'hidden'})
         }
 
 
@@ -125,40 +127,47 @@ def leaching_jea_edit(request):
     cleaned_data = ''
 
     if request.method == 'GET':
-        currentDate = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
+        currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
 
         form = DenserForm(initial={
-            'point':'1',
+            'journal': '1',
+            'shift': '1',
+            'point': '10',
             'sink': '0',
-            'ph':'0.2',
-            'cu':'0.3',
-            'fe': '0.4',
-            'liq_sol': '1.0',
+            'ph':'0.0',
+            'cu':'0.0',
+            'fe': '0.0',
+            'liq_sol': '0.1',
             'time': currentDate})
 
         form.error_css_class = 'label label-danger'
 
     else:
         form = DenserForm(request.POST) # Bind data from request.POST into a PostForm
-        form.error_css_class = 'label label-danger'
-        form.time = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
+
         if form.is_valid():
-            error_messages = ''
-            form.time = timezone.now().strftime("%m/%d/%Y %H:%M:%S")
             form.save()
-            return HttpResponseRedirect(request.path_info)
+            #return HttpResponseRedirect(request.path_info)
+            return  HttpResponseRedirect('/leaching/ju')
         else:
             error_messages = form.errors
+            cleaned_data = form.cleaned_data
 
-        cleaned_data = form.cleaned_data
+
+    journal = Journal.objects.all()[0]
+    shift  = Shift.objects.all()[0]
+
     context = {
-        'title': "Журнал Экспресс анализа (Edit)",
-        'subtitle': "Цех выщелачивания",
-        'form_title': "Заполнить форму",
-        'form': form,
-        'error_messages': error_messages,
-        'data': cleaned_data
+            'title': "Журнал Экспресс анализа (Edit)",
+            'subtitle': "Цех выщелачивания",
+            'form_title': "Заполнить форму",
+            'form': form,
+            'journal': journal,
+            'shift': shift,
+            'error_messages': error_messages,
+            'data': cleaned_data
     }
+
     template = loader.get_template('journal-edit.html')
     return HttpResponse(template.render(context, request))
 
