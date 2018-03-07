@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from express_anal_app.demo_database import fill_denser_anal_table, clean_database, fill_database
 from express_anal_app.models import DenserAnal, Shift, LeachingExpressAnal, Journal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity
 from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
@@ -12,6 +12,16 @@ from itertools import product
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
+
+
+def add_model_to_dict(model, res, attrs=None):
+    if attrs is None:
+        attrs = [f.name for f in model._meta.get_fields(include_parents=False)]
+
+    for attr in attrs:
+        val = getattr(model, attr)
+        if val is not None:
+            res[attr] = val
 
 
 def get_densers_table(shift=None):
@@ -78,6 +88,12 @@ def get_solutions_table(shift=None):
             if val is not None:
                 res[d.time]['fe_sol'][attr] = val
 
+    # TODO: номер может не соответствовать
+    temp_res = res  # sorting and adding numbers blocks
+    res = deep_dict()
+    for i, k in enumerate(sorted(temp_res.keys())):
+        res[k][i] = temp_res[k]
+
     return res.clear_empty().get_dict()
 
 
@@ -87,11 +103,10 @@ def get_solutions2_table(shift=None):
     data = DailyAnalysis.objects.filter(shift=shift)[0]
 
     res = {}
-    for d in data:
-        for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
-            val = getattr(d, attr)
-            if val is not None:
-                res[attr] = val
+    for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
+        val = getattr(data, attr)
+        if val is not None:
+            res[attr] = val
     return res
 
 
@@ -99,12 +114,31 @@ def get_hydrometal1_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
 
-    data = HydroMetal.objects.filter(shift=shift)
     res = deep_dict()
+    for d in HydroMetal.objects.filter(shift=shift):
+        add_model_to_dict(d, res[d.time][d.mann_num])
 
-    for d in data:
-        for attr in ['ph', 'cu', 'fe', 'liq_sol']:
-            res[d.time][d.point][d.sink][attr] = getattr(d, attr)
+    return res.clear_empty().get_dict()
+
+
+def get_cinder_gran_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    for d in HydroMetal.objects.filter(shift=shift):
+        add_model_to_dict(d, res)
+
+    data = CinderDensity.objects.filter(shift=shift)[0]
+    res = deep_dict()
+    for d in HydroMetal.objects.filter(shift=shift):
+        add_model_to_dict(d, res, attrs=['gran'])
+
+    res2 = {}
+    for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
+        val = getattr(data, attr)
+        if val is not None:
+            res2[attr] = val
 
     return res.clear_empty().get_dict()
 
