@@ -88,9 +88,10 @@ def get_solutions_table(shift=None):
             if val is not None:
                 res[d.time]['fe_sol'][attr] = val
 
-    temp_res = res  # sorting and adding numbers block
+    # TODO: номер может не соответствовать
+    temp_res = res  # sorting and adding numbers blocks
     res = deep_dict()
-    for i, k in enumerate(sorted(res.keys())):
+    for i, k in enumerate(sorted(temp_res.keys())):
         res[k][i] = temp_res[k]
 
     return res.clear_empty().get_dict()

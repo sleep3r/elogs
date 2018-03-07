@@ -96,7 +96,7 @@ def fill_hydrometal1_table():
             hm.save()
 
         attrs = ['gran', 'gran_avg', 'fe_avg', 'fe_shave']
-        cd = CinderDensity()
+        cd = CinderDensity(shift=shift, journal=journal, time=t)
         for attr in attrs:
             setattr(cd, attr, random.uniform(0, 100))
         cd.employee = shift.laborant
@@ -117,7 +117,6 @@ def clean_database():
 
 def fill_database():
     fill_express_anal_table()
-    fill_denser_anal()
-    fill_denser_anal_table()
+    fill_express_anal_table()
     fill_solutions_table()
     fill_hydrometal1_table()
