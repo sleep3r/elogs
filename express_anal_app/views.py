@@ -71,7 +71,7 @@ def leaching_ju(request):
 
     data_densers = tables.get_densers_table(shift)
     data_bchc = tables.get_leaching_express_anal_table(shift)
-    data_znpulp = tables.get_solutions_table(shift)
+    data_znpulp = {'first': tables.get_solutions_table(shift), 'second':tables.get_solutions2_table(shift)}
 
     bchc = {
         'title': 'BCHC',

@@ -34,14 +34,16 @@
                     <th>уд. вес</th>
                     <th>As</th>
                     <th>Cl</th>
-                    <td>{% firstof table.data.items as x %} {{x}}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{table.data.second.shlippe_sb |floatformat:2}}</td>
+                    <td>{{table.data.second.activ_sas |floatformat:2}}</td>
+                    <td>{{table.data.second.fe_hi1}}</td>
+                    <td>{{table.data}}</td>
                 </tr>
             </thead>
             <tbody>
-            {% for dt, row in table.data.items %}
+            {% for dt, row in table.data.first.items %}
             <tr>
+                <td>{{row}}</td>
                 <td>{{row.zn_pulp.liq_sol}}</td>
                 <td>{{row.zn_pulp.ph |floatformat:2}}</td>
                 <td>{{row.zn_pulp.t0 |floatformat:2}}</td>
@@ -59,83 +61,14 @@
                 <td>{{row.fe_sol.density |floatformat:2}}</td>
                 <td>{{row.fe_sol.arsenic |floatformat:2}}</td>
                 <td>{{row.fe_sol.cl |floatformat:2}}</td>
+                {% if row.num == 0 %}
                 <th colspan="2">Анализы оборот. сгуст.</th>
-                <td rowspan="5" >-</td>
+                {% else %}
+                <td rowspan="5" >{{table.data.second.circulation_denser}}</td>
+                <td colspan="2" rowspan="4">{{table.data.second.fe_hi1}}</td>
+                {% endif %}
             </tr>
             {% endfor %}
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-                <td colspan="2" rowspan="4"></td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-
-
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-
-            </tr>
             </tbody>
         </table>
     </div>
