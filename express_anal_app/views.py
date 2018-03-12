@@ -98,12 +98,19 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_znpulp, indent=4)
     }
 
+    apparat = {
+        'title': 'Аппаратчик - гидрометаллург',
+        'data': ''
+
+    }
+
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
         'bchc': bchc,
         'sgustiteli': densers,
-        'znpulp': znpulp
+        'znpulp': znpulp,
+        'apparat': apparat
     }
 
     template = loader.get_template('densers.html')
