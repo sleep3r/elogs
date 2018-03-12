@@ -21,11 +21,73 @@
   <div class="col-md-7 col-sm-7 col-xs-12" >
     {% include "widgets/table-densers.html" with table=sgustiteli %}
   </div>
+    <div class="col-md-5 col-sm-5 col-xs-12" >
+    {% include "widgets/table-apparat.html" with table=apparat %}
+  </div>
 </div>
 
 <div class="row">
   <div class="col-md-8 col-sm-8 col-xs-12" >
     {% include "widgets/table-znpulp.html" with table=znpulp %}
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-12" >
+    {% include "widgets/table-apparat-2.html" with table=agitators %}
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+      <h3>Лист 2</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2 col-sm-2 col-xs-12" >
+    <div>Печи<table border="1">
+      <tr><td>4</td><td>5</td><td>&nbsp;_</td></tr>
+    </table></div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+      <table class="table">
+        <tr>
+          <th>Мастер</th><td>Молдабеков Р.</td>
+        </tr>
+        <tr>
+          <th>Лаборант</th><td>Короткова Л. Н.</td>
+        </tr>
+      </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+    {% include "widgets/table-baki.html" with table=baki %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-sm-8 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=table1 %}
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=table2 %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=table4 %}
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=table5 %}
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=probnik %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+    {% include "widgets/table-simple.html" with table=oxrana %}
   </div>
 </div>
 

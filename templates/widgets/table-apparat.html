@@ -27,29 +27,38 @@
                 </tr>
             </thead>
             <tbody>
-            {% for item in table.rows %}
-            <tr>
-                <th scope="row">{{item.title}}</th>
-                {% for value in item.values %}
-                <td>{{value}}</td>
-                {% endfor %}
-            </tr>
+            {% for dt, row in table.data.main.items %}
+                <tr>
+                    <th scope="row">{{row.1.ph |floatformat:2}}</th>
+                    <td>{{row.1.acid |floatformat:2}}</td>
+                    <td>{{row.1.fe2 |floatformat:2}}</td>
+                    <td>{{row.1.fe_total |floatformat:2}}</td>
+                    <td>{{row.4.ph |floatformat:2}}</td>
+                    <td>{{row.4.cu |floatformat:2}}</td>
+                    <td>{{row.4.fe2 |floatformat:2}}</td>
+                    <td>{{row.4.sb |floatformat:2}}</td>
+                    <td>{{row.4.sediment |floatformat:2}}</td>
+                </tr>
             {% endfor %}
             <tr>
                 <th colspan="1">Ситовой огарка</th>
-                <td>5</td>
-                <td>6</td>
-                <td>3</td>
-                <td>3</td>
-                <td>4.9</td>
+                <td colspan="5">
+                    <table class="table">
+                        <tr>
+                            {% for dt, row in table.data.extra.grans.items %}
+                            <td>{{row.gran |floatformat:2}}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </td>
                 <th colspan="2">Ситовой Огарка средний</th>
-                <td>4.7</td>
+                <td>{{table.data.extra.gran_avg |floatformat:2}}</td>
             </tr>
             <tr>
                 <th colspan="2">Общее Fe среднее</th>
-                <td colspan="2">1790</td>
+                <td colspan="2">{{table.data.extra.fe_avg |floatformat:2}}</td>
                 <th colspan="3">Fe стружка Fe</th>
-                <td colspan="3">3,5</td>
+                <td colspan="3">{{table.data.extra.fe_shave |floatformat:2}}</td>
             </tr>
             </tbody>
         </table>
