@@ -24,7 +24,7 @@ class Shift(models.Model):
                                related_name='leaching_shift_masters', verbose_name='Мастер смены')
     laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
                                  related_name='leaching_shift_labornats', verbose_name='Лаборант')
-    plant = models.CharField(max_length=1, verbose_name='Цех', choices=(('furnace', 'обжиг'),
+    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'обжиг'),
                                                                         ('leaching', 'выщелачивание'),
                                                                         ('electrolysis', 'электролиз'),))
     def __str__(self):

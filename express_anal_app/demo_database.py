@@ -5,7 +5,7 @@ from pprint import pprint
 from dateutil.parser import parse
 
 from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity, Agitators
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity, Agitators, NeutralDenser
 
 
 def fill_denser_anal_table():
@@ -128,6 +128,20 @@ def fill_agitators_table():
         aa.employee = shift.laborant
         aa.comment = random.choice(open('onegin.txt', encoding='utf-8').readlines())
         aa.save()
+
+
+def fill_neutral_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    time = parse('07.01.2017 10:00:00')
+    nums = [1, 2, 3, 4, 5, 6, 7, 8, 13]
+
+    for n in nums:
+        da = NeutralDenser(shift=shift, journal=journal, time=time, num=n)
+        for attr in ['sediment', 'liq_sol1', 'liq_sol2']:
+            setattr(da, attr, random.uniform(0, 100))
+        da.save()
 
 
 def clean_database():
