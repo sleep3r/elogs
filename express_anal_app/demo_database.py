@@ -1,10 +1,11 @@
 import random
 from itertools import product
+from pprint import pprint
 
 from dateutil.parser import parse
 
 from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity
+    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity, Agitators
 
 
 def fill_denser_anal_table():
@@ -47,7 +48,7 @@ def fill_express_anal_table():
             for attr in ['norm', 'fact', 'error']:
                 setattr(pe, attr, random.uniform(0, 100))
 
-            pe.correction = random.choice(open('manage.py').readlines())
+            pe.correction = random.choice(open('onegin.txt', encoding='utf-8').readlines())
             pe.verified = bool(random.randint(0, 1))
             pe.save()
 
@@ -103,12 +104,39 @@ def fill_hydrometal1_table():
         cd.save()
 
 
+def fill_agitators_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
+    nums = [13, 15, 17, 19]
+
+    for t, n, b in product(times, nums, (True, False)):
+        if n == 13:
+            attrs = ['cd', 'cu', 'co']
+        elif n == 15:
+            attrs = ['ph', 'cu']
+        elif n == 17:
+            attrs = ['ph', 'cu']
+        else:
+            attrs = ['h2so4', 'cu']
+
+        aa = Agitators(shift=shift, journal=journal, time=t, num=n, before=b)
+        for attr in attrs:
+            setattr(aa, attr, random.uniform(0, 100))
+
+        aa.employee = shift.laborant
+        aa.comment = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+        aa.save()
+
+
 def clean_database():
     model_tables = [
         DenserAnal,  # densers table
         ProductionErrors, LeachingExpressAnal,  # express anal table
         ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis,  # solutions table
         HydroMetal, CinderDensity,  # for hydrometal
+        Agitators,
     ]
 
     for t in model_tables:
@@ -120,3 +148,4 @@ def fill_database():
     fill_denser_anal_table()
     fill_solutions_table()
     fill_hydrometal1_table()
+    fill_agitators_table()

@@ -140,14 +140,18 @@ class CinderDensity(JournalTable):
 
 
 class Agitators(JournalTable):
+    num = models.CharField(max_length=20, blank=False, null=True, verbose_name='Агитатор', choices=(('13', '13, 14'),
+                                                    ('15', '15'),
+                                                    ('17', '17'),
+                                                    ('19', '19'),))
     before = models.BooleanField(verbose_name='До')
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
-    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Co')
-    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cd')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True,  verbose_name='pH')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True,  verbose_name='Cu')
+    co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True,  verbose_name='Co')
+    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cd')
     h2so4 = models.DecimalField(max_digits=10, decimal_places=5,
-                                blank=True, verbose_name='H2SO4')  # here they write % symbol
-    comment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Комментарий')
+                                blank=True, null=True,  verbose_name='H2SO4')  # here they write % symbol
+    comment = models.CharField(max_length=128, blank=True, verbose_name='Комментарий')
 
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, # мб их в shift_info
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
