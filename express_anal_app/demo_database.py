@@ -1,11 +1,9 @@
 import random
 from itertools import product
-from pprint import pprint
 
 from dateutil.parser import parse
 
-from express_anal_app.models import DenserAnal, Shift, Journal, LeachingExpressAnal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity, Agitators, NeutralDenser
+from express_anal_app.models import *
 
 
 def fill_denser_anal_table():
@@ -138,10 +136,48 @@ def fill_neutral_table():
     nums = [1, 2, 3, 4, 5, 6, 7, 8, 13]
 
     for n in nums:
-        da = NeutralDenser(shift=shift, journal=journal, time=time, num=n)
+        nd = NeutralDenser(shift=shift, journal=journal, time=time, num=n)
         for attr in ['sediment', 'liq_sol1', 'liq_sol2']:
-            setattr(da, attr, random.uniform(0, 100))
-        da.save()
+            setattr(nd, attr, random.uniform(0, 100))
+        nd.save()
+
+
+def fill_ready_product_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    time = parse('07.01.2017 10:00:00')
+    num_fields = ['cd', 'cu', 'co', 'sb', 'fe', 'vt', 'density', 'norm', 'fact']
+    str_fields = ['correction']
+    nums = [3, 4, 5]
+
+    for n in nums:
+        rp = ReadyProduct(shift=shift, journal=journal, time=time, num=n)
+        for attr in num_fields:
+            setattr(rp, attr, random.uniform(0, 100))
+        for attr in str_fields:
+            val = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+            setattr(rp, attr, val)
+        rp.save()
+
+
+def fill_free_tank_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    nums = range(12)
+    time = parse('07.01.2017 10:00:00')
+    num_fields = ['prev_measure', 'cur_measure', 'deviation']
+    str_fields = ['tank_name']
+
+    for n in nums:
+        ft = FreeTank(shift=shift, journal=journal, time=time, str_num=n)
+        for attr in num_fields:
+            setattr(ft, attr, random.uniform(0, 100))
+        for attr in str_fields:
+            val = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+            setattr(ft, attr, val)
+        ft.save()
 
 
 def clean_database():
@@ -151,6 +187,9 @@ def clean_database():
         ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis,  # solutions table
         HydroMetal, CinderDensity,  # for hydrometal
         Agitators,
+        NeutralDenser,
+        ReadyProduct,
+        FreeTank,
     ]
 
     for t in model_tables:
@@ -163,3 +202,6 @@ def fill_database():
     fill_solutions_table()
     fill_hydrometal1_table()
     fill_agitators_table()
+    fill_neutral_table()
+    fill_ready_product_table()
+    fill_free_tank_table()

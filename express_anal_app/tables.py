@@ -145,14 +145,6 @@ def get_agitators_table(shift=None):
 
     res['comment'] = Agitators.objects.filter(shift=shift)[0]
 
-    for d in CinderDensity.objects.filter(shift=shift):
-        add_model_to_dict(d, res['grans'][d.time], attrs=['gran'])
-
-    d = CinderDensity.objects.filter(shift=shift)[0]
-    add_model_to_dict(d, res['grans_integral'], attrs=['gran_avg'])
-    add_model_to_dict(d, res['grans_integral'], attrs=['fe_avg'])
-    add_model_to_dict(d, res['grans_integral'], attrs=['fe_shave'])
-
     return res.clear_empty().get_dict()
 
 
@@ -161,5 +153,5 @@ def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_agitators_table()
+    a = get_cinder_gran_table()
     pprint(a)
