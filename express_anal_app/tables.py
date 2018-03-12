@@ -2,8 +2,7 @@ import random
 from collections import defaultdict
 
 from express_anal_app.demo_database import fill_denser_anal_table, clean_database, fill_database
-from express_anal_app.models import DenserAnal, Shift, LeachingExpressAnal, Journal, ProductionErrors, ZnPulpAnal, \
-    CuPulpAnal, FeSolutionAnal, DailyAnalysis, HydroMetal, CinderDensity, Agitators
+from express_anal_app.models import *
 from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
@@ -154,10 +153,43 @@ def get_agitators_table(shift=None):
     return res.clear_empty().get_dict()
 
 
+def get_neutral_densers_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    for d in NeutralDenser.objects.filter(shift=shift):
+        add_model_to_dict(d, res[str(d.num)])
+
+    return res.clear_empty().get_dict()
+
+
+def get_ready_product_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    for d in ReadyProduct.objects.filter(shift=shift):
+        add_model_to_dict(d, res[str(d.num)])
+
+    return res.clear_empty().get_dict()
+
+
+def get_free_tanks_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    for d in FreeTank.objects.filter(shift=shift):
+        add_model_to_dict(d, res[str(d.str_num)])
+
+    return res.clear_empty().get_dict()
+
+
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_agitators_table()
+    a = get_free_tanks_table()
     pprint(a)
