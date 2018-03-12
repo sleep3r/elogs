@@ -1,11 +1,12 @@
 <style>
     td { text-align: center; }
+    tr.mini th { vertical-align: middle !important; }
 </style>
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
-        <pre>{{table.dump}}</pre>
+        <!--<pre>{{table.dump}}</pre>-->
     </div>
     <div class="x_content">
 
@@ -32,57 +33,51 @@
                 </tr>
             </thead>
             <tbody>
-                {% for dt, row in table.data.times.items %}
+                {% for num, row in table.data.times.items %}
                 <tr class="mini">
-                    <th rowspan="2">До</th>
+                    {% if num == 0 %}
+                    <th rowspan="3">До</th>
+                    {% endif %}
                     <td>{{row.13.1.cd |floatformat:2}}</td>
                     <td>{{row.13.1.cu |floatformat:2}}</td>
                     <td>{{row.13.1.co |floatformat:2}}</td>
-                    <th rowspan="2">До</th>
+                    {% if num == 0 %}
+                    <th rowspan="3">До</th>
+                    {% endif %}
                     <td>{{row.15.1.ph |floatformat:2}}</td>
                     <td>{{row.15.1.cu |floatformat:2}}</td>
-                    <th rowspan="2">До</th>
+                    {% if num == 0 %}
+                    <th rowspan="3">До</th>
+                    {% endif %}
+
                     <td>{{row.17.1.ph |floatformat:2}}</td>
                     <td>{{row.17.1.cu |floatformat:2}}</td>
+
                     <td></td>
                     <td>{{row.19.1.h2so4 |floatformat:2}}</td>
                     <td>{{row.19.1.cu |floatformat:2}}</td>
                 </tr>
+                {% endfor %}
+                {% for num, row in table.data.times.items %}
                 <tr class="mini">
+                    {% if num == 0 %}
+                    <th rowspan="3">После</th>
+                    {% endif %}
                     <td>{{row.13.0.cd |floatformat:2}}</td>
                     <td>{{row.13.0.cu |floatformat:2}}</td>
                     <td>{{row.13.0.co |floatformat:2}}</td>
+                    {% if num == 0 %}
+                    <th rowspan="3">После</th>
+                    {% endif %}
                     <td>{{row.15.0.ph |floatformat:2}}</td>
                     <td>{{row.15.0.cu |floatformat:2}}</td>
+                    {% if num == 0 %}
+                    <th rowspan="3">После</th>
+                    {% endif %}
+
                     <td>{{row.17.0.ph |floatformat:2}}</td>
                     <td>{{row.17.0.cu |floatformat:2}}</td>
-                    <td></td>
-                    <td>{{row.19.0.h2so4 |floatformat:2}}</td>
-                    <td>{{row.19.0.cu |floatformat:2}}</td>
-                </tr>
-                <tr class="mini">
-                    <th rowspan="2">После</th>
-                    <td>{{row.13.1.cd |floatformat:2}}</td>
-                    <td>{{row.13.1.cu |floatformat:2}}</td>
-                    <td>{{row.13.1.co |floatformat:2}}</td>
-                    <th rowspan="2">После</th>
-                    <td>{{row.15.1.ph |floatformat:2}}</td>
-                    <td>{{row.15.1.cu |floatformat:2}}</td>
-                    <th rowspan="2">После</th>
-                    <td>{{row.17.1.cu |floatformat:2}}</td>
-                    <td>{{row.17.1.cu |floatformat:2}}</td>
-                    <td></td>
-                    <td>{{row.19.1.h2so4 |floatformat:2}}</td>
-                    <td>{{row.19.1.cu |floatformat:2}}</td>
-                </tr>
-                <tr class="mini">
-                    <td>{{row.13.0.cd |floatformat:2}}</td>
-                    <td>{{row.13.0.cu |floatformat:2}}</td>
-                    <td>{{row.13.0.co |floatformat:2}}</td>
-                    <td>{{row.15.0.ph |floatformat:2}}</td>
-                    <td>{{row.15.0.cu |floatformat:2}}</td>
-                    <td>{{row.17.0.ph |floatformat:2}}</td>
-                    <td>{{row.17.0.cu |floatformat:2}}</td>
+
                     <td></td>
                     <td>{{row.19.0.h2so4 |floatformat:2}}</td>
                     <td>{{row.19.0.cu |floatformat:2}}</td>
