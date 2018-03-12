@@ -145,6 +145,12 @@ def get_agitators_table(shift=None):
 
     res['comment'] = Agitators.objects.filter(shift=shift)[0]
 
+    times = deep_dict()
+    for i, k in enumerate(sorted(res['times'].keys())):
+        times[i] = res['times'][k]
+
+    res['times'] = times
+
     return res.clear_empty().get_dict()
 
 
@@ -153,5 +159,5 @@ def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_cinder_gran_table()
+    a = get_agitators_table()
     pprint(a)
