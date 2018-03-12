@@ -180,6 +180,25 @@ def fill_free_tank_table():
         ft.save()
 
 
+def fill_veu_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    nums = range(3)
+    num_fields = ['hot', 'cold']
+    str_fields = ['comment']
+    time = parse('07.01.2017 10:00:00')
+
+    for n in nums:
+        veu = VEU(shift=shift, journal=journal, time=time)
+        for attr in num_fields:
+            setattr(veu, attr, random.uniform(0, 100))
+        for attr in str_fields:
+            val = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+            setattr(veu, attr, val)
+        veu.save()
+
+
 def clean_database():
     model_tables = [
         DenserAnal,  # densers table
@@ -190,6 +209,7 @@ def clean_database():
         NeutralDenser,
         ReadyProduct,
         FreeTank,
+        VEU,
     ]
 
     for t in model_tables:
@@ -205,3 +225,4 @@ def fill_database():
     fill_neutral_table()
     fill_ready_product_table()
     fill_free_tank_table()
+    fill_veu_table()
