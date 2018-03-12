@@ -72,6 +72,10 @@ def leaching_ju(request):
     data_densers = tables.get_densers_table(shift)
     data_bchc = tables.get_leaching_express_anal_table(shift)
     data_znpulp = {'first': tables.get_solutions_table(shift), 'second':tables.get_solutions2_table(shift)}
+    data_hydrometal1 = tables.get_hydrometal1_table(shift)
+    data_hydrometal_extra = tables.get_cinder_gran_table(shift)
+    data_agitators = tables.get_agitators_table(shift)
+
 
     bchc = {
         'title': 'BCHC',
@@ -100,8 +104,20 @@ def leaching_ju(request):
 
     apparat = {
         'title': 'Аппаратчик - гидрометаллург',
-        'data': ''
+        'data': {'main': data_hydrometal1, 'extra': data_hydrometal_extra},
+        'dump': pprint.pformat(data_hydrometal1, indent=4)
+    }
 
+    agitators = {
+        'title': 'Аппаратчик - гидрометаллург',
+        'data': data_agitators,
+        'dump': pprint.pformat(data_agitators, indent=4)
+    }
+
+    baki = {
+        'title': 'Баки готовой продукции',
+        'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма","Железо","В:T","Уд. вес","Норма", "Факт", "Коррекция", "Мастер"],
+        'data': ''
     }
 
     context = {
@@ -110,7 +126,9 @@ def leaching_ju(request):
         'bchc': bchc,
         'sgustiteli': densers,
         'znpulp': znpulp,
-        'apparat': apparat
+        'apparat': apparat,
+        'agitators': agitators,
+        'baki': baki
     }
 
     template = loader.get_template('densers.html')
