@@ -203,14 +203,14 @@ class Reagents(JournalTable):  # TODO: Надо осмыслить эту их �
 
 
 class VEU(JournalTable):
-    hot = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cold = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    comment = models.CharField(max_length=128, blank=True)
+    hot = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    cold = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    comment = models.CharField(max_length=128, blank=True, null=True)
 
 
 class Sample2(JournalTable):
-    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
 class FreeTank(JournalTable):
@@ -222,44 +222,45 @@ class FreeTank(JournalTable):
 
 
 class SelfSecurity(JournalTable):
-    note = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    bignote = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    note = models.CharField(max_length=64, blank=True)
+    bignote = models.CharField(max_length=256, blank=True)
 
 
 class Electrolysis(JournalTable):
     series = models.DateTimeField()
-    loads1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    loads2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    counter = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    bunkers_weltz = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    silos_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    bunkers_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    loads1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    loads2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    counter = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    bunkers_weltz = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    silos_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    bunkers_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
 class ShiftInfo(JournalTable):
-    out_sol_t = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_sol_c = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True)  # TODO: fuck!
-    out_cu_kek = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_cd_sponge = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_electr = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_ruch_cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_neutr = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    out_cu_pulp = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    out_sol_t = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_sol_c = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)  # TODO: fuck!
+    out_cu_kek = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_cd_sponge = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_electr = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_ruch_cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_neutr = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    out_cu_pulp = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
-    in_filtrate_ls = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    in_filtrate_dens = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    in_fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    in_fe_hi = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    in_poor_cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    in_filtrate_ls = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    in_filtrate_dens = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    in_fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    in_fe_hi = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    in_poor_cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
 class Schieht(JournalTable):
-    num = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    name = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    value = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    num = models.DecimalField(max_digits=2, decimal_places=0)
+    name = models.CharField(max_length=64, blank=True)
+    value = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
 class NeutralSolution(JournalTable):  # should it be text
-    tank_name = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    str_num = models.DecimalField(max_digits=2, decimal_places=0, blank=False)
+    tank_name = models.CharField(max_length=40, blank=False)
     value = models.DecimalField(max_digits=10, decimal_places=5, blank=True)

@@ -186,10 +186,59 @@ def get_free_tanks_table(shift=None):
     return res.clear_empty().get_dict()
 
 
+def get_neutral_solution_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    for d in NeutralSolution.objects.filter(shift=shift):
+        add_model_to_dict(d, res[str(d.str_num)])
+
+    return res.clear_empty().get_dict()
+
+
+def get_shift_info_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    d = ShiftInfo.objects.get(shift=shift)
+    add_model_to_dict(d, res)
+
+    return res.clear_empty().get_dict()
+
+
+def get_self_security_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = SelfSecurity.objects.filter(shift=shift)
+    res['bignote'] = data[0].bignote
+
+    for d in data:
+        res['notes'][d.time] = d.note
+
+    return res.clear_empty().get_dict()
+
+
+def get_schieht_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Schieht.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res[str(d.num)])
+
+    return res.clear_empty().get_dict()
+
+
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_free_tanks_table()
+    a = get_schieht_table()
     pprint(a)

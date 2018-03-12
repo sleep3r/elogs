@@ -180,6 +180,21 @@ def fill_free_tank_table():
         ft.save()
 
 
+def fill_sample2_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    num_fields = ['cd', 'cu']
+    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'),
+             parse('07.01.2017 14:00:00'), parse('07.01.2017 16:00:00')]
+
+    for t in times:
+        s2 = Sample2(shift=shift, journal=journal, time=t)
+        for attr in num_fields:
+            setattr(s2, attr, random.uniform(0, 100))
+        s2.save()
+
+
 def fill_veu_table():
     shift = Shift.objects.all()[0]
     journal = Journal.objects.get(name='Журнал экспресс анализов')
@@ -199,6 +214,69 @@ def fill_veu_table():
         veu.save()
 
 
+def fill_neutral_solution_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    nums = range(9)
+    num_fields = ['value']
+    str_fields = ['tank_name']
+    time = parse('07.01.2017 10:00:00')
+
+    for n in nums:
+        ns = NeutralSolution(shift=shift, journal=journal, time=time, str_num=n)
+        for attr in num_fields:
+            setattr(ns, attr, random.uniform(0, 100))
+        for attr in str_fields:
+            val = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+            setattr(ns, attr, val)
+        ns.save()
+
+
+def fill_shift_info_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    time = parse('07.01.2017 10:00:00')
+    num_fields = ['out_sol_t', 'out_sol_c', 'out_pulp_cvck', 'out_cu_kek', 'out_cd_sponge',
+                  'out_electr', 'out_ruch_cd', 'out_neutr', 'out_cu_pulp', 'in_filtrate_ls', 'in_filtrate_dens',
+                  'in_fe', 'in_fe_hi', 'in_poor_cd']
+
+    si = ShiftInfo(shift=shift, journal=journal, time=time)
+    for attr in num_fields:
+        setattr(si, attr, random.uniform(0, 100))
+    si.save()
+
+
+def fill_self_sequrity_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 14:00:00')]
+    onegin = open('onegin.txt', encoding='utf-8').readlines(); rr = random.randint(0, len(onegin)-1)
+    bignote = ''.join(onegin[rr:rr+4])
+
+    for t in times:
+        ss = SelfSecurity(shift=shift, journal=journal, time=t)
+        ss.note = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+        ss.bignote = bignote
+        ss.save()
+
+
+def fill_scheiht_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    nums = range(3)
+    time = parse('07.01.2017 10:00:00')
+
+    for n in nums:
+        s = Schieht(shift=shift, journal=journal, time=time, num=n)
+        s.value = random.uniform(0, 100)
+        s.name = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+        s.save()
+
+
 def clean_database():
     model_tables = [
         DenserAnal,  # densers table
@@ -210,6 +288,11 @@ def clean_database():
         ReadyProduct,
         FreeTank,
         VEU,
+        Sample2,
+        NeutralSolution,
+        ShiftInfo,
+        Schieht,
+        SelfSecurity,
     ]
 
     for t in model_tables:
@@ -226,3 +309,8 @@ def fill_database():
     fill_ready_product_table()
     fill_free_tank_table()
     fill_veu_table()
+    fill_sample2_table()
+    fill_neutral_solution_table()
+    fill_shift_info_table()
+    fill_self_sequrity_table()
+    fill_scheiht_table()
