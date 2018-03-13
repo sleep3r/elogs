@@ -22,7 +22,7 @@
             <tbody>
                 {% for dt, row in table.data.notes.items %}
                 <tr>
-                    <td>{{dt|date:"H"}}<sup>00</sup></td>
+                    <td>{{dt |date:"H"}}<sup>00</sup></td>
                     <td>{{row}}</td>
                     <td rowspan="3">{{table.data.bignote}}</td>
                 </tr>

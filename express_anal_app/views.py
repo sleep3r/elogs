@@ -191,6 +191,7 @@ def leaching_ju(request):
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
+        'shift': {'date': shift.date, 'num': shift.order},
         'bchc': bchc,
         'sgustiteli': densers,
         'znpulp': znpulp,
