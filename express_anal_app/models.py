@@ -183,23 +183,25 @@ class ReadyProduct(JournalTable):
 
 
 class Reagents(JournalTable):  # TODO: Надо осмыслить эту их писанину
-    shlippe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    zn = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    mg = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    magnaglobe = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+    shlippe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    zn_dust = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    mg_ore = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    magnaglobe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    fe_shave = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+
+    state = models.CharField(max_length=20, choices=(('delivered', 'Доставлено'),
+                                                     ('taken', 'Принято'),
+                                                     ('consumption', 'Расход'),
+                                                     ('issued', 'Сдано'),
+                                                     ('none', 'Для стадий'),))
+
+    stage = models.CharField(max_length=20, default='total', choices=(('1st', '1ст'),
+                                                     ('2st', '2ст'),
+                                                     ('3st', '3ст'),
+                                                     ('cd', 'Cd'),
+                                                     ('total', 'Всего'),))
+
     fence_state = models.CharField(max_length=255, blank=True)
-
-    delivered = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    accepted = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    consumption = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-    taken_away = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
-
-    stage = models.CharField(max_length=20, choices=(('1', '1ст'),
-                                                     ('2', '2ст'),
-                                                     ('3', '3ст'),
-                                                     ('cd', 'Сd'),
-                                                     ('empty', 'empty'),))
 
 
 class VEU(JournalTable):
@@ -227,13 +229,16 @@ class SelfSecurity(JournalTable):
 
 
 class Electrolysis(JournalTable):
-    series = models.DateTimeField()
-    loads1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
-    loads2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    series = models.DecimalField(max_digits=1, decimal_places=0)
+    loads1 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
+    loads2 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
+    time1 = models.DateTimeField(blank=True, null=True)
+    time2 = models.DateTimeField(blank=True, null=True)
     counter = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     bunkers_weltz = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     silos_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     bunkers_furnace = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    comment = models.CharField(max_length=256, blank=True)
 
 
 class ShiftInfo(JournalTable):
@@ -260,6 +265,11 @@ class ShiftInfo(JournalTable):
                                     null=True, related_name='taken_shift_info',
                                     blank=True, verbose_name='Мастер принял')
     furnaces = models.CharField(max_length=3, blank=True)
+
+    free_13 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    free_14 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+    free_13_t = models.CharField(max_length=10, blank=True)
+    free_14_t = models.CharField(max_length=10, blank=True)
 
 
 class Schieht(JournalTable):

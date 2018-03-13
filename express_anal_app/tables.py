@@ -255,10 +255,42 @@ def get_cinder_table(shift=None):
     return res.clear_empty().get_dict()
 
 
+def get_electrolysis_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Electrolysis.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res['series'][d.series])
+    res['comment'] = data[0].comment
+
+    return res.clear_empty().get_dict()
+
+
+def get_reagents_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Reagents.objects.filter(shift=shift)
+
+    for d in data:
+        if d.state != 'none':
+            add_model_to_dict(d, res['states'][d.state])
+        else:
+            res['stages_zn_dust'][d.stage] = d.zn_dust
+
+    res['fence_state'] = data[0].fence_state
+
+    return res.clear_empty().get_dict()
+
+
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_self_security_table()
+    a = get_reagents_table()
     pprint(a)
