@@ -1,0 +1,34 @@
+<style>
+    td { text-align: center; }
+    tr.mini th { vertical-align: middle !important; }
+    th.empty_tanks__name { text-align: left}
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <div class="clearfix"></div>
+        <!--<pre>{{table.dump}}</pre>-->
+    </div>
+    <div class="x_content">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Ёмкости</th>
+                    <th>Пред.<br>замеры</th>
+                    <th>Текущ.<br>замеры</th>
+                    <th>Отклонение</th>
+                </tr>
+                {% for num, item in table.data.items %}
+                <tr>
+                    <th>{{num}}</th>
+                    <th class="empty_tanks__name">{{item.tank_name}}</th>
+                    <td>{{item.prev_measure}}</td>
+                    <td>{{item.cur_measure}}</td>
+                    <td>{{item.deviation}}</td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+    </div>
+</div>
