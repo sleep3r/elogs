@@ -1,0 +1,34 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="3">Самоохрана</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Обход</th>
+                    <th rowspan="4">Примечание</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dt, row in table.data.notes.items %}
+                <tr>
+                    <td>{{dt|date:"H"}}<sup>00</sup></td>
+                    <td>{{row}}</td>
+                    <td rowspan="3">{{table.data.bignote}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>

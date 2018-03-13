@@ -81,6 +81,7 @@ def leaching_ju(request):
     data_neutral = tables.get_neutral_solution_table(shift)
     data_empty_containers = tables.get_free_tanks_table(shift)
     data_neutral_densers = tables.get_neutral_densers_table(shift)
+    data_security = tables.get_self_security_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -180,6 +181,11 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral_densers)
     }
 
+    security = {
+        'title': 'Самоохрана',
+        'data': data_security,
+        'dump': pprint.pformat(data_security)
+    }
 
 
     context = {
@@ -195,6 +201,7 @@ def leaching_ju(request):
         'loads': loads,
         'empty_containers': empty_containers,
         'neutral_densers': neutral_densers,
+        'security': security
     }
 
     template = loader.get_template('densers.html')
