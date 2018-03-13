@@ -292,5 +292,5 @@ def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_reagents_table()
+    a = get_self_security_table()
     pprint(a)
