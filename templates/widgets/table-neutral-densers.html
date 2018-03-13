@@ -1,0 +1,37 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <div class="clearfix"></div>
+        <!--<pre>{{table.dump}}</pre>-->
+    </div>
+    <div class="x_content">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Нейтральные сгустители</th>
+                    {% for num,item in table.data.items %}
+                    <td>{{num}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Отстои</th>
+                    {% for num,item in table.data.items %}
+                    <td>{{item.sediment}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th rowspan="2">Ж:Т<br>(НС)</th>
+                    {% for num,item in table.data.items %}
+                    <td>{{item.liq_sol1}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for num,item in table.data.items %}
+                    <td>{{item.liq_sol2}}</td>
+                    {% endfor %}
+                </tr>
+
+            </thead>
+        </table>
+    </div>
+</div>

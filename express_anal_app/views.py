@@ -76,6 +76,12 @@ def leaching_ju(request):
     data_hydrometal_extra = tables.get_cinder_gran_table(shift)
     data_agitators = tables.get_agitators_table(shift)
 
+    # sheet 2
+    data_baki_ready = tables.get_ready_product_table(shift)
+    data_neutral = tables.get_neutral_solution_table(shift)
+    data_empty_containers = tables.get_free_tanks_table(shift)
+    data_neutral_densers = tables.get_neutral_densers_table(shift)
+    data_security = tables.get_self_security_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -117,8 +123,70 @@ def leaching_ju(request):
     baki = {
         'title': 'Баки готовой продукции',
         'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма","Железо","В:T","Уд. вес","Норма", "Факт", "Коррекция", "Мастер"],
-        'data': ''
+        'data': data_baki_ready,
+        'dump': pprint.pformat(data_baki_ready)
     }
+
+    neutral = {
+        'title': '',
+        'columns': {"1": "Наличие<br>нейтр. р-ра",
+                     "2": "Уч. выщел. N1<br>бак 3,4,5,4А",
+                     "3": "Бак 3",
+                     "4": "Бак 4",
+                     "5": "Итого",
+                     "6": "Бак III<br/>серии",
+                     "7": "Бак 5",
+                     "8": "Бак 6"},
+        'data': data_neutral,
+        'dump': pprint.pformat(data_neutral)
+    }
+
+    loads = {
+        'title': 'Нагрузки',
+        'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
+        'data': [
+            {
+                'num': 1,
+                'title': 'Нагрузки',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Показания счётчика',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Бункера ЦВЦО',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Силоса ОЦ',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Бункера ОЦ',
+                'values': ['10', '340', '23', '654']
+            },
+        ]
+    }
+
+    empty_containers = {
+        'title': 'Наличие свободных ёмкостей',
+        'data': data_empty_containers,
+        'dump': pprint.pformat(data_empty_containers)
+    }
+
+    neutral_densers = {
+        'title': 'Нейтральные сгустители',
+        'data': data_neutral_densers,
+        'dump': pprint.pformat(data_neutral_densers)
+    }
+
+    security = {
+        'title': 'Самоохрана',
+        'data': data_security,
+        'dump': pprint.pformat(data_security)
+    }
+
 
     context = {
         'title': "Журнал учёта ",
@@ -128,7 +196,12 @@ def leaching_ju(request):
         'znpulp': znpulp,
         'apparat': apparat,
         'agitators': agitators,
-        'baki': baki
+        'baki': baki,
+        'neutral': neutral,
+        'loads': loads,
+        'empty_containers': empty_containers,
+        'neutral_densers': neutral_densers,
+        'security': security
     }
 
     template = loader.get_template('densers.html')

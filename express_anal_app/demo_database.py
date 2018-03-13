@@ -176,7 +176,7 @@ def fill_free_tank_table():
         for attr in num_fields:
             setattr(ft, attr, random.uniform(0, 100))
         for attr in str_fields:
-            val = random.choice(open('onegin.txt', encoding='utf-8').readlines())
+            val = open('empty-tanks.txt', encoding='utf-8').readlines()[n]
             setattr(ft, attr, val)
         ft.save()
 
