@@ -78,7 +78,7 @@ def leaching_ju(request):
 
     # sheet 2
     data_baki_ready = tables.get_ready_product_table(shift)
-
+    data_neutral = tables.get_neutral_solution_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -124,7 +124,19 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_baki_ready)
     }
 
-    
+    neutral = {
+        'title': '',
+        'columns': {"1": "Наличие<br>нейтр. р-ра",
+                     "2": "Уч. выщел. N1<br>бак 3,4,5,4А",
+                     "3": "Бак 3",
+                     "4": "Бак 4",
+                     "5": "Итого",
+                     "6": "Бак III<br/>серии",
+                     "7": "Бак 5",
+                     "8": "Бак 6"},
+        'data': data_neutral,
+        'dump': pprint.pformat(data_neutral)
+    }
 
     context = {
         'title': "Журнал учёта ",
@@ -134,7 +146,8 @@ def leaching_ju(request):
         'znpulp': znpulp,
         'apparat': apparat,
         'agitators': agitators,
-        'baki': baki
+        'baki': baki,
+        'neutral': neutral
     }
 
     template = loader.get_template('densers.html')
