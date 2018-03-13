@@ -34,6 +34,7 @@ admin.site.register(JournalTable, JournalTableAdmin)
 admin.site.register(DenserAnal, DenserAnalAdmin)
 admin.site.register(HydroMetal, HydroMetalAdmin)
 admin.site.register(CinderDensity)
+admin.site.register(SelfSecurity)
 
 
 

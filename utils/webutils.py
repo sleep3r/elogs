@@ -7,6 +7,8 @@ from traceback import print_exc
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from dateutil.parser import parse as parse_date
+from django.utils import timezone
 
 from utils.errors import SemanticError, AccessError
 
@@ -53,5 +55,10 @@ def processView(auth_required=True):
         return csrf_exempt(w)
     return real_decorator
 
+
 def generate_csrf():
     return ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(CSRF_LENGTH))
+
+
+def parse(s):
+    return timezone.make_aware(parse_date(s))
