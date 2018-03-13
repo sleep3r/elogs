@@ -76,6 +76,9 @@ def leaching_ju(request):
     data_hydrometal_extra = tables.get_cinder_gran_table(shift)
     data_agitators = tables.get_agitators_table(shift)
 
+    # sheet 2
+    data_baki_ready = tables.get_ready_product_table(shift)
+
 
     bchc = {
         'title': 'BCHC',
@@ -117,8 +120,11 @@ def leaching_ju(request):
     baki = {
         'title': 'Баки готовой продукции',
         'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма","Железо","В:T","Уд. вес","Норма", "Факт", "Коррекция", "Мастер"],
-        'data': ''
+        'data': data_baki_ready,
+        'dump': pprint.pformat(data_baki_ready)
     }
+
+    
 
     context = {
         'title': "Журнал учёта ",
