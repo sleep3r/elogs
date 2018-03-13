@@ -138,6 +138,34 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral)
     }
 
+    loads = {
+        'title': 'Нагрузки',
+        'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
+        'data': [
+            {
+                'num': 1,
+                'title': 'Нагрузки',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Показания счётчика',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Бункера ЦВЦО',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Силоса ОЦ',
+                'values': ['10', '340', '23', '654']
+            },
+            {
+                'title': 'Бункера ОЦ',
+                'values': ['10', '340', '23', '654']
+            },
+        ]
+    }
+
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
@@ -147,7 +175,8 @@ def leaching_ju(request):
         'apparat': apparat,
         'agitators': agitators,
         'baki': baki,
-        'neutral': neutral
+        'neutral': neutral,
+        'loads': loads
     }
 
     template = loader.get_template('densers.html')
