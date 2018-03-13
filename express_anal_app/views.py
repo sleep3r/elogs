@@ -79,6 +79,7 @@ def leaching_ju(request):
     # sheet 2
     data_baki_ready = tables.get_ready_product_table(shift)
     data_neutral = tables.get_neutral_solution_table(shift)
+    data_empty_containers = tables.get_free_tanks_table()
 
     bchc = {
         'title': 'BCHC',
@@ -166,6 +167,12 @@ def leaching_ju(request):
         ]
     }
 
+    empty_containers = {
+        'title': 'Наличие свободных ёмкостей',
+        'data': data_empty_containers,
+        'dump': pprint.pformat(data_empty_containers)
+    }
+
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
@@ -176,7 +183,8 @@ def leaching_ju(request):
         'agitators': agitators,
         'baki': baki,
         'neutral': neutral,
-        'loads': loads
+        'loads': loads,
+        'empty_containers': empty_containers
     }
 
     template = loader.get_template('densers.html')
