@@ -253,6 +253,14 @@ class ShiftInfo(JournalTable):
     in_fe_hi = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     in_poor_cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
+    this_master = models.ForeignKey(Employee, on_delete=models.SET_NULL,
+                                    null=True, related_name='handed_over_shift_info',
+                                    blank=True, verbose_name='Мастер сдал',)
+    next_master = models.ForeignKey(Employee, on_delete=models.SET_NULL,
+                                    null=True, related_name='taken_shift_info',
+                                    blank=True, verbose_name='Мастер принял')
+    furnaces = models.CharField(max_length=3, blank=True)
+
 
 class Schieht(JournalTable):
     num = models.DecimalField(max_digits=2, decimal_places=0)
@@ -264,3 +272,10 @@ class NeutralSolution(JournalTable):  # should it be text
     str_num = models.DecimalField(max_digits=2, decimal_places=0, blank=False)
     tank_name = models.CharField(max_length=40, blank=False)
     value = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
+
+
+class Cinder(JournalTable):  # should it be text
+    col_num = models.DecimalField(max_digits=1, decimal_places=0, blank=False)
+    shift_total = models.DecimalField(max_digits=15, decimal_places=5, blank=True)
+    day_total = models.DecimalField(max_digits=15, decimal_places=5, blank=True)
+    in_process = models.DecimalField(max_digits=15, decimal_places=5, blank=True)

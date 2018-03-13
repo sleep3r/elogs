@@ -205,6 +205,11 @@ def get_shift_info_table(shift=None):
     d = ShiftInfo.objects.get(shift=shift)
     add_model_to_dict(d, res)
 
+    res['date'] = shift.date
+    res['master'] = shift.master
+    res['laborant'] = shift.laborant
+    res['shift_num'] = shift.order
+
     return res.clear_empty().get_dict()
 
 
@@ -213,11 +218,12 @@ def get_self_security_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    data = SelfSecurity.objects.filter(shift=shift)
+    data = SelfSecurity.objects.filter(shift=shift).order_by('time')
     res['bignote'] = data[0].bignote
 
-    for d in data:
-        res['notes'][d.time] = d.note
+    for i, d in enumerate(data):
+        res['notes'][i]['time'] = d.time
+        res['notes'][i]['note'] = d.note
 
     return res.clear_empty().get_dict()
 
@@ -235,10 +241,23 @@ def get_schieht_table(shift=None):
     return res.clear_empty().get_dict()
 
 
+def get_cinder_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Cinder.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res[str(d.col_num)])
+
+    return res.clear_empty().get_dict()
+
+
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     clean_database()
     fill_database()
 
-    a = get_schieht_table()
+    a = get_self_security_table()
     pprint(a)

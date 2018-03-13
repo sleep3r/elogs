@@ -1,9 +1,10 @@
 import random
 from itertools import product
 
-from dateutil.parser import parse
+from django.utils import timezone
 
 from express_anal_app.models import *
+from utils.webutils import parse
 
 
 def fill_denser_anal_table():
@@ -245,6 +246,10 @@ def fill_shift_info_table():
     si = ShiftInfo(shift=shift, journal=journal, time=time)
     for attr in num_fields:
         setattr(si, attr, random.uniform(0, 100))
+
+    si.this_master = Employee.objects.all()[0]
+    si.next_master = Employee.objects.all()[1]
+    si.furnaces = '45'
     si.save()
 
 
@@ -252,7 +257,7 @@ def fill_self_sequrity_table():
     shift = Shift.objects.all()[0]
     journal = Journal.objects.get(name='Журнал экспресс анализов')
 
-    times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 14:00:00')]
+    times = [parse('07.01.2017 12:00:00'), parse('07.01.2017 14:00:00'), parse('07.01.2017 16:00:00')]
     onegin = open('onegin.txt', encoding='utf-8').readlines(); rr = random.randint(0, len(onegin)-1)
     bignote = ''.join(onegin[rr:rr+4])
 
@@ -277,6 +282,22 @@ def fill_scheiht_table():
         s.save()
 
 
+def fill_cinder_table():
+    shift = Shift.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+
+    nums = range(2)
+    time = parse('07.01.2017 10:00:00')
+
+    for n in nums:
+        c = Cinder(shift=shift, journal=journal, time=time, col_num=n)
+        c.shift_total = random.uniform(0, 100)
+        c.day_total = random.uniform(0, 100)
+        c.in_process = random.uniform(0, 100)
+
+        c.save()
+
+
 def clean_database():
     model_tables = [
         DenserAnal,  # densers table
@@ -293,6 +314,7 @@ def clean_database():
         ShiftInfo,
         Schieht,
         SelfSecurity,
+        Cinder,
     ]
 
     for t in model_tables:
@@ -314,3 +336,4 @@ def fill_database():
     fill_shift_info_table()
     fill_self_sequrity_table()
     fill_scheiht_table()
+    fill_cinder_table()
