@@ -221,7 +221,7 @@ def fill_veu_table():
     time = parse('07.01.2017 10:00:00')
 
     for n in nums:
-        veu = VEU(shift=shift, journal=journal, time=time)
+        veu = VEU(shift=shift, journal=journal, time=time, num=n)
         for attr in num_fields:
             setattr(veu, attr, random.uniform(0, 100))
         for attr in str_fields:

@@ -235,9 +235,11 @@ class Reagents(JournalTable):
     """
     Модель хранит столбцы таблицы Реагенты.
     state Тип столбца (Доставлено, принято, ...).
-    Тип столбца 
-    Есть особое значение state=none
-
+    Если тип столбца не none, то stage должно быть ='total'
+    Есть особое значение state=none. В записях state=none хранятся только поля
+    stage которые означают поле внутренней таблицы и поле zn_dust.
+    Поле fence_sate дублируется в каждом столбце.
+    Такие дела...
     """
     shlippe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     zn_dust = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
@@ -261,17 +263,27 @@ class Reagents(JournalTable):
 
 
 class VEU(JournalTable):
+    """
+    Одна строка таблицы VEU
+    """
+    num = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
     hot = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     cold = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     comment = models.CharField(max_length=128, blank=True, null=True)
 
 
 class Sample2(JournalTable):
+    """
+    Одна строка таблицы Пробник номер 2
+    """
     cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
 class FreeTank(JournalTable):
+    """
+    Одна строка таблицы Пробник номер 2
+    """
     str_num = models.DecimalField(max_digits=2, decimal_places=0, blank=False)
     tank_name = models.CharField(max_length=128, blank=True, null=True)
     prev_measure = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
@@ -280,11 +292,21 @@ class FreeTank(JournalTable):
 
 
 class SelfSecurity(JournalTable):
+    """
+    Одна строка таблицы самоохрана
+    Поле bignote дублируется в каждой строке
+    """
     note = models.CharField(max_length=64, blank=True)
     bignote = models.CharField(max_length=256, blank=True)
 
 
 class Electrolysis(JournalTable):
+    """
+    Содержит один столбец таблицы электролиза. Поле series содержит серию.
+    Отсутствующие значения не выставляются.
+    Поле comment дублируется в каждом столбце.
+    Добавлены два значения для времени в каждый столбец.
+    """
     series = models.DecimalField(max_digits=1, decimal_places=0)
     loads1 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
     loads2 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
@@ -298,6 +320,9 @@ class Electrolysis(JournalTable):
 
 
 class ShiftInfo(JournalTable):
+    """
+    Модель содержит всю информацибю по объекту смены.
+    """
     out_sol_t = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     out_sol_c = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     out_pulp_cvck = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)  # TODO: fuck!
@@ -329,18 +354,27 @@ class ShiftInfo(JournalTable):
 
 
 class Schieht(JournalTable):
+    """
+    Модель 1 строку таблицы шихты.
+    """
     num = models.DecimalField(max_digits=2, decimal_places=0)
     name = models.CharField(max_length=64, blank=True)
     value = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
-class NeutralSolution(JournalTable):  # should it be text
+class NeutralSolution(JournalTable):
+    """
+    Модель содержит один столбец таблицы нейтральных растворов.
+    """
     str_num = models.DecimalField(max_digits=2, decimal_places=0, blank=False)
     tank_name = models.CharField(max_length=40, blank=False)
     value = models.DecimalField(max_digits=10, decimal_places=5, blank=True)
 
 
-class Cinder(JournalTable):  # should it be text
+class Cinder(JournalTable):
+    """
+    Модель содержит одну строку таблицы ограка.
+    """
     col_num = models.DecimalField(max_digits=1, decimal_places=0, blank=False)
     shift_total = models.DecimalField(max_digits=15, decimal_places=5, blank=True)
     day_total = models.DecimalField(max_digits=15, decimal_places=5, blank=True)
