@@ -83,6 +83,9 @@ def leaching_ju(request):
     data_neutral_densers = tables.get_neutral_densers_table(shift)
     data_security = tables.get_self_security_table(shift)
     data_schieht = tables.get_schieht_table(shift)
+    data_electrolysis = tables.get_electrolysis_table(shift)
+    data_reagent = tables.get_reagents_table(shift)
+    data_info = tables.get_shift_info_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -142,7 +145,6 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral)
     }
 
-    data_electrolysis = tables.get_electrolysis_table(shift)
     electrolysis = {
         'title': 'Нагрузки',
         'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
@@ -206,12 +208,16 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_schieht)
     }
 
-
+    reagents = {
+        'title': 'Реагенты',
+        'data': data_reagent,
+        'dump': pprint.pformat(data_reagent)
+    }
 
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
-        'shift': {'date': shift.date, 'num': shift.order},
+        'shift': {'date': shift.date, 'num': shift.order, 'data': shift},
         'bchc': bchc,
         'sgustiteli': densers,
         'znpulp': znpulp,
@@ -224,7 +230,9 @@ def leaching_ju(request):
         'neutral_densers': neutral_densers,
         'security': security,
         'probnik': probnik,
-        'schiehta': schiehta
+        'schiehta': schiehta,
+        'reagents': reagents,
+        'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
 
     template = loader.get_template('densers.html')

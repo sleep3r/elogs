@@ -3,6 +3,9 @@
     <div class="title_left">
       <h3>{{title}}</h3>
     </div>
+    <div class="date--right">
+       <h4>{{info.data.date}}</h4>
+    </div>
 </div>
 
 <div class="row">
@@ -36,31 +39,8 @@
 </div>
 
 <hr>
+{% include "widgets/shift.html" with shift=info %}
 
-<div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12" >
-      <h3>Лист 2</h3>
-    <h4><b>Смена: </b>{{shift.num}}</h4>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-2 col-sm-2 col-xs-12" >
-    <div>Печи<table border="1">
-      <tr><td>4</td><td>5</td><td>&nbsp;_</td></tr>
-    </table></div>
-  </div>
-  <div class="col-md-4 col-sm-4 col-xs-12" >
-      <table class="table">
-        <tr>
-          <th>Мастер</th><td>Молдабеков Р.</td>
-        </tr>
-        <tr>
-          <th>Лаборант</th><td>Короткова Л. Н.</td>
-        </tr>
-      </table>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12" >
     {% include "widgets/table-baki.html" with table=baki %}
@@ -83,16 +63,18 @@
   <div class="col-md-4 col-sm-4 col-xs-12">
     {% include "widgets/table-schiehta.html" with table=schiehta %}
   </div>
-  <div class="col-md-4 col-sm-4 col-xs-12">
-    {% include "widgets/table-schiehta.html" with table=schiehta %}
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-sm-8 col-xs-12">
+    {% include "widgets/table-reagents.html" with table=reagents %}
   </div>
   <div class="col-md-4 col-sm-4 col-xs-12" >
     {% include "widgets/table-simple.html" with table=probnik %}
   </div>
 </div>
-
 <div class="row">
-  <div>
+  <div >
     {% include "widgets/table-neutral-densers.html" with table=neutral_densers %}
   </div>
 </div>
@@ -101,10 +83,7 @@
   <div class="col-md-4 col-sm-4 col-xs-12">
     {% include "widgets/table-schiehta.html" with table=schiehta %}
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12" >
+  <div class="col-md-8 col-sm-8 col-xs-12" >
     {% include "widgets/table-security.html" with table=security %}
   </div>
 </div>
