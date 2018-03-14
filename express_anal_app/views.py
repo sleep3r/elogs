@@ -142,32 +142,13 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral)
     }
 
+    data_electrolysis = tables.get_electrolysis_table(shift)
     loads = {
         'title': 'Нагрузки',
         'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
-        'data': [
-            {
-                'num': 1,
-                'title': 'Нагрузки',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Показания счётчика',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ЦВЦО',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Силоса ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-        ]
+        'rowCaptions': ["Нагрузки", "Показания счётчика", "Бункеа ЦВЦО", "Силоса ОЦ", "Бункера ОЦ"],
+        'data': data_electrolysis,
+        'dump': pprint.pformat(data_electrolysis)
     }
 
     empty_containers = {
@@ -224,6 +205,8 @@ def leaching_ju(request):
         'data': data_schieht,
         'dump': pprint.pformat(data_schieht)
     }
+
+
 
     context = {
         'title': "Журнал учёта ",
