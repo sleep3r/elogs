@@ -142,32 +142,13 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral)
     }
 
-    loads = {
+    data_electrolysis = tables.get_electrolysis_table(shift)
+    electrolysis = {
         'title': 'Нагрузки',
         'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
-        'data': [
-            {
-                'num': 1,
-                'title': 'Нагрузки',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Показания счётчика',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ЦВЦО',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Силоса ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-        ]
+        'rowCaptions': ["Нагрузки", "Показания счётчика", "Бункеа ЦВЦО", "Силоса ОЦ", "Бункера ОЦ"],
+        'data': data_electrolysis,
+        'dump': pprint.pformat(data_electrolysis)
     }
 
     empty_containers = {
@@ -225,6 +206,8 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_schieht)
     }
 
+
+
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
@@ -236,7 +219,7 @@ def leaching_ju(request):
         'agitators': agitators,
         'baki': baki,
         'neutral': neutral,
-        'loads': loads,
+        'electrolysis': electrolysis,
         'empty_containers': empty_containers,
         'neutral_densers': neutral_densers,
         'security': security,
