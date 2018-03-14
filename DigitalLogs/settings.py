@@ -66,6 +66,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            'libraries':{
+                    'express_tags': 'express_anal_app.templatetags.express_tags',
+            }
         },
     },
 ]

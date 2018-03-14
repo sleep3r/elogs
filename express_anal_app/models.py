@@ -9,6 +9,9 @@ from login_app.models import Employee
 
 
 class Journal(models.Model):
+    """
+    Модель производственного журнала. Содержит название журнала и его описание.
+    """
     name = models.CharField(max_length=1000, blank=False, null=False, verbose_name='Название журнала')
     description = models.TextField(verbose_name='Описание таблицы')
 
@@ -17,6 +20,9 @@ class Journal(models.Model):
 
 
 class Shift(models.Model):
+    """
+    Модель смены завода. Содержит основные данные такие как дата, номер смены, цех и основные сутрудники смены.
+    """
     date = models.DateField(verbose_name='Дата начала смены')
     order = models.DecimalField(max_digits=1, decimal_places=0, verbose_name='Номер смены (1, 2)')
     master = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
@@ -32,6 +38,9 @@ class Shift(models.Model):
 
 
 class JournalTable(models.Model):
+    """
+    Базовая модель для всех моделей, хранящих данные журналов. Содержит ссылку на смену и на журнал.
+    """
     shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True, verbose_name='Смена')
     time = models.DateTimeField('Время анализа/создания записи')
     journal = models.ForeignKey(Journal, on_delete=models.SET_NULL, null=True, verbose_name='Журнал')
@@ -40,14 +49,17 @@ class JournalTable(models.Model):
         return f'{self.journal}, запись {self.time}'
 
 
-# Low Sink High Sink
-class LeachingExpressAnal(JournalTable):  # The name is shit!
-    point = models.CharField(max_length=20, verbose_name='Место измерения', choices=(('0', 'lshs'),
-                                                                                     ('larox', 'Ларокс'),
+class LeachingExpressAnal(JournalTable):
+    """
+    Модель хранит данные, которые отображаются в верхней таблице, кроме секции с управлением продукцией
+    Каждая строчка в базе данных представляет из себя одну секцию в таблице (ВСНС, Ларокс, Очищенный раствор),
+    при этом заполняются только те поля, которые есть в данной секции, остальные поля остаются пустыми.
+    Сама секция хранится в поле point
+    """
+    point = models.CharField(max_length=20, verbose_name='Место измерения', choices=(('larox', 'Ларокс'),
                                                                                      ('purified', 'Очищенный раствор'),
                                                                                      ('prod_correction',
                                                                                       'Упр. Несоответствия продукции'),))
-
     co = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Co')
     sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Sb')
     cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cu')
@@ -63,6 +75,9 @@ class LeachingExpressAnal(JournalTable):  # The name is shit!
 
 
 class ProductionErrors(JournalTable):
+    """
+    Эта модель хранит 1 строчку последней секции верхней таблицы. Данные последних трех столбцов дублируются в каждой записи.
+    """
     norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Норма')
     fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Факт')
     error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Несоответствие')
@@ -71,6 +86,11 @@ class ProductionErrors(JournalTable):
 
 
 class DenserAnal(JournalTable):
+    """
+    Эта модель хранит данные по таблице сгустителей. Заполняются только те поля, которые присутствуют в данной секции.
+    Секцией является уникальная комбинация слива и сгустителя. Для каждой секциии и времени
+    в базе содержится ровно одна запись.
+    """
     point = models.CharField(max_length=20, verbose_name='Сгуститель №', choices=(('10', 'Сгуститель №10'),
                                                                                   ('11', 'Сгуститель №11'),
                                                                                   ('12', 'Сгуститель №12'),))
@@ -84,12 +104,18 @@ class DenserAnal(JournalTable):
 
 
 class ZnPulpAnal(JournalTable):
+    """
+    Эта модель хранит данные по 1 строчке первой секции таблицы пульп.
+    """
     liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
     ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
     t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='t0')
 
 
-class CuPulpAnal(JournalTable):  # TODO: comment?? shitti values
+class CuPulpAnal(JournalTable):
+    """
+    Эта модель хранит данные по 1 строчке второй секции таблицы пульп.
+    """
     liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
     before = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='До')
     after = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='После')
@@ -97,6 +123,9 @@ class CuPulpAnal(JournalTable):  # TODO: comment?? shitti values
 
 
 class FeSolutionAnal(JournalTable):
+    """
+    Эта модель хранит данные по 1 строчке третьей секции таблицы пульп.
+    """
     h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='H2SO4')
     solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
     sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
@@ -107,7 +136,11 @@ class FeSolutionAnal(JournalTable):
     cl = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cl')
 
 
-class DailyAnalysis(JournalTable):  # shit next to Fe
+class DailyAnalysis(JournalTable):
+    """
+    Эта модель хранит данные по последней секции таблицы пульп. Там где активность пав и все остальное.
+    Есть тольк одна запись на таблицу.
+    """
     shlippe_sb = models.CharField(max_length=64, blank=True, verbose_name='Концентрация Sb в р-ре соли Шлиппе')
     activ_sas = models.CharField(max_length=64, blank=True, verbose_name='Активность ПАВ')
     circulation_denser = models.CharField(max_length=64, blank=True, verbose_name='Анализы оборот. сгуст.')
@@ -116,6 +149,9 @@ class DailyAnalysis(JournalTable):  # shit next to Fe
 
 
 class HydroMetal(JournalTable):
+    """
+    Хранит 1 строчку из таблицы гидрометаллург 1
+    """
     ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='pH')
     acid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Кисл-ть')
     fe2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe двухвал')
@@ -131,6 +167,10 @@ class HydroMetal(JournalTable):
 
 
 class CinderDensity(JournalTable):
+    """
+    Хранит нижнюю часть таблицы гидрометаллург 1. Одиночные поля копируются в каждой записи.
+    Одна запись соответствует одному измерению гранулярности.
+    """
     gran = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ситовой огарка')
     gran_avg = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True,
                                    verbose_name='Ситовой огарка средний')
@@ -143,6 +183,9 @@ class CinderDensity(JournalTable):
 
 
 class Agitators(JournalTable):
+    """
+    Модель хранит 1 строчку, одного агитатора в одном состоянии (до/после) в таблице гидрометаллургов.
+    """
     num = models.CharField(max_length=20, blank=False, null=True, verbose_name='Агитатор', choices=(('13', '13, 14'),
                                                                                                     ('15', '15'),
                                                                                                     ('17', '17'),
@@ -161,6 +204,9 @@ class Agitators(JournalTable):
 
 
 class NeutralDenser(JournalTable):
+    """
+    Модель хранит 1 столбец таблицы нейтральных сгустителей.
+    """
     num = models.DecimalField(max_digits=2, decimal_places=0)
     sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     liq_sol1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
@@ -168,6 +214,9 @@ class NeutralDenser(JournalTable):
 
 
 class ReadyProduct(JournalTable):
+    """
+    Модель хранит 1 строчку таблицы баков готовой продукции
+    """
     num = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
     cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
@@ -182,7 +231,14 @@ class ReadyProduct(JournalTable):
     verified = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
 
 
-class Reagents(JournalTable):  # TODO: Надо осмыслить эту их писанину
+class Reagents(JournalTable):
+    """
+    Модель хранит столбцы таблицы Реагенты.
+    state Тип столбца (Доставлено, принято, ...).
+    Тип столбца 
+    Есть особое значение state=none
+
+    """
     shlippe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     zn_dust = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     mg_ore = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
