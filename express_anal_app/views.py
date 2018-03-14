@@ -82,6 +82,7 @@ def leaching_ju(request):
     data_empty_containers = tables.get_free_tanks_table(shift)
     data_neutral_densers = tables.get_neutral_densers_table(shift)
     data_security = tables.get_self_security_table(shift)
+    data_schieht = tables.get_schieht_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -187,6 +188,42 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_security)
     }
 
+    probnik = {
+        'title': 'Пробник №2',
+        'columns': ["Время", "Cd", "Cu"],
+        'rows': [
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'title': 'ВИУ 1'
+            },
+            {
+                'title': 'ВИУ 2'
+            },
+            {
+                'title': 'ВИУ 3'
+            }
+        ]
+    }
+
+    schiehta = {
+        'title':'Шихта',
+        'data': data_schieht,
+        'dump': pprint.pformat(data_schieht)
+    }
 
     context = {
         'title': "Журнал учёта ",
@@ -202,7 +239,9 @@ def leaching_ju(request):
         'loads': loads,
         'empty_containers': empty_containers,
         'neutral_densers': neutral_densers,
-        'security': security
+        'security': security,
+        'probnik': probnik,
+        'schiehta': schiehta
     }
 
     template = loader.get_template('densers.html')

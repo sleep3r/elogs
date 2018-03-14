@@ -80,8 +80,11 @@
   <div class="col-md-4 col-sm-4 col-xs-12" >
     {% include "widgets/table-empty-containers.html" with table=empty_containers %}
   </div>
-  <div class="col-md-4 col-sm-4 col-xs-12" >
-    {% include "widgets/table-simple.html" with table=table5 %}
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    {% include "widgets/table-schiehta.html" with table=schiehta %}
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    {% include "widgets/table-schiehta.html" with table=schiehta %}
   </div>
   <div class="col-md-4 col-sm-4 col-xs-12" >
     {% include "widgets/table-simple.html" with table=probnik %}
@@ -95,10 +98,15 @@
 </div>
 
 <div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    {% include "widgets/table-schiehta.html" with table=schiehta %}
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12" >
     {% include "widgets/table-security.html" with table=security %}
   </div>
 </div>
-
 
 {% include "footer.html" %}
