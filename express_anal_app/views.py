@@ -143,7 +143,7 @@ def leaching_ju(request):
     }
 
     data_electrolysis = tables.get_electrolysis_table(shift)
-    loads = {
+    electrolysis = {
         'title': 'Нагрузки',
         'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
         'rowCaptions': ["Нагрузки", "Показания счётчика", "Бункеа ЦВЦО", "Силоса ОЦ", "Бункера ОЦ"],
@@ -219,7 +219,7 @@ def leaching_ju(request):
         'agitators': agitators,
         'baki': baki,
         'neutral': neutral,
-        'loads': loads,
+        'electrolysis': electrolysis,
         'empty_containers': empty_containers,
         'neutral_densers': neutral_densers,
         'security': security,

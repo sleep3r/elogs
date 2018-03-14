@@ -1,3 +1,7 @@
+<style>
+    .table-electrolysis tr:nth-child(-n+2) td { font-size: 10px;  }
+    .table-electrolysis th { vertical-align: middle !important; }
+</style>
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
@@ -9,10 +13,10 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-electrolysis">
             <thead>
             <tr>
-                <th></th>
+                <th colspan="2"></th>
                 {% for num, item in table.data.series.items %}
                     <th>{{item.series}} серия</th>
                 {% endfor %}
@@ -20,42 +24,44 @@
             </thead>
             <tbody>
                 <tr>
-                    <th rowspan="2">{{table.rowCaptions.0}}</th>
+                    <th rowspan="2" >{{table.rowCaptions.0}}</th>
+                    <th>7<sup>00</sup></th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.loads1}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
+                    <th>12<sup>00</sup></th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.loads2}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>{{table.rowCaptions.1}}</th>
+                    <th colspan="2">{{table.rowCaptions.1}}</th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.counter}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>{{table.rowCaptions.2}}</th>
+                    <th colspan="2">{{table.rowCaptions.2}}</th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.bunkers_weltz}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>{{table.rowCaptions.3}}</th>
+                    <th colspan="2">{{table.rowCaptions.3}}</th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.silos_furnace}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>{{table.rowCaptions.4}}</th>
+                    <th colspan="2">{{table.rowCaptions.4}}</th>
                     {% for num, item in table.data.series.items %}
                     <td>{{item.bunkers_furnace}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td>Комментарий</td>
+                    <td colspan="2">Комментарий</td>
                     <td colspan="4">
                     {{table.data.comment}}
                     </td>
