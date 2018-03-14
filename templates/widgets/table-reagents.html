@@ -1,0 +1,84 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td></td>
+                <th>Доставлено</th>
+                <th>Принято</th>
+                <th>Расход</th>
+                <th>Сдано</th>
+            </tr>
+            <tr>
+                <th>Соль Шлиппе</th>
+                <td>{{table.data.states.delivered.shlippe}}</td>
+                <td>{{table.data.states.taken.shlippe}}</td>
+                <td>{{table.data.states.consumption.shlippe}}</td>
+                <td>{{table.data.states.issued.shlippe}}</td>
+            </tr>
+            <tr>
+                <th>Zn пыль</th>
+                <td>{{table.data.states.delivered.zn_dust}}</td>
+                <td>{{table.data.states.taken.zn_dust}}</td>
+                <td>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>1st</th>
+                            <td>{{table.data.stages_zn_dust.1st}}</td>
+                            <th>Cd</th>
+                            <td>{{table.data.stages_zn_dust.cd}}</td>
+                        </tr>
+                        <tr>
+                            <th>2st</th>
+                            <td>{{table.data.stages_zn_dust.2st}}</td>
+                            <td rowspan="2" colspan="2">16 кб</td>
+                        </tr>
+                        <tr>
+                            <th>3st</th>
+                            <td>{{table.data.stages_zn_dust.3st}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>{{table.data.states.issued.zn_dust}}</td>
+            </tr>
+            <tr>
+                <th>Mg руда</th>
+                <td>{{table.data.states.delivered.mg_ore}}</td>
+                <td>{{table.data.states.taken.mg_ore}}</td>
+                <td>{{table.data.states.consumption.mg_ore}}</td>
+                <td>{{table.data.states.issued.mg_ore}}</td>
+            </tr>
+            <tr>
+                <th>Магнофлок</th>
+                <td>{{table.data.states.delivered.magnaglobe}}</td>
+                <td>{{table.data.states.taken.magnaglobe}}</td>
+                <td>{{table.data.states.consumption.magnaglobe}}</td>
+                <td>{{table.data.states.issued.magnaglobe}}</td>
+            </tr>
+            <tr>
+                <th>Fe стружка</th>
+                <td>{{table.data.states.delivered.fe_shave}}</td>
+                <td>{{table.data.states.taken.fe_shave}}</td>
+                <td>{{table.data.states.consumption.fe_shave}}</td>
+                <td>{{table.data.states.issued.fe_shave}}</td>
+            </tr>
+            </tbody>
+            <tr>
+                <th>Состояние ограждений:</th>
+                <td>{{table.data.fence_state}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>

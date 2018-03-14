@@ -82,6 +82,10 @@ def leaching_ju(request):
     data_empty_containers = tables.get_free_tanks_table(shift)
     data_neutral_densers = tables.get_neutral_densers_table(shift)
     data_security = tables.get_self_security_table(shift)
+    data_schieht = tables.get_schieht_table(shift)
+    data_electrolysis = tables.get_electrolysis_table(shift)
+    data_reagent = tables.get_reagents_table(shift)
+    data_info = tables.get_shift_info_table(shift)
 
     bchc = {
         'title': 'BCHC',
@@ -141,32 +145,12 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_neutral)
     }
 
-    loads = {
+    electrolysis = {
         'title': 'Нагрузки',
         'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
-        'data': [
-            {
-                'num': 1,
-                'title': 'Нагрузки',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Показания счётчика',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ЦВЦО',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Силоса ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-        ]
+        'rowCaptions': ["Нагрузки", "Показания счётчика", "Бункеа ЦВЦО", "Силоса ОЦ", "Бункера ОЦ"],
+        'data': data_electrolysis,
+        'dump': pprint.pformat(data_electrolysis)
     }
 
     empty_containers = {
@@ -187,10 +171,53 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_security)
     }
 
+    probnik = {
+        'title': 'Пробник №2',
+        'columns': ["Время", "Cd", "Cu"],
+        'rows': [
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'values': ['', '']
+            },
+            {
+                'title': 'ВИУ 1'
+            },
+            {
+                'title': 'ВИУ 2'
+            },
+            {
+                'title': 'ВИУ 3'
+            }
+        ]
+    }
+
+    schiehta = {
+        'title':'Шихта',
+        'data': data_schieht,
+        'dump': pprint.pformat(data_schieht)
+    }
+
+    reagents = {
+        'title': 'Реагенты',
+        'data': data_reagent,
+        'dump': pprint.pformat(data_reagent)
+    }
 
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
+        'shift': {'date': shift.date, 'num': shift.order, 'data': shift},
         'bchc': bchc,
         'sgustiteli': densers,
         'znpulp': znpulp,
@@ -198,10 +225,14 @@ def leaching_ju(request):
         'agitators': agitators,
         'baki': baki,
         'neutral': neutral,
-        'loads': loads,
+        'electrolysis': electrolysis,
         'empty_containers': empty_containers,
         'neutral_densers': neutral_densers,
-        'security': security
+        'security': security,
+        'probnik': probnik,
+        'schiehta': schiehta,
+        'reagents': reagents,
+        'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
 
     template = loader.get_template('densers.html')

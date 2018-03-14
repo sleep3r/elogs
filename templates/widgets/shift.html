@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >
+      <h3>Лист 2</h3>
+      <h4><b>Смена: </b>{{shift.data.shift_num}}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2 col-sm-2 col-xs-12" >
+    <div><table border="1">
+      <tr><td>Печи</td><td>{{shift.data.furnaces}}</td></tr>
+    </table></div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+      <table class="table">
+        <tr>
+          <th>Мастер</th><td>{{shift.data.master}}</td>
+        </tr>
+        <tr>
+          <th>Лаборант</th><td>{{shift.data.laborant}}</td>
+        </tr>
+      </table>
+  </div>
+</div>
+
+<div class="row">
+   <div class="col-md-8 col-sm-8 col-xs-12">
+     <table class="table">
+       <tr><th colspan="5">Откачено</th></tr>
+       <tr>
+         <th>Выход ТВ</th><td>{{shift.data.out_sol_t}} т.</td><td colspan="2">{{shift.data.out_sol_c}} ц.</td>
+       </tr>
+       <tr>
+         <th>Пульпы ЦВЦК</th><td colspan="3">{{shift.data.out_pulp_cvck}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>Медного кека, тн</th><td>{{shift.data.out_neutr}} тн</td><th>Cd губка</th><td>{{shift.data.out_cd_sponge}} тн</td>
+       </tr>
+       <tr>
+         <th>Отработ в ЦВОЦ</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>Богато-кадмиевого</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>Нейтрального в ХМЦ</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>Cu Пульпа</th><td colspan="3">{{shift.data.out_cu_pulp}} м<sup>3</sup></td>
+       </tr>
+       <tr><th colspan="3">Принято</th></tr>
+       <tr><th>Фильтрат ЦВЦК, Ж:Т</th><td>{{shift.data.in_filtrate_ls}}</td><th>Уд. вес</th><td>{{shift.data.in_filtrate_dens}}</td></tr>
+       <tr><th>Железистого из ЦВОЦ</th><td colspan="3">{{shift.data.in_fe}} м<sup>3</sup></td></tr>
+       <tr><th>Высоко железистого из ЦВОЦ</sup></th><td colspan="3">{{shift.data.in_fe_hi}} м<sup>3</sup></td></tr>
+       <tr><th>Бедно-кадмиего</th><td colspan="3">{{shift.data.in_poor_cd}} м<sup>3</sup></td></tr>
+     </table>
+   </div>
+</div>

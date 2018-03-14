@@ -20,11 +20,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for dt, row in table.data.notes.items %}
+                {% for num, row in table.data.notes.items %}
                 <tr>
-                    <td>{{dt|date:"H"}}<sup>00</sup></td>
-                    <td>{{row}}</td>
+                    <td>{{row.time |date:"H"}}<sup>00</sup></td>
+                    <td>{{row.note}}</td>
+                    {% if num == 0 %}
                     <td rowspan="3">{{table.data.bignote}}</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
