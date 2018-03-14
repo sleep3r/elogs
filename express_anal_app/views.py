@@ -323,6 +323,55 @@ def leaching_jea_edit(request):
     template = loader.get_template('journal-edit.html')
     return HttpResponse(template.render(context, request))
 
+def leaching_all_edit(request):
+    error_messages = ''
+    cleaned_data = ''
+
+    if request.method == 'GET':
+        currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
+
+        form = DenserForm(initial={
+            'journal': '1',
+            'shift': '1',
+            'point': '10',
+            'sink': '0',
+            'ph':'0.0',
+            'cu':'0.0',
+            'fe': '0.0',
+            'liq_sol': '0.1',
+            'time': currentDate})
+
+        form.error_css_class = 'label label-danger'
+
+    else:
+        form = DenserForm(request.POST) # Bind data from request.POST into a PostForm
+
+        if form.is_valid():
+            form.save()
+            #return HttpResponseRedirect(request.path_info)
+            return  HttpResponseRedirect('/leaching/ju')
+        else:
+            error_messages = form.errors
+            cleaned_data = form.cleaned_data
+
+
+    journal = Journal.objects.all()[0]
+    shift  = Shift.objects.all()[0]
+
+    context = {
+            'title': "Журнал Экспресс анализа (Заполнение)",
+            'subtitle': "Цех выщелачивания",
+            'form_title': "Заполнить форму",
+            'form_reagents': form,
+            'journal': journal,
+            'shift': shift,
+            'error_messages': error_messages,
+            'data': cleaned_data
+    }
+
+    template = loader.get_template('edit.html')
+    return HttpResponse(template.render(context, request))
+
 
 def leaching_jea(request):
     context = {
