@@ -333,34 +333,28 @@ def leaching_all_edit(request):
          'states.consumption.fe_shave': ['0'], 'states.issued.fe_shave': ['0'], 'fence_state': ['fdgdfg']} >
          '''
 
-        modelDelivered = {
+        model = {
                   'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
                   'fence_state': request.POST['fence_state'],
-                  'time': datetime.datetime.now()
+                  'journal': '1',
+                  'shift': '1'
                   }
 
-        modelDelivered['shlippe'] = request.POST['states.delivered.shlippe']
-        modelDelivered['zn_dust'] = '1'
-        modelDelivered['mg_ore'] = '1'
-        modelDelivered['magnaglobe'] = '1'
-        modelDelivered['fe_shave'] = '1'
-        modelDelivered['state'] = 'delivered'
-        modelDelivered['stage'] = 'total'
-        modelDelivered['journal'] = '1'
+        states = ['issued', 'taken', 'delivered', 'consumption']
 
+        for state in states:
+            for field in ['shlippe', 'zn_dust', 'mg_ore', 'magnaglobe', 'fe_shave']:
+                model[field] = request.POST['states.' + state + '.' + field]
+                model['state'] = state
+                model['stage'] = 'total'
 
+            form = ReagentsForm(model)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
 
-        formReagents = ReagentsForm(modelDelivered) # Bind data from request.POST into a PostForm
-
-        if formReagents.is_valid():
-            formReagents.save()
-
-            return  HttpResponseRedirect('/leaching/ju')
-        else:
-            print("Not valid\n\n\n")
-            print(formReagents.errors)
-            # error_messages = formReagents.errors
-            cleaned_data = formReagents.cleaned_data
 
 
     journal = Journal.objects.all()[0]
