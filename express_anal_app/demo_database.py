@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from express_anal_app import models as eamodels
 from express_anal_app.models import *
-from utils.webutils import parse
+from utils.webutils import parse, translate
 
 onegin = None
 
@@ -30,8 +30,7 @@ class DatabaseFiller:
     All fill methods names and only they should be like 'fill_*_table'.
     Filling methods will be called in a random order
     """
-    def fill_denser_anal_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_denser_anal_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
@@ -44,8 +43,7 @@ class DatabaseFiller:
                 setattr(da, attr, random.uniform(0, 100))
             da.save()
 
-    def fill_express_anal_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_express_anal_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
@@ -73,8 +71,7 @@ class DatabaseFiller:
                 pe.verified = bool(random.randint(0, 1))
                 pe.save()
 
-    def fill_solutions_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_solutions_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
@@ -100,8 +97,7 @@ class DatabaseFiller:
                 setattr(da, attr, random.uniform(0, 100))
             da.save()
 
-    def fill_hydrometal1_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_hydrometal1_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
@@ -122,8 +118,7 @@ class DatabaseFiller:
             cd.employee = shift.laborant
             cd.save()
 
-    def fill_agitators_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_agitators_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 10:00:00'), parse('07.01.2017 12:00:00'), parse('07.01.2017 18:00:00')]
@@ -147,8 +142,7 @@ class DatabaseFiller:
             aa.comment = gen_text()
             aa.save()
 
-    def fill_neutral_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_neutral_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         time = parse('07.01.2017 10:00:00')
@@ -160,8 +154,7 @@ class DatabaseFiller:
                 setattr(nd, attr, random.uniform(0, 100))
             nd.save()
 
-    def fill_ready_product_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_ready_product_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         time = parse('07.01.2017 10:00:00')
@@ -178,8 +171,7 @@ class DatabaseFiller:
                 setattr(rp, attr, val)
             rp.save()
 
-    def fill_free_tank_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_free_tank_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         nums = range(12)
@@ -196,8 +188,7 @@ class DatabaseFiller:
                 setattr(ft, attr, val)
             ft.save()
 
-    def fill_sample2_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_sample2_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         num_fields = ['cd', 'cu']
@@ -210,8 +201,7 @@ class DatabaseFiller:
                 setattr(s2, attr, random.uniform(0, 100))
             s2.save()
 
-    def fill_veu_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_veu_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         nums = range(3)
@@ -228,8 +218,7 @@ class DatabaseFiller:
                 setattr(veu, attr, val)
             veu.save()
 
-    def fill_neutral_solution_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_neutral_solution_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         nums = range(9)
@@ -246,8 +235,7 @@ class DatabaseFiller:
                 setattr(ns, attr, val)
             ns.save()
 
-    def fill_shift_info_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_shift_info_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         time = parse('07.01.2017 10:00:00')
@@ -267,8 +255,7 @@ class DatabaseFiller:
 
         si.save()
 
-    def fill_self_sequrity_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_self_sequrity_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         times = [parse('07.01.2017 12:00:00'), parse('07.01.2017 14:00:00'), parse('07.01.2017 16:00:00')]
@@ -280,8 +267,7 @@ class DatabaseFiller:
             ss.bignote = bignote
             ss.save()
 
-    def fill_scheiht_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_scheiht_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         nums = range(3)
@@ -293,8 +279,7 @@ class DatabaseFiller:
             s.name = gen_text()
             s.save()
 
-    def fill_cinder_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_cinder_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         nums = range(2)
@@ -308,8 +293,7 @@ class DatabaseFiller:
 
             c.save()
 
-    def fill_electrolysis_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_electrolysis_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         num_fields_4 = ['loads1', 'loads2', 'counter']
@@ -338,8 +322,7 @@ class DatabaseFiller:
             e.comment = comment
             e.save()
 
-    def fill_reagents_table(self):
-        shift = Shift.objects.all()[0]
+    def fill_reagents_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
         num_fields = ['shlippe', 'zn_dust', 'mg_ore', 'magnaglobe', 'fe_shave']
@@ -363,6 +346,57 @@ class DatabaseFiller:
             r.state = state
             r.save()
 
+
+
+    # --------------------------------------------------------------------------------------------
+    def fill_employees(self):
+        kz_names = ['Абдулкафар', 'Асмет', 'Жолдас', 'Кобжан', 'Суйинбай']
+        kz_l_names = ['Ахметов', 'Омаров', 'Оспанов', 'Сулейменов', 'Искаков']
+        ru_names = ['Иван', 'Петр', 'Александр', 'Алексей', 'Сергей', 'Василий']
+        ru_l_names = ['Иванов', 'Петров', 'Сидоров', 'Пупкин']
+
+        for f, l in product(kz_names, kz_l_names):
+            e = Employee()
+            e.name = f + ' ' + l
+            e.position = 'Лаборант'
+            lname = translate(e.name).replace(' ', '_')
+            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
+            e.save()
+
+        for f, l in product(ru_names, ru_l_names):
+            e = Employee()
+            e.name = f + ' ' + l
+            e.position = 'Мастер'
+            lname = translate(e.name).replace(' ', '_')
+            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
+            e.save()
+
+    def fill_journals(self):
+        Journal(name='Журнал экспресс анализов',
+                description='Журнал экспресс анализов в цехе выщелачивания', plant='leaching').save()
+        Journal(name='Журнал планового ремонта',
+                description='Журнал планового ремонта в цехе выщелачивания', plant='leaching').save()
+        Journal(name='Журнал капитального ремонта',
+                description='Журнал капитального в цехе выщелачивания', plant='leaching').save()
+        Journal(name='Журнал обжига',
+                description='Журнал обжига в цехе обжига', plant='furnace').save()
+
+    def fill_shifts(self):
+        for i in range(4):
+            sh = Shift()
+            sh.date = parse('10-10-2010')
+            sh.plant = 'leaching'
+            sh.order = random.randint(1, 2)
+            sh.master = random.choice(Employee.objects.filter(position='Мастер'))
+            sh.laborant = random.choice(Employee.objects.filter(position='Лаборант'))
+            sh.save()
+
+    def fill_shift_data(self, shift):
+        for name in dir(self):
+            attribute = getattr(self, name)
+            if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
+                attribute(shift=shift)
+
     def clean_database(self):
         exception_models = [User, Employee, Shift, Journal, JournalTable]
 
@@ -371,12 +405,25 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
+        db_models.extend([Journal, Shift, Employee])
+
+        for u in User.objects.all():  # delete user
+            if not u.is_superuser:
+                u.delete()
+
         for t in db_models:
             t.objects.all().delete()
 
+    def create_demo_database(self):
+        # create journal and shift
+        self.fill_employees()
+        self.fill_journals()
+        self.fill_shifts()
+
+        for sh in Shift.objects.all():
+            self.fill_shift_data(shift=sh)
+
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
-        for name in dir(self):
-            attribute = getattr(self, name)
-            if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
-                attribute(*args, **kwargs)
+        self.create_demo_database()
+

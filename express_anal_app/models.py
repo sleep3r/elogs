@@ -5,7 +5,6 @@ from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 
-# TODO: Do we set null=TRUE?
 from login_app.models import Employee
 
 
@@ -15,6 +14,9 @@ class Journal(models.Model):
     """
     name = models.CharField(max_length=1000, blank=False, null=False, verbose_name='Название журнала')
     description = models.TextField(verbose_name='Описание таблицы')
+    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'обжиг'),
+                                                                         ('leaching', 'выщелачивание'),
+                                                                         ('electrolysis', 'электролиз'),))
 
     def __str__(self):
         return self.name
