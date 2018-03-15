@@ -234,12 +234,12 @@ class ReadyProduct(JournalTable):
 
 class Reagents(JournalTable):
     """
-    Модель хранит столбцы таблицы Реагенты.
-    state Тип столбца (Доставлено, принято, ...).
-    Если тип столбца не none, то stage должно быть ='total'
-    Есть особое значение state=none. В записях state=none хранятся только поля
-    stage которые означают поле внутренней таблицы и поле zn_dust.
-    Поле fence_sate дублируется в каждом столбце.
+    Модель хранит столбцы таблицы Реагенты.<br>
+    state Тип столбца (Доставлено, принято, ...).<br>
+    Если тип столбца не none, то stage должно быть ='total'<br>
+    Есть особое значение state=none. В записях state=none хранятся только поля<br>
+    stage которые означают поле внутренней таблицы и поле zn_dust.<br>
+    Поле fence_sate дублируется в каждом столбце.<br>
     Такие дела...
     """
     shlippe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)

@@ -5,9 +5,6 @@ from django.http import HttpResponseRedirect
 
 
 from django.template import loader
-# forms
-from django import forms
-from django.forms import ModelForm
 from django.utils import timezone
 
 import datetime
@@ -15,37 +12,14 @@ from express_anal_app import helpers
 from express_anal_app import tables
 import pprint
 
+from express_anal_app.journal_forms import *
 
 from collections import defaultdict
 def deep_dict():
     return defaultdict(deep_dict)
 
-# -------------- django web forms -----------------------
-from express_anal_app.models import *
 
 
-class PostForm(forms.Form):
-    content = forms.CharField(max_length=255)
-    created_at = forms.DateTimeField()
-
-class DenserForm(ModelForm):
-    error_css_class = 'label label-danger'
-    def __init__(self, *args, **kwargs):
-        super(DenserForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-
-    class Meta:
-        model = DenserAnal
-        fields = ['journal', 'shift', 'point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
-        widgets = {
-            'time': forms.DateInput(attrs={'type': 'hidden', 'class':'form-control has-feedback-left'}),
-            'journal': forms.HiddenInput(attrs={'style': 'display:none'}),
-            'shift': forms.HiddenInput(attrs={'type': 'hidden'})
-        }
-
-
-# ------------- end forms -----------------------------
 
 def index(request):
     context = {
@@ -321,6 +295,109 @@ def leaching_jea_edit(request):
     }
 
     template = loader.get_template('journal-edit.html')
+    return HttpResponse(template.render(context, request))
+
+def leaching_all_edit(request):
+    error_messages = ''
+    cleaned_data = ''
+
+
+    if request.method == 'GET':
+        # currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
+        formReagents = ReagentsForm(initial={
+            'shlippe': 0,
+            'zn_dust': 0,
+            'mg_ore': 0,
+            'magnaglobe': 0,
+            'fe_shave': 0,
+            'state': '',
+            'stage': '',
+            'fence_state': ''
+        })
+
+    else:
+        print('\n----FORM-----')
+        print(request.POST)
+        print('\n\n')
+
+
+        # Пока придётся захардкодить поля денормализованной формы
+        '''
+        {'csrfmiddlewaretoken': ['zeGsl0eB8pmtwkeeI4QPoOpxNCtZGdTgcfDjMWs6ZbPEjDN3pR66QfMaQGjUGy2M'],
+         'states.delivered.shlippe': ['0'], 'states.taken.shlippe': ['0'], 'states.consumption.shlippe': ['0'],
+         'states.issued.shlippe': ['0'], 'states.delivered.zn_dust': ['0'], 'states.taken.zn_dust': ['0'],
+         'stages.zn_dust.1st': ['0'], 'stages.zn_dust.cd': ['0'], 'stages.zn_dust.2st': ['0'],
+         'stages.zn_dust.3st': ['0'], 'states.issued.zn_dust': ['0'], 'states.delivered.mg_ore': ['0'],
+         'states.taken.mg_ore': ['0'], 'states.consumption.mg_ore': ['0'], 'states.issued.mg_ore': ['0'],
+         'states.delivered.magnaglobe': ['0'], 'states.taken.magnaglobe': ['0'], 'tates.consumption.magnaglobe': ['0'],
+         'states.issued.magnaglobe': ['0'], 'states.delivered.fe_shave': ['0323'], 'states.taken.fe_shave': ['0'],
+         'states.consumption.fe_shave': ['0'], 'states.issued.fe_shave': ['0'], 'fence_state': ['fdgdfg']} >
+         '''
+
+        model = {
+                  'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                  'fence_state': request.POST['fence_state'],
+                  'journal': '1',
+                  'shift': '1'
+                  }
+        modelSt = {
+                  'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                  'fence_state': request.POST['fence_state'],
+                  'journal': '1',
+                  'shift': '1'
+                  }
+
+        states = ['issued', 'taken', 'delivered', 'consumption']
+
+        for state in states:
+            for field in ['shlippe', 'zn_dust', 'mg_ore', 'magnaglobe', 'fe_shave']:
+                model[field] = request.POST['states.' + state + '.' + field]
+                model['state'] = state
+                model['stage'] = 'total'
+
+            form = ReagentsForm(model)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
+
+
+        stages = ['1st','2st','3st','cd']
+        for stage in stages:
+            modelSt['zn_dust'] = request.POST['stages.zn_dust.' + stage]
+            modelSt['state'] = 'none'
+            modelSt['stage'] = stage
+
+            form = ReagentsForm(modelSt)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
+
+        return HttpResponseRedirect('/leaching/all/edit')
+
+    journal = Journal.objects.all()[0]
+    shift  = Shift.objects.all()[0]
+
+    context = {
+            'title': "Журнал Экспресс анализа (Заполнение)",
+            'subtitle': "Цех выщелачивания",
+            'form_title': "Заполнить форму",
+            'form_reagents': {
+                            'title': 'Реагенты',
+                            'fields': formReagents,
+                            'name': "form_reagents",
+                            'dump': pprint.pformat(formReagents.fields)
+            },
+            'journal': journal,
+            'shift': shift,
+            'error_messages': error_messages,
+            'data': cleaned_data
+    }
+
+    template = loader.get_template('edit.html')
     return HttpResponse(template.render(context, request))
 
 
