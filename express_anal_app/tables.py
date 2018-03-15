@@ -25,7 +25,6 @@ def model_desc(obj):
     return ''
 
 
-
 def add_model_to_dict(model, res, attrs=None):
     if attrs is None:
         attrs = [f.name for f in model._meta.get_fields(include_parents=False)]
@@ -135,7 +134,8 @@ def get_cinder_gran_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    data = CinderDensity.objects.filter(shift=shift)[0]
+    data = CinderDensity.objects.filter(shift=shift)
+    data = data[0] if data else CinderDensity()
     for attr in ['gran_avg', 'fe_avg', 'fe_shave']:
         val = getattr(data, attr)
         if val is not None:
@@ -155,7 +155,8 @@ def get_agitators_table(shift=None):
     for d in Agitators.objects.filter(shift=shift):
         add_model_to_dict(d, res['times'][d.time][d.num][d.before])
 
-    res['comment'] = Agitators.objects.filter(shift=shift)[0]
+    agts = Agitators.objects.filter(shift=shift)
+    res['comment'] = agts[0].comment if agts else ''
 
     times = deep_dict()
     for i, k in enumerate(sorted(res['times'].keys())):
@@ -165,8 +166,8 @@ def get_agitators_table(shift=None):
 
     return res.clear_empty().get_dict()
 
-# sheet 2
 
+# sheet 2
 def get_neutral_densers_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
@@ -233,7 +234,7 @@ def get_self_security_table(shift=None):
 
     res = deep_dict()
     data = SelfSecurity.objects.filter(shift=shift).order_by('time')
-    res['bignote'] = data[0].bignote
+    res['bignote'] = data[0].bignote if data else ''
 
     for i, d in enumerate(data):
         res['notes'][i]['time'] = d.time
@@ -277,7 +278,7 @@ def get_electrolysis_table(shift=None):
 
     for d in data:
         add_model_to_dict(d, res['series'][d.series])
-    res['comment'] = data[0].comment
+    res['comment'] = data[0].comment if data else ''
 
     return res.clear_empty().get_dict()
 
@@ -295,7 +296,7 @@ def get_reagents_table(shift=None):
         else:
             res['stages_zn_dust'][d.stage] = d.zn_dust
 
-    res['fence_state'] = data[0].fence_state
+    res['fence_state'] = data[0].fence_state if data else ''
 
     return res.clear_empty().get_dict()
 
@@ -303,7 +304,6 @@ def get_reagents_table(shift=None):
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     df = DatabaseFiller()
-    df.clean_database()
     df.recreate_database()
 
     a = get_self_security_table()

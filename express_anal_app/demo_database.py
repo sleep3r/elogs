@@ -1,9 +1,11 @@
+import inspect
 import random
 from inspect import ismethod
 from itertools import product
 
 from django.utils import timezone
 
+from express_anal_app import models as eamodels
 from express_anal_app.models import *
 from utils.webutils import parse
 
@@ -25,8 +27,8 @@ def gen_text(lines=1, max_words=10):
 
 class DatabaseFiller:
     """
-    All fill methods and only they should start from the word 'fill_'.
-    Filling methods will be called in order< they are created
+    All fill methods names and only they should be like 'fill_*_table'.
+    Filling methods will be called in a random order
     """
     def fill_denser_anal_table(self):
         shift = Shift.objects.all()[0]
@@ -362,32 +364,20 @@ class DatabaseFiller:
             r.save()
 
     def clean_database(self):
-        model_tables = [
-            DenserAnal,  # densers table
-            ProductionErrors, LeachingExpressAnal,  # express anal table
-            ZnPulpAnal, CuPulpAnal, FeSolutionAnal, DailyAnalysis,  # solutions table
-            HydroMetal, CinderDensity,  # for hydrometal
-            Agitators,
-            NeutralDenser,
-            ReadyProduct,
-            FreeTank,
-            VEU,
-            Sample2,
-            NeutralSolution,
-            ShiftInfo,
-            Schieht,
-            SelfSecurity,
-            Cinder,
-            Electrolysis,
-            Reagents
-        ]
+        exception_models = [User, Employee, Shift, Journal, JournalTable]
 
-        for t in model_tables:
+        db_models = []
+        for name, obj in inspect.getmembers(eamodels):
+            if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
+                db_models.append(obj)
+
+        for t in db_models:
             t.objects.all().delete()
 
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
         for name in dir(self):
             attribute = getattr(self, name)
-            if ismethod(attribute) and name.startswith('fill_'):
+            if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
+                print(name)
                 attribute(*args, **kwargs)
