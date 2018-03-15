@@ -11,15 +11,18 @@ class DenserAnalAdmin(admin.ModelAdmin):
     list_display_links = ['ph']
     # list_editable = [ 'point', 'sink', 'time', 'shift', 'journal' ]
 
+
 class JournalTableAdmin(admin.ModelAdmin):
     model = JournalTable
     verbose_name_plural = 'Жарнулы'
     list_display = [ 'shift', 'time', 'journal']
 
+
 class ShiftAdmin(admin.ModelAdmin):
     model = Shift
     verbose_name_plural = 'Смены'
     list_display = [ 'date', 'order', 'plant', 'master', 'laborant']
+
 
 class HydroMetalAdmin(admin.ModelAdmin):
     model = HydroMetal
@@ -35,6 +38,20 @@ admin.site.register(DenserAnal, DenserAnalAdmin)
 admin.site.register(HydroMetal, HydroMetalAdmin)
 admin.site.register(CinderDensity)
 admin.site.register(SelfSecurity)
-
-
-
+admin.site.register(ProductionErrors)
+admin.site.register(ZnPulpAnal)
+admin.site.register(CuPulpAnal)
+admin.site.register(FeSolutionAnal)
+admin.site.register(DailyAnalysis)
+admin.site.register(Agitators)
+admin.site.register(NeutralDenser)
+admin.site.register(ReadyProduct)
+admin.site.register(Reagents)
+admin.site.register(VEU)
+admin.site.register(Sample2)
+admin.site.register(FreeTank)
+admin.site.register(Electrolysis)
+admin.site.register(ShiftInfo)
+admin.site.register(Schieht)
+admin.site.register(NeutralSolution)
+admin.site.register(Cinder)
