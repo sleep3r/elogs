@@ -13,18 +13,6 @@ from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
 
 
-from django import template
-from django.utils.html import mark_safe
-
-register = template.Library()
-
-@register.simple_tag()
-def model_desc(obj):
-    if obj.__doc__:
-        return mark_safe('<p>{}</p>'.format(obj.__doc__))
-    return ''
-
-
 def add_model_to_dict(model, res, attrs=None):
     if attrs is None:
         attrs = [f.name for f in model._meta.get_fields(include_parents=False)]
@@ -38,7 +26,6 @@ def add_model_to_dict(model, res, attrs=None):
 def get_densers_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-
     data = DenserAnal.objects.filter(shift=shift)
     res = deep_dict()
 
@@ -306,5 +293,5 @@ def command_to_process():
     df = DatabaseFiller()
     df.recreate_database()
 
-    a = get_self_security_table()
+    a = get_densers_table()
     pprint(a)

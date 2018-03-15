@@ -379,5 +379,4 @@ class DatabaseFiller:
         for name in dir(self):
             attribute = getattr(self, name)
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
-                print(name)
                 attribute(*args, **kwargs)
