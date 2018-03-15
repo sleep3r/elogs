@@ -1,0 +1,109 @@
+<style>
+    .form-reagents__fence-state { width: 600px !important; }
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+        <!--<pre>{{form.dump}}</pre>-->
+    </div>
+    <div class="x_content">
+        <form name="{{form.name}}" action="" method="POST" class="form-horizontal form-label-left">
+              {% csrf_token %}
+
+              {% for hidden_field in form.fields.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %}
+
+        <table class="table table-bordered">
+            <tbody>
+
+            <tr>
+                <td></td>
+                <th>Доставлено</th>
+                <th>Принято</th>
+                <th>Расход</th>
+                <th>Сдано</th>
+            </tr>
+            <tr>
+                <th>Соль Шлиппе</th>
+                <td><input class="form-control" type="text" name="states.delivered.shlippe" value="1"/></td>
+                <td><input class="form-control" type="text" name="states.taken.shlippe" value="2"/></td>
+                <td><input class="form-control" type="text" name="states.consumption.shlippe" value="3"/></td>
+                <td><input class="form-control" type="text" name="states.issued.shlippe" value="4"/></td>
+            </tr>
+            <tr>
+                <th>Zn пыль</th>
+                <td><input class="form-control" type="text" name="states.delivered.zn_dust" value="5"/></td>
+                <td><input class="form-control" type="text" name="states.taken.zn_dust" value="6"/></td>
+                <td>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>1st</th>
+                            <td><input class="form-control" type="text" name="stages.zn_dust.1st" value="7"/></td>
+                            <th>Cd</th>
+                            <td><input class="form-control" type="text" name="stages.zn_dust.cd" value="8"/></td>
+                        </tr>
+                        <tr>
+                            <th>2st</th>
+                            <td><input class="form-control" type="text" name="stages.zn_dust.2st" value="9"/></td>
+                            <td rowspan="2" colspan="2"><input class="form-control" type="text" name="states.consumption.zn_dust" value="0.1"/></td>
+                        </tr>
+                        <tr>
+                            <th>3st</th>
+                            <td><input class="form-control" type="text" name="stages.zn_dust.3st" value="10"/></td>
+                        </tr>
+                    </table>
+                </td>
+                <td><input class="form-control" type="text" name="states.issued.zn_dust" value="11"/></td>
+            </tr>
+            <tr>
+                <th>Mg руда</th>
+                <td><input class="form-control" type="text" name="states.delivered.mg_ore" value="12"/></td>
+                <td><input class="form-control" type="text" name="states.taken.mg_ore" value="13"/></td>
+                <td><input class="form-control" type="text" name="states.consumption.mg_ore" value="14"/></td>
+                <td><input class="form-control" type="text" name="states.issued.mg_ore" value="15"/></td>
+            </tr>
+            <tr>
+                <th>Магнофлок</th>
+                <td><input class="form-control" type="text" name="states.delivered.magnaglobe" value="16"/></td>
+                <td><input class="form-control" type="text" name="states.taken.magnaglobe" value="17"/></td>
+                <td><input class="form-control" type="text" name="states.consumption.magnaglobe" value="18"/></td>
+                <td><input class="form-control" type="text" name="states.issued.magnaglobe" value="19"/></td>
+            </tr>
+            <tr>
+                <th>Fe стружка</th>
+                <td>
+                    <input class="form-control" type="text" name="states.delivered.fe_shave"  value="20">
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="states.taken.fe_shave"  value="21" />
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="states.consumption.fe_shave" value="22" />
+                </td>
+                <td><input class="form-control" type="text" name="states.issued.fe_shave" value="23"/></td>
+            </tr>
+            </tbody>
+            <tr>
+                <th>Состояние ограждений:</th>
+                <td colspan="3">
+                    <textarea  class="form-reagents__fence-state" rows="6"  name="fence_state"></textarea>
+                </td>
+            </tr>
+        </table>
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+
+    </div>
+</div>
+
+
+
+
