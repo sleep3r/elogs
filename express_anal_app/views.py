@@ -5,9 +5,6 @@ from django.http import HttpResponseRedirect
 
 
 from django.template import loader
-# forms
-from django import forms
-from django.forms import ModelForm
 from django.utils import timezone
 
 import datetime
@@ -15,37 +12,13 @@ from express_anal_app import helpers
 from express_anal_app import tables
 import pprint
 
+from express_anal_app.journal_forms import *
 
 from collections import defaultdict
 def deep_dict():
     return defaultdict(deep_dict)
 
-# -------------- django web forms -----------------------
-from express_anal_app.models import *
 
-
-class PostForm(forms.Form):
-    content = forms.CharField(max_length=255)
-    created_at = forms.DateTimeField()
-
-class DenserForm(ModelForm):
-    error_css_class = 'label label-danger'
-    def __init__(self, *args, **kwargs):
-        super(DenserForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-
-    class Meta:
-        model = DenserAnal
-        fields = ['journal', 'shift', 'point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
-        widgets = {
-            'time': forms.DateInput(attrs={'type': 'hidden', 'class':'form-control has-feedback-left'}),
-            'journal': forms.HiddenInput(attrs={'style': 'display:none'}),
-            'shift': forms.HiddenInput(attrs={'type': 'hidden'})
-        }
-
-
-# ------------- end forms -----------------------------
 
 def index(request):
     context = {
@@ -328,31 +301,34 @@ def leaching_all_edit(request):
     cleaned_data = ''
 
     if request.method == 'GET':
-        currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
-
-        form = DenserForm(initial={
-            'journal': '1',
-            'shift': '1',
-            'point': '10',
-            'sink': '0',
-            'ph':'0.0',
-            'cu':'0.0',
-            'fe': '0.0',
-            'liq_sol': '0.1',
-            'time': currentDate})
-
-        form.error_css_class = 'label label-danger'
+        # currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
+        formReagents = ReagentsForm(initial={
+            'shlippe': 0,
+            'zn_dust': 0,
+            'mg_ore': 0,
+            'magnaglobe': 0,
+            'fe_shave': 0,
+            'state': '',
+            'stage': '',
+            'fence_state': ''
+        })
 
     else:
-        form = DenserForm(request.POST) # Bind data from request.POST into a PostForm
+        print('\n----FORM-----')
+        print(request.POST)
+        print('\n\n')
 
-        if form.is_valid():
-            form.save()
-            #return HttpResponseRedirect(request.path_info)
+        request.POST
+
+        formReagents = ReagentsForm(request.POST) # Bind data from request.POST into a PostForm
+
+        if formReagents.is_valid():
+            formReagents.save()
+
             return  HttpResponseRedirect('/leaching/ju')
         else:
-            error_messages = form.errors
-            cleaned_data = form.cleaned_data
+            # error_messages = formReagents.errors
+            cleaned_data = formReagents.cleaned_data
 
 
     journal = Journal.objects.all()[0]
@@ -362,7 +338,12 @@ def leaching_all_edit(request):
             'title': "Журнал Экспресс анализа (Заполнение)",
             'subtitle': "Цех выщелачивания",
             'form_title': "Заполнить форму",
-            'form_reagents': form,
+            'form_reagents': {
+                            'title': 'Реагенты',
+                            'fields': formReagents,
+                            'name': "form_reagents",
+                            'dump': pprint.pformat(formReagents.fields)
+            },
             'journal': journal,
             'shift': shift,
             'error_messages': error_messages,
