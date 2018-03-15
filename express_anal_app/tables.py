@@ -1,7 +1,7 @@
 import random
 from collections import defaultdict
 
-from express_anal_app.demo_database import fill_denser_anal_table, clean_database, fill_database
+from express_anal_app.demo_database import DatabaseFiller
 from express_anal_app.models import *
 from pprint import pprint
 from dateutil.parser import parse
@@ -302,8 +302,9 @@ def get_reagents_table(shift=None):
 
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
-    clean_database()
-    fill_database()
+    df = DatabaseFiller()
+    df.clean_database()
+    df.recreate_database()
 
     a = get_self_security_table()
     pprint(a)
