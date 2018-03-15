@@ -43,7 +43,8 @@ class ReagentsForm(ModelForm):
                   'state',
                   'stage',
                   'fence_state',
-                  'journal'
+                  'journal',
+                  'shift'
                   ]
 
 # ------------- end forms -----------------------------

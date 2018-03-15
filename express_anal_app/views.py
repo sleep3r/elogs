@@ -301,6 +301,7 @@ def leaching_all_edit(request):
     error_messages = ''
     cleaned_data = ''
 
+
     if request.method == 'GET':
         # currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
         formReagents = ReagentsForm(initial={
@@ -339,6 +340,12 @@ def leaching_all_edit(request):
                   'journal': '1',
                   'shift': '1'
                   }
+        modelSt = {
+                  'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                  'fence_state': request.POST['fence_state'],
+                  'journal': '1',
+                  'shift': '1'
+                  }
 
         states = ['issued', 'taken', 'delivered', 'consumption']
 
@@ -356,6 +363,20 @@ def leaching_all_edit(request):
                 print(form.errors)
 
 
+        stages = ['1st','2st','3st','cd']
+        for stage in stages:
+            modelSt['zn_dust'] = request.POST['stages.zn_dust.' + stage]
+            modelSt['state'] = 'none'
+            modelSt['stage'] = stage
+
+            form = ReagentsForm(modelSt)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
+
+        return HttpResponseRedirect('/leaching/all/edit')
 
     journal = Journal.objects.all()[0]
     shift  = Shift.objects.all()[0]
