@@ -20,6 +20,7 @@ def deep_dict():
 
 
 
+
 def index(request):
     context = {
         'hello_list': ['World', 'Darling', 'Inframine', 'Goodbye'],
@@ -318,15 +319,46 @@ def leaching_all_edit(request):
         print(request.POST)
         print('\n\n')
 
-        request.POST
 
-        formReagents = ReagentsForm(request.POST) # Bind data from request.POST into a PostForm
+        # Пока придётся захардкодить поля денормализованной формы
+        '''
+        {'csrfmiddlewaretoken': ['zeGsl0eB8pmtwkeeI4QPoOpxNCtZGdTgcfDjMWs6ZbPEjDN3pR66QfMaQGjUGy2M'],
+         'states.delivered.shlippe': ['0'], 'states.taken.shlippe': ['0'], 'states.consumption.shlippe': ['0'],
+         'states.issued.shlippe': ['0'], 'states.delivered.zn_dust': ['0'], 'states.taken.zn_dust': ['0'],
+         'stages.zn_dust.1st': ['0'], 'stages.zn_dust.cd': ['0'], 'stages.zn_dust.2st': ['0'],
+         'stages.zn_dust.3st': ['0'], 'states.issued.zn_dust': ['0'], 'states.delivered.mg_ore': ['0'],
+         'states.taken.mg_ore': ['0'], 'states.consumption.mg_ore': ['0'], 'states.issued.mg_ore': ['0'],
+         'states.delivered.magnaglobe': ['0'], 'states.taken.magnaglobe': ['0'], 'tates.consumption.magnaglobe': ['0'],
+         'states.issued.magnaglobe': ['0'], 'states.delivered.fe_shave': ['0323'], 'states.taken.fe_shave': ['0'],
+         'states.consumption.fe_shave': ['0'], 'states.issued.fe_shave': ['0'], 'fence_state': ['fdgdfg']} >
+         '''
+
+        modelDelivered = {
+                  'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                  'fence_state': request.POST['fence_state'],
+                  'time': datetime.datetime.now()
+                  }
+
+        modelDelivered['shlippe'] = request.POST['states.delivered.shlippe']
+        modelDelivered['zn_dust'] = '1'
+        modelDelivered['mg_ore'] = '1'
+        modelDelivered['magnaglobe'] = '1'
+        modelDelivered['fe_shave'] = '1'
+        modelDelivered['state'] = 'delivered'
+        modelDelivered['stage'] = 'total'
+        modelDelivered['journal'] = '1'
+
+
+
+        formReagents = ReagentsForm(modelDelivered) # Bind data from request.POST into a PostForm
 
         if formReagents.is_valid():
             formReagents.save()
 
             return  HttpResponseRedirect('/leaching/ju')
         else:
+            print("Not valid\n\n\n")
+            print(formReagents.errors)
             # error_messages = formReagents.errors
             cleaned_data = formReagents.cleaned_data
 

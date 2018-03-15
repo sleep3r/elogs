@@ -42,7 +42,8 @@ class ReagentsForm(ModelForm):
                   'fe_shave',
                   'state',
                   'stage',
-                  'fence_state'
+                  'fence_state',
+                  'journal'
                   ]
 
 # ------------- end forms -----------------------------
