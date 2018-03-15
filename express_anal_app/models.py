@@ -1,3 +1,4 @@
+import datetime
 import time
 
 from decimal import Decimal
@@ -42,7 +43,7 @@ class JournalTable(models.Model):
     Базовая модель для всех моделей, хранящих данные журналов. Содержит ссылку на смену и на журнал.
     """
     shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True, verbose_name='Смена')
-    time = models.DateTimeField('Время анализа/создания записи')
+    time = models.DateTimeField(verbose_name='Время анализа/создания записи', default=datetime.datetime.now)
     journal = models.ForeignKey(Journal, on_delete=models.SET_NULL, null=True, verbose_name='Журнал')
 
     def __str__(self):
