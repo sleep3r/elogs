@@ -5,7 +5,6 @@ from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 
-# TODO: Do we set null=TRUE?
 from login_app.models import Employee
 
 
@@ -15,6 +14,9 @@ class Journal(models.Model):
     """
     name = models.CharField(max_length=1000, blank=False, null=False, verbose_name='Название журнала')
     description = models.TextField(verbose_name='Описание таблицы')
+    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'обжиг'),
+                                                                         ('leaching', 'выщелачивание'),
+                                                                         ('electrolysis', 'электролиз'),))
 
     def __str__(self):
         return self.name
@@ -42,7 +44,7 @@ class JournalTable(models.Model):
     """
     Базовая модель для всех моделей, хранящих данные журналов. Содержит ссылку на смену и на журнал.
     """
-    shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True, verbose_name='Смена')
+    shift = models.ForeignKey(Shift, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Смена')
     time = models.DateTimeField(verbose_name='Время анализа/создания записи', default=datetime.datetime.now)
     journal = models.ForeignKey(Journal, on_delete=models.SET_NULL, null=True, verbose_name='Журнал')
 
