@@ -1,0 +1,60 @@
+<style>
+    .form-reagents__fence-state { width: 600px !important; }
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+        <!--<pre>{{form.dump}}</pre>-->
+    </div>
+    <div class="x_content">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
+              {% csrf_token %}
+
+              {% for hidden_field in form.fields.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %}
+
+     <table class="table table-bordered">
+            <thead>
+            <tr>
+                {% for columnName in form.columns %}
+                <th>{{columnName}}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+                {% for num in form.tanks %}
+                <tr>
+                    <th scope="row">{{num}}</th>
+                    <td><input class="form-control" type="text" name="row{{num}}.cd" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.cu" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.co" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.sb" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.fe" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.vt" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.density" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.norm" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.fact" value="0"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.correction" value="0"></td>
+                    <td>...</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+
+    </div>
+</div>
+
+
+
+

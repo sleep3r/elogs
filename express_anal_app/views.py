@@ -315,6 +315,8 @@ def leaching_all_edit(request):
             'fence_state': ''
         })
 
+        formReadyTanks = ReadyProductForm()
+
     else:
         print('\n----FORM-----')
         print(request.POST)
@@ -322,28 +324,16 @@ def leaching_all_edit(request):
 
 
         # Пока придётся захардкодить поля денормализованной формы
-        '''
-        {'csrfmiddlewaretoken': ['zeGsl0eB8pmtwkeeI4QPoOpxNCtZGdTgcfDjMWs6ZbPEjDN3pR66QfMaQGjUGy2M'],
-         'states.delivered.shlippe': ['0'], 'states.taken.shlippe': ['0'], 'states.consumption.shlippe': ['0'],
-         'states.issued.shlippe': ['0'], 'states.delivered.zn_dust': ['0'], 'states.taken.zn_dust': ['0'],
-         'stages.zn_dust.1st': ['0'], 'stages.zn_dust.cd': ['0'], 'stages.zn_dust.2st': ['0'],
-         'stages.zn_dust.3st': ['0'], 'states.issued.zn_dust': ['0'], 'states.delivered.mg_ore': ['0'],
-         'states.taken.mg_ore': ['0'], 'states.consumption.mg_ore': ['0'], 'states.issued.mg_ore': ['0'],
-         'states.delivered.magnaglobe': ['0'], 'states.taken.magnaglobe': ['0'], 'tates.consumption.magnaglobe': ['0'],
-         'states.issued.magnaglobe': ['0'], 'states.delivered.fe_shave': ['0323'], 'states.taken.fe_shave': ['0'],
-         'states.consumption.fe_shave': ['0'], 'states.issued.fe_shave': ['0'], 'fence_state': ['fdgdfg']} >
-         '''
-
         model = {
                   'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
                   'fence_state': request.POST['fence_state'],
-                  'journal': '1',
+                  'journal': '20',
                   'shift': '1'
                   }
         modelSt = {
                   'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
                   'fence_state': request.POST['fence_state'],
-                  'journal': '1',
+                  'journal': '20',
                   'shift': '1'
                   }
 
@@ -392,6 +382,14 @@ def leaching_all_edit(request):
                             'action': '',
                             'dump': pprint.pformat(formReagents.fields)
             },
+            'form_ready_tanks' : {
+                'title': 'Баки готовой продукции',
+                'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма","Железо","В:T","Уд. вес","Норма", "Факт", "Коррекция", "Мастер"],
+                'fields': formReadyTanks,
+                'tanks': ['3','4','5'],
+                'name': 'form_ready_tanks',
+                'action': '/save/tanks',
+            },
             'journal': journal,
             'shift': shift,
             'error_messages': error_messages,
@@ -400,6 +398,38 @@ def leaching_all_edit(request):
 
     template = loader.get_template('edit.html')
     return HttpResponse(template.render(context, request))
+
+
+def leaching_save_tanks(request):
+    print("save tanks form")
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    tanks = ['3', '4', '5']
+    fields = ['cd', 'cu', 'co', 'sb', 'fe', 'vt', 'density', 'norm', 'fact', 'correction']
+
+    for num in tanks:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id
+        }
+        model['num'] = num
+        model['verified'] = '1'
+        for field in fields:
+            model[field] = request.POST['row' + num + '.' + field]
+
+        form = ReadyProductForm(model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
 
 
 def leaching_jea(request):
