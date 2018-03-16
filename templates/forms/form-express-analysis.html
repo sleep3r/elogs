@@ -1,0 +1,113 @@
+
+<style>
+th { text-align: center; }
+
+th.rotate {
+  height: 140px;
+  white-space: nowrap;
+
+}
+
+th.rotate > div {
+  transform:
+    translate(5px, 51px)
+    rotate(270deg);
+  width: 1px;
+}
+
+th.rotate > div > span {
+  padding: 5px 50px;
+  text-align: left;
+}
+
+tr.mini td {
+    font-size: 10px;
+}
+
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
+              {% csrf_token %}
+
+              {% for hidden_field in form.fields.hidden_fields %}
+              {{ hidden_field }}
+              {% endfor %}
+
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
+                    <th colspan="10" >BCHC</th>
+                    <th colspan="5" >Ларокс</th>
+                    <th colspan="6" >Очищенный раствор</th>
+                    <th colspan="6" >Упр. Несоответствия продукции</th>
+                </tr>
+                <tr>
+                    {% for subColumn in form.columns %}
+                    <th class="rotate">
+                        <div>
+                            <span>{{subColumn|safe}}</span>
+                        </div>
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for time in form.times %}
+                <tr class="mini">
+                    <td>{{time}}<sup>00</sup></td>
+                    <td><input class="form-control" type="text" name="row.lshs.co_{{time}}" value="" placeholder="" /></td>
+                    <td><input class="form-control" type="text" name="row.lshs.sb_{{time}}" value="" placeholder="" /></td>
+                    <td><input class="form-control" type="text" name="row.lshs.cu_st1_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.cd_{{time}}" value="" placeholder="" /></td>
+                    <td><input class="form-control" type="text" name="row.lshs.solid_st1_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.ph_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.fe_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.arsenic_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.solid_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.lshs.density_{{time}}" value="" placeholder="" /></td>
+
+                    <td><input class="form-control" type="text" name="row.larox.co_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.larox.sb_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.larox.cd_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.larox.ph_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.larox.solid_{{time}}" value="" placeholder=""/></td>
+
+                    <td><input class="form-control" type="text" name="row.purified.co_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.sb_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.cu_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.cd_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.fe_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.density_{{time}}" value="" placeholder=""/></td>
+
+                    <td><input class="form-control" type="text" name="row.prod_correction.norm_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.prod_correction.fact_{{time}}" value="" placeholder=""/></td>
+
+                    <td><input class="form-control" type="text" name="row.prod_correction.error_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.prod_correction.correction_{{time}}" value="" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.prod_correction.verified_{{time}}" value="" placeholder=""/></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+
+    </div>
+</div>
+
+
+
+
