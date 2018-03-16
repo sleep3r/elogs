@@ -59,6 +59,8 @@ class ReagentsForm(ModelForm):
     class Meta:
         model = Reagents
         fields = [
+                  'journal',
+                  'shift',
                   'shlippe',
                   'zn_dust',
                   'mg_ore',
@@ -67,10 +69,23 @@ class ReagentsForm(ModelForm):
                   'state',
                   'stage',
                   'fence_state',
-                  'journal',
-                  'shift'
                   ]
 
 
+class NeuturalDensersForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(NeuturalDensersForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = NeutralDenser
+        fields = [
+            'journal',
+            'shift',
+            'num',
+            'sediment',
+            'liq_sol1',
+            'liq_sol2'
+        ]
 
 # ------------- end forms -----------------------------
