@@ -14,7 +14,7 @@
         <!--<pre>{{form.dump}}</pre>-->
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="" method="POST" class="form-horizontal form-label-left">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
               {% csrf_token %}
 
               {% for hidden_field in form.fields.hidden_fields %}
