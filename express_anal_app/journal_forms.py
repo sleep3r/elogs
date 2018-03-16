@@ -26,6 +26,30 @@ class DenserForm(ModelForm):
         }
 
 
+class ReadyProductForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ReadyProductForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = ReadyProduct
+        fields = [
+                    'journal',
+                    'shift',
+                    'num',
+                    'cd',
+                    'cu',
+                    'co',
+                    'sb',
+                    'fe',
+                    'vt',
+                    'density',
+                    'norm',
+                    'fact',
+                    'correction',
+                    'verified',
+                  ]
+
 class ReagentsForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReagentsForm, self).__init__(*args, **kwargs)
@@ -46,5 +70,7 @@ class ReagentsForm(ModelForm):
                   'journal',
                   'shift'
                   ]
+
+
 
 # ------------- end forms -----------------------------
