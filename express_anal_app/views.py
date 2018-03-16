@@ -316,6 +316,7 @@ def leaching_all_edit(request):
         })
 
         formReadyTanks = ReadyProductForm()
+        formNeuturalDensers = NeuturalDensersForm()
 
     else:
         print('\n----FORM-----')
@@ -390,6 +391,13 @@ def leaching_all_edit(request):
                 'name': 'form_ready_tanks',
                 'action': '/save/tanks',
             },
+            'form_densers_neutural': {
+                'title': 'Нейтральные сгустители',
+                'name': 'form_densers_neutural',
+                'action': '/save/densers/neutural',
+                'fields': formNeuturalDensers,
+                'densers': ['1', '2', '3', '4', '5', '6', '7', '8', '13']
+            },
             'journal': journal,
             'shift': shift,
             'error_messages': error_messages,
@@ -430,6 +438,38 @@ def leaching_save_tanks(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+
+def leaching_save_neutural_densers(request):
+    print("save tanks form")
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    densers = ['1', '2', '3', '4', '5', '6', '7', '8', '13']
+    fields = [
+        'sediment',
+        'liq_sol1',
+        'liq_sol2'
+    ]
+
+    for num in densers:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id
+        }
+        model['num'] = num
+        for field in fields:
+            model[field] = request.POST[field+'_'+num]
+
+        form = NeuturalDensersForm(model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
 
 
 def leaching_jea(request):
