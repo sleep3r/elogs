@@ -389,6 +389,7 @@ def leaching_all_edit(request):
                             'title': 'Реагенты',
                             'fields': formReagents,
                             'name': "form_reagents",
+                            'action': '',
                             'dump': pprint.pformat(formReagents.fields)
             },
             'journal': journal,
