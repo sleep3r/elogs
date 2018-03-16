@@ -88,4 +88,49 @@ class NeuturalDensersForm(ModelForm):
             'liq_sol2'
         ]
 
+
+class ExpressAnalysisForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ExpressAnalysisForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = LeachingExpressAnal
+        fields = [
+            'journal',
+            'shift',
+            'point',
+            'co',
+            'sb',
+            'cu',
+            'cu_st1',
+            'cd',
+            'solid_st1',
+            'ph',
+            'fe',
+            'arsenic',
+            'solid',
+            'current',
+            'density'
+        ]
+
+
+class DenserAnalysisForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(DenserAnalysisForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = DenserAnal
+        fields = [
+            'journal',
+            'shift',
+            'point',
+            'sink',
+            'ph',
+            'cu',
+            'fe',
+            'liq_sol',
+        ]
 # ------------- end forms -----------------------------

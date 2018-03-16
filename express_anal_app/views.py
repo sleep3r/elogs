@@ -317,6 +317,8 @@ def leaching_all_edit(request):
 
         formReadyTanks = ReadyProductForm()
         formNeuturalDensers = NeuturalDensersForm()
+        formExpresAnalysis = ExpressAnalysisForm()
+        formDensers = DenserAnalysisForm()
 
     else:
         print('\n----FORM-----')
@@ -398,6 +400,23 @@ def leaching_all_edit(request):
                 'fields': formNeuturalDensers,
                 'densers': ['1', '2', '3', '4', '5', '6', '7', '8', '13']
             },
+            'form_express_analysis': {
+                'title': 'Экспресс анализ',
+                'name': 'form_express_analysis',
+                'action': '/save/express/analysis',
+                'fields': formExpresAnalysis,
+                'times': ['8', '10', '12', '14', '16', '18', '20'],
+                'columns': ["Кобальт Co","Сурьма", "Медь", "Кадмий", "Твердое После 1ст", "pH (BCHC)", "Железо", "As", "Твёрдое ", "Уд. вес",
+                   "Кобальт", "Сурьма", "Кадмий", "Твердое", "pH","Кадмий", "Кобальт", "Сурьма", "Медь", "Железо",
+                   "Выход по току", "Уд. вес", "Норма", "Факт", "Несоответствие", "Коррекция"]
+            },
+            'form_densers': {
+                'title': 'Сгустители',
+                'columns': ['10', "11", "12"],
+                'action': '/save/densers',
+                'fields': formDensers,
+
+            },
             'journal': journal,
             'shift': shift,
             'error_messages': error_messages,
@@ -440,10 +459,6 @@ def leaching_save_tanks(request):
 
 
 def leaching_save_neutural_densers(request):
-    print("save tanks form")
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
     journal = Journal.objects.all()[0]
     shift = Shift.objects.all()[0]
     densers = ['1', '2', '3', '4', '5', '6', '7', '8', '13']
@@ -468,6 +483,97 @@ def leaching_save_neutural_densers(request):
             form.save()
         else:
             print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+
+def leaching_save_express_analysis(request):
+    print("save tanks form")
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    times = ['8', '10', '12', '14', '16', '18', '20']
+    fields = [
+        'co',
+        'sb',
+        'cu',
+        'cu_st1',
+        'cd',
+        'solid_st1',
+        'ph',
+        'fe',
+        'arsenic',
+        'solid',
+        'current',
+        'density'
+    ]
+
+    points = ['larox', 'purified', 'prod_correction']
+
+    for num in times:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id
+        }
+        for point in points:
+            model['point'] = point
+            for field in fields:
+                postIndex = 'row.' + point + '.' + field + '_' + num
+                if postIndex in request.POST:
+                    value = request.POST[postIndex]
+                    model[field] = value
+
+
+            form = ExpressAnalysisForm(model)
+            if form.is_valid():
+                form.save()
+            else:
+                print(form.errors)
+
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_densers(request):
+    print("save tanks form")
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    densers = ['10', '11', '12']
+    sinks = ['hs', 'ls']
+    fields = [
+        'ph',
+        'cu',
+        'fe',
+        'liq_sol',
+    ]
+
+    for denser in densers:
+
+        for sink in sinks:
+            model = {
+                'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                'journal': journal.id,
+                'shift': shift.id
+            }
+            model['point'] = denser
+            model['sink'] = sink
+
+            for field in fields:
+                postIndex = 'denser_' + denser + '.' + sink + '.' + field
+                if postIndex in request.POST:
+                    model[field] = request.POST[postIndex]
+
+            form = DenserAnalysisForm(model)
+            if form.is_valid():
+                form.save()
+            else:
+                print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
 
