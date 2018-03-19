@@ -319,6 +319,9 @@ def leaching_all_edit(request):
         formNeuturalDensers = NeuturalDensersForm()
         formExpresAnalysis = ExpressAnalysisForm()
         formDensers = DenserAnalysisForm()
+        formZnPulp = ZnPulpForm()
+        formCuPulp = CuPulpForm()
+        formFeSolution = FeSolutionForm()
 
     else:
         print('\n----FORM-----')
@@ -372,7 +375,7 @@ def leaching_all_edit(request):
         return HttpResponseRedirect('/leaching/all/edit')
 
     journal = Journal.objects.all()[0]
-    shift  = Shift.objects.all()[0]
+    shift = Shift.objects.all()[0]
 
     context = {
             'title': "Журнал Экспресс анализа (Заполнение)",
@@ -416,6 +419,14 @@ def leaching_all_edit(request):
                 'action': '/save/densers',
                 'fields': formDensers,
 
+            },
+            'form_pulps': {
+                'title': 'Пульпы',
+                'name': 'form_pulps',
+                'action': '/save/pulps',
+                'zn': formZnPulp,
+                'cu': formCuPulp,
+                'fe': formFeSolution
             },
             'journal': journal,
             'shift': shift,
@@ -486,9 +497,59 @@ def leaching_save_neutural_densers(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+def leaching_save_pulps(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    formsCodes = ['zn_pulp', 'cu_pulp', 'fe_sol']
+    fields = [
+            'liq_sol',
+            'ph',
+            't0',
+            'before',
+            'after',
+            'solid',
+            'h2so4',
+            'sb',
+            'cu',
+            'fe',
+            'density',
+            'arsenic',
+            'cl',
+            ]
+
+    for formCode in formsCodes:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id
+        }
+        for field in fields:
+            postIndex =  formCode + '.' + field
+            if postIndex in request.POST:
+                model[field] = request.POST[postIndex]
+
+        if formCode == 'zn_pulp':
+            form = ZnPulpForm(model)
+        elif formCode == 'cu_pulp':
+            form = CuPulpForm(model)
+        elif formCode == 'fe_sol':
+            form = FeSolutionForm(model)
+
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+
+
+
+
+    return HttpResponseRedirect('leaching/all/edit')
 
 def leaching_save_express_analysis(request):
-    print("save tanks form")
     print('\n----FORM-----')
     print(request.POST)
     print('\n\n')
