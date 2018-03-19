@@ -150,4 +150,20 @@ class ZnPulpForm(ModelForm):
             'ph',
             't0'
         ]
+
+class CuPulpForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CuPulpForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = CuPulpAnal
+        fields = [
+            'journal',
+            'shift',
+            'liq_sol',
+            'before',
+            'after',
+            'solid'
+        ]
 # ------------- end forms -----------------------------
