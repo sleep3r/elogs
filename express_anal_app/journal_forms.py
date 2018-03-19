@@ -183,4 +183,21 @@ class FeSolutionForm(ModelForm):
             'arsenic',
             'cl',
         ]
+
+class HydrometalForm(ModelForm):
+    class Meta:
+        model = HydroMetal
+        fields = [
+            'journal',
+            'shift',
+            'ph',
+            'acid',
+            'fe2',
+            'fe_total',
+            'cu',
+            'sb',
+            'sediment',
+            'mann_num',
+            'employee'
+        ]
 # ------------- end forms -----------------------------
