@@ -1,0 +1,154 @@
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="10">Агитаторы</th>
+                        <th colspan="3">Готовый раствор</th>
+                    </tr>
+                    <tr>
+                        <th>13,<br/>14</th>
+                        <th>Cd</th>
+                        <th>Cu</th>
+                        <th>Co</th>
+                        <th>15</th>
+                        <th>pH</th>
+                        <th>Cu</th>
+                        <th>17</th>
+                        <th>pH</th>
+                        <th>Cu</th>
+                        <th>19</th>
+                        <th>H2SO4</th>
+                        <th>Cu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="mini">
+                        <th rowspan="3">До</th>
+                        <td><input class="form-control" type="text" name="agitator13.before.cd_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.cu_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.co_1" value="0" /></td>
+
+                        <th rowspan="3">До</th>
+                        <td><input class="form-control" type="text" name="agitator15.before.ph_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.before.cu_1" value="0" /></td>
+
+                        <th rowspan="3">До</th>
+                        <td><input class="form-control" type="text" name="agitator17.before.ph_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.before.cu" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.h2so4_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.cu_1" value="0" /></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-control" type="text" name="agitator13.before.cd_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.cu_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.co_2" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator15.before.ph_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.before.cu_2" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator17.before.ph_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.before.cu_2" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.h2so4_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.cu_2" value="0" /></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-control" type="text" name="agitator13.before.cd_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.cd_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.before.cd_3" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator15.before.ph_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.before.cu_3" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator17.before.ph_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.before.cu_3" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.h2so4_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.before.cu_3" value="0" /></td>
+                    </tr>
+                    <tr class="mini">
+                        <th rowspan="3">После</th>
+
+                        <td><input class="form-control" type="text" name="agitator13.after.cd_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.cu_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.co_1" value="0" /></td>
+
+                        <th rowspan="3">После</th>
+
+                        <td><input class="form-control" type="text" name="agitator15.after.ph_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.after.cu_1" value="0" /></td>
+
+                        <th rowspan="3">После</th>
+
+                        <td><input class="form-control" type="text" name="agitator17.after.ph_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.after.cu_1" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.h2so4_1" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.cu_1" value="0" /></td>
+                    </tr>
+
+                    <tr>
+                        <td><input class="form-control" type="text" name="agitator13.after.cd_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.cu_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.co_2" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator15.after.ph_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.after.cu_2" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator17.after.ph_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.after.cu_2" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.h2so4_2" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.cu_2" value="0" /></td>
+                    </tr>
+                    <tr>
+                        <td><input class="form-control" type="text" name="agitator13.after.cd_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.cu_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator13.after.co_3" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator15.after.ph_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator15.after.cu_3" value="0" /></td>
+
+                        <td><input class="form-control" type="text" name="agitator17.after.ph_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator17.after.cu_3" value="0" /></td>
+
+                        <td></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.h2so4_3" value="0" /></td>
+                        <td><input class="form-control" type="text" name="agitator19.after.cu_3" value="0" /></td>
+                    </tr>
+
+                <tr>
+                    <th colspan="2">№ 22</th>
+                    <td colspan="14"><input class="form-control" type="text" name="comment" value="" placeholder="..."/></td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+        </form>
+    </div>
+</div>
