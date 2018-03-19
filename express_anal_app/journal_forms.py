@@ -200,4 +200,21 @@ class HydrometalForm(ModelForm):
             'mann_num',
             'employee'
         ]
+
+class AgitatorsForm(ModelForm):
+    class Meta:
+        model = Agitators
+        fields = [
+            'journal',
+            'shift',
+            'num',
+            'before',
+            'ph',
+            'cu',
+            'co',
+            'cd',
+            'h2so4',
+            'comment',
+            'employee'
+        ]
 # ------------- end forms -----------------------------
