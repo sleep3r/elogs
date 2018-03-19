@@ -428,6 +428,12 @@ def leaching_all_edit(request):
                 'cu': formCuPulp,
                 'fe': formFeSolution
             },
+            'form_hydrometal': {
+                'title': 'Аппаратчик - Гидрометаллург',
+                'name': 'form_hydrometal',
+                'action': '/save/hydrometal'
+
+            },
             'journal': journal,
             'shift': shift,
             'error_messages': error_messages,
@@ -543,8 +549,44 @@ def leaching_save_pulps(request):
         else:
             print(form.errors)
 
+    return HttpResponseRedirect('leaching/all/edit')
 
+def leaching_save_hydrometal(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    employee = Employee.objects.all()[0]
+    manns = ['1', '4']
+    fields = [
+        'ph',
+        'acid',
+        'fe2',
+        'fe_total',
+        'cu',
+        'sb',
+        'sediment',
+    ]
 
+    for mannNum in manns:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'employee': employee.id
+        }
+        model['mann_num'] = mannNum
+        for field in fields:
+            index = 'mann'+ mannNum + '.' + field
+            if index in request.POST:
+                model[field] = request.POST[index]
+
+        form = HydrometalForm(model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
 
 
     return HttpResponseRedirect('leaching/all/edit')
