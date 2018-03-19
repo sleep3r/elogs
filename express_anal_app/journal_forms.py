@@ -133,4 +133,54 @@ class DenserAnalysisForm(ModelForm):
             'fe',
             'liq_sol',
         ]
+
+
+
+class ZnPulpForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ZnPulpForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = ZnPulpAnal
+        fields = [
+            'journal',
+            'shift',
+            'liq_sol',
+            'ph',
+            't0'
+        ]
+
+class CuPulpForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CuPulpForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = CuPulpAnal
+        fields = [
+            'journal',
+            'shift',
+            'liq_sol',
+            'before',
+            'after',
+            'solid'
+        ]
+
+
+class FeSolutionForm(ModelForm):
+    class Meta:
+        model = FeSolutionAnal
+        fields = [
+            'journal',
+            'shift',
+            'h2so4',
+            'solid',
+            'sb',
+            'cu',
+            'fe',
+            'density',
+            'arsenic',
+            'cl',
+        ]
 # ------------- end forms -----------------------------
