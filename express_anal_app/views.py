@@ -208,7 +208,7 @@ def leaching_ju(request):
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
 
-    template = loader.get_template('densers.html')
+    template = loader.get_template('journal.html')
     return HttpResponse(template.render(context, request))
 
 
