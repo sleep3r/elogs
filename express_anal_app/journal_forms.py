@@ -133,4 +133,21 @@ class DenserAnalysisForm(ModelForm):
             'fe',
             'liq_sol',
         ]
+
+
+
+class ZnPulpForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ZnPulpForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+    class Meta:
+        model = ZnPulpAnal
+        fields = [
+            'journal',
+            'shift',
+            'liq_sol',
+            'ph',
+            't0'
+        ]
 # ------------- end forms -----------------------------
