@@ -166,4 +166,21 @@ class CuPulpForm(ModelForm):
             'after',
             'solid'
         ]
+
+
+class FeSolutionForm(ModelForm):
+    class Meta:
+        model = FeSolutionAnal
+        fields = [
+            'journal',
+            'shift',
+            'h2so4',
+            'solid',
+            'sb',
+            'cu',
+            'fe',
+            'density',
+            'arsenic',
+            'cl',
+        ]
 # ------------- end forms -----------------------------
