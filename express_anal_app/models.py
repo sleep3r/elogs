@@ -77,7 +77,7 @@ class LeachingExpressAnal(JournalTable):
     density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Уд. вес')
 
 
-class ProductionErrors(JournalTable):
+class ProductionError(JournalTable):
     """
     Эта модель хранит 1 строчку последней секции верхней таблицы. Данные последних трех столбцов дублируются в каждой записи.
     """

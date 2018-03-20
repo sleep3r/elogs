@@ -1,7 +1,41 @@
 # -------------- django web forms -----------------------
+import inspect
+
 from django import forms
 from django.forms import ModelForm
 from express_anal_app.models import *
+
+import inspect
+from express_anal_app import models as eamodels
+from django.db import models
+
+
+def generate_standard_forms():
+    """
+
+    :return:
+    """
+    standard_forms = {}
+
+    db_models = []
+    exception_models = [User, Employee, Shift, Journal, JournalTable]
+    for name, obj in inspect.getmembers(eamodels):
+        if inspect.isclass(obj) and issubclass(obj, models.Model) and not obj in exception_models:
+            db_models.append(obj)
+
+    exception_fields = ['journaltable_ptr']
+    for m in db_models:
+        fields = [f.name for f in m._meta.get_fields(include_parents=False) if f.name not in exception_fields]
+        Meta = type('Meta', (object,), {'model': m, 'fields': fields})
+        FormClass = type(m.__name__ + 'Form', (ModelForm,), {'Meta': Meta})
+
+        standard_forms[m.__name__] = FormClass
+
+    return standard_forms
+
+# Any form class can be instanced like jea_stand_forms['CinderDensity']() (model name inside brackets)
+# Any class can be obtained like jea_stand_forms['CinderDensity']()
+jea_stand_forms = generate_standard_forms()
 
 
 class PostForm(forms.Form):

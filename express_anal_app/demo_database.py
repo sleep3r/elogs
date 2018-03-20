@@ -63,7 +63,7 @@ class DatabaseFiller:
             lea.save()
 
             if p == 'prod_correction':
-                pe = ProductionErrors(shift=shift, journal=journal, time=t)
+                pe = ProductionError(shift=shift, journal=journal, time=t)
                 for attr in ['norm', 'fact', 'error']:
                     setattr(pe, attr, random.uniform(0, 100))
 
