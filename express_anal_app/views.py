@@ -14,6 +14,7 @@ import pprint
 from express_anal_app.journal_forms import *
 
 from collections import defaultdict
+from utils.webutils import parse
 
 
 def deep_dict():
@@ -714,8 +715,13 @@ def leaching_save_densers(request):
                 'journal': journal.id,
                 'shift': shift.id
             }
+
             model['point'] = denser
             model['sink'] = sink
+            # dt = parse('001.01.2018 08:00:00')
+            hour = int(request.POST['select_time'])
+            dt = datetime.datetime.now()
+            model['time'] = dt.replace(hour=hour, minute=0, second=0, microsecond=0)
 
             for field in fields:
                 postIndex = 'denser_' + denser + '.' + sink + '.' + field
