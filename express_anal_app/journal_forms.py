@@ -126,6 +126,7 @@ class DenserAnalysisForm(ModelForm):
         fields = [
             'journal',
             'shift',
+            'time',
             'point',
             'sink',
             'ph',
