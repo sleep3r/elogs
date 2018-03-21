@@ -7,7 +7,7 @@ from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
 
-
+from express_anal_app.tests import test_form_creation
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
@@ -49,7 +49,7 @@ def get_leaching_express_anal_table(shift=None):
             if val is not None:
                 res[d.time][d.point][attr] = val
 
-    data = ProductionErrors.objects.filter(shift=shift)
+    data = ProductionError.objects.filter(shift=shift)
     for d in data:
         for attr in ['norm', 'fact', 'error', 'correction', 'verified']:
             val = getattr(d, attr)
@@ -290,8 +290,10 @@ def get_reagents_table(shift=None):
 
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
-    df = DatabaseFiller()
-    df.recreate_database()
+    # df = DatabaseFiller()
+    # df.recreate_database()
+    #
+    # a = get_densers_table()
+    # pprint(a)
 
-    a = get_densers_table()
-    pprint(a)
+    test_form_creation()
