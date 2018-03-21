@@ -376,13 +376,30 @@ def leaching_all_edit(request):
 
         return HttpResponseRedirect('/leaching/all/edit')
 
+
+
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift' in request.GET:
+        shiftId = request.GET['shift']
+        shift = Shift.objects.filter(id=shiftId)[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+
+    shifts = Shift.objects.all()
+
+    data_densers = tables.get_densers_table(shift)
 
     context = {
         'title': "Журнал Экспресс анализа (Заполнение)",
         'subtitle': "Цех выщелачивания",
         'form_title': "Заполнить форму",
+        'form_shift': {
+            'title': 'Выбранная смена',
+            'currentId': shift.id,
+            'data': shifts,
+            'dump': pprint.pformat(shifts)
+        },
         'form_reagents': {
             'title': 'Реагенты',
             'fields': formReagents,
@@ -422,6 +439,8 @@ def leaching_all_edit(request):
             'columns': ['10', "11", "12"],
             'action': '/save/densers',
             'fields': formDensers,
+            'previous': data_densers,
+            'dump': pprint.pformat(data_densers)
 
         },
         'form_pulps': {

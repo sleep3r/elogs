@@ -7,6 +7,7 @@ from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
 
+# from express_anal_app.tests import test_form_creation
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
@@ -25,7 +26,7 @@ def add_model_to_dict(model, res, attrs=None):
 def get_densers_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-    data = DenserAnal.objects.filter(shift=shift)
+    data = DenserAnal.objects.filter(shift=shift).order_by('time')
     res = deep_dict()
 
     for d in data:
