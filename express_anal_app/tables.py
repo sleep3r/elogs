@@ -26,7 +26,7 @@ def add_model_to_dict(model, res, attrs=None):
 def get_densers_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-    data = DenserAnal.objects.filter(shift=shift)
+    data = DenserAnal.objects.filter(shift=shift).order_by('time')
     res = deep_dict()
 
     for d in data:

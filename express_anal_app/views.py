@@ -374,6 +374,8 @@ def leaching_all_edit(request):
     journal = Journal.objects.all()[0]
     shift = Shift.objects.all()[0]
 
+    data_densers = tables.get_densers_table(shift)
+
     context = {
         'title': "Журнал Экспресс анализа (Заполнение)",
         'subtitle': "Цех выщелачивания",
@@ -417,6 +419,8 @@ def leaching_all_edit(request):
             'columns': ['10', "11", "12"],
             'action': '/save/densers',
             'fields': formDensers,
+            'previous': data_densers,
+            'dump': pprint.pformat(data_densers)
 
         },
         'form_pulps': {
