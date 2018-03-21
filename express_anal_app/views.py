@@ -321,6 +321,7 @@ def leaching_all_edit(request):
         formZnPulp = ZnPulpForm()
         formCuPulp = CuPulpForm()
         formFeSolution = FeSolutionForm()
+        formInputOutput = jea_stand_forms['ShiftInfo']()
 
     else:
         print('\n----FORM-----')
@@ -373,6 +374,8 @@ def leaching_all_edit(request):
 
 
 
+
+
     journal = Journal.objects.all()[0]
     if 'shift' in request.GET:
         shiftId = request.GET['shift']
@@ -385,6 +388,8 @@ def leaching_all_edit(request):
 
     data_densers = tables.get_densers_table(shift)
 
+    formShiftInfo = jea_stand_forms['ShiftInfo']()
+
     context = {
         'title': "Журнал Экспресс анализа (Заполнение)",
         'subtitle': "Цех выщелачивания",
@@ -393,7 +398,13 @@ def leaching_all_edit(request):
             'title': 'Выбранная смена',
             'currentId': shift.id,
             'data': shifts,
-            'dump': pprint.pformat(shifts)
+            'dump': pprint.pformat(shifts),
+        },
+        'form_shift_info': {
+            'title': 'Принято и откачено',
+            'fields': formShiftInfo,
+            'dump': pprint.pformat(formShiftInfo),
+            'action': '/save/shift/info'
         },
         'form_reagents': {
             'title': 'Реагенты',
@@ -714,6 +725,7 @@ def leaching_save_densers(request):
     print('\n----FORM-----')
     print(request.POST)
     print('\n\n')
+
     journal = Journal.objects.all()[0]
     shift = Shift.objects.all()[0]
 
@@ -756,298 +768,50 @@ def leaching_save_densers(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
-def leaching_jea(request):
-    context = {
-        'title': "Журнал Экспресс анализа",
-        'subtitle': "Цех выщелачивания"
-    }
-    table1 = {
-        'id': 'simple-table-id',
-        'title': 'Таблица сгустителей',
-        'columns': ["Нейтральные сгустители", "1", "2", "3", "4", "5", "6", "7", "8", "13"],
-        'rows': [
-            {
-                'title': 'Отстои',
-                'values': ['100',
-                           '100',
-                           '100',
-                           '100',
-                           '100',
-                           '-',
-                           '-',
-                           '100',
-                           '-']
-            },
-            {
-                'title': 'Ж:Т',
-                'values': [
-                    '0.86:1',
-                    '1.0:1',
-                    '0.66:1',
-                    '1.5:1',
-                    '1:1',
-                    '-',
-                    '-',
-                    '1.2:1',
-                    '0.86:1']
-            },
-            {
-                'title': '(НС)',
-                'values': ['1.0:1',
-                           '1.2:1',
-                           '1.0:1',
-                           '1.8:1',
-                           '1:2',
-                           '-',
-                           '-',
-                           '1.5:1',
-                           '1.5:1']
-            }
-        ]
+def leaching_save_shift_info(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    model = {
+        'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+        'journal': journal.id,
+        'shift': shift.id,
+        'time': datetime.datetime.now(),
+        'this_master': request.POST['this_master'],
+        'next_master': request.POST['next_master']
     }
 
-    table2 = {
-        'id': 'simple-table-id',
-        'title': 'Нагрузки',
-        'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
-        'rows': [
-            {
-                'title': 'Нагрузки',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Показания счётчика',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ЦВЦО',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Силоса ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-            {
-                'title': 'Бункера ОЦ',
-                'values': ['10', '340', '23', '654']
-            },
-        ]
-    }
+    fields = [
+        'out_sol_t',
+        'out_sol_c',
+        'out_pulp_cvck',
+        'out_cu_kek',
+        'out_cd_sponge',
+        'out_electr',
+        'out_ruch_cd',
+        'out_neutr',
+        'out_cu_pulp',
+        'in_filtrate_ls',
+        'in_filtrate_dens',
+        'in_fe',
+        'in_fe_hi',
+        'in_poor_cd',
+    ]
 
-    baki = {
-        'id': 'simple-table-id',
-        'title': 'Баки готовой продукции',
-        'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма", "Железо", "В:T", "Уд. вес", "Норма", "Факт",
-                    "Коррекция", "Мастер"],
+    for field in fields:
+        index = 'shift.data.' + field
+        if index in request.POST:
+            model[field] = request.POST[index]
 
-        'rows': [
-            {
-                'title': '3',
-                'values': ['0.5', '0.08', '0.5', '0.005', '40', '-', '1405', '-', '-', 'нет', 'Молдабеков']
-            },
-            {
-                'title': '4',
-                'values': ['0.5', '0.08', '0.5', '0.005', '40', '-', '1405', '-', '-', 'нет', 'Молдабеков']
-            },
-            {
-                'title': '5',
-                'values': ['0.5', '0.08', '0.5', '0.005', '40', '-', '1405', '-', '-', 'нет', 'Молдабеков']
-            },
-        ]
-    }
 
-    table4 = {
-        'id': 'simple-table-id',
-        'title': 'Откачено',
-        'columns': [" ", " "],
+    form = jea_stand_forms['ShiftInfo'](model)
+    if form.is_valid():
+        form.save()
+    else:
+        print(form.errors)
 
-        'rows': [
-            {
-                'title': 'Выход ТВ',
-                'values': ['-']
-            },
-            {
-                'title': 'Пульпы в ЦВЦК, м3',
-                'values': ['338.6']
-            },
-            {
-                'title': 'Медного кека',
-                'values': ['-']
-            },
-            {
-                'title': 'Cd губка',
-                'values': ['6т. 220м']
-            },
-            {
-                'title': 'Отработ. в ЦВОЦ',
-                'values': ['900']
-            },
-            {
-                'title': 'Богато-кадмиевого',
-                'values': ['220']
-            },
-            {
-                'title': 'Нейтрального ХМЦ',
-                'values': ['ЦВО 25']
-            },
-            {
-                'title': 'Пульпа, м3',
-                'values': ['11.5']
-            },
-        ]
-    }
 
-    table5 = {
-        'id': 'simple-table-id',
-        'title': 'Принято',
-        'columns': [" ", " "],
-        'rows': [
-            {
-                'title': 'Фильтрат ЦВЦК, Ж:Т',
-                'values': ['-']
-            },
-            {
-                'title': 'Уд. вес',
-                'values': ['1.375']
-            },
-            {
-                'title': 'Железистого из ЦВОЦ',
-                'values': ['900']
-            },
-            {
-                'title': 'Fe р-р',
-                'values': ['-']
-            },
-            {
-                'title': 'Богато-кадмиевого',
-                'values': ['240']
-            },
-        ]
-    }
-
-    probnik = {
-        'id': 'simple-table-id',
-        'title': 'Принято',
-        'columns': ["Время", "Cd", "Cu"],
-        'rows': [
-            {
-                'values': ['', '']
-            },
-            {
-                'values': ['', '']
-            },
-            {
-                'values': ['', '']
-            },
-            {
-                'values': ['', '']
-            },
-            {
-                'values': ['', '']
-            },
-            {
-                'title': 'ВИУ 1'
-            },
-            {
-                'title': 'ВИУ 2'
-            },
-            {
-                'title': 'ВИУ 3'
-            }
-        ]
-    }
-
-    oxrana = {
-        'id': 'simple-table-id',
-        'title': 'Самоохарана',
-        'columns': ['', "Обход", "Примечание"],
-        'rows': [
-            {
-                'values': ['9:00 замечаний нет', '', '']
-            },
-            {
-                'values': ['9:00 замечаний нет', '', '']
-            },
-            {
-                'values': ['9:00 замечаний нет', '', '']
-            },
-        ]
-    }
-
-    sgustiteli = {
-        'title': 'Сгустители',
-        'columns': ['', "Обход", "Примечание"],
-        'rows': [
-            {
-                'values': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
-                           '18']
-            },
-            {
-                'values': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
-                           '18']
-            },
-            {
-                'values': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17',
-                           '18']
-            },
-        ]
-    }
-
-    apparat = {
-        'title': 'Аппаратчик - гидрометаллург',
-        'columns': ['1 Манн', "4 Манн"],
-        'rows': [
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            },
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            },
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            }
-        ]
-    }
-
-    bchc = {
-        'title': 'BCHC',
-        'columns': ['BCHC', "Ларокс", "Очищенный раствор"],
-        'level2': ["Кобальт Co", "Сурьма", "Медь", "Кадмий", "Твердое После 1ст", "pH (BCHC)", "Железо", "As",
-                   "Твёрдое ", "Уд. вес",
-                   "Кобальт", "Сурьма", "Кадмий", "Твердое", "pH", "Кадмий", "Кобальт", "Сурьма", "Медь", "Железо",
-                   "Выход по току", "Уд. вес", "Норма", "Факт", "Несоответствие", "Коррекция", "Мастер"],
-        'rows': [
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            },
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            },
-            {
-                'title': '',
-                'values': ['1,5', '2', '3', '4', '5', '6', '7', '8']
-            }
-        ]
-    }
-
-    context = {
-        'table1': table1,
-        'table2': table2,
-        'baki': baki,
-        'table4': table4,
-        'table5': table5,
-        'probnik': probnik,
-        'oxrana': oxrana,
-        'sgustiteli': sgustiteli,
-        'apparat': apparat,
-        'bchc': bchc
-
-    }
-
-    template = loader.get_template('react-table.html')
-    return HttpResponse(template.render(context, request))
+    return HttpResponseRedirect('/leaching/all/edit')
