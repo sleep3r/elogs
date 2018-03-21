@@ -3,9 +3,10 @@ import secrets
 import string
 import time
 from collections import defaultdict
+from json import JSONEncoder
 from traceback import print_exc
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from dateutil.parser import parse as parse_date
 from django.utils import timezone
@@ -17,7 +18,18 @@ from utils.errors import SemanticError, AccessError
 from utils.settings import webURL, CSRF_LENGTH
 
 
-def processView(auth_required=True):
+class StrJSONEncoder(JSONEncoder):
+    def default(self, o):
+        return str(o)
+
+
+def process_json_view(auth_required=True):
+    """
+    This is view function annotation. It'll try to handle error, encode things in json, set all required headers
+    and check auth and CSRF if required.
+    :param auth_required:
+    :return:
+    """
     def real_decorator(view):
         def w(request, **kwargs):
             if auth_required:
@@ -40,14 +52,15 @@ def processView(auth_required=True):
                 print_exc()
                 response = {"error": "fatal"}
 
-            if type(response) is not HttpResponse:
-                if type(response) in (dict, defaultdict):
+            if not isinstance(response, (HttpResponse, JsonResponse)):
+                if isinstance(response, dict):
                     response["__t"] = time.time()
                 if type(response) is not str:
-                    response = json.dumps(response)
-                response = HttpResponse(response)
+                    response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
+                else:
+                    response = JsonResponse(response, safe=False, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
 
-            response["Access-Control-Allow-Origin"] = webURL
+            # response["Access-Control-Allow-Origin"] = webURL
             response["Access-Control-Allow-Methods"] = "POST, POST, OPTIONS"
             response["Access-Control-Allow-Credentials"] = "true"
             return response

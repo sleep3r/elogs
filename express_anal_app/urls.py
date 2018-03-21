@@ -17,5 +17,6 @@ urlpatterns = [
     url('ju', views.leaching_ju),
     url('jrk', views.leaching_jrk),
     url('main', views.electrolysis),
-    url('edit$', views.electrolysisEdit)
+    url('edit$', views.electrolysisEdit),
+    url('json/test', views.json_test),
 ]

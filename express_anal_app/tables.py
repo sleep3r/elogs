@@ -7,7 +7,6 @@ from pprint import pprint
 from dateutil.parser import parse
 from itertools import product
 
-from express_anal_app.tests import test_form_creation
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict

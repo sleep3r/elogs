@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth import views, authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 
-from utils.webutils import processView, generate_csrf
+from utils.webutils import process_json_view, generate_csrf
 
 
 def build_auth_object(user):
@@ -22,7 +22,7 @@ def build_auth_object(user):
     }
 
 
-@processView(auth_required=True)
+@process_json_view(auth_required=True)
 def change_password(request):
     pwd = request.POST['pwd']
     chpwd = request.POST['chpwd']
@@ -39,7 +39,7 @@ def change_password(request):
     return HttpResponse(json.dumps(res))
 
 
-@processView(auth_required=False)
+@process_json_view(auth_required=False)
 def login_auth(request):
     username = request.POST['username']
     password = request.POST['pwd']
@@ -53,12 +53,12 @@ def login_auth(request):
     return response
 
 
-@processView(auth_required=True)
+@process_json_view(auth_required=True)
 def logout_view(request):
     logout(request)
     return HttpResponse('{}')
 
 
-@processView(auth_required=False)
+@process_json_view(auth_required=False)
 def get_user(request):
     return build_auth_object(request.user)
