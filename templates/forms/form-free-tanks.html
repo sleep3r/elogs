@@ -3,7 +3,7 @@
         <h2>{{form.title}}</h2>
         <div class="clearfix"></div>
     </div>
-    <div class="x_content shift_info">
+    <div class="x_content empty_tanks">
         <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
@@ -21,13 +21,13 @@
                     <th>Текущ.<br>замеры</th>
                     <th>Отклонение</th>
                 </tr>
-                {% for num, item in table.data.items %}
+                {% for num, item in form.data.items %}
                 <tr>
                     <th>{{num}}</th>
-                    <th class="empty_tanks__name">{{item.tank_name}}</th>
-                    <td>{{item.prev_measure}}</td>
-                    <td>{{item.cur_measure}}</td>
-                    <td>{{item.deviation}}</td>
+                    <th class="empty_tanks__name">{{item.tank_name}}<input type="hidden" class="form-control" value="{{item.tank_name}}" name="tank_name__{{num}}" /></th>
+                    <td><input type="text" class="form-control" value="" name="prev_measure__{{num}}" /></td>
+                    <td><input type="text" class="form-control" value="" name="cur_measure__{{num}}" ></td>
+                    <td><input type="text" class="form-control" value="" name="deviation__{{num}}" ></td>
                 </tr>
                 {% endfor %}
             </thead>
