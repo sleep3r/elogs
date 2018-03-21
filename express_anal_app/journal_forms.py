@@ -25,7 +25,7 @@ def generate_standard_forms():
 
     exception_fields = ['journaltable_ptr']
     for m in db_models:
-        fields = [f.name for f in m._meta.get_fields(include_parents=False) if f.name not in exception_fields]
+        fields = [f.name for f in m._meta.get_fields(include_parents=True) if f.name not in exception_fields]
         Meta = type('Meta', (object,), {'model': m, 'fields': fields})
         FormClass = type(m.__name__ + 'Form', (ModelForm,), {'Meta': Meta})
 
@@ -36,6 +36,9 @@ def generate_standard_forms():
 # Any form class can be instanced like jea_stand_forms['CinderDensity']() (model name inside brackets)
 # Any class can be obtained like jea_stand_forms['CinderDensity']()
 jea_stand_forms = generate_standard_forms()
+
+# jea_stand_forms['Denser'].Meta.fields
+# form = jea_stand_forms['Denser']()
 
 
 class PostForm(forms.Form):
@@ -252,4 +255,7 @@ class AgitatorsForm(ModelForm):
             'comment',
             'employee'
         ]
+
+
+
 # ------------- end forms -----------------------------
