@@ -15,10 +15,9 @@ urlpatterns = [
     url('save/hydrometal$', views.leaching_save_hydrometal),
     url('save/agitators$', views.leaching_save_agitators),
     url('save/shift/info$', views.leaching_save_shift_info),
+    url('save/empty/tanks$', views.leaching_save_empty_tanks),
 
     url('ju', views.leaching_ju),
-    url('jrk', views.leaching_jrk),
-    url('main', views.electrolysis),
-    url('edit$', views.electrolysisEdit),
     url('json/test', views.json_test),
+    url('json/densers$', views.json_densers)
 ]
