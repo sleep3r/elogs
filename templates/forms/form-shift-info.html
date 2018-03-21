@@ -1,0 +1,124 @@
+<style>
+    .shift_info tbody th { text-align: right; }
+</style>
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content shift_info">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+
+        <table class="table jambo_table">
+            <tr>
+                <th>
+                     Мастер сдал
+                </th>
+                <td>
+                    {{form.fields.this_master}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                     Мастер принял
+                </th>
+                <td>
+                    {{form.fields.next_master}}
+                </td>
+            </tr>
+            <thead>
+                <tr class="headings">
+                    <th colspan="5" >Откачено</th>
+                </tr>
+            </thead>
+            <tbody>
+               <tr>
+                 <th>Выход ТВ</th>
+                   <td>
+                       <input class="form-control" type="text" name="shift.data.out_sol_t" value="">
+                   </td>
+                   <td colspan="2">
+                       <input class="form-control" type="text" value="" name="shift.data.out_sol_c" >
+                   </td>
+               </tr>
+               <tr>
+                 <th>Пульпы ЦВЦК</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.out_pulp_cvck">
+                   </td>
+               </tr>
+               <tr>
+                 <th>Медного кека, тн</th>
+                   <td><input class="form-control" type="text" value="" name="shift.data.out_neutr" /></td>
+                   <th>Cd губка</th>
+                   <td><input class="form-control" type="text" value="" name="shift.data.out_cd_sponge" /></td>
+               </tr>
+               <tr>
+                 <th>Отработ в ЦВОЦ</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                   </td>
+               </tr>
+               <tr>
+                 <th>Богато-кадмиевого</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                   </td>
+               </tr>
+               <tr>
+                 <th>Нейтрального в ХМЦ</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                   </td>
+               </tr>
+               <tr>
+                 <th>Cu Пульпа</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.out_cu_pulp" />
+                   </td>
+               </tr>
+            </tbody>
+            <thead>
+               <tr class="headings">
+                   <th colspan="4" >Принято</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr><th>Фильтрат ЦВЦК, Ж:Т</th>
+                   <td>
+                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_ls" />
+                   </td>
+                   <th>Уд. вес</th>
+                   <td>
+                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_dens" />
+                   </td>
+               </tr>
+               <tr><th>Железистого из ЦВОЦ</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.in_fe" />
+                   </td>
+               </tr>
+               <tr><th>Высоко железистого из ЦВОЦ</sup></th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.in_fe_hi"/>
+                   </td>
+               </tr>
+               <tr>
+                   <th>Бедно-кадмиего</th>
+                   <td colspan="3">
+                       <input class="form-control" type="text" value="" name="shift.data.in_poor_cd" />
+                   </td>
+               </tr>
+            </tbody>
+     </table>
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+    </div>
+</div>
