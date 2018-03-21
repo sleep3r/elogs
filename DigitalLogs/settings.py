@@ -88,6 +88,25 @@ DATABASES = {
 }
 
 
+# driver='{ODBC Driver 13 for SQL Server}',
+#                           server='WIN-E402USVKBEF',
+#                           database='ZincSales_Dev',
+#                           username='ZincSales_Dev',
+#                           password='Singapore2017',
+#                           trusted_connection='yes'
+#                           )
+
+# DATABASES = {
+#     'default': {
+#         'NAME': 'my_database',
+#         'ENGINE': 'sqlserver_ado',
+#         'HOST': 'dbserver\\ss2012',
+#         'USER': '',
+#         'PASSWORD': '',
+#     }
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

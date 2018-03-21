@@ -34,7 +34,7 @@ def generate_standard_forms():
     return standard_forms
 
 # Any form class can be instanced like jea_stand_forms['CinderDensity']() (model name inside brackets)
-# Any class can be obtained like jea_stand_forms['CinderDensity']()
+# Any class can be obtained like jea_stand_forms['CinderDensity']
 jea_stand_forms = generate_standard_forms()
 
 # jea_stand_forms['Denser'].Meta.fields

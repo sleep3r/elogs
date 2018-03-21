@@ -1,6 +1,6 @@
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 
 from django.template import loader
@@ -14,11 +14,16 @@ import pprint
 from express_anal_app.journal_forms import *
 
 from collections import defaultdict
-from utils.webutils import parse
+
+from express_anal_app.tables import get_free_tanks_table
+from utils.webutils import parse, process_json_view
 
 
-def deep_dict():
-    return defaultdict(deep_dict)
+@process_json_view(auth_required=False)
+def json_test(request):
+    res = get_free_tanks_table(shift=None)
+    res['json-test'] = dict(request.GET)
+    return res
 
 
 def index(request):
