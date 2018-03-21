@@ -204,7 +204,7 @@ def get_shift_info_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    d = ShiftInfo.objects.get(shift=shift)
+    d = ShiftInfo.objects.filter(shift=shift)[0]
     add_model_to_dict(d, res)
 
     res['date'] = shift.date

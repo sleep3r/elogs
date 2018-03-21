@@ -25,6 +25,11 @@ def json_test(request):
     res['json-test'] = dict(request.GET)
     return res
 
+@process_json_view(auth_required=False)
+def json_densers(request):
+    answer = {'alfa':'betta', 'delta':[], 'gamma':1,}
+    return answer
+
 
 def index(request):
     context = {
@@ -218,41 +223,6 @@ def leaching_ju(request):
     return HttpResponse(template.render(context, request))
 
 
-def electrolysis(request):
-    context = {
-        'title': "Журнал Экспресс анализа",
-        'subtitle': "Цех выщелачивания"
-    }
-
-    template = loader.get_template('journal.html')
-    return HttpResponse(template.render(context, request))
-
-
-def leaching_jrk(request):
-    context = {
-        'title': "Журнал расхода серной кислоты",
-        'subtitle': "Цех выщелачивания"
-    }
-    template = loader.get_template('journal.html')
-    return HttpResponse(template.render(context, request))
-
-
-def electrolysisEdit(request):
-    if request.method == 'GET':
-        form = PostForm()
-    else:
-        form = PostForm(request.POST)  # Bind data from request.POST into a PostForm
-        if form.is_valid():
-            dump = form.cleaned_data['ph']
-            # created_at = form.cleaned_data['created_at']
-
-    context = {
-        'form': form
-    }
-    template = loader.get_template('react-table-edit.html')
-    return HttpResponse(template.render(context, request))
-
-
 def leaching_jea_edit(request):
     error_messages = ''
     cleaned_data = ''
@@ -399,6 +369,7 @@ def leaching_all_edit(request):
         'title': "Журнал Экспресс анализа (Заполнение)",
         'subtitle': "Цех выщелачивания",
         'form_title': "Заполнить форму",
+
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -410,6 +381,11 @@ def leaching_all_edit(request):
             'fields': formShiftInfo,
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info'
+        },
+        'form_empty_tanks': {
+            'title': 'Наличие свободных ёмкостей',
+            'data': get_free_tanks_table(shift),
+            'action': '/save/empty/tanks',
         },
         'form_reagents': {
             'title': 'Реагенты',
@@ -818,5 +794,42 @@ def leaching_save_shift_info(request):
     else:
         print(form.errors)
 
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_empty_tanks(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    fields = [
+        'str_num',
+        'tank_name',
+        'prev_measure',
+        'cur_measure',
+        'deviation',
+    ]
+
+    rows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    for num in rows:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': datetime.datetime.now(),
+        }
+        model['str_num'] = str(num)
+        for field in fields:
+            index = field + '__' + str(num)
+            if index in request.POST:
+                model[field] = request.POST[index]
+
+        form = jea_stand_forms['FreeTank'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
