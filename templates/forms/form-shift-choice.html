@@ -1,0 +1,24 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <table class="table">
+            <tr>
+                <td>Выбранная смена:</td>
+                <td>
+                    <select id="shift_select" name="shift_select" class="form-control" onchange="leaching.shiftSelect()">
+                        {% for shift in form.data %}
+                            {% if shift.id == form.currentId %}
+                            <option selected value="{{shift.id}}">{{shift.order}} от {{shift.date}} ({{shift.plant}})</option>
+                            {% else %}
+                            <option value="{{shift.id}}">{{shift.order}} от {{shift.date}} ({{shift.plant}})</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
