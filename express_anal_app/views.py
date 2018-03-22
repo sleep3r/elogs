@@ -384,6 +384,11 @@ def leaching_all_edit(request):
             'name': 'form_cinder',
             'action': '/save/cinder'
         },
+        'form_veu': {
+            'title': 'ВИУ',
+            'name': 'form_veu',
+            'action': '/save/veu',
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -1013,7 +1018,37 @@ def leaching_save_vue(request):
     print('\n----FORM-----')
     print(request.POST)
     print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    dt = datetime.datetime.now()
+    current_time = dt.replace(minute=0, second=0, microsecond=0)
 
 
+    rows = ['1', '2', '3']
+
+    fields = [
+        'hot',
+        'cold',
+        'comment',
+    ]
+    for num in rows:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+        }
+        model['num'] = num
+        for field in fields:
+            post_index = 'veu_' + field + '_' + num
+            if post_index in request.POST:
+                model[field] = request.POST[post_index]
+
+        form = jea_stand_forms['VEU'](model)
+
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
