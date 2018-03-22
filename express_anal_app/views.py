@@ -394,6 +394,11 @@ def leaching_all_edit(request):
             'name': 'form_sample2',
             'action': '/save/sample2'
         },
+        'form_self_security': {
+            'title': '',
+            'name': '',
+            'action': '/save/self/security'
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -1093,4 +1098,42 @@ def leaching_save_sample2(request):
         else:
             print(form.errors)
 
+    return HttpResponseRedirect('/leaching/all/edit')
+
+
+def leaching_save_self_security(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    dt = datetime.datetime.now()
+    current_time = dt.replace(minute=0, second=0, microsecond=0)
+
+    rows = ['1', '2', '3']
+    fields = [
+        'note',
+        'bignote'
+    ]
+
+    for num in rows:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+        }
+
+        for field in fields:
+            post_index = field + '_' + num
+            print(post_index)
+            if post_index in request.POST:
+                model[field] = request.POST[post_index]
+        model['bignote'] = request.POST['bignote_1']
+
+        form = jea_stand_forms['SelfSecurity'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
     return HttpResponseRedirect('/leaching/all/edit')

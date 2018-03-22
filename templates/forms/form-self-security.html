@@ -1,0 +1,47 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content shift_info">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="3">Самоохрана</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Обход</th>
+                        <th rowspan="4">Примечание</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>9<sup>00</sup></td>
+                        <td><input class="form-control" type="text" value="" name="note_1"> </td>
+                        <td rowspan="3"><textarea class="form-control" name="bignote_1"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>16<sup>00</sup></td>
+                        <td><input class="form-control" type="text" value="" name="note_2"> </td>
+                    </tr>
+                    <tr>
+                        <td>18<sup>00</sup></td>
+                        <td><input class="form-control" type="text" value="" name="note_3"> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+    </div>
+</div>
