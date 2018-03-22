@@ -3,17 +3,15 @@
     <div class="x_title">
         <h2>BCHC</h2>
         <div class="clearfix"></div>
-
     </div>
     <div class="x_content">
-
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
                     <th colspan="10" >BCHC</th>
                     <th colspan="5" >Ларокс</th>
-                    <th colspan="6" >Очищенный раствор</th>
+                    <th colspan="7" >Очищенный раствор</th>
                     <th colspan="6" >Упр. Несоответствия продукции</th>
                 </tr>
                 <tr>
@@ -47,7 +45,6 @@
                     <td>{{row.larox.ph |floatformat:2}}</td>
                     <td>{{row.larox.solid |floatformat:2}}</td>
 
-
                     <td>{{row.purified.co |floatformat:2}}</td>
                     <td>{{row.purified.sb |floatformat:2}}</td>
                     <td>{{row.purified.cu |floatformat:2}}</td>
@@ -58,10 +55,9 @@
 
                     <td>{{row.prod_correction.norm |floatformat:2}}</td>
                     <td>{{row.prod_correction.fact |floatformat:2}}</td>
-
-                    <td >{{row.prod_correction.error |floatformat:2}}</td>
-                    <td >{{row.prod_correction.correction}}</td>
-                    <td >{{row.prod_correction.verified }}</td>
+                    <td>{{row.prod_correction.error |floatformat:2}}</td>
+                    <td>{{row.prod_correction.correction}}</td>
+                    <td>{{row.prod_correction.verified }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
