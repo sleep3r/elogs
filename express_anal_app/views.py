@@ -389,6 +389,11 @@ def leaching_all_edit(request):
             'name': 'form_veu',
             'action': '/save/veu',
         },
+        'form_sample2': {
+            'title': 'Пробник №2',
+            'name': 'form_sample2',
+            'action': '/save/sample2'
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -1046,6 +1051,43 @@ def leaching_save_vue(request):
 
         form = jea_stand_forms['VEU'](model)
 
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_sample2(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    rows = ['1', '2', '3', '4', '5', '6']
+    fields = [
+        #'time',
+        'cd',
+        'cu'
+    ]
+
+    dt = datetime.datetime.now()
+
+    for num in rows:
+        current_time = dt.replace(hour=int(num), minute=0, second=0, microsecond=0)
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+        }
+        for field in fields:
+            post_index = field + '_' + num
+            if post_index in request.POST:
+                model[field] = request.POST[post_index]
+
+        form = jea_stand_forms['Sample2'](model)
         if form.is_valid():
             form.save()
         else:

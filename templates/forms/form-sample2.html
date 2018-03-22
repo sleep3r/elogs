@@ -1,0 +1,60 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content shift_info">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Время</th>
+                        <th>Cd</th>
+                        <th>Cu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_1" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_1" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_1" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_2" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_2" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_2" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_3" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_3" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_3" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_4" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_4" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_4" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_5" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_5" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_5" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="form-control" value="" name="time_6" ></td>
+                        <td><input type="text" class="form-control" value="" name="cd_6" ></td>
+                        <td><input type="text" class="form-control" value="" name="cu_6" ></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+    </div>
+</div>
