@@ -1,0 +1,81 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content shift_info">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+            <table class="table table-bordered table-electrolysis">
+            <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th>I серия</th>
+                <th>II серия</th>
+                <th>III серия</th>
+                <th>IV серия</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th rowspan="2" >Нагрузки</th>
+                    <th>7<sup>00</sup></th>
+                    <td><input class="form-control" type="text" value="" name="loads1_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads1_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads1_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads1_4"/></td>
+                </tr>
+                <tr>
+                    <th>12<sup>00</sup></th>
+                    <td><input class="form-control" type="text" value="" name="loads2_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads2_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads2_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="loads2_4"/></td>
+
+                </tr>
+                <tr>
+                    <th colspan="2">Показания счётчика</th>
+                    <td><input class="form-control" type="text" value="" name="counter_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="counter_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="counter_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="counter_4"/></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Бункера ЦВЦО</th>
+                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_4"/></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Силоса ОЦ</th>
+                    <td><input class="form-control" type="text" value="" name="silos_furnace_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="silos_furnace_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="silos_furnace_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="silos_furnace_4"/></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Бункера ОЦ</th>
+                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_1"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_2"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_3"/></td>
+                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_4"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Комментарий</td>
+                    <td colspan="4">
+                        <input class="form-control" type="text" value="" name="comment"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+    </div>
+</div>

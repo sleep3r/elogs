@@ -374,6 +374,11 @@ def leaching_all_edit(request):
             'name': 'form_schiehta',
             'action': '/save/schiehta',
         },
+        'form_electrolysis': {
+            'title': 'Электролиз',
+            'name': 'form_electrolysis',
+            'action': '/save/electrolysis'
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -920,5 +925,59 @@ def leaching_save_schiehta(request):
             form.save()
         else:
             print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_electrolysis(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    dt = datetime.datetime.now()
+    current_time = dt.replace(minute=0, second=0, microsecond=0)
+
+    series = ['1', '2', '3', '4']
+
+
+    fields = [
+        'series',
+        'loads1',
+        'loads2',
+        'time1',
+        'time2',
+        'counter',
+        'bunkers_weltz',
+        'silos_furnace',
+        'bunkers_furnace',
+        'comment',
+    ]
+    for seriea in series:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+        }
+        model['series'] = seriea
+        model['comment'] = request.POST['comment']
+        for field in fields:
+            post_index = field + '_' + seriea
+            if post_index in request.POST:
+                model[field] = request.POST[post_index]
+
+
+        form = jea_stand_forms['Electrolysis'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_cinder(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
 
     return HttpResponseRedirect('/leaching/all/edit')
