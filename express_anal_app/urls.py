@@ -4,7 +4,7 @@ from express_anal_app import views
 
 urlpatterns = [
     url('^$', views.index),
-    url('jea/edit$', views.leaching_jea_edit),
+    # url('jea/edit$', views.leaching_jea_edit),
     url('all/edit$', views.leaching_all_edit),
 
     url('save/self/security$', views.leaching_save_self_security),

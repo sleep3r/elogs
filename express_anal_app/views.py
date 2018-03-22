@@ -48,7 +48,12 @@ def index(request):
 
 def leaching_ju(request):
     rows = DenserAnal.objects.all()
-    shift = Shift.objects.all()[0]
+
+    if 'shift' in request.GET:
+        shiftId = request.GET['shift']
+        shift = Shift.objects.filter(id=shiftId)[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     helpers.dump(rows)
 
@@ -198,10 +203,19 @@ def leaching_ju(request):
         'dump': pprint.pformat(data_reagent)
     }
 
+    shifts = Shift.objects.all()
+
     context = {
         'title': "Журнал учёта ",
         'subtitle': "Цех выщелачивания",
         'shift': {'date': shift.date, 'num': shift.order, 'data': shift},
+        'form_shift': {
+            'title': 'Выбранная смена',
+            'currentId': shift.id,
+            'data': shifts,
+            'dump': pprint.pformat(shifts),
+            'action': '/leaching/ju'
+        },
         'bchc': bchc,
         'sgustiteli': densers,
         'znpulp': znpulp,
@@ -216,59 +230,11 @@ def leaching_ju(request):
         'probnik': probnik,
         'schiehta': schiehta,
         'reagents': reagents,
+
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
 
     template = loader.get_template('journal.html')
-    return HttpResponse(template.render(context, request))
-
-
-def leaching_jea_edit(request):
-    error_messages = ''
-    cleaned_data = ''
-
-    if request.method == 'GET':
-        currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
-
-        form = DenserForm(initial={
-            'journal': '1',
-            'shift': '1',
-            'point': '10',
-            'sink': '0',
-            'ph': '0.0',
-            'cu': '0.0',
-            'fe': '0.0',
-            'liq_sol': '0.1',
-            'time': currentDate})
-
-        form.error_css_class = 'label label-danger'
-
-    else:
-        form = DenserForm(request.POST)  # Bind data from request.POST into a PostForm
-
-        if form.is_valid():
-            form.save()
-            # return HttpResponseRedirect(request.path_info)
-            return HttpResponseRedirect('/leaching/ju')
-        else:
-            error_messages = form.errors
-            cleaned_data = form.cleaned_data
-
-    journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
-
-    context = {
-        'title': "Журнал Экспресс анализа (Edit)",
-        'subtitle': "Цех выщелачивания",
-        'form_title': "Заполнить форму",
-        'form': form,
-        'journal': journal,
-        'shift': shift,
-        'error_messages': error_messages,
-        'data': cleaned_data
-    }
-
-    template = loader.get_template('journal-edit.html')
     return HttpResponse(template.render(context, request))
 
 
@@ -404,6 +370,7 @@ def leaching_all_edit(request):
             'currentId': shift.id,
             'data': shifts,
             'dump': pprint.pformat(shifts),
+            'action': '/leaching/all/edit'
         },
         'form_shift_info': {
             'title': 'Принято и откачено',
@@ -916,6 +883,7 @@ def leaching_save_neutural_solution(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+
 def leaching_save_schiehta(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -947,6 +915,7 @@ def leaching_save_schiehta(request):
             print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
+
 
 def leaching_save_electrolysis(request):
     print('\n----FORM-----')
@@ -994,6 +963,7 @@ def leaching_save_electrolysis(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+
 def leaching_save_cinder(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1023,6 +993,7 @@ def leaching_save_cinder(request):
         print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
+
 
 def leaching_save_vue(request):
     print('\n----FORM-----')
@@ -1062,6 +1033,7 @@ def leaching_save_vue(request):
             print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
+
 
 def leaching_save_sample2(request):
     print('\n----FORM-----')
