@@ -379,6 +379,11 @@ def leaching_all_edit(request):
             'name': 'form_electrolysis',
             'action': '/save/electrolysis'
         },
+        'form_cinder': {
+            'title': 'Огарок',
+            'name': 'form_cinder',
+            'action': '/save/cinder'
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -939,7 +944,6 @@ def leaching_save_electrolysis(request):
 
     series = ['1', '2', '3', '4']
 
-
     fields = [
         'series',
         'loads1',
@@ -979,5 +983,37 @@ def leaching_save_cinder(request):
     print('\n----FORM-----')
     print(request.POST)
     print('\n\n')
+
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+    dt = datetime.datetime.now()
+    current_time = dt.replace(minute=0, second=0, microsecond=0)
+    model = {
+        'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+        'journal': journal.id,
+        'shift': shift.id,
+        'time': current_time,
+    }
+
+    model['col_num'] = 1
+    model['shift_total'] = request.POST['shift_total']
+    model['day_total'] = request.POST['day_total']
+    model['in_process'] = request.POST['in_process']
+
+    form = jea_stand_forms['Cinder'](model)
+
+    if form.is_valid():
+        form.save()
+    else:
+        print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_vue(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+
+
 
     return HttpResponseRedirect('/leaching/all/edit')
