@@ -382,6 +382,7 @@ def leaching_all_edit(request):
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info'
         },
+
         'form_empty_tanks': {
             'title': 'Наличие свободных ёмкостей',
             'data': get_free_tanks_table(shift),
@@ -402,6 +403,20 @@ def leaching_all_edit(request):
             'tanks': ['3', '4', '5'],
             'name': 'form_ready_tanks',
             'action': '/save/tanks',
+        },
+        'form_neutural_solution': {
+            'title':'Нейтральный раствор',
+            'columns': {
+                    "1": "Наличие<br>нейтр. р-ра",
+                    "2": "Уч. выщел. N1<br>бак 3,4,5,4А",
+                    "3": "Бак 3",
+                    "4": "Бак 4",
+                    "5": "Итого",
+                    "6": "Бак III<br/>серии",
+                    "7": "Бак 5",
+                    "8": "Бак 6"
+            },
+            'action': '/save/neutural/solution',
         },
         'form_densers_neutural': {
             'title': 'Нейтральные сгустители',
@@ -833,3 +848,42 @@ def leaching_save_empty_tanks(request):
             print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
+
+def leaching_save_neutural_solution(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    tanks = ['1', '2', '2_2', '3', '4', '5', '6', '7', '8']
+
+    for num in tanks:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': datetime.datetime.now()
+        }
+        model['str_num'] = num
+        model['tank_name'] = str(request.POST['tank_name_'+num]).replace('<br/>', ' ').strip()
+        index_post = 'tank_' + num
+        model['value'] = ' '
+        print(index_post)
+
+        if index_post in request.POST:
+            model['value'] = request.POST[index_post]
+
+        if len(model['value']) == 0:
+            model['value'] = '0'
+
+        form = jea_stand_forms['NeutralSolution'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+
+
+    return HttpResponseRedirect('/leaching/all/edit')
+

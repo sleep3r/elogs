@@ -1,0 +1,48 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{form.title}}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content shift_info">
+        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for hidden_field in form.fields.hidden_fields %}
+                {{ hidden_field }}
+            {% endfor %}
+
+
+            <table class="table table-bordered">
+            <thead>
+            <tr>
+                {% for num, columnName in form.columns.items %}
+                    {% if num == '2' %}
+                    <th colspan="2" >{{columnName |safe}}
+                        <input type="hidden" name="tank_name_2" value="{{columnName}}" />
+                        <input type="hidden" name="tank_name_2_2" value="{{columnName}}" />
+                    </th>
+                    {% else %}
+                    <th>{{columnName |safe}}<input type="hidden" name="tank_name_{{num}}" value="{{columnName}}" /></th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input class="form-control" type="text" value="" required name="tank_1" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_2" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_2_2" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_3" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_4" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_5" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_6" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_7" ></td>
+                <td><input class="form-control" type="text" value="" required name="tank_8" ></td>
+            </tr>
+            </tbody>
+        </table>
+
+            <input type="submit" class="btn btn-success" value="Сохранить" />
+            </form>
+    </div>
+</div>
