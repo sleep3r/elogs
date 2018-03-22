@@ -59,7 +59,8 @@ class LeachingExpressAnal(JournalTable):
     при этом заполняются только те поля, которые есть в данной секции, остальные поля остаются пустыми.
     Сама секция хранится в поле point
     """
-    point = models.CharField(max_length=20, verbose_name='Место измерения', choices=(('larox', 'Ларокс'),
+    point = models.CharField(max_length=20, verbose_name='Место измерения', choices=(('lshs','ВСНС'),
+                                                                                    ('larox', 'Ларокс'),
                                                                                      ('purified', 'Очищенный раствор'),
                                                                                      ('prod_correction',
                                                                                       'Упр. Несоответствия продукции'),))
