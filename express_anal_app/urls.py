@@ -7,6 +7,7 @@ urlpatterns = [
     url('jea/edit$', views.leaching_jea_edit),
     url('all/edit$', views.leaching_all_edit),
 
+    url('save/schiehta$', views.leaching_save_schiehta),
     url('save/tanks$', views.leaching_save_tanks),
     url('save/densers/neutural$', views.leaching_save_neutural_densers),
     url('save/express/analysis$', views.leaching_save_express_analysis),

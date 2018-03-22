@@ -369,7 +369,11 @@ def leaching_all_edit(request):
         'title': "Журнал Экспресс анализа (Заполнение)",
         'subtitle': "Цех выщелачивания",
         'form_title': "Заполнить форму",
-
+        'form_schiehta': {
+            'title': 'Шихта',
+            'name': 'form_schiehta',
+            'action': '/save/schiehta',
+        },
         'form_shift': {
             'title': 'Выбранная смена',
             'currentId': shift.id,
@@ -382,7 +386,6 @@ def leaching_all_edit(request):
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info'
         },
-
         'form_empty_tanks': {
             'title': 'Наличие свободных ёмкостей',
             'data': get_free_tanks_table(shift),
@@ -812,6 +815,7 @@ def leaching_save_shift_info(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+
 def leaching_save_empty_tanks(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -849,6 +853,7 @@ def leaching_save_empty_tanks(request):
 
     return HttpResponseRedirect('/leaching/all/edit')
 
+
 def leaching_save_neutural_solution(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -884,6 +889,36 @@ def leaching_save_neutural_solution(request):
             print(form.errors)
 
 
-
     return HttpResponseRedirect('/leaching/all/edit')
 
+def leaching_save_schiehta(request):
+    print('\n----FORM-----')
+    print(request.POST)
+    print('\n\n')
+    journal = Journal.objects.all()[0]
+    shift = Shift.objects.all()[0]
+
+    nums = ['1', '2', '3', '4']
+    dt = datetime.datetime.now()
+    current_time = dt.replace(minute=0, second=0, microsecond=0)
+
+    for num in nums:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+            'num': num
+        }
+
+        model['name'] = request.POST['name_' + num]
+        model['value'] = request.POST['value_' + num]
+
+
+        form = jea_stand_forms['Schieht'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return HttpResponseRedirect('/leaching/all/edit')
