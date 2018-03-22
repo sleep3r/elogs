@@ -8,7 +8,7 @@
             <tr>
                 <td>Выбранная смена:</td>
                 <td>
-                    <select id="shift_select" name="shift_select" class="form-control" onchange="leaching.shiftSelect()">
+                    <select id="shift_select" name="shift_select" class="form-control" onchange="leaching.shiftSelect('{{form.action}}')">
                         {% for shift in form.data %}
                             {% if shift.id == form.currentId %}
                             <option selected value="{{shift.id}}">{{shift.order}} от {{shift.date}} ({{shift.plant}})</option>
