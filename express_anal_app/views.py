@@ -23,13 +23,13 @@ from utils.webutils import parse, process_json_view
 def json_test(request):
     res = get_free_tanks_table(shift=None)
     res['json-test'] = dict(request.GET)
+    res['json-post'] = dict(request.POST)
     return res
+
 
 @process_json_view(auth_required=False)
 def json_densers(request):
-    print(request.POST)
-    print(request.GET)
-    answer = {'alfa':'betta', 'delta':[], 'gamma':1,}
+    answer = {'post': dict(request.POST)}
     return answer
 
 
@@ -1199,49 +1199,54 @@ def leaching_save_self_security(request):
 
     return HttpResponseRedirect('/leaching/all/edit?shift='+str(shift.id))
 
+
 @process_json_view(auth_required=False)
 def leaching_save_self_security_json(request):
-    print(request.POST)
+    print(dict(request.POST))
 
-    # journal = Journal.objects.all()[0]
-    # if 'shift_id' in request.POST:
-    #     shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
-    # else:
-    #     shift = Shift.objects.all()[0]
-    #
-    # dt = datetime.datetime.now()
-    #
-    # rows = ['1', '2', '3']
-    # fields = [
-    #     'note',
-    #     'bignote'
-    # ]
-    #
-    # for num in rows:
-    #     hour_index = 'hour_'+num
-    #     if hour_index in request.POST:
-    #         hour = request.POST[hour_index]
-    #     else:
-    #         hour = '1'
-    #
-    #     current_time = dt.replace(hour=int(hour), minute=0, second=0, microsecond=0)
-    #     model = {
-    #         'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
-    #         'journal': journal.id,
-    #         'shift': shift.id,
-    #         'time': current_time,
-    #     }
-    #
-    #     for field in fields:
-    #         post_index = field + '_' + num
-    #         if post_index in request.POST:
-    #             model[field] = request.POST[post_index]
-    #     model['bignote'] = request.POST['bignote_1']
-    #
-    #     form = jea_stand_forms['SelfSecurity'](model)
-    #     if form.is_valid():
-    #         form.save()
-    #     else:
-    #         print(form.errors)
+    journal = Journal.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
-    return {'result': 'ok', 'post': pprint.pformat(request.POST) }
+    dt = datetime.datetime.now()
+
+    rows = ['1', '2', '3']
+    fields = [
+        'note',
+        'bignote'
+    ]
+
+    for num in rows:
+        hour_index = 'hour_'+num
+        if hour_index in request.POST:
+            hour = request.POST[hour_index]
+        else:
+            hour = '1'
+
+        current_time = dt.replace(hour=int(hour), minute=0, second=0, microsecond=0)
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': current_time,
+        }
+
+        for field in fields:
+            post_index = field + '_' + num
+            if post_index in request.POST:
+                model[field] = request.POST[post_index]
+        model['bignote'] = request.POST['bignote_1']
+
+        form = jea_stand_forms['SelfSecurity'](model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return {
+            'result': 'ok',
+            'items': tables.get_self_security_table(shift),
+            'post': dict(request.POST)
+    }

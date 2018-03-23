@@ -1,4 +1,5 @@
 
+
 Vue.filter('formatDate', function(value) {
   if (value) {
     return moment(String(value)).format('DD.MM.YYYY hh:mm')
@@ -10,12 +11,17 @@ Vue.filter('formatHour', function(value) {
     return moment(String(value)).format('hh')
   }
 })
+
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app',
   data: {
     showModal: false,
     message: 'Hello Vue!',
+    tables: {
+        'form_self_security': { visible: 1
+        }
+    },
     posts: []
   },
   methods: {
@@ -24,40 +30,24 @@ var app = new Vue({
 
     },
     savePostForm: function(formId) {
-        let form = document.getElementById(formId);
-        console.log(form.action)
-        console.info(JSON.stringify(form))
-        let formData = new FormData(form)
 
-        data = []
+        let form = document.getElementById(formId);
+        let formData = new FormData(form)
+        let formDataToSend = new FormData()
 
         formData.forEach((key, value) => {
-            data[value] = key;
+            formDataToSend.append(value,key)
         });
 
-        console.info(data)
-
-        axios({
-            method: 'post',
-            url: '/json/densers',
-  data: {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  }
-});
-
-//        axios.post(form.action + '/json', {
-        axios.post('/json/densers', data)
-        .then(response => {
-            console.info(response.data)
+        this.$http.post(form.action + '/json', formDataToSend)
+                .then(response => {
+                console.info(response.data)
+                this.tables[formId].data = response.data
+                this.tables[formId].visible = 0
         })
         .catch(e => {
             console.log(e)
         })
-
-        console.info("save")
-        console.info(formId)
-
 
     }
   }
