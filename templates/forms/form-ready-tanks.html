@@ -1,6 +1,3 @@
-<style>
-    .form-reagents__fence-state { width: 600px !important; }
-</style>
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -11,7 +8,6 @@
             </li>
         </ul>
         <div class="clearfix"></div>
-        <!--<pre>{{form.dump}}</pre>-->
     </div>
     <div class="x_content">
         <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
@@ -21,7 +17,9 @@
               {{ hidden_field }}
               {% endfor %}
 
-     <table class="table table-bordered">
+            <input type="hidden" name="shift_id" value="{{form.shift}}">
+
+            <table class="table table-bordered">
             <thead>
             <tr>
                 {% for columnName in form.columns %}
