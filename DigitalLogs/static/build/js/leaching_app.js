@@ -1,4 +1,7 @@
 
+Vue.filter("formatNumber", function (value) {
+    return numeral(value).format("00.00");
+});
 
 Vue.filter('formatDate', function(value) {
   if (value) {
@@ -19,8 +22,8 @@ var app = new Vue({
     showModal: false,
     message: 'Hello Vue!',
     tables: {
-        'form_self_security': { visible: 1
-        }
+        'form_self_security': { visible: 1},
+        'form_express_analysis': { visible: 1},
     },
     posts: []
   },

@@ -7,8 +7,14 @@ urlpatterns = [
     # url('jea/edit$', views.leaching_jea_edit),
     url('all/edit$', views.leaching_all_edit),
 
+
+    url('save/express/analysis/json$', views.leaching_save_express_analysis_json),
     url('save/self/security/json$', views.leaching_save_self_security_json),
+
+    url('save/express/analysis$', views.leaching_save_express_analysis),
     url('save/self/security$', views.leaching_save_self_security),
+
+
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
     url('save/cinder$', views.leaching_save_cinder),
@@ -16,7 +22,7 @@ urlpatterns = [
     url('save/electrolysis$', views.leaching_save_electrolysis),
     url('save/tanks$', views.leaching_save_tanks),
     url('save/densers/neutural$', views.leaching_save_neutural_densers),
-    url('save/express/analysis$', views.leaching_save_express_analysis),
+
     url('save/densers$', views.leaching_save_densers),
     url('save/pulps$', views.leaching_save_pulps),
     url('save/hydrometal$', views.leaching_save_hydrometal),
@@ -24,6 +30,8 @@ urlpatterns = [
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
     url('save/neutural/solution', views.leaching_save_neutural_solution),
+
+
 
     url('ju', views.leaching_ju),
     url('json/test$', views.json_test),

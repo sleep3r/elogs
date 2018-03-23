@@ -691,9 +691,7 @@ def leaching_save_agitators(request):
 
 
 def leaching_save_express_analysis(request):
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
+
     journal = Journal.objects.all()[0]
 
     if 'shift_id' in request.POST:
@@ -1198,6 +1196,82 @@ def leaching_save_self_security(request):
             print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit?shift='+str(shift.id))
+
+
+@process_json_view(auth_required=False)
+def leaching_save_express_analysis_json(request):
+    journal = Journal.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    times = ['8', '10', '12', '14', '16', '18', '20']
+    fields = [
+        'co',
+        'sb',
+        'cu',
+        'cu_st1',
+        'cd',
+        'solid_st1',
+        'ph',
+        'fe',
+        'arsenic',
+        'solid',
+        'current',
+        'density'
+    ]
+
+    prod_fields = ['norm', 'fact', 'error', 'correction']
+
+    points = ['lshs', 'larox', 'purified', 'prod_correction']
+
+    for num in times:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id
+
+        }
+        dt = datetime.datetime.now()
+        model['time'] = dt.replace(hour=int(num), minute=0, second=0, microsecond=0)
+        for point in points:
+            model['point'] = point
+            for field in fields:
+                postIndex = 'row.' + point + '.' + field + '_' + num
+                if postIndex in request.POST:
+                    value = request.POST[postIndex]
+                    model[field] = value
+
+            # form = ExpressAnalysisForm(model)
+            form = form = jea_stand_forms['LeachingExpressAnal'](model)
+            if form.is_valid():
+                form.save()
+            else:
+                print(form.errors)
+
+        prod_model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': model['time']
+        }
+        for pf in prod_fields:
+            post_index = 'row.prod_correction.' + pf + '_' + num
+            if post_index in request.POST:
+                prod_model[pf] = request.POST[post_index]
+
+        form = jea_stand_forms['ProductionError'](prod_model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return {
+        'result': 'ok',
+        'items': tables.get_leaching_express_anal_table(shift),
+        'post': dict(request.POST)
+    }
 
 
 @process_json_view(auth_required=False)

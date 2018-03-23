@@ -36,7 +36,6 @@ def process_json_view(auth_required=True):
                 if not request.user.is_authenticated():
                     return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
                 if request.method == 'POST':
-
                     received_token = request.POST.get('token', None)
                 else:
                     received_token = request.GET.get('token', None)
@@ -61,7 +60,6 @@ def process_json_view(auth_required=True):
                 else:
                     response = JsonResponse(response, safe=False, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
 
-            # response["Access-Control-Allow-Origin"] = webURL
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
             response["Access-Control-Allow-Credentials"] = "true"

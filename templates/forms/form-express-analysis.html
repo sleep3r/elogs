@@ -10,7 +10,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
               {% csrf_token %}
 
               {% for hidden_field in form.fields.hidden_fields %}
@@ -38,7 +38,43 @@
                     {% endfor %}
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="tables.{{form.name}}.visible == 0">
+                <tr class="mini"   v-for="(item, dt) in tables.{{form.name}}.data.items">
+                        <td>[[dt |formatHour]]<sup>00</sup></td>
+                        <template v-if="item.lshs">
+                        <td>[[item.lshs.co |formatNumber]]</td>
+                        <td>[[item.lshs.sb |formatNumber]]</td>
+                        <td>[[item.lshs.cu |formatNumber]]</td>
+                        <td>[[item.lshs.cd |formatNumber]]</td>
+                        <td>[[item.lshs.solid_st1 |formatNumber]]</td>
+                        <td>[[item.lshs.ph |formatNumber]]</td>
+                        <td>[[item.lshs.fe |formatNumber]]</td>
+                        <td>[[item.lshs.arsenic |formatNumber]]</td>
+                        <td>[[item.lshs.solid |formatNumber]]</td>
+                        <td>[[item.lshs.density |formatNumber]]</td>
+                        </template>
+                        <td>[[item.larox.co |formatNumber]]</td>
+                        <td>[[item.larox.sb |formatNumber]]</td>
+                        <td>[[item.larox.cd |formatNumber]]</td>
+                        <td>[[item.larox.solid |formatNumber]]</td>
+                        <td>[[item.larox.ph |formatNumber]]</td>
+
+                        <td>[[item.purified.co |formatNumber]]</td>
+                        <td>[[item.purified.sb |formatNumber]]</td>
+                        <td>[[item.purified.cu |formatNumber]]</td>
+                        <td>[[item.purified.cd |formatNumber]]</td>
+                        <td>[[item.purified.fe |formatNumber]]</td>
+                        <td>[[item.purified.current |formatNumber]]</td>
+                        <td>[[item.purified.density |formatNumber]]</td>
+
+                        <td>[[item.prod_correction.norm |formatNumber]]</td>
+                        <td>[[item.prod_correction.fact |formatNumber]]</td>
+                        <td>[[item.prod_correction.error |formatNumber]]</td>
+                        <td>[[item.prod_correction.correction |formatNumber]]</td>
+
+                </tr>
+                </tbody>
+            <tbody v-if="tables.{{form.name}}.visible == 1">
                 {% for time in form.times %}
                 <tr class="mini">
                     <td>{{time}}<sup>00</sup></td>
@@ -76,9 +112,8 @@
             </tbody>
         </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
-            </form>
-
+        </form>
+        <button class="btn btn-success" v-if="tables.{{form.name}}.visible == 1" v-on:click="savePostForm('{{form.name}}')">Сохранить</button>
     </div>
 </div>
 
