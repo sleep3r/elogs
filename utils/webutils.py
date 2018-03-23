@@ -32,8 +32,6 @@ def process_json_view(auth_required=True):
     """
     def real_decorator(view):
         def w(request, **kwargs):
-            print("---\n")
-            print(request.POST)
             if auth_required:
                 if not request.user.is_authenticated():
                     return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
@@ -65,7 +63,7 @@ def process_json_view(auth_required=True):
 
             # response["Access-Control-Allow-Origin"] = webURL
             response["Access-Control-Allow-Origin"] = "*"
-            response["Access-Control-Allow-Methods"] = "GET, POST, POST, OPTIONS"
+            response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
             response["Access-Control-Allow-Credentials"] = "true"
             return response
 
