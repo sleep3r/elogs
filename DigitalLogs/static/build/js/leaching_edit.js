@@ -5,3 +5,4 @@ leaching = {
         window.location.replace(link + "?shift=" + shiftId);
     }
 };
+

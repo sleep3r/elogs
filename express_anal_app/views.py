@@ -27,6 +27,8 @@ def json_test(request):
 
 @process_json_view(auth_required=False)
 def json_densers(request):
+    print(request.POST)
+    print(request.GET)
     answer = {'alfa':'betta', 'delta':[], 'gamma':1,}
     return answer
 
@@ -54,8 +56,6 @@ def leaching_ju(request):
         shift = Shift.objects.filter(id=shiftId)[0]
     else:
         shift = Shift.objects.all()[0]
-
-    helpers.dump(rows)
 
     data_densers = tables.get_densers_table(shift)
     data_bchc = tables.get_leaching_express_anal_table(shift)
@@ -89,14 +89,14 @@ def leaching_ju(request):
     densers = {
         'title': 'Сгустители',
         'columns': ['10', "11", "12"],
-        'data': data_densers,  # helpers.denserData(),
+        'data': data_densers,
         'dump': pprint.pformat(data_densers, indent=4)
     }
 
     znpulp = {
         'title': 'Пульпа',
         'columns': ['10', "11", "12"],
-        'data': data_znpulp,  # helpers.denserData(),
+        'data': data_znpulp,
         'dump': pprint.pformat(data_znpulp, indent=4)
     }
 
@@ -333,6 +333,7 @@ def leaching_all_edit(request):
 
     context = {
         'title': "Журнал Экспресс анализа (Заполнение)",
+        'vue': True,
         'subtitle': "Цех выщелачивания",
         'form_title': "Заполнить форму",
         'form_schiehta': {
@@ -361,8 +362,9 @@ def leaching_all_edit(request):
             'action': '/save/sample2'
         },
         'form_self_security': {
-            'title': '',
-            'name': '',
+            'title': 'Самоохрана',
+            'shift': shift.id,
+            'name': 'form_self_security',
             'action': '/save/self/security'
         },
         'form_shift': {
@@ -686,14 +688,19 @@ def leaching_save_express_analysis(request):
         'density'
     ]
 
-    points = ['larox', 'purified', 'prod_correction']
+    prod_fields = ['norm', 'fact', 'error', 'correction']
+
+    points = ['lshs','larox', 'purified', 'prod_correction']
 
     for num in times:
         model = {
             'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
             'journal': journal.id,
             'shift': shift.id
+
         }
+        dt = datetime.datetime.now()
+        model['time'] = dt.replace(hour=int(num), minute=0, second=0, microsecond=0)
         for point in points:
             model['point'] = point
             for field in fields:
@@ -702,11 +709,30 @@ def leaching_save_express_analysis(request):
                     value = request.POST[postIndex]
                     model[field] = value
 
-            form = ExpressAnalysisForm(model)
+            # form = ExpressAnalysisForm(model)
+            form = form = jea_stand_forms['LeachingExpressAnal'](model)
             if form.is_valid():
                 form.save()
             else:
                 print(form.errors)
+
+        prod_model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'time': model['time']
+        }
+        for pf in prod_fields:
+            post_index = 'row.prod_correction.' + pf + '_' + num
+            if post_index in request.POST:
+                prod_model[pf] = request.POST[post_index]
+
+        form = jea_stand_forms['ProductionError'](prod_model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
 
     return HttpResponseRedirect('/leaching/all/edit')
 
@@ -750,7 +776,8 @@ def leaching_save_densers(request):
                 if postIndex in request.POST:
                     model[field] = request.POST[postIndex]
 
-            form = DenserAnalysisForm(model)
+            # form = DenserAnalysisForm(model)
+            form = jea_stand_forms['DenserAnalysis'](model)
             if form.is_valid():
                 form.save()
             else:
@@ -1070,17 +1097,17 @@ def leaching_save_sample2(request):
         else:
             print(form.errors)
 
-    return HttpResponseRedirect('/leaching/all/edit')
+    return HttpResponseRedirect('/leaching/all/edit?shift=' + str(shift.id))
 
 
 def leaching_save_self_security(request):
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
     dt = datetime.datetime.now()
-    current_time = dt.replace(minute=0, second=0, microsecond=0)
 
     rows = ['1', '2', '3']
     fields = [
@@ -1089,6 +1116,13 @@ def leaching_save_self_security(request):
     ]
 
     for num in rows:
+        hour_index = 'hour_'+num
+        if hour_index in request.POST:
+            hour = request.POST[hour_index]
+        else:
+            hour = '1'
+
+        current_time = dt.replace(hour=int(hour), minute=0, second=0, microsecond=0)
         model = {
             'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
             'journal': journal.id,
@@ -1098,7 +1132,6 @@ def leaching_save_self_security(request):
 
         for field in fields:
             post_index = field + '_' + num
-            print(post_index)
             if post_index in request.POST:
                 model[field] = request.POST[post_index]
         model['bignote'] = request.POST['bignote_1']
@@ -1108,4 +1141,52 @@ def leaching_save_self_security(request):
             form.save()
         else:
             print(form.errors)
-    return HttpResponseRedirect('/leaching/all/edit')
+
+    return HttpResponseRedirect('/leaching/all/edit?shift='+str(shift.id))
+
+@process_json_view(auth_required=False)
+def leaching_save_self_security_json(request):
+    print(request.POST)
+
+    # journal = Journal.objects.all()[0]
+    # if 'shift_id' in request.POST:
+    #     shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    # else:
+    #     shift = Shift.objects.all()[0]
+    #
+    # dt = datetime.datetime.now()
+    #
+    # rows = ['1', '2', '3']
+    # fields = [
+    #     'note',
+    #     'bignote'
+    # ]
+    #
+    # for num in rows:
+    #     hour_index = 'hour_'+num
+    #     if hour_index in request.POST:
+    #         hour = request.POST[hour_index]
+    #     else:
+    #         hour = '1'
+    #
+    #     current_time = dt.replace(hour=int(hour), minute=0, second=0, microsecond=0)
+    #     model = {
+    #         'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+    #         'journal': journal.id,
+    #         'shift': shift.id,
+    #         'time': current_time,
+    #     }
+    #
+    #     for field in fields:
+    #         post_index = field + '_' + num
+    #         if post_index in request.POST:
+    #             model[field] = request.POST[post_index]
+    #     model['bignote'] = request.POST['bignote_1']
+    #
+    #     form = jea_stand_forms['SelfSecurity'](model)
+    #     if form.is_valid():
+    #         form.save()
+    #     else:
+    #         print(form.errors)
+
+    return {'result': 'ok', 'post': pprint.pformat(request.POST) }

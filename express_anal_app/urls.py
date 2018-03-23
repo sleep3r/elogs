@@ -7,6 +7,7 @@ urlpatterns = [
     # url('jea/edit$', views.leaching_jea_edit),
     url('all/edit$', views.leaching_all_edit),
 
+    url('save/self/security/json$', views.leaching_save_self_security_json),
     url('save/self/security$', views.leaching_save_self_security),
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
@@ -25,6 +26,6 @@ urlpatterns = [
     url('save/neutural/solution', views.leaching_save_neutural_solution),
 
     url('ju', views.leaching_ju),
-    url('json/test', views.json_test),
+    url('json/test$', views.json_test),
     url('json/densers$', views.json_densers)
 ]
