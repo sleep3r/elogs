@@ -483,12 +483,12 @@ def leaching_all_edit(request):
 
 
 def leaching_save_tanks(request):
-    print("save tanks form")
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
+
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     tanks = ['3', '4', '5']
     fields = ['cd', 'cu', 'co', 'sb', 'fe', 'vt', 'density', 'norm', 'fact', 'correction']
@@ -515,7 +515,10 @@ def leaching_save_tanks(request):
 
 def leaching_save_neutural_densers(request):
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     densers = ['1', '2', '3', '4', '5', '6', '7', '8', '13']
     fields = [
         'sediment',
@@ -543,11 +546,12 @@ def leaching_save_neutural_densers(request):
 
 
 def leaching_save_pulps(request):
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
+
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     formsCodes = ['zn_pulp', 'cu_pulp', 'fe_sol']
     fields = [
         'liq_sol',
@@ -592,11 +596,12 @@ def leaching_save_pulps(request):
 
 
 def leaching_save_hydrometal(request):
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
+
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     employee = Employee.objects.all()[0]
     manns = ['1', '4']
     fields = [
@@ -636,7 +641,10 @@ def leaching_save_agitators(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     employee = Employee.objects.all()[0]
     agitators = ['13', '15', '17', '19']
     states = ['before', 'after']
@@ -682,7 +690,12 @@ def leaching_save_express_analysis(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
     times = ['8', '10', '12', '14', '16', '18', '20']
     fields = [
         'co',
@@ -755,7 +768,10 @@ def leaching_save_densers(request):
     print('\n\n')
 
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     densers = ['10', '11', '12']
     sinks = ['hs', 'ls']
@@ -802,7 +818,10 @@ def leaching_save_shift_info(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     model = {
         'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
@@ -851,7 +870,10 @@ def leaching_save_empty_tanks(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     fields = [
         'str_num',
@@ -889,7 +911,10 @@ def leaching_save_neutural_solution(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     tanks = ['1', '2', '2_2', '3', '4', '5', '6', '7', '8']
 
@@ -960,7 +985,12 @@ def leaching_save_electrolysis(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
     dt = datetime.datetime.now()
     current_time = dt.replace(minute=0, second=0, microsecond=0)
 
@@ -1008,7 +1038,10 @@ def leaching_save_cinder(request):
     print('\n\n')
 
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     dt = datetime.datetime.now()
     current_time = dt.replace(minute=0, second=0, microsecond=0)
     model = {
@@ -1038,7 +1071,10 @@ def leaching_save_vue(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
     dt = datetime.datetime.now()
     current_time = dt.replace(minute=0, second=0, microsecond=0)
 
@@ -1078,7 +1114,10 @@ def leaching_save_sample2(request):
     print(request.POST)
     print('\n\n')
     journal = Journal.objects.all()[0]
-    shift = Shift.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
 
     rows = ['1', '2', '3', '4', '5', '6']
     fields = [
