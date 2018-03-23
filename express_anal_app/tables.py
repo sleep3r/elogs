@@ -227,7 +227,7 @@ def get_self_security_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    data = SelfSecurity.objects.filter(shift=shift).order_by('time')
+    data = SelfSecurity.objects.filter(shift=shift).order_by('time')[:3]
     res['bignote'] = data[0].bignote if data else ''
 
     for i, d in enumerate(data):
