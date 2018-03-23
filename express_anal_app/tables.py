@@ -95,7 +95,11 @@ def get_solutions_table(shift=None):
 def get_solutions2_table(shift=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-    data = DailyAnalysis.objects.filter(shift=shift)[0]
+    items = DailyAnalysis.objects.filter(shift=shift)
+    if len(items) == 0:
+        return {}
+
+    data = items[0]
 
     res = {}
     for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
@@ -204,7 +208,10 @@ def get_shift_info_table(shift=None):
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
-    d = ShiftInfo.objects.filter(shift=shift)[0]
+    items = ShiftInfo.objects.filter(shift=shift)
+    if len(items) == 0:
+        return {}
+    d = items[0]
     add_model_to_dict(d, res)
 
     res['date'] = shift.date
