@@ -1,4 +1,7 @@
 {% include "header.html" %}
+
+<div id="app">
+
 <div class="page-title">
     <div class="title_left">
       <h3>{{title}}</h3>
@@ -16,10 +19,13 @@
   </div>
 </div>
 
+{% include "forms/form-shift-choice.html" with form=form_shift %}
+
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12" >
     {% include "widgets/table-bchc.html" with table=bchc %}
   </div>
+</div>
 </div>
 
 <div class="row">
@@ -89,5 +95,7 @@
     {% include "widgets/table-security.html" with table=security %}
   </div>
 </div>
+
+
 
 {% include "footer.html" %}

@@ -1,0 +1,5 @@
+td { text-align: center; }
+
+tr.mini td {
+                font-size: 10px;
+}

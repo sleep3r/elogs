@@ -50,7 +50,7 @@ tr.mini td {
                     <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
                     <th colspan="10" >BCHC</th>
                     <th colspan="5" >Ларокс</th>
-                    <th colspan="6" >Очищенный раствор</th>
+                    <th colspan="7" >Очищенный раствор</th>
                     <th colspan="6" >Упр. Несоответствия продукции</th>
                 </tr>
                 <tr>
@@ -89,14 +89,13 @@ tr.mini td {
                     <td><input class="form-control" type="text" name="row.purified.cu_{{time}}" value="18" placeholder=""/></td>
                     <td><input class="form-control" type="text" name="row.purified.cd_{{time}}" value="19" placeholder=""/></td>
                     <td><input class="form-control" type="text" name="row.purified.fe_{{time}}" value="20" placeholder=""/></td>
+                    <td><input class="form-control" type="text" name="row.purified.current_{{time}}" value="220" placeholder=""/></td>
                     <td><input class="form-control" type="text" name="row.purified.density_{{time}}" value="21" placeholder=""/></td>
 
                     <td><input class="form-control" type="text" name="row.prod_correction.norm_{{time}}" value="22" placeholder=""/></td>
                     <td><input class="form-control" type="text" name="row.prod_correction.fact_{{time}}" value="23" placeholder=""/></td>
-
                     <td><input class="form-control" type="text" name="row.prod_correction.error_{{time}}" value="24" placeholder=""/></td>
                     <td><input class="form-control" type="text" name="row.prod_correction.correction_{{time}}" value="25" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.prod_correction.verified_{{time}}" value="26" placeholder=""/></td>
                 </tr>
                 {% endfor %}
             </tbody>
