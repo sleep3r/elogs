@@ -53,7 +53,12 @@ def leaching_ju(request):
 
     if 'shift' in request.GET:
         shiftId = request.GET['shift']
-        shift = Shift.objects.filter(id=shiftId)[0]
+        results = Shift.objects.filter(id=shiftId)
+        if len(results) == 0:
+            shift = Shift.objects.all()[0]
+        else:
+            shift = results[0]
+
     else:
         shift = Shift.objects.all()[0]
 
