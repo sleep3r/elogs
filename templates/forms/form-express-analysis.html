@@ -156,18 +156,6 @@
                         </template>
                     </tr>
                 </template>
-                <template v-if="tables.{{form.name}}.data">
-                    <tr v-if="tables.{{form.name}}.data.form_errors">
-                        <td colspan="28">
-                            <ul v-for="(error,key) in tables.{{form.name}}.data.form_errors">
-                                <div v-for="errorTitle in error" class="alert alert-danger" role="alert">
-                                    <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
-                                        [[key]] - [[errorTitle]]
-                                </div>
-                            </ul>
-                        </td>
-                    </tr>
-                </template>
                 <tr>
                     <td colspan="2">
                         <select id="{{form.name}}_new_row_time" class="form-control">
