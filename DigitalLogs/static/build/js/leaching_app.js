@@ -27,16 +27,23 @@ var app = new Vue({
             rows: [],
             data: [],
             form_errors: [],
+            init: function(scope) {
+
+                let form = document.getElementById('form_express_analysis')
+                var shiftId = form.shift_id.value
+
+                scope.getAnswerByUrl('/leaching/api/express/analysis?shift_id='+ shiftId,'form_express_analysis' )
+            },
             addNewRow: function(formId, scope) {
                 let selectedTime = document.getElementById(formId+'_new_row_time');
                 let form = document.getElementById(formId)
-
+                var shiftId = form.shift_id.value
                 var hour = selectedTime.value
 
                 let obj = this.rows.find(x => x.hour === hour);
                 if (this.rows.indexOf(obj) == -1) {
 
-                    var shiftId = form.shift_id.value
+
                     var context = this
                     scope.$http.get('/leaching/api/express/analysis?shift_id='+ shiftId + '&hour=' + hour)
                     .then(response => {
@@ -56,6 +63,9 @@ var app = new Vue({
         },
     },
     posts: []
+  },
+  created: function() {
+    this.tables['form_express_analysis'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
