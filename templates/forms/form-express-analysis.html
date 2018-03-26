@@ -40,25 +40,29 @@
             </thead>
             <tbody v-if="tables.{{form.name}}.visible == 0">
                 <tr class="mini"   v-for="(item, dt) in tables.{{form.name}}.data.items">
-                        <td>[[dt |formatHour]]<sup>00</sup></td>
-                        <template v-if="item.lshs">
-                        <td>[[item.lshs.co |formatNumber]]</td>
-                        <td>[[item.lshs.sb |formatNumber]]</td>
-                        <td>[[item.lshs.cu |formatNumber]]</td>
-                        <td>[[item.lshs.cd |formatNumber]]</td>
-                        <td>[[item.lshs.solid_st1 |formatNumber]]</td>
-                        <td>[[item.lshs.ph |formatNumber]]</td>
-                        <td>[[item.lshs.fe |formatNumber]]</td>
-                        <td>[[item.lshs.arsenic |formatNumber]]</td>
-                        <td>[[item.lshs.solid |formatNumber]]</td>
-                        <td>[[item.lshs.density |formatNumber]]</td>
-                        </template>
+                    <td>[[dt |formatHour]]<sup>00</sup></td>
+                    <template v-if="item.lshs">
+                            <td>[[item.lshs.co |formatNumber]]</td>
+                            <td>[[item.lshs.sb |formatNumber]]</td>
+                            <td>[[item.lshs.cu |formatNumber]]</td>
+                            <td>[[item.lshs.cd |formatNumber]]</td>
+                            <td>[[item.lshs.solid_st1 |formatNumber]]</td>
+                            <td>[[item.lshs.ph |formatNumber]]</td>
+                            <td>[[item.lshs.fe |formatNumber]]</td>
+                            <td>[[item.lshs.arsenic |formatNumber]]</td>
+                            <td>[[item.lshs.solid |formatNumber]]</td>
+                            <td>[[item.lshs.density |formatNumber]]</td>
+                    </template>
+
+                    <template v-if="item.larox">
                         <td>[[item.larox.co |formatNumber]]</td>
                         <td>[[item.larox.sb |formatNumber]]</td>
                         <td>[[item.larox.cd |formatNumber]]</td>
                         <td>[[item.larox.solid |formatNumber]]</td>
                         <td>[[item.larox.ph |formatNumber]]</td>
+                    </template>
 
+                    <template v-if="item.purified">
                         <td>[[item.purified.co |formatNumber]]</td>
                         <td>[[item.purified.sb |formatNumber]]</td>
                         <td>[[item.purified.cu |formatNumber]]</td>
@@ -66,12 +70,14 @@
                         <td>[[item.purified.fe |formatNumber]]</td>
                         <td>[[item.purified.current |formatNumber]]</td>
                         <td>[[item.purified.density |formatNumber]]</td>
+                    </template>
 
+                    <template v-if="item.prod_correction">
                         <td>[[item.prod_correction.norm |formatNumber]]</td>
                         <td>[[item.prod_correction.fact |formatNumber]]</td>
                         <td>[[item.prod_correction.error |formatNumber]]</td>
                         <td>[[item.prod_correction.correction |formatNumber]]</td>
-
+                    </template>
                 </tr>
                 </tbody>
             <tbody v-if="tables.{{form.name}}.visible == 1">
