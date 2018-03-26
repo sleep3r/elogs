@@ -85,8 +85,8 @@ class ProductionError(JournalTable):
     norm = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Норма')
     fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Факт')
     error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Несоответствие')
-    correction = models.CharField(max_length=512, verbose_name='Коррекция')
-    verified = models.BooleanField(default=False, verbose_name='Проверено')
+    correction = models.CharField(max_length=512, verbose_name='Коррекция', blank=True, null=True)
+    verified = models.BooleanField(default=False, verbose_name='Проверено', blank=True )
 
 
 class DenserAnal(JournalTable):
