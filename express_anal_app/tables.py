@@ -36,25 +36,34 @@ def get_densers_table(shift=None):
     return res.clear_empty().get_dict()
 
 
-def get_leaching_express_anal_table(shift=None):
+def get_leaching_express_anal_table(shift=None, hour=None):
     if shift is None:
         shift = Shift.objects.all()[0]
 
     res = deep_dict()
+    if hour is None:
+        data = LeachingExpressAnal.objects.filter(shift=shift).order_by('time')
+    else:
+        data = LeachingExpressAnal.objects.filter(shift=shift, time__hour=hour).order_by('time')
 
-    data = LeachingExpressAnal.objects.filter(shift=shift)
     for d in data:
         for attr in ['co', 'sb', 'cu', 'cu_st1', 'cd', 'solid_st1', 'ph', 'fe', 'arsenic', 'solid', 'current', 'density']:
             val = getattr(d, attr)
             if val is not None:
-                res[str(d.time)][d.point][attr] = val
+                time_index = int(d.time.strftime("%H"))
+                res[time_index][d.point][attr] = val
 
-    data = ProductionError.objects.filter(shift=shift)
+    if hour is None:
+        data = ProductionError.objects.filter(shift=shift).order_by('time')
+    else:
+        data = ProductionError.objects.filter(shift=shift, time__hour = hour).order_by('time')
+
     for d in data:
         for attr in ['norm', 'fact', 'error', 'correction', 'verified']:
             val = getattr(d, attr)
             if val is not None:
-                res[str(d.time)]['prod_correction'][attr] = val
+                time_index = int(d.time.strftime("%H"))
+                res[time_index]['prod_correction'][attr] = val
 
     return res.clear_empty().get_dict()
 

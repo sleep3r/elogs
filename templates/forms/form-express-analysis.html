@@ -38,9 +38,10 @@
                     {% endfor %}
                 </tr>
             </thead>
-            <tbody v-if="tables.{{form.name}}.visible == 0">
-                <tr class="mini"   v-for="(item, dt) in tables.{{form.name}}.data.items">
-                    <td>[[dt |formatHour]]<sup>00</sup></td>
+            <tbody >
+                <template v-if="tables.{{form.name}}.data">
+                <tr class="mini" v-for="(item, hour) in tables.{{form.name}}.data.items">
+                    <td><b>[[hour]]</b><sup>00</sup></td>
                     <template v-if="item.lshs">
                             <td>[[item.lshs.co |formatNumber]]</td>
                             <td>[[item.lshs.sb |formatNumber]]</td>
@@ -79,47 +80,120 @@
                         <td>[[item.prod_correction.correction |formatNumber]]</td>
                     </template>
                 </tr>
-                </tbody>
-            <tbody v-if="tables.{{form.name}}.visible == 1">
-                {% for time in form.times %}
-                <tr class="mini">
-                    <td>{{time}}<sup>00</sup></td>
-                    <td><input class="form-control" type="text" name="row.lshs.co_{{time}}" value="1" placeholder="" /></td>
-                    <td><input class="form-control" type="text" name="row.lshs.sb_{{time}}" value="2" placeholder="" /></td>
-                    <td><input class="form-control" type="text" name="row.lshs.cu_st1_{{time}}" value="3" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.cd_{{time}}" value="4" placeholder="" /></td>
-                    <td><input class="form-control" type="text" name="row.lshs.solid_st1_{{time}}" value="5" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.ph_{{time}}" value="6" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.fe_{{time}}" value="7" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.arsenic_{{time}}" value="8" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.solid_{{time}}" value="9" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.lshs.density_{{time}}" value="10" placeholder="" /></td>
+                </template>
+            </tbody>
+            <tbody >
 
-                    <td><input class="form-control" type="text" name="row.larox.co_{{time}}" value="11" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.larox.sb_{{time}}" value="12" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.larox.cd_{{time}}" value="13" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.larox.ph_{{time}}" value="14" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.larox.solid_{{time}}" value="15" placeholder=""/></td>
+                <template v-if="tables.{{form.name}}.rows">
+                    <tr class="mini"  v-for="(row, key) in tables.{{form.name}}.rows">
+                        <template v-if="row.info">
+                            <td><b>[[row.hour]]</b><sup>00</sup>
+                                <input class="form-control" type="hidden" v-bind:name="'time_'+row.hour"  v-bind:value="row.hour"  />
+                            </td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.co_'+row.hour"  v-bind:value="row.info.lshs.co" placeholder="" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.sb_'+row.hour" v-bind:value="row.info.lshs.sb" placeholder="" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.cu_'+row.hour" v-bind:value="row.info.lshs.cu" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.cd_'+row.hour" v-bind:value="row.info.lshs.cd" placeholder="" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.solid_st1_'+row.hour" v-bind:value="row.info.lshs.solid_st1" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.ph_'+row.hour" v-bind:value="row.info.lshs.ph" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.fe_'+row.hour" v-bind:value="row.info.lshs.fe" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.arsenic_'+row.hour" v-bind:value="row.info.lshs.arsenic" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.solid_'+row.hour" v-bind:value="row.info.lshs.solid" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.density_'+row.hour" v-bind:value="row.info.lshs.density" placeholder="" /></td>
 
-                    <td><input class="form-control" type="text" name="row.purified.co_{{time}}" value="16" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.sb_{{time}}" value="17" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.cu_{{time}}" value="18" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.cd_{{time}}" value="19" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.fe_{{time}}" value="20" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.current_{{time}}" value="220" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.purified.density_{{time}}" value="21" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.co_'+row.hour" v-bind:value="row.info.larox.co" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.sb_'+row.hour" v-bind:value="row.info.larox.sb" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.cd_'+row.hour" v-bind:value="row.info.larox.cd" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.ph_'+row.hour" v-bind:value="row.info.larox.ph" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.solid_'+row.hour" v-bind:value="row.info.larox.solid" placeholder=""/></td>
 
-                    <td><input class="form-control" type="text" name="row.prod_correction.norm_{{time}}" value="22" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.prod_correction.fact_{{time}}" value="23" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.prod_correction.error_{{time}}" value="24" placeholder=""/></td>
-                    <td><input class="form-control" type="text" name="row.prod_correction.correction_{{time}}" value="25" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.co_'+row.hour" v-bind:value="row.info.purified.co" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.sb_'+row.hour" v-bind:value="row.info.purified.sb" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.cu_'+row.hour" v-bind:value="row.info.purified.cu" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.cd_'+row.hour" v-bind:value="row.info.purified.cd" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.fe_'+row.hour" v-bind:value="row.info.purified.fe" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.current_'+row.hour" v-bind:value="row.info.purified.current" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.density_'+row.hour" v-bind:value="row.info.purified.density" placeholder=""/></td>
+
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.norm_'+row.hour" v-bind:value="row.info.prod_correction.norm" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.fact_'+row.hour" v-bind:value="row.info.prod_correction.fact" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.error_'+row.hour" v-bind:value="row.info.prod_correction.error" placeholder=""/></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.correction_'+row.hour" v-bind:value="row.info.prod_correction.correction" /></td>
+                        </template>
+                        <template v-else >
+                            <td><b>[[row.hour]]</b><sup>00</sup>
+                                <input class="form-control" type="hidden" v-bind:name="'time_'+row.hour"    />
+                            </td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.co_'+row.hour"   /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.sb_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.cu_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.cd_'+row.hour"  /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.solid_st1_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.ph_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.fe_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.arsenic_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.solid_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.lshs.density_'+row.hour"  /></td>
+
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.co_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.sb_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.cd_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.ph_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.larox.solid_'+row.hour" /></td>
+
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.co_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.sb_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.cu_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.cd_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.fe_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.current_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.purified.density_'+row.hour" /></td>
+
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.norm_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.fact_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.error_'+row.hour" /></td>
+                            <td><input class="form-control" type="text" v-bind:name="'row.prod_correction.correction_'+row.hour"  required /></td>
+                        </template>
+                    </tr>
+                </template>
+                <template v-if="tables.{{form.name}}.data">
+                    <tr v-if="tables.{{form.name}}.data.form_errors">
+                        <td colspan="28">
+                            <ul v-for="(error,key) in tables.{{form.name}}.data.form_errors">
+                                <div v-for="errorTitle in error" class="alert alert-danger" role="alert">
+                                    <i class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></i>
+                                        [[key]] - [[errorTitle]]
+                                </div>
+                            </ul>
+                        </td>
+                    </tr>
+                </template>
+                <tr>
+                    <td colspan="2">
+                        <select id="{{form.name}}_new_row_time" class="form-control">
+                            <option value="8">8:00</option>
+                            <option value="10">10:00</option>
+                            <option value="12">12:00</option>
+                            <option value="14">14:00</option>
+                            <option value="16">16:00</option>
+                            <option value="18">18:00</option>
+                            <option value="20">20:00</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="btn btn-success" v-on:click="addNewRow('{{form.name}}')"><i class="glyphicon glyphicon-plus"></i></a>
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="btn btn-primary" v-on:click="getAnswerByUrl('/leaching/api/express/analysis?shift_id={{form.shift}}', '{{form.name}}')">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                    </td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
 
         </form>
-        <button class="btn btn-success" v-if="tables.{{form.name}}.visible == 1" v-on:click="savePostForm('{{form.name}}')">Сохранить</button>
+        <button class="btn btn-success"  v-on:click="savePostForm('{{form.name}}')">Сохранить</button>
     </div>
 </div>
 

@@ -1221,62 +1221,75 @@ def leaching_save_express_analysis_json(request):
         'current',
         'density'
     ]
-
     prod_fields = ['norm', 'fact', 'error', 'correction']
-
     points = ['lshs', 'larox', 'purified', 'prod_correction']
+    form_errors = []
 
     for num in times:
-        model = {
-            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
-            'journal': journal.id,
-            'shift': shift.id
+        checkRow = 'time_' + num
+        if checkRow in request.POST:
+            model = {
+                'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                'journal': journal.id,
+                'shift': shift.id
 
-        }
-        dt = datetime.datetime.now()
-        model['time'] = dt.replace(hour=int(num), minute=0, second=0, microsecond=0)
-        for point in points:
-            model['point'] = point
-            for field in fields:
-                postIndex = 'row.' + point + '.' + field + '_' + num
-                if postIndex in request.POST:
-                    value = request.POST[postIndex]
-                    model[field] = value
+            }
+            dt = datetime.datetime.now()
+            model['time'] = dt.replace(hour=int(num), minute=0, second=0, microsecond=0)
 
-            # form = ExpressAnalysisForm(model)
-            form = form = jea_stand_forms['LeachingExpressAnal'](model)
+
+            for point in points:
+                model['point'] = point
+                for field in fields:
+                    postIndex = 'row.' + point + '.' + field + '_' + num
+                    if postIndex in request.POST:
+                        value = request.POST[postIndex]
+                        model[field] = value
+                    else:
+                        model[field] = 0
+
+
+
+                formE = jea_stand_forms['LeachingExpressAnal'](model)
+
+                if formE.is_valid():
+                    formE.save()
+                else:
+                    form_errors = formE.errors
+                    print(formE.errors)
+
+            prod_model = {
+                'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                'journal': journal.id,
+                'shift': shift.id,
+                'time': model['time']
+            }
+
+
+            for pf in prod_fields:
+                post_index = 'row.prod_correction.' + pf + '_' + num
+                if post_index in request.POST:
+                    prod_model[pf] = request.POST[post_index]
+                else:
+                    prod_model[pf] = 0
+
+            form = jea_stand_forms['ProductionError'](prod_model)
             if form.is_valid():
                 form.save()
             else:
+                form_errors = form.errors
                 print(form.errors)
-
-        prod_model = {
-            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
-            'journal': journal.id,
-            'shift': shift.id,
-            'time': model['time']
-        }
-        for pf in prod_fields:
-            post_index = 'row.prod_correction.' + pf + '_' + num
-            if post_index in request.POST:
-                prod_model[pf] = request.POST[post_index]
-
-        form = jea_stand_forms['ProductionError'](prod_model)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
 
     return {
         'result': 'ok',
         'items': tables.get_leaching_express_anal_table(shift),
-        'post': dict(request.POST)
+        'post': dict(request.POST),
+        'form_errors': form_errors
     }
 
 
 @process_json_view(auth_required=False)
 def leaching_save_self_security_json(request):
-    print(dict(request.POST))
 
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
@@ -1324,3 +1337,29 @@ def leaching_save_self_security_json(request):
             'items': tables.get_self_security_table(shift),
             'post': dict(request.POST)
     }
+
+
+@process_json_view(auth_required=False)
+def leaching_api_express_analysis(request):
+
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.filter(id=request.GET['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    if 'hour' in request.GET:
+        hour = request.GET['hour']
+        items = tables.get_leaching_express_anal_table(shift, hour)
+    else:
+        items = tables.get_leaching_express_anal_table(shift)
+
+    return {
+        'result': 'ok',
+        'items': items
+    }
+
+
+def leaching_wizard(request):
+    context = {}
+    template = loader.get_template('react-table-edit.html')
+    return HttpResponse(template.render(context, request))

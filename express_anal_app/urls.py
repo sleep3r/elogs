@@ -6,8 +6,10 @@ urlpatterns = [
     url('^$', views.index),
     # url('jea/edit$', views.leaching_jea_edit),
     url('all/edit$', views.leaching_all_edit),
+    url('page/wizard$', views.leaching_wizard),
 
 
+    url('leaching/api/express/analysis$', views.leaching_api_express_analysis),
     url('save/express/analysis/json$', views.leaching_save_express_analysis_json),
     url('save/self/security/json$', views.leaching_save_self_security_json),
 
