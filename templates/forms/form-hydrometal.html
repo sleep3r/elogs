@@ -11,7 +11,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -36,19 +36,48 @@
                     <th>Fe</th>
                     <th>Сурьма</th>
                     <th>Отстои</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+               <template v-for="(item, key) in tables.{{form.name}}.data.items" >
+                <tr v-bind:hour="key"  v-on:click="onRow(key)" >
+                    <template v-for="(man, manNum) in item">
+                        <template v-if="manNum == 1">
+                            <th v-bind:rid="man.id">[[man.ph |formatNumber]]</th>
+                            <td>[[man.acid |formatNumber]]</td>
+                            <td>[[man.fe2 |formatNumber]]</td>
+                            <td>[[man.fe_total |formatNumber]]</td>
+                        </template>
+                        <template v-if="manNum == 4">
+                            <td v-bind:rid="man.id">[[man.ph |formatNumber]]</td>
+                            <td>[[man.cu |formatNumber]]</td>
+                            <td>[[man.fe2 |formatNumber]]</td>
+                            <td>[[man.sb |formatNumber]]</td>
+                            <td>[[man.sediment |formatNumber]]</td>
+                        </template>
+                    </template>
+                    <td><a v-on:click="onRemoveRow(key)" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
+                </tr>
+            </template>
+            </tbody>
+            <tbody>
                 <tr>
-                    <th scope="row"><input class="form-control" type="text" name="mann1.ph" value="0" /></th>
-                    <td><input class="form-control" type="text" name="mann1.acid" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann1.fe2" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann1.fe_total" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.ph" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.cu" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.fe2" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.sb" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.sediment" value="0" /></td>
+                    <template v-for="(item, record) in tables.{{form.name}}.current">
+                        <template v-if="item.mann_num == 1">
+                            <th><input class="form-control" type="text" name="mann1.ph" v-bind:value="item.ph" /></th>
+                            <td><input class="form-control" type="text" name="mann1.acid" v-bind:value="item.acid" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe2" v-bind:value="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe_total" v-bind:value="item.fe_total" /></td>
+                        </template>
+                        <template v-if="item.mann_num == 4">
+                            <td><input class="form-control" type="text" name="mann4.ph" v-bind:value="item.ph" /></td>
+                            <td><input class="form-control" type="text" name="mann4.cu" v-bind:value="item.cu" /></td>
+                            <td><input class="form-control" type="text" name="mann4.fe2" v-bind:value="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sb" v-bind:value="item.sb" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sediment" v-bind:value="item.sediment" /></td>
+                        </template>
+                    </template>
                 </tr>
                 <tr>
                     <th colspan="1">Ситовой огарка</th>
@@ -71,9 +100,8 @@
             </tbody>
         </table>
 
-
-            <input type="submit" class="btn btn-success" value="Сохранить" />
-            </form>
+        </form>
+        <button class="btn btn-success" v-on:click="savePostForm('{{form.name}}')" >Сохранить</button>
 
     </div>
 </div>

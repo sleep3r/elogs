@@ -129,7 +129,9 @@ def get_hydrometal1_table(shift=None):
 
     res = deep_dict()
     for d in HydroMetal.objects.filter(shift=shift):
-        add_model_to_dict(d, res[d.time][str(d.mann_num)])
+        time_index = d.time.strftime("%H:%M.%S")
+        add_model_to_dict(d, res[time_index][str(d.mann_num)])
+        res[time_index][str(d.mann_num)]['id'] = d.id
 
     return res.clear_empty().get_dict()
 

@@ -1426,6 +1426,76 @@ def leaching_api_densers(request):
         'count': len(items)
     }
 
+@process_json_view(auth_required=False)
+def leaching_api_hydrometal(request):
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.filter(id=request.GET['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    items = tables.get_hydrometal1_table(shift)
+
+    return {
+        'result': 'ok',
+        'items': items,
+        'count': len(items)
+    }
+
+@process_json_view(auth_required=False)
+def leaching_save_hydrometal_json(request):
+    journal = Journal.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+    employee = Employee.objects.all()[0]
+    manns = ['1', '4']
+    fields = [
+        'ph',
+        'acid',
+        'fe2',
+        'fe_total',
+        'cu',
+        'sb',
+        'sediment',
+    ]
+
+    for mannNum in manns:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'employee': employee.id
+        }
+        model['mann_num'] = mannNum
+        for field in fields:
+            index = 'mann' + mannNum + '.' + field
+            if index in request.POST:
+                model[field] = request.POST[index]
+
+        form = HydrometalForm(model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return {
+        'result': 'ok',
+        'items': tables.get_hydrometal1_table(shift),
+    }
+
+@process_json_view(auth_required=False)
+def leaching_save_hydrometal_remove(request):
+    id = request.GET['id']
+    record = HydroMetal.objects.filter(id=id).delete()
+
+    return {
+        'action': 'remove',
+        'id': id,
+        'record': record
+    }
+
+
 def leaching_wizard(request):
     context = {}
     template = loader.get_template('react-table-edit.html')

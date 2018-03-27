@@ -86,6 +86,25 @@ var app = new Vue({
                 scope.getAnswerTo('/leaching/api/densers?shift_id=' + shiftId + '&hour=' + hour, this )
 
             }
+        },
+        'form_hydrometal': {
+            visible: 1,
+            data: [],
+            current: [],
+            current_count: 0,
+            init: function(scope) {
+                let formId = 'form_hydrometal'
+                let form = document.getElementById(formId)
+                var shiftId = form.shift_id.value
+                scope.getAnswerByUrl('/leaching/api/hydrometal?shift_id=' + shiftId, formId)
+            },
+            onRow: function(scope, rowId) {
+
+                console.log(rowId)
+                console.log(this.data.items[rowId])
+                this.current = this.data.items[rowId]
+
+            }
         }
     },
     posts: []
@@ -93,6 +112,7 @@ var app = new Vue({
   created: function() {
     this.tables['form_express_analysis'].init(this)
     this.tables['form_densers'].init(this)
+    this.tables['form_hydrometal'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
@@ -131,7 +151,6 @@ var app = new Vue({
             })
     },
     getAnswerTo: function(url, scope) {
-
         this.$http.get(url)
             .then(response => {
                 scope.current = response.data.items
@@ -141,11 +160,37 @@ var app = new Vue({
             .catch(e => {
                 console.log(e)
             })
-
         console.log(url)
     },
     onChange: function(formId) {
         this.tables[formId].onChange(this)
+    },
+    onRemoveRow: function(rowId) {
+        console.log(rowId)
+        let mans = [1, 4]
+
+        mans.forEach( manNumber => {
+            console.log(manNumber)
+            if (this.tables['form_hydrometal'].data.items[rowId][manNumber]){
+                let recordId = this.tables['form_hydrometal'].data.items[rowId][manNumber]['id']
+                console.log(recordId)
+                 this.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
+                    .then(response => {
+                        console.info(response.data)
+//                        delete this.tables['form_hydrometal'].data.items[rowId]
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        })
+
+    },
+    onRow: function(rowId) {
+        let formId = 'form_hydrometal'
+
+        this.tables[formId].onRow(this, rowId)
+
     }
 
   }
