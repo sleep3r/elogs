@@ -15,6 +15,11 @@ Vue.filter('formatHour', function(value) {
   }
 })
 
+Vue.component('my-component', {
+  template: '<div><b>Пользовательский компонент!<b></div>'
+})
+
+
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app',
@@ -28,7 +33,6 @@ var app = new Vue({
             data: [],
             form_errors: [],
             init: function(scope) {
-
                 let form = document.getElementById('form_express_analysis')
                 var shiftId = form.shift_id.value
 
@@ -43,12 +47,11 @@ var app = new Vue({
                 let obj = this.rows.find(x => x.hour === hour);
                 if (this.rows.indexOf(obj) == -1) {
 
-
                     var context = this
                     scope.$http.get('/leaching/api/express/analysis?shift_id='+ shiftId + '&hour=' + hour)
                     .then(response => {
-                        console.log('get hour')
-                            console.log(response.data)
+                           console.log('get hour')
+                           console.log(response.data)
                            console.log(hour)
                            context.rows.push({ hour: hour , info: response.data.items[hour] })
                            console.info(context.rows)
@@ -61,18 +64,41 @@ var app = new Vue({
 
             }
         },
+        'form_densers': {
+            visible: 1,
+            form_errors: [],
+            data: [],
+            rows: [],
+            current: [],
+            current_count: 0,
+            init: function(scope) {
+                let formId = 'form_densers'
+                let form = document.getElementById(formId)
+                var shiftId = form.shift_id.value
+                scope.getAnswerByUrl('/leaching/api/densers?shift_id=' + shiftId, formId)
+            },
+            onChange: function(scope) {
+                formId = 'form_densers'
+                let form = document.getElementById(formId)
+                let hour = form.select_time.value
+                let shiftId = form.shift_id.value
+
+                scope.getAnswerTo('/leaching/api/densers?shift_id=' + shiftId + '&hour=' + hour, this )
+
+            }
+        }
     },
     posts: []
   },
   created: function() {
     this.tables['form_express_analysis'].init(this)
+    this.tables['form_densers'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
         this.tables[formId].addNewRow(formId, this)
     },
     savePostForm: function(formId) {
-
         let form = document.getElementById(formId);
         let formData = new FormData(form)
         let formDataToSend = new FormData()
@@ -82,33 +108,44 @@ var app = new Vue({
         });
 
         this.$http.post(form.action + '/json', formDataToSend)
-                .then(response => {
-                console.info(response.data)
+            .then(response => {
                 this.tables[formId].data = response.data
                 this.tables[formId].visible = 0
                 this.tables[formId].rows = []
-        })
-        .catch(e => {
-            console.log(e)
-        })
-
+                console.log(formId)
+            })
+            .catch(e => {
+                console.log(e)
+            })
     },
     getAnswerByUrl: function(url, formId) {
         this.tables[formId].data = []
 
         this.$http.get(url)
             .then(response => {
-                console.info('get from url: ' + url)
-                console.log(formId)
-
                 this.tables[formId].data = response.data
                 console.info(this.tables[formId].data)
-
-
             })
             .catch(e => {
                 console.log(e)
             })
+    },
+    getAnswerTo: function(url, scope) {
+
+        this.$http.get(url)
+            .then(response => {
+                scope.current = response.data.items
+                scope.current_count = response.data.count
+                console.info(response.data)
+            })
+            .catch(e => {
+                console.log(e)
+            })
+
+        console.log(url)
+    },
+    onChange: function(formId) {
+        this.tables[formId].onChange(this)
     }
 
   }

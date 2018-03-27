@@ -23,15 +23,20 @@ def add_model_to_dict(model, res, attrs=None):
             res[attr] = val
 
 
-def get_densers_table(shift=None):
+def get_densers_table(shift=None, hour=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-    data = DenserAnal.objects.filter(shift=shift).order_by('time')
+
     res = deep_dict()
+    if hour is None:
+        data = DenserAnal.objects.filter(shift=shift).order_by('time')
+    else:
+        data = DenserAnal.objects.filter(shift=shift, time__hour=hour).order_by('time')
 
     for d in data:
         for attr in ['ph', 'cu', 'fe', 'liq_sol']:
-            res[d.time][d.point][d.sink][attr] = getattr(d, attr)
+            time_index = int(d.time.strftime("%H"))
+            res[time_index][d.point][d.sink][attr] = getattr(d, attr)
 
     return res.clear_empty().get_dict()
 
