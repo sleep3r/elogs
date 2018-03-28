@@ -18,6 +18,8 @@ from collections import defaultdict
 from express_anal_app.tables import get_free_tanks_table
 from utils.webutils import parse, process_json_view
 from django.utils.translation import gettext as _
+from django.db import transaction
+
 
 @process_json_view(auth_required=False)
 def json_test(request):
@@ -447,6 +449,7 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_densers': {
+            'name': 'form_densers',
             'title': _('Сгустители'),
             'columns': ['10', "11", "12"],
             'action': '/save/densers',
@@ -765,11 +768,6 @@ def leaching_save_express_analysis(request):
 
 
 def leaching_save_densers(request):
-    print("save tanks form")
-    print('\n----FORM-----')
-    print(request.POST)
-    print('\n\n')
-
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
         shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
@@ -814,6 +812,60 @@ def leaching_save_densers(request):
                 print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
+
+
+@process_json_view(auth_required=False)
+def leaching_save_densers_json(request):
+    journal = Journal.objects.all()[0]
+
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    densers = ['10', '11', '12']
+    sinks = ['hs', 'ls']
+    fields = [
+        'ph',
+        'cu',
+        'fe',
+        'liq_sol',
+    ]
+
+    form_errors = ''
+
+    for denser in densers:
+        for sink in sinks:
+            model = {
+                'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+                'journal': journal.id,
+                'shift': shift.id
+            }
+
+            model['point'] = denser
+            model['sink'] = sink
+            hour = int(request.POST['select_time'])
+            dt = datetime.datetime.now()
+            model['time'] = dt.replace(hour=hour, minute=0, second=0, microsecond=0)
+
+            for field in fields:
+                postIndex = 'denser_' + denser + '.' + sink + '.' + field
+                if postIndex in request.POST:
+                    model[field] = request.POST[postIndex]
+
+            form = jea_stand_forms['DenserAnal'](model)
+            if form.is_valid():
+                form.save()
+            else:
+                form_errors = form.errors
+                print(form.errors)
+
+    return {
+          'result': 'ok',
+          'items': tables.get_densers_table(shift),
+          'post': dict(request.POST),
+          'form_errors': form_errors
+    }
 
 
 def leaching_save_shift_info(request):
@@ -1356,6 +1408,193 @@ def leaching_api_express_analysis(request):
     return {
         'result': 'ok',
         'items': items
+    }
+
+@process_json_view(auth_required=False)
+def leaching_api_densers(request):
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.filter(id=request.GET['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    if 'hour' in request.GET:
+        hour = request.GET['hour']
+        items = tables.get_densers_table(shift, hour)
+    else:
+        items = tables.get_densers_table(shift)
+    return {
+        'result': 'ok',
+        'items': items,
+        'count': len(items)
+    }
+
+@process_json_view(auth_required=False)
+def leaching_api_hydrometal(request):
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.filter(id=request.GET['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+    items = tables.get_hydrometal1_table(shift)
+
+    return {
+        'result': 'ok',
+        'items': items,
+        'count': len(items),
+        'extra': tables.get_cinder_gran_table(shift)
+    }
+
+@process_json_view(auth_required=False)
+def leaching_save_hydrometal_json(request):
+    journal = Journal.objects.all()[0]
+    if 'shift_id' in request.POST:
+        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
+    else:
+        shift = Shift.objects.all()[0]
+    employee = Employee.objects.all()[0]
+    manns = ['1', '4']
+    fields = [
+        'ph',
+        'acid',
+        'fe2',
+        'fe_total',
+        'cu',
+        'sb',
+        'sediment',
+    ]
+
+    for mannNum in manns:
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'journal': journal.id,
+            'shift': shift.id,
+            'employee': employee.id
+        }
+        model['mann_num'] = mannNum
+        for field in fields:
+            index = 'mann' + mannNum + '.' + field
+            if index in request.POST:
+                model[field] = request.POST[index]
+
+        form = HydrometalForm(model)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+
+    return {
+        'result': 'ok',
+        'items': tables.get_hydrometal1_table(shift),
+        'extra': tables.get_cinder_gran_table(shift)
+    }
+
+
+@process_json_view(auth_required=False)
+def leaching_update_hydrometal(request):
+    journal = Journal.objects.all()[0]
+    data = json.loads(request.POST['item'])
+
+    print(data['shift_id'])
+    print(data['extra'])
+
+    if 'shift_id' in data:
+        shift = Shift.objects.get(id=data['shift_id'])
+    else:
+        shift = Shift.objects.all()[0]
+    employee = Employee.objects.all()[0]
+
+    fields = [
+        'ph',
+        'acid',
+        'fe2',
+        'fe_total',
+        'cu',
+        'sb',
+        'sediment',
+        'mann_num'
+    ]
+
+    extra_id = data['extra']['id']
+    extra_fields = [
+        'gran',
+        'gran_avg',
+        'fe_avg',
+        'fe_shave'
+    ]
+
+    if extra_id is None:
+        cinder_model = CinderDensity()
+    else:
+        cinder_model = CinderDensity.objects.get(pk=extra_id)
+
+    setattr(cinder_model, 'journal', journal)
+    setattr(cinder_model, 'shift', shift)
+    for field in extra_fields:
+        if field in data['extra']:
+            setattr(cinder_model, field, data['extra'][field])
+
+    cinder_model.save()
+
+    manns = ['1','4']
+    for man in manns:
+        item = data[man]
+        if 'id' in item:
+            model = HydroMetal.objects.get(pk=item['id'])
+        else:
+            model = HydroMetal()
+            setattr(model, 'mann_num', man)
+            setattr(model, 'journal', journal)
+            setattr(model, 'shift', shift)
+            setattr(model, 'employee', employee)
+
+        for field in fields:
+            if field in item:
+                setattr(model, field, item[field])
+        model.save()
+
+    return {
+        'result': 'ok',
+    }
+
+
+@process_json_view(auth_required=False)
+def leaching_save_hydrometal_remove(request):
+    id = request.GET['id']
+    record = HydroMetal.objects.filter(id=id).delete()
+
+    return {
+        'action': 'remove',
+        'id': id,
+        'record': record
+    }
+
+
+@process_json_view(auth_required=False)
+def leaching_api_pulps(request):
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.get(id=request.GET['shift_id'])
+    else:
+        shift = Shift.objects.all()[0]
+
+    return {
+        'result': 'ok',
+        'items': tables.get_solutions_table(shift),
+        'extra': tables.get_solutions2_table(shift)
+    }
+
+@process_json_view(auth_required=False)
+def leaching_update_pulps(request):
+    journal = Journal.objects.all()[0]
+    data = json.loads(request.POST['item'])
+
+    print(data['shift_id'])
+    print(data['extra'])
+
+
+
+    return {
+        'result': 'ok',
+        'data': data
     }
 
 

@@ -1,4 +1,4 @@
-{% load i18n %}
+
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -11,7 +11,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -23,6 +23,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <td></td>
                         <th colspan="3">{% trans "Цинковая (Zn) пульпа" %}</th>
                         <th colspan="4">{% trans "Медная пульпа" %}</th>
                         <th colspan="8">{% trans "Железистый раствор" %}</th>
@@ -31,6 +32,7 @@
                         <th colspan="1">{%  trans "Высоко Fe р-р" %}</th>
                     </tr>
                     <tr>
+                        <td></td>
                         <th>{% trans "Ж:Т" %}</th>
                         <th>pH</th>
                         <th>t°</th>
@@ -46,45 +48,112 @@
                         <th>{% trans "уд. вес" %}</th>
                         <th>As</th>
                         <th>Cl</th>
-                        <td><input class="form-control" type="text" name="shlippe_sb" value="" /></td>
-                        <td><input class="form-control" type="text" name="activ_sas" value="" /></td>
-                        <td><input class="form-control" type="text" name="fe_hi1" value="" /></td>
+                        <template v-if="tables.{{form.name}}.data.extra">
+                            <td><input class="form-control" type="text" name="shlippe_sb" v-model="tables.{{form.name}}.data.extra.shlippe_sb" /></td>
+                            <td><input class="form-control" type="text" name="activ_sas" v-model="tables.{{form.name}}.data.extra.activ_sas" /></td>
+                            <td><input class="form-control" type="text" name="fe_hi1" v-model="tables.{{form.name}}.data.extra.fe_hi1" /></td>
+                        </template>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td><a v-on:click="setAddState('{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
+                        <td colspan="15"></td>
+                        <th colspan="2">Анализы оборот. сгуст.</th>
+                        <td rowspan="5" >
+                            <template v-if="tables.{{form.name}}.data.extra">
+                                <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
+                            </template>
+                        </td>
+                    </tr>
+                <template v-for="(item, key) in tables.{{form.name}}.data.items">
+                    <tr class="mini">
+                        <td><a  v-on:click="onRow(key,'{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
+                        <td>[[item.zn_pulp.liq_sol]]</td>
+                        <td>[[item.zn_pulp.ph]]</td>
+                        <td>[[item.zn_pulp.t0]]</td>
+                        <td>[[item.cu_pulp.liq_sol]]</td>
+                        <td>[[item.zn_pulp.ph]]</td>
+                        <td>[[item.zn_pulp.ph]]</td>
+                        <td>[[item.zn_pulp.ph]]</td>
 
-                <tr class="mini">
-                    <td><input class="form-control" type="text" name="zn_pulp.liq_sol" value="0" /></td>
-                    <td><input class="form-control" type="text" name="zn_pulp.ph" value="0" /></td>
-                    <td><input class="form-control" type="text" name="zn_pulp.t0" value="0" /></td>
+                        <td>[[item.fe_sol.h2so4]]</td>
+                        <td>[[item.fe_sol.solid]]</td>
+                        <td>[[item.fe_sol.sb]]</td>
+                        <td>[[item.fe_sol.cu]]</td>
+                        <td>[[item.fe_sol.fe]]</td>
+                        <td>[[item.fe_sol.density]]</td>
+                        <td>[[item.fe_sol.arsenic]]</td>
+                        <td>[[item.fe_sol.cl]]</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </template>
+                    <template v-if="tables.{{form.name}}.state == 'edit'">
+                        <tr class="mini">
+                            <td><input class="form-control" type="text" name="zn_pulp.liq_sol" v-model="item.zn_pulp.liq_sol" /></td>
+                            <td><input class="form-control" type="text" name="zn_pulp.ph" v-model="item.zn_pulp.ph" /></td>
+                            <td><input class="form-control" type="text" name="zn_pulp.t0" v-model="item.zn_pulp.t0" /></td>
 
-                    <td><input class="form-control" type="text" name="cu_pulp.liq_sol" value="0" /></td>
-                    <td><input class="form-control" type="text" name="cu_pulp.before" value="0" /></td>
-                    <td><input class="form-control" type="text" name="cu_pulp.after" value="0" /></td>
-                    <td><input class="form-control" type="text" name="cu_pulp.solid" value="0" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.liq_sol" v-model="item.cu_pulp.liq_sol" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.before" v-model="item.zn_pulp.ph" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.after" v-model="item.zn_pulp.ph" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.solid" v-model="item.zn_pulp.ph" /></td>
 
-                    <td><input class="form-control" type="text" name="fe_sol.h2so4" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.solid" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.sb" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.cu" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.fe" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.density" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.arsenic" value="0" /></td>
-                    <td><input class="form-control" type="text" name="fe_sol.cl" value="0" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.h2so4" v-model="item.fe_sol.h2so4" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.solid" v-model="item.fe_sol.solid" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.sb" v-model="item.fe_sol.sb" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.cu" v-model="item.fe_sol.cu" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.fe" v-model="item.fe_sol.fe" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.density" v-model="item.fe_sol.density" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.arsenic" v-model="item.fe_sol.arsenic" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.cl" v-model="item.fe_sol.cl" /></td>
+                            <th colspan="2">{% trans "Анализы оборот. сгуст." %}</th>
+                            <td rowspan="5" >
+                                <template v-if="tables.{{form.name}}.data.extra">
+                                    <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
+                                </template>
+                            </td>
+                        </tr>
+                    </template>
+                    <template v-if="tables.{{form.name}}.state == 'add'">
+                        <tr class="mini">
+                            <td><input class="form-control" type="text" name="zn_pulp.liq_sol" /></td>
+                            <td><input class="form-control" type="text" name="zn_pulp.ph" /></td>
+                            <td><input class="form-control" type="text" name="zn_pulp.t0" /></td>
 
-                    <th colspan="2">{% trans "Анализы оборот. сгуст." %}</th>
-                    <td rowspan="5" >
-                        <input class="form-control" type="text" name="fe_hi2" value="0" />
-                    </td>
-                </tr>
+                            <td><input class="form-control" type="text" name="cu_pulp.liq_sol" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.before" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.after" /></td>
+                            <td><input class="form-control" type="text" name="cu_pulp.solid" /></td>
+
+                            <td><input class="form-control" type="text" name="fe_sol.h2so4"  /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.solid"  /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.sb" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.cu" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.fe" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.density" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.arsenic" /></td>
+                            <td><input class="form-control" type="text" name="fe_sol.cl"  /></td>
+                            <th colspan="2">Анализы оборот. сгуст.</th>
+                            <td rowspan="5" >
+                                <template v-if="tables.{{form.name}}.data.extra">
+                                    <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
+                                </template>
+                            </td>
+                        </tr>
+                    </template>
                 <tr>
                     <td colspan="15"></td>
-                    <td colspan="2" rowspan="4"><textarea class="form-control"  name="fe_circulation_denser" placeholder="some text..."></textarea></td>
+                    <td colspan="2" rowspan="4">
+                        <template v-if="tables.{{form.name}}.data.extra">
+                            <textarea class="form-control"  name="fe_circulation_denser" v-model="tables.{{form.name}}.data.extra.circulation_denser"></textarea>
+                        </template>
+                    </td>
                 </tr>
 
                 </tbody>
             </table>
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
+
             </form>
 
     </div>

@@ -2,13 +2,18 @@
 {% include "header.html" %}
 
 <div id="app">
-
 {% include "forms/form-shift-choice.html" with form=form_shift %}
 
+{% include "forms/form-pulps.html" with form=form_pulps %}
+{% include "forms/form-hydrometal.html" with form=form_hydrometal %}
+{% include "forms/form-densers.html" with form=form_densers %}
 {% include "forms/form-express-analysis.html" with form=form_express_analysis %}
 {% include "forms/form-self-security.html" with form=form_self_security %}
+
+
 </div>
 {% include "forms/form-sample2.html" with form=form_sample2 %}
+
 {% include "forms/form-veu.html" with form=form_veu %}
 {% include "forms/form-cinder.html" with form=form_cinder %}
 {% include "forms/form-electrolysis.html" with form=form_electrolysis %}
@@ -17,9 +22,9 @@
 {% include "forms/form-free-tanks.html" with form=form_empty_tanks %}
 {% include "forms/form-shift-info.html" with form=form_shift_info %}
 
-{% include "forms/form-densers.html" with form=form_densers %}
-{% include "forms/form-pulps.html" with form=form_pulps %}
-{% include "forms/form-hydrometal.html" with form=form_hydrometal %}
+
+
+
 {% include "forms/form-agitators.html" with form=form_agitators %}
 
 

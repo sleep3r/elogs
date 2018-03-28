@@ -1,4 +1,4 @@
-{% load i18n %}
+
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -11,7 +11,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -23,11 +23,22 @@
             <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th colspan="4">1 {% trans "Манн" %}</th>
                     <th colspan="5">4 {% trans "Манн" %}</th>
                 </tr>
                 <tr>
+                    <td><a  v-on:click="tables.{{form.name}}.state = 'add' "  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
                     <th>pH</th>
+                    <th>Кисл-ть</th>
+                    <th>Fe двухвал.</th>
+                    <th>Fe Общее</th>
+                    <th>pH</th>
+                    <th>Медь</th>
+                    <th>Fe</th>
+                    <th>Сурьма</th>
+                    <th>Отстои</th>
+                    <th>Action</th>
                     <th>{% trans "Кисл-ть" %}</th>
                     <th>{% trans "Fe двухвал." %}</th>
                     <th>{% trans "Fe Общее" %}</th>
@@ -36,44 +47,91 @@
                     <th>{% trans "Fe" %}</th>
                     <th>{% trans "Сурьма" %}</th>
                     <th>{% trans "Отстои" %}</th>
+                    <th>{% trans "Action" %}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row"><input class="form-control" type="text" name="mann1.ph" value="0" /></th>
-                    <td><input class="form-control" type="text" name="mann1.acid" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann1.fe2" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann1.fe_total" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.ph" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.cu" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.fe2" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.sb" value="0" /></td>
-                    <td><input class="form-control" type="text" name="mann4.sediment" value="0" /></td>
+               <template v-for="(item, key) in tables.{{form.name}}.data.items" >
+                <tr v-bind:hour="key"  >
+                    <td><a  v-on:click="onRow(key,'{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
+                    <template v-for="(man, manNum) in item">
+                        <template v-if="manNum == 1">
+                            <th v-bind:rid="man.id">[[man.ph |formatNumber]]</th>
+                            <td>[[man.acid |formatNumber]]</td>
+                            <td>[[man.fe2 |formatNumber]]</td>
+                            <td>[[man.fe_total |formatNumber]]</td>
+                        </template>
+                        <template v-if="manNum == 4">
+                            <td v-bind:rid="man.id">[[man.ph |formatNumber]]</td>
+                            <td>[[man.cu |formatNumber]]</td>
+                            <td>[[man.fe2 |formatNumber]]</td>
+                            <td>[[man.sb |formatNumber]]</td>
+                            <td>[[man.sediment |formatNumber]]</td>
+                        </template>
+                    </template>
+                    <td><a v-on:click="onRemoveRow(key)" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
+                </tr>
+            </template>
+            </tbody>
+            <tbody>
+                <tr v-if=" tables.{{form.name}}.state == 'edit' ">
+                    <td></td>
+                    <template v-for="(item, record) in tables.{{form.name}}.current">
+                        <template v-if="item.mann_num == 1">
+                            <td><input class="form-control" type="text" name="mann1.ph" v-model="item.ph" /></td>
+                            <td><input class="form-control" type="text" name="mann1.acid" v-model="item.acid" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe2" v-model="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe_total" v-model="item.fe_total" /></td>
+                        </template>
+                        <template v-if="item.mann_num == 4">
+                            <td><input class="form-control" type="text" name="mann4.ph" v-model="item.ph" /></td>
+                            <td><input class="form-control" type="text" name="mann4.cu" v-model="item.cu" /></td>
+                            <td><input class="form-control" type="text" name="mann4.fe2" v-model="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sb" v-model="item.sb" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sediment" v-model="item.sediment" /></td>
+                            <td><a v-on:click="saveRow('{{form.name}}')" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
+                        </template>
+                    </template>
+                </tr>
+                <tr v-else-if=" tables.{{form.name}}.state == 'add' ">
+                    <td></td>
+                    <td><input class="form-control" type="text" name="mann1.ph" v-model="tables.{{form.name}}.newRecord['1'].ph" /></td>
+                    <td><input class="form-control" type="text" name="mann1.acid" v-model="tables.{{form.name}}.newRecord['1'].acid" /></td>
+                    <td><input class="form-control" type="text" name="mann1.fe2"  v-model="tables.{{form.name}}.newRecord['1'].fe2"/></td>
+                    <td><input class="form-control" type="text" name="mann1.fe_total"  v-model="tables.{{form.name}}.newRecord['1'].fe_total"/></td>
+                    <td><input class="form-control" type="text" name="mann4.ph"  v-model="tables.{{form.name}}.newRecord['4'].ph"/></td>
+                    <td><input class="form-control" type="text" name="mann4.cu"  v-model="tables.{{form.name}}.newRecord['4'].cu"/></td>
+                    <td><input class="form-control" type="text" name="mann4.fe2"  v-model="tables.{{form.name}}.newRecord['4'].fe2"/></td>
+                    <td><input class="form-control" type="text" name="mann4.sb"  v-model="tables.{{form.name}}.newRecord['4'].sb"/></td>
+                    <td><input class="form-control" type="text" name="mann4.sediment"  v-model="tables.{{form.name}}.newRecord['4'].sediment"/></td>
+                    <td><a v-on:click="addRecord('{{form.name}}')" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
                 </tr>
                 <tr>
-                    <th colspan="1">{% trans "Ситовой огарка" %}</th>
-                    <td colspan="5">
-                        <input class="form-control" type="text" name="extra.grans.item" value="0" />
-                    </td>
-                    <th colspan="2">{% trans "Ситовой Огарка средний" %}</th>
-                    <td>
-                        <input class="form-control" type="text" name="extra.grans_avg" value="0" />
-                    </td>
+
                 </tr>
-                <tr>
-                    <th colspan="2">{% trans "Общее Fe среднее" %}</th>
-                    <td colspan="2"><input class="form-control" type="text" name="extra.fe_avg" value="0" /></td>
-                    <th colspan="3">{% trans "Fe стружка Fe" %}</th>
-                    <td colspan="3">
-                        <input class="form-control" type="text" name="extra.fe_shave" value="0" />
-                    </td>
-                </tr>
+                <template v-if="tables.{{form.name}}.data.extra">
+                    <tr>
+                        <th colspan="1">{% trans "Ситовой огарка" %}</th>
+                        <td colspan="5">
+                        </td>
+                        <th colspan="2">{% trans "Ситовой Огарка средний" %}</th>
+                        <td>
+                            <input class="form-control" type="text" name="extra.grans_avg" v-model="tables.{{form.name}}.data.extra.gran_avg" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">{% trans "Общее Fe среднее" %}</th>
+                        <td colspan="2"><input class="form-control" type="text" name="extra.fe_avg" v-model="tables.{{form.name}}.data.extra.fe_avg" /></td>
+                        <th colspan="3">{% trans "Fe стружка Fe" %}</th>
+                        <td colspan="3">
+                            <input class="form-control" type="text" name="extra.fe_shave" v-model="tables.{{form.name}}.data.extra.fe_shave" />
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
+        </form>
 
-
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
-            </form>
 
     </div>
 </div>

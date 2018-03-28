@@ -17,6 +17,18 @@ urlpatterns = [
     url('save/self/security$', views.leaching_save_self_security),
 
 
+    url('leaching/api/hydrometal$', views.leaching_api_hydrometal),
+    url('save/hydrometal$', views.leaching_save_hydrometal),
+    url('save/hydrometal/json$', views.leaching_save_hydrometal_json),
+    url('leaching/update/hydrometal$', views.leaching_update_hydrometal),
+    url('leaching/api/hydrometal/remove$', views.leaching_save_hydrometal_remove),
+
+    url('save/pulps$', views.leaching_save_pulps),
+    url('leaching/api/pulps$', views.leaching_api_pulps),
+    url('leaching/update/pulps$', views.leaching_update_pulps),
+
+
+
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
     url('save/cinder$', views.leaching_save_cinder),
@@ -25,9 +37,12 @@ urlpatterns = [
     url('save/tanks$', views.leaching_save_tanks),
     url('save/densers/neutural$', views.leaching_save_neutural_densers),
 
+    url('leaching/api/densers$', views.leaching_api_densers),
     url('save/densers$', views.leaching_save_densers),
-    url('save/pulps$', views.leaching_save_pulps),
-    url('save/hydrometal$', views.leaching_save_hydrometal),
+    url('save/densers/json$', views.leaching_save_densers_json),
+
+
+
     url('save/agitators$', views.leaching_save_agitators),
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),

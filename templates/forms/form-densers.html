@@ -1,4 +1,3 @@
-{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -11,7 +10,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
               {% csrf_token %}
 
               {% for hidden_field in form.fields.hidden_fields %}
@@ -20,51 +19,51 @@
 
             <input type="hidden" name="shift_id" value="{{form.shift}}">
 
-             <table class="table table-bordered">
+            <table class="table table-bordered">
             <thead>
-            <tr>
-                <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
-                {% for nomer in form.columns %}
-                <th colspan="6" >{% trans "Сгуститель " %}{{nomer}}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for nomer in form.columns %}
-                <th colspan="4">{% trans "ВС " %}{{nomer}}{% trans "сг." %}</th>
-                <th colspan="2">{% trans "НС " %}{{nomer}}{% trans "сг." %}</th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for n in form.columns %}
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>{% trans "Медь" %}</span></div></th>
-                <th class="rotate"><div><span>{% trans "Железо" %}</span></div></th>
-                <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
-
-                <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
-                {% endfor %}
-            </tr>
-            </thead>
-            <tbody>
-                {% for dt, row in form.previous.items %}
-                <tr class="mini">
-                    <td>{{dt.time | date:"H" }}<sup>{{dt.time |date:"i" }}</sup></td> <!-- | date:"H" -->
-                    {% for key, denser in row.items %}
-                    <td denser-number="{{key}}">{{denser.hs.ph |floatformat:2}}</td>
-                    <td>{{denser.hs.cu |floatformat:2}}</td>
-                    <td>{{denser.hs.fe |floatformat:2}}</td>
-                    <td>{{denser.hs.liq_sol |floatformat:2}}:1</td>
-
-                    <td>{{denser.ls.ph |floatformat:2}}</td>
-                    <td>0.{{denser.ls.liq_sol |floatformat:0}}:1</td>
+                <tr>
+                    <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
+                    {% for nomer in form.columns %}
+                    <th colspan="6" >{% trans "Сгуститель " %}{{nomer}}</th>
                     {% endfor %}
                 </tr>
-                {% endfor %}
+                <tr>
+                    {% for nomer in form.columns %}
+                    <th colspan="4">{% trans "ВС " %}{{nomer}}{% trans "сг." %}</th>
+                    <th colspan="2">{% trans "НС " %}{{nomer}}{% trans "сг." %}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for n in form.columns %}
+                    <th class="rotate"><div><span>pH</span></div></th>
+                    <th class="rotate"><div><span>{% trans "Медь" %}</span></div></th>
+                    <th class="rotate"><div><span>{% trans "Железо" %}</span></div></th>
+                    <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
+
+                    <th class="rotate"><div><span>pH</span></div></th>
+                    <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <template v-if="tables.{{form.name}}.data">
+                    <tr class="mini" v-for="(row, hour) in tables.{{form.name}}.data.items">
+                        <td>[[hour]]<sup>00</sup></td>
+                        <template v-for="denser in row">
+                            <td>[[denser.hs.ph |formatNumber]]</td>
+                            <td>[[denser.hs.cu |formatNumber]]</td>
+                            <td>[[denser.hs.fe |formatNumber]]</td>
+                            <td>[[denser.hs.liq_sol |formatNumber]] :1</td>
+
+                            <td>[[denser.ls.ph |formatNumber]]</td>
+                            <td>[[denser.ls.liq_sol |formatNumber]] :1</td>
+                        </template>
+                    </tr>
+                </template>
 
                 <tr class="mini">
                     <td width="100px">
-                        <select class="form-control" name="select_time">
+                        <select class="form-control" name="select_time" v-on:change="onChange('{{form.name}}')">
                             <option value="8">8:00</option>
                             <option value="10">10:00</option>
                             <option value="12">12:00</option>
@@ -73,21 +72,33 @@
                             <option value="20">20:00</option>
                         </select>
                     </td>
-                    {% for num in form.columns %}
-                    <td><input class="form-control" type="text" name="denser_{{num}}.hs.ph" value="0"></td>
-                    <td><input class="form-control" type="text" name="denser_{{num}}.hs.cu" value="0"></td>
-                    <td><input class="form-control" type="text" name="denser_{{num}}.hs.fe" value="0"></td>
-                    <td><input class="form-control" type="text" name="denser_{{num}}.hs.liq_sol" value="0"></td>
-                    <td><input class="form-control" type="text" name="denser_{{num}}.ls.ph" value="0"></td>
-                    <td><input class="form-control" type="text" name="denser_{{num}}.ls.liq_sol" value="0"></td>
-                    {% endfor %}
+                    <template v-if="tables.{{form.name}}.current_count > 0">
+                        <template v-for="(row, key) in tables.{{form.name}}.current">
+                            <template v-for="(denser, num) in row ">
+                                <td><input class="form-control" type="text" name="denser_{{num}}.hs.ph" v-bind:value="denser.hs.ph"></td>
+                                <td><input class="form-control" type="text" name="denser_{{num}}.hs.cu" v-bind:value="denser.hs.cu"></td>
+                                <td><input class="form-control" type="text" name="denser_{{num}}.hs.fe" v-bind:value="denser.hs.fe"></td>
+                                <td><input class="form-control" type="text" name="denser_{{num}}.hs.liq_sol" v-bind:value="denser.hs.liq_sol"></td>
+                                <td><input class="form-control" type="text" name="denser_{{num}}.ls.ph" v-bind:value="denser.ls.ph"></td>
+                                <td><input class="form-control" type="text" name="denser_{{num}}.ls.liq_sol" v-bind:value="denser.ls.liq_sol"></td>
+                            </template>
+                        </template>
+                    </template>
+                    <template v-if="tables.{{form.name}}.current_count == 0">
+                        {% for num in form.columns %}
+                        <td><input class="form-control" type="number" name="denser_{{num}}.hs.ph" value="0"></td>
+                        <td><input class="form-control" type="number" name="denser_{{num}}.hs.cu" value="0"></td>
+                        <td><input class="form-control" type="number" name="denser_{{num}}.hs.fe" value="0"></td>
+                        <td><input class="form-control" type="number" name="denser_{{num}}.hs.liq_sol" value="0"></td>
+                        <td><input class="form-control" type="number" name="denser_{{num}}.ls.ph" value="0"></td>
+                        <td><input class="form-control" type="number" name="denser_{{num}}.ls.liq_sol" value="0"></td>
+                        {% endfor %}
+                    </template>
                 </tr>
-
             </tbody>
         </table>
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
-            </form>
-
+        </form>
+        <button class="btn btn-success" v-on:click="savePostForm('{{form.name}}')" >{% trans "Сохранить" %}</button>
     </div>
 </div>
 

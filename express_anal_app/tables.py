@@ -23,15 +23,20 @@ def add_model_to_dict(model, res, attrs=None):
             res[attr] = val
 
 
-def get_densers_table(shift=None):
+def get_densers_table(shift=None, hour=None):
     if shift is None:
         shift = Shift.objects.all()[0]
-    data = DenserAnal.objects.filter(shift=shift).order_by('time')
+
     res = deep_dict()
+    if hour is None:
+        data = DenserAnal.objects.filter(shift=shift).order_by('time')
+    else:
+        data = DenserAnal.objects.filter(shift=shift, time__hour=hour).order_by('time')
 
     for d in data:
         for attr in ['ph', 'cu', 'fe', 'liq_sol']:
-            res[d.time][d.point][d.sink][attr] = getattr(d, attr)
+            time_index = int(d.time.strftime("%H"))
+            res[time_index][d.point][d.sink][attr] = getattr(d, attr)
 
     return res.clear_empty().get_dict()
 
@@ -124,7 +129,9 @@ def get_hydrometal1_table(shift=None):
 
     res = deep_dict()
     for d in HydroMetal.objects.filter(shift=shift):
-        add_model_to_dict(d, res[d.time][str(d.mann_num)])
+        time_index = d.time.strftime("%H:%M.%S")
+        add_model_to_dict(d, res[time_index][str(d.mann_num)])
+        res[time_index][str(d.mann_num)]['id'] = d.id
 
     return res.clear_empty().get_dict()
 
@@ -141,8 +148,9 @@ def get_cinder_gran_table(shift=None):
         if val is not None:
             res[attr] = val
 
+    res['id'] = data.id
     for d in CinderDensity.objects.filter(shift=shift):
-        add_model_to_dict(d, res['grans'][d.time], attrs=['gran'])
+        add_model_to_dict(d, res['grans'][str(d.time)], attrs=['gran'])
 
     return res.clear_empty().get_dict()
 
