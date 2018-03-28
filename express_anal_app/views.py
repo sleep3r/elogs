@@ -1439,7 +1439,8 @@ def leaching_api_hydrometal(request):
     return {
         'result': 'ok',
         'items': items,
-        'count': len(items)
+        'count': len(items),
+        'extra': tables.get_cinder_gran_table(shift)
     }
 
 @process_json_view(auth_required=False)
@@ -1483,28 +1484,23 @@ def leaching_save_hydrometal_json(request):
     return {
         'result': 'ok',
         'items': tables.get_hydrometal1_table(shift),
+        'extra': tables.get_cinder_gran_table(shift)
     }
 
 
 @process_json_view(auth_required=False)
-@transaction.atomic
 def leaching_update_hydrometal(request):
     journal = Journal.objects.all()[0]
     data = json.loads(request.POST['item'])
 
     print(data['shift_id'])
+    print(data['extra'])
 
     if 'shift_id' in data:
         shift = Shift.objects.get(id=data['shift_id'])
     else:
         shift = Shift.objects.all()[0]
     employee = Employee.objects.all()[0]
-
-
-    print(data)
-    print(data['1'])
-    print(data['4'])
-    print(shift)
 
     fields = [
         'ph',
@@ -1518,6 +1514,26 @@ def leaching_update_hydrometal(request):
     ]
 
 
+    extra_id = data['extra']['id']
+    extra_fields = [
+        'gran',
+        'gran_avg',
+        'fe_avg',
+        'fe_shave'
+    ]
+
+    if extra_id is None:
+        cinder_model = CinderDensity()
+    else:
+        cinder_model = CinderDensity.objects.get(pk=extra_id)
+
+    setattr(cinder_model, 'journal', journal)
+    setattr(cinder_model, 'shift', shift)
+    for field in extra_fields:
+        if field in data['extra']:
+            setattr(cinder_model, field, data['extra'][field])
+
+    cinder_model.save()
 
     manns = ['1','4']
     for man in manns:
@@ -1535,6 +1551,9 @@ def leaching_update_hydrometal(request):
             if field in item:
                 setattr(model, field, item[field])
         model.save()
+
+
+
 
     return {
         'result': 'ok',

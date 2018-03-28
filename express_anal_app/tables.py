@@ -148,8 +148,9 @@ def get_cinder_gran_table(shift=None):
         if val is not None:
             res[attr] = val
 
+    res['id'] = data.id
     for d in CinderDensity.objects.filter(shift=shift):
-        add_model_to_dict(d, res['grans'][d.time], attrs=['gran'])
+        add_model_to_dict(d, res['grans'][str(d.time)], attrs=['gran'])
 
     return res.clear_empty().get_dict()
 

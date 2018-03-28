@@ -92,13 +92,24 @@ var app = new Vue({
             data: [],
             current: [],
             current_count: 0,
-            newRecord: {'1':{},'4':{}},
+            newRecord: {'1':{},'4':{},'extra':{'fe_avg':123,'fe_shave':999}},
             state: 'view',
             init: function(scope) {
                 let formId = 'form_hydrometal'
                 let form = document.getElementById(formId)
                 var shiftId = form.shift_id.value
-                scope.getAnswerByUrl('/leaching/api/hydrometal?shift_id=' + shiftId, formId)
+                this.data = []
+
+                scope.$http.get('/leaching/api/hydrometal?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        console.info(this.data)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+
+
             },
             onRow: function(scope, rowId) {
                 this.state = 'edit'
@@ -113,13 +124,14 @@ var app = new Vue({
                 var shiftId = form.shift_id.value
                 let data = new FormData()
                 this.newRecord['shift_id'] = shiftId
+                this.newRecord['extra'] = this.data['extra']
                 data.append('item', JSON.stringify(this.newRecord))
                 scope.$http.post('leaching/update/hydrometal', data)
                     .then(response => {
                         console.log(response.data)
                         this.state = 'view'
                         this.init(scope)
-                        this.newRecord = {'1':{},'4':{}}
+                        this.newRecord = {'1':{},'4':{},'extra':{ }}
                     })
                     .catch(e => {
                         console.log(e)
