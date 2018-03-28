@@ -1,3 +1,4 @@
+{% load i18n %}
 
 <div class="x_panel">
     <div class="x_title">
@@ -23,8 +24,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th colspan="10">Агитаторы</th>
-                        <th colspan="3">Готовый раствор</th>
+                        <th colspan="10">{% trans 'Агитаторы' %}</th>
+                        <th colspan="3">{% trans 'Готовый раствор' %}</th>
                     </tr>
                     <tr>
                         <th>13,<br/>14</th>
@@ -44,16 +45,16 @@
                 </thead>
                 <tbody>
                     <tr class="mini">
-                        <th rowspan="3">До</th>
+                        <th rowspan="3">{% trans "До" %}</th>
                         <td><input class="form-control" type="text" name="agitator13.before.cd_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator13.before.cu_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator13.before.co_1" value="0" /></td>
 
-                        <th rowspan="3">До</th>
+                        <th rowspan="3">{% trans "До" %}</th>
                         <td><input class="form-control" type="text" name="agitator15.before.ph_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator15.before.cu_1" value="0" /></td>
 
-                        <th rowspan="3">До</th>
+                        <th rowspan="3">{% trans "До" %}</th>
                         <td><input class="form-control" type="text" name="agitator17.before.ph_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator17.before.cu" value="0" /></td>
 
@@ -92,18 +93,18 @@
                         <td><input class="form-control" type="text" name="agitator19.before.cu_3" value="0" /></td>
                     </tr>
                     <tr class="mini">
-                        <th rowspan="3">После</th>
+                        <th rowspan="3">{% trans "После" %}</th>
 
                         <td><input class="form-control" type="text" name="agitator13.after.cd_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator13.after.cu_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator13.after.co_1" value="0" /></td>
 
-                        <th rowspan="3">После</th>
+                        <th rowspan="3">{% trans "После" %}</th>
 
                         <td><input class="form-control" type="text" name="agitator15.after.ph_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator15.after.cu_1" value="0" /></td>
 
-                        <th rowspan="3">После</th>
+                        <th rowspan="3">{% trans {% trans "После " %}%}</th>
 
                         <td><input class="form-control" type="text" name="agitator17.after.ph_1" value="0" /></td>
                         <td><input class="form-control" type="text" name="agitator17.after.cu_1" value="0" /></td>
@@ -150,7 +151,7 @@
                 </tr>
                 </tbody>
             </table>
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %}/>
         </form>
     </div>
 </div>

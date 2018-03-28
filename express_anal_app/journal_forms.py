@@ -23,7 +23,7 @@ def generate_standard_forms():
         if inspect.isclass(obj) and issubclass(obj, models.Model) and not obj in exception_models:
             db_models.append(obj)
 
-    exception_fields = ['journaltable_ptr']
+    exception_fields = ['journaltable_ptr', 'zn_pulp_anal', 'cu_pulp_anal', 'fe_solution_anal']
     for m in db_models:
         fields = [f.name for f in m._meta.get_fields(include_parents=True) if f.name not in exception_fields]
         Meta = type('Meta', (object,), {'model': m, 'fields': fields})

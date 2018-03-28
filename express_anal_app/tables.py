@@ -11,7 +11,7 @@ from itertools import product
 from login_app.models import Employee
 from express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
-
+from django.utils.translation import gettext as _
 
 def add_model_to_dict(model, res, attrs=None):
     if attrs is None:
@@ -306,10 +306,9 @@ def get_reagents_table(shift=None):
 
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
-    # df = DatabaseFiller()
-    # df.recreate_database()
-    #
-    # a = get_densers_table()
-    # pprint(a)
+    df = DatabaseFiller()
+    df.recreate_database()
 
-    test_form_creation()
+    # df.clean_database()
+    a = get_densers_table()
+    pprint(a)

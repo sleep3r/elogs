@@ -1,10 +1,11 @@
+{% load i18n %}
 <ul class="nav side-menu">
-  <li><a><i class="fa fa-sitemap"></i>Список цехов<span class="fa fa-chevron-down"></span></a>
+  <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
     <ul class="nav child_menu">
         <!--<li><a href="#level1_1">Обжиг</a>-->
-        <li><a>Выщелачивание<span class="fa fa-chevron-down"></span></a>
+        <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-              <li class="sub_menu"><a href="/leaching/ju">Журнал экспресс анализа</a></li>
+              <li class="sub_menu"><a href="/leaching/ju">{% trans "Журнал экспресс анализа" %}</a></li>
           </ul>
         </li>
         <!--<li><a href="/electrolysis/main">Электролиз</a></li>-->

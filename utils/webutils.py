@@ -6,6 +6,7 @@ from collections import defaultdict
 from json import JSONEncoder
 from traceback import print_exc
 
+from django.db import transaction
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from dateutil.parser import parse as parse_date
@@ -42,7 +43,8 @@ def process_json_view(auth_required=True):
                 if received_token != request.user.employee.csrf:
                     return HttpResponse(str(SemanticError(message='Сессия истекла. Обновите страницу.')))
             try:
-                response = view(request, **kwargs)
+                with transaction.atomic():
+                    response = view(request, **kwargs)
             except SemanticError as e:
                 response = HttpResponse(str(e))
             except AccessError as e:

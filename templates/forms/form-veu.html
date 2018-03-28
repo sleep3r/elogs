@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -17,30 +18,30 @@
                 <thead>
                     <tr>
                         <td></td>
-                        <th>Г</th>
-                        <th>Х</th>
+                        <th>{% trans "Г" %}</th>
+                        <th>{% trans "Х" %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>ВИУ 1</td>
+                        <td>{% trans "ВИУ " %}1</td>
                         <td><input class="form-control" name="veu_hot_1" value=""></td>
                         <td><input class="form-control" name="veu_cold_1" value=""></td>
                     </tr>
                     <tr>
-                        <td>ВИУ 2</td>
+                        <td>{% trans "ВИУ " %}2</td>
                         <td><input class="form-control" name="veu_hot_2" value=""></td>
                         <td><input class="form-control" name="veu_cold_2" value=""></td>
                     </tr>
                     <tr>
-                        <td>ВИУ 3</td>
+                        <td>{% trans "ВИУ " %}3</td>
                         <td><input class="form-control" name="veu_hot_3" value=""></td>
                         <td><input class="form-control" name="veu_cold_3" value=""></td>
                     </tr>
                 </tbody>
             </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %}/>
             </form>
     </div>
 </div>

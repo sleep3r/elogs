@@ -1,3 +1,4 @@
+{% load i18n %}
 <style>
     .table-electrolysis tr:nth-child(-n+2) td { font-size: 10px;  }
     .table-electrolysis th { vertical-align: middle !important; }
@@ -61,7 +62,7 @@
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td colspan="2">Комментарий</td>
+                    <td colspan="2">{% trans "Комментарий" %}</td>
                     <td colspan="4">
                     {{table.data.comment}}
                     </td>

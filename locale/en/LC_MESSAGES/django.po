@@ -1,0 +1,839 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-28 20:38+0300\n"
+"PO-Revision-Date: 2018-03-28 20:19+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: .\DigitalLogs\settings.py:145
+msgid "Russian"
+msgstr "Russian"
+
+#: .\DigitalLogs\settings.py:146
+msgid "English"
+msgstr "English"
+
+#: .\express_anal_app\views.py:41
+msgid "Температура кипящего слоя превысила критический показатель"
+msgstr "Critical liquidized bed temperature"
+
+#: .\express_anal_app\views.py:42
+msgid "Всё хорошо"
+msgstr "Everything's alright"
+
+#: .\express_anal_app\views.py:43
+msgid "Надо пошурудить в печи"
+msgstr "Douse in the oven"
+
+#: .\express_anal_app\views.py:84 .\express_anal_app\views.py:85
+msgid "ВСНС"
+msgstr "HSLS"
+
+#: .\express_anal_app\views.py:85
+#: .\templates\forms\form-express-analysis.html:28
+#: .\templates\widgets\table-bchc.html:13
+msgid "Ларокс"
+msgstr "Larox"
+
+#: .\express_anal_app\views.py:85
+#: .\templates\forms\form-express-analysis.html:29
+#: .\templates\widgets\table-bchc.html:14
+msgid "Очищенный раствор"
+msgstr "Refined solution"
+
+#: .\express_anal_app\views.py:86
+msgid "Кобальт Co"
+msgstr "Cobalt Co"
+
+#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:88
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+#: .\express_anal_app\views.py:443 .\express_anal_app\views.py:445
+#: .\templates\forms\form-hydrometal.html:37
+#: .\templates\widgets\table-apparat.html:26
+msgid "Сурьма"
+msgstr "Antimony"
+
+#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:88
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+#: .\express_anal_app\views.py:443 .\express_anal_app\views.py:445
+#: .\templates\forms\form-densers.html:40
+#: .\templates\forms\form-hydrometal.html:35
+#: .\templates\widgets\table-apparat.html:24
+#: .\templates\widgets\table-densers.html:52
+msgid "Медь"
+msgstr "Copper"
+
+#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:88
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+#: .\express_anal_app\views.py:443 .\express_anal_app\views.py:445
+msgid "Кадмий"
+msgstr "Cadmium"
+
+#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:443
+msgid "Твердое После 1ст"
+msgstr "Solid after the 1 stage"
+
+#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:88
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+#: .\express_anal_app\views.py:443 .\express_anal_app\views.py:445
+#: .\templates\forms\form-densers.html:41
+#: .\templates\widgets\table-densers.html:53
+msgid "Железо"
+msgstr "Iron"
+
+#: .\express_anal_app\views.py:87 .\express_anal_app\views.py:444
+msgid "Твёрдое "
+msgstr "Solid "
+
+#: .\express_anal_app\views.py:87 .\express_anal_app\views.py:89
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+#: .\express_anal_app\views.py:444 .\express_anal_app\views.py:446
+#: .\templates\forms\form-shift-info.html:96 .\templates\widgets\shift.html:53
+msgid "Уд. вес"
+msgstr "Apecific gravity"
+
+#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:122
+#: .\express_anal_app\views.py:406 .\express_anal_app\views.py:443
+#: .\express_anal_app\views.py:445
+msgid "Кобальт"
+msgstr "Cobalt"
+
+#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:445
+msgid "Твердое"
+msgstr "Solid"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:446
+msgid "Выход по току"
+msgstr "Current output"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:122
+#: .\express_anal_app\views.py:406 .\express_anal_app\views.py:446
+msgid "Норма"
+msgstr "Expected"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:122
+#: .\express_anal_app\views.py:406 .\express_anal_app\views.py:446
+msgid "Факт"
+msgstr "Actual"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:446
+msgid "Несоответствие"
+msgstr "Error"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:123
+#: .\express_anal_app\views.py:407 .\express_anal_app\views.py:446
+msgid "Коррекция"
+msgstr "Correction"
+
+#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:123
+#: .\express_anal_app\views.py:407 .\templates\widgets\shift.html:18
+msgid "Мастер"
+msgstr "Master"
+
+#: .\express_anal_app\views.py:95 .\express_anal_app\views.py:450
+msgid "Сгустители"
+msgstr "Densers"
+
+#: .\express_anal_app\views.py:102
+msgid "Пульпа"
+msgstr "Pulp"
+
+#: .\express_anal_app\views.py:109 .\express_anal_app\views.py:115
+msgid "Аппаратчик - гидрометаллург"
+msgstr "Hydrometallurger"
+
+#: .\express_anal_app\views.py:121 .\express_anal_app\views.py:405
+msgid "Баки готовой продукции"
+msgstr "Ready product tanks"
+
+#: .\express_anal_app\views.py:122
+msgid "№ Бака "
+msgstr "Tank № "
+
+#: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
+msgid "В:T"
+msgstr ""
+
+#: .\express_anal_app\views.py:130 .\express_anal_app\views.py:417
+msgid "Наличие<br>нейтр. р-ра"
+msgstr "Neutral<br>solution"
+
+#: .\express_anal_app\views.py:131 .\express_anal_app\views.py:418
+msgid "Уч. выщел. N1<br>бак 3,4,5,4А"
+msgstr "Leaching stage 1<br> tanks 3,4,5,4А"
+
+#: .\express_anal_app\views.py:132 .\express_anal_app\views.py:133
+#: .\express_anal_app\views.py:136 .\express_anal_app\views.py:137
+msgid "Бак"
+msgstr "Tank"
+
+#: .\express_anal_app\views.py:134 .\express_anal_app\views.py:421
+msgid "Итого"
+msgstr "Total"
+
+#: .\express_anal_app\views.py:135 .\express_anal_app\views.py:422
+msgid "Бак III<br/>серии"
+msgstr "Tank III<br/>series"
+
+#: .\express_anal_app\views.py:143 .\express_anal_app\views.py:145
+#: .\templates\forms\form-electrolysis.html:29
+msgid "Нагрузки"
+msgstr "Loads"
+
+#: .\express_anal_app\views.py:144 .\templates\forms\form-electrolysis.html:21
+msgid "I серия"
+msgstr "I series"
+
+#: .\express_anal_app\views.py:144 .\templates\forms\form-electrolysis.html:22
+msgid "II серия"
+msgstr "II series"
+
+#: .\express_anal_app\views.py:144 .\templates\forms\form-electrolysis.html:23
+msgid "III серия"
+msgstr "III series"
+
+#: .\express_anal_app\views.py:144 .\templates\forms\form-electrolysis.html:24
+msgid "IV серия"
+msgstr "IV series"
+
+#: .\express_anal_app\views.py:145 .\templates\forms\form-electrolysis.html:45
+msgid "Показания счётчика"
+msgstr "Counter readings"
+
+#: .\express_anal_app\views.py:145
+msgid "Бункеа ЦВЦО"
+msgstr "Leaching process bunker"
+
+#: .\express_anal_app\views.py:145 .\templates\forms\form-electrolysis.html:59
+msgid "Силоса ОЦ"
+msgstr "Furnace silage"
+
+#: .\express_anal_app\views.py:145 .\templates\forms\form-electrolysis.html:66
+msgid "Бункера ОЦ"
+msgstr "Furnace bunkers"
+
+#: .\express_anal_app\views.py:151 .\express_anal_app\views.py:391
+msgid "Наличие свободных ёмкостей"
+msgstr "Free tanks"
+
+#: .\express_anal_app\views.py:157 .\express_anal_app\views.py:430
+#: .\templates\forms\form-neutural-densers.html:26
+#: .\templates\widgets\table-neutral-densers.html:11
+msgid "Нейтральные сгустители"
+msgstr "Neutral densers"
+
+#: .\express_anal_app\views.py:163 .\express_anal_app\views.py:371
+#: .\templates\widgets\table-security.html:16
+msgid "Самоохрана"
+msgstr "Self-security"
+
+#: .\express_anal_app\views.py:169 .\express_anal_app\views.py:365
+msgid "Пробник №2"
+msgstr "Sample №2"
+
+#: .\express_anal_app\views.py:170 .\templates\forms\form-densers.html:26
+#: .\templates\forms\form-express-analysis.html:26
+#: .\templates\forms\form-sample2.html:20
+#: .\templates\widgets\table-bchc.html:11
+#: .\templates\widgets\table-densers.html:38
+msgid "Время"
+msgstr "Time"
+
+#: .\express_anal_app\views.py:188 .\express_anal_app\views.py:191
+#: .\express_anal_app\views.py:194 .\express_anal_app\views.py:359
+msgid "ВИУ"
+msgstr "VEU"
+
+#: .\express_anal_app\views.py:200 .\express_anal_app\views.py:341
+msgid "Шихта"
+msgstr "Schieht"
+
+#: .\express_anal_app\views.py:206 .\express_anal_app\views.py:397
+msgid "Реагенты"
+msgstr "Reagents"
+
+#: .\express_anal_app\views.py:214
+msgid "Журнал учёта"
+msgstr "Accounting journal"
+
+#: .\express_anal_app\views.py:215 .\express_anal_app\views.py:338
+msgid "Цех выщелачивания"
+msgstr "Leaching plant"
+
+#: .\express_anal_app\views.py:218 .\express_anal_app\views.py:377
+msgid "Выбранная смена"
+msgstr "Current shift"
+
+#: .\express_anal_app\views.py:336
+msgid "Журнал Экспресс анализа (Заполнение)"
+msgstr "Express analysis journal (filling)"
+
+#: .\express_anal_app\views.py:339
+msgid "Заполнить форму"
+msgstr "Fill the form"
+
+#: .\express_anal_app\views.py:347
+msgid "Электролиз"
+msgstr "Electrolisys"
+
+#: .\express_anal_app\views.py:353
+msgid "Огарок"
+msgstr "Cinder"
+
+#: .\express_anal_app\views.py:384
+msgid "Принято и откачено"
+msgstr "Taken and pumped out"
+
+#: .\express_anal_app\views.py:406
+msgid "№ Бака"
+msgstr "Tank №"
+
+#: .\express_anal_app\views.py:415
+msgid "Нейтральный раствор"
+msgstr "Neutral solution"
+
+#: .\express_anal_app\views.py:419
+msgid "Бак 3"
+msgstr "Tank 3"
+
+#: .\express_anal_app\views.py:420
+msgid "Бак 4"
+msgstr "Tank 4"
+
+#: .\express_anal_app\views.py:423
+msgid "Бак 5"
+msgstr "Tank 5"
+
+#: .\express_anal_app\views.py:424
+msgid "Бак 6"
+msgstr "Tank 6"
+
+#: .\express_anal_app\views.py:438
+msgid "Экспресс анализ"
+msgstr "Express analysis"
+
+#: .\express_anal_app\views.py:459
+msgid "Пульпы"
+msgstr "Pulps"
+
+#: .\express_anal_app\views.py:468
+msgid "Аппаратчик - Гидрометаллург"
+msgstr "Hydrometallurger"
+
+#: .\express_anal_app\views.py:475
+msgid "Агитаторы очистки"
+msgstr "Refining agitators"
+
+#: .\templates\forms\form-agitators.html:27
+#: .\templates\widgets\table-agitators.html:16
+msgid "Агитаторы"
+msgstr "Agitators"
+
+#: .\templates\forms\form-agitators.html:28
+#: .\templates\widgets\table-agitators.html:17
+msgid "Готовый раствор"
+msgstr "Ready solution"
+
+#: .\templates\forms\form-agitators.html:48
+#: .\templates\forms\form-agitators.html:53
+#: .\templates\forms\form-agitators.html:57
+#: .\templates\forms\form-pulps.html:38
+#: .\templates\widgets\table-2zinc.html:27
+#: .\templates\widgets\table-agitators.html:39
+#: .\templates\widgets\table-agitators.html:45
+#: .\templates\widgets\table-agitators.html:50
+#: .\templates\widgets\table-znpulp.html:31
+msgid "До"
+msgstr "Before"
+
+#: .\templates\forms\form-agitators.html:96
+#: .\templates\forms\form-agitators.html:102
+#: .\templates\forms\form-pulps.html:39
+#: .\templates\widgets\table-2zinc.html:28
+#: .\templates\widgets\table-agitators.html:64
+#: .\templates\widgets\table-agitators.html:70
+#: .\templates\widgets\table-agitators.html:75
+#: .\templates\widgets\table-znpulp.html:32
+msgid "После"
+msgstr "After"
+
+#: .\templates\forms\form-agitators.html:154
+#: .\templates\forms\form-cinder.html:40
+#: .\templates\forms\form-densers.html:88
+#: .\templates\forms\form-electrolysis.html:81
+#: .\templates\forms\form-express-analysis.html:185
+#: .\templates\forms\form-free-tanks.html:38
+#: .\templates\forms\form-hydrometal.html:75
+#: .\templates\forms\form-neutural-densers.html:51
+#: .\templates\forms\form-neutural-solution.html:47
+#: .\templates\forms\form-pulps.html:87
+#: .\templates\forms\form-ready-tanks.html:51
+#: .\templates\forms\form-reagents.html:104
+#: .\templates\forms\form-sample2.html:59
+#: .\templates\forms\form-schieht.html:39
+#: .\templates\forms\form-self-security.html:73
+#: .\templates\forms\form-shift-info.html:120
+#: .\templates\forms\form-template.html:19 .\templates\forms\form-veu.html:44
+#: .\templates\react-table-edit.html:15
+msgid "Сохранить"
+msgstr "Save"
+
+#: .\templates\forms\form-cinder.html:20
+msgid "За смену"
+msgstr "Per shift"
+
+#: .\templates\forms\form-cinder.html:26
+msgid "За сутки"
+msgstr "Per day"
+
+#: .\templates\forms\form-cinder.html:32
+msgid "В процесс"
+msgstr "In process"
+
+#: .\templates\forms\form-densers.html:28
+msgid "Сгуститель "
+msgstr "Denser "
+
+#: .\templates\forms\form-densers.html:33
+msgid "ВС "
+msgstr "HS "
+
+#: .\templates\forms\form-densers.html:33
+#: .\templates\forms\form-densers.html:34
+#: .\templates\widgets\table-densers.html:45
+#: .\templates\widgets\table-densers.html:46
+msgid "сг."
+msgstr "dens."
+
+#: .\templates\forms\form-densers.html:34
+msgid "НС "
+msgstr "LS "
+
+#: .\templates\forms\form-densers.html:42
+#: .\templates\forms\form-densers.html:45
+#: .\templates\forms\form-neutural-densers.html:38
+#: .\templates\forms\form-pulps.html:34 .\templates\forms\form-pulps.html:37
+#: .\templates\widgets\table-2zinc.html:23
+#: .\templates\widgets\table-2zinc.html:26
+#: .\templates\widgets\table-densers.html:54
+#: .\templates\widgets\table-densers.html:57
+#: .\templates\widgets\table-neutral-densers.html:23
+#: .\templates\widgets\table-znpulp.html:27
+#: .\templates\widgets\table-znpulp.html:30
+msgid "Ж:Т"
+msgstr "Liq:Sol"
+
+#: .\templates\forms\form-electrolysis.html:52
+msgid "Бункера ЦВЦО"
+msgstr "Leaching process bunker"
+
+#: .\templates\forms\form-electrolysis.html:73
+#: .\templates\widgets\table-electrolysis.html:65
+msgid "Комментарий"
+msgstr "Comment"
+
+#: .\templates\forms\form-express-analysis.html:27
+#: .\templates\widgets\table-bchc.html:12
+msgid "BCHC"
+msgstr "HSLS"
+
+#: .\templates\forms\form-express-analysis.html:30
+#: .\templates\widgets\table-bchc.html:15
+msgid "Упр. Несоответствия продукции"
+msgstr "Product deviations management"
+
+#: .\templates\forms\form-free-tanks.html:21
+msgid "Ёмкости"
+msgstr "Tanks"
+
+#: .\templates\forms\form-free-tanks.html:22
+msgid "Пред."
+msgstr "Prev."
+
+#: .\templates\forms\form-free-tanks.html:22
+#: .\templates\forms\form-free-tanks.html:23
+msgid "замеры"
+msgstr "measurments"
+
+#: .\templates\forms\form-free-tanks.html:23
+msgid "Текущ."
+msgstr "Curr."
+
+#: .\templates\forms\form-free-tanks.html:24
+msgid "Отклонение"
+msgstr "Deviation"
+
+#: .\templates\forms\form-hydrometal.html:26
+#: .\templates\forms\form-hydrometal.html:27
+msgid "Манн"
+msgstr "Mann"
+
+#: .\templates\forms\form-hydrometal.html:31
+#: .\templates\widgets\table-apparat.html:20
+msgid "Кисл-ть"
+msgstr "Acidity"
+
+#: .\templates\forms\form-hydrometal.html:32
+#: .\templates\widgets\table-apparat.html:21
+msgid "Fe двухвал."
+msgstr "Fe (II)"
+
+#: .\templates\forms\form-hydrometal.html:33
+#: .\templates\widgets\table-apparat.html:22
+msgid "Fe Общее"
+msgstr "Fe total"
+
+#: .\templates\forms\form-hydrometal.html:34
+msgid "pH"
+msgstr "pH"
+
+#: .\templates\forms\form-hydrometal.html:36
+msgid "Fe"
+msgstr "Fe"
+
+#: .\templates\forms\form-hydrometal.html:38
+#: .\templates\forms\form-neutural-densers.html:32
+#: .\templates\widgets\table-apparat.html:27
+#: .\templates\widgets\table-neutral-densers.html:17
+msgid "Отстои"
+msgstr "Sediment"
+
+#: .\templates\forms\form-hydrometal.html:54
+#: .\templates\widgets\table-apparat.html:45
+msgid "Ситовой огарка"
+msgstr "Cinder sieve"
+
+#: .\templates\forms\form-hydrometal.html:58
+#: .\templates\widgets\table-apparat.html:55
+msgid "Ситовой Огарка средний"
+msgstr "Cinder sieve avg"
+
+#: .\templates\forms\form-hydrometal.html:64
+#: .\templates\widgets\table-apparat.html:59
+msgid "Общее Fe среднее"
+msgstr "Total Fe average"
+
+#: .\templates\forms\form-hydrometal.html:66
+#: .\templates\widgets\table-apparat.html:61
+msgid "Fe стружка Fe"
+msgstr "Fe shave Fe"
+
+#: .\templates\forms\form-neutural-densers.html:38
+#: .\templates\widgets\table-neutral-densers.html:23
+msgid "(НС)"
+msgstr "(LS)"
+
+#: .\templates\forms\form-pulps.html:26
+#: .\templates\widgets\table-2zinc.html:15
+msgid "Цинковая (Zn) пульпа"
+msgstr "Zinc (Zn) pulp"
+
+#: .\templates\forms\form-pulps.html:27
+#: .\templates\widgets\table-2zinc.html:16
+#: .\templates\widgets\table-znpulp.html:20
+msgid "Медная пульпа"
+msgstr "Copper pulp"
+
+#: .\templates\forms\form-pulps.html:28
+#: .\templates\widgets\table-2zinc.html:17
+#: .\templates\widgets\table-znpulp.html:21
+msgid "Железистый раствор"
+msgstr "Iron solution"
+
+#: .\templates\forms\form-pulps.html:29
+#: .\templates\widgets\table-2zinc.html:18
+#: .\templates\widgets\table-znpulp.html:22
+msgid "Концентрат Sb в р-ре соли Шлиппе"
+msgstr "Sb concentrate in Shlippe salt solution"
+
+#: .\templates\forms\form-pulps.html:30
+#: .\templates\widgets\table-2zinc.html:19
+#: .\templates\widgets\table-znpulp.html:23
+msgid "Активн. ПАВ"
+msgstr "SAS activity"
+
+#: .\templates\forms\form-pulps.html:31
+#: .\templates\widgets\table-2zinc.html:20
+#: .\templates\widgets\table-znpulp.html:24
+msgid "Высоко Fe р-р"
+msgstr "High-Fe solution"
+
+#: .\templates\forms\form-pulps.html:40 .\templates\forms\form-pulps.html:42
+#: .\templates\widgets\table-2zinc.html:29
+#: .\templates\widgets\table-2zinc.html:31
+msgid "ТВ"
+msgstr "Sol."
+
+#: .\templates\forms\form-pulps.html:46
+#: .\templates\widgets\table-2zinc.html:35
+msgid "уд. вес"
+msgstr "specific gravity"
+
+#: .\templates\forms\form-pulps.html:75
+#: .\templates\widgets\table-2zinc.html:60
+#: .\templates\widgets\table-znpulp.html:68
+msgid "Анализы оборот. сгуст."
+msgstr "Cycling denser analysis"
+
+#: .\templates\forms\form-reagents.html:32
+#: .\templates\widgets\table-reagents.html:19
+msgid "Доставлено"
+msgstr "Delivered"
+
+#: .\templates\forms\form-reagents.html:33
+#: .\templates\forms\form-shift-info.html:88 .\templates\widgets\shift.html:52
+#: .\templates\widgets\table-reagents.html:20
+msgid "Принято"
+msgstr "Taken"
+
+#: .\templates\forms\form-reagents.html:34
+#: .\templates\widgets\table-reagents.html:21
+msgid "Расход"
+msgstr "Consumption"
+
+#: .\templates\forms\form-reagents.html:35
+#: .\templates\widgets\table-reagents.html:22
+msgid "Сдано"
+msgstr "Issued"
+
+#: .\templates\forms\form-reagents.html:38
+#: .\templates\widgets\table-reagents.html:25
+msgid "Соль Шлиппе"
+msgstr "Shlippe Salt"
+
+#: .\templates\forms\form-reagents.html:45
+msgid "пыль"
+msgstr "dust"
+
+#: .\templates\forms\form-reagents.html:70
+msgid "руда"
+msgstr "ore"
+
+#: .\templates\forms\form-reagents.html:77
+#: .\templates\widgets\table-reagents.html:64
+msgid "Магнофлок"
+msgstr "Magnaflok"
+
+#: .\templates\forms\form-reagents.html:84
+msgid "стружка"
+msgstr "shave"
+
+#: .\templates\forms\form-reagents.html:98
+msgid "Состояние ограждений"
+msgstr "Fences state"
+
+#: .\templates\forms\form-self-security.html:17
+#: .\templates\forms\form-self-security.html:49
+#: .\templates\widgets\table-security.html:19
+msgid "Обход"
+msgstr "Territory inspection"
+
+#: .\templates\forms\form-self-security.html:18
+#: .\templates\forms\form-self-security.html:50
+#: .\templates\widgets\table-security.html:20
+msgid "Примечание"
+msgstr "Note"
+
+#: .\templates\forms\form-shift-choice.html:10
+msgid "Выбранная смена:"
+msgstr "Current shift:"
+
+#: .\templates\forms\form-shift-info.html:20
+msgid "Мастер сдал"
+msgstr "Master issued"
+
+#: .\templates\forms\form-shift-info.html:28
+msgid "Мастер принял"
+msgstr "Master accepted"
+
+#: .\templates\forms\form-shift-info.html:36 .\templates\widgets\shift.html:30
+msgid "Откачено"
+msgstr "Pumped out"
+
+#: .\templates\forms\form-shift-info.html:41 .\templates\widgets\shift.html:32
+msgid "Выход ТВ"
+msgstr "Current output"
+
+#: .\templates\forms\form-shift-info.html:50 .\templates\widgets\shift.html:35
+msgid "Пульпы ЦВЦК"
+msgstr "Leaching pulps"
+
+#: .\templates\forms\form-shift-info.html:56 .\templates\widgets\shift.html:38
+msgid "Медного кека, тн"
+msgstr "Cu cake"
+
+#: .\templates\forms\form-shift-info.html:58 .\templates\widgets\shift.html:38
+msgid "Cd губка"
+msgstr "Cd sponge"
+
+#: .\templates\forms\form-shift-info.html:62 .\templates\widgets\shift.html:41
+msgid "Отработ в ЦВОЦ"
+msgstr "Spent to Weltz"
+
+#: .\templates\forms\form-shift-info.html:68 .\templates\widgets\shift.html:44
+msgid "Богато-кадмиевого"
+msgstr "Cadmium-rich"
+
+#: .\templates\forms\form-shift-info.html:74 .\templates\widgets\shift.html:47
+msgid "Нейтрального в ХМЦ"
+msgstr "Neutral densers ХМЦ"
+
+#: .\templates\forms\form-shift-info.html:80 .\templates\widgets\shift.html:50
+msgid "Cu Пульпа"
+msgstr "Cu Pulp"
+
+#: .\templates\forms\form-shift-info.html:92 .\templates\widgets\shift.html:53
+msgid "Фильтрат ЦВЦК, Ж:Т"
+msgstr "Leaching filtrate"
+
+#: .\templates\forms\form-shift-info.html:101
+#: .\templates\widgets\shift.html:54
+msgid "Железистого из ЦВОЦ"
+msgstr "Iron from leaching"
+
+#: .\templates\forms\form-shift-info.html:106
+#: .\templates\widgets\shift.html:55
+msgid "Высоко железистого из ЦВОЦ"
+msgstr "He-iron from leaching"
+
+#: .\templates\forms\form-shift-info.html:112
+#: .\templates\widgets\shift.html:56
+msgid "Бедно-кадмиего"
+msgstr "Low-cadmium"
+
+#: .\templates\forms\form-veu.html:21
+msgid "Г"
+msgstr "H"
+
+#: .\templates\forms\form-veu.html:22
+msgid "Х"
+msgstr "C"
+
+#: .\templates\forms\form-veu.html:27 .\templates\forms\form-veu.html:32
+#: .\templates\forms\form-veu.html:37
+msgid "ВИУ "
+msgstr "VEU "
+
+#: .\templates\header.html:63
+msgid "Аналитика завода"
+msgstr "Factory analytics"
+
+#: .\templates\menu.html:3
+msgid "Список цехов"
+msgstr "Plants list"
+
+#: .\templates\menu.html:6
+msgid "Выщелачивание"
+msgstr "Leaching"
+
+#: .\templates\menu.html:8
+msgid "Журнал экспресс анализа"
+msgstr "Express analysis journal"
+
+#: .\templates\top_nav.html:11
+msgid "Мастер смены"
+msgstr "Shift master"
+
+#: .\templates\widgets\dashboard_graph.html:6
+msgid "Производство цинка "
+msgstr "Zinc production "
+
+#: .\templates\widgets\dashboard_graph.html:6
+msgid " аналитика"
+msgstr " analytics"
+
+#: .\templates\widgets\gauge.html:4
+msgid "Температура печи"
+msgstr "Furnace temperature"
+
+#: .\templates\widgets\shift.html:4
+msgid "Лист 2"
+msgstr "List 2"
+
+#: .\templates\widgets\shift.html:5
+msgid "Смена: "
+msgstr "Shift: "
+
+#: .\templates\widgets\shift.html:12
+msgid "Печи"
+msgstr "Furnace"
+
+#: .\templates\widgets\shift.html:21
+msgid "Лаборант"
+msgstr "Laboratory assistant"
+
+#: .\templates\widgets\shift.html:38
+msgid "тн"
+msgstr "tons"
+
+#: .\templates\widgets\table-2zinc.html:7
+#: .\templates\widgets\table-znpulp.html:11
+msgid "Цинковая пульпа"
+msgstr "Zinc pulp"
+
+#: .\templates\widgets\table-apparat.html:15
+msgid "1 Манн"
+msgstr "1 Mann"
+
+#: .\templates\widgets\table-apparat.html:16
+msgid "4 Манн"
+msgstr "4 Mann"
+
+#: .\templates\widgets\table-densers.html:40
+msgid "Сгуститель"
+msgstr "Denser"
+
+#: .\templates\widgets\table-densers.html:45
+msgid "ВС"
+msgstr "HS"
+
+#: .\templates\widgets\table-densers.html:46
+msgid "НС"
+msgstr "LS"
+
+#: .\templates\widgets\table-reagents.html:32
+msgid "Zn пыль"
+msgstr "Zn dust"
+
+#: .\templates\widgets\table-reagents.html:46
+msgid "16 кб"
+msgstr "16 kb"
+
+#: .\templates\widgets\table-reagents.html:57
+msgid "Mg руда"
+msgstr "Mg ore"
+
+#: .\templates\widgets\table-reagents.html:71
+msgid "Fe стружка"
+msgstr "Fe shave"
+
+#: .\templates\widgets\table-reagents.html:79
+msgid "Состояние ограждений:"
+msgstr "Fences state:"
+
+#: .\templates\widgets\table-simple.html:12
+msgid "Настройка"
+msgstr "Settings"
+
+#: .\templates\widgets\table-znpulp.html:19
+msgid "Цинковая (Zn) пульпа "
+msgstr "Zinc (Zn) pulp "
+
+#~ msgid "{%% trans "
+#~ msgstr "\"FIX ME PLEASE!\""
+
+#~ msgid "French"
+#~ msgstr "French"

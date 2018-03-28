@@ -1,3 +1,4 @@
+{% load i18n %}
 <style>
     td { text-align: center; }
     tr.mini th { vertical-align: middle !important; }
@@ -12,8 +13,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th colspan="10">Агитаторы</th>
-                    <th colspan="3">Готовый раствор</th>
+                    <th colspan="10">{% trans "Агитаторы" %}</th>
+                    <th colspan="3">{% trans "Готовый раствор" %}</th>
                 </tr>
                 <tr>
                     <th>13,<br/>14</th>
@@ -35,18 +36,18 @@
                 {% for num, row in table.data.times.items %}
                 <tr class="mini">
                     {% if num == 0 %}
-                    <th rowspan="3">До</th>
+                    <th rowspan="3">{% trans "До" %}</th>
                     {% endif %}
                     <td>{{row.13.1.cd |floatformat:2}}</td>
                     <td>{{row.13.1.cu |floatformat:2}}</td>
                     <td>{{row.13.1.co |floatformat:2}}</td>
                     {% if num == 0 %}
-                    <th rowspan="3">До</th>
+                    <th rowspan="3">{% trans "До" %}</th>
                     {% endif %}
                     <td>{{row.15.1.ph |floatformat:2}}</td>
                     <td>{{row.15.1.cu |floatformat:2}}</td>
                     {% if num == 0 %}
-                    <th rowspan="3">До</th>
+                    <th rowspan="3">{% trans "До" %}</th>
                     {% endif %}
 
                     <td>{{row.17.1.ph |floatformat:2}}</td>
@@ -60,18 +61,18 @@
                 {% for num, row in table.data.times.items %}
                 <tr class="mini">
                     {% if num == 0 %}
-                    <th rowspan="3">После</th>
+                    <th rowspan="3">{% trans "После" %}</th>
                     {% endif %}
                     <td>{{row.13.0.cd |floatformat:2}}</td>
                     <td>{{row.13.0.cu |floatformat:2}}</td>
                     <td>{{row.13.0.co |floatformat:2}}</td>
                     {% if num == 0 %}
-                    <th rowspan="3">После</th>
+                    <th rowspan="3">{% trans "После" %}</th>
                     {% endif %}
                     <td>{{row.15.0.ph |floatformat:2}}</td>
                     <td>{{row.15.0.cu |floatformat:2}}</td>
                     {% if num == 0 %}
-                    <th rowspan="3">После</th>
+                    <th rowspan="3">{% trans "После" %}</th>
                     {% endif %}
 
                     <td>{{row.17.0.ph |floatformat:2}}</td>

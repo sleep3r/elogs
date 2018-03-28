@@ -125,6 +125,9 @@ class CuPulpAnal(JournalTable):
     after = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='После')
     solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
 
+    zn_pulp_anal = models.OneToOneField(ZnPulpAnal, on_delete=models.CASCADE,
+                                        related_name='cu_pulp_anal')
+
 
 class FeSolutionAnal(JournalTable):
     """
@@ -138,6 +141,9 @@ class FeSolutionAnal(JournalTable):
     density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Уд. вес')
     arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='As')
     cl = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cl')
+
+    cu_pulp_anal = models.OneToOneField(CuPulpAnal, on_delete=models.CASCADE, related_name='fe_solution_anal')
+    zn_pulp_anal = models.OneToOneField(ZnPulpAnal, on_delete=models.CASCADE, related_name='fe_solution_anal')
 
 
 class DailyAnalysis(JournalTable):

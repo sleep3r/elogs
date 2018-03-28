@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -22,19 +23,19 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Нейтральные сгустители</th>
+                        <th>{% trans "Нейтральные сгустители" %}</th>
                         {% for num in form.densers %}
                         <th>{{num}}</th>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <th>Отстои</th>
+                        <th>{% trans "Отстои" %}</th>
                         {% for num in form.densers %}
                         <td><input class="form-control" type="text" name="sediment_{{num}}" value="0"></td>
                         {% endfor %}
                     </tr>
                     <tr>
-                        <th rowspan="2">Ж:Т<br>(НС)</th>
+                        <th rowspan="2">{% trans "Ж:Т" %}<br>{% trans "(НС)" %}</th>
                         {% for num in form.densers %}
                         <td><input class="form-control" type="text" name="liq_sol1_{{num}}" value="0"></td>
                         {% endfor %}
@@ -47,7 +48,7 @@
                 </thead>
             </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
             </form>
 
     </div>

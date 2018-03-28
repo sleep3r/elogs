@@ -1,3 +1,4 @@
+{% load i18n %}
 {% include "header.html" %}
 <div class="page-title">
     <div class="title_left">
@@ -11,7 +12,7 @@
     <form action="" method="POST">
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Сохранить" />
+      <input type="submit" value={% trans "Сохранить" %} />
     </form>
   </div>
 </div>

@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
@@ -15,20 +16,20 @@
             <tbody>
             <tr>
                 <td></td>
-                <th>Доставлено</th>
-                <th>Принято</th>
-                <th>Расход</th>
-                <th>Сдано</th>
+                <th>{% trans "Доставлено" %}</th>
+                <th>{% trans "Принято" %}</th>
+                <th>{% trans "Расход" %}</th>
+                <th>{% trans "Сдано" %}</th>
             </tr>
             <tr>
-                <th>Соль Шлиппе</th>
+                <th>{% trans "Соль Шлиппе" %}</th>
                 <td>{{table.data.states.delivered.shlippe}}</td>
                 <td>{{table.data.states.taken.shlippe}}</td>
                 <td>{{table.data.states.consumption.shlippe}}</td>
                 <td>{{table.data.states.issued.shlippe}}</td>
             </tr>
             <tr>
-                <th>Zn пыль</th>
+                <th>{% trans "Zn пыль" %}</th>
                 <td>{{table.data.states.delivered.zn_dust}}</td>
                 <td>{{table.data.states.taken.zn_dust}}</td>
                 <td>
@@ -42,7 +43,7 @@
                         <tr>
                             <th>2st</th>
                             <td>{{table.data.stages_zn_dust.2st}}</td>
-                            <td rowspan="2" colspan="2">16 кб</td>
+                            <td rowspan="2" colspan="2">{% trans "16 кб" %}</td>
                         </tr>
                         <tr>
                             <th>3st</th>
@@ -53,21 +54,21 @@
                 <td>{{table.data.states.issued.zn_dust}}</td>
             </tr>
             <tr>
-                <th>Mg руда</th>
+                <th>{% trans "Mg руда" %}</th>
                 <td>{{table.data.states.delivered.mg_ore}}</td>
                 <td>{{table.data.states.taken.mg_ore}}</td>
                 <td>{{table.data.states.consumption.mg_ore}}</td>
                 <td>{{table.data.states.issued.mg_ore}}</td>
             </tr>
             <tr>
-                <th>Магнофлок</th>
+                <th>{% trans "Магнофлок" %}</th>
                 <td>{{table.data.states.delivered.magnaglobe}}</td>
                 <td>{{table.data.states.taken.magnaglobe}}</td>
                 <td>{{table.data.states.consumption.magnaglobe}}</td>
                 <td>{{table.data.states.issued.magnaglobe}}</td>
             </tr>
             <tr>
-                <th>Fe стружка</th>
+                <th>{% trans "Fe стружка" %}</th>
                 <td>{{table.data.states.delivered.fe_shave}}</td>
                 <td>{{table.data.states.taken.fe_shave}}</td>
                 <td>{{table.data.states.consumption.fe_shave}}</td>
@@ -75,7 +76,7 @@
             </tr>
             </tbody>
             <tr>
-                <th>Состояние ограждений:</th>
+                <th>{% trans "Состояние ограждений:" %}</th>
                 <td>{{table.data.fence_state}}</td>
             </tr>
         </table>

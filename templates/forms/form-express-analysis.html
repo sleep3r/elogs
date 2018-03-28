@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -22,11 +23,11 @@
             <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
-                    <th colspan="10" >BCHC</th>
-                    <th colspan="5" >Ларокс</th>
-                    <th colspan="7" >Очищенный раствор</th>
-                    <th colspan="6" >Упр. Несоответствия продукции</th>
+                    <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
+                    <th colspan="10" >{% trans "BCHC" %}</th>
+                    <th colspan="5" >{% trans "Ларокс" %}</th>
+                    <th colspan="7" >{% trans "Очищенный раствор" %}</th>
+                    <th colspan="6" >{% trans "Упр. Несоответствия продукции" %}</th>
                 </tr>
                 <tr>
                     {% for subColumn in form.columns %}
@@ -181,7 +182,7 @@
         </table>
 
         </form>
-        <button class="btn btn-success"  v-on:click="savePostForm('{{form.name}}')">Сохранить</button>
+        <button class="btn btn-success"  v-on:click="savePostForm('{{form.name}}')">{% trans "Сохранить" %}</button>
     </div>
 </div>
 

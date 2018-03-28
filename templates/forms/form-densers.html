@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -22,26 +23,26 @@
              <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
+                <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
                 {% for nomer in form.columns %}
-                <th colspan="6" >Сгуститель {{nomer}}</th>
+                <th colspan="6" >{% trans "Сгуститель " %}{{nomer}}</th>
                 {% endfor %}
             </tr>
             <tr>
                 {% for nomer in form.columns %}
-                <th colspan="4">ВС {{nomer}}сг.</th>
-                <th colspan="2">НС {{nomer}}сг.</th>
+                <th colspan="4">{% trans "ВС " %}{{nomer}}{% trans "сг." %}</th>
+                <th colspan="2">{% trans "НС " %}{{nomer}}{% trans "сг." %}</th>
                 {% endfor %}
             </tr>
             <tr>
                 {% for n in form.columns %}
                 <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Медь</span></div></th>
-                <th class="rotate"><div><span>Железо</span></div></th>
-                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>{% trans "Медь" %}</span></div></th>
+                <th class="rotate"><div><span>{% trans "Железо" %}</span></div></th>
+                <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
 
                 <th class="rotate"><div><span>pH</span></div></th>
-                <th class="rotate"><div><span>Ж:Т</span></div></th>
+                <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
                 {% endfor %}
             </tr>
             </thead>
@@ -84,7 +85,7 @@
 
             </tbody>
         </table>
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
             </form>
 
     </div>

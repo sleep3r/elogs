@@ -17,7 +17,7 @@ from collections import defaultdict
 
 from express_anal_app.tables import get_free_tanks_table
 from utils.webutils import parse, process_json_view
-
+from django.utils.translation import gettext as _
 
 @process_json_view(auth_required=False)
 def json_test(request):
@@ -38,9 +38,9 @@ def index(request):
         'hello_list': ['World', 'Darling', 'Inframine', 'Goodbye'],
         'tile_counts': {'total': '31337'},
         'system_messages': [
-            {'title': "Температура кипящего слоя превысила критический показатель", 'time': "12:33"},
-            {'title': "Всё хорошо", 'time': "10:33"},
-            {'title': "Надо пошурудить в печи", 'time': "08:00"}
+            {'title': _("Температура кипящего слоя превысила критический показатель"), 'time': "12:33"},
+            {'title': _("Всё хорошо"), 'time': "10:33"},
+            {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
         ]
     }
 
@@ -81,93 +81,93 @@ def leaching_ju(request):
     data_info = tables.get_shift_info_table(shift)
 
     bchc = {
-        'title': 'BCHC',
-        'columns': ['BCHC', "Ларокс", "Очищенный раствор"],
-        'level2': ["Кобальт Co", "Сурьма", "Медь", "Кадмий", "Твердое После 1ст", "pH (BCHC)", "Железо", "As",
-                   "Твёрдое ", "Уд. вес",
-                   "Кобальт", "Сурьма", "Кадмий", "Твердое", "pH", "Кадмий", "Кобальт", "Сурьма", "Медь", "Железо",
-                   "Выход по току", "Уд. вес", "Норма", "Факт", "Несоответствие", "Коррекция", "Мастер"],
+        'title': _('ВСНС'),
+        'columns': [_('ВСНС'), _("Ларокс"), _("Очищенный раствор")],
+        'level2': [_("Кобальт Co"), _("Сурьма"), _("Медь"), _("Кадмий"), _("Твердое После 1ст"), "pH (BCHC)", _("Железо"), "As",
+                   _("Твёрдое "), _("Уд. вес"),
+                   _("Кобальт"), _("Сурьма"), _("Кадмий"), _("Твердое"), "pH", _("Кадмий"), _("Кобальт"), _("Сурьма"), _("Медь"), _("Железо"),
+                   _("Выход по току"), _("Уд. вес"), _("Норма"), _("Факт"), _("Несоответствие"), _("Коррекция"), _("Мастер")],
         'data': data_bchc,
         'dump': pprint.pformat(data_bchc, indent=2)
     }
 
     densers = {
-        'title': 'Сгустители',
+        'title': _('Сгустители'),
         'columns': ['10', "11", "12"],
         'data': data_densers,
         'dump': pprint.pformat(data_densers, indent=4)
     }
 
     znpulp = {
-        'title': 'Пульпа',
+        'title': _('Пульпа'),
         'columns': ['10', "11", "12"],
         'data': data_znpulp,
         'dump': pprint.pformat(data_znpulp, indent=4)
     }
 
     apparat = {
-        'title': 'Аппаратчик - гидрометаллург',
+        'title': _('Аппаратчик - гидрометаллург'),
         'data': {'main': data_hydrometal1, 'extra': data_hydrometal_extra},
         'dump': pprint.pformat(data_hydrometal1, indent=4)
     }
 
     agitators = {
-        'title': 'Аппаратчик - гидрометаллург',
+        'title': _('Аппаратчик - гидрометаллург'),
         'data': data_agitators,
         'dump': pprint.pformat(data_agitators, indent=4)
     }
 
     baki = {
-        'title': 'Баки готовой продукции',
-        'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма", "Железо", "В:T", "Уд. вес", "Норма", "Факт",
-                    "Коррекция", "Мастер"],
+        'title': _('Баки готовой продукции'),
+        'columns': [_("№ Бака "), _("Кадмий"), _("Медь"), _("Кобальт"), _("Сурьма"), _("Железо"), _("В:T"), _("Уд. вес"), _("Норма"), _("Факт"),
+                    _("Коррекция"), _("Мастер")],
         'data': data_baki_ready,
         'dump': pprint.pformat(data_baki_ready)
     }
 
     neutral = {
         'title': '',
-        'columns': {"1": "Наличие<br>нейтр. р-ра",
-                    "2": "Уч. выщел. N1<br>бак 3,4,5,4А",
-                    "3": "Бак 3",
-                    "4": "Бак 4",
-                    "5": "Итого",
-                    "6": "Бак III<br/>серии",
-                    "7": "Бак 5",
-                    "8": "Бак 6"},
+        'columns': {"1": _("Наличие<br>нейтр. р-ра"),
+                    "2": _("Уч. выщел. N1<br>бак 3,4,5,4А"),
+                    "3": _("Бак") + "3",
+                    "4": _("Бак") + "4",
+                    "5": _("Итого"),
+                    "6": _("Бак III<br/>серии"),
+                    "7": _("Бак") + "5",
+                    "8": _("Бак") + "6"},
         'data': data_neutral,
         'dump': pprint.pformat(data_neutral)
     }
 
     electrolysis = {
-        'title': 'Нагрузки',
-        'columns': ["", "I серия", "II серия", "III серия", "IV серия"],
-        'rowCaptions': ["Нагрузки", "Показания счётчика", "Бункеа ЦВЦО", "Силоса ОЦ", "Бункера ОЦ"],
+        'title': _('Нагрузки'),
+        'columns': ["", _("I серия"), _("II серия"), _("III серия"), _("IV серия")],
+        'rowCaptions': [_("Нагрузки"), _("Показания счётчика"), _("Бункеа ЦВЦО"), _("Силоса ОЦ"), _("Бункера ОЦ")],
         'data': data_electrolysis,
         'dump': pprint.pformat(data_electrolysis)
     }
 
     empty_containers = {
-        'title': 'Наличие свободных ёмкостей',
+        'title': _('Наличие свободных ёмкостей'),
         'data': data_empty_containers,
         'dump': pprint.pformat(data_empty_containers)
     }
 
     neutral_densers = {
-        'title': 'Нейтральные сгустители',
+        'title': _('Нейтральные сгустители'),
         'data': data_neutral_densers,
         'dump': pprint.pformat(data_neutral_densers)
     }
 
     security = {
-        'title': 'Самоохрана',
+        'title': _('Самоохрана'),
         'data': data_security,
         'dump': pprint.pformat(data_security)
     }
 
     probnik = {
-        'title': 'Пробник №2',
-        'columns': ["Время", "Cd", "Cu"],
+        'title': _('Пробник №2'),
+        'columns': [_("Время"), "Cd", "Cu"],
         'rows': [
             {
                 'values': ['', '']
@@ -185,25 +185,25 @@ def leaching_ju(request):
                 'values': ['', '']
             },
             {
-                'title': 'ВИУ 1'
+                'title': _('ВИУ') + '1'
             },
             {
-                'title': 'ВИУ 2'
+                'title': _('ВИУ') + '2'
             },
             {
-                'title': 'ВИУ 3'
+                'title': _('ВИУ') + '3'
             }
         ]
     }
 
     schiehta = {
-        'title': 'Шихта',
+        'title': _('Шихта'),
         'data': data_schieht,
         'dump': pprint.pformat(data_schieht)
     }
 
     reagents = {
-        'title': 'Реагенты',
+        'title': _('Реагенты'),
         'data': data_reagent,
         'dump': pprint.pformat(data_reagent)
     }
@@ -211,11 +211,11 @@ def leaching_ju(request):
     shifts = Shift.objects.all()
 
     context = {
-        'title': "Журнал учёта ",
-        'subtitle': "Цех выщелачивания",
+        'title': _("Журнал учёта"),
+        'subtitle': _("Цех выщелачивания"),
         'shift': {'date': shift.date, 'num': shift.order, 'data': shift},
         'form_shift': {
-            'title': 'Выбранная смена',
+            'title': _('Выбранная смена'),
             'currentId': shift.id,
             'data': shifts,
             'dump': pprint.pformat(shifts),
@@ -333,68 +333,68 @@ def leaching_all_edit(request):
     formShiftInfo = jea_stand_forms['ShiftInfo']()
 
     context = {
-        'title': "Журнал Экспресс анализа (Заполнение)",
+        'title': _("Журнал Экспресс анализа (Заполнение)"),
         'vue': True,
-        'subtitle': "Цех выщелачивания",
-        'form_title': "Заполнить форму",
+        'subtitle': _("Цех выщелачивания"),
+        'form_title': _("Заполнить форму"),
         'form_schiehta': {
-            'title': 'Шихта',
+            'title': _('Шихта'),
             'name': 'form_schiehta',
             'action': '/save/schiehta',
             'shift': shift.id,
         },
         'form_electrolysis': {
-            'title': 'Электролиз',
+            'title': _('Электролиз'),
             'name': 'form_electrolysis',
             'action': '/save/electrolysis',
             'shift': shift.id,
         },
         'form_cinder': {
-            'title': 'Огарок',
+            'title': _('Огарок'),
             'name': 'form_cinder',
             'action': '/save/cinder',
             'shift': shift.id,
         },
         'form_veu': {
-            'title': 'ВИУ',
+            'title': _('ВИУ'),
             'name': 'form_veu',
             'action': '/save/veu',
             'shift': shift.id,
         },
         'form_sample2': {
-            'title': 'Пробник №2',
+            'title': _('Пробник №2'),
             'name': 'form_sample2',
             'action': '/save/sample2',
             'shift': shift.id,
         },
         'form_self_security': {
-            'title': 'Самоохрана',
+            'title': _('Самоохрана'),
             'shift': shift.id,
             'name': 'form_self_security',
             'action': '/save/self/security'
         },
         'form_shift': {
-            'title': 'Выбранная смена',
+            'title': _('Выбранная смена'),
             'currentId': shift.id,
             'data': shifts,
             'dump': pprint.pformat(shifts),
             'action': '/leaching/all/edit'
         },
         'form_shift_info': {
-            'title': 'Принято и откачено',
+            'title': _('Принято и откачено'),
             'fields': formShiftInfo,
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info',
             'shift': shift.id,
         },
         'form_empty_tanks': {
-            'title': 'Наличие свободных ёмкостей',
+            'title': _('Наличие свободных ёмкостей'),
             'data': get_free_tanks_table(shift),
             'action': '/save/empty/tanks',
             'shift': shift.id,
         },
         'form_reagents': {
-            'title': 'Реагенты',
+            'title': _('Реагенты'),
             'fields': formReagents,
             'name': "form_reagents",
             'action': '',
@@ -402,9 +402,9 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_ready_tanks': {
-            'title': 'Баки готовой продукции',
-            'columns': ["№ Бака ", "Кадмий", "Медь", "Кобальт", "Сурьма", "Железо", "В:T", "Уд. вес", "Норма", "Факт",
-                        "Коррекция", "Мастер"],
+            'title': _('Баки готовой продукции'),
+            'columns': [_("№ Бака"), _("Кадмий"), _("Медь"), _("Кобальт"), _("Сурьма"), _("Железо"), _("В:T"), _("Уд. вес"), _("Норма"), _("Факт"),
+                        _("Коррекция"), _("Мастер")],
             'fields': formReadyTanks,
             'tanks': ['3', '4', '5'],
             'name': 'form_ready_tanks',
@@ -412,22 +412,22 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_neutural_solution': {
-            'title':'Нейтральный раствор',
+            'title':_('Нейтральный раствор'),
             'columns': {
-                    "1": "Наличие<br>нейтр. р-ра",
-                    "2": "Уч. выщел. N1<br>бак 3,4,5,4А",
-                    "3": "Бак 3",
-                    "4": "Бак 4",
-                    "5": "Итого",
-                    "6": "Бак III<br/>серии",
-                    "7": "Бак 5",
-                    "8": "Бак 6"
+                    "1": _("Наличие<br>нейтр. р-ра"),
+                    "2": _("Уч. выщел. N1<br>бак 3,4,5,4А"),
+                    "3": _("Бак 3"),
+                    "4": _("Бак 4"),
+                    "5": _("Итого"),
+                    "6": _("Бак III<br/>серии"),
+                    "7": _("Бак 5"),
+                    "8": _("Бак 6")
             },
             'action': '/save/neutural/solution',
             'shift': shift.id,
         },
         'form_densers_neutural': {
-            'title': 'Нейтральные сгустители',
+            'title': _('Нейтральные сгустители'),
             'name': 'form_densers_neutural',
             'action': '/save/densers/neutural',
             'fields': formNeuturalDensers,
@@ -435,19 +435,19 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_express_analysis': {
-            'title': 'Экспресс анализ',
+            'title': _('Экспресс анализ'),
             'name': 'form_express_analysis',
             'action': '/save/express/analysis',
             'fields': formExpresAnalysis,
             'times': ['8', '10', '12', '14', '16', '18', '20'],
-            'columns': ["Кобальт Co", "Сурьма", "Медь", "Кадмий", "Твердое После 1ст", "pH (BCHC)", "Железо", "As",
-                        "Твёрдое ", "Уд. вес",
-                        "Кобальт", "Сурьма", "Кадмий", "Твердое", "pH", "Кадмий", "Кобальт", "Сурьма", "Медь", "Железо",
-                        "Выход по току", "Уд. вес", "Норма", "Факт", "Несоответствие", "Коррекция"],
+            'columns': [_("Кобальт") + " Co", _("Сурьма"), _("Медь"), _("Кадмий"), _("Твердое После 1ст"), "pH (BCHC)", _("Железо"), "As",
+                        _("Твёрдое "), _("Уд. вес"),
+                        _("Кобальт"), _("Сурьма"), _("Кадмий"), _("Твердое"), "pH", _("Кадмий"), _("Кобальт"), _("Сурьма"), _("Медь"), _("Железо"),
+                        _("Выход по току"), _("Уд. вес"), _("Норма"), _("Факт"), _("Несоответствие"), _("Коррекция")],
             'shift': shift.id,
         },
         'form_densers': {
-            'title': 'Сгустители',
+            'title': _('Сгустители'),
             'columns': ['10', "11", "12"],
             'action': '/save/densers',
             'fields': formDensers,
@@ -456,7 +456,7 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_pulps': {
-            'title': 'Пульпы',
+            'title': _('Пульпы'),
             'name': 'form_pulps',
             'action': '/save/pulps',
             'zn': formZnPulp,
@@ -465,14 +465,14 @@ def leaching_all_edit(request):
             'shift': shift.id,
         },
         'form_hydrometal': {
-            'title': 'Аппаратчик - Гидрометаллург',
+            'title': _('Аппаратчик - Гидрометаллург'),
             'name': 'form_hydrometal',
             'action': '/save/hydrometal',
             'shift': shift.id,
 
         },
         'form_agitators': {
-            'title': 'Агитаторы очистки',
+            'title': _('Агитаторы очистки'),
             'name': 'form_agitators',
             'action': '/save/agitators',
             'shift': shift.id,

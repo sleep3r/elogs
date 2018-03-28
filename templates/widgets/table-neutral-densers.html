@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
@@ -7,19 +8,19 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Нейтральные сгустители</th>
+                    <th>{% trans "Нейтральные сгустители" %}</th>
                     {% for num,item in table.data.items %}
                     <td>{{num}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Отстои</th>
+                    <th>{% trans "Отстои" %}</th>
                     {% for num,item in table.data.items %}
                     <td>{{item.sediment}}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th rowspan="2">Ж:Т<br>(НС)</th>
+                    <th rowspan="2">{% trans "Ж:Т" %}<br>{% trans "(НС)" %}</th>
                     {% for num,item in table.data.items %}
                     <td>{{item.liq_sol1}}</td>
                     {% endfor %}
