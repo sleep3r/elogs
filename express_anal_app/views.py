@@ -1513,7 +1513,6 @@ def leaching_update_hydrometal(request):
         'mann_num'
     ]
 
-
     extra_id = data['extra']['id']
     extra_fields = [
         'gran',
@@ -1552,12 +1551,8 @@ def leaching_update_hydrometal(request):
                 setattr(model, field, item[field])
         model.save()
 
-
-
-
     return {
         'result': 'ok',
-        'dump': pprint.pformat(request.POST)
     }
 
 
@@ -1570,6 +1565,35 @@ def leaching_save_hydrometal_remove(request):
         'action': 'remove',
         'id': id,
         'record': record
+    }
+
+
+@process_json_view(auth_required=False)
+def leaching_api_pulps(request):
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.get(id=request.GET['shift_id'])
+    else:
+        shift = Shift.objects.all()[0]
+
+    return {
+        'result': 'ok',
+        'items': tables.get_solutions_table(shift),
+        'extra': tables.get_solutions2_table(shift)
+    }
+
+@process_json_view(auth_required=False)
+def leaching_update_pulps(request):
+    journal = Journal.objects.all()[0]
+    data = json.loads(request.POST['item'])
+
+    print(data['shift_id'])
+    print(data['extra'])
+
+
+
+    return {
+        'result': 'ok',
+        'data': data
     }
 
 

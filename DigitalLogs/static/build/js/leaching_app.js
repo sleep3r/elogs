@@ -26,6 +26,16 @@ var app = new Vue({
   data: {
     showModal: false,
     tables: {
+        'form_template': {
+            data: [],
+            current: [],
+            current_count: 0,
+            state: 'view',
+            newRecord: {},
+            init: function(scope){
+            },
+
+        },
         'form_self_security': { visible: 1},
         'form_express_analysis': {
             visible: 1,
@@ -137,7 +147,54 @@ var app = new Vue({
                         console.log(e)
                     })
             }
-        }
+        },
+        'form_pulps': {
+            data: [],
+            current: [],
+            current_count: 0,
+            state: 'view',
+            newRecord: {},
+            init: function(scope){
+                let formId = 'form_pulps'
+                let form = document.getElementById(formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/api/pulps?shift_id='+ shiftId)
+                    .then(response => {
+                        console.info(response.data)
+                        this.data = response.data
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRow: function(scope, rowId) {
+                this.state = 'edit'
+                console.log(rowId)
+                console.info(this.data)
+//                console.log(this.data.items[rowId])
+//                this.current = this.data.items[rowId]
+            },
+            addRecord: function(scope) {
+                let formId = 'form_pulps'
+                let form = document.getElementById(formId)
+                var shiftId = form.shift_id.value
+                let data = new FormData()
+                this.newRecord['shift_id'] = shiftId
+                this.newRecord['extra'] = this.data['extra']
+                data.append('item', JSON.stringify(this.newRecord))
+                scope.$http.post('leaching/update/pulps', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'view'
+                        this.init(scope)
+                        this.newRecord = {'1':{},'4':{},'extra':{ }}
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+
+        },
     },
     posts: []
   },
@@ -145,6 +202,7 @@ var app = new Vue({
     this.tables['form_express_analysis'].init(this)
     this.tables['form_densers'].init(this)
     this.tables['form_hydrometal'].init(this)
+    this.tables['form_pulps'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
@@ -218,8 +276,7 @@ var app = new Vue({
         })
 
     },
-    onRow: function(rowId) {
-        let formId = 'form_hydrometal'
+    onRow: function(rowId, formId) {
 
         this.tables[formId].onRow(this, rowId)
 
@@ -243,9 +300,12 @@ var app = new Vue({
     addRecord: function(formId) {
         console.info("add new Record")
         this.tables[formId].addRecord(this)
-
-
+    },
+    setAddState: function(formId) {
+        this.tables[formId].state = 'add'
     }
+
+
 
   }
 })

@@ -44,7 +44,7 @@
             <tbody>
                <template v-for="(item, key) in tables.{{form.name}}.data.items" >
                 <tr v-bind:hour="key"  >
-                    <td><a  v-on:click="onRow(key)"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
+                    <td><a  v-on:click="onRow(key,'{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
                     <template v-for="(man, manNum) in item">
                         <template v-if="manNum == 1">
                             <th v-bind:rid="man.id">[[man.ph |formatNumber]]</th>
