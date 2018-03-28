@@ -23,10 +23,12 @@
             <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th colspan="4">1 Манн</th>
                     <th colspan="5">4 Манн</th>
                 </tr>
                 <tr>
+                    <td><a  v-on:click="tables.{{form.name}}.state = 'add' "  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
                     <th>pH</th>
                     <th>Кисл-ть</th>
                     <th>Fe двухвал.</th>
@@ -41,7 +43,8 @@
             </thead>
             <tbody>
                <template v-for="(item, key) in tables.{{form.name}}.data.items" >
-                <tr v-bind:hour="key"  v-on:click="onRow(key)" >
+                <tr v-bind:hour="key"  >
+                    <td><a  v-on:click="onRow(key)"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
                     <template v-for="(man, manNum) in item">
                         <template v-if="manNum == 1">
                             <th v-bind:rid="man.id">[[man.ph |formatNumber]]</th>
@@ -62,23 +65,39 @@
             </template>
             </tbody>
             <tbody>
-                <tr>
+                <tr v-if=" tables.{{form.name}}.state == 'edit' ">
+                    <td></td>
                     <template v-for="(item, record) in tables.{{form.name}}.current">
                         <template v-if="item.mann_num == 1">
-                            <th><input class="form-control" type="text" name="mann1.ph" v-bind:value="item.ph" /></th>
-                            <td><input class="form-control" type="text" name="mann1.acid" v-bind:value="item.acid" /></td>
-                            <td><input class="form-control" type="text" name="mann1.fe2" v-bind:value="item.fe2" /></td>
-                            <td><input class="form-control" type="text" name="mann1.fe_total" v-bind:value="item.fe_total" /></td>
+                            <td><input class="form-control" type="text" name="mann1.ph" v-model="item.ph" /></td>
+                            <td><input class="form-control" type="text" name="mann1.acid" v-model="item.acid" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe2" v-model="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann1.fe_total" v-model="item.fe_total" /></td>
                         </template>
                         <template v-if="item.mann_num == 4">
-                            <td><input class="form-control" type="text" name="mann4.ph" v-bind:value="item.ph" /></td>
-                            <td><input class="form-control" type="text" name="mann4.cu" v-bind:value="item.cu" /></td>
-                            <td><input class="form-control" type="text" name="mann4.fe2" v-bind:value="item.fe2" /></td>
-                            <td><input class="form-control" type="text" name="mann4.sb" v-bind:value="item.sb" /></td>
-                            <td><input class="form-control" type="text" name="mann4.sediment" v-bind:value="item.sediment" /></td>
+                            <td><input class="form-control" type="text" name="mann4.ph" v-model="item.ph" /></td>
+                            <td><input class="form-control" type="text" name="mann4.cu" v-model="item.cu" /></td>
+                            <td><input class="form-control" type="text" name="mann4.fe2" v-model="item.fe2" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sb" v-model="item.sb" /></td>
+                            <td><input class="form-control" type="text" name="mann4.sediment" v-model="item.sediment" /></td>
+                            <td><a v-on:click="saveRow('{{form.name}}')" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
                         </template>
                     </template>
                 </tr>
+                <tr v-else-if=" tables.{{form.name}}.state == 'add' ">
+                    <td></td>
+                    <td><input class="form-control" type="text" name="mann1.ph" v-model="tables.{{form.name}}.newRecord['1'].ph" /></td>
+                    <td><input class="form-control" type="text" name="mann1.acid" v-model="tables.{{form.name}}.newRecord['1'].acid" /></td>
+                    <td><input class="form-control" type="text" name="mann1.fe2"  v-model="tables.{{form.name}}.newRecord['1'].fe2"/></td>
+                    <td><input class="form-control" type="text" name="mann1.fe_total"  v-model="tables.{{form.name}}.newRecord['1'].fe_total"/></td>
+                    <td><input class="form-control" type="text" name="mann4.ph"  v-model="tables.{{form.name}}.newRecord['4'].ph"/></td>
+                    <td><input class="form-control" type="text" name="mann4.cu"  v-model="tables.{{form.name}}.newRecord['4'].cu"/></td>
+                    <td><input class="form-control" type="text" name="mann4.fe2"  v-model="tables.{{form.name}}.newRecord['4'].fe2"/></td>
+                    <td><input class="form-control" type="text" name="mann4.sb"  v-model="tables.{{form.name}}.newRecord['4'].sb"/></td>
+                    <td><input class="form-control" type="text" name="mann4.sediment"  v-model="tables.{{form.name}}.newRecord['4'].sediment"/></td>
+                    <td><a v-on:click="addRecord('{{form.name}}')" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
+                </tr>
+
                 <tr>
                     <th colspan="1">Ситовой огарка</th>
                     <td colspan="5">

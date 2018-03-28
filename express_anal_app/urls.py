@@ -20,7 +20,9 @@ urlpatterns = [
     url('leaching/api/hydrometal$', views.leaching_api_hydrometal),
     url('save/hydrometal$', views.leaching_save_hydrometal),
     url('save/hydrometal/json$', views.leaching_save_hydrometal_json),
+    url('leaching/update/hydrometal$', views.leaching_update_hydrometal),
     url('leaching/api/hydrometal/remove$', views.leaching_save_hydrometal_remove),
+
 
 
     url('save/sample2$', views.leaching_save_sample2),

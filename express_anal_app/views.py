@@ -17,6 +17,7 @@ from collections import defaultdict
 
 from express_anal_app.tables import get_free_tanks_table
 from utils.webutils import parse, process_json_view
+from django.db import transaction
 
 
 @process_json_view(auth_required=False)
@@ -1483,6 +1484,63 @@ def leaching_save_hydrometal_json(request):
         'result': 'ok',
         'items': tables.get_hydrometal1_table(shift),
     }
+
+
+@process_json_view(auth_required=False)
+@transaction.atomic
+def leaching_update_hydrometal(request):
+    journal = Journal.objects.all()[0]
+    data = json.loads(request.POST['item'])
+
+    print(data['shift_id'])
+
+    if 'shift_id' in data:
+        shift = Shift.objects.get(id=data['shift_id'])
+    else:
+        shift = Shift.objects.all()[0]
+    employee = Employee.objects.all()[0]
+
+
+    print(data)
+    print(data['1'])
+    print(data['4'])
+    print(shift)
+
+    fields = [
+        'ph',
+        'acid',
+        'fe2',
+        'fe_total',
+        'cu',
+        'sb',
+        'sediment',
+        'mann_num'
+    ]
+
+
+
+    manns = ['1','4']
+    for man in manns:
+        item = data[man]
+        if 'id' in item:
+            model = HydroMetal.objects.get(pk=item['id'])
+        else:
+            model = HydroMetal()
+            setattr(model, 'mann_num', man)
+            setattr(model, 'journal', journal)
+            setattr(model, 'shift', shift)
+            setattr(model, 'employee', employee)
+
+        for field in fields:
+            if field in item:
+                setattr(model, field, item[field])
+        model.save()
+
+    return {
+        'result': 'ok',
+        'dump': pprint.pformat(request.POST)
+    }
+
 
 @process_json_view(auth_required=False)
 def leaching_save_hydrometal_remove(request):

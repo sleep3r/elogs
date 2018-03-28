@@ -92,6 +92,8 @@ var app = new Vue({
             data: [],
             current: [],
             current_count: 0,
+            newRecord: {'1':{},'4':{}},
+            state: 'view',
             init: function(scope) {
                 let formId = 'form_hydrometal'
                 let form = document.getElementById(formId)
@@ -99,11 +101,29 @@ var app = new Vue({
                 scope.getAnswerByUrl('/leaching/api/hydrometal?shift_id=' + shiftId, formId)
             },
             onRow: function(scope, rowId) {
-
+                this.state = 'edit'
                 console.log(rowId)
                 console.log(this.data.items[rowId])
                 this.current = this.data.items[rowId]
-
+            },
+            addRecord: function(scope) {
+                console.log("add record")
+                let formId = 'form_hydrometal'
+                let form = document.getElementById(formId)
+                var shiftId = form.shift_id.value
+                let data = new FormData()
+                this.newRecord['shift_id'] = shiftId
+                data.append('item', JSON.stringify(this.newRecord))
+                scope.$http.post('leaching/update/hydrometal', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'view'
+                        this.init(scope)
+                        this.newRecord = {'1':{},'4':{}}
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             }
         }
     },
@@ -177,7 +197,7 @@ var app = new Vue({
                  this.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
                     .then(response => {
                         console.info(response.data)
-//                        delete this.tables['form_hydrometal'].data.items[rowId]
+                        Vue.delete(this.tables['form_hydrometal'].data.items, rowId)
                     })
                     .catch(e => {
                         console.log(e)
@@ -190,6 +210,28 @@ var app = new Vue({
         let formId = 'form_hydrometal'
 
         this.tables[formId].onRow(this, rowId)
+
+    },
+    saveRow: function(formId) {
+        console.log("save row -> " +formId )
+
+        let data = new FormData()
+        data.append('item', JSON.stringify(this.tables[formId].current))
+
+        this.$http.post('leaching/update/hydrometal', data)
+            .then(response => {
+                console.log(response.data)
+                this.tables[formId].current = null
+            })
+            .catch(e => {
+                console.log(e)
+            })
+
+    },
+    addRecord: function(formId) {
+        console.info("add new Record")
+        this.tables[formId].addRecord(this)
+
 
     }
 
