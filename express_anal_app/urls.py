@@ -23,6 +23,10 @@ urlpatterns = [
     url('leaching/update/hydrometal$', views.leaching_update_hydrometal),
     url('leaching/api/hydrometal/remove$', views.leaching_save_hydrometal_remove),
 
+    url('save/pulps$', views.leaching_save_pulps),
+    url('leaching/api/pulps$', views.leaching_api_pulps),
+    url('leaching/update/pulps$', views.leaching_update_pulps),
+
 
 
     url('save/sample2$', views.leaching_save_sample2),
@@ -37,7 +41,7 @@ urlpatterns = [
     url('save/densers$', views.leaching_save_densers),
     url('save/densers/json$', views.leaching_save_densers_json),
 
-    url('save/pulps$', views.leaching_save_pulps),
+
 
     url('save/agitators$', views.leaching_save_agitators),
     url('save/shift/info$', views.leaching_save_shift_info),
