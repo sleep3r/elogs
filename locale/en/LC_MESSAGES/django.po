@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-28 20:38+0300\n"
-"PO-Revision-Date: 2018-03-28 20:19+0300\n"
+"PO-Revision-Date: 2018-03-29 11:25+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr "Tank № "
 
 #: .\express_anal_app\views.py:122 .\express_anal_app\views.py:406
 msgid "В:T"
-msgstr ""
+msgstr "V:T"
 
 #: .\express_anal_app\views.py:130 .\express_anal_app\views.py:417
 msgid "Наличие<br>нейтр. р-ра"
@@ -350,8 +350,7 @@ msgstr "Ready solution"
 #: .\templates\forms\form-agitators.html:48
 #: .\templates\forms\form-agitators.html:53
 #: .\templates\forms\form-agitators.html:57
-#: .\templates\forms\form-pulps.html:38
-#: .\templates\widgets\table-2zinc.html:27
+#: .\templates\forms\form-pulps.html:38 .\templates\widgets\table-2zinc.html:27
 #: .\templates\widgets\table-agitators.html:39
 #: .\templates\widgets\table-agitators.html:45
 #: .\templates\widgets\table-agitators.html:50
@@ -361,8 +360,7 @@ msgstr "Before"
 
 #: .\templates\forms\form-agitators.html:96
 #: .\templates\forms\form-agitators.html:102
-#: .\templates\forms\form-pulps.html:39
-#: .\templates\widgets\table-2zinc.html:28
+#: .\templates\forms\form-pulps.html:39 .\templates\widgets\table-2zinc.html:28
 #: .\templates\widgets\table-agitators.html:64
 #: .\templates\widgets\table-agitators.html:70
 #: .\templates\widgets\table-agitators.html:75
@@ -371,8 +369,7 @@ msgid "После"
 msgstr "After"
 
 #: .\templates\forms\form-agitators.html:154
-#: .\templates\forms\form-cinder.html:40
-#: .\templates\forms\form-densers.html:88
+#: .\templates\forms\form-cinder.html:40 .\templates\forms\form-densers.html:88
 #: .\templates\forms\form-electrolysis.html:81
 #: .\templates\forms\form-express-analysis.html:185
 #: .\templates\forms\form-free-tanks.html:38
@@ -536,37 +533,31 @@ msgstr "Fe shave Fe"
 msgid "(НС)"
 msgstr "(LS)"
 
-#: .\templates\forms\form-pulps.html:26
-#: .\templates\widgets\table-2zinc.html:15
+#: .\templates\forms\form-pulps.html:26 .\templates\widgets\table-2zinc.html:15
 msgid "Цинковая (Zn) пульпа"
 msgstr "Zinc (Zn) pulp"
 
-#: .\templates\forms\form-pulps.html:27
-#: .\templates\widgets\table-2zinc.html:16
+#: .\templates\forms\form-pulps.html:27 .\templates\widgets\table-2zinc.html:16
 #: .\templates\widgets\table-znpulp.html:20
 msgid "Медная пульпа"
 msgstr "Copper pulp"
 
-#: .\templates\forms\form-pulps.html:28
-#: .\templates\widgets\table-2zinc.html:17
+#: .\templates\forms\form-pulps.html:28 .\templates\widgets\table-2zinc.html:17
 #: .\templates\widgets\table-znpulp.html:21
 msgid "Железистый раствор"
 msgstr "Iron solution"
 
-#: .\templates\forms\form-pulps.html:29
-#: .\templates\widgets\table-2zinc.html:18
+#: .\templates\forms\form-pulps.html:29 .\templates\widgets\table-2zinc.html:18
 #: .\templates\widgets\table-znpulp.html:22
 msgid "Концентрат Sb в р-ре соли Шлиппе"
 msgstr "Sb concentrate in Shlippe salt solution"
 
-#: .\templates\forms\form-pulps.html:30
-#: .\templates\widgets\table-2zinc.html:19
+#: .\templates\forms\form-pulps.html:30 .\templates\widgets\table-2zinc.html:19
 #: .\templates\widgets\table-znpulp.html:23
 msgid "Активн. ПАВ"
 msgstr "SAS activity"
 
-#: .\templates\forms\form-pulps.html:31
-#: .\templates\widgets\table-2zinc.html:20
+#: .\templates\forms\form-pulps.html:31 .\templates\widgets\table-2zinc.html:20
 #: .\templates\widgets\table-znpulp.html:24
 msgid "Высоко Fe р-р"
 msgstr "High-Fe solution"
@@ -577,13 +568,11 @@ msgstr "High-Fe solution"
 msgid "ТВ"
 msgstr "Sol."
 
-#: .\templates\forms\form-pulps.html:46
-#: .\templates\widgets\table-2zinc.html:35
+#: .\templates\forms\form-pulps.html:46 .\templates\widgets\table-2zinc.html:35
 msgid "уд. вес"
 msgstr "specific gravity"
 
-#: .\templates\forms\form-pulps.html:75
-#: .\templates\widgets\table-2zinc.html:60
+#: .\templates\forms\form-pulps.html:75 .\templates\widgets\table-2zinc.html:60
 #: .\templates\widgets\table-znpulp.html:68
 msgid "Анализы оборот. сгуст."
 msgstr "Cycling denser analysis"
@@ -699,18 +688,15 @@ msgstr "Cu Pulp"
 msgid "Фильтрат ЦВЦК, Ж:Т"
 msgstr "Leaching filtrate"
 
-#: .\templates\forms\form-shift-info.html:101
-#: .\templates\widgets\shift.html:54
+#: .\templates\forms\form-shift-info.html:101 .\templates\widgets\shift.html:54
 msgid "Железистого из ЦВОЦ"
 msgstr "Iron from leaching"
 
-#: .\templates\forms\form-shift-info.html:106
-#: .\templates\widgets\shift.html:55
+#: .\templates\forms\form-shift-info.html:106 .\templates\widgets\shift.html:55
 msgid "Высоко железистого из ЦВОЦ"
 msgstr "He-iron from leaching"
 
-#: .\templates\forms\form-shift-info.html:112
-#: .\templates\widgets\shift.html:56
+#: .\templates\forms\form-shift-info.html:112 .\templates\widgets\shift.html:56
 msgid "Бедно-кадмиего"
 msgstr "Low-cadmium"
 
@@ -761,7 +747,7 @@ msgstr "Furnace temperature"
 
 #: .\templates\widgets\shift.html:4
 msgid "Лист 2"
-msgstr "List 2"
+msgstr "Page 2"
 
 #: .\templates\widgets\shift.html:5
 msgid "Смена: "
@@ -837,3 +823,7 @@ msgstr "Zinc (Zn) pulp "
 
 #~ msgid "French"
 #~ msgstr "French"
+
+#: .\templates\jounral.html:18
+msgid "Лист"
+msgstr "Page"
