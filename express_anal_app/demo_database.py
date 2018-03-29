@@ -71,6 +71,7 @@ class DatabaseFiller:
                 pe.verified = bool(random.randint(0, 1))
                 pe.save()
 
+
     def fill_solutions_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
@@ -85,17 +86,21 @@ class DatabaseFiller:
             cpa = CuPulpAnal(shift=shift, journal=journal, time=t)
             for attr in ['liq_sol', 'before', 'after', 'solid']:
                 setattr(cpa, attr, random.uniform(0, 100))
+            cpa.zn_pulp_anal = zpa
             cpa.save()
 
             fsa = FeSolutionAnal(shift=shift, journal=journal, time=t)
             for attr in ['h2so4', 'solid', 'sb', 'cu', 'fe', 'density', 'arsenic', 'cl']:
                 setattr(fsa, attr, random.uniform(0, 100))
+            fsa.zn_pulp_anal = zpa
+            fsa.cu_pulp_anal = cpa
             fsa.save()
 
             da = DailyAnalysis(shift=shift, journal=journal, time=t)
             for attr in ['shlippe_sb', 'activ_sas', 'circulation_denser', 'fe_hi1', 'fe_hi2']:
                 setattr(da, attr, random.uniform(0, 100))
             da.save()
+
 
     def fill_hydrometal1_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
@@ -117,6 +122,7 @@ class DatabaseFiller:
                 setattr(cd, attr, random.uniform(0, 100))
             cd.employee = shift.laborant
             cd.save()
+
 
     def fill_agitators_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')

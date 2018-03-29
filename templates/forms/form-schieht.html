@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -35,7 +36,7 @@
             </tbody>
             </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value="{% trans "Сохранить" %}" />
             </form>
     </div>
 </div>

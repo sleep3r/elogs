@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -17,10 +18,10 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Ёмкости</th>
-                    <th>Пред.<br>замеры</th>
-                    <th>Текущ.<br>замеры</th>
-                    <th>Отклонение</th>
+                    <th>{% trans "Ёмкости" %}</th>
+                    <th>{% trans "Пред." %}<br>{% trans "замеры" %}</th>
+                    <th>{% trans "Текущ." %}<br>{% trans "замеры" %}</th>
+                    <th>{% trans "Отклонение" %}</th>
                 </tr>
                 {% for num, item in form.data.items %}
                 <tr>
@@ -34,7 +35,7 @@
             </thead>
             </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
             </form>
     </div>
 </div>

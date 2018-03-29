@@ -1,3 +1,4 @@
+{% load i18n %}
 <style>
     .form-reagents__fence-state { width: 600px !important; }
 </style>
@@ -28,20 +29,20 @@
 
             <tr>
                 <td></td>
-                <th>Доставлено</th>
-                <th>Принято</th>
-                <th>Расход</th>
-                <th>Сдано</th>
+                <th>{% trans "Доставлено" %}</th>
+                <th>{% trans "Принято" %}</th>
+                <th>{% trans "Расход" %}</th>
+                <th>{% trans "Сдано" %}</th>
             </tr>
             <tr>
-                <th>Соль Шлиппе</th>
+                <th>{% trans "Соль Шлиппе" %}</th>
                 <td><input class="form-control" type="text" name="states.delivered.shlippe" value="1"/></td>
                 <td><input class="form-control" type="text" name="states.taken.shlippe" value="2"/></td>
                 <td><input class="form-control" type="text" name="states.consumption.shlippe" value="3"/></td>
                 <td><input class="form-control" type="text" name="states.issued.shlippe" value="4"/></td>
             </tr>
             <tr>
-                <th>Zn пыль</th>
+                <th>Zn {% trans "пыль" %}</th>
                 <td><input class="form-control" type="text" name="states.delivered.zn_dust" value="5"/></td>
                 <td><input class="form-control" type="text" name="states.taken.zn_dust" value="6"/></td>
                 <td>
@@ -66,21 +67,21 @@
                 <td><input class="form-control" type="text" name="states.issued.zn_dust" value="11"/></td>
             </tr>
             <tr>
-                <th>Mg руда</th>
+                <th>Mg {% trans "руда" %}</th>
                 <td><input class="form-control" type="text" name="states.delivered.mg_ore" value="12"/></td>
                 <td><input class="form-control" type="text" name="states.taken.mg_ore" value="13"/></td>
                 <td><input class="form-control" type="text" name="states.consumption.mg_ore" value="14"/></td>
                 <td><input class="form-control" type="text" name="states.issued.mg_ore" value="15"/></td>
             </tr>
             <tr>
-                <th>Магнофлок</th>
+                <th>{% trans "Магнофлок" %}</th>
                 <td><input class="form-control" type="text" name="states.delivered.magnaglobe" value="16"/></td>
                 <td><input class="form-control" type="text" name="states.taken.magnaglobe" value="17"/></td>
                 <td><input class="form-control" type="text" name="states.consumption.magnaglobe" value="18"/></td>
                 <td><input class="form-control" type="text" name="states.issued.magnaglobe" value="19"/></td>
             </tr>
             <tr>
-                <th>Fe стружка</th>
+                <th>Fe {% trans "стружка" %}</th>
                 <td>
                     <input class="form-control" type="text" name="states.delivered.fe_shave"  value="20">
                 </td>
@@ -94,13 +95,13 @@
             </tr>
             </tbody>
             <tr>
-                <th>Состояние ограждений:</th>
+                <th>{% trans "Состояние ограждений" %}:</th>
                 <td colspan="3">
                     <textarea  class="form-reagents__fence-state" rows="6"  name="fence_state"></textarea>
                 </td>
             </tr>
         </table>
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
             </form>
 
     </div>

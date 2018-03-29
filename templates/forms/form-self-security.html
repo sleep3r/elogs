@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -8,13 +9,13 @@
         <table class="table table-bordered" v-if="tables.{{form.name}}.visible == 0">
                 <thead>
                     <tr>
-                        <th colspan="2">Самоохрана
+                        <th colspan="2">{% trans "Самоохрана
 
-                        </th>
+                        " %}</th>
                     </tr>
                     <tr>
-                        <th colspan="1">Обход</th>
-                        <th rowspan="4">Примечание</th>
+                        <th colspan="1">{% trans "Обход" %}</th>
+                        <th rowspan="4">{% trans "Примечание" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,13 +41,13 @@
             <table class="table table-bordered" v-if="tables.{{form.name}}.visible ==1">
                 <thead>
                     <tr>
-                        <th colspan="3">Самоохрана
+                        <th colspan="3">{% trans "Самоохрана
 
-                        </th>
+                        " %}</th>
                     </tr>
                     <tr>
-                        <th colspan="2">Обход</th>
-                        <th rowspan="4">Примечание</th>
+                        <th colspan="2">{% trans "Обход" %}</th>
+                        <th rowspan="4">{% trans "Примечание" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +70,6 @@
 
             </form>
 
-            <button class="btn btn-success" v-if="tables.{{form.name}}.visible == 1" v-on:click="savePostForm('{{form.name}}')">Сохранить</button>
+            <button class="btn btn-success" v-if="tables.{{form.name}}.visible == 1" v-on:click="savePostForm('{{form.name}}')">{% trans "Сохранить" %}</button>
     </div>
 </div>

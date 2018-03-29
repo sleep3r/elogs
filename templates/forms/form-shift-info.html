@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -16,7 +17,7 @@
         <table class="table jambo_table">
             <tr>
                 <th>
-                     Мастер сдал
+                     {% trans "Мастер сдал" %}
                 </th>
                 <td>
                     {{form.fields.this_master}}
@@ -24,7 +25,7 @@
             </tr>
             <tr>
                 <th>
-                     Мастер принял
+                     {% trans "Мастер принял" %}
                 </th>
                 <td>
                     {{form.fields.next_master}}
@@ -32,12 +33,12 @@
             </tr>
             <thead>
                 <tr class="headings">
-                    <th colspan="5" >Откачено</th>
+                    <th colspan="5" >{% trans "Откачено" %}</th>
                 </tr>
             </thead>
             <tbody>
                <tr>
-                 <th>Выход ТВ</th>
+                 <th>{% trans "Выход ТВ" %}</th>
                    <td>
                        <input class="form-control" type="text" name="shift.data.out_sol_t" value="">
                    </td>
@@ -46,37 +47,37 @@
                    </td>
                </tr>
                <tr>
-                 <th>Пульпы ЦВЦК</th>
+                 <th>{% trans "Пульпы ЦВЦК" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.out_pulp_cvck">
                    </td>
                </tr>
                <tr>
-                 <th>Медного кека, тн</th>
+                 <th>{% trans "Медного кека, тн" %}</th>
                    <td><input class="form-control" type="text" value="" name="shift.data.out_neutr" /></td>
-                   <th>Cd губка</th>
+                   <th>{% trans "Cd губка" %}</th>
                    <td><input class="form-control" type="text" value="" name="shift.data.out_cd_sponge" /></td>
                </tr>
                <tr>
-                 <th>Отработ в ЦВОЦ</th>
+                 <th>{% trans "Отработ в ЦВОЦ" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
                    </td>
                </tr>
                <tr>
-                 <th>Богато-кадмиевого</th>
+                 <th>{% trans "Богато-кадмиевого" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
                    </td>
                </tr>
                <tr>
-                 <th>Нейтрального в ХМЦ</th>
+                 <th>{% trans "Нейтрального в ХМЦ" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
                    </td>
                </tr>
                <tr>
-                 <th>Cu Пульпа</th>
+                 <th>{% trans "Cu Пульпа" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.out_cu_pulp" />
                    </td>
@@ -84,31 +85,31 @@
             </tbody>
             <thead>
                <tr class="headings">
-                   <th colspan="4" >Принято</th>
+                   <th colspan="4" >{% trans "Принято" %}</th>
                </tr>
             </thead>
             <tbody>
-               <tr><th>Фильтрат ЦВЦК, Ж:Т</th>
+               <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}</th>
                    <td>
                        <input class="form-control" type="text" value="" name="shift.data.in_filtrate_ls" />
                    </td>
-                   <th>Уд. вес</th>
+                   <th>{% trans "Уд. вес" %}</th>
                    <td>
                        <input class="form-control" type="text" value="" name="shift.data.in_filtrate_dens" />
                    </td>
                </tr>
-               <tr><th>Железистого из ЦВОЦ</th>
+               <tr><th>{% trans "Железистого из ЦВОЦ" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.in_fe" />
                    </td>
                </tr>
-               <tr><th>Высоко железистого из ЦВОЦ</sup></th>
+               <tr><th>{% trans "Высоко железистого из ЦВОЦ" %}</sup></th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.in_fe_hi"/>
                    </td>
                </tr>
                <tr>
-                   <th>Бедно-кадмиего</th>
+                   <th>{% trans "Бедно-кадмиего" %}</th>
                    <td colspan="3">
                        <input class="form-control" type="text" value="" name="shift.data.in_poor_cd" />
                    </td>
@@ -116,7 +117,7 @@
             </tbody>
      </table>
 
-            <input type="submit" class="btn btn-success" value="Сохранить" />
+            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
             </form>
     </div>
 </div>
