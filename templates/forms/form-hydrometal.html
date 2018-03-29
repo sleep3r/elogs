@@ -1,4 +1,4 @@
-
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -30,15 +30,6 @@
                 <tr>
                     <td><a  v-on:click="tables.{{form.name}}.state = 'add' "  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
                     <th>pH</th>
-                    <th>Кисл-ть</th>
-                    <th>Fe двухвал.</th>
-                    <th>Fe Общее</th>
-                    <th>pH</th>
-                    <th>Медь</th>
-                    <th>Fe</th>
-                    <th>Сурьма</th>
-                    <th>Отстои</th>
-                    <th>Action</th>
                     <th>{% trans "Кисл-ть" %}</th>
                     <th>{% trans "Fe двухвал." %}</th>
                     <th>{% trans "Fe Общее" %}</th>

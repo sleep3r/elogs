@@ -1,4 +1,4 @@
-
+{% load i18n %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -134,23 +134,16 @@
                             <td><input class="form-control" type="text" name="fe_sol.density" /></td>
                             <td><input class="form-control" type="text" name="fe_sol.arsenic" /></td>
                             <td><input class="form-control" type="text" name="fe_sol.cl"  /></td>
-                            <th colspan="2">Анализы оборот. сгуст.</th>
-                            <td rowspan="5" >
-                                <template v-if="tables.{{form.name}}.data.extra">
-                                    <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
-                                </template>
-                            </td>
                         </tr>
                     </template>
-                <tr>
-                    <td colspan="15"></td>
-                    <td colspan="2" rowspan="4">
-                        <template v-if="tables.{{form.name}}.data.extra">
-                            <textarea class="form-control"  name="fe_circulation_denser" v-model="tables.{{form.name}}.data.extra.circulation_denser"></textarea>
-                        </template>
-                    </td>
-                </tr>
-
+                    <tr>
+                        <td colspan="16"></td>
+                        <td colspan="2" rowspan="4">
+                            <template v-if="tables.{{form.name}}.data.extra">
+                                <textarea class="form-control"  name="fe_circulation_denser" v-model="tables.{{form.name}}.data.extra.circulation_denser"></textarea>
+                            </template>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
