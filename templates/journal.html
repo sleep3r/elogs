@@ -15,7 +15,7 @@
 
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12" >
-      <h3>Лист 1</h3>
+      <h3>{% trans "Лист" %} 1 </h3>
       {% if shift.data.id is not None %}
       <a class="btn btn-success pull-right" href="/leaching/all/edit?shift={{shift.data.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
       {% else %}

@@ -84,21 +84,21 @@ def get_solutions_table(shift=None):
         for attr in ['liq_sol', 'ph', 't0']:
             val = getattr(d, attr)
             if val is not None:
-                res[d.time]['zn_pulp'][attr] = val
+                res[str(d.time)]['zn_pulp'][attr] = val
 
     data = CuPulpAnal.objects.filter(shift=shift)
     for d in data:
         for attr in ['liq_sol', 'before', 'after', 'solid']:
             val = getattr(d, attr)
             if val is not None:
-                res[d.time]['cu_pulp'][attr] = val
+                res[str(d.time)]['cu_pulp'][attr] = val
 
     data = FeSolutionAnal.objects.filter(shift=shift)
     for d in data:
         for attr in ['h2so4', 'solid', 'sb', 'cu', 'fe', 'density', 'arsenic', 'cl']:
             val = getattr(d, attr)
             if val is not None:
-                res[d.time]['fe_sol'][attr] = val
+                res[str(d.time)]['fe_sol'][attr] = val
 
     for i, k in enumerate(sorted(res.keys())):
         res[k]['num'] = i

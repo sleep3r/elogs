@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-29 13:24+0300\n"
+"POT-Creation-Date: 2018-03-29 13:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,7 +110,7 @@ msgstr ""
 #: .\express_anal_app\views.py:88 .\express_anal_app\views.py:90
 #: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
 #: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
-#: .\templates\forms\form-hydrometal.html:48
+#: .\templates\forms\form-hydrometal.html:39
 #: .\templates\widgets\table-apparat.html:26
 msgid "Сурьма"
 msgstr ""
@@ -119,7 +119,7 @@ msgstr ""
 #: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
 #: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
 #: .\templates\forms\form-densers.html:40
-#: .\templates\forms\form-hydrometal.html:46
+#: .\templates\forms\form-hydrometal.html:37
 #: .\templates\widgets\table-apparat.html:24
 #: .\templates\widgets\table-densers.html:52
 msgid "Медь"
@@ -540,56 +540,56 @@ msgstr ""
 msgid "Манн"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:42
+#: .\templates\forms\form-hydrometal.html:33
 #: .\templates\widgets\table-apparat.html:20
 msgid "Кисл-ть"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:43
+#: .\templates\forms\form-hydrometal.html:34
 #: .\templates\widgets\table-apparat.html:21
 msgid "Fe двухвал."
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:44
+#: .\templates\forms\form-hydrometal.html:35
 #: .\templates\widgets\table-apparat.html:22
 msgid "Fe Общее"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:45
+#: .\templates\forms\form-hydrometal.html:36
 msgid "pH"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:47
+#: .\templates\forms\form-hydrometal.html:38
 msgid "Fe"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:49
+#: .\templates\forms\form-hydrometal.html:40
 #: .\templates\forms\form-neutural-densers.html:32
 #: .\templates\widgets\table-apparat.html:27
 #: .\templates\widgets\table-neutral-densers.html:17
 msgid "Отстои"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:50
+#: .\templates\forms\form-hydrometal.html:41
 msgid "Action"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:114
+#: .\templates\forms\form-hydrometal.html:105
 #: .\templates\widgets\table-apparat.html:45
 msgid "Ситовой огарка"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:117
+#: .\templates\forms\form-hydrometal.html:108
 #: .\templates\widgets\table-apparat.html:55
 msgid "Ситовой Огарка средний"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:123
+#: .\templates\forms\form-hydrometal.html:114
 #: .\templates\widgets\table-apparat.html:59
 msgid "Общее Fe среднее"
 msgstr ""
 
-#: .\templates\forms\form-hydrometal.html:125
+#: .\templates\forms\form-hydrometal.html:116
 #: .\templates\widgets\table-apparat.html:61
 msgid "Fe стружка Fe"
 msgstr ""
@@ -792,6 +792,10 @@ msgstr ""
 
 #: .\templates\header.html:63
 msgid "Аналитика завода"
+msgstr ""
+
+#: .\templates\journal.html:18
+msgid "Лист"
 msgstr ""
 
 #: .\templates\menu.html:3
