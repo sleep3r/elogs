@@ -8,6 +8,7 @@ from django.utils import timezone
 from express_anal_app import models as eamodels
 from express_anal_app.models import *
 from utils.webutils import parse, translate
+from django.utils.translation import gettext as _
 
 onegin = None
 
@@ -185,12 +186,17 @@ class DatabaseFiller:
         num_fields = ['prev_measure', 'cur_measure', 'deviation']
         str_fields = ['tank_name']
 
+        names = [_('Бак отработ. 1-2 серий'), _('Манны №1-9'), _('Манны ВТВ №10-12'),
+                 _('Обор-й сгуститель №9'), _('Агитатор 22'), _('Бак нейтр. р-ра, 1-й цех'),
+                 _('Ман отраб. № 2, 1-й цех'), _('Ман отраб. № 3, 1-й цех'), _('Ман отраб. № 9, 1-й цех'),
+                 _('-'), _('СМЕННЫЙ БАЛАНС'), _('СУТОЧНЫЙ БАЛАНС')]
+
         for n in nums:
             ft = FreeTank(shift=shift, journal=journal, time=time, str_num=n)
             for attr in num_fields:
                 setattr(ft, attr, random.uniform(0, 100))
             for attr in str_fields:
-                val = open('empty-tanks.txt', encoding='utf-8').readlines()[n]
+                val = names[n]
                 setattr(ft, attr, val)
             ft.save()
 

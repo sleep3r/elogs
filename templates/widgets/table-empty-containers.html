@@ -14,10 +14,10 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Ёмкости</th>
-                    <th>Пред.<br>замеры</th>
-                    <th>Текущ.<br>замеры</th>
-                    <th>Отклонение</th>
+                    <th>{% trans "Ёмкости" %}</th>
+                    <th>{% trans "Пред." %}<br>{% trans "замеры" %}</th>
+                    <th>{% trans "Текущ." %}<br>{% trans "замеры"%}</th>
+                    <th>{% trans "Отклонение" %}</th>
                 </tr>
                 {% for num, item in table.data.items %}
                 <tr>
