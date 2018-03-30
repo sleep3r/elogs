@@ -82,8 +82,6 @@ def parse(s):
 def translate(name):
     # Заменяем пробелы и преобразуем строку к нижнему регистру
     name = name.replace(' ', '-').lower()
-
-    #
     transtable = (
         ## Большие буквы
         (u"Щ", u"Sch"),

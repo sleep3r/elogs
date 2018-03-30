@@ -1582,6 +1582,7 @@ def leaching_api_pulps(request):
         'extra': tables.get_solutions2_table(shift)
     }
 
+
 @process_json_view(auth_required=False)
 def leaching_update_pulps(request):
     journal = Journal.objects.all()[0]
@@ -1589,8 +1590,6 @@ def leaching_update_pulps(request):
 
     print(data['shift_id'])
     print(data['extra'])
-
-
 
     return {
         'result': 'ok',

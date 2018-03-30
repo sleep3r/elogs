@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login_app.apps.LoginApp',
     'express_anal_app.apps.ExpressAnalApp',
+    'leaching.repair_app.apps.LeachingRepairAppConfig',
+    'furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
 MIDDLEWARE = [
