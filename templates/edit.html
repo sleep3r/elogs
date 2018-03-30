@@ -1,6 +1,7 @@
 {% load i18n %}
 {% include "header.html" %}
 
+<div class="editwrapper">
 <div id="app">
 {% include "forms/form-shift-choice.html" with form=form_shift %}
 
@@ -36,5 +37,6 @@
 {% include "forms/form-neutural-densers.html" with form=form_densers_neutural %}
 {% include "forms/form-ready-tanks.html" with form=form_ready_tanks %}
 {% include "forms/form-reagents.html" with form=form_reagents %}
+</div>
 
 {% include "footer.html" %}

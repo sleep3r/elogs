@@ -7,7 +7,7 @@ tr.mini td {
 th { text-align: center; }
 
 th.rotate {
-  height: 140px;
+  height: 160px;
   white-space: nowrap;
 
 }
@@ -31,3 +31,58 @@ tr.mini td {
 .form-reagents__fence-state { width: 600px !important; }
 
 .shift_info tbody th { text-align: right; }
+
+ .tablewrapper {
+  display: flex;
+  flex: 1;  
+}
+.pagewrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+.x_panel {margin: 0}
+.x_title {height:40px;}
+ 
+
+.x_panel table {
+  height: 100% !important;
+}
+.x_content {
+  height: calc(100% - 50px);
+}
+
+td {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.editwrapper td {
+  padding: 0 !important;
+}
+
+.editwrapper td .form-control {
+  padding: 0 !important;
+  height: 100%;
+  min-height: 30px;
+  border: none; 
+  background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
+}
+
+.add-row-animated {
+    animation-name: changeColors;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+        
+         
+@keyframes changeColors {
+  0% {background-color: #26B99A55;}
+  100% {background-color: initial;}
+}
+
+.add-row-animated input {
+  background-color: transparent;
+}
