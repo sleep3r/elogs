@@ -1667,6 +1667,21 @@ def leaching_pulps_remove(request):
         'record': record1
     }
 
+
+@process_json_view(auth_required=False)
+def leaching_api_agitators(request):
+
+    if 'shift_id' in request.GET:
+        shift = Shift.objects.get(id=request.GET['shift_id'])
+    else:
+        shift = Shift.objects.all()[0]
+
+    return {
+        'result': 'ok',
+        'items': tables.get_agitators_table(shift)
+    }
+
+
 def leaching_wizard(request):
     context = {}
     template = loader.get_template('react-table-edit.html')

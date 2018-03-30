@@ -40,9 +40,10 @@ urlpatterns = [
     url('save/densers$', views.leaching_save_densers),
     url('save/densers/json$', views.leaching_save_densers_json),
 
-
-
+    url('leaching/api/agitators$', views.leaching_api_agitators),
     url('save/agitators$', views.leaching_save_agitators),
+
+
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
     url('save/neutural/solution', views.leaching_save_neutural_solution),
