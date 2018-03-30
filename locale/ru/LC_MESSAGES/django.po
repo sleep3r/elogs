@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-29 15:57+0300\n"
+"POT-Creation-Date: 2018-03-30 18:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,105 +19,112 @@ msgstr ""
 "10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%"
 "100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\DigitalLogs\settings.py:145
+#: .\DigitalLogs\settings.py:147
 msgid "Russian"
 msgstr ""
 
-#: .\DigitalLogs\settings.py:146
+#: .\DigitalLogs\settings.py:148
 msgid "English"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\leaching\express_anal_app\demo_database.py:189
 msgid "Бак отработ. 1-2 серий"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\leaching\express_anal_app\demo_database.py:189
 msgid "Манны №1-9"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\leaching\express_anal_app\demo_database.py:189
 msgid "Манны ВТВ №10-12"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\leaching\express_anal_app\demo_database.py:190
 msgid "Обор-й сгуститель №9"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\leaching\express_anal_app\demo_database.py:190
 msgid "Агитатор 22"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\leaching\express_anal_app\demo_database.py:190
 msgid "Бак нейтр. р-ра, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\leaching\express_anal_app\demo_database.py:191
 msgid "Ман отраб. № 2, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\leaching\express_anal_app\demo_database.py:191
 msgid "Ман отраб. № 3, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\leaching\express_anal_app\demo_database.py:191
 msgid "Ман отраб. № 9, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:193
+#: .\leaching\express_anal_app\demo_database.py:192
 msgid "-"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:193
+#: .\leaching\express_anal_app\demo_database.py:192
 msgid "СМЕННЫЙ БАЛАНС"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:193
+#: .\leaching\express_anal_app\demo_database.py:192
 msgid "СУТОЧНЫЙ БАЛАНС"
 msgstr ""
 
-#: .\express_anal_app\views.py:43
+#: .\leaching\express_anal_app\views.py:43
 msgid "Температура кипящего слоя превысила критический показатель"
 msgstr ""
 
-#: .\express_anal_app\views.py:44
+#: .\leaching\express_anal_app\views.py:44
 msgid "Всё хорошо"
 msgstr ""
 
-#: .\express_anal_app\views.py:45
+#: .\leaching\express_anal_app\views.py:45
 msgid "Надо пошурудить в печи"
 msgstr ""
 
-#: .\express_anal_app\views.py:86 .\express_anal_app\views.py:87
+#: .\leaching\express_anal_app\views.py:86
+#: .\leaching\express_anal_app\views.py:87
 msgid "ВСНС"
 msgstr ""
 
-#: .\express_anal_app\views.py:87
+#: .\leaching\express_anal_app\views.py:87
 #: .\templates\forms\form-express-analysis.html:28
 #: .\templates\widgets\table-bchc.html:13
 msgid "Ларокс"
 msgstr ""
 
-#: .\express_anal_app\views.py:87
+#: .\leaching\express_anal_app\views.py:87
 #: .\templates\forms\form-express-analysis.html:29
 #: .\templates\widgets\table-bchc.html:14
 msgid "Очищенный раствор"
 msgstr ""
 
-#: .\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:88
 msgid "Кобальт Co"
 msgstr ""
 
-#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:90
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
-#: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:447
 #: .\templates\forms\form-hydrometal.html:39
 #: .\templates\widgets\table-apparat.html:26
 msgid "Сурьма"
 msgstr ""
 
-#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:90
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
-#: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:447
 #: .\templates\forms\form-densers.html:40
 #: .\templates\forms\form-hydrometal.html:37
 #: .\templates\widgets\table-apparat.html:24
@@ -125,177 +132,223 @@ msgstr ""
 msgid "Медь"
 msgstr ""
 
-#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:90
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
-#: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:447
 msgid "Кадмий"
 msgstr ""
 
-#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:445
 msgid "Твердое После 1ст"
 msgstr ""
 
-#: .\express_anal_app\views.py:88 .\express_anal_app\views.py:90
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
-#: .\express_anal_app\views.py:445 .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:88
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:447
 #: .\templates\forms\form-densers.html:41
 #: .\templates\widgets\table-densers.html:53
 msgid "Железо"
 msgstr ""
 
-#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:446
+#: .\leaching\express_anal_app\views.py:89
+#: .\leaching\express_anal_app\views.py:446
 msgid "Твёрдое "
 msgstr ""
 
-#: .\express_anal_app\views.py:89 .\express_anal_app\views.py:91
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
-#: .\express_anal_app\views.py:446 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:89
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:446
+#: .\leaching\express_anal_app\views.py:448
 #: .\templates\forms\form-shift-info.html:96 .\templates\widgets\shift.html:53
 msgid "Уд. вес"
 msgstr ""
 
-#: .\express_anal_app\views.py:90 .\express_anal_app\views.py:124
-#: .\express_anal_app\views.py:408 .\express_anal_app\views.py:445
-#: .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:445
+#: .\leaching\express_anal_app\views.py:447
 msgid "Кобальт"
 msgstr ""
 
-#: .\express_anal_app\views.py:90 .\express_anal_app\views.py:447
+#: .\leaching\express_anal_app\views.py:90
+#: .\leaching\express_anal_app\views.py:447
 msgid "Твердое"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:448
 msgid "Выход по току"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:124
-#: .\express_anal_app\views.py:408 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:448
 msgid "Норма"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:124
-#: .\express_anal_app\views.py:408 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:448
 msgid "Факт"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:448
 msgid "Несоответствие"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:125
-#: .\express_anal_app\views.py:409 .\express_anal_app\views.py:448
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:125
+#: .\leaching\express_anal_app\views.py:409
+#: .\leaching\express_anal_app\views.py:448
 msgid "Коррекция"
 msgstr ""
 
-#: .\express_anal_app\views.py:91 .\express_anal_app\views.py:125
-#: .\express_anal_app\views.py:409 .\templates\widgets\shift.html:18
+#: .\leaching\express_anal_app\views.py:91
+#: .\leaching\express_anal_app\views.py:125
+#: .\leaching\express_anal_app\views.py:409 .\templates\widgets\shift.html:18
 msgid "Мастер"
 msgstr ""
 
-#: .\express_anal_app\views.py:97 .\express_anal_app\views.py:453
+#: .\leaching\express_anal_app\views.py:97
+#: .\leaching\express_anal_app\views.py:453
 msgid "Сгустители"
 msgstr ""
 
-#: .\express_anal_app\views.py:104
+#: .\leaching\express_anal_app\views.py:104
 msgid "Пульпа"
 msgstr ""
 
-#: .\express_anal_app\views.py:111 .\express_anal_app\views.py:117
+#: .\leaching\express_anal_app\views.py:111
+#: .\leaching\express_anal_app\views.py:117
 msgid "Аппаратчик - гидрометаллург"
 msgstr ""
 
-#: .\express_anal_app\views.py:123 .\express_anal_app\views.py:407
+#: .\leaching\express_anal_app\views.py:123
+#: .\leaching\express_anal_app\views.py:407
 msgid "Баки готовой продукции"
 msgstr ""
 
-#: .\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:124
 msgid "№ Бака "
 msgstr ""
 
-#: .\express_anal_app\views.py:124 .\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:124
+#: .\leaching\express_anal_app\views.py:408
 msgid "В:T"
 msgstr ""
 
-#: .\express_anal_app\views.py:132 .\express_anal_app\views.py:419
+#: .\leaching\express_anal_app\views.py:132
+#: .\leaching\express_anal_app\views.py:419
 msgid "Наличие<br>нейтр. р-ра"
 msgstr ""
 
-#: .\express_anal_app\views.py:133 .\express_anal_app\views.py:420
+#: .\leaching\express_anal_app\views.py:133
+#: .\leaching\express_anal_app\views.py:420
 msgid "Уч. выщел. N1<br>бак 3,4,5,4А"
 msgstr ""
 
-#: .\express_anal_app\views.py:134 .\express_anal_app\views.py:135
-#: .\express_anal_app\views.py:138 .\express_anal_app\views.py:139
+#: .\leaching\express_anal_app\views.py:134
+#: .\leaching\express_anal_app\views.py:135
+#: .\leaching\express_anal_app\views.py:138
+#: .\leaching\express_anal_app\views.py:139
 msgid "Бак"
 msgstr ""
 
-#: .\express_anal_app\views.py:136 .\express_anal_app\views.py:423
+#: .\leaching\express_anal_app\views.py:136
+#: .\leaching\express_anal_app\views.py:423
 msgid "Итого"
 msgstr ""
 
-#: .\express_anal_app\views.py:137 .\express_anal_app\views.py:424
+#: .\leaching\express_anal_app\views.py:137
+#: .\leaching\express_anal_app\views.py:424
 msgid "Бак III<br/>серии"
 msgstr ""
 
-#: .\express_anal_app\views.py:145 .\express_anal_app\views.py:147
+#: .\leaching\express_anal_app\views.py:145
+#: .\leaching\express_anal_app\views.py:147
 #: .\templates\forms\form-electrolysis.html:29
 msgid "Нагрузки"
 msgstr ""
 
-#: .\express_anal_app\views.py:146 .\templates\forms\form-electrolysis.html:21
+#: .\leaching\express_anal_app\views.py:146
+#: .\templates\forms\form-electrolysis.html:21
 msgid "I серия"
 msgstr ""
 
-#: .\express_anal_app\views.py:146 .\templates\forms\form-electrolysis.html:22
+#: .\leaching\express_anal_app\views.py:146
+#: .\templates\forms\form-electrolysis.html:22
 msgid "II серия"
 msgstr ""
 
-#: .\express_anal_app\views.py:146 .\templates\forms\form-electrolysis.html:23
+#: .\leaching\express_anal_app\views.py:146
+#: .\templates\forms\form-electrolysis.html:23
 msgid "III серия"
 msgstr ""
 
-#: .\express_anal_app\views.py:146 .\templates\forms\form-electrolysis.html:24
+#: .\leaching\express_anal_app\views.py:146
+#: .\templates\forms\form-electrolysis.html:24
 msgid "IV серия"
 msgstr ""
 
-#: .\express_anal_app\views.py:147 .\templates\forms\form-electrolysis.html:45
+#: .\leaching\express_anal_app\views.py:147
+#: .\templates\forms\form-electrolysis.html:45
 msgid "Показания счётчика"
 msgstr ""
 
-#: .\express_anal_app\views.py:147
+#: .\leaching\express_anal_app\views.py:147
 msgid "Бункеа ЦВЦО"
 msgstr ""
 
-#: .\express_anal_app\views.py:147 .\templates\forms\form-electrolysis.html:59
+#: .\leaching\express_anal_app\views.py:147
+#: .\templates\forms\form-electrolysis.html:59
 msgid "Силоса ОЦ"
 msgstr ""
 
-#: .\express_anal_app\views.py:147 .\templates\forms\form-electrolysis.html:66
+#: .\leaching\express_anal_app\views.py:147
+#: .\templates\forms\form-electrolysis.html:66
 msgid "Бункера ОЦ"
 msgstr ""
 
-#: .\express_anal_app\views.py:153 .\express_anal_app\views.py:393
+#: .\leaching\express_anal_app\views.py:153
+#: .\leaching\express_anal_app\views.py:393
 msgid "Наличие свободных ёмкостей"
 msgstr ""
 
-#: .\express_anal_app\views.py:159 .\express_anal_app\views.py:432
+#: .\leaching\express_anal_app\views.py:159
+#: .\leaching\express_anal_app\views.py:432
 #: .\templates\forms\form-neutural-densers.html:26
 #: .\templates\widgets\table-neutral-densers.html:11
 msgid "Нейтральные сгустители"
 msgstr ""
 
-#: .\express_anal_app\views.py:165 .\express_anal_app\views.py:373
+#: .\leaching\express_anal_app\views.py:165
+#: .\leaching\express_anal_app\views.py:373
 #: .\templates\forms\form-self-security.html:12
 #: .\templates\forms\form-self-security.html:42
 #: .\templates\widgets\table-security.html:16
 msgid "Самоохрана"
 msgstr ""
 
-#: .\express_anal_app\views.py:171 .\express_anal_app\views.py:367
+#: .\leaching\express_anal_app\views.py:171
+#: .\leaching\express_anal_app\views.py:367
 msgid "Пробник №2"
 msgstr ""
 
-#: .\express_anal_app\views.py:172 .\templates\forms\form-densers.html:26
+#: .\leaching\express_anal_app\views.py:172
+#: .\templates\forms\form-densers.html:26
 #: .\templates\forms\form-express-analysis.html:26
 #: .\templates\forms\form-sample2.html:20
 #: .\templates\widgets\table-bchc.html:11
@@ -303,88 +356,94 @@ msgstr ""
 msgid "Время"
 msgstr ""
 
-#: .\express_anal_app\views.py:190 .\express_anal_app\views.py:193
-#: .\express_anal_app\views.py:196 .\express_anal_app\views.py:361
+#: .\leaching\express_anal_app\views.py:190
+#: .\leaching\express_anal_app\views.py:193
+#: .\leaching\express_anal_app\views.py:196
+#: .\leaching\express_anal_app\views.py:361
 msgid "ВИУ"
 msgstr ""
 
-#: .\express_anal_app\views.py:202 .\express_anal_app\views.py:343
+#: .\leaching\express_anal_app\views.py:202
+#: .\leaching\express_anal_app\views.py:343
 msgid "Шихта"
 msgstr ""
 
-#: .\express_anal_app\views.py:208 .\express_anal_app\views.py:399
+#: .\leaching\express_anal_app\views.py:208
+#: .\leaching\express_anal_app\views.py:399
 msgid "Реагенты"
 msgstr ""
 
-#: .\express_anal_app\views.py:216
+#: .\leaching\express_anal_app\views.py:216
 msgid "Журнал учёта"
 msgstr ""
 
-#: .\express_anal_app\views.py:217 .\express_anal_app\views.py:340
+#: .\leaching\express_anal_app\views.py:217
+#: .\leaching\express_anal_app\views.py:340
 msgid "Цех выщелачивания"
 msgstr ""
 
-#: .\express_anal_app\views.py:220 .\express_anal_app\views.py:379
+#: .\leaching\express_anal_app\views.py:220
+#: .\leaching\express_anal_app\views.py:379
 msgid "Выбранная смена"
 msgstr ""
 
-#: .\express_anal_app\views.py:338
+#: .\leaching\express_anal_app\views.py:338
 msgid "Журнал Экспресс анализа (Заполнение)"
 msgstr ""
 
-#: .\express_anal_app\views.py:341
+#: .\leaching\express_anal_app\views.py:341
 msgid "Заполнить форму"
 msgstr ""
 
-#: .\express_anal_app\views.py:349
+#: .\leaching\express_anal_app\views.py:349
 msgid "Электролиз"
 msgstr ""
 
-#: .\express_anal_app\views.py:355
+#: .\leaching\express_anal_app\views.py:355
 msgid "Огарок"
 msgstr ""
 
-#: .\express_anal_app\views.py:386
+#: .\leaching\express_anal_app\views.py:386
 msgid "Принято и откачено"
 msgstr ""
 
-#: .\express_anal_app\views.py:408
+#: .\leaching\express_anal_app\views.py:408
 msgid "№ Бака"
 msgstr ""
 
-#: .\express_anal_app\views.py:417
+#: .\leaching\express_anal_app\views.py:417
 msgid "Нейтральный раствор"
 msgstr ""
 
-#: .\express_anal_app\views.py:421
+#: .\leaching\express_anal_app\views.py:421
 msgid "Бак 3"
 msgstr ""
 
-#: .\express_anal_app\views.py:422
+#: .\leaching\express_anal_app\views.py:422
 msgid "Бак 4"
 msgstr ""
 
-#: .\express_anal_app\views.py:425
+#: .\leaching\express_anal_app\views.py:425
 msgid "Бак 5"
 msgstr ""
 
-#: .\express_anal_app\views.py:426
+#: .\leaching\express_anal_app\views.py:426
 msgid "Бак 6"
 msgstr ""
 
-#: .\express_anal_app\views.py:440
+#: .\leaching\express_anal_app\views.py:440
 msgid "Экспресс анализ"
 msgstr ""
 
-#: .\express_anal_app\views.py:462
+#: .\leaching\express_anal_app\views.py:462
 msgid "Пульпы"
 msgstr ""
 
-#: .\express_anal_app\views.py:471
+#: .\leaching\express_anal_app\views.py:471
 msgid "Аппаратчик - Гидрометаллург"
 msgstr ""
 
-#: .\express_anal_app\views.py:478
+#: .\leaching\express_anal_app\views.py:478
 msgid "Агитаторы очистки"
 msgstr ""
 
@@ -401,7 +460,7 @@ msgstr ""
 #: .\templates\forms\form-agitators.html:48
 #: .\templates\forms\form-agitators.html:53
 #: .\templates\forms\form-agitators.html:57
-#: .\templates\forms\form-pulps.html:40
+#: .\templates\forms\form-pulps.html:41
 #: .\templates\widgets\table-2zinc.html:27
 #: .\templates\widgets\table-agitators.html:39
 #: .\templates\widgets\table-agitators.html:45
@@ -412,7 +471,7 @@ msgstr ""
 
 #: .\templates\forms\form-agitators.html:96
 #: .\templates\forms\form-agitators.html:102
-#: .\templates\forms\form-pulps.html:41
+#: .\templates\forms\form-pulps.html:42
 #: .\templates\widgets\table-2zinc.html:28
 #: .\templates\widgets\table-agitators.html:64
 #: .\templates\widgets\table-agitators.html:70
@@ -478,7 +537,7 @@ msgstr ""
 #: .\templates\forms\form-densers.html:42
 #: .\templates\forms\form-densers.html:45
 #: .\templates\forms\form-neutural-densers.html:38
-#: .\templates\forms\form-pulps.html:36 .\templates\forms\form-pulps.html:39
+#: .\templates\forms\form-pulps.html:37 .\templates\forms\form-pulps.html:40
 #: .\templates\widgets\table-2zinc.html:23
 #: .\templates\widgets\table-2zinc.html:26
 #: .\templates\widgets\table-densers.html:54
@@ -616,36 +675,36 @@ msgstr ""
 msgid "Железистый раствор"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:30
+#: .\templates\forms\form-pulps.html:31
 #: .\templates\widgets\table-2zinc.html:18
 #: .\templates\widgets\table-znpulp.html:22
 msgid "Концентрат Sb в р-ре соли Шлиппе"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:31
+#: .\templates\forms\form-pulps.html:32
 #: .\templates\widgets\table-2zinc.html:19
 #: .\templates\widgets\table-znpulp.html:23
 msgid "Активн. ПАВ"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:32
+#: .\templates\forms\form-pulps.html:33
 #: .\templates\widgets\table-2zinc.html:20
 #: .\templates\widgets\table-znpulp.html:24
 msgid "Высоко Fe р-р"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:42 .\templates\forms\form-pulps.html:44
+#: .\templates\forms\form-pulps.html:43 .\templates\forms\form-pulps.html:45
 #: .\templates\widgets\table-2zinc.html:29
 #: .\templates\widgets\table-2zinc.html:31
 msgid "ТВ"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:48
+#: .\templates\forms\form-pulps.html:49
 #: .\templates\widgets\table-2zinc.html:35
 msgid "уд. вес"
 msgstr ""
 
-#: .\templates\forms\form-pulps.html:110
+#: .\templates\forms\form-pulps.html:117
 #: .\templates\widgets\table-2zinc.html:60
 #: .\templates\widgets\table-znpulp.html:68
 msgid "Анализы оборот. сгуст."

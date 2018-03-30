@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login_app.apps.LoginApp',
-    'express_anal_app.apps.ExpressAnalApp',
+    'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
     'furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
@@ -71,7 +71,7 @@ TEMPLATES = [
             ],
 
             'libraries':{
-                    'express_tags': 'express_anal_app.templatetags.express_tags',
+                    'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
             }
         },
     },
@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

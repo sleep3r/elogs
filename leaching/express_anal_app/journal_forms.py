@@ -3,10 +3,10 @@ import inspect
 
 from django import forms
 from django.forms import ModelForm
-from express_anal_app.models import *
+from leaching.express_anal_app.models import *
 
 import inspect
-from express_anal_app import models as eamodels
+from leaching.express_anal_app import models as eamodels
 from django.db import models
 
 

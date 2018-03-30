@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 
-from express_anal_app.tables import command_to_process
+from leaching.express_anal_app.tables import command_to_process
 
 
 class Command(BaseCommand):

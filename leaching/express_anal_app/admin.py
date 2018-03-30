@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from express_anal_app.models import *
+from leaching.express_anal_app.models import *
 
 
 class DenserAnalAdmin(admin.ModelAdmin):

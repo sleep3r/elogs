@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from express_anal_app import views
+from leaching.express_anal_app import views
 
 urlpatterns = [
     url('^$', views.index),
@@ -26,8 +26,7 @@ urlpatterns = [
     url('save/pulps$', views.leaching_save_pulps),
     url('leaching/api/pulps$', views.leaching_api_pulps),
     url('leaching/update/pulps$', views.leaching_update_pulps),
-
-
+    url('leaching/api/pulps/remove$', views.leaching_pulps_remove),
 
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
