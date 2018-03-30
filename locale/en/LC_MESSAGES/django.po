@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-29 13:53+0300\n"
+"POT-Creation-Date: 2018-03-29 15:57+0300\n"
 "PO-Revision-Date: 2018-03-29 13:31+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,51 +26,51 @@ msgstr "Russian"
 msgid "English"
 msgstr "English"
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Бак отработ. 1-2 серий"
 msgstr "Tank for recycled 1-2 series"
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Манны №1-9"
 msgstr "Mann №1-9"
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Манны ВТВ №10-12"
 msgstr "Manns BTB №10-12"
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Обор-й сгуститель №9"
 msgstr "Recycled denser  №9"
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Агитатор 22"
 msgstr "Agitator 22"
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Бак нейтр. р-ра, 1-й цех"
 msgstr "Tank of neutral solution, 1st plant"
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 2, 1-й цех"
 msgstr "Tank of recycled №2, 1nd plant"
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 3, 1-й цех"
 msgstr "Tank of recycled  №3, 1nd plant"
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 9, 1-й цех"
 msgstr "Tank of recycled  №9, 1nd plant"
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "-"
 msgstr "-"
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "СМЕННЫЙ БАЛАНС"
 msgstr "Shift balance"
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "СУТОЧНЫЙ БАЛАНС"
 msgstr "Day balance"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-29 13:53+0300\n"
+"POT-Creation-Date: 2018-03-29 15:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,51 +27,51 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Бак отработ. 1-2 серий"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Манны №1-9"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:189
+#: .\express_anal_app\demo_database.py:190
 msgid "Манны ВТВ №10-12"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Обор-й сгуститель №9"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Агитатор 22"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:190
+#: .\express_anal_app\demo_database.py:191
 msgid "Бак нейтр. р-ра, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 2, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 3, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:191
+#: .\express_anal_app\demo_database.py:192
 msgid "Ман отраб. № 9, 1-й цех"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "-"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "СМЕННЫЙ БАЛАНС"
 msgstr ""
 
-#: .\express_anal_app\demo_database.py:192
+#: .\express_anal_app\demo_database.py:193
 msgid "СУТОЧНЫЙ БАЛАНС"
 msgstr ""
 
