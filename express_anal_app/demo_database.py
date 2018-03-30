@@ -394,9 +394,11 @@ class DatabaseFiller:
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_shifts(self):
+        dates = [parse('10-10-2015'), parse('12-10-2015')]
+
         for i in range(4):
             sh = Shift()
-            sh.date = parse('10-10-2010')
+            sh.date = dates[i%2]
             sh.plant = 'leaching'
             sh.order = random.randint(1, 2)
             sh.master = random.choice(Employee.objects.filter(position='Мастер'))

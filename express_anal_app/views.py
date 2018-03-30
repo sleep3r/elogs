@@ -320,7 +320,7 @@ def leaching_all_edit(request):
 
         return HttpResponseRedirect('/leaching/all/edit')
 
-    journal = Journal.objects.all()[0]
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
     if 'shift' in request.GET:
         shiftId = request.GET['shift']
         shift = Shift.objects.filter(id=shiftId)[0]
@@ -1622,7 +1622,7 @@ def leaching_update_pulps(request):
     day_anal.save()
 
     for field in zn_fields:
-        setattr(zn_pulp, field, data['zn_pulp'][field])
+        setattr(zn_pulp, field, data['zn_pulp'].get(field) or 0)
 
     setattr(zn_pulp,'shift', shift)
     zn_pulp.journal = journal
@@ -1631,7 +1631,7 @@ def leaching_update_pulps(request):
     zn_pulp.save()
 
     for field in cu_fields:
-        setattr(cu_pulp, field, data['cu_pulp'][field])
+        setattr(cu_pulp, field, data['cu_pulp'].get(field) or 0)
     setattr(cu_pulp, 'shift', shift)
     cu_pulp.zn_pulp_anal = zn_pulp
     cu_pulp.fe_sol_anal = fe_sol
@@ -1639,7 +1639,7 @@ def leaching_update_pulps(request):
     cu_pulp.save()
 
     for field in fe_fields:
-        setattr(fe_sol, field, data['fe_sol'][field])
+        setattr(fe_sol, field, data['fe_sol'].get(field) or 0)
     setattr(fe_sol, 'shift', shift)
     fe_sol.zn_pulp_anal = zn_pulp
     fe_sol.cu_pulp_anal = cu_pulp

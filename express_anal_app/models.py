@@ -111,19 +111,19 @@ class ZnPulpAnal(JournalTable):
     """
     Эта модель хранит данные по 1 строчке первой секции таблицы пульп.
     """
-    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
-    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='pH')
-    t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='t0')
+    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ж:Т')
+    ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='pH')
+    t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='t0')
 
 
 class CuPulpAnal(JournalTable):
     """
     Эта модель хранит данные по 1 строчке второй секции таблицы пульп.
     """
-    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Ж:Т')
-    before = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='До')
-    after = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='После')
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
+    liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ж:Т')
+    before = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='До')
+    after = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='После')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='ТВ')
 
     zn_pulp_anal = models.OneToOneField(ZnPulpAnal, on_delete=models.CASCADE,
                                         related_name='cu_pulp_anal')
@@ -133,13 +133,13 @@ class FeSolutionAnal(JournalTable):
     """
     Эта модель хранит данные по 1 строчке третьей секции таблицы пульп.
     """
-    h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='H2SO4')
-    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='ТВ')
-    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Sb')
-    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cu')
-    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Fe')
-    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Уд. вес')
-    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='As')
+    h2so4 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='H2SO4')
+    solid = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='ТВ')
+    sb = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Sb')
+    cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Cu')
+    fe = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Fe')
+    density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Уд. вес')
+    arsenic = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='As')
     cl = models.DecimalField(max_digits=10, decimal_places=5, blank=True, verbose_name='Cl')
 
     cu_pulp_anal = models.OneToOneField(CuPulpAnal, on_delete=models.CASCADE, related_name='fe_solution_anal')
