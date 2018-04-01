@@ -3,10 +3,11 @@
     <div class="x_title">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
+        <a class="btn btn-success pull-right editintable" href="/leaching/all/edit"><i class="glyphicon glyphicon-pencil"></i></a>
     </div>
     <div class="x_content">
         <table class="table table-bordered">
-            <thead>
+            <tbody>
                 <tr>
                     <th>{% trans "Нейтральные сгустители" %}</th>
                     {% for num,item in table.data.items %}
@@ -30,8 +31,7 @@
                     <td>{{item.liq_sol2}}</td>
                     {% endfor %}
                 </tr>
-
-            </thead>
+            </tbody>
         </table>
     </div>
 </div>

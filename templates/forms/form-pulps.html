@@ -123,7 +123,7 @@
                         </tr>
                     </template>
                     <template v-if="tables.{{form.name}}.state == 'add'">
-                        <tr class="mini add-row-animated">
+                        <tr class="mini">
                             <td><a  v-on:click="addRecord('{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
                             <td><input class="form-control" type="text" name="zn_pulp.liq_sol" v-model="tables.{{form.name}}.newRecord.zn_pulp.liq_sol" /></td>
                             <td><input class="form-control" type="text" name="zn_pulp.ph"  v-model="tables.{{form.name}}.newRecord.zn_pulp.ph" /></td>

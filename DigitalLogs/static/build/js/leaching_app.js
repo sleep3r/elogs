@@ -177,7 +177,13 @@ var app = new Vue({
                 scope.$http.get('/leaching/api/pulps?shift_id='+ shiftId)
                     .then(response => {
                         console.info('form_pulps.init')
-                        console.info(response.data)
+                        console.info(response.data);
+                        if (this.data.items) {
+                            setTimeout(() => {
+                                let datarows = document.querySelectorAll("#form_pulps tbody tr.mini")
+                                datarows[datarows.length - 1].className += " add-row-animated"
+                            }, 0);
+                        }
                         this.data = response.data
                     })
                     .catch(e => {
