@@ -1,0 +1,120 @@
+body {
+  background-color: white !important;
+}
+
+.btn {
+  display: none;
+}
+
+.tablerow {
+  vertical-align: bottom;
+}
+
+.fillheight {
+ height: 100px;
+}
+
+.fillheight .x_panel {
+  height: 99%;
+}
+
+th.rotate > div > span {
+  padding: 3px 40px !important;
+  text-align: left;
+}
+
+.pagewrapper, .tablewrapper, .columncontainer, .smallwrapper {
+  display: block;
+  flex-wrap: nowrap;
+  flex: none;
+  margin: 0;
+}
+
+.tablecell h3, .tablecell h4 {
+  display: none;
+}
+
+.toptable .tablecell {
+  margin: 4px;
+  width: 45%;
+}
+
+.bottomtable .tablecell {
+  width: 25%;
+  vertical-align: top;
+}
+
+.columncontent{
+  display: block;
+  height: 100%;
+}
+
+.inlinecontent {
+  display: table-cell;
+}
+
+.containertable {
+  display: table;
+}
+
+.containerrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 100%;
+}
+
+.inline {
+  display: inline-flex;
+  flex: auto;
+}
+
+.x_content td {
+  padding: 7px 0 0 0 !important;
+  line-height: 1 !important;
+}
+
+.addpaddings td {
+  padding: 6px !important;
+  font-size: 14px !important;
+}
+
+.bottomtable .notitle {
+  display: none;
+}
+
+.smallth th {
+  padding: 2px !important;
+}
+
+.customwidth {
+  width: 24px;
+  padding-left: 0 !important;
+}
+
+.bottomtable .table {
+  margin-bottom: 0;
+}
+
+.x_title {
+  height: 30px;
+  margin-bottom: 3px;
+}
+
+.x_title h2 {
+  font-size: 17px;
+  margin: 6px 0 3px;
+}
+
+.x_panel {
+  padding: 8px 4px 4px 4px !important;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.table-bordered {
+  margin: 3px 0;
+}
+
+.pagebreak { page-break-before: always; }

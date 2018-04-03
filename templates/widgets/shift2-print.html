@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="containerrow">
+<div class="inline">
+  <div class="x_panel">
+    <table class="table">
+      <tr>
+        <th>{% trans "Печи" %}</th><td>{{shift.data.furnaces}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="inline">
+  <div class="x_panel">
+    <table class="table">
+      <tr>
+        <th>{% trans "Мастер" %}</th><td>{{shift.data.master}}</td>
+      </tr>
+      <tr>
+        <th>{% trans "Лаборант" %}</th><td>{{shift.data.laborant}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>

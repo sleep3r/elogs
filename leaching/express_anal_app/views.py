@@ -257,8 +257,11 @@ def leaching_jurnal(request):
 
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
-
-    template = loader.get_template('journal.html')
+    if 'print' in request.GET:
+    	template = loader.get_template('journal-print.html')
+    else:
+    	template = loader.get_template('journal.html')
+	
     return HttpResponse(template.render(context, request))
 
 
