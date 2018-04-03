@@ -15,7 +15,7 @@ from django.utils.translation import gettext as _
 
 def add_model_to_dict(model, res, attrs=None):
     if attrs is None:
-        attrs = [f.name for f in model._meta.get_fields(include_parents=False)]
+        attrs = [f.name for f in model._meta.get_fields(include_parents=False)] + ['id']
 
     for attr in attrs:
         val = getattr(model, attr)

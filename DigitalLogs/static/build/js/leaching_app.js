@@ -15,11 +15,6 @@ Vue.filter('formatHour', function(value) {
   }
 })
 
-Vue.component('my-component', {
-  template: '<div><b>Пользовательский компонент!<b></div>'
-})
-
-
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app',
@@ -28,13 +23,20 @@ var app = new Vue({
     tables: {
         'form_template': {
             data: [],
-            current: [],
+            current: {},
             current_count: 0,
             state: 'view',
             newRecord: {},
             init: function(scope){
             },
-
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+            },
+            addRecord: function(scope) {
+            }
         },
         'form_self_security': { visible: 1},
         'form_express_analysis': {
@@ -119,7 +121,7 @@ var app = new Vue({
                         console.log(e)
                     })
             },
-            onRow: function(scope, rowId) {
+             onRow: function(scope, rowId) {
                 this.state = 'edit'
                 console.log(rowId)
                 console.log(this.data.items[rowId])
@@ -224,7 +226,6 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-
                 console.info("add new Record")
                 let formId = 'form_pulps'
                 let form = document.getElementById(formId)
@@ -243,9 +244,87 @@ var app = new Vue({
                     .catch(e => {
                         console.log(e)
                     })
-
             }
+        },
+        'form_agitators': {
+            data: [],
+            formId: 'form_agitators',
+            initRecord: {'times':[ { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+                { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+                { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+            ], 'comment': ''},
+            current: {},
+            current_count: 0,
+            state: 'view',
+            newRecord: {},
+            init: function(scope){
+               let formId = 'form_agitators'
+               let form = document.getElementById(formId)
+               let shiftId = form.shift_id.value
+               scope.$http.get('leaching/api/agitators?shift_id=' + shiftId)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'view'
+                        this.data = response.data
+                        if (this.data.items.times) {
+                            this.current = this.initRecord
+                            this.state = 'edit'
+                            console.info('SET MODE: edit')
+                        } else {
+                            this.newRecord = this.initRecord
 
+                            this.state = 'add'
+                            console.info('SET MODE: add')
+                            console.info(this.initRecord)
+                        }
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/agitators/update', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.newRecord))
+                data.append('comment', this.data.items.comment)
+                console.info('comment: '+ this.data.items.comment)
+
+                scope.$http.post('/leaching/agitators/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'add'
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
         },
     },
   },
@@ -254,6 +333,7 @@ var app = new Vue({
     this.tables['form_densers'].init(this)
     this.tables['form_hydrometal'].init(this)
     this.tables['form_pulps'].init(this)
+    this.tables['form_agitators'].init(this)
   },
   methods: {
     addNewRow: function(formId) {

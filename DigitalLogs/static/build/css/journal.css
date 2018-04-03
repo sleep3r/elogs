@@ -31,3 +31,6 @@ tr.mini td {
 .form-reagents__fence-state { width: 600px !important; }
 
 .shift_info tbody th { text-align: right; }
+
+td { text-align: center; }
+tr.mini th { vertical-align: middle !important; }

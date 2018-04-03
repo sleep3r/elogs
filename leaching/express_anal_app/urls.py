@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
+from leaching.express_anal_app.components import agitators
 
 urlpatterns = [
     url('^$', views.index),
@@ -40,16 +41,18 @@ urlpatterns = [
     url('save/densers$', views.leaching_save_densers),
     url('save/densers/json$', views.leaching_save_densers_json),
 
+    url('leaching/api/agitators$', agitators.leaching_api_agitators),
+    url('save/agitators$', agitators.leaching_save_agitators),
+    url('leaching/agitators/update$', agitators.update_agitators),
+    url('leaching/agitators/add$', agitators.add_record),
 
-
-    url('save/agitators$', views.leaching_save_agitators),
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
     url('save/neutural/solution', views.leaching_save_neutural_solution),
 
-
-
     url('ju', views.leaching_ju),
     url('json/test$', views.json_test),
-    url('json/densers$', views.json_densers)
+    url('json/densers$', views.json_densers),
+
+    url('leaching/shift/make$', views.leaching_make_shift)
 ]
