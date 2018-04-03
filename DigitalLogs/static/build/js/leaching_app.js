@@ -248,20 +248,36 @@ var app = new Vue({
         },
         'form_agitators': {
             data: [],
+            formId: 'form_agitators',
+            initRecord: {'times':[ { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+                { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+                { '13':{ 'true':{}, 'false':{} }, '15':{ 'true':{}, 'false':{} }, '17':{ 'true':{}, 'false':{} }, '19':{ 'true':{}, 'false':{} }},
+            ], 'comment': ''},
             current: {},
             current_count: 0,
             state: 'view',
             newRecord: {},
             init: function(scope){
-                let formId = 'form_agitators'
-                let form = document.getElementById(formId)
-                var shiftId = form.shift_id.value
-               scope.$http.get('leaching/api/agitators?shift_id='+ shiftId)
+               let formId = 'form_agitators'
+               let form = document.getElementById(formId)
+               let shiftId = form.shift_id.value
+               scope.$http.get('leaching/api/agitators?shift_id=' + shiftId)
                     .then(response => {
                         console.log(response.data)
                         this.state = 'view'
                         this.data = response.data
-                        this.newRecord = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}, 'extra': {}}
+                        if (this.data.items.times) {
+                            this.current = this.initRecord
+                            this.state = 'edit'
+                            console.info('SET MODE: edit')
+                        } else {
+                            this.newRecord = this.initRecord
+
+                            this.state = 'add'
+                            console.info('SET MODE: add')
+                            console.info(this.initRecord)
+                        }
+
                     })
                     .catch(e => {
                         console.log(e)
@@ -272,8 +288,42 @@ var app = new Vue({
             onRow: function(scope, rowId) {
             },
             saveRecord: function(scope) {
+
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/agitators/update', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             },
             addRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.newRecord))
+                data.append('comment', this.data.items.comment)
+                console.info('comment: '+ this.data.items.comment)
+
+                scope.$http.post('/leaching/agitators/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'add'
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             }
         },
     },

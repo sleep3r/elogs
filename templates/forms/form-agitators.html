@@ -44,60 +44,129 @@
                 </thead>
                 <tbody>
                     <tr></tr>
-                    <template v-if="tables.{{form.name}}.data.items">
-                        <template v-for="(item, key) in tables.{{form.name}}.data.items.times" >
-                            <tr>
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "До" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['true'].cd" /></td>
-                                <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['true'].cu" /></td>
-                                <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['true'].co" /></td>
+                    <template v-if="tables.{{form.name}}.state == 'edit' ">
+                        <template v-if="tables.{{form.name}}.data.items">
+                            <template v-for="(item, key) in tables.{{form.name}}.data.items.times" >
+                                <tr>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['true'].cd" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['true'].cu" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['true'].co" /></td>
 
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "До" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['true'].ph" /></td>
-                                <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['true'].cu" /></td>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <template v-if=" item['15'] ">
+                                    <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['true'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['true'].cu" /></td>
+                                    </template>
 
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "До" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['true'].ph" /></td>
-                                <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['true'].cu" /></td>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['true'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['true'].cu" /></td>
 
-                                <td></td>
-                                <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['true'].h2so4" /></td>
-                                <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['true'].cu" /></td>
-                            </tr>
+                                    <td></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['true'].h2so4" /></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['true'].cu" /></td>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="tables.{{form.name}}.data.items">
+                            <template v-for="(item, key) in tables.{{form.name}}.data.items.times" >
+                                <tr>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['false'].cd" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['false'].cu" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['false'].co" /></td>
+
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['false'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['false'].cu" /></td>
+
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['false'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['false'].cu" /></td>
+
+                                    <td></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['false'].h2so4" /></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['false'].cu" /></td>
+                                </tr>
+                            </template>
                         </template>
                     </template>
-                    <template v-if="tables.{{form.name}}.data.items">
-                        <template v-for="(item, key) in tables.{{form.name}}.data.items.times" >
-                            <tr>
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "После" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['false'].cd" /></td>
-                                <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['false'].cu" /></td>
-                                <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['false'].co" /></td>
+                    <template v-if="tables.{{form.name}}.state == 'add' ">
+                        <template v-if="tables.{{form.name}}.newRecord">
+                            <template v-for="(item, key) in tables.{{form.name}}.newRecord.times" >
+                                <tr>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <template v-if=" item['13']">
+                                        <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['true'].cd" /></td>
+                                        <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['true'].cu" /></td>
+                                        <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['true'].co" /></td>
+                                    </template>
 
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "После" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['false'].ph" /></td>
-                                <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['false'].cu" /></td>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <template v-if=" item['15'] ">
+                                        <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['true'].ph" /></td>
+                                        <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['true'].cu" /></td>
+                                    </template>
 
-                                <template v-if="key == 0">
-                                <th rowspan="3">{% trans "После" %}</th>
-                                </template>
-                                <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['false'].ph" /></td>
-                                <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['false'].cu" /></td>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "До" %}</th>
+                                    </template>
+                                    <template v-if=" item['17']">
+                                        <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['true'].ph" /></td>
+                                        <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['true'].cu" /></td>
+                                    </template>
+                                    <td></td>
+                                    <template v-if=" item['19'] ">
+                                        <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['true'].h2so4" /></td>
+                                        <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['true'].cu" /></td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </template>
+                        <template v-if="tables.{{form.name}}.newRecord">
+                            <template v-for="(item, key) in tables.{{form.name}}.newRecord.times" >
+                                <tr>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cd" v-model="item['13']['false'].cd" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.cu" v-model="item['13']['false'].cu" /></td>
+                                    <td><input class="form-control" type="text" name="agitator13.before.co" v-model="item['13']['false'].co" /></td>
 
-                                <td></td>
-                                <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['false'].h2so4" /></td>
-                                <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['false'].cu" /></td>
-                            </tr>
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator15.before.ph" v-model="item['15']['false'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator15.before.cu" v-model="item['15']['false'].cu" /></td>
+
+                                    <template v-if="key == 0">
+                                    <th rowspan="3">{% trans "После" %}</th>
+                                    </template>
+                                    <td><input class="form-control" type="text" name="agitator17.before.ph" v-model="item['17']['false'].ph" /></td>
+                                    <td><input class="form-control" type="text" name="agitator17.before.cu" v-model="item['17']['false'].cu" /></td>
+
+                                    <td></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.h2so4" v-model="item['19']['false'].h2so4" /></td>
+                                    <td><input class="form-control" type="text" name="agitator19.before.cu" v-model="item['19']['false'].cu" /></td>
+                                </tr>
+                            </template>
                         </template>
                     </template>
                 <tr>
@@ -110,7 +179,12 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить" %}</i></a>
+                        <template v-if="tables.{{form.name}}.state == 'add' ">
+                            <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+                        </template>
+                        <template v-if="tables.{{form.name}}.state == 'edit' ">
+                            <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+                        </template>
                     </td>
                     <td colspan="24">
                     </td>
