@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{table.title}}</h2>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+        <a class="btn btn-success pull-right editintable" href="/leaching/all/edit"><i
+                class="glyphicon glyphicon-pencil"></i></a>
+    </div>
+    <div class="x_content">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th scope="row">{% trans "За смену" %}</th>
+                <td>{{ table.data.shift_total }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans "За сутки" %}</th>
+                <td>{{ table.data.day_total }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans "В процессе" %}</th>
+                <td>{{ table.data.in_process }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

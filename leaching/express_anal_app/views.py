@@ -62,7 +62,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def leaching_ju(request):
+def leaching_jurnal(request):
     rows = DenserAnal.objects.all()
 
     if 'shift' in request.GET:
@@ -76,6 +76,7 @@ def leaching_ju(request):
     else:
         shift = Shift.objects.all()[0]
 
+    data_cinder = tables.get_cinder_table(shift)
     data_densers = tables.get_densers_table(shift)
     data_bchc = tables.get_leaching_express_anal_table(shift)
     data_znpulp = {'first': tables.get_solutions_table(shift), 'second': tables.get_solutions2_table(shift)}
@@ -234,6 +235,10 @@ def leaching_ju(request):
             'data': shifts,
             'dump': pprint.pformat(shifts),
             'action': '/leaching/ju'
+        },
+        'cinder': {
+            'title': _("Огарок"),
+            'data': data_cinder.get('0')
         },
         'bchc': bchc,
         'sgustiteli': densers,

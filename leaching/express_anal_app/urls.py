@@ -50,7 +50,7 @@ urlpatterns = [
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
     url('save/neutural/solution', views.leaching_save_neutural_solution),
 
-    url('ju', views.leaching_ju),
+    url('leaching/journal$', views.leaching_jurnal),
     url('json/test$', views.json_test),
     url('json/densers$', views.json_densers),
 
