@@ -63,11 +63,7 @@ var app = new Vue({
                     var context = this
                     scope.$http.get('/leaching/api/express/analysis?shift_id='+ shiftId + '&hour=' + hour)
                     .then(response => {
-                           console.log('get hour')
-                           console.log(response.data)
-                           console.log(hour)
                            context.rows.push({ hour: hour , info: response.data.items[hour] })
-                           console.info(context.rows)
                      })
                      .catch(e => {
                         console.log(e)
@@ -116,7 +112,6 @@ var app = new Vue({
                 scope.$http.get('/leaching/api/hydrometal?shift_id=' + shiftId)
                     .then(response => {
                         this.data = response.data
-                        console.info(this.data)
                     })
                     .catch(e => {
                         console.log(e)
@@ -124,17 +119,13 @@ var app = new Vue({
             },
              onRow: function(scope, rowId) {
                 this.state = 'edit'
-                console.log(rowId)
-                console.log(this.data.items[rowId])
                 this.current = this.data.items[rowId]
             },
             onRemoveRow: function(scope, rowId) {
                 let mans = [1, 4]
                 mans.forEach( manNumber => {
-                    console.log(manNumber)
                     if (this.data.items[rowId][manNumber]){
                          let recordId = this.data.items[rowId][manNumber]['id']
-                         console.log(recordId)
                          scope.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
                             .then(response => {
                                 console.info(response.data)
@@ -147,7 +138,6 @@ var app = new Vue({
                 })
             },
             addRecord: function(scope) {
-                console.log("add record")
                 let formId = 'form_hydrometal'
                 let form = document.getElementById(formId)
                 var shiftId = form.shift_id.value
@@ -157,7 +147,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.newRecord))
                 scope.$http.post('leaching/update/hydrometal', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.init(scope)
                         this.newRecord = {'1':{},'4':{},'extra':{ }}
@@ -179,8 +168,6 @@ var app = new Vue({
                 var shiftId = form.shift_id.value
                 scope.$http.get('/leaching/api/pulps?shift_id='+ shiftId)
                     .then(response => {
-                        console.info('form_pulps.init')
-                        console.info(response.data);
                         if (this.data.items) {
                             setTimeout(() => {
                                 let datarows = document.querySelectorAll("#form_pulps tbody tr.mini")
@@ -195,19 +182,15 @@ var app = new Vue({
             },
             onRow: function(scope, rowId) {
                 this.state = 'edit'
-                console.log(rowId)
                 let formId = 'form_pulps'
                 let form = document.getElementById(formId)
                 let shiftId = form.shift_id.value
-                console.log(this.data.items[rowId])
                 this.current = this.data.items[rowId]
             },
             onRemoveRow: function(scope, rowId) {
                 let recordId = rowId
-                console.log(recordId)
                 scope.$http.get('/leaching/api/pulps/remove?combid=' + recordId)
                      .then(response => {
-                          console.info(response.data)
                           Vue.delete(this.data.items, rowId)
                      })
                      .catch(e => {
@@ -224,7 +207,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.current))
                 scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.current = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}}
                     })
@@ -233,7 +215,6 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-                console.info("add new Record")
                 let formId = 'form_pulps'
                 let form = document.getElementById(formId)
                 var shiftId = form.shift_id.value
@@ -243,7 +224,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.newRecord))
                 scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.init(scope)
                         this.newRecord = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}, 'extra': {}}
@@ -270,19 +250,14 @@ var app = new Vue({
                let shiftId = form.shift_id.value
                scope.$http.get('leaching/api/agitators?shift_id=' + shiftId)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.data = response.data
                         if (this.data.items.times) {
                             this.current = this.initRecord
                             this.state = 'edit'
-                            console.info('SET MODE: edit')
                         } else {
                             this.newRecord = this.initRecord
-
                             this.state = 'add'
-                            console.info('SET MODE: add')
-                            console.info(this.initRecord)
                         }
 
                     })
@@ -295,7 +270,6 @@ var app = new Vue({
             onRow: function(scope, rowId) {
             },
             saveRecord: function(scope) {
-
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -304,7 +278,6 @@ var app = new Vue({
 
                 scope.$http.post('/leaching/agitators/update', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'edit'
 
                         this.newRecord = this.initRecord
@@ -320,8 +293,6 @@ var app = new Vue({
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.newRecord))
                 data.append('comment', this.data.items.comment)
-                console.info('comment: '+ this.data.items.comment)
-
                 scope.$http.post('/leaching/agitators/add', data)
                     .then(response => {
                         console.log(response.data)
@@ -339,7 +310,6 @@ var app = new Vue({
             current: {},
             current_count: 0,
             state: 'add',
-            newRecord: {},
             initRecord: {'items': {'0':{ 'shift_total':0,'day_total':0, 'in_process':0}, '1': { 'shift_total':0,'day_total':0, 'in_process':0}} },
             init: function(scope){
                 console.info(this.formId)
@@ -347,8 +317,6 @@ var app = new Vue({
                 var shiftId = form.shift_id.value
                 scope.$http.get('/leaching/cinder?shift_id='+ shiftId)
                     .then(response => {
-                        console.info( this.formId + '.init')
-                        console.info(response.data);
                         this.current_count = response.data.current_count
                         this.data = response.data
 
@@ -377,12 +345,11 @@ var app = new Vue({
 
                 scope.$http.post('/leaching/cinder/save', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'edit'
-                        this.newRecord = this.initRecord
+                        this.init(scope)
                     })
                     .catch(e => {
-                        console.log(e)
+                        console.err(e)
                     })
             },
             addRecord: function(scope) {
@@ -394,9 +361,9 @@ var app = new Vue({
 
                 scope.$http.post('/leaching/cinder/add', data)
                     .then(response => {
-                        console.log(response.data)
-//                        this.state = 'edit'
-                        this.newRecord = this.initRecord
+                        this.state = 'edit'
+                        this.init(scope)
+
                     })
                     .catch(e => {
                         console.log(e)
