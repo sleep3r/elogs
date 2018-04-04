@@ -448,6 +448,70 @@ var app = new Vue({
                     })
             }
         },
+         'form_ready_tanks': {
+            formId: 'form_ready_tanks',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{'3':{'num':3}, '4':{'num':4}, '5':{'num':5}}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/ready/tanks?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/ready/tanks/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/ready/tanks/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
@@ -458,6 +522,7 @@ var app = new Vue({
     this.tables['form_agitators'].init(this)
     this.tables['form_cinder'].init(this)
     this.tables['form_reagents'].init(this)
+    this.tables['form_ready_tanks'].init(this)
   },
   methods: {
     addNewRow: function(formId) {

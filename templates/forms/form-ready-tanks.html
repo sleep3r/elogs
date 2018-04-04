@@ -11,7 +11,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal form-label-left">
               {% csrf_token %}
 
               {% for hidden_field in form.fields.hidden_fields %}
@@ -29,26 +29,28 @@
             </tr>
             </thead>
             <tbody>
-                {% for num in form.tanks %}
-                <tr>
-                    <th scope="row">{{num}}</th>
-                    <td><input class="form-control" type="text" name="row{{num}}.cd" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.cu" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.co" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.sb" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.fe" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.vt" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.density" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.norm" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.fact" value="0"></td>
-                    <td><input class="form-control" type="text" name="row{{num}}.correction" value="0"></td>
-                    <td>...</td>
+                <tr v-for="item in tables.{{form.name}}.data.items">
+                    <th scope="row">[[item.num]]</th>
+                    <td><input class="form-control" type="text" name="row{{num}}.cd" v-model="item.cd"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.cu" v-model="item.cu"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.co" v-model="item.co"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.sb" v-model="item.sb"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.fe" v-model="item.fe"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.vt" v-model="item.vt"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.density" v-model="item.density"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.norm" v-model="item.norm"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.fact" v-model="item.fact"></td>
+                    <td><input class="form-control" type="text" name="row{{num}}.correction" v-model="item.correction"></td>
+                    <td></td>
                 </tr>
-                {% endfor %}
-
             </tbody>
         </table>
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
+            <template v-if="tables.{{form.name}}.state == 'add' ">
+                <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+            </template>
+            <template v-if="tables.{{form.name}}.state == 'edit' ">
+                <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+            </template>
             </form>
 
     </div>
