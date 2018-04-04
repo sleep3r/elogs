@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
-from leaching.express_anal_app.components import agitators, cinder
+from leaching.express_anal_app.components import agitators, cinder, reagents
 
 
 urlpatterns = [
@@ -51,6 +51,10 @@ urlpatterns = [
     url('leaching/cinder$', cinder.leaching_cinder),
     url('leaching/cinder/add$', cinder.add_record),
     url('leaching/cinder/save$', cinder.save_record),
+
+    url('leaching/reagents$', reagents.get_table),
+    url('leaching/reagents/save$', reagents.save_record),
+    url('leaching/reagents/add$', reagents.add_record),
 
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),

@@ -29,6 +29,15 @@ var app = new Vue({
             state: 'view',
             newRecord: {},
             init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/api/hydrometal?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             },
             onRemoveRow: function(scope, rowId) {
             },
@@ -349,7 +358,7 @@ var app = new Vue({
                         this.init(scope)
                     })
                     .catch(e => {
-                        console.err(e)
+                        console.error(e)
                     })
             },
             addRecord: function(scope) {
@@ -370,6 +379,75 @@ var app = new Vue({
                     })
             }
         },
+         'form_reagents': {
+            formId: 'form_reagents',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items': {
+                'states':{
+                    'delivered': {},
+                    'taken': {},
+                    'consumption': {},
+                    'issued': {}
+                  },
+                'fence_state': '',
+                'stages_zn_dust':{'1st':0,'2st':0,'3st':0,'cd':0} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/reagents?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        console.info("reagents")
+                        console.info(this.data)
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/reagents/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/reagents/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
@@ -379,6 +457,7 @@ var app = new Vue({
     this.tables['form_pulps'].init(this)
     this.tables['form_agitators'].init(this)
     this.tables['form_cinder'].init(this)
+    this.tables['form_reagents'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
@@ -438,8 +517,6 @@ var app = new Vue({
         this.tables[formId].onRow(this, rowId)
     },
     saveRow: function(formId) {
-        console.log("save row -> " +formId )
-
         let data = new FormData()
         data.append('item', JSON.stringify(this.tables[formId].current))
 

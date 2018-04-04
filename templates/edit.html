@@ -6,6 +6,7 @@
 <div id="app">
 {% include "forms/form-shift-choice.html" with form=form_shift %}
 
+{% include "forms/form-reagents.html" with form=form_reagents %}
 {% include "forms/form-cinder.html" with form=form_cinder %}
 {% include "forms/form-agitators.html" with form=form_agitators %}
 {% include "forms/form-pulps.html" with form=form_pulps %}
@@ -33,7 +34,7 @@
 
 {% include "forms/form-neutural-densers.html" with form=form_densers_neutural %}
 {% include "forms/form-ready-tanks.html" with form=form_ready_tanks %}
-{% include "forms/form-reagents.html" with form=form_reagents %}
+
 </div>
 
 {% include "footer.html" %}
