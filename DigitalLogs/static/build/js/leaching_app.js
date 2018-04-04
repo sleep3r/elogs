@@ -22,6 +22,7 @@ var app = new Vue({
     showModal: false,
     tables: {
         'form_template': {
+            formId: 'form_template',
             data: [],
             current: {},
             current_count: 0,
@@ -332,6 +333,76 @@ var app = new Vue({
                     })
             }
         },
+        'form_cinder': {
+            formId: 'form_cinder',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'add',
+            newRecord: {},
+            initRecord: {'items': {'0':{ 'shift_total':0,'day_total':0, 'in_process':0}, '1': { 'shift_total':0,'day_total':0, 'in_process':0}} },
+            init: function(scope){
+                console.info(this.formId)
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/cinder?shift_id='+ shiftId)
+                    .then(response => {
+                        console.info( this.formId + '.init')
+                        console.info(response.data);
+                        this.current_count = response.data.current_count
+                        this.data = response.data
+
+                        if (this.current_count > 0) {
+                            this.state = 'edit'
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/cinder/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/cinder/add', data)
+                    .then(response => {
+                        console.log(response.data)
+//                        this.state = 'edit'
+                        this.newRecord = this.initRecord
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
@@ -340,6 +411,7 @@ var app = new Vue({
     this.tables['form_hydrometal'].init(this)
     this.tables['form_pulps'].init(this)
     this.tables['form_agitators'].init(this)
+    this.tables['form_cinder'].init(this)
   },
   methods: {
     addNewRow: function(formId) {

@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
-from leaching.express_anal_app.components import agitators
+from leaching.express_anal_app.components import agitators, cinder
+
 
 urlpatterns = [
     url('^$', views.index),
@@ -31,7 +32,7 @@ urlpatterns = [
 
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
-    url('save/cinder$', views.leaching_save_cinder),
+
     url('save/schiehta$', views.leaching_save_schiehta),
     url('save/electrolysis$', views.leaching_save_electrolysis),
     url('save/tanks$', views.leaching_save_tanks),
@@ -45,6 +46,11 @@ urlpatterns = [
     url('save/agitators$', agitators.leaching_save_agitators),
     url('leaching/agitators/update$', agitators.update_agitators),
     url('leaching/agitators/add$', agitators.add_record),
+
+    url('save/cinder$', views.leaching_save_cinder),
+    url('leaching/cinder$', cinder.leaching_cinder),
+    url('leaching/cinder/add$', cinder.add_record),
+    url('leaching/cinder/save$', cinder.save_record),
 
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),

@@ -162,9 +162,6 @@ def add_record(request):
                     model.comment = '...'
                 model.save()
 
-
-
-
     return {
         'result': 'ok',
         'added': [],
