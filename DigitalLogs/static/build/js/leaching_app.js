@@ -74,7 +74,67 @@ var app = new Vue({
                     })
             }
         },
-        'form_self_security': { visible: 1},
+        'form_self_security': {
+            formId: 'form_self_security',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: { 'items': {'bignote':'', 'notes': { '0':{}, '1':{}, '2':{}}}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/self/security?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/self/security/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/self/security/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+         },
         'form_express_analysis': {
             visible: 1,
             rows: [],
@@ -405,7 +465,7 @@ var app = new Vue({
                     })
             }
         },
-         'form_reagents': {
+        'form_reagents': {
             formId: 'form_reagents',
             data: [],
             current: {},
@@ -474,7 +534,7 @@ var app = new Vue({
                     })
             }
         },
-         'form_ready_tanks': {
+        'form_ready_tanks': {
             formId: 'form_ready_tanks',
             data: [],
             current: {},
@@ -538,7 +598,7 @@ var app = new Vue({
                     })
             }
         },
-         'form_neutural_solution': {
+        'form_neutural_solution': {
             formId: 'form_neutural_solution',
             data: [],
             current: {},
@@ -610,6 +670,7 @@ var app = new Vue({
     this.tables['form_reagents'].init(this)
     this.tables['form_ready_tanks'].init(this)
     this.tables['form_neutural_solution'].init(this)
+    this.tables['form_self_security'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
