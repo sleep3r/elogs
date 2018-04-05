@@ -21,6 +21,7 @@ def get_table(request):
         'current_count': len(items)
     }
 
+
 @process_json_view(auth_required=False)
 def save_record(request):
     data = json.loads(request.POST['items'])
