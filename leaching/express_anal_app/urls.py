@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
-from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security
+from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, empty_tanks
 
 
 urlpatterns = [
@@ -60,6 +60,10 @@ urlpatterns = [
     url('leaching/ready/tanks/save$', ready_tanks.save_record),
     url('leaching/ready/tanks/add$', ready_tanks.add_record),
 
+    url('leaching/empty/tanks$', empty_tanks.get_table),
+    url('leaching/empty/tanks/save$', empty_tanks.save_record),
+    url('leaching/empty/tanks/add$', empty_tanks.add_record),
+
     url('leaching/neutural/solution$', neutural_solution.get_table),
     url('leaching/neutural/solution/save$', neutural_solution.save_record),
     url('leaching/neutural/solution/add$', neutural_solution.add_record),
@@ -71,8 +75,6 @@ urlpatterns = [
 
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
-
-
 
 
     url('leaching/journal$', views.leaching_jurnal),

@@ -411,6 +411,7 @@ def leaching_all_edit(request):
         },
         'form_empty_tanks': {
             'title': _('Наличие свободных ёмкостей'),
+            'name': 'form_empty_tanks',
             'data': get_free_tanks_table(shift),
             'action': '/save/empty/tanks',
             'shift': shift.id,

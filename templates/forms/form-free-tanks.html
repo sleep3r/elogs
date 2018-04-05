@@ -5,7 +5,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content empty_tanks">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -23,19 +23,22 @@
                     <th>{% trans "Текущ." %}<br>{% trans "замеры" %}</th>
                     <th>{% trans "Отклонение" %}</th>
                 </tr>
-                {% for num, item in form.data.items %}
-                <tr>
-                    <th>{{num}}</th>
-                    <th class="empty_tanks__name">{{item.tank_name}}<input type="hidden" class="form-control" value="{{item.tank_name}}" name="tank_name__{{num}}" /></th>
-                    <td><input type="text" class="form-control" value="" name="prev_measure__{{num}}" /></td>
-                    <td><input type="text" class="form-control" value="" name="cur_measure__{{num}}" ></td>
-                    <td><input type="text" class="form-control" value="" name="deviation__{{num}}" ></td>
+                <tr v-for="(item, num) in tables.{{form.name}}.data.items">
+                    <th>[[num]]</th>
+                    <th class="empty_tanks__name">[[item.tank_name]]<input type="hidden" class="form-control" v-model="item.tank_name" name="tank_name" /></th>
+                    <td><input type="text" class="form-control" v-model="item.prev_measure" name="prev_measure" /></td>
+                    <td><input type="text" class="form-control" v-model="item.cur_measure" name="cur_measure" ></td>
+                    <td><input type="text" class="form-control" v-model="item.deviation" name="deviation" ></td>
                 </tr>
-                {% endfor %}
             </thead>
             </table>
 
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
+            <template v-if="tables.{{form.name}}.state == 'add' ">
+                <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+            </template>
+            <template v-if="tables.{{form.name}}.state == 'edit' ">
+                <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+            </template>
             </form>
     </div>
 </div>
