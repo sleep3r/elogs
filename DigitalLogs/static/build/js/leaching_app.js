@@ -745,7 +745,7 @@ var app = new Vue({
             current: {},
             current_count: 0,
             state: 'view',
-            initRecord: {'items':{'1':{},'2':{},'3':{},'4':{},'5':{},'6':{},'7':{},'8':{},'13':{},}},
+            initRecord: {'items':{'1':{},'2':{},'3':{},'4':{},'5':{},'6':{},'7':{},'8':{},'13':{} }},
             init: function(scope){
                 let form = document.getElementById(this.formId)
                 var shiftId = form.shift_id.value
@@ -799,7 +799,70 @@ var app = new Vue({
                     })
             }
         },
-
+        'form_shift_info': {
+            formId: 'form_shift_info',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/shift/info?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                this.data.items['this_master'] = form.this_master.value
+                this.data.items['next_master'] = form.next_master.value
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/shift/info/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                this.data.items['this_master'] = form.this_master.value
+                this.data.items['next_master'] = form.next_master.value
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/shift/info/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
@@ -815,6 +878,7 @@ var app = new Vue({
     this.tables['form_self_security'].init(this)
     this.tables['form_empty_tanks'].init(this)
     this.tables['form_densers_neutural'].init(this)
+    this.tables['form_shift_info'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
