@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
 
@@ -47,6 +48,7 @@ def get_shift_lazy(date, order, plant):
     return shift
 
 
+@login_required
 def index(request):
     context = {
         'hello_list': ['World', 'Darling', 'Inframine', 'Goodbye'],
@@ -55,13 +57,15 @@ def index(request):
             {'title': _("Температура кипящего слоя превысила критический показатель"), 'time': "12:33"},
             {'title': _("Всё хорошо"), 'time': "10:33"},
             {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
-        ]
+        ],
+        'user_name': str(request.user.employee),
     }
 
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def leaching_jurnal(request):
     rows = DenserAnal.objects.all()
 
@@ -254,6 +258,7 @@ def leaching_jurnal(request):
         'probnik': probnik,
         'schiehta': schiehta,
         'reagents': reagents,
+        'user_name': str(request.user.employee),
 
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
     }
@@ -265,6 +270,7 @@ def leaching_jurnal(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def leaching_all_edit(request):
     error_messages = ''
     cleaned_data = ''
@@ -407,6 +413,7 @@ def leaching_all_edit(request):
         },
         'form_shift_info': {
             'title': _('Принято и откачено'),
+            'name': 'form_shift_info',
             'fields': formShiftInfo,
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info',
@@ -515,6 +522,7 @@ def leaching_all_edit(request):
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def leaching_save_tanks(request):
 
     journal = Journal.objects.all()[0]
@@ -546,6 +554,7 @@ def leaching_save_tanks(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_neutural_densers(request):
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
@@ -578,6 +587,7 @@ def leaching_save_neutural_densers(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_pulps(request):
 
     journal = Journal.objects.all()[0]
@@ -628,6 +638,7 @@ def leaching_save_pulps(request):
     return HttpResponseRedirect('leaching/all/edit')
 
 
+@login_required
 def leaching_save_hydrometal(request):
 
     journal = Journal.objects.all()[0]
@@ -669,9 +680,7 @@ def leaching_save_hydrometal(request):
     return HttpResponseRedirect('leaching/all/edit')
 
 
-
-
-
+@login_required
 def leaching_save_express_analysis(request):
 
     journal = Journal.objects.all()[0]
@@ -746,6 +755,7 @@ def leaching_save_express_analysis(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_densers(request):
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
@@ -847,6 +857,7 @@ def leaching_save_densers_json(request):
     }
 
 
+@login_required
 def leaching_save_shift_info(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -899,6 +910,7 @@ def leaching_save_shift_info(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_empty_tanks(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -940,6 +952,7 @@ def leaching_save_empty_tanks(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_neutural_solution(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -981,6 +994,7 @@ def leaching_save_neutural_solution(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_schiehta(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1014,6 +1028,7 @@ def leaching_save_schiehta(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_electrolysis(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1066,6 +1081,7 @@ def leaching_save_electrolysis(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_cinder(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1100,6 +1116,7 @@ def leaching_save_cinder(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_vue(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1143,6 +1160,7 @@ def leaching_save_vue(request):
     return HttpResponseRedirect('/leaching/all/edit')
 
 
+@login_required
 def leaching_save_sample2(request):
     print('\n----FORM-----')
     print(request.POST)
@@ -1184,6 +1202,7 @@ def leaching_save_sample2(request):
     return HttpResponseRedirect('/leaching/all/edit?shift=' + str(shift.id))
 
 
+@login_required
 def leaching_save_self_security(request):
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
@@ -1646,6 +1665,7 @@ def leaching_pulps_remove(request):
         'record': record1
     }
 
+
 @process_json_view(auth_required=False)
 def leaching_make_shift(request):
     date_time = datetime.datetime.now()
@@ -1659,6 +1679,7 @@ def leaching_make_shift(request):
     }
 
 
+@login_required
 def leaching_wizard(request):
     context = {}
     template = loader.get_template('react-table-edit.html')

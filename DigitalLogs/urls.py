@@ -23,5 +23,5 @@ urlpatterns = [
     url('leaching', include('leaching.express_anal_app.urls')),
     url('^electrolysis', include('leaching.express_anal_app.urls')),
     url('^', include('leaching.express_anal_app.urls')),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^auth', include('login_app.urls')),
 ]

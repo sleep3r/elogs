@@ -2,63 +2,38 @@ import json
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import views, authenticate, login, logout
+from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
 from utils.webutils import process_json_view, generate_csrf
 
 
-def build_auth_object(user):
-    if user is None or not user.is_active or user.is_anonymous():
-        return dict()
-    user.employee.csrf = generate_csrf()
-    user.employee.save()
-    return {
-        'user': user.id,
-        'name': user.first_name + ' ' + user.last_name,
-        'department': user.employee.department.name,
-        'token': user.employee.csrf
-    }
-
-
-@process_json_view(auth_required=True)
-def change_password(request):
-    pwd = request.POST['pwd']
-    chpwd = request.POST['chpwd']
-    u = request.user
-    if u.check_password(pwd) and len(chpwd) > 3:
-        u.set_password(chpwd)
-        u.save()
-        user = authenticate(username=u.username, password=chpwd)
-        if user is not None and user.is_active:
-            login(request, user)
-        res = {'ok': 1, 'username': u.username}
-    else:
-        res = {'ok': 0, 'username': u.username}
-    return HttpResponse(json.dumps(res))
-
-
 @process_json_view(auth_required=False)
 def login_auth(request):
-    username = request.POST['username']
-    password = request.POST['pwd']
+    username = request.POST.get('username') or ''
+    password = request.POST.get('password') or ''
+
     user = authenticate(username=username, password=password)
-    if user is not None and user.is_active:
+    if user is not None and user.is_active and user.employee is not None:
         login(request, user)
-        response = build_auth_object(user)
+        response = redirect(request.GET.get('next') or '/')
     else:
-        response = dict()
+        return login_page(request, error='Неверное имя пользователя или пароль!')
 
     return response
 
 
-@process_json_view(auth_required=True)
+@process_json_view(auth_required=False)
 def logout_view(request):
     logout(request)
-    return HttpResponse('{}')
+    return login_page(request, error=None)
 
 
-@process_json_view(auth_required=False)
-def get_user(request):
-    return build_auth_object(request.user)
+def login_page(request, error=None):
+    context = {'error': error, 'next': '?next=' + (request.GET.get('next') or '/')}
+    template = loader.get_template('login.html')
+    return HttpResponse(template.render(context, request))
+
+
