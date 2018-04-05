@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
-from leaching.express_anal_app.components import agitators
+from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, empty_tanks
+
 
 urlpatterns = [
     url('^$', views.index),
@@ -31,7 +32,7 @@ urlpatterns = [
 
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
-    url('save/cinder$', views.leaching_save_cinder),
+
     url('save/schiehta$', views.leaching_save_schiehta),
     url('save/electrolysis$', views.leaching_save_electrolysis),
     url('save/tanks$', views.leaching_save_tanks),
@@ -46,9 +47,35 @@ urlpatterns = [
     url('leaching/agitators/update$', agitators.update_agitators),
     url('leaching/agitators/add$', agitators.add_record),
 
+    url('save/cinder$', views.leaching_save_cinder),
+    url('leaching/cinder$', cinder.leaching_cinder),
+    url('leaching/cinder/add$', cinder.add_record),
+    url('leaching/cinder/save$', cinder.save_record),
+
+    url('leaching/reagents$', reagents.get_table),
+    url('leaching/reagents/save$', reagents.save_record),
+    url('leaching/reagents/add$', reagents.add_record),
+
+    url('leaching/ready/tanks$', ready_tanks.get_table),
+    url('leaching/ready/tanks/save$', ready_tanks.save_record),
+    url('leaching/ready/tanks/add$', ready_tanks.add_record),
+
+    url('leaching/empty/tanks$', empty_tanks.get_table),
+    url('leaching/empty/tanks/save$', empty_tanks.save_record),
+    url('leaching/empty/tanks/add$', empty_tanks.add_record),
+
+    url('leaching/neutural/solution$', neutural_solution.get_table),
+    url('leaching/neutural/solution/save$', neutural_solution.save_record),
+    url('leaching/neutural/solution/add$', neutural_solution.add_record),
+    url('save/neutural/solution', views.leaching_save_neutural_solution),
+
+    url('leaching/self/security$', security.get_table),
+    url('leaching/self/security/save$', security.save_record),
+    url('leaching/self/security/add$', security.add_record),
+
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
-    url('save/neutural/solution', views.leaching_save_neutural_solution),
+
 
     url('leaching/journal$', views.leaching_jurnal),
     url('json/test$', views.json_test),

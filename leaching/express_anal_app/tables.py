@@ -253,6 +253,7 @@ def get_self_security_table(shift=None):
     for i, d in enumerate(data):
         res['notes'][i]['time'] = d.time
         res['notes'][i]['note'] = d.note
+        res['notes'][i]['id'] = d.id
 
     return res.clear_empty().get_dict()
 

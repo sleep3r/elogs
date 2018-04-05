@@ -414,6 +414,7 @@ def leaching_all_edit(request):
         },
         'form_empty_tanks': {
             'title': _('Наличие свободных ёмкостей'),
+            'name': 'form_empty_tanks',
             'data': get_free_tanks_table(shift),
             'action': '/save/empty/tanks',
             'shift': shift.id,
@@ -438,6 +439,7 @@ def leaching_all_edit(request):
         },
         'form_neutural_solution': {
             'title':_('Нейтральный раствор'),
+            'name': 'form_neutural_solution',
             'columns': {
                     "1": _("Наличие<br>нейтр. р-ра"),
                     "2": _("Уч. выщел. N1<br>бак 3,4,5,4А"),
