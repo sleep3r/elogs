@@ -165,3 +165,5 @@ LOCALE_PATHS = (
 )
 
 APPEND_SLASH = True
+
+LOGIN_URL = '/auth/login_page'
