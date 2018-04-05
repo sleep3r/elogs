@@ -410,6 +410,7 @@ def leaching_all_edit(request):
         },
         'form_shift_info': {
             'title': _('Принято и откачено'),
+            'name': 'form_shift_info',
             'fields': formShiftInfo,
             'dump': pprint.pformat(formShiftInfo),
             'action': '/save/shift/info',
