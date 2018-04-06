@@ -34,7 +34,7 @@ def process_json_view(auth_required=True):
     def real_decorator(view):
         def w(request, **kwargs):
             if auth_required:
-                if not request.user.is_authenticated():
+                if not request.user.is_authenticated:
                     return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
                 if request.method == 'POST':
                     received_token = request.POST.get('token', None)
