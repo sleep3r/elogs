@@ -4,7 +4,7 @@
     <h2>{% trans "Принято" %}</h2>
   </div>
   <div class="x_content">
-    <table class="table">
+    <table class="table infotable lefttext">
      <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}</th><td>{{shift.data.in_filtrate_ls}}</td><th>{% trans "Уд. вес" %}</th><td>{{shift.data.in_filtrate_dens}}</td></tr>
      <tr><th>{% trans "Железистого из ЦВОЦ" %}</th><td colspan="3">{{shift.data.in_fe}} м<sup>3</sup></td></tr>
      <tr><th>{% trans "Высоко железистого из ЦВОЦ" %}</sup></th><td colspan="3">{{shift.data.in_fe_hi}} м<sup>3</sup></td></tr>
@@ -17,7 +17,7 @@
     <h2>{% trans "Откачено" %}</h2>
   </div>
   <div class="x_content">
-    <table class="table">
+    <table class="table infotable lefttext">
        <tr>
          <th>{% trans "Выход ТВ" %}</th><td>{{shift.data.out_sol_t}} т.</td><td colspan="2">{{shift.data.out_sol_c}} ц.</td>
        </tr>

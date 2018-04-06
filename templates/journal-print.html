@@ -34,19 +34,18 @@
       </td>
     </tr>
     <tr class="tablerow">
-      <td class="tablecell fillheight">
-          {% include "widgets/table-apparat.html" with table=apparat %}
-      </td>
-
       <td class="tablecell fillheight addpaddings">
           {% include "widgets/table-densers.html" with table=sgustiteli %}
+      </td>
+      <td class="tablecell fillheight">
+          {% include "widgets/table-apparat.html" with table=apparat %}
       </td>
     </tr>
     <tr class="tablerow">
       <td class="tablecell fillheight">
           {% include "widgets/table-znpulp.html" with table=znpulp %}
       </td>
-      <td class="tablecell fillheight addpaddings">
+      <td class="tablecell addpaddings fillheight">
           {% include "widgets/table-agitators.html" with table=agitators %}
       </td>
     </tr>
@@ -55,36 +54,30 @@
   <div class="pagebreak"></div>
 
   <table class="bottomtable"> 
-    <tr class="tablerow">
+    <tr class="tablerow lowrow">
+
       <td class="tablecell smallth">
-        {% include "forms/form-shift-choice.html" with form=form_shift %}
-      </td>
-      <td class="tablecell">
-        {% include "widgets/shift2-print.html" with shift=info %}
-      </td>
-      <td class="tablecell smallth" rowspan="2" colspan="2">
-        {% include "widgets/table-electrolysis.html" with table=electrolysis %}
-      </td>
-    </tr> 
-    <tr class="tablerow">
-      <td class="tablecell">
+        {% include "widgets/shift3-print.html" with shift=info %}
         {% include "widgets/table-schiehta.html" with table=schiehta %}
       </td>
       <td class="tablecell">
+        {% include "forms/form-shift-choice-print.html" with form=form_shift %}
+        {% include "widgets/shift2-print.html" with shift=info %}
         {% include "widgets/table-cinder.html" with table=cinder %}
       </td>
-    </tr>
+      <td class="tablecell smallth" colspan="2" rowspan="2">
+        {% include "widgets/table-electrolysis.html" with table=electrolysis %}
+        {% include "widgets/table-baki.html" with table=baki %}
+        {% include "widgets/table-neutral.html" with table=neutral %}
+      </td>
+    </tr> 
+
     <tr class="tablerow">
       <td class="tablecell smallth" colspan="2" rowspan="4">
         <div>
-          {% include "widgets/table-neutral-densers.html" with table=neutral_densers %}
         {% include "widgets/shift-print.html" with shift=info %}
         {% include "widgets/table-empty-containers.html" with table=empty_containers %}
         </div>
-      </td>
-      <td class="tablecell" colspan="2">
-        {% include "widgets/table-baki.html" with table=baki %}
-        {% include "widgets/table-neutral.html" with table=neutral %}
       </td>
     </tr>
     <tr class="tablerow">
@@ -96,8 +89,17 @@
       </td>
     </tr>
     <tr class="tablerow">
-      <td class="tablecell">
+      <td class="tablecell" colspan="2">
         {% include "widgets/table-security.html" with table=security %}
+        <div>
+          <table class="signature">
+            <th>Смену сдал мастер:</th>
+            <td class="signline"></td>
+            <td class="space"></td>
+            <th>Смену принял мастер:</th>
+            <td class="signline"></td>
+          </table>
+        </div> 
       </td>
     </tr>
   </table>

@@ -23,10 +23,10 @@
                     <th>Cu</th>
                     <th>17</th>
                     <th>pH</th>
-                    <th>Cu</th>
-                    <th>19</th>
-                    <th>H2SO4</th>
-                    <th>Cu</th>
+                    <th class="addrightborder">Cu</th>
+                    <th class="addtopborder addleftborder">19</th>
+                    <th class="addtopborder">H2SO4</th>
+                    <th class="addtopborder addrightborder">Cu</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,9 +50,9 @@
                     <td>{{row.17.1.ph |floatformat:2}}</td>
                     <td>{{row.17.1.cu |floatformat:2}}</td>
 
-                    <td></td>
+                    <td class="addleftborder"></td>
                     <td>{{row.19.1.h2so4 |floatformat:2}}</td>
-                    <td>{{row.19.1.cu |floatformat:2}}</td>
+                    <td class="addrightborder">{{row.19.1.cu |floatformat:2}}</td>
                 </tr>
                 {% endfor %}
                 {% for num, row in table.data.times.items %}
@@ -75,9 +75,9 @@
                     <td>{{row.17.0.ph |floatformat:2}}</td>
                     <td>{{row.17.0.cu |floatformat:2}}</td>
 
-                    <td></td>
-                    <td>{{row.19.0.h2so4 |floatformat:2}}</td>
-                    <td>{{row.19.0.cu |floatformat:2}}</td>
+                    <td class="addleftborder addbottomborder"></td>
+                    <td class="addbottomborder">{{row.19.0.h2so4 |floatformat:2}}</td>
+                    <td class="addrightborder addbottomborder">{{row.19.0.cu |floatformat:2}}</td>
                 </tr>
                 {% endfor %}
             <tr>

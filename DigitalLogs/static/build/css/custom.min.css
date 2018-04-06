@@ -3794,3 +3794,86 @@ ul.notifications {
 .dataTables_wrapper>.row {
     overflow: auto!important;
 }
+
+
+
+.notification + li:not(.notification) {
+    border-top: solid 1px lightgray !important;
+}
+.notification > a {
+    display: table !important;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+.notification-icon {
+    display: table-cell;
+    padding-right: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+.notification-icon img {
+    width: 20px;
+    height: 20px;
+}
+.notification-text {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    overflow: ellipsis;
+}
+.notification-text p {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+}
+.notification-text {
+    pointer-events: none;
+}
+.notification-full .ui-pnotify-container {
+    background: #EEE;
+    color: black;
+    border: solid 1px lightgray;
+    padding: 20px;
+    font-size: 18px;
+    box-shadow: 2px 2px lightgray;
+}
+.notification-full .ui-pnotify-icon {
+    display: none !important;
+}
+.notification-header {
+    text-align: right;
+}
+.notification-read-all {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    padding-bottom: 0;
+}
+.notification-read-all:hover {
+    background: #EEE;
+}
+
+.form-validate {
+    text-align: center
+}
+.form-validate textarea {
+    width: 500px;
+    margin-bottom: 10px;
+}
+
+.validating .x_panel {
+    background: transparent !important;
+    border: none !important;
+}
+.validating .editintable {
+    display: none;
+}
+.validating .table-bordered {
+    background: transparent !important;
+}
