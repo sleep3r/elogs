@@ -292,7 +292,7 @@ def get_electrolysis_table(shift=None):
     data = Electrolysis.objects.filter(shift=shift)
 
     for d in data:
-        add_model_to_dict(d, res['series'][d.series])
+        add_model_to_dict(d, res['series'][str(d.series)])
     res['comment'] = data[0].comment if data else ''
 
     return res.clear_empty().get_dict()

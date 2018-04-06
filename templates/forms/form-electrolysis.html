@@ -5,7 +5,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content shift_info">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -26,59 +26,71 @@
             </thead>
             <tbody>
                 <tr>
-                    <th rowspan="2" >{% trans "Нагрузки" %}</th>
-                    <th>7<sup>00</sup></th>
-                    <td><input class="form-control" type="text" value="" name="loads1_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads1_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads1_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads1_4"/></td>
-                </tr>
-                <tr>
-                    <th>12<sup>00</sup></th>
-                    <td><input class="form-control" type="text" value="" name="loads2_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads2_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads2_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="loads2_4"/></td>
 
                 </tr>
                 <tr>
+                    <th rowspan="2" >{% trans "Нагрузки" %}</th>
+                    <th>7<sup>00</sup></th>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text"  name="loads1_1" v-model="item.loads1"/>
+                    </td>
+                    </template>
+                </tr>
+                <tr>
+                    <th>12<sup>00</sup></th>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text" v-model="item.loads2" name="loads2_1"/>
+                    </td>
+                    </template>
+                </tr>
+                <tr>
                     <th colspan="2">{% trans "Показания счётчика" %}</th>
-                    <td><input class="form-control" type="text" value="" name="counter_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="counter_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="counter_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="counter_4"/></td>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text" v-model="item.counter" name="counter_1"/>
+                    </td>
+                    </template>
                 </tr>
                 <tr>
                     <th colspan="2">{% trans "Бункера ЦВЦО" %}</th>
-                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_weltz_4"/></td>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text" v-model="item.bunkers_weltz" name="bunkers_weltz_1"/>
+                    </td>
+                    </template>
                 </tr>
                 <tr>
                     <th colspan="2">{% trans "Силоса ОЦ" %}</th>
-                    <td><input class="form-control" type="text" value="" name="silos_furnace_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="silos_furnace_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="silos_furnace_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="silos_furnace_4"/></td>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text" v-model="item.silos_furnace" name="silos_furnace_1"/>
+                    </td>
+                    </template>
                 </tr>
                 <tr>
                     <th colspan="2">{% trans "Бункера ОЦ" %}</th>
-                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_1"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_2"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_3"/></td>
-                    <td><input class="form-control" type="text" value="" name="bunkers_furnace_4"/></td>
+                    <template v-if="tables.{{form.name}}.data.items">
+                    <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
+                        <input class="form-control" type="text" v-model="item.bunkers_furnace" name="bunkers_furnace_1"/>
+                    </td>
+                    </template>
                 </tr>
                 <tr>
                     <td colspan="2">{% trans "Комментарий" %}</td>
-                    <td colspan="4">
-                        <input class="form-control" type="text" value="" name="comment"/>
+                    <td colspan="4" >
+                        <input class="form-control" type="text" v-model="tables.{{form.name}}.comment" name="comment"/>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
-            </form>
+            <template v-if="tables.{{form.name}}.state == 'add' ">
+                <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+            </template>
+            <template v-if="tables.{{form.name}}.state == 'edit' ">
+                <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+            </template>
+        </form>
     </div>
 </div>

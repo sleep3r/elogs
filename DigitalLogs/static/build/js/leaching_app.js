@@ -869,7 +869,7 @@ var app = new Vue({
             current: {},
             current_count: 0,
             state: 'view',
-            initRecord: {'items':{'0':{},'1':{},'2':{} }},
+            initRecord: {'items':{'0':{}, '1':{}, '2':{} }},
             init: function(scope){
                 let form = document.getElementById(this.formId)
                 var shiftId = form.shift_id.value
@@ -923,6 +923,67 @@ var app = new Vue({
                     })
             }
         },
+        'form_electrolysis': {
+            formId: 'form_electrolysis',
+            data: [],
+            comment: '',
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items': {'series': {'0':{}, '1':{}, '2':{}, '3':{}} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/electrolysis?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/electrolysis/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/electrolysis/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
@@ -940,6 +1001,7 @@ var app = new Vue({
     this.tables['form_densers_neutural'].init(this)
     this.tables['form_shift_info'].init(this)
     this.tables['form_schiehta'].init(this)
+    this.tables['form_electrolysis'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
