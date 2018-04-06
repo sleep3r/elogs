@@ -316,6 +316,19 @@ def get_reagents_table(shift=None):
     return res.clear_empty().get_dict()
 
 
+def get_sample2_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Sample2.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res[str(d.id)])
+        res[str(d.id)]['time'] = str(d.time.hour)
+
+    return res.clear_empty().get_dict()
+
 # this method can be called by typing "python manage.py my_command"
 def command_to_process():
     df = DatabaseFiller()

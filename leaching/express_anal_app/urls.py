@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
 from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
-    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis
+    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2
 
 
 urlpatterns = [
@@ -90,9 +90,12 @@ urlpatterns = [
     url('leaching/electrolysis/save$', electrolysis.save_record),
     url('leaching/electrolysis/add$', electrolysis.add_record),
 
+    url('leaching/sample2$', sample2.get_table),
+    url('leaching/sample2/save$', sample2.save_record),
+    url('leaching/sample2/add$', sample2.add_record),
+
     url('save/shift/info$', views.leaching_save_shift_info),
     url('save/empty/tanks$', views.leaching_save_empty_tanks),
-
 
     url('leaching/journal$', views.leaching_jurnal),
     url('json/test$', views.json_test),
