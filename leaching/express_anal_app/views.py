@@ -59,11 +59,30 @@ def index(request):
             {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
         ],
         'user_name': str(request.user.employee),
+        'notifications': [{
+            'type': 'asd',
+            'message': "Здорова, как делишки?",
+            'id': -1
+        }, {
+            'type': 'asd',
+            'message': "Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки?",
+            'id': -2
+        }, {
+            'type': 'asd',
+            'message': "Здорова, как делишки?",
+            'id': -3
+        }]
     }
 
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
 
+
+@process_json_view(auth_required=False)
+def notifications_read(request):
+    for notification_id in request.POST.getlist('ids[]'):
+        None
+    return {}
 
 @login_required
 def leaching_jurnal(request):
@@ -260,10 +279,19 @@ def leaching_jurnal(request):
         'reagents': reagents,
         'user_name': str(request.user.employee),
 
-        'info': {'data': data_info, 'dump': pprint.pformat(data_info)}
-    }
+        'info': {'data': data_info, 'dump': pprint.pformat(data_info)},
 
-    template = loader.get_template('journal.html')
+        'form_validate': None if 'validate' not in request.GET else {
+            'action': '//yandex.ru',
+            'name': 'validate',
+            'value': ''
+        }
+    }
+    if 'print' in request.GET:
+    	template = loader.get_template('journal-print.html')
+    else:
+    	template = loader.get_template('journal.html')
+	
     return HttpResponse(template.render(context, request))
 
 

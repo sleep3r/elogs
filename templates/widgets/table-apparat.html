@@ -1,7 +1,4 @@
 {% load i18n %}
-<style>
-    td { text-align: center; }
-</style>
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
@@ -45,7 +42,7 @@
             <tr>
                 <th colspan="1">{% trans "Ситовой огарка" %}</th>
                 <td colspan="5">
-                    <table class="table">
+                    <table class="table insidetable customborders">
                         <tr>
                             {% for dt, row in table.data.extra.grans.items %}
                             <td>{{row.gran |floatformat:2}}</td>
