@@ -1785,11 +1785,19 @@ if (typeof NProgress != 'undefined') {
 			if( typeof ($.fn.smartWizard) === 'undefined'){ return; }
 			console.log('init_SmartWizard');
 			
-			$('#wizard').smartWizard();
+			$('#wizard').smartWizard({
+			    labelPrevious:'Назад', // label for Previous button
+			    labelNext:'Далее', // label for Next button
+                labelFinish:'Завершить',
+                onFinish: function(){
+                        console.log('Finish')
+                    },
+                });
 
 			$('#wizard_verticle').smartWizard({
 			  transitionEffect: 'slide'
 			});
+
 
 			$('.buttonNext').addClass('btn btn-success');
 			$('.buttonPrevious').addClass('btn btn-primary');

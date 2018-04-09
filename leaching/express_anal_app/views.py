@@ -238,7 +238,7 @@ def leaching_jurnal(request):
             'currentId': shift.id,
             'data': shifts,
             'dump': pprint.pformat(shifts),
-            'action': '/leaching/ju'
+            'action': '/leaching/jurnal'
         },
         'cinder': {
             'title': _("Огарок"),
@@ -1773,6 +1773,13 @@ def leaching_edit_wizard(request):
         'vue': True,
         'subtitle': _("Цех выщелачивания"),
         'form_title': _("Заполнить форму"),
+        'form_shift': {
+            'title': _('Выбранная смена'),
+            'currentId': shift.id,
+            'data': shifts,
+            'dump': pprint.pformat(shifts),
+            'action': '/leaching/edit/wizard'
+        },
         'form_schiehta': {
             'title': _('Шихта'),
             'name': 'form_schiehta',
@@ -1808,13 +1815,6 @@ def leaching_edit_wizard(request):
             'shift': shift.id,
             'name': 'form_self_security',
             'action': '/save/self/security'
-        },
-        'form_shift': {
-            'title': _('Выбранная смена'),
-            'currentId': shift.id,
-            'data': shifts,
-            'dump': pprint.pformat(shifts),
-            'action': '/leaching/all/edit'
         },
         'form_shift_info': {
             'title': _('Принято и откачено'),
@@ -1921,7 +1921,7 @@ def leaching_edit_wizard(request):
         'shift': shift,
         'error_messages': error_messages,
         'data': cleaned_data,
-        'steps': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+        'steps': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     }
 
     template = loader.get_template('wizard.html')
