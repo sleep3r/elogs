@@ -1107,8 +1107,11 @@ var app = new Vue({
     },
   },
   created: function() {
-    this.tables['form_express_analysis'].init(this)
-    this.tables['form_densers'].init(this)
+    components = [
+
+    ]
+//    this.tables['form_express_analysis'].init(this)
+//    this.tables['form_densers'].init(this)
     this.tables['form_hydrometal'].init(this)
     this.tables['form_pulps'].init(this)
     this.tables['form_agitators'].init(this)
