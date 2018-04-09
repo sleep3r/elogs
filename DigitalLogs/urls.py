@@ -19,6 +19,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url('fractional', include('furnace.fractional_app.urls')),
     url('^express_anal', include('leaching.express_anal_app.urls')),
     url('leaching', include('leaching.express_anal_app.urls')),
     url('^electrolysis', include('leaching.express_anal_app.urls')),

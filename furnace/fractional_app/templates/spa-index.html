@@ -1,0 +1,8 @@
+{% load i18n %}
+{% load render_bundle from webpack_loader %}
+
+{% include "header.html" %}
+HERE BE WEBPACK
+<div id="spa-index"></div>
+{% render_bundle 'main' %}
+{% include "footer.html" %}
