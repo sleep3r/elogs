@@ -8,7 +8,7 @@ module.exports = {
   context: path.join(__dirname, 'assets'),
   entry: './index',
   output: {
-      path: path.resolve('./assets/webpack_bundles/'),
+      path: path.resolve('./DigitalLogs/static/webpack_bundles'),
       filename: "[name]-[hash].js"
   },
   module: {

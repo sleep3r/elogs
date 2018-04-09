@@ -8,4 +8,4 @@ express_anal_app/__pycache__/apps.cpython-36.pyc
 .DS_Store
 node_modules
 webpack-stats.json
-assets/webpack_bundles
+DigitalLogs/static/webpack_bundles/*
