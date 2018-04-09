@@ -5,7 +5,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content shift_info">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -16,10 +16,15 @@
 
         <table class="table jambo_table">
             <tr>
+                <td>
+                    <!--[[tables.{{form.name}}.data.items]]-->
+                </td>
+            </tr>
+            <tr>
                 <th>
                      {% trans "Мастер сдал" %}
                 </th>
-                <td>
+                <td v-if="tables.{{form.name}}.data.items">
                     {{form.fields.this_master}}
                 </td>
             </tr>
@@ -36,50 +41,50 @@
                     <th colspan="5" >{% trans "Откачено" %}</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="tables.{{form.name}}.data.items">
                <tr>
                  <th>{% trans "Выход ТВ" %}</th>
-                   <td>
-                       <input class="form-control" type="text" name="shift.data.out_sol_t" value="">
+                   <td v-if="tables.{{form.name}}.data.items">
+                       <input class="form-control" type="text" name="shift.data.out_sol_t" v-model="tables.{{form.name}}.data.items.out_sol_t">
                    </td>
-                   <td colspan="2">
-                       <input class="form-control" type="text" value="" name="shift.data.out_sol_c" >
+                   <td colspan="2" v-if="tables.{{form.name}}.data.items">
+                       <input class="form-control" type="text" name="shift.data.out_sol_c" v-model="tables.{{form.name}}.data.items.out_sol_c">
                    </td>
                </tr>
-               <tr>
+               <tr >
                  <th>{% trans "Пульпы ЦВЦК" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.out_pulp_cvck">
+                       <input class="form-control" type="text" name="shift.data.out_pulp_cvck" v-model="tables.{{form.name}}.data.items.out_pulp_cvck">
                    </td>
                </tr>
-               <tr>
+               <tr v-if="tables.{{form.name}}.data.items">
                  <th>{% trans "Медного кека, тн" %}</th>
-                   <td><input class="form-control" type="text" value="" name="shift.data.out_neutr" /></td>
+                   <td><input class="form-control" type="text" name="shift.data.out_cu_kek" v-model="tables.{{form.name}}.data.items.out_cu_kek"/></td>
                    <th>{% trans "Cd губка" %}</th>
-                   <td><input class="form-control" type="text" value="" name="shift.data.out_cd_sponge" /></td>
+                   <td><input class="form-control" type="text" name="shift.data.out_cd_sponge" v-model="tables.{{form.name}}.data.items.out_cd_sponge"/></td>
                </tr>
                <tr>
                  <th>{% trans "Отработ в ЦВОЦ" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                       <input class="form-control" type="text" name="shift.data.out_neutr" v-model="tables.{{form.name}}.data.items.out_electr" />
                    </td>
                </tr>
                <tr>
                  <th>{% trans "Богато-кадмиевого" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                       <input class="form-control" type="text" name="shift.data.out_neutr" v-model="tables.{{form.name}}.data.items.out_ruch_cd"/>
                    </td>
                </tr>
                <tr>
                  <th>{% trans "Нейтрального в ХМЦ" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" />
+                       <input class="form-control" type="text" value="" name="shift.data.out_neutr" v-model="tables.{{form.name}}.data.items.out_neutr"/>
                    </td>
                </tr>
                <tr>
                  <th>{% trans "Cu Пульпа" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.out_cu_pulp" />
+                       <input class="form-control" type="text" name="shift.data.out_cu_pulp" v-model="tables.{{form.name}}.data.items.out_cu_pulp" />
                    </td>
                </tr>
             </tbody>
@@ -88,36 +93,40 @@
                    <th colspan="4" >{% trans "Принято" %}</th>
                </tr>
             </thead>
-            <tbody>
+            <tbody v-if="tables.{{form.name}}.data.items">
                <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}</th>
                    <td>
-                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_ls" />
+                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_ls" v-model="tables.{{form.name}}.data.items.in_filtrate_ls" />
                    </td>
                    <th>{% trans "Уд. вес" %}</th>
                    <td>
-                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_dens" />
+                       <input class="form-control" type="text" value="" name="shift.data.in_filtrate_dens" v-model="tables.{{form.name}}.data.items.in_filtrate_dens" />
                    </td>
                </tr>
                <tr><th>{% trans "Железистого из ЦВОЦ" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.in_fe" />
+                       <input class="form-control" type="text" value="" name="shift.data.in_fe" v-model="tables.{{form.name}}.data.items.in_fe" />
                    </td>
                </tr>
                <tr><th>{% trans "Высоко железистого из ЦВОЦ" %}</sup></th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.in_fe_hi"/>
+                       <input class="form-control" type="text" value="" name="shift.data.in_fe_hi" v-model="tables.{{form.name}}.data.items.in_fe_hi"/>
                    </td>
                </tr>
                <tr>
                    <th>{% trans "Бедно-кадмиего" %}</th>
                    <td colspan="3">
-                       <input class="form-control" type="text" value="" name="shift.data.in_poor_cd" />
+                       <input class="form-control" type="text"  name="shift.data.in_poor_cd" v-model="tables.{{form.name}}.data.items.in_poor_cd" />
                    </td>
                </tr>
             </tbody>
      </table>
-
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
-            </form>
+            <template v-if="tables.{{form.name}}.state == 'add' ">
+                <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+            </template>
+            <template v-if="tables.{{form.name}}.state == 'edit' ">
+                <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+            </template>
+        </form>
     </div>
 </div>

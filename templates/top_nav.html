@@ -6,13 +6,20 @@
         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li class="">
-          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="/static/images/img.jpg" alt="">{% trans "Мастер смены" %}
+        <li>
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="display: inline-block">
+            <img src="/static/images/img.jpg" alt="">{{ user_name }}
             <span class=" fa fa-angle-down"></span>
           </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            {% include "notification-list.html" with notifications=notifications %}
+            <li><a href="/leaching/shift/make">Make shift</a></li>
+          </ul>
         </li>
-
+          <li>
+            <a href="/auth/logout" aria-expanded="false" style="display: inline-block">
+            <i class="glyphicon glyphicon-log-out large"></i> Выйти из системы</a>
+          </li>
       </ul>
     </nav>
   </div>

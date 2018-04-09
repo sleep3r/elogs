@@ -5,7 +5,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content shift_info">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}

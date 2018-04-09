@@ -1,0 +1,64 @@
+{% load i18n %}
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<style>
+.centered-vertically {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+</style>
+
+<body>
+    <div class="container">
+        <div id="loginbox" style="width:30%" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 centered-vertically">
+            <div class="panel panel-info">
+                <div style="background-color: #2A3F54; color: white" class="panel-heading">
+                    <div class="panel-title">{% trans "Вход в систему электронных журналов <br> (login: asmet-omarov, password: asmet-omarov)" %}</div>
+                </div>
+
+                <div style="padding-top:30px" class="panel-body">
+
+                    <div style='display: {% if error %} block {% else %} none {% endif %}' id="login-alert" class="alert alert-danger col-sm-12">
+                        {% if error %}
+                            {% trans error %}
+                        {% endif %}
+                    </div>
+
+                    <form id="loginform" class="form-horizontal" role="form" action="/auth/login{{ next }}" method="post">
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="login-username" type="text" class="form-control" name="username" value=""
+                                   placeholder='{% trans "Имя пользователя" %}'>
+                        </div>
+
+                        <div style="margin-bottom: 25px;" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="login-password" type="password" class="form-control" name="password"
+                                   placeholder={% trans "Пароль" %}>
+                        </div>
+
+
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+
+                            <div class="col-sm-12 controls">
+                                <input type="submit" class="btn btn-success" style="background-color: #26B99A" value='{% trans "Вход" %}'>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

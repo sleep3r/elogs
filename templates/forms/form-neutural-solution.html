@@ -5,7 +5,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content shift_info">
-        <form name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
+        <form id="{{form.name}}" name="{{form.name}}" action="{{form.action}}" method="POST" class="form-horizontal">
             {% csrf_token %}
 
             {% for hidden_field in form.fields.hidden_fields %}
@@ -30,21 +30,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input class="form-control" type="text" value="" required name="tank_1" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_2" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_2_2" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_3" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_4" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_5" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_6" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_7" ></td>
-                <td><input class="form-control" type="text" value="" required name="tank_8" ></td>
+            <tr >
+                <td v-for="item in tables.{{form.name}}.data.items">
+                    <input class="form-control" type="text" v-model="item.value" >
+                </td>
             </tr>
             </tbody>
         </table>
 
-            <input type="submit" class="btn btn-success" value={% trans "Сохранить" %} />
-            </form>
+        <template v-if="tables.{{form.name}}.state == 'add' ">
+            <a v-on:click="addRecord('{{form.name}}')"  class="btn btn-success">{% trans "Добавить" %}</i></a>
+        </template>
+        <template v-if="tables.{{form.name}}.state == 'edit' ">
+            <a v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success">{% trans "Сохранить изменения" %}</i></a>
+        </template>
+
+        </form>
     </div>
 </div>

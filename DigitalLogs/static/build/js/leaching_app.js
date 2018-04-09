@@ -22,23 +22,126 @@ var app = new Vue({
     showModal: false,
     tables: {
         'form_template': {
+            formId: 'form_template',
             data: [],
             current: {},
             current_count: 0,
             state: 'view',
-            newRecord: {},
+            initRecord: {},
             init: function(scope){
-            },
-            onRemoveRow: function(scope, rowId) {
-            },
-            onRow: function(scope, rowId) {
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/template?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             },
             saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/name/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             },
             addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/name/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             }
         },
-        'form_self_security': { visible: 1},
+        'form_self_security': {
+            formId: 'form_self_security',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: { 'items': {'bignote':'', 'notes': { '0':{}, '1':{}, '2':{}}}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/self/security?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/self/security/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/self/security/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+         },
         'form_express_analysis': {
             visible: 1,
             rows: [],
@@ -62,11 +165,7 @@ var app = new Vue({
                     var context = this
                     scope.$http.get('/leaching/api/express/analysis?shift_id='+ shiftId + '&hour=' + hour)
                     .then(response => {
-                           console.log('get hour')
-                           console.log(response.data)
-                           console.log(hour)
                            context.rows.push({ hour: hour , info: response.data.items[hour] })
-                           console.info(context.rows)
                      })
                      .catch(e => {
                         console.log(e)
@@ -115,7 +214,6 @@ var app = new Vue({
                 scope.$http.get('/leaching/api/hydrometal?shift_id=' + shiftId)
                     .then(response => {
                         this.data = response.data
-                        console.info(this.data)
                     })
                     .catch(e => {
                         console.log(e)
@@ -123,17 +221,13 @@ var app = new Vue({
             },
              onRow: function(scope, rowId) {
                 this.state = 'edit'
-                console.log(rowId)
-                console.log(this.data.items[rowId])
                 this.current = this.data.items[rowId]
             },
             onRemoveRow: function(scope, rowId) {
                 let mans = [1, 4]
                 mans.forEach( manNumber => {
-                    console.log(manNumber)
                     if (this.data.items[rowId][manNumber]){
                          let recordId = this.data.items[rowId][manNumber]['id']
-                         console.log(recordId)
                          scope.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
                             .then(response => {
                                 console.info(response.data)
@@ -146,7 +240,6 @@ var app = new Vue({
                 })
             },
             addRecord: function(scope) {
-                console.log("add record")
                 let formId = 'form_hydrometal'
                 let form = document.getElementById(formId)
                 var shiftId = form.shift_id.value
@@ -156,7 +249,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.newRecord))
                 scope.$http.post('leaching/update/hydrometal', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.init(scope)
                         this.newRecord = {'1':{},'4':{},'extra':{ }}
@@ -178,8 +270,6 @@ var app = new Vue({
                 var shiftId = form.shift_id.value
                 scope.$http.get('/leaching/api/pulps?shift_id='+ shiftId)
                     .then(response => {
-                        console.info('form_pulps.init')
-                        console.info(response.data);
                         if (this.data.items) {
                             setTimeout(() => {
                                 let datarows = document.querySelectorAll("#form_pulps tbody tr.mini")
@@ -194,19 +284,15 @@ var app = new Vue({
             },
             onRow: function(scope, rowId) {
                 this.state = 'edit'
-                console.log(rowId)
                 let formId = 'form_pulps'
                 let form = document.getElementById(formId)
                 let shiftId = form.shift_id.value
-                console.log(this.data.items[rowId])
                 this.current = this.data.items[rowId]
             },
             onRemoveRow: function(scope, rowId) {
                 let recordId = rowId
-                console.log(recordId)
                 scope.$http.get('/leaching/api/pulps/remove?combid=' + recordId)
                      .then(response => {
-                          console.info(response.data)
                           Vue.delete(this.data.items, rowId)
                      })
                      .catch(e => {
@@ -223,7 +309,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.current))
                 scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.current = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}}
                     })
@@ -232,7 +317,6 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-                console.info("add new Record")
                 let formId = 'form_pulps'
                 let form = document.getElementById(formId)
                 var shiftId = form.shift_id.value
@@ -242,7 +326,6 @@ var app = new Vue({
                 data.append('item', JSON.stringify(this.newRecord))
                 scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.init(scope)
                         this.newRecord = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}, 'extra': {}}
@@ -269,19 +352,14 @@ var app = new Vue({
                let shiftId = form.shift_id.value
                scope.$http.get('leaching/api/agitators?shift_id=' + shiftId)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'view'
                         this.data = response.data
                         if (this.data.items.times) {
                             this.current = this.initRecord
                             this.state = 'edit'
-                            console.info('SET MODE: edit')
                         } else {
                             this.newRecord = this.initRecord
-
                             this.state = 'add'
-                            console.info('SET MODE: add')
-                            console.info(this.initRecord)
                         }
 
                     })
@@ -289,12 +367,7 @@ var app = new Vue({
                         console.log(e)
                     })
             },
-            onRemoveRow: function(scope, rowId) {
-            },
-            onRow: function(scope, rowId) {
-            },
             saveRecord: function(scope) {
-
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -303,10 +376,9 @@ var app = new Vue({
 
                 scope.$http.post('/leaching/agitators/update', data)
                     .then(response => {
-                        console.log(response.data)
                         this.state = 'edit'
-
                         this.newRecord = this.initRecord
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)
@@ -319,8 +391,6 @@ var app = new Vue({
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.newRecord))
                 data.append('comment', this.data.items.comment)
-                console.info('comment: '+ this.data.items.comment)
-
                 scope.$http.post('/leaching/agitators/add', data)
                     .then(response => {
                         console.log(response.data)
@@ -332,14 +402,727 @@ var app = new Vue({
                     })
             }
         },
+        'form_cinder': {
+            formId: 'form_cinder',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'add',
+            initRecord: {'items': {'0':{ 'shift_total':0,'day_total':0, 'in_process':0}, '1': { 'shift_total':0,'day_total':0, 'in_process':0}} },
+            init: function(scope){
+                console.info(this.formId)
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/cinder?shift_id='+ shiftId)
+                    .then(response => {
+                        this.current_count = response.data.current_count
+                        this.data = response.data
+
+                        if (this.current_count > 0) {
+                            this.state = 'edit'
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/cinder/save', data)
+                    .then(response => {
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.error(e)
+                    })
+            },
+            addRecord: function(scope) {
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/cinder/add', data)
+                    .then(response => {
+                        this.state = 'edit'
+                        this.init(scope)
+
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_reagents': {
+            formId: 'form_reagents',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items': {
+                'states':{
+                    'delivered': {},
+                    'taken': {},
+                    'consumption': {},
+                    'issued': {}
+                  },
+                'fence_state': '',
+                'stages_zn_dust':{'1st':0,'2st':0,'3st':0,'cd':0} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/reagents?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        console.info("reagents")
+                        console.info(this.data)
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+
+                scope.$http.post('/leaching/reagents/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/reagents/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_ready_tanks': {
+            formId: 'form_ready_tanks',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{'3':{'num':3}, '4':{'num':4}, '5':{'num':5}}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/ready/tanks?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            onRemoveRow: function(scope, rowId) {
+            },
+            onRow: function(scope, rowId) {
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/ready/tanks/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/ready/tanks/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_neutural_solution': {
+            formId: 'form_neutural_solution',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'edit',
+            initRecord: { 'items': {'0':{}, '1':{}, '2':{}, '3':{}, '4':{}, '5':{}, '6':{}, '7':{}, '8':{} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/neutural/solution?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/neutural/solution/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/neutural/solution/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_empty_tanks': {
+            formId: 'form_empty_tanks',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items': {
+                '0':{'tank_name':'Бак отработ. 1-2 серий'},
+                '1':{'tank_name':'Манны №1-9'},
+                '2':{'tank_name':'Манны ВТВ №10-12'},
+                '3':{'tank_name':'Обор-й сгуститель №9'},
+                '4':{'tank_name':'Агитатор 22'},
+                '5':{'tank_name':'Бак нейтр. р-ра, 1-й цех'},
+                '6':{'tank_name':'Ман отраб. № 2, 1-й цех'},
+                '7':{'tank_name':'Ман отраб. № 3, 1-й цех'},
+                '8':{'tank_name':'Ман отраб. № 9, 1-й цех'},
+                '9':{'tank_name':'-'},
+                '10':{'tank_name':'СМЕННЫЙ БАЛАНС'},
+                '11':{'tank_name':'СУТОЧНЫЙ БАЛАНС'},
+                }
+            },
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/empty/tanks?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/empty/tanks/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/empty/tanks/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_densers_neutural': {
+            formId: 'form_densers_neutural',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{'1':{},'2':{},'3':{},'4':{},'5':{},'6':{},'7':{},'8':{},'13':{} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/densers/neutural?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/densers/neutural/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/densers/neutural/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_shift_info': {
+            formId: 'form_shift_info',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/shift/info?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+                console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                this.data.items['this_master'] = form.this_master.value
+                this.data.items['next_master'] = form.next_master.value
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/shift/info/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+                console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                this.data.items['this_master'] = form.this_master.value
+                this.data.items['next_master'] = form.next_master.value
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/shift/info/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_schiehta': {
+            formId: 'form_schiehta',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{'0':{}, '1':{}, '2':{} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/schiehta?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/schiehta/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/schiehta/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_electrolysis': {
+            formId: 'form_electrolysis',
+            data: [],
+            comment: '',
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items': {'series': {'0':{}, '1':{}, '2':{}, '3':{}} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/electrolysis?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/electrolysis/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/electrolysis/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_sample2': {
+            formId: 'form_sample2',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{ '1':{},'2':{},'3':{},'4':{},'5':{},}},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/sample2?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/sample2/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/sample2/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
+        'form_veu': {
+            formId: 'form_veu',
+            data: [],
+            current: {},
+            current_count: 0,
+            state: 'view',
+            initRecord: {'items':{ '1':{num:'1'},'2':{num:'2'},'3':{ num:'3'} }},
+            init: function(scope){
+                let form = document.getElementById(this.formId)
+                var shiftId = form.shift_id.value
+                scope.$http.get('/leaching/veu?shift_id=' + shiftId)
+                    .then(response => {
+                        this.data = response.data
+                        if (this.data.current_count > 1) {
+                            this.state = 'edit'
+                            this.current_count = this.data.current_count
+                        } else {
+                            this.state = 'add'
+                            this.data = this.initRecord
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            saveRecord: function(scope) {
+             console.log('save rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/veu/save', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.state = 'edit'
+                        this.init(scope)
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            addRecord: function(scope) {
+              console.log('add rocord')
+                let form = document.getElementById(this.formId)
+                let shiftId = form.shift_id.value
+                let data = new FormData()
+                data.append('shift_id', shiftId)
+                data.append('items', JSON.stringify(this.data.items))
+                scope.$http.post('/leaching/veu/add', data)
+                    .then(response => {
+                        console.log(response.data)
+                        this.init(scope)
+                        this.state = 'edit'
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            }
+        },
     },
   },
   created: function() {
-    this.tables['form_express_analysis'].init(this)
-    this.tables['form_densers'].init(this)
+    components = [
+
+    ]
+//    this.tables['form_express_analysis'].init(this)
+//    this.tables['form_densers'].init(this)
     this.tables['form_hydrometal'].init(this)
     this.tables['form_pulps'].init(this)
     this.tables['form_agitators'].init(this)
+    this.tables['form_cinder'].init(this)
+    this.tables['form_reagents'].init(this)
+    this.tables['form_ready_tanks'].init(this)
+    this.tables['form_neutural_solution'].init(this)
+    this.tables['form_self_security'].init(this)
+    this.tables['form_empty_tanks'].init(this)
+    this.tables['form_densers_neutural'].init(this)
+    this.tables['form_shift_info'].init(this)
+    this.tables['form_schiehta'].init(this)
+    this.tables['form_electrolysis'].init(this)
+    this.tables['form_sample2'].init(this)
+    this.tables['form_veu'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
@@ -399,8 +1182,6 @@ var app = new Vue({
         this.tables[formId].onRow(this, rowId)
     },
     saveRow: function(formId) {
-        console.log("save row -> " +formId )
-
         let data = new FormData()
         data.append('item', JSON.stringify(this.tables[formId].current))
 

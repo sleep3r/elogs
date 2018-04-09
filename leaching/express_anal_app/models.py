@@ -317,9 +317,9 @@ class Electrolysis(JournalTable):
     Поле comment дублируется в каждом столбце.
     Добавлены два значения для времени в каждый столбец.
     """
-    series = models.DecimalField(max_digits=1, decimal_places=0)
-    loads1 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
-    loads2 = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null=True)
+    series = models.DecimalField(max_digits=3, decimal_places=0)
+    loads1 = models.DecimalField(max_digits=3, decimal_places=0, blank=True, null=True)
+    loads2 = models.DecimalField(max_digits=3, decimal_places=0, blank=True, null=True)
     time1 = models.DateTimeField(blank=True, null=True)
     time2 = models.DateTimeField(blank=True, null=True)
     counter = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)

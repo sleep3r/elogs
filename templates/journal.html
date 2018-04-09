@@ -1,25 +1,33 @@
 {% load i18n %}
 {% include "header.html" %}
 
+{% if form_validate %}
+<div id="app" class="validating">
+{% else %}
 <div id="app">
+{% endif %}
 
 <div class="page-title">
     <div class="title_left">
-      <h3>{{title}}</h3>
+      <h3>{{title}}&nbsp;</h3>
     </div>
     <div class="date--right">
        <h4>{{info.data.date | date:"c"}}</h4>
+        <a class="btn btn-info pull-right" href="?print"><i class="glyphicon glyphicon-print"></i>&nbsp;Print version</a>
     </div>
 </div>
 
+{% if not form_validate %}
 <div class="col-md-12 col-sm-12 col-xs-12" >
   <h3>{% trans "Лист" %} 1 </h3>
+
   {% if shift.data.id is not None %}
-  <a class="btn btn-success pull-right" href="/leaching/all/edit?shift={{shift.data.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard?shift={{shift.data.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
   {% else %}
-  <a class="btn btn-success pull-right" href="/leaching/all/edit"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard"><i class="glyphicon glyphicon-pencil"></i></a>
   {% endif %}
 </div>
+{% endif %}
 
 {% include "forms/form-shift-choice.html" with form=form_shift %}
 
@@ -88,6 +96,11 @@
     {% include "widgets/table-security.html" with table=security %}
 </div>
 </div>
+
+{% if form_validate %}
+{% include "widgets/form-validate.html" with form=form_validate %}
+{% endif %}
+
 </div>
 
 

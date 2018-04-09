@@ -253,6 +253,7 @@ def get_self_security_table(shift=None):
     for i, d in enumerate(data):
         res['notes'][i]['time'] = d.time
         res['notes'][i]['note'] = d.note
+        res['notes'][i]['id'] = d.id
 
     return res.clear_empty().get_dict()
 
@@ -291,7 +292,7 @@ def get_electrolysis_table(shift=None):
     data = Electrolysis.objects.filter(shift=shift)
 
     for d in data:
-        add_model_to_dict(d, res['series'][d.series])
+        add_model_to_dict(d, res['series'][str(d.series)])
     res['comment'] = data[0].comment if data else ''
 
     return res.clear_empty().get_dict()
@@ -311,6 +312,34 @@ def get_reagents_table(shift=None):
             res['stages_zn_dust'][d.stage] = d.zn_dust
 
     res['fence_state'] = data[0].fence_state if data else ''
+
+    return res.clear_empty().get_dict()
+
+
+def get_sample2_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = Sample2.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res[str(d.id)])
+        res[str(d.id)]['time'] = str(d.time.hour)
+
+    return res.clear_empty().get_dict()
+
+
+def get_veu_table(shift=None):
+    if shift is None:
+        shift = Shift.objects.all()[0]
+
+    res = deep_dict()
+    data = VEU.objects.filter(shift=shift)
+
+    for d in data:
+        add_model_to_dict(d, res[str(d.id)])
+        res[str(d.id)]['time'] = str(d.time.hour)
 
     return res.clear_empty().get_dict()
 
