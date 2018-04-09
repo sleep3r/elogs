@@ -1786,6 +1786,7 @@ if (typeof NProgress != 'undefined') {
 			console.log('init_SmartWizard');
 			
 			$('#wizard').smartWizard({
+			    keyNavigation: false,
 			    labelPrevious:'Назад', // label for Previous button
 			    labelNext:'Далее', // label for Next button
                 labelFinish:'Завершить',

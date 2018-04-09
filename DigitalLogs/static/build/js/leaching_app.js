@@ -367,10 +367,6 @@ var app = new Vue({
                         console.log(e)
                     })
             },
-            onRemoveRow: function(scope, rowId) {
-            },
-            onRow: function(scope, rowId) {
-            },
             saveRecord: function(scope) {
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
@@ -381,8 +377,8 @@ var app = new Vue({
                 scope.$http.post('/leaching/agitators/update', data)
                     .then(response => {
                         this.state = 'edit'
-
                         this.newRecord = this.initRecord
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)
