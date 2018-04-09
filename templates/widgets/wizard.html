@@ -1,159 +1,93 @@
 {% load i18n %}
-<!--
-    'wizard': {
-        'steps' : [
-            {
-                'number':'1',
-                'title':'',
-                'content':''
-            },
-            {
-                'number':'2',
-                'title':'',
-                'content':''
-            },
-        ],
-     }
--->
 <div class="clearfix"></div>
+<div id="app">
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Заполнение журанала по этапно</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a></li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <!-- Smart Wizard -->
-                    <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>
                     <div id="wizard" class="form_wizard wizard_horizontal">
                       <ul class="wizard_steps">
+                        {% for i in steps %}
                         <li>
-                          <a href="#step-1">
-                            <span class="step_no">1</span>
-                            <span class="step_descr">
-                                Step 1<br />
-                                <small>Step 1 description</small>
-                            </span>
+                          <a href="#step-{{i}}">
+                            <span class="step_no">{{i}}</span>
                           </a>
                         </li>
-                        <li>
-                          <a href="#step-2">
-                            <span class="step_no">2</span>
-                            <span class="step_descr">
-                                              Step 2<br />
-                                              <small>Step 2 description</small>
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-3">
-                            <span class="step_no">3</span>
-                            <span class="step_descr">
-                                              Step 3<br />
-                                              <small>Step 3 description</small>
-                            </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-4">
-                            <span class="step_no">4</span>
-                            <span class="step_descr">
-                                              Step 4<br />
-                                              <small>Step 4 description</small>
-                            </span>
-                          </a>
-                        </li>
-                          <li>
-                          <a href="#step-5">
-                            <span class="step_no">5</span>
-                            <span class="step_descr">
-                                Step 5<br />
-                                <small>Step 5 description</small>
-                            </span>
-                          </a>
-                        </li>
+                        {% endfor %}
                       </ul>
                       <div id="step-1">
-                        <form class="form-horizontal form-label-left">
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <div id="gender" class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                  <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                                </label>
-                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                  <input type="radio" name="gender" value="female"> Female
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                            </div>
-                          </div>
-
-                        </form>
-
+                            {% include "forms/form-shift-choice.html" with form=form_shift %}
                       </div>
                       <div id="step-2">
-                          <h2 class="StepTitle">Step 2 Content</h2>
-                          {% include "widgets/table.html" %}
+                            {% include "forms/form-veu.html" with form=form_veu %}
                       </div>
                       <div id="step-3">
-                          <h2 class="StepTitle">Step 3 Content</h2>
-                          {% include "widgets/table.html" %}
+                            {% include "forms/form-sample2.html" with form=form_sample2 %}
                       </div>
                       <div id="step-4">
-                          <h2 class="StepTitle">Step 4 Content</h2>
-                          {% include "widgets/table.html" %}
+                            {% include "forms/form-shift-info.html" with form=form_shift_info %}
                       </div>
-                        <div id="step-5">
-                            <h2 class="StepTitle">Step 5</h2>
-                            {% include "widgets/table.html" %}
+                      <div id="step-5">
+                            {% include "forms/form-neutural-densers.html" with form=form_densers_neutural %}
                       </div>
-
+                      <div id="step-6">
+                            {% include "forms/form-electrolysis.html" with form=form_electrolysis %}
+                      </div>
+                      <div id="step-7">
+                            {% include "forms/form-schieht.html" with form=form_schiehta %}
+                      </div>
+                      <div id="step-8">
+                            {% include "forms/form-free-tanks.html" with form=form_empty_tanks %}
+                      </div>
+                      <div id="step-9">
+                            {% include "forms/form-schieht.html" with form=form_schiehta %}
+                      </div>
+                      <div id="step-10">
+                          {% include "forms/form-self-security.html" with form=form_self_security %}
+                      </div>
+                      <div id="step-11">
+                          {% include "forms/form-neutural-solution.html" with form=form_neutural_solution %}
+                      </div>
+                      <div id="step-12">
+                          {% include "forms/form-ready-tanks.html" with form=form_ready_tanks %}
+                      </div>
+                      <div id="step-13">
+                          {% include "forms/form-reagents.html" with form=form_reagents %}
+                      </div>
+                      <div id="step-14">
+                          {% include "forms/form-self-security.html" with form=form_self_security %}
+                      </div>
+                      <div id="step-15">
+                          {% include "forms/form-cinder.html" with form=form_cinder %}
+                      </div>
+                      <div id="step-16">
+                          {% include "forms/form-agitators.html" with form=form_agitators %}
+                      </div>
+                      <div id="step-17">
+                          {% include "forms/form-self-security.html" with form=form_self_security %}
+                      </div>
+                      <div id="step-18">
+                          {% include "forms/form-pulps.html" with form=form_pulps %}
+                      </div>
+                      <div id="step-19">
+                          {% include "forms/form-hydrometal.html" with form=form_hydrometal %}
+                      </div>
+                      <div id="step-20">
+                          {% include "forms/form-densers.html" with form=form_densers %}
+                      </div>
+                      <div id="step-21">
+                          {% include "forms/form-express-analysis.html" with form=form_express_analysis %}
+                      </div>
                     </div>
                     <!-- End SmartWizard Content -->
-
                   </div>
                 </div>
               </div>
+</div>
+
 </div>

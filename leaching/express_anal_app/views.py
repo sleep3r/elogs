@@ -1675,9 +1675,261 @@ def leaching_make_shift(request):
         'shift': shift
     }
 
+@login_required
+def leaching_edit_wizard(request):
+    error_messages = ''
+    cleaned_data = ''
+
+    if request.method == 'GET':
+        # currentDate = timezone.now().strftime("%m/%d/%Y %H:00:00")
+        formReagents = ReagentsForm(initial={
+            'shlippe': 0,
+            'zn_dust': 0,
+            'mg_ore': 0,
+            'magnaglobe': 0,
+            'fe_shave': 0,
+            'state': '',
+            'stage': '',
+            'fence_state': ''
+        })
+
+        formReadyTanks = ReadyProductForm()
+        formNeuturalDensers = NeuturalDensersForm()
+        formExpresAnalysis = ExpressAnalysisForm()
+        formDensers = DenserAnalysisForm()
+        formZnPulp = ZnPulpForm()
+        formCuPulp = CuPulpForm()
+        formFeSolution = FeSolutionForm()
+        formInputOutput = jea_stand_forms['ShiftInfo']()
+
+    else:
+        print('\n----FORM-----')
+        print(request.POST)
+        print('\n\n')
+
+        # Пока придётся захардкодить поля денормализованной формы
+        model = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'fence_state': request.POST['fence_state'],
+            'journal': '20',
+            'shift': '1'
+        }
+        modelSt = {
+            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
+            'fence_state': request.POST['fence_state'],
+            'journal': '20',
+            'shift': '1'
+        }
+
+        states = ['issued', 'taken', 'delivered', 'consumption']
+
+        for state in states:
+            for field in ['shlippe', 'zn_dust', 'mg_ore', 'magnaglobe', 'fe_shave']:
+                model[field] = request.POST['states.' + state + '.' + field]
+                model['state'] = state
+                model['stage'] = 'total'
+
+            form = ReagentsForm(model)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
+
+        stages = ['1st', '2st', '3st', 'cd']
+        for stage in stages:
+            modelSt['zn_dust'] = request.POST['stages.zn_dust.' + stage]
+            modelSt['state'] = 'none'
+            modelSt['stage'] = stage
+
+            form = ReagentsForm(modelSt)  # Bind data from request.POST into a PostForm
+            if form.is_valid():
+                form.save()
+            else:
+                print("Not valid\n\n\n")
+                print(form.errors)
+
+        return HttpResponseRedirect('/leaching/all/edit')
+
+    journal = Journal.objects.get(name='Журнал экспресс анализов')
+    if 'shift' in request.GET:
+        shiftId = request.GET['shift']
+        try:
+            shift = Shift.objects.get(id=shiftId) or None
+        except:
+            shift = Shift.objects.all()[0]
+    else:
+        shift = Shift.objects.all()[0]
+
+
+    shifts = Shift.objects.all()
+
+    data_densers = tables.get_densers_table(shift)
+
+    formShiftInfo = jea_stand_forms['ShiftInfo']()
+
+    context = {
+        'title': _("Журнал Экспресс анализа (Заполнение)"),
+        'vue': True,
+        'subtitle': _("Цех выщелачивания"),
+        'form_title': _("Заполнить форму"),
+        'form_schiehta': {
+            'title': _('Шихта'),
+            'name': 'form_schiehta',
+            'action': '/save/schiehta',
+            'shift': shift.id,
+        },
+        'form_electrolysis': {
+            'title': _('Электролиз'),
+            'name': 'form_electrolysis',
+            'action': '/save/electrolysis',
+            'shift': shift.id,
+        },
+        'form_cinder': {
+            'title': _('Огарок'),
+            'name': 'form_cinder',
+            'action': '/save/cinder',
+            'shift': shift.id,
+        },
+        'form_veu': {
+            'title': _('ВИУ'),
+            'name': 'form_veu',
+            'action': '/save/veu',
+            'shift': shift.id,
+        },
+        'form_sample2': {
+            'title': _('Пробник №2'),
+            'name': 'form_sample2',
+            'action': '/save/sample2',
+            'shift': shift.id,
+        },
+        'form_self_security': {
+            'title': _('Самоохрана'),
+            'shift': shift.id,
+            'name': 'form_self_security',
+            'action': '/save/self/security'
+        },
+        'form_shift': {
+            'title': _('Выбранная смена'),
+            'currentId': shift.id,
+            'data': shifts,
+            'dump': pprint.pformat(shifts),
+            'action': '/leaching/all/edit'
+        },
+        'form_shift_info': {
+            'title': _('Принято и откачено'),
+            'name': 'form_shift_info',
+            'fields': formShiftInfo,
+            'dump': pprint.pformat(formShiftInfo),
+            'action': '/save/shift/info',
+            'shift': shift.id,
+        },
+        'form_empty_tanks': {
+            'title': _('Наличие свободных ёмкостей'),
+            'name': 'form_empty_tanks',
+            'data': get_free_tanks_table(shift),
+            'action': '/save/empty/tanks',
+            'shift': shift.id,
+        },
+        'form_reagents': {
+            'title': _('Реагенты'),
+            'fields': formReagents,
+            'name': "form_reagents",
+            'action': '',
+            'dump': pprint.pformat(formReagents.fields),
+            'shift': shift.id,
+        },
+        'form_ready_tanks': {
+            'title': _('Баки готовой продукции'),
+            'columns': [_("№ Бака"), _("Кадмий"), _("Медь"), _("Кобальт"), _("Сурьма"), _("Железо"), _("В:T"), _("Уд. вес"), _("Норма"), _("Факт"),
+                        _("Коррекция"), _("Мастер")],
+            'fields': formReadyTanks,
+            'tanks': ['3', '4', '5'],
+            'name': 'form_ready_tanks',
+            'action': '/save/tanks',
+            'shift': shift.id,
+        },
+        'form_neutural_solution': {
+            'title':_('Нейтральный раствор'),
+            'name': 'form_neutural_solution',
+            'columns': {
+                    "1": _("Наличие<br>нейтр. р-ра"),
+                    "2": _("Уч. выщел. N1<br>бак 3,4,5,4А"),
+                    "3": _("Бак 3"),
+                    "4": _("Бак 4"),
+                    "5": _("Итого"),
+                    "6": _("Бак III<br/>серии"),
+                    "7": _("Бак 5"),
+                    "8": _("Бак 6")
+            },
+            'action': '/save/neutural/solution',
+            'shift': shift.id,
+        },
+        'form_densers_neutural': {
+            'title': _('Нейтральные сгустители'),
+            'name': 'form_densers_neutural',
+            'action': '/save/densers/neutural',
+            'fields': formNeuturalDensers,
+            'densers': ['1', '2', '3', '4', '5', '6', '7', '8', '13'],
+            'shift': shift.id,
+        },
+        'form_express_analysis': {
+            'title': _('Экспресс анализ'),
+            'name': 'form_express_analysis',
+            'action': '/save/express/analysis',
+            'fields': formExpresAnalysis,
+            'times': ['8', '10', '12', '14', '16', '18', '20'],
+            'columns': [_("Кобальт") + " Co", _("Сурьма"), _("Медь"), _("Кадмий"), _("Твердое После 1ст"), "pH (BCHC)", _("Железо"), "As",
+                        _("Твёрдое "), _("Уд. вес"),
+                        _("Кобальт"), _("Сурьма"), _("Кадмий"), _("Твердое"), "pH", _("Кадмий"), _("Кобальт"), _("Сурьма"), _("Медь"), _("Железо"),
+                        _("Выход по току"), _("Уд. вес"), _("Норма"), _("Факт"), _("Несоответствие"), _("Коррекция")],
+            'shift': shift.id,
+        },
+        'form_densers': {
+            'name': 'form_densers',
+            'title': _('Сгустители'),
+            'columns': ['10', "11", "12"],
+            'action': '/save/densers',
+            'fields': formDensers,
+            'previous': data_densers,
+            'dump': pprint.pformat(data_densers),
+            'shift': shift.id,
+        },
+        'form_pulps': {
+            'title': _('Пульпы'),
+            'name': 'form_pulps',
+            'action': '/save/pulps',
+            'zn': formZnPulp,
+            'cu': formCuPulp,
+            'fe': formFeSolution,
+            'shift': shift.id,
+        },
+        'form_hydrometal': {
+            'title': _('Аппаратчик - Гидрометаллург'),
+            'name': 'form_hydrometal',
+            'action': '/save/hydrometal',
+            'shift': shift.id,
+
+        },
+        'form_agitators': {
+            'title': _('Агитаторы очистки'),
+            'name': 'form_agitators',
+            'action': '/save/agitators',
+            'shift': shift.id,
+        },
+        'journal': journal,
+        'shift': shift,
+        'error_messages': error_messages,
+        'data': cleaned_data,
+        'steps': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+    }
+
+    template = loader.get_template('wizard.html')
+    return HttpResponse(template.render(context, request))
+
 
 @login_required
 def leaching_wizard(request):
     context = {}
-    template = loader.get_template('react-table-edit.html')
+    template = loader.get_template('wizard.html')
     return HttpResponse(template.render(context, request))
