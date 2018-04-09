@@ -26,7 +26,7 @@ tr.mini td {
 
 </style>
 <div class="x_panel">
-    <div class="x_title">
+    <div class="x_title notitle">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
     </div>
@@ -35,7 +35,7 @@ tr.mini td {
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
+                <th rowspan="3" class="rotate customwidth"><div><span>{% trans "Время" %}</span></div></th>
                 {% for nomer in table.columns %}
                 <th colspan="6" >{% trans "Сгуститель" %} {{nomer}}</th>
                 {% endfor %}

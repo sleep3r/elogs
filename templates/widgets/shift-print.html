@@ -1,0 +1,44 @@
+{% load i18n %}
+<div class="x_panel"> 
+  <div class="x_title">
+    <h2>{% trans "Принято" %}</h2>
+  </div>
+  <div class="x_content">
+    <table class="table infotable lefttext">
+     <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}</th><td>{{shift.data.in_filtrate_ls}}</td><th>{% trans "Уд. вес" %}</th><td>{{shift.data.in_filtrate_dens}}</td></tr>
+     <tr><th>{% trans "Железистого из ЦВОЦ" %}</th><td colspan="3">{{shift.data.in_fe}} м<sup>3</sup></td></tr>
+     <tr><th>{% trans "Высоко железистого из ЦВОЦ" %}</sup></th><td colspan="3">{{shift.data.in_fe_hi}} м<sup>3</sup></td></tr>
+     <tr><th>{% trans "Бедно-кадмиего" %}</th><td colspan="3">{{shift.data.in_poor_cd}} м<sup>3</sup></td></tr>
+    </table>
+  </div>
+</div>
+<div class="x_panel">
+  <div class="x_title">
+    <h2>{% trans "Откачено" %}</h2>
+  </div>
+  <div class="x_content">
+    <table class="table infotable lefttext">
+       <tr>
+         <th>{% trans "Выход ТВ" %}</th><td>{{shift.data.out_sol_t}} т.</td><td colspan="2">{{shift.data.out_sol_c}} ц.</td>
+       </tr>
+       <tr>
+         <th>{% trans "Пульпы ЦВЦК" %}</th><td colspan="3">{{shift.data.out_pulp_cvck}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>{% trans "Медного кека, тн" %}</th><td>{{shift.data.out_neutr}} {% trans "тн" %}</td><th>{% trans "Cd губка" %}</th><td>{{shift.data.out_cd_sponge}} тн</td>
+       </tr>
+       <tr>
+         <th>{% trans "Отработ в ЦВОЦ" %}</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>{% trans "Богато-кадмиевого" %}</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>{% trans "Нейтрального в ХМЦ" %}</th><td colspan="3">{{shift.data.out_neutr}} м<sup>3</sup></td>
+       </tr>
+       <tr>
+         <th>{% trans "Cu Пульпа" %}</th><td colspan="3">{{shift.data.out_cu_pulp}} м<sup>3</sup></td>
+       </tr>
+    </table>
+  </div>
+</div>

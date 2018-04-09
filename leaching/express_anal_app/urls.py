@@ -12,6 +12,8 @@ urlpatterns = [
     url('leaching/edit/wizard$', views.leaching_edit_wizard),
     url('page/wizard$', views.leaching_wizard),
 
+    url('notifications/read$', views.notifications_read),
+
     url('leaching/api/express/analysis$', views.leaching_api_express_analysis),
     url('save/express/analysis/json$', views.leaching_save_express_analysis_json),
     url('save/self/security/json$', views.leaching_save_self_security_json),
