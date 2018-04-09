@@ -22,9 +22,9 @@
   <h3>{% trans "Лист" %} 1 </h3>
 
   {% if shift.data.id is not None %}
-  <a class="btn btn-success pull-right" href="/leaching/edit/wizard?shift={{shift.data.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard?shift={{shift.data.id}}"><i class="glyphicon glyphicon-edit"></i>&nbsp;Wizard</a>
   {% else %}
-  <a class="btn btn-success pull-right" href="/leaching/edit/wizard"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard"><i class="glyphicon glyphicon-edit"></i>&nbsp;Wizard</a>
   {% endif %}
 </div>
 {% endif %}
