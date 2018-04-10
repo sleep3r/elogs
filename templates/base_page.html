@@ -1,14 +1,15 @@
-{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="icon" href="/static/images/favicon.ico" type="image/ico" />
+	<link rel="icon" href="/static/images/favicon.ico" type="image/ico" />
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
 
-    <title> KazZinc | E-Log </title>
     {% block css %}
     <!-- Bootstrap -->
     <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,48 +33,50 @@
     <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
     <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
     {% endblock %}
-  </head>
+    {% block extracss %}
+    {% endblock %}
 
-  <body class="nav-md">
+</head>
+<body class="nav-md">
     <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>KazZinc E-Logs</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-              </div>
-              <div class="profile_info">
-                <span>Inframine</span>
-                <h2>Kaz Zinc</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
+        <div class="main_container">
+        {% block left-column %}
+            <div class="col-md-3 left_col">
+              <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                  <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>KazZinc E-Logs</span></a>
+                </div>
+                <div class="clearfix"></div>
             {% block sidebarmenu %}
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <br/>
-                <h3>{% trans "Аналитика завода" %}</h3>
-                {% include "menu.html" %}
-              </div>
-            </div>
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div class="menu_section">
+
+                    {% include "menu.html" %}
+                  </div>
+                </div>
             <!-- /sidebar menu -->
             {% endblock %}
-            
-          </div>
+              </div>
+            </div>
+        {% endblock %}
+
+        {% block top-nav %}
+            {% include "top_nav.html" %}
+        {% endblock %}
+            <div class="right_col" role="main">
+            {% block content %}
+            {% endblock %}
+            </div>
         </div>
-        <!-- top navigation -->
-        {% include "top_nav.html" %}
-        <!-- /top navigation -->
-          <!-- page content -->
-         <div class="right_col" role="main">
+    </div>
+    {% block footer %}
+    <!-- jQuery -->
+    <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/vendors/moment/min/moment.min.js"></script>
+    <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    {% endblock %}
+</body>
+</html>
