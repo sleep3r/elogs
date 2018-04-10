@@ -60,7 +60,7 @@
                             <td>[[man.sediment |formatNumber]]</td>
                         </template>
                     </template>
-                    <td><a v-on:click="onRemoveRow(key)" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
+                    <td><a v-on:click="onRemoveRow(key,'{{form.name}}')" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
                 </tr>
             </template>
             </tbody>

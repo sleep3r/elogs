@@ -7,7 +7,7 @@ from leaching.express_anal_app.models import *
 
 def leaching_save_agitators(request):
     print('\n----FORM-----')
-    print(request.POST)
+    print(request.POST['comment'])
     print('\n\n')
     journal = Journal.objects.all()[0]
     if 'shift_id' in request.POST:
@@ -68,7 +68,7 @@ def leaching_api_agitators(request):
 
 
 @process_json_view(auth_required=False)
-def update_agitators(request):
+def save_record(request):
     journal = Journal.objects.get(name='Журнал экспресс анализов')
 
     if 'shift_id' in request.POST:
@@ -80,7 +80,7 @@ def update_agitators(request):
 
     data = json.loads(request.POST['items'])
 
-    print(data)
+    print(data['comment'])
 
     agitators = ['13', '15', '17', '19']
     before_state = ['true', 'false']
@@ -111,6 +111,7 @@ def update_agitators(request):
 
                 for field in fields:
                     setattr(model, field, item[agit][state].get(field))
+                model.comment = data['comment']
                 model.save()
 
 

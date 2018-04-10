@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block content %}
+    <a onclick="leaching.shiftSelect('/leaching/journal/timeing')" class="btn btn-warning">Таблицы заполняемые по часам</a>
     {% include "widgets/wizard.html" %}
 {% endblock %}
-
 
 {% block footer %}
     {{ block.super }}
@@ -24,10 +24,4 @@
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="/static/build/js/leaching_app.js"></script>
-
 {% endblock %}
-
-
-
-
-

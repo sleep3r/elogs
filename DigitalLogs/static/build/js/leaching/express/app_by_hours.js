@@ -15,9 +15,9 @@ Vue.filter('formatHour', function(value) {
   }
 })
 
-var app = new Vue({
+var appEA = new Vue({
   delimiters: ['[[', ']]'],
-  el: '#app',
+  el: '#app_ea',
   data: {
     showModal: false,
     tables: {
@@ -225,17 +225,10 @@ var app = new Vue({
             },
             onRemoveRow: function(scope, rowId) {
                 let mans = [1, 4]
-                var recordIds = ''
-
                 mans.forEach( manNumber => {
                     if (this.data.items[rowId][manNumber]){
                          let recordId = this.data.items[rowId][manNumber]['id']
-                         recordIds += ':' + recordId
-
-                    }
-
-                })
-                scope.$http.get('/leaching/api/hydrometal/remove?ids=' + recordIds )
+                         scope.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
                             .then(response => {
                                 console.info(response.data)
                                 Vue.delete(this.data.items, rowId)
@@ -243,6 +236,8 @@ var app = new Vue({
                             .catch(e => {
                                 console.log(e)
                             })
+                    }
+                })
             },
             addRecord: function(scope) {
                 let formId = 'form_hydrometal'
@@ -312,7 +307,7 @@ var app = new Vue({
                 this.current['shift_id'] = shiftId
                 this.current['extra'] = this.data['extra']
                 data.append('item', JSON.stringify(this.current))
-                scope.$http.post('leaching/pulps/update', data)
+                scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
                         this.state = 'view'
                         this.current = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}}
@@ -329,7 +324,7 @@ var app = new Vue({
                 this.newRecord['shift_id'] = shiftId
                 this.newRecord['extra'] = this.data['extra']
                 data.append('item', JSON.stringify(this.newRecord))
-                scope.$http.post('leaching/pulps/update', data)
+                scope.$http.post('leaching/update/pulps', data)
                     .then(response => {
                         this.state = 'view'
                         this.init(scope)
@@ -379,7 +374,7 @@ var app = new Vue({
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.data.items))
 
-                scope.$http.post('/leaching/agitators/save', data)
+                scope.$http.post('/leaching/agitators/update', data)
                     .then(response => {
                         console.info(response.data)
                         this.state = 'edit'
@@ -1112,23 +1107,8 @@ var app = new Vue({
     components = [
 
     ]
-//    this.tables['form_express_analysis'].init(this)
-//    this.tables['form_densers'].init(this)
-    this.tables['form_hydrometal'].init(this)
-    this.tables['form_pulps'].init(this)
-    this.tables['form_agitators'].init(this)
-    this.tables['form_cinder'].init(this)
-    this.tables['form_reagents'].init(this)
-    this.tables['form_ready_tanks'].init(this)
-    this.tables['form_neutural_solution'].init(this)
-    this.tables['form_self_security'].init(this)
-    this.tables['form_empty_tanks'].init(this)
-    this.tables['form_densers_neutural'].init(this)
-    this.tables['form_shift_info'].init(this)
-    this.tables['form_schiehta'].init(this)
-    this.tables['form_electrolysis'].init(this)
-    this.tables['form_sample2'].init(this)
-    this.tables['form_veu'].init(this)
+    this.tables['form_express_analysis'].init(this)
+    this.tables['form_densers'].init(this)
   },
   methods: {
     addNewRow: function(formId) {
@@ -1182,7 +1162,6 @@ var app = new Vue({
         this.tables[formId].onChange(this)
     },
     onRemoveRow: function(rowId, formId) {
-        console.log(formId + '' + rowId)
         this.tables[formId].onRemoveRow(this, rowId)
     },
     onRow: function(rowId, formId) {

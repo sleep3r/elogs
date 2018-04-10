@@ -1,28 +1,16 @@
 import json
+import pprint
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
-
 from django.template import loader
-from django.utils import timezone
-
-import datetime
-from leaching.express_anal_app import helpers
 from leaching.express_anal_app import tables
-import pprint
-
 from leaching.express_anal_app.journal_forms import *
-
-from collections import defaultdict
-
 from leaching.express_anal_app.tables import get_free_tanks_table
 from utils.errors import AccessError
 from utils.webutils import parse, process_json_view
 from django.utils.translation import gettext as _
-from django.db import transaction
-
-import leaching.express_anal_app.components.agitators
 
 
 @process_json_view(auth_required=False)
@@ -611,57 +599,6 @@ def leaching_save_neutural_densers(request):
             print(form.errors)
 
     return HttpResponseRedirect('/leaching/all/edit')
-
-
-@login_required
-def leaching_save_pulps(request):
-
-    journal = Journal.objects.all()[0]
-    if 'shift_id' in request.POST:
-        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
-    else:
-        shift = Shift.objects.all()[0]
-    formsCodes = ['zn_pulp', 'cu_pulp', 'fe_sol']
-    fields = [
-        'liq_sol',
-        'ph',
-        't0',
-        'before',
-        'after',
-        'solid',
-        'h2so4',
-        'sb',
-        'cu',
-        'fe',
-        'density',
-        'arsenic',
-        'cl',
-    ]
-
-    for formCode in formsCodes:
-        model = {
-            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
-            'journal': journal.id,
-            'shift': shift.id
-        }
-        for field in fields:
-            postIndex = formCode + '.' + field
-            if postIndex in request.POST:
-                model[field] = request.POST[postIndex]
-
-        if formCode == 'zn_pulp':
-            form = ZnPulpForm(model)
-        elif formCode == 'cu_pulp':
-            form = CuPulpForm(model)
-        elif formCode == 'fe_sol':
-            form = FeSolutionForm(model)
-
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
-
-    return HttpResponseRedirect('leaching/all/edit')
 
 
 @login_required
@@ -1434,6 +1371,7 @@ def leaching_api_express_analysis(request):
         'items': items
     }
 
+
 @process_json_view(auth_required=False)
 def leaching_api_densers(request):
     if 'shift_id' in request.GET:
@@ -1452,245 +1390,6 @@ def leaching_api_densers(request):
         'count': len(items)
     }
 
-@process_json_view(auth_required=False)
-def leaching_api_hydrometal(request):
-    if 'shift_id' in request.GET:
-        shift = Shift.objects.filter(id=request.GET['shift_id'])[0]
-    else:
-        shift = Shift.objects.all()[0]
-
-    items = tables.get_hydrometal1_table(shift)
-
-    return {
-        'result': 'ok',
-        'items': items,
-        'count': len(items),
-        'extra': tables.get_cinder_gran_table(shift)
-    }
-
-@process_json_view(auth_required=False)
-def leaching_save_hydrometal_json(request):
-    journal = Journal.objects.all()[0]
-    if 'shift_id' in request.POST:
-        shift = Shift.objects.filter(id=request.POST['shift_id'])[0]
-    else:
-        shift = Shift.objects.all()[0]
-    employee = Employee.objects.all()[0]
-    manns = ['1', '4']
-    fields = [
-        'ph',
-        'acid',
-        'fe2',
-        'fe_total',
-        'cu',
-        'sb',
-        'sediment',
-    ]
-
-    for mannNum in manns:
-        model = {
-            'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
-            'journal': journal.id,
-            'shift': shift.id,
-            'employee': employee.id
-        }
-        model['mann_num'] = mannNum
-        for field in fields:
-            index = 'mann' + mannNum + '.' + field
-            if index in request.POST:
-                model[field] = request.POST[index]
-
-        form = HydrometalForm(model)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
-
-    return {
-        'result': 'ok',
-        'items': tables.get_hydrometal1_table(shift),
-        'extra': tables.get_cinder_gran_table(shift)
-    }
-
-
-@process_json_view(auth_required=False)
-def leaching_update_hydrometal(request):
-    journal = Journal.objects.all()[0]
-    data = json.loads(request.POST['item'])
-
-    print(data['shift_id'])
-    print(data['extra'])
-
-    if 'shift_id' in data:
-        shift = Shift.objects.get(id=data['shift_id'])
-    else:
-        shift = Shift.objects.all()[0]
-    employee = Employee.objects.all()[0]
-
-    fields = [
-        'ph',
-        'acid',
-        'fe2',
-        'fe_total',
-        'cu',
-        'sb',
-        'sediment',
-        'mann_num'
-    ]
-
-    extra_id = data['extra']['id']
-    extra_fields = [
-        'gran',
-        'gran_avg',
-        'fe_avg',
-        'fe_shave'
-    ]
-
-    if extra_id is None:
-        cinder_model = CinderDensity()
-    else:
-        cinder_model = CinderDensity.objects.get(pk=extra_id)
-
-    setattr(cinder_model, 'journal', journal)
-    setattr(cinder_model, 'shift', shift)
-    for field in extra_fields:
-        if field in data['extra']:
-            setattr(cinder_model, field, data['extra'][field])
-
-    cinder_model.save()
-
-    manns = ['1','4']
-    for man in manns:
-        item = data[man]
-        if 'id' in item:
-            model = HydroMetal.objects.get(pk=item['id'])
-        else:
-            model = HydroMetal()
-            setattr(model, 'mann_num', man)
-            setattr(model, 'journal', journal)
-            setattr(model, 'shift', shift)
-            setattr(model, 'employee', employee)
-
-        for field in fields:
-            if field in item:
-                setattr(model, field, item[field])
-        model.save()
-
-    return {
-        'result': 'ok',
-    }
-
-
-@process_json_view(auth_required=False)
-def leaching_save_hydrometal_remove(request):
-    id = request.GET['id']
-    record = HydroMetal.objects.filter(id=id).delete()
-
-    return {
-        'action': 'remove',
-        'id': id,
-        'record': record
-    }
-
-
-@process_json_view(auth_required=False)
-def leaching_api_pulps(request):
-    if 'shift_id' in request.GET:
-        shift = Shift.objects.get(id=request.GET['shift_id'])
-    else:
-        shift = Shift.objects.all()[0]
-
-    return {
-        'result': 'ok',
-        'items': tables.get_solutions_table(shift),
-        'extra': tables.get_solutions2_table(shift)
-    }
-
-
-@process_json_view(auth_required=False)
-def leaching_update_pulps(request):
-    journal = Journal.objects.get(name='Журнал экспресс анализов')
-    data = json.loads(request.POST['items'])
-
-    if 'shift_id' in data:
-        shift = Shift.objects.get(id=data['shift_id'])
-    else:
-        shift = Shift.objects.all()[0]
-
-    zn_fields = [f.name for f in ZnPulpAnal._meta.get_fields(include_parents=False) if f.name != 'cu_pulp_anal' if f.name != 'fe_solution_anal' if f.name != 'journaltable_ptr']
-    cu_fields = [f.name for f in CuPulpAnal._meta.get_fields(include_parents=False) if f.name != 'zn_pulp_anal' if f.name != 'fe_solution_anal' if f.name != 'journaltable_ptr']
-    fe_fields = [f.name for f in FeSolutionAnal._meta.get_fields(include_parents=False) if f.name != 'cu_pulp_anal' if f.name != 'zn_pulp_anal' if f.name != 'journaltable_ptr']
-    da_fields = [f.name for f in DailyAnalysis._meta.get_fields(include_parents=False) if f.name != 'journaltable_ptr']
-
-    if 'id' in data['zn_pulp']:
-        zn_pulp = ZnPulpAnal.objects.get(pk=int(data['zn_pulp']['id']))
-    else:
-        zn_pulp = ZnPulpAnal()
-
-    if 'id' in data['cu_pulp']:
-        cu_pulp = CuPulpAnal.objects.get(pk=int(data['cu_pulp']['id']))
-    else:
-        cu_pulp = CuPulpAnal()
-
-    if 'id' in data['fe_sol']:
-        fe_sol = FeSolutionAnal.objects.get(pk=int(data['fe_sol']['id']))
-    else:
-        fe_sol = FeSolutionAnal()
-
-    if 'id' in data['extra']:
-        day_anal = DailyAnalysis.objects.get(pk=int(data['extra']['id']))
-    else:
-        day_anal = DailyAnalysis()
-
-    for field in da_fields:
-        setattr(day_anal, field, data['extra'][field])
-    day_anal.save()
-
-    for field in zn_fields:
-        setattr(zn_pulp, field, data['zn_pulp'].get(field) or 0)
-
-    setattr(zn_pulp,'shift', shift)
-    zn_pulp.journal = journal
-    zn_pulp.cu_pulp_anal = cu_pulp
-    zn_pulp.fe_sol_anal = fe_sol
-    zn_pulp.save()
-
-    for field in cu_fields:
-        setattr(cu_pulp, field, data['cu_pulp'].get(field) or 0)
-    setattr(cu_pulp, 'shift', shift)
-    cu_pulp.zn_pulp_anal = zn_pulp
-    cu_pulp.fe_sol_anal = fe_sol
-    cu_pulp.journal = journal
-    cu_pulp.save()
-
-    for field in fe_fields:
-        setattr(fe_sol, field, data['fe_sol'].get(field) or 0)
-    setattr(fe_sol, 'shift', shift)
-    fe_sol.zn_pulp_anal = zn_pulp
-    fe_sol.cu_pulp_anal = cu_pulp
-    fe_sol.save()
-
-    return {
-        'result': 'ok',
-        'data': data
-    }
-
-@process_json_view(auth_required=False)
-def leaching_pulps_remove(request):
-    combid = request.GET['combid']
-
-    ids = combid.split(';')
-
-    record1 = ZnPulpAnal.objects.filter(id=ids[0]).delete()
-    record2 = CuPulpAnal.objects.filter(id=ids[1]).delete()
-    record3 = DailyAnalysis.objects.filter(id=ids[2]).delete()
-
-    return {
-        'action': 'remove',
-        'id': id,
-        'record': record1
-    }
-
 
 @process_json_view(auth_required=False)
 def leaching_make_shift(request):
@@ -1703,6 +1402,7 @@ def leaching_make_shift(request):
         'result': 'ok',
         'shift': shift
     }
+
 
 @login_required
 def leaching_edit_wizard(request):
@@ -1967,6 +1667,13 @@ def leaching_edit_wizard(request):
         'steps': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     }
 
+    template = loader.get_template('wizard.html')
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def leaching_edit_by_hours(request):
+    context = {}
     template = loader.get_template('wizard.html')
     return HttpResponse(template.render(context, request))
 

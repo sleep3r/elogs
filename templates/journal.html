@@ -26,7 +26,7 @@
     </div>
     <div class="date--right">
        <h4>{{info.data.date | date:"c"}}</h4>
-        <a class="btn btn-info pull-right" href="?print"><i class="glyphicon glyphicon-print"></i>&nbsp;Print version</a>
+        <a class="btn btn-info pull-right" href="?shift={{shift.data.id}}&print"><i class="glyphicon glyphicon-print"></i> {% trans "Печатная версия" %}</a>
     </div>
     <!-- Trigger the modal with a button -->
 </div>
@@ -35,7 +35,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12" >
   <h3>{% trans "Лист" %} 1 </h3>
 
-  <button class="btn btn-success pull-right" onclick='clickOnWizard()' data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i>&nbsp;Wizard</button>
+  <button class="btn btn-success pull-right" onclick='clickOnWizard()' data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i>&nbsp;{% trans "Заполнить" %}</button>
 </div>
 {% endif %}
 
