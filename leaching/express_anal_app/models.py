@@ -34,12 +34,9 @@ class Shift(models.Model):
                                  related_name='leaching_labornat_shifts', verbose_name='Лаборант')
     hydro = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
                                  related_name='leaching_hydro_shifts', verbose_name='Аппаратчик-Гидрометаллург')
-    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'Обжиг'),
-                                                                         ('leaching', 'Выщелачивание'),
-                                                                         ('electrolysis', 'Электролиз'),))
 
     def __str__(self):
-        return f'<{self.date}> {self.order} смена, {self.get_plant_display()}'
+        return f'<{self.date}> {self.order} смена, выщелачивание'
 
 
 class JournalTable(models.Model):

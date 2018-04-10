@@ -17,6 +17,7 @@ from leaching.express_anal_app.journal_forms import *
 from collections import defaultdict
 
 from leaching.express_anal_app.tables import get_free_tanks_table
+from utils.errors import AccessError
 from utils.webutils import parse, process_json_view
 from django.utils.translation import gettext as _
 from django.db import transaction
@@ -1784,6 +1785,20 @@ def leaching_edit_wizard(request):
         shiftId = request.GET['shift']
         try:
             shift = Shift.objects.get(id=shiftId) or None
+            em = request.user.employee
+            if em.position == 'laborant':
+                if shift.laborant != em and shift.laborant is not None:
+                    raise AccessError(message='У вас нет доступа к этой смене!')
+                shift.laborant = em
+            elif em.position == 'master':
+                if shift.master != em and shift.master is not None:
+                    raise AccessError(message='У вас нет доступа к этой смене!')
+                shift.master = em
+            elif em.position == 'hydro':
+                if shift.hydro != em and shift.hydro is not None:
+                    raise AccessError(message='У вас нет доступа к этой смене!')
+                shift.hydro = em
+            shift.save()
         except:
             shift = Shift.objects.all()[0]
     else:
