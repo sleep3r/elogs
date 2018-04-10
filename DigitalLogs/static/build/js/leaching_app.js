@@ -225,10 +225,17 @@ var app = new Vue({
             },
             onRemoveRow: function(scope, rowId) {
                 let mans = [1, 4]
+                var recordIds = ''
+
                 mans.forEach( manNumber => {
                     if (this.data.items[rowId][manNumber]){
                          let recordId = this.data.items[rowId][manNumber]['id']
-                         scope.$http.get('/leaching/api/hydrometal/remove?id=' + recordId)
+                         recordIds += ':' + recordId
+
+                    }
+
+                })
+                scope.$http.get('/leaching/api/hydrometal/remove?ids=' + recordIds )
                             .then(response => {
                                 console.info(response.data)
                                 Vue.delete(this.data.items, rowId)
@@ -236,8 +243,6 @@ var app = new Vue({
                             .catch(e => {
                                 console.log(e)
                             })
-                    }
-                })
             },
             addRecord: function(scope) {
                 let formId = 'form_hydrometal'
@@ -1177,6 +1182,7 @@ var app = new Vue({
         this.tables[formId].onChange(this)
     },
     onRemoveRow: function(rowId, formId) {
+        console.log(formId + '' + rowId)
         this.tables[formId].onRemoveRow(this, rowId)
     },
     onRow: function(rowId, formId) {

@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
 from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
-    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, express_analysis
+    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, express_analysis, hydrometal
 
 
 urlpatterns = [
@@ -25,11 +25,11 @@ urlpatterns = [
     url('save/self/security$', views.leaching_save_self_security),
 
 
-    url('leaching/api/hydrometal$', views.leaching_api_hydrometal),
+    url('leaching/api/hydrometal$', hydrometal.leaching_api_hydrometal),
     url('save/hydrometal$', views.leaching_save_hydrometal),
-    url('save/hydrometal/json$', views.leaching_save_hydrometal_json),
-    url('leaching/update/hydrometal$', views.leaching_update_hydrometal),
-    url('leaching/api/hydrometal/remove$', views.leaching_save_hydrometal_remove),
+    url('save/hydrometal/json$', hydrometal.leaching_save_hydrometal_json),
+    url('leaching/update/hydrometal$', hydrometal.leaching_update_hydrometal),
+    url('leaching/api/hydrometal/remove$', hydrometal.leaching_save_hydrometal_remove),
 
     url('save/pulps$', views.leaching_save_pulps),
     url('leaching/api/pulps$', views.leaching_api_pulps),
