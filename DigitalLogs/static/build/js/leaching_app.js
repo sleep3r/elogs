@@ -312,7 +312,7 @@ var app = new Vue({
                 this.current['shift_id'] = shiftId
                 this.current['extra'] = this.data['extra']
                 data.append('item', JSON.stringify(this.current))
-                scope.$http.post('leaching/update/pulps', data)
+                scope.$http.post('leaching/pulps/update', data)
                     .then(response => {
                         this.state = 'view'
                         this.current = {'zn_pulp':{}, 'cu_pulp':{}, 'fe_sol':{}}
@@ -329,7 +329,7 @@ var app = new Vue({
                 this.newRecord['shift_id'] = shiftId
                 this.newRecord['extra'] = this.data['extra']
                 data.append('item', JSON.stringify(this.newRecord))
-                scope.$http.post('leaching/update/pulps', data)
+                scope.$http.post('leaching/pulps/update', data)
                     .then(response => {
                         this.state = 'view'
                         this.init(scope)
@@ -379,7 +379,7 @@ var app = new Vue({
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.data.items))
 
-                scope.$http.post('/leaching/agitators/update', data)
+                scope.$http.post('/leaching/agitators/save', data)
                     .then(response => {
                         console.info(response.data)
                         this.state = 'edit'

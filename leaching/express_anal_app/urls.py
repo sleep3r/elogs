@@ -2,7 +2,9 @@ from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
 from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
-    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, express_analysis, hydrometal
+    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, express_analysis, hydrometal, \
+    pulps
+
 
 
 urlpatterns = [
@@ -31,10 +33,10 @@ urlpatterns = [
     url('leaching/update/hydrometal$', hydrometal.leaching_update_hydrometal),
     url('leaching/api/hydrometal/remove$', hydrometal.leaching_save_hydrometal_remove),
 
-    url('save/pulps$', views.leaching_save_pulps),
-    url('leaching/api/pulps$', views.leaching_api_pulps),
-    url('leaching/update/pulps$', views.leaching_update_pulps),
-    url('leaching/api/pulps/remove$', views.leaching_pulps_remove),
+    url('save/pulps$', pulps.leaching_save_pulps),
+    url('leaching/api/pulps$', pulps.leaching_api_pulps),
+    url('leaching/pulps/update$', pulps.leaching_update_pulps),
+    url('leaching/api/pulps/remove$', pulps.leaching_pulps_remove),
 
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),
@@ -50,7 +52,7 @@ urlpatterns = [
 
     url('leaching/api/agitators$', agitators.leaching_api_agitators),
     url('save/agitators$', agitators.leaching_save_agitators),
-    url('leaching/agitators/update$', agitators.update_agitators),
+    url('leaching/agitators/save$', agitators.save_record),
     url('leaching/agitators/add$', agitators.add_record),
 
     url('save/cinder$', views.leaching_save_cinder),
