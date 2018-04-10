@@ -1,27 +1,15 @@
 import json
+import pprint
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.http import HttpResponseRedirect
-
 from django.template import loader
-from django.utils import timezone
-
-import datetime
-from leaching.express_anal_app import helpers
 from leaching.express_anal_app import tables
-import pprint
-
 from leaching.express_anal_app.journal_forms import *
-
-from collections import defaultdict
-
 from leaching.express_anal_app.tables import get_free_tanks_table
 from utils.webutils import parse, process_json_view
 from django.utils.translation import gettext as _
-from django.db import transaction
-
-import leaching.express_anal_app.components.agitators
 
 
 @process_json_view(auth_required=False)
@@ -1952,6 +1940,13 @@ def leaching_edit_wizard(request):
         'steps': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     }
 
+    template = loader.get_template('wizard.html')
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def leaching_edit_by_hours(request):
+    context = {}
     template = loader.get_template('wizard.html')
     return HttpResponse(template.render(context, request))
 
