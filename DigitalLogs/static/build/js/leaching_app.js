@@ -376,6 +376,7 @@ var app = new Vue({
 
                 scope.$http.post('/leaching/agitators/update', data)
                     .then(response => {
+                        console.info(response.data)
                         this.state = 'edit'
                         this.newRecord = this.initRecord
                         this.init(scope)

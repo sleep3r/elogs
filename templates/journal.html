@@ -1,6 +1,12 @@
+{% extends 'base_page.html' %}
 {% load i18n %}
-{% include "header.html" %}
 
+{% block title %}
+    <title>{% trans "Журнал Экспресс анализа" %}</title>
+{% endblock %}
+
+
+{% block content %}
 {% if form_validate %}
 <div id="app" class="validating">
 {% else %}
@@ -26,9 +32,9 @@
   <h3>{% trans "Лист" %} 1 </h3>
 
   {% if shift.data.id is not None %}
-  <a class="btn btn-success pull-right" href="/leaching/edit/wizard?shift={{shift.data.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard?shift={{shift.data.id}}"><i class="glyphicon glyphicon-edit"></i>&nbsp;Wizard</a>
   {% else %}
-  <a class="btn btn-success pull-right" href="/leaching/edit/wizard"><i class="glyphicon glyphicon-pencil"></i></a>
+  <a class="btn btn-success pull-right" href="/leaching/edit/wizard"><i class="glyphicon glyphicon-edit"></i>&nbsp;Wizard</a>
   {% endif %}
 </div>
 {% endif %}
@@ -36,25 +42,24 @@
 {% include "forms/form-shift-choice.html" with form=form_shift %}
 
 <div class="pagewrapper">
+    <div class="tablewrapper">
+        {% include "widgets/table-bchc.html" with table=bchc %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-bchc.html" with table=bchc %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-apparat.html" with table=apparat %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-apparat.html" with table=apparat %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-densers.html" with table=sgustiteli %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-densers.html" with table=sgustiteli %}
-</div>
-
-<div class="tablewrapper">
-    {% include "widgets/table-znpulp.html" with table=znpulp %}
-</div>
-<div class="tablewrapper" >
-    {% include "widgets/table-agitators.html" with table=agitators %}
-  </div>
+    <div class="tablewrapper">
+        {% include "widgets/table-znpulp.html" with table=znpulp %}
+    </div>
+    <div class="tablewrapper" >
+        {% include "widgets/table-agitators.html" with table=agitators %}
+    </div>
 </div>
 
 {% include "widgets/shift.html" with shift=info %}
@@ -64,48 +69,65 @@
         {% include "widgets/table-cinder.html" with table=cinder %}
     </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-baki.html" with table=baki %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-baki.html" with table=baki %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-neutral.html" with table=neutral %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-neutral.html" with table=neutral %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-electrolysis.html" with table=electrolysis %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-electrolysis.html" with table=electrolysis %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-empty-containers.html" with table=empty_containers %}
-</div><!--
+    <div class="tablewrapper">
+        {% include "widgets/table-empty-containers.html" with table=empty_containers %}
+    </div>
 
---><div class="tablewrapper">
-    {% include "widgets/table-schiehta.html" with table=schiehta %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-schiehta.html" with table=schiehta %}
+    </div>
 
-  <div class="tablewrapper">
-    {% include "widgets/table-reagents.html" with table=reagents %}
-  </div>
+    <div class="tablewrapper">
+        {% include "widgets/table-reagents.html" with table=reagents %}
+    </div>
 
+    <div class="tablewrapper">
+        {% include "widgets/table-simple.html" with table=probnik %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-simple.html" with table=probnik %}
-  </div>
-<div class="tablewrapper">
-    {% include "widgets/table-neutral-densers.html" with table=neutral_densers %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-neutral-densers.html" with table=neutral_densers %}
+    </div>
 
-<div class="tablewrapper">
-    {% include "widgets/table-security.html" with table=security %}
-</div>
+    <div class="tablewrapper">
+        {% include "widgets/table-security.html" with table=security %}
+    </div>
 </div>
 
 {% if form_validate %}
-{% include "widgets/form-validate.html" with form=form_validate %}
+    {% include "widgets/form-validate.html" with form=form_validate %}
 {% endif %}
 
 </div>
+{% endblock %}
 
 
-{% include "footer.html" %}
+{% block footer %}
+    {{ block.super }}
+    <!-- Custom Theme Scripts -->
+    <script src="/static/build/js/custom.js"></script>
+    <script src="/static/build/js/leaching_edit.js"></script>
+    <script src="/static/build/js/common.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <!--<script src="/static/build/js/leaching_app.js"></script>-->
+
+{% endblock %}
+
+
