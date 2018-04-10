@@ -32,6 +32,8 @@
     <link href="/static/build/css/journal.css" rel="stylesheet">
     <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
     <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
   </head>
 
   <body class="nav-md">
@@ -73,5 +75,8 @@
         <!-- top navigation -->
         {% include "top_nav.html" %}
         <!-- /top navigation -->
+        <!-- pick shift modal -->
+        {% include "modals/pick_shift.html" %}
+        <!-- /pick shift modal -->
           <!-- page content -->
          <div class="right_col" role="main">

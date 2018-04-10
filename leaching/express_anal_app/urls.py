@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 
 from leaching.express_anal_app import views
 from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
-    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu
+    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, shifts
 
 
 urlpatterns = [
@@ -107,5 +107,6 @@ urlpatterns = [
     url('json/test$', views.json_test),
     url('json/densers$', views.json_densers),
 
-    url('leaching/shift/make$', views.leaching_make_shift)
+    url('leaching/shift/make$', views.leaching_make_shift),
+    url('leaching/shift/accessible$', shifts.accessible_shifts),
 ]

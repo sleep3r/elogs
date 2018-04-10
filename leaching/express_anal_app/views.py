@@ -81,7 +81,7 @@ def index(request):
 @process_json_view(auth_required=False)
 def notifications_read(request):
     for notification_id in request.POST.getlist('ids[]'):
-        None
+        pass
     return {}
 
 @login_required

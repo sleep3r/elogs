@@ -1732,6 +1732,11 @@ if (typeof NProgress != 'undefined') {
 		   
 			$('#single_cal1').daterangepicker({
 			  singleDatePicker: true,
+				isCustomDate: function(arg){
+			  	console.info(arg)
+			  		return ['red']
+				},
+				alwaysShowCalendars: true,
 			  singleClasses: "picker_1"
 			}, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);

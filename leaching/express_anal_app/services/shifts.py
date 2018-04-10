@@ -10,11 +10,11 @@ def get_editable_shifts(employee):
     cur_order = 1 if (8 <= timezone.now().hour < 20) else 2
 
     if employee.position == 'laborant':
-        own = list(employee.leaching_labornat_shifts)
+        own = list(employee.leaching_labornat_shifts.all())
     elif employee.position == 'master':
-        own = list(employee.leaching_master_shifts)
+        own = list(employee.leaching_master_shifts.all())
     elif employee.position == 'hydro':
-        own = list(employee.leaching_hydro_shifts)
+        own = list(employee.leaching_hydro_shifts.all())
     else:
         own = []
 

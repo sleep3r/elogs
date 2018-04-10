@@ -29,12 +29,14 @@ class Shift(models.Model):
     date = models.DateField(verbose_name='Дата начала смены')
     order = models.DecimalField(max_digits=1, decimal_places=0, verbose_name='Номер смены (1, 2)')
     master = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
-                               related_name='leaching_shift_masters', verbose_name='Мастер смены')
+                               related_name='leaching_master_shifts', verbose_name='Мастер смены')
     laborant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
-                                 related_name='leaching_shift_labornats', verbose_name='Лаборант')
-    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'обжиг'),
-                                                                         ('leaching', 'выщелачивание'),
-                                                                         ('electrolysis', 'электролиз'),))
+                                 related_name='leaching_labornat_shifts', verbose_name='Лаборант')
+    hydro = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True,
+                                 related_name='leaching_hydro_shifts', verbose_name='Аппаратчик-Гидрометаллург')
+    plant = models.CharField(max_length=10, verbose_name='Цех', choices=(('furnace', 'Обжиг'),
+                                                                         ('leaching', 'Выщелачивание'),
+                                                                         ('electrolysis', 'Электролиз'),))
 
     def __str__(self):
         return f'<{self.date}> {self.order} смена, {self.get_plant_display()}'

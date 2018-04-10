@@ -370,7 +370,8 @@ class DatabaseFiller:
         for f, l in product(kz_names, kz_l_names):
             e = Employee()
             e.name = f + ' ' + l
-            e.position = 'Лаборант'
+            e.position = 'laborant'
+            e.plant = 'leaching'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -378,7 +379,17 @@ class DatabaseFiller:
         for f, l in product(ru_names, ru_l_names):
             e = Employee()
             e.name = f + ' ' + l
-            e.position = 'Мастер'
+            e.position = 'master'
+            e.plant = 'leaching'
+            lname = translate(e.name).replace(' ', '_')
+            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
+            e.save()
+
+        for f, l in product(kz_names, ru_l_names):
+            e = Employee()
+            e.name = f + ' ' + l
+            e.position = 'hydro'
+            e.plant = 'leaching'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -401,8 +412,9 @@ class DatabaseFiller:
             sh.date = dates[i%2]
             sh.plant = 'leaching'
             sh.order = random.randint(1, 2)
-            sh.master = random.choice(Employee.objects.filter(position='Мастер'))
-            sh.laborant = random.choice(Employee.objects.filter(position='Лаборант'))
+            sh.master = random.choice(Employee.objects.filter(position='master'))
+            sh.laborant = random.choice(Employee.objects.filter(position='laborant'))
+            sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
             sh.save()
 
     def fill_shift_data(self, shift):
