@@ -1,3 +1,4 @@
 django-pyodbc-azure
 pyfunctional
 django
+python-dateutil
