@@ -379,7 +379,7 @@ var app = new Vue({
                 let data = new FormData()
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.data.items))
-
+                data.append('comment', this.data.items.comment)
                 scope.$http.post('/leaching/agitators/save', data)
                     .then(response => {
                         console.info(response.data)
@@ -401,8 +401,9 @@ var app = new Vue({
                 scope.$http.post('/leaching/agitators/add', data)
                     .then(response => {
                         console.log(response.data)
-                        this.state = 'add'
+                        this.state = 'edit'
                         this.newRecord = this.initRecord
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)
