@@ -55,9 +55,9 @@ class DenserForm(ModelForm):
 
     class Meta:
         model = DenserAnal
-        fields = ['journal', 'shift', 'point','sink','ph', 'cu', 'fe', 'liq_sol', 'time']
+        fields = ['journal', 'shift', 'point','sink','ph', 'cu', 'fe', 'liq_sol', "time"]
         widgets = {
-            'time': forms.DateInput(attrs={'type': 'hidden', 'class':'form-control has-feedback-left'}),
+            "auto_time": forms.DateInput(attrs={'type': 'hidden', 'class': 'form-control has-feedback-left'}),
             'journal': forms.HiddenInput(attrs={'style': 'display:none'}),
             'shift': forms.HiddenInput(attrs={'type': 'hidden'})
         }
@@ -163,7 +163,7 @@ class DenserAnalysisForm(ModelForm):
         fields = [
             'journal',
             'shift',
-            'time',
+            "time",
             'point',
             'sink',
             'ph',
