@@ -33,8 +33,8 @@ def get_editable_shifts(employee):
 
     empty = list(Shift.objects.filter(date__gte=month_ago, **{employee.position + '__isnull': True}))
     if cur_order == 1:
-        empty = list(filter(lambda x: x.date != today or x.order!=2, empty))
-        own = list(filter(lambda x: x.date != today or x.order!=2, own))
+        empty = list(filter(lambda x: x.date != today or x.order != 2, empty))
+        own = list(filter(lambda x: x.date != today or x.order != 2, own))
 
     res = {
         'own': own,
