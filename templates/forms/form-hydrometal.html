@@ -28,15 +28,15 @@
                     <th colspan="5">4 {% trans "Манн" %}</th>
                 </tr>
                 <tr>
-                    <td><a  v-on:click="tables.{{form.name}}.state = 'add' "  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
+                    <td><a v-on:click="tables.{{form.name}}.state = 'add' "  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
                     <th>pH</th>
-                    <th>{% trans "Кисл-ть" %}</th>
-                    <th>{% trans "Fe двухвал." %}</th>
-                    <th>{% trans "Fe Общее" %}</th>
+                    <th>{% trans "Кисл-ть" %}{% trans ",<br>г/л" %}</th>
+                    <th>{% trans "Fe двухвал." %}{% trans ", мг/л" %}</th>
+                    <th>{% trans "Fe Общее" %}{% trans ", мг/л" %}</th>
                     <th>{% trans "pH" %}</th>
-                    <th>{% trans "Медь" %}</th>
-                    <th>{% trans "Fe" %}</th>
-                    <th>{% trans "Сурьма" %}</th>
+                    <th>{% trans "Медь" %}{% trans ", мг/л" %}</th>
+                    <th>{% trans "Fe" %}{% trans ", мг/л" %}</th>
+                    <th>{% trans "Сурьма" %}{% trans ", мг/л" %}</th>
                     <th>{% trans "Отстои" %}</th>
                     <th>{% trans "Action" %}</th>
                 </tr>
@@ -102,18 +102,18 @@
                 </tr>
                 <template v-if="tables.{{form.name}}.data.extra">
                     <tr>
-                        <th colspan="1">{% trans "Ситовой огарка" %}</th>
+                        <th colspan="1">{% trans "Ситовой огарка" %}{% trans ", мм" %}</th>
                         <td colspan="5">
                         </td>
-                        <th colspan="2">{% trans "Ситовой Огарка средний" %}</th>
+                        <th colspan="2">{% trans "Ситовой Огарка средний" %}{% trans ", мм" %}</th>
                         <td>
                             <input class="form-control" type="text" name="extra.grans_avg" v-model="tables.{{form.name}}.data.extra.gran_avg" />
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="2">{% trans "Общее Fe среднее" %}</th>
+                        <th colspan="2">{% trans "Общее Fe среднее" %}{% trans ", мг/л" %}</th>
                         <td colspan="2"><input class="form-control" type="text" name="extra.fe_avg" v-model="tables.{{form.name}}.data.extra.fe_avg" /></td>
-                        <th colspan="3">{% trans "Fe стружка Fe" %}</th>
+                        <th colspan="3">{% trans "Fe стружка Fe" %}{% trans ", мм" %}</th>
                         <td colspan="3">
                             <input class="form-control" type="text" name="extra.fe_shave" v-model="tables.{{form.name}}.data.extra.fe_shave" />
                         </td>
