@@ -94,23 +94,18 @@ def save_record(request):
                 if 'id' in item[agit][state]:
                     id = item[agit][state]['id']
                     model = Agitators(pk=id)
-                    model.shift = shift
-                    model.journal = journal
-                    model.num = agit
-                    model.employee = employee
-                    model.before = item[agit][state] == 'true'
-                    model.time = currentTime
                 else:
                     model = Agitators()
-                    model.shift = shift
-                    model.journal = journal
-                    model.num = agit
-                    model.employee = employee
-                    model.time = currentTime
-                    model.before = state == 'true'
 
                 for field in fields:
                     setattr(model, field, item[agit][state].get(field))
+
+                model.shift = shift
+                model.journal = journal
+                model.num = agit
+                model.employee = employee
+                model.time = currentTime
+                model.before = state == 'true'
                 model.comment = data['comment']
                 model.save()
 
@@ -128,6 +123,8 @@ def save_record(request):
 def add_record(request):
     journal = Journal.objects.get(name='Журнал экспресс анализов')
 
+    print(request.POST)
+    
     if 'shift_id' in request.POST:
         shift = Shift.objects.get(id=request.POST['shift_id'])
     else:

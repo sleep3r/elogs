@@ -247,7 +247,7 @@ def leaching_jurnal(request):
             'currentId': shift.id,
             'data': shifts,
             'dump': pprint.pformat(shifts),
-            'action': '/leaching/jurnal'
+            'action': '/leaching/journal'
         },
         'cinder': {
             'title': _("Огарок"),

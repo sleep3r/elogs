@@ -47,8 +47,8 @@ def save_record(request):
         'total'
     ]
 
-    employee = Employee.objects.all()[0]
     data = json.loads(request.POST['items'])
+    fence_comment = data['fence_state']
     fields = [f.name for f in Reagents._meta.get_fields(include_parents=False) if
               f.name != 'journaltable_ptr' if f.name != 'stage' if f.name != 'state']
 
@@ -57,30 +57,40 @@ def save_record(request):
     currentTime = date_time.replace(hour=int(8), minute=0, second=0, microsecond=0)
 
     for state in states:
-        model = Reagents()
         if state in data['states']:
+            if 'id' in data['states'][state]:
+                record_id = data['states'][state]['id']
+                model = Reagents.objects.get(pk=record_id)
+            else:
+                model = Reagents()
+
             for field in fields:
                 setattr(model, field, data['states'][state].get(field))
 
-        model.journal = journal
-        model.shift = shift
-        model.time = currentTime
-        model.fence_state = data['fence_state']
-        model.state = state
-        model.stage = 'total'
-        model.save()
+            model.journal = journal
+            model.shift = shift
+            model.time = currentTime
+            model.fence_state = fence_comment
+            model.state = state
+            model.stage = 'total'
+            model.save()
 
     for stage in stages:
-        model = Reagents()
+        if 'id' in data['stages_zn_dust']:
+            record_id = data['stages_zn_dust']['id']
+            model = Reagents.objects.get(pk=record_id)
+        else:
+            model = Reagents()
+
+        if stage in data['stages_zn_dust']:
+            model.zn_dust = data['stages_zn_dust'][stage]
+
         model.journal = journal
         model.shift = shift
         model.time = currentTime
-        model.fence_state = data['fence_state']
+        model.fence_state = fence_comment
         model.stage = stage
         model.state = 'none'
-        if stage in data['stages_zn_dust']:
-            model.zn_dust = data['stages_zn_dust'][stage]
-            print(model.zn_dust)
         model.save()
 
     return {
@@ -97,9 +107,6 @@ def add_record(request):
     else:
         shift = Shift.objects.all()[0]
 
-
-    print(request.POST)
-
     states = [
         'delivered',
         'taken',
@@ -115,8 +122,8 @@ def add_record(request):
         'total'
     ]
 
-    employee = Employee.objects.all()[0]
     data = json.loads(request.POST['items'])
+    fence_comment = data['fence_state']
     fields = [f.name for f in Reagents._meta.get_fields(include_parents=False) if
               f.name != 'journaltable_ptr' if f.name != 'stage' if f.name != 'state' ]
 
@@ -133,7 +140,7 @@ def add_record(request):
         model.journal = journal
         model.shift = shift
         model.time = currentTime
-        model.fence_state = data['fence_state']
+        model.fence_state = fence_comment
         model.state = state
         model.stage = 'total'
         model.save()
@@ -143,12 +150,11 @@ def add_record(request):
         model.journal = journal
         model.shift = shift
         model.time = currentTime
-        model.fence_state = data['fence_state']
+        model.fence_state = fence_comment
         model.stage = stage
         model.state = 'none'
         if stage in data['stages_zn_dust']:
             model.zn_dust = data['stages_zn_dust'][stage]
-            print(model.zn_dust)
         model.save()
 
 
