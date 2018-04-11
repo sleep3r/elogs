@@ -128,7 +128,7 @@ def leaching_update_pulps(request):
         if field in data['extra']:
             setattr(day_anal, field, data['extra'].get(field))
         else:
-            setattr(day_anal, field, '...')
+            setattr(day_anal, field, '')
     day_anal.journal = journal
     day_anal.shift = shift
     day_anal.save()
@@ -203,7 +203,9 @@ def add_record(request):
         if field in data['extra']:
             setattr(day_anal, field, data['extra'].get(field))
         else:
-            setattr(day_anal, field, '...')
+            setattr(day_anal, field, ' ')
+    day_anal.journal = journal
+    day_anal.shift = shift
     day_anal.save()
 
     for field in zn_fields:
