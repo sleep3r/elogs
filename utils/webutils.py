@@ -57,7 +57,7 @@ def process_json_view(auth_required=True):
             if not isinstance(response, (HttpResponse, JsonResponse)):
                 if isinstance(response, dict):
                     response["__t"] = time.time()
-                if type(response) is not str:
+                if type(response) is dict:
                     response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
                 else:
                     response = JsonResponse(response, safe=False, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})

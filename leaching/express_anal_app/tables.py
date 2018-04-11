@@ -79,9 +79,10 @@ def get_solutions_table(shift=None):
 
     res = deep_dict()
 
+    delimiter = '-'
     data = ZnPulpAnal.objects.filter(shift=shift)
     for d in data:
-        combi_index = str(d.id) + ';' + str(d.cu_pulp_anal.id) + ';' + str(d.fe_solution_anal.id)
+        combi_index = str(d.id) + delimiter + str(d.cu_pulp_anal.id) + delimiter + str(d.fe_solution_anal.id)
         for attr in ['liq_sol', 'ph', 't0', 'id', 'cu_pulp_anal']:
             val = getattr(d, attr)
             if val is not None:
@@ -89,7 +90,7 @@ def get_solutions_table(shift=None):
 
     data = CuPulpAnal.objects.filter(shift=shift)
     for d in data:
-        combi_index = str(d.zn_pulp_anal.id) + ';' + str(d.id) + ';' + str(d.fe_solution_anal.id)
+        combi_index = str(d.zn_pulp_anal.id) + delimiter + str(d.id) + delimiter + str(d.fe_solution_anal.id)
         for attr in ['liq_sol', 'before', 'after', 'solid', 'id']:
             val = getattr(d, attr)
             if val is not None:
@@ -97,7 +98,7 @@ def get_solutions_table(shift=None):
 
     data = FeSolutionAnal.objects.filter(shift=shift)
     for d in data:
-        combi_index = str(d.zn_pulp_anal.id) + ';' + str(d.cu_pulp_anal.id) + ';' + str(d.id)
+        combi_index = str(d.zn_pulp_anal.id) + delimiter + str(d.cu_pulp_anal.id) + delimiter + str(d.id)
         for attr in ['h2so4', 'solid', 'sb', 'cu', 'fe', 'density', 'arsenic', 'cl', 'id']:
             val = getattr(d, attr)
             if val is not None:

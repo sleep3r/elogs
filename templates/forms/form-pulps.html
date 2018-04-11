@@ -54,6 +54,11 @@
                             <td><input class="form-control" type="text" name="shlippe_sb" v-model="tables.{{form.name}}.data.extra.shlippe_sb" /></td>
                             <td><input class="form-control" type="text" name="activ_sas" v-model="tables.{{form.name}}.data.extra.activ_sas" /></td>
                             <td><input class="form-control" type="text" name="fe_hi1" v-model="tables.{{form.name}}.data.extra.fe_hi1" /></td>
+                            <td rowspan="5" >
+                                <template v-if="tables.{{form.name}}.data.extra">
+                                    <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
+                                </template>
+                            </td>
                         </template>
                     </tr>
                 </thead>
@@ -62,11 +67,7 @@
                         <td><a v-on:click="setAddState('{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a></td>
                         <td colspan="15"></td>
                         <th colspan="2">Анализы оборот. сгуст.</th>
-                        <td rowspan="5" >
-                            <template v-if="tables.{{form.name}}.data.extra">
-                                <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
-                            </template>
-                        </td>
+
                     </tr>
                 <template v-for="(item, key) in tables.{{form.name}}.data.items">
                     <tr class="mini">
@@ -115,11 +116,6 @@
                             <td><input class="form-control" type="text" name="fe_sol.arsenic" v-model="tables.{{form.name}}.current.fe_sol.arsenic" /></td>
                             <td><input class="form-control" type="text" name="fe_sol.cl" v-model="tables.{{form.name}}.current.fe_sol.cl" /></td>
                             <th colspan="2">{% trans "Анализы оборот. сгуст." %}</th>
-                            <td rowspan="5" >
-                                <template v-if="tables.{{form.name}}.data.extra">
-                                    <input class="form-control" type="text" name="fe_hi2" v-model="tables.{{form.name}}.data.extra.fe_hi2" />
-                                </template>
-                            </td>
                         </tr>
                     </template>
                     <template v-if="tables.{{form.name}}.state == 'add'">

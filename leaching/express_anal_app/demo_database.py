@@ -3,8 +3,11 @@ import random
 from inspect import ismethod
 from itertools import product
 
+from django.db.models import Model
 from django.utils import timezone
 
+from furnace.fractional_app.models import *
+from furnace.fractional_app.models import models as famodels
 from leaching.express_anal_app import models as eamodels
 from leaching.express_anal_app.models import *
 from utils.webutils import parse, translate
@@ -359,6 +362,17 @@ class DatabaseFiller:
             r.save()
 
 
+    def fill_fractional_app(self):
+        cinder_base = [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
+        schieht_base = [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
+        for i in range(100):
+            time = timezone.now() - datetime.timedelta(hours=2 * i)
+            cinder = [c + random.uniform(0, 2) for c in cinder_base]
+            schieht = [s + random.uniform(0, 2) for s in schieht_base]
+
+            mp = MeasurementPair().add_weights(cinder, schieht, time, time - datetime.timedelta(minutes=30))
+            mp.save()
+
 
     # --------------------------------------------------------------------------------------------
     def fill_employees(self):
@@ -370,7 +384,8 @@ class DatabaseFiller:
         for f, l in product(kz_names, kz_l_names):
             e = Employee()
             e.name = f + ' ' + l
-            e.position = 'Лаборант'
+            e.position = 'laborant'
+            e.plant = 'leaching'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -378,7 +393,17 @@ class DatabaseFiller:
         for f, l in product(ru_names, ru_l_names):
             e = Employee()
             e.name = f + ' ' + l
-            e.position = 'Мастер'
+            e.position = 'master'
+            e.plant = 'leaching'
+            lname = translate(e.name).replace(' ', '_')
+            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
+            e.save()
+
+        for f, l in product(kz_names, ru_l_names):
+            e = Employee()
+            e.name = f + ' ' + l
+            e.position = 'hydro'
+            e.plant = 'leaching'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -401,8 +426,9 @@ class DatabaseFiller:
             sh.date = dates[i%2]
             sh.plant = 'leaching'
             sh.order = random.randint(1, 2)
-            sh.master = random.choice(Employee.objects.filter(position='Мастер'))
-            sh.laborant = random.choice(Employee.objects.filter(position='Лаборант'))
+            sh.master = random.choice(Employee.objects.filter(position='master'))
+            sh.laborant = random.choice(Employee.objects.filter(position='laborant'))
+            sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
             sh.save()
 
     def fill_shift_data(self, shift):
@@ -412,10 +438,14 @@ class DatabaseFiller:
                 attribute(shift=shift)
 
     def clean_database(self):
-        exception_models = [User, Employee, Shift, Journal, JournalTable]
+        exception_models = [User, Employee, Shift, Journal, JournalTable, Model]
 
         db_models = []
         for name, obj in inspect.getmembers(eamodels):
+            if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
+                db_models.append(obj)
+
+        for name, obj in inspect.getmembers(famodels):
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
@@ -434,10 +464,11 @@ class DatabaseFiller:
         self.fill_journals()
         self.fill_shifts()
 
+        self.fill_fractional_app()
+
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
 
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
         self.create_demo_database()
-

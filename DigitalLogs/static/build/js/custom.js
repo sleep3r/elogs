@@ -1467,7 +1467,7 @@ if (typeof NProgress != 'undefined') {
 		function init_InputMask() {
 			
 			if( typeof ($.fn.inputmask) === 'undefined'){ return; }
-			console.log('init_InputMask');
+
 			
 				$(":input").inputmask();
 				
@@ -1573,7 +1573,6 @@ if (typeof NProgress != 'undefined') {
 		function init_daterangepicker() {
 
 			if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
-			console.log('init_daterangepicker');
 		
 			var cb = function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
@@ -1648,7 +1647,6 @@ if (typeof NProgress != 'undefined') {
 	   function init_daterangepicker_right() {
 	      
 				if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
-				console.log('init_daterangepicker_right');
 		  
 				var cb = function(start, end, label) {
 				  console.log(start.toISOString(), end.toISOString(), label);
@@ -1728,10 +1726,14 @@ if (typeof NProgress != 'undefined') {
 	    function init_daterangepicker_single_call() {
 	      
 			if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
-			console.log('init_daterangepicker_single_call');
 		   
 			$('#single_cal1').daterangepicker({
 			  singleDatePicker: true,
+				isCustomDate: function(arg){
+			  	console.info(arg)
+			  		return ['red']
+				},
+				alwaysShowCalendars: true,
 			  singleClasses: "picker_1"
 			}, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
@@ -1762,7 +1764,7 @@ if (typeof NProgress != 'undefined') {
 		function init_daterangepicker_reservation() {
 	      
 			if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
-			console.log('init_daterangepicker_reservation');
+
 		 
 			$('#reservation').daterangepicker(null, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
@@ -1787,11 +1789,15 @@ if (typeof NProgress != 'undefined') {
 			
 			$('#wizard').smartWizard({
 			    keyNavigation: false,
+			    enableAllSteps: true,
+			    transitionEffect: 'slideleft',
 			    labelPrevious:'Назад', // label for Previous button
 			    labelNext:'Далее', // label for Next button
                 labelFinish:'Завершить',
+                hideButtonsOnDisabled: true,
                 onFinish: function(){
                         console.log('Finish')
+                        window.location = "/leaching/journal?print"
                     },
                 });
 
@@ -1849,15 +1855,14 @@ if (typeof NProgress != 'undefined') {
 		function init_PNotify() {
 			
 			if( typeof (PNotify) === 'undefined'){ return; }
-			console.log('init_PNotify');
+
 		}; 
 	   
 	   
 	   /* CUSTOM NOTIFICATION */
 			
 		function init_CustomNotification() {
-			
-			console.log('run_customtabs');
+
 			
 			if( typeof (CustomTabs) === 'undefined'){ return; }
 			console.log('init_CustomTabs');
@@ -1915,7 +1920,6 @@ if (typeof NProgress != 'undefined') {
 			function init_EasyPieChart() {
 				
 				if( typeof ($.fn.easyPieChart) === 'undefined'){ return; }
-				console.log('init_EasyPieChart');
 				
 				$('.chart').easyPieChart({
 				  easing: 'easeOutElastic',
@@ -1972,11 +1976,11 @@ if (typeof NProgress != 'undefined') {
 		
 		function init_charts() {
 			
-				console.log('run_charts  typeof [' + typeof (Chart) + ']');
+//				console.log('run_charts  typeof [' + typeof (Chart) + ']');
 			
 				if( typeof (Chart) === 'undefined'){ return; }
 				
-				console.log('init_charts');
+//				console.log('init_charts');
 			
 				
 				Chart.defaults.global.legend = {
@@ -2378,7 +2382,6 @@ if (typeof NProgress != 'undefined') {
 		function init_compose() {
 		
 			if( typeof ($.fn.slideToggle) === 'undefined'){ return; }
-			console.log('init_compose');
 		
 			$('#compose, .compose-close').click(function(){
 				$('.compose').slideToggle();
@@ -2387,116 +2390,111 @@ if (typeof NProgress != 'undefined') {
 		};
 	   
 	   	/* CALENDAR */
-		  
-		    function  init_calendar() {
-					
-				if( typeof ($.fn.fullCalendar) === 'undefined'){ return; }
-				console.log('init_calendar');
-					
-				var date = new Date(),
-					d = date.getDate(),
-					m = date.getMonth(),
-					y = date.getFullYear(),
-					started,
-					categoryClass;
-
-				var calendar = $('#calendar').fullCalendar({
-				  header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay,listMonth'
-				  },
-				  selectable: true,
-				  selectHelper: true,
-				  select: function(start, end, allDay) {
-					$('#fc_create').click();
-
-					started = start;
-					ended = end;
-
-					$(".antosubmit").on("click", function() {
-					  var title = $("#title").val();
-					  if (end) {
-						ended = end;
-					  }
-
-					  categoryClass = $("#event_type").val();
-
-					  if (title) {
-						calendar.fullCalendar('renderEvent', {
-							title: title,
-							start: started,
-							end: end,
-							allDay: allDay
-						  },
-						  true // make the event "stick"
-						);
-					  }
-
-					  $('#title').val('');
-
-					  calendar.fullCalendar('unselect');
-
-					  $('.antoclose').click();
-
-					  return false;
-					});
-				  },
-				  eventClick: function(calEvent, jsEvent, view) {
-					$('#fc_edit').click();
-					$('#title2').val(calEvent.title);
-
-					categoryClass = $("#event_type").val();
-
-					$(".antosubmit2").on("click", function() {
-					  calEvent.title = $("#title2").val();
-
-					  calendar.fullCalendar('updateEvent', calEvent);
-					  $('.antoclose2').click();
-					});
-
-					calendar.fullCalendar('unselect');
-				  },
-				  editable: true,
-				  events: [{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				  }, {
-					title: 'Long Event',
-					start: new Date(y, m, d - 5),
-					end: new Date(y, m, d - 2)
-				  }, {
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false
-				  }, {
-					title: 'Lunch',
-					start: new Date(y, m, d + 14, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false
-				  }, {
-					title: 'Birthday Party',
-					start: new Date(y, m, d + 1, 19, 0),
-					end: new Date(y, m, d + 1, 22, 30),
-					allDay: false
-				  }, {
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/'
-				  }]
-				});
-				
-			};
+	   	// function  init_calendar() {
+           //
+			// 	if( typeof ($.fn.fullCalendar) === 'undefined'){ return; }
+			// 	console.log('init_calendar');
+           //
+			// 	var date = new Date(),
+			// 		d = date.getDate(),
+			// 		m = date.getMonth(),
+			// 		y = date.getFullYear(),
+			// 		started,
+			// 		categoryClass;
+           //
+			// 	var calendar = $('#shift_calendar').fullCalendar({
+			// 	  header: {
+			// 		left: 'prev,next today',
+			// 		center: 'title',
+			// 		right: 'month,agendaWeek,agendaDay,listMonth'
+			// 	  },
+			// 	  selectable: true,
+			// 	  selectHelper: true,
+			// 	  select: function(start, end, allDay) {
+			// 		$('#fc_create').click();
+           //
+			// 		started = start;
+			// 		ended = end;
+           //
+			// 		$(".antosubmit").on("click", function() {
+			// 		  var title = $("#title").val();
+			// 		  if (end) {
+			// 			ended = end;
+			// 		  }
+           //
+			// 		  categoryClass = $("#event_type").val();
+           //
+			// 		  if (title) {
+			// 			calendar.fullCalendar('renderEvent', {
+			// 				title: title,
+			// 				start: started,
+			// 				end: end,
+			// 				allDay: allDay
+			// 			  },
+			// 			  true // make the event "stick"
+			// 			);
+			// 		  }
+           //
+			// 		  $('#title').val('');
+           //
+			// 		  calendar.fullCalendar('unselect');
+           //
+			// 		  $('.antoclose').click();
+           //
+			// 		  return false;
+			// 		});
+			// 	  },
+			// 	  eventClick: function(calEvent, jsEvent, view) {
+			// 		$('#fc_edit').click();
+			// 		$('#title2').val(calEvent.title);
+           //
+			// 		categoryClass = $("#event_type").val();
+           //
+			// 		$(".antosubmit2").on("click", function() {
+			// 		  calEvent.title = $("#title2").val();
+           //
+			// 		  calendar.fullCalendar('updateEvent', calEvent);
+			// 		  $('.antoclose2').click();
+			// 		});
+           //
+			// 		calendar.fullCalendar('unselect');
+			// 	  },
+			// 	  editable: false,
+			// 	  events: [{
+			// 		title: '1 смена',
+			// 		start: new Date(y, m, 1, 8)
+			// 	  }, {
+			// 		title: '2 смена',
+			// 		start: new Date(y, m, 1, 20)
+			// 	  }, {
+			// 		title: 'Meeting',
+			// 		start: new Date(y, m, d, 10, 30),
+			// 		allDay: false
+			// 	  }, {
+			// 		title: 'Lunch',
+			// 		start: new Date(y, m, d + 14, 12, 0),
+			// 		end: new Date(y, m, d, 14, 0),
+			// 		allDay: false
+			// 	  }, {
+			// 		title: 'Birthday Party',
+			// 		start: new Date(y, m, d + 1, 19, 0),
+			// 		end: new Date(y, m, d + 1, 22, 30),
+			// 		allDay: false
+			// 	  }, {
+			// 		title: 'Click for Google',
+			// 		start: new Date(y, m, 28),
+			// 		end: new Date(y, m, 29),
+			// 		url: 'http://google.com/'
+			// 	  }]
+			// 	});
+           //
+			// };
 	   
 		/* DATA TABLES */
 			
 			function init_DataTables() {
-				
-				console.log('run_datatables');
-				
+
 				if( typeof ($.fn.DataTable) === 'undefined'){ return; }
-				console.log('init_DataTables');
 				
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
@@ -2573,7 +2571,7 @@ if (typeof NProgress != 'undefined') {
 				});
 
 				TableManageButtons.init();
-				
+
 			};
 	   
 			/* CHART - MORRIS  */
@@ -5044,7 +5042,7 @@ if (typeof NProgress != 'undefined') {
 		init_gauge();
 		init_PNotify();
 		init_starrr();
-		init_calendar();
+		// init_calendar();
 		init_compose();
 		init_CustomNotification();
 		init_autosize();

@@ -27,8 +27,7 @@ def get_table(request):
 def save_record(request):
     data = json.loads(request.POST['items'])
     fields = [f.name for f in Electrolysis._meta.get_fields(include_parents=False) if f.name not in ['journaltable_ptr']]
-    print(data)
-    for num, item in data.items():
+    for num, item in data['series'].items():
         print(item)
         record_id = item['id']
         model = Electrolysis.objects.get(pk=record_id)

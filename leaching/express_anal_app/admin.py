@@ -21,7 +21,7 @@ class JournalTableAdmin(admin.ModelAdmin):
 class ShiftAdmin(admin.ModelAdmin):
     model = Shift
     verbose_name_plural = 'Смены'
-    list_display = [ 'date', 'order', 'plant', 'master', 'laborant']
+    list_display = [ 'date', 'order', 'master', 'laborant', 'hydro']
 
 
 class HydroMetalAdmin(admin.ModelAdmin):

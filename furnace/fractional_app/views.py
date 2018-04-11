@@ -1,33 +1,27 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from furnace.fractional_app.models import *
+from utils.deep_dict import deep_dict
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
+from utils.webutils import process_json_view
 @login_required
 def index(request):
     template = loader.get_template('spa-index.html')
     return HttpResponse(template.render())
-    # context = {
-    #     'hello_list': ['World', 'Darling', 'Inframine', 'Goodbye'],
-    #     'tile_counts': {'total': '31337'},
-    #     'system_messages': [
-    #         {'title': _("Температура кипящего слоя превысила критический показатель"), 'time': "12:33"},
-    #         {'title': _("Всё хорошо"), 'time': "10:33"},
-    #         {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
-    #     ],
-    #     'user_name': str(request.user.employee),
-    #     'notifications': [{
-    #         'type': 'asd',
-    #         'message': "Здорова, как делишки?",
-    #         'id': -1
-    #     }, {
-    #         'type': 'asd',
-    #         'message': "Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки?",
-    #         'id': -2
-    #     }, {
-    #         'type': 'asd',
-    #         'message': "Здорова, как делишки?",
-    #         'id': -3
-    #     }]
-    # }
 
+@process_json_view(auth_required=False)
+def granularity_object(request):
+    res = deep_dict()
+
+    for o in MeasurementPair.objects.all():
+        res['data'][o.id]['cinder']['time'] = o.cinder.user_time
+        res['data'][o.id]['cinder']['masses'] = [w.mass for w in o.cinder.weights.all()]
+        res['data'][o.id]['cinder']['min_sizes'] = [w.min_size for w in o.cinder.weights.all()]
+
+        res['data'][o.id]['schieht']['time'] = o.schieht.user_time
+        res['data'][o.id]['schieht']['masses'] = [w.mass for w in o.schieht.weights.all()]
+        res['data'][o.id]['schieht']['min_sizes'] = [w.min_size for w in o.schieht.weights.all()]
+
+    return res

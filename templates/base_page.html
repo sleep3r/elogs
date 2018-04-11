@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="/static/images/favicon.ico" type="image/ico" />
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
+
+    {% block css %}
+    <!-- Bootstrap -->
+    <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/static/build/css/custom.min.css" rel="stylesheet">
+    <link href="/static/build/css/journal.css" rel="stylesheet">
+    <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    {% endblock %}
+    {% block extracss %}
+    {% endblock %}
+
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+        {% block left-column %}
+            <div class="col-md-3 left_col">
+              <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                  <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>KazZinc E-Logs</span></a>
+                </div>
+                <div class="clearfix"></div>
+            {% block sidebarmenu %}
+            <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div class="menu_section">
+
+                    {% include "menu.html" %}
+                  </div>
+                </div>
+            <!-- /sidebar menu -->
+            {% endblock %}
+              </div>
+            </div>
+        {% endblock %}
+
+        {% block top-nav %}
+            {% include "top_nav.html" %}
+        {% endblock %}
+            <div class="right_col" role="main">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% block footer %}
+    <!-- jQuery -->
+    <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/vendors/moment/min/moment.min.js"></script>
+    <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    {% endblock %}
+</body>
+</html>
