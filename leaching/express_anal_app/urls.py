@@ -34,9 +34,9 @@ urlpatterns = [
     url('leaching/api/hydrometal/remove$', hydrometal.leaching_save_hydrometal_remove),
 
     url('save/pulps$', pulps.leaching_save_pulps),
-    url('leaching/api/pulps$', pulps.leaching_api_pulps),
+    url('leaching/api/pulps$', pulps.get_table),
     url('leaching/pulps/update$', pulps.leaching_update_pulps),
-    url('leaching/api/pulps/remove$', pulps.leaching_pulps_remove),
+    url('leaching/api/pulps/remove$', pulps.remove_record),
 
     url('save/sample2$', views.leaching_save_sample2),
     url('save/veu', views.leaching_save_vue),

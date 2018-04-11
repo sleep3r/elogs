@@ -8,19 +8,18 @@ from django.contrib.auth.decorators import login_required
 
 
 @process_json_view(auth_required=False)
-def leaching_pulps_remove(request):
+def remove_record(request):
     combid = request.GET['combid']
+    ids = combid.split('-')
 
-    ids = combid.split(';')
-
-    record1 = ZnPulpAnal.objects.filter(id=ids[0]).delete()
-    record2 = CuPulpAnal.objects.filter(id=ids[1]).delete()
-    record3 = DailyAnalysis.objects.filter(id=ids[2]).delete()
+    record_id = ids[0]
+    if record_id is not None:
+        record = ZnPulpAnal.objects.filter(id=record_id).delete()
 
     return {
         'action': 'remove',
         'id': id,
-        'record': record1
+        'record': record
     }
 
 
@@ -76,7 +75,7 @@ def leaching_save_pulps(request):
 
 
 @process_json_view(auth_required=False)
-def leaching_api_pulps(request):
+def get_table(request):
     if 'shift_id' in request.GET:
         shift = Shift.objects.get(id=request.GET['shift_id'])
     else:
