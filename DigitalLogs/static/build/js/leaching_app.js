@@ -1014,7 +1014,7 @@ var app = new Vue({
                     })
             },
             saveRecord: function(scope) {
-             console.log('save rocord')
+                console.log('save rocord')
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -1031,7 +1031,7 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-              console.log('add rocord')
+                console.log('add rocord')
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -1040,8 +1040,8 @@ var app = new Vue({
                 scope.$http.post('/leaching/sample2/add', data)
                     .then(response => {
                         console.log(response.data)
-                        this.init(scope)
                         this.state = 'edit'
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)
