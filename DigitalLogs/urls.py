@@ -20,7 +20,7 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^express_anal', include('leaching.express_anal_app.urls')),
-    url(r'^leaching/repair', include('leaching.repair_app.urls')),
+    url('^leaching/repair', include('leaching.repair_app.urls')),
     url('leaching', include('leaching.express_anal_app.urls')),
     url('^electrolysis', include('leaching.express_anal_app.urls')),
     url('^', include('leaching.express_anal_app.urls')),
