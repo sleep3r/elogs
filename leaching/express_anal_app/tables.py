@@ -13,6 +13,7 @@ from leaching.express_anal_app.models import Employee, Shift, DenserAnal
 from utils.deep_dict import deep_dict
 from django.utils.translation import gettext as _
 
+
 def add_model_to_dict(model, res, attrs=None):
     if attrs is None:
         attrs = [f.name for f in model._meta.get_fields(include_parents=False)] + ['id']

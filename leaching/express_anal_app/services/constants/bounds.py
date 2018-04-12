@@ -7,27 +7,27 @@ values_bounds = {
     'pulp': {
         'zn_pulp': {
             'ph': (0, 10),
-            'temp': (0, 150),
+            't0': (0, 150),
         },
         'cu_pulp': {
             'before': (0, 10),
             'after': (0, 50),
-            'tv': (0, 1000),
+            'solid': (0, 1000),
         },
         'fe_solution': {
             'h2so4': (0, 20),
-            'tv': (0, 10),
+            'solid': (0, 10),
             'sb': (0, 50),
             'cu': (500, 2500),
             'fe': (100, 1000),
             'density': (0, 20),
-            'as': (0, 20),
+            'arsenic': (0, 20),
             'cl': (0, 10),
         },
         'daily_anal': {
-            'sb_in_shlippe': (0, 200),
-            'sas_activity': (0, 200),
-            'high_fe': (0, 200)
+            'shlippe_sb': (0, 200),
+            'activ_sas': (0, 200),
+            # 'high_fe': (0, 200)
         },
     },
     'densers': {
@@ -38,7 +38,7 @@ values_bounds = {
     'hydrometal': {
         '1': {
             'ph': (0, 10),
-            'acidity': (0, 200),
+            'acid': (0, 200),
             'fe2': (0, 1000),
             'fe_total': (500, 2500),
         },
@@ -50,9 +50,9 @@ values_bounds = {
             'sediment': (0, 20),
         },
         'sieve': {
-            'cinder_sieve': (0, 20),
-            'cinder_sieve_avg': (0, 20),
-            'fe_total': (100, 2500),
+            'gran': (0, 20),
+            'gran_avg': (0, 20),
+            'fe_avg': (100, 2500),
             'fe_shave': (0, 20)
         }
     },
@@ -72,14 +72,14 @@ values_bounds = {
         'hsls': {
             'co': (0, 20),
             'sb': (0, 10),
-            'cu_hsls': (500, 3000),
-            'cu_1_st': (50, 1000),
-            'cd_bchc': (500, 1500),
-            'sol_1_st': (0, 10),
+            'cu': (500, 3000),
+            'cu_st1': (50, 1000),
+            'cd': (500, 1500),
+            'solid_st1': (0, 10),
             'ph': (0, 10),
             'fe': (0, 100),
-            'as': (0, 10),
-            'sol': (0, 10),
+            'arsenic': (0, 10),
+            'solid': (0, 10),
             'density': (500, 2000)
         },
         'larox': {
@@ -89,7 +89,7 @@ values_bounds = {
             'sol': (0, 500),
             'ph': (0, 10),
         },
-        'purified_solution': {
+        'purified': {
             'co': (0, 10),
             'sb': (0, 10),
             'cd': (0, 10),
@@ -119,32 +119,20 @@ values_bounds = {
         'correction': (0, 10),
     },
     'tanks': {
-        'prev_mjr': {
-            'all_tanks': (0, 2000),
-            'shift_balance': (0, 6000),
-            'day_balance': (0, 6000),
-        },
-        'curr_mjr': {
-            'all_tanks': (0, 2000),
-            'shift_balance': (0, 6000),
-            'day_balance': (0, 6000),
-        },
-        'deviation': {
-            'all_tanks': (-1000, 1000),
-            'shift_balance': (-1000, 1000),
-            'day_balance': (-1000, 1000),
-        }
+        'prev_measure': (0, 2000),
+        'cur_measure': (0, 2000),
+        'deviation': (-1000, 1000),
     },
     'shift_info': {
-        'cu_cake': (0, 5000),
-        'recycles_cvoc': (0, 2500),
-        'cd_rich': (0, 1500),
-        'neutral': (0, 200),
-        'cu_pulp': (0, 200),
+        'out_cu_kek': (0, 5000),
+        'out_electr': (0, 2500),
+        'out_ruch_cd': (0, 1500),
+        'out_neutr': (0, 200),
+        'out_cu_pulp': (0, 200),
         'density': (0, 200),
-        'fe_cvoc': (0, 2500),
-        'high_fe_cvoc': (0, 2500),
-        'poor_cd': (0, 2500),
+        'in_fe': (0, 2500),
+        'in_fe_hi': (0, 2500),
+        'in_poor_cd': (0, 2500),
     },
     'sample2': {
         'cd': (0, 2500),

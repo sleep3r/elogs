@@ -5,7 +5,10 @@ from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
 
+from leaching.express_anal_app.services.bounds import get_critical_values
+from leaching.express_anal_app.services.constants.bounds import values_bounds
 from login_app.models import Employee
+from utils.errors import SemanticError
 
 
 class Journal(models.Model):
@@ -76,6 +79,14 @@ class LeachingExpressAnal(JournalTable):
     current = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Выход по току')
     density = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Уд. вес')
 
+    def get_critical(self, where):
+        if where == 'hsls':
+            return get_critical_values(self, values_bounds['top_block']['hsls'])
+        elif where == 'larox':
+            return get_critical_values(self, values_bounds['top_block']['larox'])
+        elif where == 'purified':
+            return get_critical_values(self, values_bounds['top_block']['purified'])
+
 
 class ProductionError(JournalTable):
     """
@@ -85,7 +96,10 @@ class ProductionError(JournalTable):
     fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Факт')
     error = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Несоответствие')
     correction = models.CharField(max_length=512, verbose_name='Коррекция', blank=True, null=True)
-    verified = models.BooleanField(default=False, verbose_name='Проверено', blank=True )
+    verified = models.BooleanField(default=False, verbose_name='Проверено', blank=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['top_block']['product_errors'])
 
 
 class DenserAnal(JournalTable):
@@ -105,6 +119,9 @@ class DenserAnal(JournalTable):
     fe = models.DecimalField(max_digits=10, verbose_name='Fe', decimal_places=5, blank=True, null=True)
     liq_sol = models.DecimalField(max_digits=10, verbose_name='Ж:Т', decimal_places=5, blank=True, null=True)
 
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['densers'])
+
 
 class ZnPulpAnal(JournalTable):
     """
@@ -113,6 +130,9 @@ class ZnPulpAnal(JournalTable):
     liq_sol = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='Ж:Т')
     ph = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='pH')
     t0 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True, verbose_name='t0')
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['pulp']['zn_pulp'])
 
 
 class CuPulpAnal(JournalTable):
@@ -126,6 +146,9 @@ class CuPulpAnal(JournalTable):
 
     zn_pulp_anal = models.OneToOneField(ZnPulpAnal, on_delete=models.CASCADE,
                                         related_name='cu_pulp_anal')
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['pulp']['cu_pulp'])
 
 
 class FeSolutionAnal(JournalTable):
@@ -144,6 +167,9 @@ class FeSolutionAnal(JournalTable):
     cu_pulp_anal = models.OneToOneField(CuPulpAnal, on_delete=models.CASCADE, related_name='fe_solution_anal')
     zn_pulp_anal = models.OneToOneField(ZnPulpAnal, on_delete=models.CASCADE, related_name='fe_solution_anal')
 
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['pulp']['fe_solution'])
+
 
 class DailyAnalysis(JournalTable):
     """
@@ -155,6 +181,9 @@ class DailyAnalysis(JournalTable):
     circulation_denser = models.CharField(max_length=64, blank=True, verbose_name='Анализы оборот. сгуст.')
     fe_hi1 = models.CharField(max_length=64, blank=True, verbose_name='Высоко Fe р-р')
     fe_hi2 = models.CharField(max_length=64, blank=True, verbose_name='Высоко Fe р-р 2')
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['pulp']['fe_solution'])
 
 
 class HydroMetal(JournalTable):
@@ -174,6 +203,14 @@ class HydroMetal(JournalTable):
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
 
+    def get_critical(self, mann):
+        if mann == 1:
+            return get_critical_values(self, values_bounds['hydrometal']['1'])
+        elif mann == 4:
+            return get_critical_values(self, values_bounds['hydrometal']['4'])
+        else:
+            raise SemanticError(message='При проверке границ передан несуществующий манн.')
+
 
 class CinderDensity(JournalTable):
     """
@@ -189,6 +226,9 @@ class CinderDensity(JournalTable):
 
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['hydrometal']['sieve'])
 
 
 class Agitators(JournalTable):
@@ -211,6 +251,12 @@ class Agitators(JournalTable):
     employee = models.ForeignKey(Employee, on_delete=models.SET_NULL,  # мб их в shift_info
                                  null=True, verbose_name='Аппаратчик-гидрометаллург')
 
+    def get_critical(self, where):
+        if where == 'ready_solution':
+            return get_critical_values(self, values_bounds['hydrometal2']['ready_solution'])
+        elif where == 'refining_agitators':
+            return get_critical_values(self, values_bounds['hydrometal2']['refining_agitators'])
+
 
 class NeutralDenser(JournalTable):
     """
@@ -220,6 +266,9 @@ class NeutralDenser(JournalTable):
     sediment = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     liq_sol1 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     liq_sol2 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['neutral_densers'])
 
 
 class ReadyProduct(JournalTable):
@@ -238,6 +287,9 @@ class ReadyProduct(JournalTable):
     fact = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     correction = models.CharField(max_length=128, blank=True, null=True)
     verified = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['ready_product'])
 
 
 class Reagents(JournalTable):
@@ -270,6 +322,9 @@ class Reagents(JournalTable):
 
     fence_state = models.CharField(max_length=255, blank=True)
 
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['ready_product'])
+
 
 class VEU(JournalTable):
     """
@@ -280,6 +335,9 @@ class VEU(JournalTable):
     cold = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     comment = models.CharField(max_length=128, blank=True, null=True)
 
+    def get_critical(self):
+        return []
+
 
 class Sample2(JournalTable):
     """
@@ -287,6 +345,9 @@ class Sample2(JournalTable):
     """
     cd = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     cu = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['sample2'])
 
 
 class FreeTank(JournalTable):
@@ -298,6 +359,9 @@ class FreeTank(JournalTable):
     prev_measure = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     cur_measure = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     deviation = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['tanks'])
 
 
 class SelfSecurity(JournalTable):
@@ -360,6 +424,9 @@ class ShiftInfo(JournalTable):
     free_14 = models.DecimalField(max_digits=10, decimal_places=5, blank=True, null=True)
     free_13_t = models.CharField(max_length=10, blank=True)
     free_14_t = models.CharField(max_length=10, blank=True)
+
+    def get_critical(self):
+        return get_critical_values(self, values_bounds['tanks'])
 
 
 class Schieht(JournalTable):
