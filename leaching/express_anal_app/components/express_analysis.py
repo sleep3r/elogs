@@ -48,7 +48,7 @@ def express(request):
             'name': 'form_densers',
             'title': _('Сгустители'),
             'columns': ['10', "11", "12"],
-            'action': '/save/densers',
+            'action': '/leaching/save/densers',
             'shift': shift.id,
         },
 
