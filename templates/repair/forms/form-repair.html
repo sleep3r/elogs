@@ -1,0 +1,68 @@
+{% load i18n %}
+<table class="table table-striped table-hover table-bordered" >
+    <thead>
+        <tr>
+            <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
+            <th colspan="4">Записиь о работах, выполненных по устранению дефектов</th>
+        </tr>
+        <tr>
+            <th>Дата осмотра </th>
+            <th>Наименование узла в характеристика дефектов</th>
+            <th>Подпись лица производящего осмотр</th>
+            <th>Дата и обём выполненных работ по устранению дефектов</th>
+            <th>Фактический срок службы узла, детали</th>
+            <th>Подпись лица, ответственного за выполнение ремонта</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="item in tables.form_repair.data.items" v-on:click="onRow(item.id,'form_repair')">
+            <template v-if=" item.id != tables.form_repair.editableId ">
+                <td>[[item.date | formatDate]]</td>
+                <td>[[item.name]]</td>
+                <td>&nbsp;</td>
+                <td>[[item.comment]]</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </template>
+            <template v-if=" item.id == tables.form_repair.editableId ">
+                <td><input type="datetime-local" name="date" v-model="item.date"></td>
+                <td><input type="text" name="name" v-model="item.name"></td>
+                <td>&nbsp;</td>
+                <td><input type="text" name="comment" v-model="item.comment"></td>
+                <td>[[item.name]]</td>
+                <td></td>
+                <td><a class="btn btn-success" v-on:click="saveRecord('form_repair')"><i class="glyphicon glyphicon-ok"></i></a></td>
+            </template>
+        </tr>
+        <tr v-if="tables.form_repair.current">
+            <td><input type="datetime-local" name="date" v-model="tables.form_repair.current.date"></td>
+            <td><input type="text" name="name" v-model="tables.form_repair.current.name"></td>
+            <td>&nbsp;</td>
+            <td><input type="text" name="comment" v-model="tables.form_repair.current.comment"></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>
+                <template v-if="">
+                    <a class="btn btn-success" v-on:click="addRecord('form_repair')"><i class="glyphicon glyphicon-ok"></i></a>
+                </template>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" align="left">
+                <template v-if="tables.form_repair.state == 'add' ">
+                    <button type="button" class="btn btn-success" align="left">{% trans "Добавить" %}</button>
+                </template>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

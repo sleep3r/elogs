@@ -7,13 +7,11 @@ from leaching.express_anal_app.components import agitators, cinder, reagents, re
 
 
 urlpatterns = [
-    url('^$', views.index),
-
-    url('leaching/journal$', views.leaching_jurnal),
+    url('journal$', views.leaching_jurnal),
     url('leaching/journal/timeing$', express_analysis.express),
 
     url('leaching/all/edit$', views.leaching_all_edit),
-    url('leaching/edit/wizard$', views.leaching_edit_wizard),
+    url('edit/wizard$', views.leaching_edit_wizard),
     url('page/wizard$', views.leaching_wizard),
 
     url('notifications/read$', views.notifications_read),

@@ -1,0 +1,25 @@
+{% extends 'base_page.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans "Журнал по ремонту оборудования" %}</title>
+{% endblock %}
+
+{% block css %}
+   {{ block.super }}
+{% endblock %}
+
+{% block content %}
+   {{ block.super }}
+    <div id="app_repair">
+    {% include "repair/forms/form-repair.html" %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/build/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
+    <script src="/static/build/js/leaching/repair/app_repair.js"></script>
+{% endblock %}
