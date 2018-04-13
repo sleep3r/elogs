@@ -1,5 +1,6 @@
 import inspect
 import random
+from datetime import timedelta
 from inspect import ismethod
 from itertools import product
 
@@ -9,7 +10,9 @@ from django.utils import timezone
 from furnace.fractional_app.models import *
 from furnace.fractional_app.models import models as famodels
 from leaching.express_anal_app import models as eamodels
+from leaching.repair_app import models as remodels
 from leaching.express_anal_app.models import *
+from leaching.repair_app.models import *
 from utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 
@@ -34,6 +37,7 @@ class DatabaseFiller:
     All fill methods names and only they should be like 'fill_*_table'.
     Filling methods will be called in a random order
     """
+
     def fill_denser_anal_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
@@ -75,7 +79,6 @@ class DatabaseFiller:
                 pe.verified = bool(random.randint(0, 1))
                 pe.save()
 
-
     def fill_solutions_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
@@ -105,7 +108,6 @@ class DatabaseFiller:
                 setattr(da, attr, random.uniform(0, 100))
             da.save()
 
-
     def fill_hydrometal1_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
 
@@ -126,7 +128,6 @@ class DatabaseFiller:
                 setattr(cd, attr, random.uniform(0, 100))
             cd.employee = shift.laborant
             cd.save()
-
 
     def fill_agitators_table(self, shift):
         journal = Journal.objects.get(name='Журнал экспресс анализов')
@@ -374,6 +375,35 @@ class DatabaseFiller:
             mp.save()
 
 
+    def fill_equipement(self):
+        eq_list = [
+            'Агитатор «Манн» №1',
+            'Агитатор «Манн» №2',
+            'Агитатор «Манн» №3',
+            'Сгуститель №1',
+            'Сгуститель №2',
+            'Сгуститель №3',
+            'Питатель ленточный В – 500 мм',
+            'Элеватор ЦГ-400 №1',
+            'Элеватор ЦГ-400 №2',
+            'Транспортер ленточный В – 650 мм',
+        ]
+
+        for e in eq_list:
+            Equipment(name=e).save()
+
+
+    def fill_leaching_repairs(self):
+        equipments = list(Equipment.objects.all())
+        for i in range(100):
+            r = Repairs()
+            r.equipment = random.choice(equipments)
+            r.date = timezone.now() - timedelta(days=random.randint(0, 400))
+            r.name = gen_text(max_words=7)
+            r.comment = gen_text(max_words=15)
+            r.save()
+
+
     # --------------------------------------------------------------------------------------------
     def fill_employees(self):
         kz_names = ['Абдулкафар', 'Асмет', 'Жолдас', 'Кобжан', 'Суйинбай']
@@ -423,7 +453,7 @@ class DatabaseFiller:
 
         for i in range(4):
             sh = Shift()
-            sh.date = dates[i%2]
+            sh.date = dates[i % 2]
             sh.plant = 'leaching'
             sh.order = random.randint(1, 2)
             sh.master = random.choice(Employee.objects.filter(position='master'))
@@ -449,6 +479,10 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
+        for name, obj in inspect.getmembers(remodels):
+            if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
+                db_models.append(obj)
+
         db_models.extend([Journal, Shift, Employee])
 
         for u in User.objects.all():  # delete user
@@ -465,6 +499,8 @@ class DatabaseFiller:
         self.fill_shifts()
 
         self.fill_fractional_app()
+        self.fill_equipement()
+        self.fill_leaching_repairs()
 
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)

@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from leaching.repair_app.models import Repairs
+from leaching.repair_app.models import Equipment, Repairs
+
 
 class RepairsAdmin(admin.ModelAdmin):
     model = Repairs
@@ -10,5 +11,5 @@ class RepairsAdmin(admin.ModelAdmin):
     list_display_links = ['name']
 
 
-
+admin.site.register(Equipment)
 admin.site.register(Repairs, RepairsAdmin)
