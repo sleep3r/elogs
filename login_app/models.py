@@ -23,4 +23,13 @@ class Employee(models.Model):
         return f'{self.name} {self.position}'
 
 
-# class Messages(
+class Message(models.Model):
+    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
+    text = models.TextField(verbose_name='Текст сообщения')
+    type = models.CharField(max_length=10, verbose_name='Тип сообщения', null=True,
+                            choices=(('critical_value', 'Критическое значение'),
+                                     ('note', 'Замечание'))
+                            )
+
+    addressee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='messages')
+    position = models.CharField(max_length=10, verbose_name='Тип сообщения', null=True, blank=True)
