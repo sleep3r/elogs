@@ -8,5 +8,6 @@ urlpatterns = [
     url('add', views.add_record),
     url('save', views.save_record),
     url('remove', views.remove_record),
+    url('equipment', views.get_equipment),
     url('$', views.index),
 ]

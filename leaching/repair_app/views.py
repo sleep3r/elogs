@@ -9,23 +9,14 @@ from django.template import loader
 
 # Create your views here.
 from leaching.express_anal_app.tables import add_model_to_dict
-from leaching.repair_app.models import Repairs
+from leaching.repair_app.models import Repairs, Equipment
 from utils.deep_dict import deep_dict
 from utils.webutils import parse, process_json_view
 
 
-def get_repair_table():
-
-    res = deep_dict()
-    for d in Repairs.objects.all:
-        add_model_to_dict(d, res[str(d.time)])
-
-    return res.clear_empty().get_dict()
-
 
 @login_required
 def index(request):
-    # items = get_repair_table()
 
     context = {
         'repair': ''
@@ -34,11 +25,31 @@ def index(request):
     template = loader.get_template('repair/index.html')
     return HttpResponse(template.render(context, request))
 
+@process_json_view(auth_required=False)
+def get_equipment(request):
+
+    items = Equipment.objects.all().order_by('name')
+
+    records = []
+    for num, item in enumerate(items):
+        row = {'num': num, 'name': item.name, 'id': item.id}
+        records.append(row)
+
+    return {
+        'component': 'equipment',
+        'items': records,
+        'count': len(records)
+    }
+
 
 @process_json_view(auth_required=False)
 def get_items(request):
+    equipment_id = int(request.GET['equipment'])
 
-    items = Repairs.objects.all().order_by('date')
+    if equipment_id > 0:
+        items = Repairs.objects.filter(equipment__id=equipment_id).order_by('date')
+    else:
+        items = []
 
     records = []
     for num, item in enumerate(items):
@@ -47,6 +58,7 @@ def get_items(request):
 
     return {
         'result': 'ok',
+        'equipment_id': equipment_id,
         'items': records,
         'count': len(records)
     }
@@ -55,10 +67,11 @@ def get_items(request):
 @process_json_view(auth_required=False)
 def add_record(request):
 
-    print(request.POST)
     data = json.loads(request.POST['items'])
     fields = ['date', 'name', 'comment']
 
+    equipment_id = request.POST['equipment_id']
+    equipment = Equipment.objects.get(id=equipment_id)
 
     model = Repairs()
     for field in fields:
@@ -68,10 +81,12 @@ def add_record(request):
             else:
                 setattr(model, field, data[field])
 
+    model.equipment = equipment
     result = model.save()
 
     return {
         'result': result,
+        'equipment_id': equipment_id
     }
 
 

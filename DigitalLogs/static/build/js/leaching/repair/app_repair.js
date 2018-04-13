@@ -18,10 +18,10 @@ Vue.filter('formatHour', function(value) {
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app_repair',
-
   data: {
     baseLink: '/leaching/repair',
-    resource_url: '/leaching/repair/allitems',
+    equipment: [],
+    equipmentId: 999,
     tables: {
         'form_repair': {
             formId: 'form_repair',
@@ -32,15 +32,23 @@ var app = new Vue({
             state: 'view',
             initRecord: {},
             init: function(scope){
-                scope.$http.get('/leaching/repair/allitems' )
+                scope.$http.get(scope.baseLink + '/equipment')
                     .then(response => {
-                        this.data = response.data
-                        console.info(response.data)
-                        this.current = Object.assign({}, this.initRecord)
+                        scope.equipment = response.data.items
+
+                        scope.$http.get('/leaching/repair/allitems?equipment=' + scope.equipmentId )
+                        .then(response => {
+                            this.data = response.data
+                            this.current = Object.assign({}, this.initRecord)
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
                     })
                     .catch(e => {
                         console.log(e)
                     })
+
             },
             onRow: function(scope, rowId) {
                 console.log(rowId)
@@ -62,6 +70,7 @@ var app = new Vue({
             },
             addRecord: function(scope) {
                 let data = new FormData()
+                data.append('equipment_id', scope.equipmentId)
                 data.append('items', JSON.stringify(this.current))
                 scope.$http.post(scope.baseLink + '/add', data)
                     .then(response => {
@@ -89,11 +98,25 @@ var app = new Vue({
     },
   },
   created: function() {
+    let uri = window.location.search.substring(1);
+    let params = new URLSearchParams(uri);
+    this.equipmentId = params.get('equipment') ? params.get('equipment') : 109
+
     this.tables['form_repair'].init(this)
   },
   methods: {
     updateResource(data) {
         this.data = data
+    },
+    goToEdit: function() {
+        location.href='/leaching/repair/edit?equipment=' + this.equipmentId
+    },
+    onEquipmentSelected: function() {
+        let eq = document.getElementById("select_equipment")
+        this.equipmentId = eq.value
+        this.tables['form_repair'].init(this, eq.value)
+
+
     },
     addNewRow: function(formId) {
         this.tables[formId].addNewRow(formId, this)
