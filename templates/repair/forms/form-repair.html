@@ -1,11 +1,14 @@
 {% load i18n %}
+
 <table class="table table-striped table-hover table-bordered table-repair" >
     <thead>
         <tr>
+            <td></td>
             <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
             <th colspan="4">Записиь о работах, выполненных по устранению дефектов</th>
         </tr>
         <tr>
+            <td></td>
             <th>Дата осмотра </th>
             <th>Наименование узла в характеристика дефектов</th>
             <th>Подпись лица производящего осмотр</th>
@@ -14,6 +17,7 @@
             <th>Подпись лица, ответственного за выполнение ремонта</th>
         </tr>
         <tr>
+            <td>...</td>
             <th>1</th>
             <th>2</th>
             <th>3</th>
@@ -26,6 +30,7 @@
     <tbody>
         <tr v-for="item in tables.form_repair.data.items" v-on:click="onRow(item.id,'form_repair')">
             <template v-if=" item.id != tables.form_repair.editableId ">
+                <td></td>
                 <td>[[item.date | formatDate]]</td>
                 <td>[[item.name]]</td>
                 <td>&nbsp;</td>
@@ -34,6 +39,7 @@
                 <td>&nbsp;</td>
             </template>
             <template v-if=" item.id == tables.form_repair.editableId ">
+                <td><a class="btn btn-danger" v-on:click="removeRecord(item.id,'form_repair')"><i class="glyphicon glyphicon-remove"></i></a></td>
                 <td><input type="datetime-local" name="date" v-model="item.date"></td>
                 <td><input type="text" name="name" v-model="item.name"></td>
                 <td>&nbsp;</td>
@@ -41,9 +47,11 @@
                 <td>[[item.name]]</td>
                 <td></td>
                 <td><a class="btn btn-success" v-on:click="saveRecord('form_repair')"><i class="glyphicon glyphicon-ok"></i></a></td>
+
             </template>
         </tr>
         <tr v-if="tables.form_repair.current">
+            <td></td>
             <td><input type="datetime-local" name="date" v-model="tables.form_repair.current.date"></td>
             <td><input type="text" name="name" v-model="tables.form_repair.current.name"></td>
             <td>&nbsp;</td>

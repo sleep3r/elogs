@@ -7,5 +7,6 @@ urlpatterns = [
     url('allitems$', views.get_items),
     url('add', views.add_record),
     url('save', views.save_record),
+    url('remove', views.remove_record),
     url('$', views.index),
 ]

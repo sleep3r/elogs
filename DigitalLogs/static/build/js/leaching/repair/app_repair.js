@@ -18,69 +18,11 @@ Vue.filter('formatHour', function(value) {
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app_repair',
-  baseLink: '/leaching/repair',
+
   data: {
+    baseLink: '/leaching/repair',
+    resource_url: '/leaching/repair/allitems',
     tables: {
-        'form_template': {
-            formId: 'form_template',
-            data: [],
-            current: {},
-            current_count: 0,
-            state: 'view',
-            initRecord: {},
-            init: function(scope){
-                let form = document.getElementById(this.formId)
-                var shiftId = form.shift_id.value
-                scope.$http.get('/leaching/template?shift_id=' + shiftId)
-                    .then(response => {
-                        this.data = response.data
-                        if (this.data.current_count > 1) {
-                            this.state = 'edit'
-                            this.current_count = this.data.current_count
-                        } else {
-                            this.state = 'add'
-                            this.data = this.initRecord
-                        }
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            },
-            saveRecord: function(scope) {
-             console.log('save rocord')
-                let form = document.getElementById(this.formId)
-                let shiftId = form.shift_id.value
-                let data = new FormData()
-                data.append('shift_id', shiftId)
-                data.append('items', JSON.stringify(this.data.items))
-                scope.$http.post('/leaching/name/save', data)
-                    .then(response => {
-                        console.log(response.data)
-                        this.state = 'edit'
-                        this.init(scope)
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            },
-            addRecord: function(scope) {
-              console.log('add rocord')
-                let form = document.getElementById(this.formId)
-                let shiftId = form.shift_id.value
-                let data = new FormData()
-                data.append('shift_id', shiftId)
-                data.append('items', JSON.stringify(this.data.items))
-                scope.$http.post('/leaching/name/add', data)
-                    .then(response => {
-                        console.log(response.data)
-                        this.init(scope)
-                        this.state = 'edit'
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            }
-        },
         'form_repair': {
             formId: 'form_repair',
             data: [],
@@ -105,11 +47,10 @@ var app = new Vue({
                 this.editableId = rowId
             },
             saveRecord: function(scope) {
-             console.log('save rocord')
                 let data = new FormData()
                 let recordToSave = this.data.items.filter( el => { return el.id === this.editableId })
                 data.append('items', JSON.stringify(recordToSave))
-                scope.$http.post(this.baseLink + '/save', data)
+                scope.$http.post(scope.baseLink + '/save', data)
                     .then(response => {
                         console.log(response.data)
                         this.init(scope)
@@ -120,17 +61,26 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-              console.log('add rocord')
-
                 let data = new FormData()
                 data.append('items', JSON.stringify(this.current))
-                scope.$http.post(this.baseLink + '/add', data)
+                scope.$http.post(scope.baseLink + '/add', data)
                     .then(response => {
                         console.log(response.data)
                         this.init(scope)
                         this.current = Object.assign({}, this.initRecord)
                     })
                     .catch(e => {
+                        console.log(e)
+                    })
+
+            },
+            removeRecord: function(scope, rowId) {
+                console.log(scope.baseLink)
+                scope.$http.get(scope.baseLink + '/remove?id='+rowId)
+                    .then( response => {
+                        this.init(scope)
+                    })
+                    .catch( e => {
                         console.log(e)
                     })
 
@@ -142,15 +92,18 @@ var app = new Vue({
     this.tables['form_repair'].init(this)
   },
   methods: {
+    updateResource(data) {
+        this.data = data
+    },
     addNewRow: function(formId) {
         this.tables[formId].addNewRow(formId, this)
     },
     onChange: function(formId) {
         this.tables[formId].onChange(this)
     },
-    onRemoveRow: function(rowId, formId) {
-        console.log(formId + '' + rowId)
-        this.tables[formId].onRemoveRow(this, rowId)
+    removeRecord: function(rowId, formId) {
+        console.log(formId + ' ' + rowId)
+        this.tables[formId].removeRecord(this, rowId)
     },
     onRow: function(rowId, formId) {
         this.tables[formId].onRow(this, rowId)

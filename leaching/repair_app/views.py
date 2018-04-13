@@ -106,6 +106,21 @@ def save_record(request):
         'result': result,
     }
 
+@process_json_view(auth_required=False)
+def remove_record(request):
+    print(request.GET['id'])
+    result = 'none'
+    if 'id' in request.GET:
+        record_id = request.GET['id']
+        model = Repairs.objects.get(id=record_id)
+        model.delete()
+        result = 'ok'
+    else:
+        result = 'none'
+
+    return {
+        'result': result,
+    }
 
 
 @login_required
