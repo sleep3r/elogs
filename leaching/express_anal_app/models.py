@@ -41,6 +41,9 @@ class Shift(models.Model):
     def __str__(self):
         return f'<{self.date}> {self.order} смена, выщелачивание'
 
+    class Meta:
+        ordering = ['-date', '-order']
+
 
 class JournalTable(models.Model):
     """

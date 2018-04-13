@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from leaching.repair_app.models import Equipment, Repairs
+
+admin.site.register(Equipment)
+admin.site.register(Repairs)
