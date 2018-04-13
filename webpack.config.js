@@ -29,7 +29,22 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new BundleTracker({filename: './webpack-stats.json'}),
     new Cleaner()
-  ]
+  ],
+  devServer: {
+    hot: true,
+    clientLogLevel: 'warning',
+    historyApiFallback: true,
+    hot: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
+    host: '127.0.0.1',
+    port: '8001',
+    open: false,
+    proxy: {
+      "/": "http://127.0.0.1:8000"
+    },
+    publicPath: "/static/webpack_bundles"
+  }
 }
