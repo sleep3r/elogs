@@ -7,7 +7,9 @@ from django.contrib.auth import views, authenticate, login, logout
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
-from utils.webutils import process_json_view, generate_csrf
+from login_app.models import Message
+from utils.deep_dict import deep_dict
+from utils.webutils import process_json_view, generate_csrf, model_to_dict
 
 
 @process_json_view(auth_required=False)
@@ -37,3 +39,9 @@ def login_page(request, error=None):
     return HttpResponse(template.render(context, request))
 
 
+@process_json_view(auth_required=False)
+def get_messages(request):
+    res = deep_dict()
+    for m in Message.objects.filter(is_read=False):
+        res['messages'][m.id] = model_to_dict(m)
+    return res

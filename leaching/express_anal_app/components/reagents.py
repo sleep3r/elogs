@@ -1,4 +1,6 @@
 import json
+
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -74,6 +76,8 @@ def save_record(request):
             model.state = state
             model.stage = 'total'
             model.save()
+            Message(type='critical_value', position='master laborant',
+                    text=f'Критические значения в полях: {model.get_critical()}').save()
 
     for stage in stages:
         if 'id' in data['stages_zn_dust']:
@@ -92,6 +96,8 @@ def save_record(request):
         model.stage = stage
         model.state = 'none'
         model.save()
+        Message(type='critical_value', position='master laborant',
+                text=f'Критические значения в полях: {model.get_critical()}').save()
 
     return {
         'result': 'ok'
@@ -144,6 +150,8 @@ def add_record(request):
         model.state = state
         model.stage = 'total'
         model.save()
+        Message(type='critical_value', position='master laborant',
+                text=f'Критические значения в полях: {model.get_critical()}').save()
 
     for stage in stages:
         model = Reagents()
@@ -156,6 +164,8 @@ def add_record(request):
         if stage in data['stages_zn_dust']:
             model.zn_dust = data['stages_zn_dust'][stage]
         model.save()
+        Message(type='critical_value', position='master laborant',
+                text=f'Критические значения в полях: {model.get_critical()}').save()
 
 
     return {

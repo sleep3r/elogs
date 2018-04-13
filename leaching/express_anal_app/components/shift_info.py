@@ -1,4 +1,6 @@
 import json
+
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -37,6 +39,8 @@ def save_record(request):
         if field in data:
             setattr(model, field, data[field])
     model.save()
+    Message(type='critical_value', position='master laborant',
+            text=f'Критические значения в полях: {model.get_critical()}').save()
 
     return {
         'result': 'ok'
@@ -75,6 +79,8 @@ def add_record(request):
     model.shift = shift
     model.time = date_time
     model.save()
+    Message(type='critical_value', position='master laborant',
+            text=f'Критические значения в полях: {model.get_critical()}').save()
 
     return {
         'result': 'ok'

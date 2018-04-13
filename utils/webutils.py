@@ -169,3 +169,7 @@ def translate(name):
         name = name.replace(symb_in, symb_out)
     # возвращаем переменную
     return name
+
+
+def model_to_dict(model):
+    return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}

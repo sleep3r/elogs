@@ -1,4 +1,6 @@
 import json
+
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -108,6 +110,8 @@ def save_record(request):
                 model.before = state == 'true'
                 model.comment = data['comment']
                 model.save()
+                Message(type='critical_value', position='master laborant',
+                        text=f'Критические значения в полях: {model.get_critical()}').save()
 
 
     print(request.POST['shift_id'])
@@ -116,7 +120,6 @@ def save_record(request):
         'result': 'ok',
         'items': tables.get_agitators_table(shift)
     }
-    return {'result': 'ok'}
 
 
 @process_json_view(auth_required=False)
@@ -158,7 +161,8 @@ def add_record(request):
                     model.comment = request.POST['comment']
                 else:
                     model.comment = '...'
-                model.save()
+                Message(type='critical_value', position='master laborant',
+                        text=f'Критические значения в полях: {model.get_critical()}').save()
 
     return {
         'result': 'ok',
