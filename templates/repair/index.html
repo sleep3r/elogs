@@ -1,0 +1,23 @@
+{% extends 'base_page.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans "Журнал по ремонту оборудования" %}</title>
+{% endblock %}
+
+{% block css %}
+   {{ block.super }}
+    <link href="/static/build/css/journal-repair.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+   {{ block.super }}
+    <div id="app_repair">
+    {% include "repair/widgets/table-repair.html" %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/build/js/custom.js"></script>
+{% endblock %}

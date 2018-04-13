@@ -379,7 +379,7 @@ var app = new Vue({
                 let data = new FormData()
                 data.append('shift_id', shiftId)
                 data.append('items', JSON.stringify(this.data.items))
-
+                data.append('comment', this.data.items.comment)
                 scope.$http.post('/leaching/agitators/save', data)
                     .then(response => {
                         console.info(response.data)
@@ -401,8 +401,9 @@ var app = new Vue({
                 scope.$http.post('/leaching/agitators/add', data)
                     .then(response => {
                         console.log(response.data)
-                        this.state = 'add'
+                        this.state = 'edit'
                         this.newRecord = this.initRecord
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)
@@ -1013,7 +1014,7 @@ var app = new Vue({
                     })
             },
             saveRecord: function(scope) {
-             console.log('save rocord')
+                console.log('save rocord')
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -1030,7 +1031,7 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-              console.log('add rocord')
+                console.log('add rocord')
                 let form = document.getElementById(this.formId)
                 let shiftId = form.shift_id.value
                 let data = new FormData()
@@ -1039,8 +1040,8 @@ var app = new Vue({
                 scope.$http.post('/leaching/sample2/add', data)
                     .then(response => {
                         console.log(response.data)
-                        this.init(scope)
                         this.state = 'edit'
+                        this.init(scope)
                     })
                     .catch(e => {
                         console.log(e)

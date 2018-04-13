@@ -15,13 +15,13 @@
                 </tr>
                 <tr>
                     <th>pH</th>
-                    <th>{% trans "Кисл-ть" %}</th>
-                    <th>{% trans "Fe двухвал." %}</th>
-                    <th>{% trans "Fe Общее" %}</th>
+                    <th>{% trans "Кисл&#8209;ть" %}{% trans ",<br>г/л" %}</th>
+                    <th>{% trans "Fe двухвал." %}{% trans ", мг/л" %}</th>
+                    <th>{% trans "Fe Общее" %}{% trans ", мг/л" %}</th>
                     <th>pH</th>
-                    <th>{% trans "Медь" %}</th>
-                    <th>Fe</th>
-                    <th>{% trans "Сурьма" %}</th>
+                    <th>{% trans "Медь" %}{% trans ", мг/л" %}</th>
+                    <th>Fe{% trans ",<br>мг/л" %}</th>
+                    <th>{% trans "Сурьма" %}{% trans ",<br>мг/л" %}</th>
                     <th>{% trans "Отстои" %}</th>
                 </tr>
             </thead>
@@ -40,7 +40,7 @@
                 </tr>
             {% endfor %}
             <tr>
-                <th colspan="1">{% trans "Ситовой огарка" %}</th>
+                <th colspan="1">{% trans "Ситовой огарка" %}{% trans ", мм" %}</th>
                 <td colspan="5">
                     <table class="table insidetable customborders">
                         <tr>
@@ -50,13 +50,13 @@
                         </tr>
                     </table>
                 </td>
-                <th colspan="2">{% trans "Ситовой Огарка средний" %}</th>
+                <th colspan="2">{% trans "Ситовой Огарка средний" %}{% trans ", мм" %}</th>
                 <td>{{table.data.extra.gran_avg |floatformat:2}}</td>
             </tr>
             <tr>
-                <th colspan="2">{% trans "Общее Fe среднее" %}</th>
+                <th colspan="2">{% trans "Общее Fe среднее" %}{% trans ", мм" %}</th>
                 <td colspan="2">{{table.data.extra.fe_avg |floatformat:2}}</td>
-                <th colspan="3">{% trans "Fe стружка Fe" %}</th>
+                <th colspan="3">{% trans "Fe стружка Fe" %}{% trans ",<br>мг/л" %}</th>
                 <td colspan="3">{{table.data.extra.fe_shave |floatformat:2}}</td>
             </tr>
             </tbody>

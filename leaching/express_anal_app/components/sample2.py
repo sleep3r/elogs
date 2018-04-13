@@ -25,11 +25,17 @@ def get_table(request):
 def save_record(request):
     data = json.loads(request.POST['items'])
 
+    fields = ['cu', 'cd']
+    date_time = datetime.datetime.now()
+
     for (num, item) in data.items():
         print(item)
+        currentTime = date_time.replace(hour=int(item['time']), minute=0, second=0, microsecond=0)
         model = Sample2.objects.get(id=int(item['id']))
-        model.cd = item['cd']
-        model.cu = item['cu']
+        for field in fields:
+            if field in item:
+                setattr(model, field, item.get(field) or 0)
+        model.time = currentTime
         model.save()
 
     return {
@@ -46,7 +52,10 @@ def add_record(request):
     else:
         shift = Shift.objects.all()[0]
 
+    print(shift.id)
+
     data = json.loads(request.POST['items'])
+    print(data)
     date_time = datetime.datetime.now()
     fields = ['cu', 'cd']
 
