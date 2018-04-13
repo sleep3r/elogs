@@ -1,8 +1,13 @@
+{% load i18n %}
 <table class="table table-striped table-hover table-bordered" >
     <thead>
+
         <tr>
             <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
             <th colspan="3">Записиь о работах, выполненных по устранению дефектов</th>
+            <th>
+                <a class="btn btn-success" href="/leaching/repair/edit">{% trans "Изменить" %}</a>
+            </th>
         </tr>
         <tr>
             <th>Дата осмотра </th>
