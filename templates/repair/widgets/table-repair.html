@@ -6,7 +6,7 @@
             <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
             <th colspan="3">Записиь о работах, выполненных по устранению дефектов</th>
             <th>
-                <a class="btn btn-success" href="/leaching/repair/edit">{% trans "Изменить" %}</a>
+                <a class="btn btn-success" v-on:click="goToEdit()">{% trans "Изменить" %}</a>
             </th>
         </tr>
         <tr>
@@ -27,29 +27,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-        <tr class="info">
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
+        <tr v-for="item, num in tables.form_repair.data.items">
+            <td>[[item.date | formatDate]]</td>
+            <td>[[item.name]]</td>
+            <td></td>
+            <td>[[item.comment]]</td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

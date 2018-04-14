@@ -18,69 +18,11 @@ Vue.filter('formatHour', function(value) {
 var app = new Vue({
   delimiters: ['[[', ']]'],
   el: '#app_repair',
-  baseLink: '/leaching/repair',
   data: {
+    baseLink: '/leaching/repair',
+    equipment: [],
+    equipmentId: 999,
     tables: {
-        'form_template': {
-            formId: 'form_template',
-            data: [],
-            current: {},
-            current_count: 0,
-            state: 'view',
-            initRecord: {},
-            init: function(scope){
-                let form = document.getElementById(this.formId)
-                var shiftId = form.shift_id.value
-                scope.$http.get('/leaching/template?shift_id=' + shiftId)
-                    .then(response => {
-                        this.data = response.data
-                        if (this.data.current_count > 1) {
-                            this.state = 'edit'
-                            this.current_count = this.data.current_count
-                        } else {
-                            this.state = 'add'
-                            this.data = this.initRecord
-                        }
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            },
-            saveRecord: function(scope) {
-             console.log('save rocord')
-                let form = document.getElementById(this.formId)
-                let shiftId = form.shift_id.value
-                let data = new FormData()
-                data.append('shift_id', shiftId)
-                data.append('items', JSON.stringify(this.data.items))
-                scope.$http.post('/leaching/name/save', data)
-                    .then(response => {
-                        console.log(response.data)
-                        this.state = 'edit'
-                        this.init(scope)
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            },
-            addRecord: function(scope) {
-              console.log('add rocord')
-                let form = document.getElementById(this.formId)
-                let shiftId = form.shift_id.value
-                let data = new FormData()
-                data.append('shift_id', shiftId)
-                data.append('items', JSON.stringify(this.data.items))
-                scope.$http.post('/leaching/name/add', data)
-                    .then(response => {
-                        console.log(response.data)
-                        this.init(scope)
-                        this.state = 'edit'
-                    })
-                    .catch(e => {
-                        console.log(e)
-                    })
-            }
-        },
         'form_repair': {
             formId: 'form_repair',
             data: [],
@@ -90,26 +32,33 @@ var app = new Vue({
             state: 'view',
             initRecord: {},
             init: function(scope){
-                scope.$http.get('/leaching/repair/allitems' )
+                scope.$http.get(scope.baseLink + '/equipment')
                     .then(response => {
-                        this.data = response.data
-                        console.info(response.data)
-                        this.current = Object.assign({}, this.initRecord)
+                        scope.equipment = response.data.items
+
+                        scope.$http.get('/leaching/repair/allitems?equipment=' + scope.equipmentId )
+                        .then(response => {
+                            this.data = response.data
+                            this.current = Object.assign({}, this.initRecord)
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
                     })
                     .catch(e => {
                         console.log(e)
                     })
+
             },
             onRow: function(scope, rowId) {
                 console.log(rowId)
                 this.editableId = rowId
             },
             saveRecord: function(scope) {
-             console.log('save rocord')
                 let data = new FormData()
                 let recordToSave = this.data.items.filter( el => { return el.id === this.editableId })
                 data.append('items', JSON.stringify(recordToSave))
-                scope.$http.post(this.baseLink + '/save', data)
+                scope.$http.post(scope.baseLink + '/save', data)
                     .then(response => {
                         console.log(response.data)
                         this.init(scope)
@@ -120,11 +69,10 @@ var app = new Vue({
                     })
             },
             addRecord: function(scope) {
-              console.log('add rocord')
-
                 let data = new FormData()
+                data.append('equipment_id', scope.equipmentId)
                 data.append('items', JSON.stringify(this.current))
-                scope.$http.post(this.baseLink + '/add', data)
+                scope.$http.post(scope.baseLink + '/add', data)
                     .then(response => {
                         console.log(response.data)
                         this.init(scope)
@@ -134,23 +82,51 @@ var app = new Vue({
                         console.log(e)
                     })
 
+            },
+            removeRecord: function(scope, rowId) {
+                console.log(scope.baseLink)
+                scope.$http.get(scope.baseLink + '/remove?id='+rowId)
+                    .then( response => {
+                        this.init(scope)
+                    })
+                    .catch( e => {
+                        console.log(e)
+                    })
+
             }
         },
     },
   },
   created: function() {
+    let uri = window.location.search.substring(1);
+    let params = new URLSearchParams(uri);
+    this.equipmentId = params.get('equipment') ? params.get('equipment') : 109
+
     this.tables['form_repair'].init(this)
   },
   methods: {
+    updateResource(data) {
+        this.data = data
+    },
+    goToEdit: function() {
+        location.href='/leaching/repair/edit?equipment=' + this.equipmentId
+    },
+    onEquipmentSelected: function() {
+        let eq = document.getElementById("select_equipment")
+        this.equipmentId = eq.value
+        this.tables['form_repair'].init(this, eq.value)
+
+
+    },
     addNewRow: function(formId) {
         this.tables[formId].addNewRow(formId, this)
     },
     onChange: function(formId) {
         this.tables[formId].onChange(this)
     },
-    onRemoveRow: function(rowId, formId) {
-        console.log(formId + '' + rowId)
-        this.tables[formId].onRemoveRow(this, rowId)
+    removeRecord: function(rowId, formId) {
+        console.log(formId + ' ' + rowId)
+        this.tables[formId].removeRecord(this, rowId)
     },
     onRow: function(rowId, formId) {
         this.tables[formId].onRow(this, rowId)

@@ -34,7 +34,7 @@ def express(request):
         'form_express_analysis': {
             'title': _('Экспресс анализ'),
             'name': 'form_express_analysis',
-            'action': '/save/express/analysis',
+            'action': '/leaching/save/express/analysis',
             'times': ['8', '10', '12', '14', '16', '18', '20'],
             'columns': [_("Кобальт") + " Co, " + _('мг/л'), _("Сурьма") + _('мг/л'), _("Медь") + _('мг/л'), _("Кадмий"), _("Твердое После 1ст"), "pH (BCHC)",
                         _("Железо"), "As",
@@ -48,7 +48,7 @@ def express(request):
             'name': 'form_densers',
             'title': _('Сгустители'),
             'columns': ['10', "11", "12"],
-            'action': '/save/densers',
+            'action': '/leaching/save/densers',
             'shift': shift.id,
         },
 
