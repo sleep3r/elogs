@@ -11,6 +11,8 @@
           <span>CINDER</span>
           <span>SCHIEHT</span>
         </div>
+        <i class="glyphicon glyphicon-chevron-left carousel-chevron"
+          @click="prevFrame"></i>
                     
         <div class="timeframe" v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
           <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
@@ -26,6 +28,8 @@
           </div>
           <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
         </div>
+        <i class="glyphicon glyphicon-chevron-right carousel-chevron"
+          @click="nextFrame"></i>
       </div>
     </div>
   </div>
@@ -65,6 +69,16 @@ export default {
         width: "800",
         height: "600"
       })
+    },
+    prevFrame() {
+      if (this.gallery_index > 1) {
+        this.gallery_index++
+      }
+    },
+    nextFrame() {
+      if (this.gallery_index < this.fracData.length - 3) {
+        this.gallery_index++
+      }
     }
   },
   components: {
@@ -92,6 +106,11 @@ export default {
   }
 
   .carousel-chart {
+    cursor: pointer;
+  }
+
+  .carousel .carousel-chevron {
+    align-self: center;
     cursor: pointer;
   }
 
