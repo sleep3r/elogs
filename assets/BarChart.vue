@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     render() {
-    let margin = {top: 70, right: 20, bottom: 30, left: 40}
+    let margin = {top: 70, right: 20, bottom: 50, left: 40}
     let width = this.width - margin.left - margin.right
     let height = this.height - margin.top - margin.bottom
 
@@ -101,16 +101,22 @@ export default {
           g.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .append("text")
+              .attr("x", width - 6)
+              .attr("dy", "3.5em")
+              .attr("text-anchor", "end")
+              .text("Размер")
 
           g.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y).ticks(10, ",f"))
             .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "-2.75em")
+              .attr("text-anchor", "end")
+              .text("Фракция")
       }
     }
   }
@@ -132,7 +138,7 @@ svg {
   fill: rgb(28, 187, 156);
 }
 
-.bar text {
+.bar text, .axis text {
   fill: #000;
   font: 10px sans-serif;
   font-weight: bold;

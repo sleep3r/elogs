@@ -13,20 +13,21 @@
         </div>
         <i class="glyphicon glyphicon-chevron-left carousel-chevron"
           @click="prevFrame"></i>
-                    
+
         <div class="timeframe" v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
-          <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
           <div class="carousel-chart" @click="modalChart(timeframe.cinder)">
             <bar-chart 
               :min-sizes="timeframe.cinder.min_sizes"
               :masses="timeframe.cinder.masses"></bar-chart>
+            <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
           </div>
           <div class="carousel-chart" @click="modalChart(timeframe.schieht)">
             <bar-chart
               :min-sizes="timeframe.schieht.min_sizes"
               :masses="timeframe.schieht.masses"></bar-chart>
+            <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
           </div>
-          <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
+          
         </div>
         <i class="glyphicon glyphicon-chevron-right carousel-chevron"
           @click="nextFrame"></i>
@@ -107,6 +108,8 @@ export default {
 
   .carousel-chart {
     cursor: pointer;
+    margin: 0 5px;
+    border: 1px solid #d5d5d5;
   }
 
   .carousel .carousel-chevron {
@@ -130,7 +133,12 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+    height: 400px;
   }
 
+  .time-label {
+    text-align: center;
+  }
 
 </style>
