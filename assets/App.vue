@@ -20,8 +20,8 @@
       <bar-chart v-if="schieht_current" :min-sizes="schieht_current.min_sizes" :masses="schieht_current.masses"></bar-chart>
     </div>
   </div>
-  <div v-else>
-    LOADING...
+  <div class="spinner-container" v-else>
+    <spinner/>
   </div>
   </div>
 </template>
@@ -30,6 +30,7 @@
 import axios from 'axios'
 import _ from 'lodash'
 
+import Spinner from 'vue-simple-spinner'
 import barChart from './BarChart.vue'
 
 export default {
@@ -65,8 +66,19 @@ export default {
     }) 
   },
   components: {
+    Spinner,
     barChart
   }
 }
 </script>
+
+<style>
+.spinner-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+</style>
 
