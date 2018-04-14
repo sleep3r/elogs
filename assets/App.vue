@@ -6,6 +6,7 @@
     <div class="spinner-container" v-else>
       <spinner/>
     </div>
+    <modals-container/>
   </div>
 </template>
 

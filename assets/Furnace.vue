@@ -14,12 +14,16 @@
                     
         <div class="timeframe" v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
           <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
-            <bar-chart
+          <div class="carousel-chart" @click="modalChart(timeframe.cinder)">
+            <bar-chart 
               :min-sizes="timeframe.cinder.min_sizes"
               :masses="timeframe.cinder.masses"></bar-chart>
-          <bar-chart
-            :min-sizes="timeframe.schieht.min_sizes"
-            :masses="timeframe.schieht.masses"></bar-chart>
+          </div>
+          <div class="carousel-chart" @click="modalChart(timeframe.schieht)">
+            <bar-chart
+              :min-sizes="timeframe.schieht.min_sizes"
+              :masses="timeframe.schieht.masses"></bar-chart>
+          </div>
           <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
         </div>
       </div>
@@ -50,6 +54,19 @@ export default {
       return this.fracData.slice(Math.max(0, index - 2), Math.min(this.fracData.length - 1, index ? index + 3 : 5))
     }
   },
+  methods: {
+    modalChart(val) {
+      console.log("click", val)
+      this.$modal.show(barChart, {
+        minSizes: val.min_sizes,
+        masses: val.masses,
+        labels: true
+      }, {
+        width: "800",
+        height: "600"
+      })
+    }
+  },
   components: {
     barChart
   },
@@ -72,6 +89,10 @@ export default {
 <style>
   .carousel {
     display: flex;
+  }
+
+  .carousel-chart {
+    cursor: pointer;
   }
 
   .carousel .carousel-labels {
