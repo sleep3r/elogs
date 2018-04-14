@@ -21,6 +21,10 @@ export default {
       height: {
         type: Number,
         default: 600
+      },
+      labels: {
+        type: Boolean,
+        default: false
       }
   },
   computed: {
@@ -48,7 +52,6 @@ export default {
 
     let svg = d3.select(this.$el)
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
-    // .attr('width', this.width).attr('height', this.height)
 
     svg.selectAll('g').remove()
 
@@ -82,33 +85,33 @@ export default {
         })
         .attr("height", function(d) { return height - y(d[1]) })
 
-    bar.append("text")
-        .attr("dy", "-.75em")
-        .attr("y", 0)
-        .attr("x", function(d, i) {
-          return ((i < data.length - 1 
-          ? x(data[i + 1][0]) - x(data[i][0] ) 
-          : x(data[data.length - 1][0] / data.length)
-          ) / 2)
-        })
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d3.format(".2f")(d[1]) })
+      if (this.labels) {
+        bar.append("text")
+            .attr("dy", "-.75em")
+            .attr("y", 0)
+            .attr("x", function(d, i) {
+              return ((i < data.length - 1 
+              ? x(data[i + 1][0]) - x(data[i][0] ) 
+              : x(data[data.length - 1][0] / data.length)
+              ) / 2)
+            })
+            .attr("text-anchor", "middle")
+            .text(function(d) { return d3.format(".2f")(d[1]) })
 
+          g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
 
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-    g.append("g")
-      .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, ",f"))
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-
+          g.append("g")
+            .attr("class", "axis axis--y")
+            .call(d3.axisLeft(y).ticks(10, ",f"))
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+      }
     }
   }
 }
