@@ -8,16 +8,19 @@
           <option v-for="(cinder, index) in cinder_data" :key="cinder.time" :value="index">{{ cinder.time }}</option>
         </select>
       </div>
-      <bar-chart v-if="cinder_current" :min-sizes="cinder_current.min_sizes" :masses="cinder_current.masses"></bar-chart>
-    </div>
-    <div class="x_panel">
-      <div class="x_title">Schieht Date</div>
-      <div class="x_content">
-        <select name="center_data" class="form-control" v-model="schieht_index">
-          <option v-for="(schieht, index) in cinder_data" :key="schieht.time" :value="index">{{ schieht.time }}</option>
-        </select>
+      CINDER
+      <div class="carousel">
+        <div class="timeframe" v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
+          <span>{{ timeframe.cinder.time }}</span>
+        <bar-chart
+        :min-sizes="timeframe.cinder.min_sizes"
+        :masses="timeframe.cinder.masses"></bar-chart>
+        <bar-chart :min-sizes="timeframe.schieht.min_sizes" :masses="timeframe.schieht.masses"></bar-chart>
+        <span>{{ timeframe.schieht.time }}</span>
+        </div>
       </div>
-      <bar-chart v-if="schieht_current" :min-sizes="schieht_current.min_sizes" :masses="schieht_current.masses"></bar-chart>
+        
+            SCHIEHT
     </div>
   </div>
   <div class="spinner-container" v-else>
@@ -39,7 +42,7 @@ export default {
     return {
       furnace_data: {},
       cinder_index: 0,
-      schieht_index: 0
+      // schieht_index: 0
     }
   },
   computed: {
@@ -58,10 +61,24 @@ export default {
     },
     schieht_current() {
       return this.schieht_data[this.schieht_index]
+    },
+    schieht_index() {
+      return this.cinder_index
+    },
+    furnace_array() {
+      return _.transform(this.furnace_data, (r, v, k) => {
+        r.push(v)
+      }, [])
+    },
+    current_timeframes() {
+      let frame = 3
+      let index = this.cinder_index
+      return this.furnace_array.slice(Math.max(0, index - 1), Math.min(this.furnace_array.length - 1, index ? index + 2 : 3))
     }
   },
   created() {
-    axios.get('/furnace/frac/measurements/get').then(({ data }) => {
+    // furnace/frac/measurements/get
+    axios.get('/static/frac/f.json').then(({ data }) => {
       this.furnace_data = data.data
     }) 
   },
@@ -73,6 +90,17 @@ export default {
 </script>
 
 <style>
+  .carousel {
+    display: flex;
+  }
+
+  .carousel .timeframe {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    align-items: center;
+  }
+
 .spinner-container {
   width: 100%;
   min-height: 100vh;

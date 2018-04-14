@@ -13,6 +13,14 @@ export default {
       masses: {
           type: Array,
           required: true
+      },
+      width: {
+        type: Number,
+        default: 800
+      },
+      height: {
+        type: Number,
+        default: 600
       }
   },
   computed: {
@@ -35,10 +43,12 @@ export default {
   methods: {
     render() {
     let margin = {top: 70, right: 20, bottom: 30, left: 40}
-    let width = 800 - margin.left - margin.right
-    let height = 600 - margin.top - margin.bottom
+    let width = this.width - margin.left - margin.right
+    let height = this.height - margin.top - margin.bottom
 
-    let svg = d3.select(this.$el).attr('width', 800).attr('height', 600)
+    let svg = d3.select(this.$el)
+      .attr('viewBox', `0 0 ${this.width} ${this.height}`)
+    // .attr('width', this.width).attr('height', this.height)
 
     svg.selectAll('g').remove()
 
@@ -105,6 +115,12 @@ export default {
 </script>
 
 <style>
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
 .bar rect {
   fill: steelblue;
 }
