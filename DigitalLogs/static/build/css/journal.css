@@ -131,6 +131,7 @@ td {
 
 .editwrapper td .form-control {
   padding: 0 !important;
+  padding-left: 2px !important;
   height: 100%;
   min-height: 30px;
   border: none; 
