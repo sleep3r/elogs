@@ -16,11 +16,11 @@ export default {
       },
       width: {
         type: Number,
-        default: 800
+        default: 1200
       },
       height: {
         type: Number,
-        default: 600
+        default: 800
       },
       labels: {
         type: Boolean,
