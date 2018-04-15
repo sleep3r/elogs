@@ -140,7 +140,7 @@ svg {
 
 .bar text, .axis text {
   fill: #000;
-  font: 10px sans-serif;
+  font: 16px sans-serif;
   font-weight: bold;
 }
 </style>
