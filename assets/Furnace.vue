@@ -8,8 +8,8 @@
       <br/>
       <div class="carousel">
         <div class="carousel-labels">
-          <span>CINDER</span>
-          <span>SCHIEHT</span>
+          <span>ОГАРОК</span>
+          <span>ШИХТА</span>
         </div>
         <i class="glyphicon glyphicon-chevron-left carousel-chevron"
           @click="prevFrame"></i>
@@ -139,6 +139,10 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+  }
+
+  .carousel .spacer {
+    min-height: 25px;
   }
 
   .time-label {
