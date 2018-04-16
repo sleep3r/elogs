@@ -38,7 +38,6 @@ var app = new Vue({
 
                         scope.$http.get('/leaching/repair/allitems?equipment=' + scope.equipmentId )
                         .then(response => {
-                            $("#repair_print_link").attr("href", "?equipment_id=" + scope.equipmentId + "&print");
                             this.data = response.data
                             this.current = Object.assign({}, this.initRecord)
                         })

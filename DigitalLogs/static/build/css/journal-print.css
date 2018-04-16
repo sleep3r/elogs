@@ -283,3 +283,7 @@ th.rotate > div > span {
 .header-vsns {
   height: 150px;
 }
+
+.repair_print_wrapper {
+  margin: 10px 0 0;
+}

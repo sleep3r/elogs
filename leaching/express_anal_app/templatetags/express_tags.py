@@ -14,3 +14,6 @@ def model_desc(obj):
 def addclass(value):
     return value.as_widget(attrs={'class': 'form-control'})
 
+@register.filter(name='formatDate')
+def addclass(value):
+    return value

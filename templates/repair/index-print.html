@@ -26,8 +26,11 @@
 </head>
 <body>
         <div id="app_repair" class="print-container">
-        {% include "repair/widgets/select-equipment.html" %}
-        {% include "repair/widgets/table-repair.html" %}
+        {% for eq in equipment %}
+          <div class="repair_print_wrapper">
+            {% include "repair/widgets/table-repair-print.html" with info=eq %}
+          </div>
+        {% endfor %}
         </div>
 
 
