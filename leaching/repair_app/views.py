@@ -22,7 +22,32 @@ def index(request):
         'repair': ''
     }
 
+    if 'print' in request.GET:
+    	return index_print(request)
+
     template = loader.get_template('repair/index.html')
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def index_print(request):
+    eqs = Equipment.objects.all().order_by('name')
+    equipment = []
+    for num, eq in enumerate(eqs):
+        row = {'num': num, 'name': eq.name, 'id': eq.id}
+        items = Repairs.objects.filter(equipment__id=eq.id).order_by('date')
+        records = []
+        for num, item in enumerate(items):
+            item_row = {'num': num, 'name': item.name, 'id': item.id, 'comment': item.comment, 'date': item.date.strftime("%Y-%m-%dT%H:%M")}
+            records.append(item_row)
+        row['items'] = records
+        equipment.append(row)
+
+
+    context = {
+        'equipment': equipment
+    }
+    template = loader.get_template('repair/index-print.html')
     return HttpResponse(template.render(context, request))
 
 @process_json_view(auth_required=False)

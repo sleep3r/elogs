@@ -1796,10 +1796,15 @@ if (typeof NProgress != 'undefined') {
                 labelFinish:'Завершить',
                 hideButtonsOnDisabled: true,
                 onFinish: function(){
-                        console.log('Finish')
-                        window.location = "/leaching/journal?print"
-                    },
-                });
+                    console.log('Finish')
+                    window.location = "/leaching/journal?print"
+                },
+                onLeaveStep: function() {
+                    // 100 миллисекунд анимация скролла вверх
+                    $("html, body").animate({ scrollTop: 0 }, 100, 'linear');
+                    return true;
+                }
+            });
 
 			$('#wizard_verticle').smartWizard({
 			  transitionEffect: 'slide'
