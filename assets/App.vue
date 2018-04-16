@@ -30,8 +30,7 @@ export default {
     }
   },
   created() {
-    // furnace/frac/measurements/get
-    axios.get('/static/frac/f.json').then(({ data }) => {
+    axios.get('/furnace/frac/measurements/get').then(({ data }) => {
       this.furnace_data = data.data
     }) 
   },

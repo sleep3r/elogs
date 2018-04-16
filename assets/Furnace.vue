@@ -5,7 +5,7 @@
         <select name="center_data" class="form-control" v-model="gallery_index">
           <option v-for="({ cinder }, index) in fracData" :key="cinder.time" :value="index">{{ cinder.time }}</option>
         </select>
-      
+      <br/>
       <div class="carousel">
         <div class="carousel-labels">
           <span>CINDER</span>
@@ -21,6 +21,7 @@
               :masses="timeframe.cinder.masses"></bar-chart>
             <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
           </div>
+          <div class="spacer"></div>
           <div class="carousel-chart" @click="modalChart(timeframe.schieht)">
             <bar-chart
               :min-sizes="timeframe.schieht.min_sizes"
@@ -68,7 +69,7 @@ export default {
         labels: true
       }, {
         width: "1200",
-        height: "800"
+        height: "900"
       })
     },
     prevFrame() {
@@ -112,6 +113,10 @@ export default {
     border: 1px solid #d5d5d5;
   }
 
+  .carousel-chart:hover {
+    border: 1px solid rgb(50, 150, 222);
+  }  
+
   .carousel .carousel-chevron {
     align-self: center;
     cursor: pointer;
@@ -134,7 +139,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 400px;
   }
 
   .time-label {
