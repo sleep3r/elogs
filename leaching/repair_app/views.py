@@ -22,7 +22,10 @@ def index(request):
         'repair': ''
     }
 
-    template = loader.get_template('repair/index.html')
+    if 'print' in request.GET:
+    	template = loader.get_template('repair/index-print.html')
+    else:
+    	template = loader.get_template('repair/index.html')
     return HttpResponse(template.render(context, request))
 
 @process_json_view(auth_required=False)
