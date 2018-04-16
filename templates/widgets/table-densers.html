@@ -3,6 +3,7 @@
     <div class="x_title notitle">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
+        <a class="btn btn-success pull-right editintable" href="/leaching/all/edit"><i class="glyphicon glyphicon-pencil"></i></a>
     </div>
     <div class="x_content">
 
@@ -22,7 +23,7 @@
             </tr>
             <tr>
                 {% for n in table.columns %}
-                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate densers-header"><div><span>pH</span></div></th>
                 <th class="rotate"><div><span>{% trans "Медь" %}{% trans ", мг/л" %}</span></div></th>
                 <th class="rotate"><div><span>{% trans "Железо" %}{% trans ", мг/л" %}</span></div></th>
                 <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>

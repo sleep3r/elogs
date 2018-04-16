@@ -101,16 +101,14 @@ var app = new Vue({
                 events: shift_events
             });
 
-            calendar.fullCalendar('gotoDate', date);
+            //calendar.fullCalendar('gotoDate', date);
 
         };
     }
 })
 
 function clickOnWizard() {
-    console.log("click on Wizard");
-    setTimeout(function(){
-         $("button.fc-today-button").click()
-    }, 500);
-
+    $("#myModal").off('shown.bs.modal').on('shown.bs.modal', () => {
+        $('#shift_calendar').fullCalendar('render');
+    });
 }

@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 
-from leaching.express_anal_app import views
+# from leaching.express_anal_app import views
+from furnace.fractional_app import views
 
 urlpatterns = [
     url('^$', views.index),
     path('admin/', admin.site.urls),
     url('leaching/repair', include('leaching.repair_app.urls')),
+    url('fractional', include('furnace.fractional_app.urls')),
     url('leaching', include('leaching.express_anal_app.urls')),
     url('^furnace/frac', include('furnace.fractional_app.urls')),
     url('^auth', include('login_app.urls')),

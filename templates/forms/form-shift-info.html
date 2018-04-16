@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load express_tags %}
 <div class="x_panel">
     <div class="x_title">
         <h2>{{form.title}}</h2>
@@ -25,7 +26,7 @@
                      {% trans "Мастер сдал" %}
                 </th>
                 <td v-if="tables.{{form.name}}.data.items">
-                    {{form.fields.this_master}}
+                    {{form.fields.this_master|formcontrol}}
                 </td>
             </tr>
             <tr>
@@ -33,7 +34,7 @@
                      {% trans "Мастер принял" %}
                 </th>
                 <td>
-                    {{form.fields.next_master}}
+                    {{form.fields.next_master|formcontrol}}
                 </td>
             </tr>
             <thead>
