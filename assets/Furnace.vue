@@ -40,8 +40,9 @@
       </div>
     <div class="x_panel">
       <div class="x_title">G2</div>
-      <div class="x_content">
-        <line-chart :series="gaphsData"></line-chart>
+      <div class="x_content" style="display: flex;">
+        <line-chart :points="gaphsData.cinder"></line-chart>
+        <line-chart :points="gaphsData.schieht"></line-chart>
       </div>
     </div>
 </div>
