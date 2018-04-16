@@ -20,6 +20,14 @@ module.exports = {
       {
           test: /\.vue$/,
           loader: 'vue-loader',
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
+      },
+      {
+        test: /\.((ttf)|(woff)|(woff2)|(svg)|(eot))$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -29,6 +37,13 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      Vue: ['vue/dist/vue.esm.js', 'default'],
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      $: 'jquery',
+      moment: 'moment',
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new BundleTracker({filename: './webpack-stats.json'}),
     new Cleaner()
