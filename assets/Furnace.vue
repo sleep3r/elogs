@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="x_panel">
-      <div class="x_title">Фракционный состав шихты и огарка</div>
+      <div class="x_title"><h4>Фракционный состав шихты и огарка</h4></div>
       <div class="x_content">
         <!-- <select name="center_data" class="form-control" v-model="gallery_index">
           <option v-for="({ cinder }, index) in fracData" :key="cinder.time" :value="index">{{ cinder.time }}</option>
@@ -42,12 +42,19 @@
       </div>
     </div>
       </div>
+      <div class="tablewrapper" style="width:100%">
     <div class="x_panel">
-      <div class="x_title">График среднего размера частицы (шихты/огарка)</div>
+      <div class="x_title"><h4>График среднего размера огарка</h4></div>
       <div class="x_content" style="display: flex;" v-if="gaphsData['cinder']">
         <line-chart :points="gaphsData.cinder"></line-chart>
+      </div>
+    </div>
+    <div class="x_panel">
+      <div class="x_title"><h4>График среднего размера шихты</h4></div>
+      <div class="x_content" style="display: flex;" v-if="gaphsData['schieht']">
         <line-chart :points="gaphsData.schieht"></line-chart>
       </div>
+    </div>
     </div>
 </div>
 </template>
