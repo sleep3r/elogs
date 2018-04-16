@@ -18,14 +18,16 @@
           <div class="carousel-chart" @click="modalChart(timeframe.cinder)">
             <bar-chart 
               :min-sizes="timeframe.cinder.min_sizes"
-              :masses="timeframe.cinder.masses"></bar-chart>
+              :masses="timeframe.cinder.masses"
+              :prediction="is_prediction(timeframe.cinder.time)"></bar-chart>
             <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
           </div>
           <div class="spacer"></div>
           <div class="carousel-chart" @click="modalChart(timeframe.schieht)">
             <bar-chart
               :min-sizes="timeframe.schieht.min_sizes"
-              :masses="timeframe.schieht.masses"></bar-chart>
+              :masses="timeframe.schieht.masses"
+              :prediction="is_prediction(timeframe.schieht.time)"></bar-chart>
             <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
           </div>
           
@@ -50,8 +52,12 @@ export default {
   },
   data() {
     return {
-      gallery_index: 2
+      gallery_index: 2,
+      current_time: ''
     }
+  },
+  created() {
+    this.current_time = Date.now()
   },
   computed: {
     current_timeframes() {
@@ -61,12 +67,16 @@ export default {
     }
   },
   methods: {
+    is_prediction(time) {
+      return new Date(time) > this.current_time
+    },
     modalChart(val) {
       console.log("click", val)
       this.$modal.show(barChart, {
         minSizes: val.min_sizes,
         masses: val.masses,
-        labels: true
+        labels: true,
+        prediction: this.is_prediction(val.time)
       }, {
         width: "1200",
         height: "900"

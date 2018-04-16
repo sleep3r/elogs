@@ -1,5 +1,5 @@
 <template>
-  <svg :class="{labels}"></svg>
+  <svg :class="{ labels, prediction }"></svg>
 </template>
 
 <script>
@@ -29,14 +29,15 @@ export default {
       labels: {
         type: Boolean,
         default: false
+      },
+      prediction: {
+        type: Boolean,
+        default: false
       }
   },
   computed: {
-    sizes() {
-      return map(this.minSizes, s => +s) // Ensure numbers
-    },
     chartData() {
-      return d3.zip(this.sizes, this.masses)
+      return d3.zip(this.minSizes, this.masses)
     }
   },
   watch: {
@@ -136,6 +137,10 @@ svg {
 
 .bar rect {
   fill: steelblue;
+}
+
+svg.prediction .bar rect {
+  fill: brown;
 }
 
 svg.label .bar rect:hover {
