@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="x_panel">
       <div class="x_title">Furmace</div>
       <div class="x_content">
@@ -36,17 +37,29 @@
           @click="nextFrame"></i>
       </div>
     </div>
-  </div>
+      </div>
+    <div class="x_panel">
+      <div class="x_title">G2</div>
+      <div class="x_content">
+        <line-chart :series="gaphsData"></line-chart>
+      </div>
+    </div>
+</div>
 </template>
 
 <script>
 import barChart from './BarChart.vue'
+import lineChart from './LineChart.vue'
 
 export default {
   name: 'Furnace',
   props: {
     fracData: {
       type: Array,
+      required: true
+    },
+    gaphsData: {
+      type: Object,
       required: true
     }
   },
@@ -94,7 +107,8 @@ export default {
     }
   },
   components: {
-    barChart
+    barChart,
+    lineChart
   },
   filters: {
     datetime(value) {

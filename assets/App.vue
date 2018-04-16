@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="furnace_array.length">
-      <furnace :frac-data="furnace_array" />
+      <furnace :frac-data="furnace_array" :gaphs-data="gaphs_data" />
     </div>
     <div class="spinner-container" v-else>
       <spinner/>
@@ -19,7 +19,8 @@ export default {
   name: 'app',
   data() { 
     return {
-      furnace_data: {}
+      furnace_data: {},
+      gaphs_data: {}
     }
   },
   computed: {
@@ -32,7 +33,11 @@ export default {
   created() {
     axios.get('/furnace/frac/measurements/get').then(({ data }) => {
       this.furnace_data = data.data
-    }) 
+    })
+
+    axios.get('/furnace/frac/granularity_gaphs/get').then(({ data }) => {
+      this.gaphs_data = data.data
+    })
   },
   components: {
     Spinner,
