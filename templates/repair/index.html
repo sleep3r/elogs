@@ -15,6 +15,7 @@
 {% block content %}
    {{ block.super }}
     <div id="app_repair">
+    <a id="repair_print_link" class="btn btn-info pull-right" href="#" onclick=""><i class="glyphicon glyphicon-print"></i> {% trans "Печатная версия" %}</a>
     {% include "repair/widgets/select-equipment.html" %}
     {% include "repair/widgets/table-repair.html" %}
     </div>
