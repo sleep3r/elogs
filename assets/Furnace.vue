@@ -98,11 +98,11 @@ export default {
     },
     prevFrame() {
       if (this.gallery_index > 1) {
-        this.gallery_index++
+        this.gallery_index--
       }
     },
     nextFrame() {
-      if (this.gallery_index < this.fracData.length - 3) {
+      if (this.gallery_index < this.fracData.length - 4) {
         this.gallery_index++
       }
     }
@@ -128,6 +128,11 @@ export default {
 </script>
 
 <style>
+
+  .x_panel {
+    margin-bottom: 10px;
+  }
+
   .carousel {
     display: flex;
   }
@@ -172,6 +177,10 @@ export default {
 
   .time-label {
     text-align: center;
+  }
+
+  #furnacepicker {
+    max-width: 1600px;
   }
 
 </style>
