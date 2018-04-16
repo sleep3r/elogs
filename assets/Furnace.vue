@@ -87,7 +87,7 @@
         let index = this.gallery_index;
         return this.fracData.slice(
           Math.max(0, index - 2),
-          Math.min(this.fracData.length - 1, index ? index + 3 : 5)
+          Math.min(this.fracData.length, index ? index + 3 : frame)
         );
       }
     },
