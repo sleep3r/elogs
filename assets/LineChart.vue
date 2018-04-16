@@ -37,6 +37,22 @@ export default {
 
       let parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S.%f%Z");
 
+      var ru_RU = d3.timeFormatDefaultLocale({
+        "decimal": ",",
+        "thousands": "\xa0",
+        "grouping": [3],
+        "currency": ["", " руб."],
+        "dateTime": "%A, %e %B %Y г. %X",
+        "date": "%d.%m.%Y",
+        "time": "%H:%M:%S",
+        "periods": ["AM", "PM"],
+        "days": ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"],
+        "shortDays": ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
+        "months": ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+        "shortMonths": ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+    })
+      // d3.formatDefaultLocale(ru_RU)
+
       svg.selectAll('g').remove()
 
       let data = this.points
@@ -59,7 +75,7 @@ export default {
 
       g.append("g")
           .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x))
+          .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d %b")))
         .select(".domain")
           .remove();
 
