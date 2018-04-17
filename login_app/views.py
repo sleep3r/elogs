@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from login_app.models import Message
 from utils.deep_dict import deep_dict
+from utils.errors import AccessError
 from utils.webutils import process_json_view, generate_csrf, model_to_dict
 
 
@@ -51,5 +52,8 @@ def get_messages(request):
 def read_message(request):
     id = request.GET.get('id') or ''
     msg = Message.objects.get(id=id)
-    msg.is_read = True
-    return {"status":0}
+    if msg.addressee == request.user.employee:
+        msg.is_read = True
+        return {"status":0}
+    else:
+        raise AccessError(message="Попытка отметиь чужое сообщение как прочитанное")
