@@ -45,3 +45,11 @@ def get_messages(request):
     for m in Message.objects.filter(is_read=False):
         res['messages'][m.id] = model_to_dict(m)
     return res
+
+
+@process_json_view(auth_required=False)
+def read_message(request):
+    id = request.GET.get('id') or ''
+    msg = Message.objects.get(id=id)
+    msg.is_read = True
+    return {"status":0}
