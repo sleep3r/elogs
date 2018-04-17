@@ -19,7 +19,9 @@
         <i class="glyphicon glyphicon-chevron-left carousel-chevron"
           @click="prevFrame"></i>
 
-        <div class="timeframe" v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
+        <div class="timeframe" 
+        :class="{prediction: is_prediction(timeframe.cinder.time)}"
+        v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
           <div class="carousel-chart" @click="modalChart(timeframe.cinder)">
             <bar-chart 
               :min-sizes="timeframe.cinder.min_sizes"
@@ -210,6 +212,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.timeframe:not(.prediction) + .timeframe.prediction {
+  border-left: 1px dotted gray;
 }
 
 .carousel .spacer {
