@@ -42,19 +42,21 @@
       </div>
     </div>
       </div>
-      <div class="tablewrapper" style="width:100%">
-    <div class="x_panel">
-      <div class="x_title"><h4>График среднего размера огарка</h4></div>
-      <div class="x_content" style="display: flex;" v-if="gaphsData['cinder']">
-        <line-chart :points="gaphsData.cinder"></line-chart>
+      <div class="tablewrapper gaphs">
+        <div class="x_panel">
+          <div class="x_title"><h4>График среднего размера огарка</h4></div>
+          <div class="x_content" v-if="gaphsData['cinder']">
+            <line-chart :points="gaphsData.cinder"></line-chart>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="x_panel">
-      <div class="x_title"><h4>График среднего размера шихты</h4></div>
-      <div class="x_content" style="display: flex;" v-if="gaphsData['schieht']">
-        <line-chart :points="gaphsData.schieht"></line-chart>
-      </div>
-    </div>
+      <div class="tablewrapper gaphs">
+        <div class="x_panel">
+          <div class="x_title"><h4>График среднего размера шихты</h4></div>
+          <div class="x_content" v-if="gaphsData['schieht']">
+            <line-chart :points="gaphsData.schieht"></line-chart>
+          </div>
+        </div>
     </div>
 </div>
 </template>
@@ -166,6 +168,10 @@
 <style>
 .x_panel {
   margin-bottom: 10px;
+}
+
+.tablewrapper.gaphs {
+  width: calc(50% - 10px);
 }
 
 .carousel {
