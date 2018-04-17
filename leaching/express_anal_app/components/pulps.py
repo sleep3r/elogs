@@ -1,5 +1,6 @@
 import json
 
+from leaching.express_anal_app.services.messages import report_critical
 from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
@@ -70,8 +71,7 @@ def leaching_save_pulps(request):
 
         if form.is_valid():
             form.save()
-            Message(type='critical_value', position='master laborant',
-                    text=f'Критические значения в полях: {model.get_critical()}').save()
+            report_critical(model)
         else:
             print(form.errors)
 
@@ -136,8 +136,7 @@ def leaching_update_pulps(request):
     day_anal.journal = journal
     day_anal.shift = shift
     day_anal.save()
-    Message(type='critical_value', position='master laborant',
-            text=f'Критические значения в полях: {day_anal.get_critical()}').save()
+    report_critical(day_anal)
 
     for field in zn_fields:
         setattr(zn_pulp, field, data['zn_pulp'].get(field) or 0)
@@ -147,8 +146,7 @@ def leaching_update_pulps(request):
     zn_pulp.cu_pulp_anal = cu_pulp
     zn_pulp.fe_sol_anal = fe_sol
     zn_pulp.save()
-    Message(type='critical_value', position='master laborant',
-            text=f'Критические значения в полях: {day_anal.get_critical()}').save()
+    report_critical(zn_pulp)
 
     for field in cu_fields:
         setattr(cu_pulp, field, data['cu_pulp'].get(field) or 0)
@@ -157,8 +155,7 @@ def leaching_update_pulps(request):
     cu_pulp.fe_sol_anal = fe_sol
     cu_pulp.journal = journal
     cu_pulp.save()
-    Message(type='critical_value', position='master laborant',
-            text=f'Критические значения в полях: {day_anal.get_critical()}').save()
+    report_critical(model)
 
     for field in fe_fields:
         setattr(fe_sol, field, data['fe_sol'].get(field) or 0)
@@ -166,8 +163,7 @@ def leaching_update_pulps(request):
     fe_sol.zn_pulp_anal = zn_pulp
     fe_sol.cu_pulp_anal = cu_pulp
     fe_sol.save()
-    Message(type='critical_value', position='master laborant',
-            text=f'Критические значения в полях: {fe_sol.get_critical()}').save()
+    report_critical(fe_sol)
 
     return {
         'result': 'ok',

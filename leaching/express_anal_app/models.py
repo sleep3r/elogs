@@ -24,6 +24,10 @@ class Journal(models.Model):
     def __str__(self):
         return self.name
 
+    def get_critical(self):
+        return []
+
+
 
 class Shift(models.Model):
     """
@@ -44,6 +48,9 @@ class Shift(models.Model):
     class Meta:
         ordering = ['-date', '-order']
 
+    def get_critical(self):
+        return []
+
 
 class JournalTable(models.Model):
     """
@@ -55,6 +62,9 @@ class JournalTable(models.Model):
 
     def __str__(self):
         return f'{self.journal}, запись {self.time}'
+
+    def get_critical(self):
+        return []
 
 
 class LeachingExpressAnal(JournalTable):
@@ -326,7 +336,7 @@ class Reagents(JournalTable):
     fence_state = models.CharField(max_length=255, blank=True)
 
     def get_critical(self):
-        return get_critical_values(self, values_bounds['ready_product'])
+        return []
 
 
 class VEU(JournalTable):
