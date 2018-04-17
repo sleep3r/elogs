@@ -25,9 +25,9 @@ export default {
   },
   computed: {
     furnace_array() {
-      return _.transform(this.furnace_data, (r, v, k) => {
+      return _.orderBy(_.transform(this.furnace_data, (r, v, k) => {
         r.push(v)
-      }, [])
+      }, []), frame => frame.cinder.time)
     }
   },
   created() {

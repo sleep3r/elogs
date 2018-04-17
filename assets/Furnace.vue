@@ -102,7 +102,7 @@
     },
     methods: {
       is_prediction(time) {
-        return new Date(time) > this.current_time;
+        return time * 1000 > this.current_time;
       },
       modalChart(val) {
         console.log("click", val);
@@ -132,11 +132,11 @@
       },
       closest(array,num){
         var i=0;
-        var minDiff= Date.parse(array[array.length - 1].cinder.time)
+        var minDiff= array[array.length - 1].cinder.time * 1000
         var ans;
         for(i in array){
-            var m=Math.abs(num - Date.parse(array[i].cinder.time) )
-            console.log(num, Date.parse(array[i].cinder.time), i, m)
+            var m=Math.abs(num - array[i].cinder.time * 1000 )
+            // console.log(num, Date.parse(array[i].cinder.time), i, m)
             if(m<minDiff){ 
                     minDiff=m; 
                     ans=i; 
@@ -151,7 +151,7 @@
     },
     filters: {
       datetime(value) {
-        return new Date(value).toLocaleString("en-US", {
+        return new Date(value * 1000).toLocaleString("ru-RU", {
           year: "numeric",
           month: "numeric",
           day: "numeric",

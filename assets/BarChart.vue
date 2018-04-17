@@ -143,7 +143,7 @@ svg.prediction .bar rect {
   fill: brown;
 }
 
-svg.label .bar rect:hover {
+svg.labels .bar rect:hover {
   fill: rgb(28, 187, 156);
 }
 

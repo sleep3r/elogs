@@ -35,8 +35,6 @@ export default {
       let svg = d3.select(this.$el)
         .attr('viewBox', `0 0 ${this.width} ${this.height}`)
 
-      let parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S.%f%Z");
-
       var ru_RU = d3.timeFormatDefaultLocale({
         "decimal": ",",
         "thousands": "\xa0",
@@ -64,13 +62,13 @@ export default {
           .rangeRound([height, 0]);
 
       var line = d3.line()
-          .x(function(d) { return x(parseTime(d[0])) })
+          .x(function(d) { return x(d[0] * 1000) })
           .y(function(d) { return y(d[1]) })
 
       let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-      x.domain(d3.extent(data, function(d) { return parseTime(d[0]) }))
+      x.domain(d3.extent(data, function(d) { return d[0] * 1000 }))
       y.domain(d3.extent(data, function(d) { return d[1] }))
 
       g.append("g")
