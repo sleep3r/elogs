@@ -6,7 +6,9 @@ var Cleaner = require('webpack-cleanup-plugin');
 module.exports = {
   mode: 'development',
   context: path.join(__dirname, 'assets'),
-  entry: './index',
+  entry: {
+    furnace: './furnace/index'
+  },
   output: {
       path: path.resolve('./DigitalLogs/static/webpack_bundles'),
       filename: "[name]-[hash].js"

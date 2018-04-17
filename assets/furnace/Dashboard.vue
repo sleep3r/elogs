@@ -68,7 +68,7 @@
   import lineChart from "./LineChart.vue";
 
   export default {
-    name: "Furnace",
+    name: "FurnaceDashboard",
     props: {
       fracData: {
         type: Array,

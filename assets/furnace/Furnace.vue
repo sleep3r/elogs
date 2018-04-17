@@ -1,9 +1,13 @@
 <template>
   <div>
     <div v-if="furnace_array.length">
-      <furnace :frac-data="furnace_array" :gaphs-data="gaphs_data" />
+      <furnace-dashboard 
+        :frac-data="furnace_array" 
+        :gaphs-data="gaphs_data" />
     </div>
-    <div class="spinner-container" v-else>
+    <div 
+      class="spinner-container" 
+      v-else>
       <spinner/>
     </div>
     <modals-container/>
@@ -14,9 +18,9 @@
 import axios from 'axios'
 import Spinner from 'vue-simple-spinner'
 
-import furnace from './Furnace.vue'
+import furnaceDashboard from './Dashboard.vue'
 export default {
-  name: 'app',
+  name: 'Furnace',
   data() { 
     return {
       furnace_data: {},
@@ -41,7 +45,7 @@ export default {
   },
   components: {
     Spinner,
-    furnace
+    furnaceDashboard
   }
 }
 </script>

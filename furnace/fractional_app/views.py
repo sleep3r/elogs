@@ -10,7 +10,7 @@ from django.template import loader
 from utils.webutils import process_json_view
 @login_required
 def index(request):
-    template = loader.get_template('spa-index.html')
+    template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render())
 
 
