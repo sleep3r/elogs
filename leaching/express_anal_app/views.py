@@ -257,7 +257,7 @@ def leaching_jurnal(request):
         'schiehta': schiehta,
         'reagents': reagents,
         'user_name': str(request.user.employee),
-
+        'notifications': get_messages_dict(request.user.employee),
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)},
 
         'form_validate': None if 'validate' not in request.GET else {

@@ -23,13 +23,13 @@ def report_critical(model, where=None):
     fields = model.get_critical()
     if fields:
         for emp in get_addressees(all=True):
-            msg = Message(type='critical_value', text=f'Критические значения в полях: {fields}', employee=emp)
+            msg = Message(type='critical_value', text=f'Критические значения в полях: {fields}', addressee=emp)
             msg.save()
 
 
 def get_messages_dict(empl):
     res = []
-    for m in Message.objects.filter(is_read=False, employee=empl):
+    for m in Message.objects.filter(is_read=False, addressee=empl):
         if not m.is_read:
             res.append({
                 'type': m.type,
