@@ -113,7 +113,7 @@
     },
     watch: {
       selected_time(val) {
-        this.moveToTime()
+        this.moveToTime(val)
       }
     },
     computed: {
@@ -158,21 +158,21 @@
       prevFrame() {
         if (this.gallery_index > 2) {
           this.slideTransition = 'slide-right'
-          this.gallery_index--;
+          this.gallery_index -= 3;
         }
       },
       nextFrame() {
         if (this.gallery_index < this.fracData.length - 3) {
           this.slideTransition = 'slide-left'
-          this.gallery_index++;
+          this.gallery_index += 3;
         }
       },
-      closest(array,num){
+      closest(array, num) {
         var i=0;
-        var minDiff= array[array.length - 1].cinder.time * 1000
+        var minDiff = array[array.length - 1].cinder.time * 1000
         var ans;
         for(i in array){
-            var m=Math.abs(num - array[i].cinder.time * 1000 )
+            var m = Math.abs(num - array[i].cinder.time * 1000)
             // console.log(num, Date.parse(array[i].cinder.time), i, m)
             if(m<minDiff){ 
                     minDiff=m; 
@@ -213,7 +213,6 @@
 
 .date-control {
   display: flex;
-  // align-items: center;
 
   .vdatetime {
     flex-grow: 1;
@@ -261,22 +260,29 @@
 
 .slide-left-move,
 .slide-right-move {
-  transition: transform 0.75s;
+  transition: transform 1s;
 }
 
 .slide-left-leave-active,
 .slide-left-enter-active,
 .slide-right-leave-active,
 .slide-right-enter-active {
-  transition: 0.75s;
+  transition: 1s;
 }
 .slide-left-enter {
   opacity: 0;
-  transform: translate(100%, 0);
+  transform: translate(300%, 0);
 }
 
-.slide-right-leave {
-  transform: translate(400%, 0);
+.slide-right-enter {
+  transform: translate(-300%, 0);
+  opacity: 0;
+}
+
+.slide-left-leave-to
+{
+  transform: translate(-100%, 0);
+  opacity: 0;
 }
 
 .slide-right-leave-to {
@@ -290,13 +296,9 @@
 .slide-right-leave {
   max-width: 20%;
   position: absolute;
+}
 
-}
-.slide-left-leave-to,
-.slide-right-enter {
-  transform: translate(-100%, 0);
-  opacity: 0;
-}
+
 
 .timeframe:not(.prediction) + .timeframe.prediction {
   border-left: 1px dotted gray;
