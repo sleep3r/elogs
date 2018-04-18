@@ -60,9 +60,11 @@ def get_equipment(request):
         row = {'num': num, 'name': item.name, 'id': item.id}
         records.append(row)
 
+
     return {
         'component': 'equipment',
         'items': records,
+        'first': items[0].id,
         'count': len(records)
     }
 

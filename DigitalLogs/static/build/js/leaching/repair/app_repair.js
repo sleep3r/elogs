@@ -31,10 +31,18 @@ var app = new Vue({
             current_count: 0,
             state: 'view',
             initRecord: {},
+            isLoaded: false,
             init: function(scope){
                 scope.$http.get(scope.baseLink + '/equipment')
                     .then(response => {
                         scope.equipment = response.data.items
+
+                        console.info(response.data)
+
+                        if (response.data.first > 0 && !this.isLoaded ) {
+                            scope.equipmentId = response.data.first
+                            this.isLoaded = true
+                        }
 
                         scope.$http.get('/leaching/repair/allitems?equipment=' + scope.equipmentId )
                         .then(response => {
