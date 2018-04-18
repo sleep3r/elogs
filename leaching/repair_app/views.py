@@ -8,6 +8,7 @@ from django.template import loader
 
 
 # Create your views here.
+from leaching.express_anal_app.services.messages import get_messages_dict
 from leaching.express_anal_app.tables import add_model_to_dict
 from leaching.repair_app.models import Repairs, Equipment
 from utils.deep_dict import deep_dict
@@ -19,7 +20,8 @@ from utils.webutils import parse, process_json_view
 def index(request):
 
     context = {
-        'repair': ''
+        'user_name': str(request.user.employee),
+        'notifications': get_messages_dict(request.user.employee)
     }
 
     if 'print' in request.GET:
