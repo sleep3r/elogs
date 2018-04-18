@@ -1,66 +1,83 @@
 <template>
-<div>
+  <div class="furnace-dashboard">
     <div class="x_panel">
       <div class="x_title"><h4>Фракционный состав шихты и огарка</h4></div>
       <div class="x_content">
-        <!-- <select name="center_data" class="form-control" v-model="gallery_index">
-          <option v-for="({ cinder }, index) in fracData" :key="cinder.time" :value="index">{{ cinder.time }}</option>
-        </select> -->
-        <datetime v-model="selected_time"
-          type="datetime"
-          input-format="DD-MM-YYYY HH:mm"
-          moment-locale="ru" />
-      <br/>
-      <div class="carousel">
-        <div class="carousel-labels">
-          <span>ОГАРОК</span>
-          <span>ШИХТА</span>
+        <div class="form-group">
+          <datetime 
+            v-model="selected_time"
+            input-class="form-control"
+            placeholder="Выбор даты и времени"
+            type="datetime"
+            input-format="DD-MM-YYYY HH:mm"
+            moment-locale="ru" />
         </div>
-        <i class="glyphicon glyphicon-chevron-left carousel-chevron"
-          @click="prevFrame"></i>
-
-        <div class="timeframe" 
-        :class="{prediction: is_prediction(timeframe.cinder.time)}"
-        v-for="timeframe in current_timeframes" :key="timeframe.cinder.time">
-          <div class="carousel-chart" @click="modalChart(timeframe.cinder)">
-            <bar-chart 
-              :min-sizes="timeframe.cinder.min_sizes"
-              :masses="timeframe.cinder.masses"
-              :prediction="is_prediction(timeframe.cinder.time)"></bar-chart>
-            <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
+        <br>
+        <div class="carousel">
+          <div class="carousel-labels">
+            <span>ОГАРОК</span>
+            <span>ШИХТА</span>
           </div>
-          <div class="spacer"></div>
-          <div class="carousel-chart" @click="modalChart(timeframe.schieht)">
-            <bar-chart
-              :min-sizes="timeframe.schieht.min_sizes"
-              :masses="timeframe.schieht.masses"
-              :prediction="is_prediction(timeframe.schieht.time)"></bar-chart>
-            <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
-          </div>
-          
+          <i 
+            class="glyphicon glyphicon-chevron-left carousel-chevron"
+            @click="prevFrame"/>
+          <transition-group 
+            :name="slideTransition"
+            tag="div"
+            class="carousel-inner">
+            <div 
+              class="timeframe" 
+              :class="{prediction: is_prediction(timeframe.cinder.time)}"
+              v-for="timeframe in current_timeframes" 
+              :key="timeframe.cinder.time">
+              <div 
+                class="carousel-chart" 
+                @click="modalChart(timeframe.cinder)">
+                <bar-chart 
+                  :min-sizes="timeframe.cinder.min_sizes"
+                  :masses="timeframe.cinder.masses"
+                  :prediction="is_prediction(timeframe.cinder.time)"/>
+                <div class="time-label">{{ timeframe.cinder.time | datetime }}</div>
+              </div>
+              <div class="spacer"/>
+              <div 
+                class="carousel-chart" 
+                @click="modalChart(timeframe.schieht)">
+                <bar-chart
+                  :min-sizes="timeframe.schieht.min_sizes"
+                  :masses="timeframe.schieht.masses"
+                  :prediction="is_prediction(timeframe.schieht.time)"/>
+                <div class="time-label">{{ timeframe.schieht.time | datetime }}</div>
+              </div>
+            </div>
+          </transition-group>
+          <i 
+            class="glyphicon glyphicon-chevron-right carousel-chevron"
+            @click="nextFrame"/>
         </div>
-        <i class="glyphicon glyphicon-chevron-right carousel-chevron"
-          @click="nextFrame"></i>
       </div>
     </div>
-      </div>
-      <div class="tablewrapper gaphs">
-        <div class="x_panel">
-          <div class="x_title"><h4>График среднего размера огарка</h4></div>
-          <div class="x_content" v-if="gaphsData['cinder']">
-            <line-chart :points="gaphsData.cinder"></line-chart>
-          </div>
+    <div class="tablewrapper gaphs">
+      <div class="x_panel">
+        <div class="x_title"><h4>График среднего размера огарка</h4></div>
+        <div 
+          class="x_content" 
+          v-if="gaphsData['cinder']">
+          <line-chart :points="gaphsData.cinder"/>
         </div>
       </div>
-      <div class="tablewrapper gaphs">
-        <div class="x_panel">
-          <div class="x_title"><h4>График среднего размера шихты</h4></div>
-          <div class="x_content" v-if="gaphsData['schieht']">
-            <line-chart :points="gaphsData.schieht"></line-chart>
-          </div>
-        </div>
     </div>
-</div>
+    <div class="tablewrapper gaphs">
+      <div class="x_panel">
+        <div class="x_title"><h4>График среднего размера шихты</h4></div>
+        <div 
+          class="x_content" 
+          v-if="gaphsData['schieht']">
+          <line-chart :points="gaphsData.schieht"/>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -83,7 +100,8 @@
       return {
         gallery_index: 2,
         current_time: new Date(),
-        selected_time: ''
+        selected_time: '',
+        slideTransition: 'slide-left'
       };
     },
     watch: {
@@ -123,12 +141,14 @@
         );
       },
       prevFrame() {
-        if (this.gallery_index > 1) {
+        if (this.gallery_index > 2) {
+          this.slideTransition = 'slide-right'
           this.gallery_index--;
         }
       },
       nextFrame() {
-        if (this.gallery_index < this.fracData.length - 4) {
+        if (this.gallery_index < this.fracData.length - 3) {
+          this.slideTransition = 'slide-left'
           this.gallery_index++;
         }
       },
@@ -176,7 +196,7 @@
   width: calc(50% - 10px);
 }
 
-.carousel {
+.carousel, .carousel-inner {
   display: flex;
 }
 
@@ -214,8 +234,49 @@
   justify-content: space-evenly;
 }
 
+.slide-left-move,
+.slide-right-move {
+  transition: transform 0.75s;
+}
+
+.slide-left-leave-active,
+.slide-left-enter-active,
+.slide-right-leave-active,
+.slide-right-enter-active {
+  transition: 0.75s;
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate(100%, 0);
+}
+
+.slide-right-leave {
+  transform: translate(400%, 0);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate(500%, 0);
+}
+
+.slide-left-leave-active,
+.slide-left-leave,
+.slide-right-leave-active,
+.slide-right-leave {
+  max-width: 20%;
+  position: absolute;
+
+}
+.slide-left-leave-to,
+.slide-right-enter {
+  transform: translate(-100%, 0);
+  opacity: 0;
+}
+
 .timeframe:not(.prediction) + .timeframe.prediction {
   border-left: 1px dotted gray;
+  padding-left: 5px;
+  margin-left: 5px;
 }
 
 .carousel .spacer {
@@ -226,7 +287,10 @@
   text-align: center;
 }
 
-#furnacepicker {
-  max-width: 1600px;
+.furnace-dashboard .vdatetime-popup__header,
+.furnace-dashboard .vdatetime-popup__date-picker__item--selected:hover>span>span,
+.furnace-dashboard .vdatetime-popup__date-picker__item--selected>span>span
+ {
+  background: rgb(28, 187, 156);
 }
 </style>
