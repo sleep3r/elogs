@@ -9,9 +9,12 @@
 {% for notification in notifications %}
     <li class="notification" data-message="{{notification.message}}" data-id="{{notification.id}}">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
-            <div class="notification-icon">
-                <img src="/static/images/notif/{{notification.type}}.png">
+            <div class="notification__number">
+                <span class="badge badge-secondary">{{notification.id}}</span>
             </div>
+            <!--<div class="notification-icon">-->
+                <!--<img src="/static/images/notif/{{notification.type}}.png">-->
+            <!--</div>-->
             <div class="notification-text">
                 <p>
                     {{notification.message|truncatechars:50}}
