@@ -49,7 +49,10 @@ def get_messages(request):
 
 @process_json_view(auth_required=False)
 def read_message(request):
-    id = request.GET.get('id') or ''
-    msg = Message.objects.get(id=id)
-    msg.is_read = True
-    return {"status":0}
+    ids = request.GET.get('ids') or []
+    for msg_id in ids:
+        msg = Message.objects.get(id=msg_id)
+        msg.is_read = True
+        msg.save()
+
+    return {"status": 0}
