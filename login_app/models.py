@@ -20,4 +20,4 @@ class Employee(models.Model):
     csrf = models.CharField(max_length=CSRF_LENGTH, default='')
 
     def __str__(self):
-        return f'{self.name} {self.position}'
+        return f'{self.name}'
