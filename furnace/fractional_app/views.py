@@ -10,7 +10,7 @@ from django.template import loader
 from utils.webutils import process_json_view
 @login_required
 def index(request):
-    template = loader.get_template('spa-index.html')
+    template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render())
 
 
@@ -19,21 +19,21 @@ def granularity_object(request):
     res = deep_dict()
 
     for o in MeasurementPair.objects.all()[:2]:
-        res['data'][o.id+1234]['cinder']['time'] = o.cinder.user_time + timedelta(days=700)
+        res['data'][o.id+1234]['cinder']['time'] = (o.cinder.user_time + timedelta(days=700)).timestamp()
         res['data'][o.id+1234]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
         res['data'][o.id+1234]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
 
-        res['data'][o.id+1234]['schieht']['time'] = o.schieht.user_time + timedelta(days=700)
+        res['data'][o.id+1234]['schieht']['time'] = (o.schieht.user_time + timedelta(days=700)).timestamp()
         res['data'][o.id+1234]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
         res['data'][o.id+1234]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
 
 
     for o in MeasurementPair.objects.all():
-        res['data'][o.id]['cinder']['time'] = o.cinder.user_time
+        res['data'][o.id]['cinder']['time'] = o.cinder.user_time.timestamp()
         res['data'][o.id]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
         res['data'][o.id]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
 
-        res['data'][o.id]['schieht']['time'] = o.schieht.user_time
+        res['data'][o.id]['schieht']['time'] = o.schieht.user_time.timestamp()
         res['data'][o.id]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
         res['data'][o.id]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
 
@@ -56,11 +56,11 @@ def granularity_gaphs(request):
     for o in MeasurementPair.objects.all():
         masses = [w.mass for w in o.cinder.weights.all()]
         min_sizes = [w.min_size for w in o.cinder.weights.all()]
-        cinders.append([o.cinder.user_time, get_mean(masses, min_sizes)])
+        cinders.append([o.cinder.user_time.timestamp(), get_mean(masses, min_sizes)])
 
         masses = [w.mass for w in o.schieht.weights.all()]
         min_sizes = [w.min_size for w in o.schieht.weights.all()]
-        schieht.append([o.schieht.user_time, get_mean(masses, min_sizes)])
+        schieht.append([o.schieht.user_time.timestamp(), get_mean(masses, min_sizes)])
 
     res = deep_dict()
     res['data']['cinder'] = cinders

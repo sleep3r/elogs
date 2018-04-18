@@ -1,3 +1,7 @@
+<template>
+  <svg :class="{ labels, prediction }"></svg>
+</template>
+
 <script>
 import * as d3 from 'd3'
 import { map } from 'lodash'
@@ -25,14 +29,15 @@ export default {
       labels: {
         type: Boolean,
         default: false
+      },
+      prediction: {
+        type: Boolean,
+        default: false
       }
   },
   computed: {
-    sizes() {
-      return map(this.minSizes, s => +s) // Ensure numbers
-    },
     chartData() {
-      return d3.zip(this.sizes, this.masses)
+      return d3.zip(this.minSizes, this.masses)
     }
   },
   watch: {
@@ -114,7 +119,7 @@ export default {
             .append("text")
               .attr("transform", "rotate(-90)")
               .attr("y", 6)
-              .attr("dy", "-2.75em")
+              .attr("dy", "-1.75em")
               .attr("text-anchor", "end")
               .text("Фракция")
       }
@@ -134,7 +139,11 @@ svg {
   fill: steelblue;
 }
 
-.bar rect:hover {
+svg.prediction .bar rect {
+  fill: brown;
+}
+
+svg.labels .bar rect:hover {
   fill: rgb(28, 187, 156);
 }
 

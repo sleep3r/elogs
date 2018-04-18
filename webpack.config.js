@@ -6,7 +6,9 @@ var Cleaner = require('webpack-cleanup-plugin');
 module.exports = {
   mode: 'development',
   context: path.join(__dirname, 'assets'),
-  entry: './index',
+  entry: {
+    furnace: './furnace/index'
+  },
   output: {
       path: path.resolve('./DigitalLogs/static/webpack_bundles'),
       filename: "[name]-[hash].js"
@@ -20,6 +22,14 @@ module.exports = {
       {
           test: /\.vue$/,
           loader: 'vue-loader',
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
+      },
+      {
+        test: /\.((ttf)|(woff)|(woff2)|(svg)|(eot))$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -29,6 +39,12 @@ module.exports = {
     }
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      $: 'jquery',
+      moment: 'moment',
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new BundleTracker({filename: './webpack-stats.json'}),
     new Cleaner()
