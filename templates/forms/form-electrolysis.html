@@ -33,7 +33,7 @@
                     <th>7<sup>00</sup></th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text"  name="loads1_1" v-model="item.loads1"/>
+                        <input class="form-control" type="number"  name="loads1_1" v-model="item.loads1"/>
                     </td>
                     </template>
                 </tr>
@@ -41,7 +41,7 @@
                     <th>12<sup>00</sup></th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text" v-model="item.loads2" name="loads2_1"/>
+                        <input class="form-control" type="number" v-model="item.loads2" name="loads2_1"/>
                     </td>
                     </template>
                 </tr>
@@ -49,7 +49,7 @@
                     <th colspan="2">{% trans "Показания счётчика" %}</th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text" v-model="item.counter" name="counter_1"/>
+                        <input class="form-control" type="number" v-model="item.counter" name="counter_1"/>
                     </td>
                     </template>
                 </tr>
@@ -57,7 +57,7 @@
                     <th colspan="2">{% trans "Бункера ЦВЦО" %}</th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text" v-model="item.bunkers_weltz" name="bunkers_weltz_1"/>
+                        <input class="form-control" type="number" v-model="item.bunkers_weltz" name="bunkers_weltz_1"/>
                     </td>
                     </template>
                 </tr>
@@ -65,7 +65,7 @@
                     <th colspan="2">{% trans "Силоса ОЦ" %}</th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text" v-model="item.silos_furnace" name="silos_furnace_1"/>
+                        <input class="form-control" type="number" v-model="item.silos_furnace" name="silos_furnace_1"/>
                     </td>
                     </template>
                 </tr>
@@ -73,7 +73,7 @@
                     <th colspan="2">{% trans "Бункера ОЦ" %}</th>
                     <template v-if="tables.{{form.name}}.data.items">
                     <td v-for="(item, num) in tables.{{form.name}}.data.items.series">
-                        <input class="form-control" type="text" v-model="item.bunkers_furnace" name="bunkers_furnace_1"/>
+                        <input class="form-control" type="number" v-model="item.bunkers_furnace" name="bunkers_furnace_1"/>
                     </td>
                     </template>
                 </tr>
