@@ -3,14 +3,18 @@
     <div class="x_panel">
       <div class="x_title"><h4>Фракционный состав шихты и огарка</h4></div>
       <div class="x_content">
-        <div class="form-group">
+        <div class="date-control">
           <datetime 
             v-model="selected_time"
             input-class="form-control"
             placeholder="Выбор даты и времени"
             type="datetime"
-            input-format="DD-MM-YYYY HH:mm"
+            input-format="DD.MM.YYYY HH:mm"
             moment-locale="ru" />
+          <button
+            @click="toCurrent()"
+            class="btn btn-default"
+            type="button">Текущее время</button>
         </div>
         <br>
         <div class="carousel">
@@ -99,15 +103,17 @@
     data() {
       return {
         gallery_index: 2,
-        current_time: new Date(),
+        current_time: Date.now(),
         selected_time: '',
         slideTransition: 'slide-left'
-      };
+      }
+    },
+    mounted() {
+      this.toCurrent()
     },
     watch: {
       selected_time(val) {
-        let time = Date.parse(val)
-        this.gallery_index = this.closest(this.fracData, time)
+        this.moveToTime()
       }
     },
     computed: {
@@ -140,6 +146,15 @@
           }
         );
       },
+      moveToTime(val) {
+        let time = Date.parse(val)
+        this.gallery_index = this.closest(this.fracData, time)
+      },
+      toCurrent() {
+        let time = new Date(this.current_time).toISOString()
+        this.moveToTime(time)
+        // this.selected_time = time
+      },
       prevFrame() {
         if (this.gallery_index > 2) {
           this.slideTransition = 'slide-right'
@@ -165,7 +180,7 @@
                 }
           }
         return parseInt(ans)
-}
+      }
     },
     components: {
       barChart,
@@ -187,13 +202,23 @@
   };
 </script>
 
-<style>
+<style lang="scss">
 .x_panel {
   margin-bottom: 10px;
 }
 
 .tablewrapper.gaphs {
   width: calc(50% - 10px);
+}
+
+.date-control {
+  display: flex;
+  // align-items: center;
+
+  .vdatetime {
+    flex-grow: 1;
+  }
+
 }
 
 .carousel, .carousel-inner {
@@ -287,10 +312,12 @@
   text-align: center;
 }
 
-.furnace-dashboard .vdatetime-popup__header,
-.furnace-dashboard .vdatetime-popup__date-picker__item--selected:hover>span>span,
-.furnace-dashboard .vdatetime-popup__date-picker__item--selected>span>span
- {
-  background: rgb(28, 187, 156);
+.furnace-dashboard {
+  .vdatetime-popup__header,
+  .vdatetime-popup__date-picker__item--selected:hover>span>span,
+  .vdatetime-popup__date-picker__item--selected>span>span
+  {
+    background: rgb(28, 187, 156);
+  }
 }
 </style>
