@@ -1,10 +1,13 @@
 from django.conf.urls import url, include
-
-from leaching.express_anal_app import views
-from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
-    empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, shifts, express_analysis, hydrometal, \
-    pulps
+from leaching.repair_app import views
 
 
 urlpatterns = [
+    url('edit$', views.edit),
+    url('allitems$', views.get_items),
+    url('add', views.add_record),
+    url('save', views.save_record),
+    url('remove', views.remove_record),
+    url('equipment', views.get_equipment),
+    url('$', views.index),
 ]

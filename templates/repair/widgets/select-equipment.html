@@ -1,0 +1,17 @@
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-1">
+                <div class="select-equipment" >
+                    <label>Выбранное оборудование:</label>
+                    <select id="select_equipment" name="select_equipment" v-on:change="onEquipmentSelected()" >
+                        <template v-for="item, num in equipment" v-bind:data="equipmentId">
+                            <template v-if="equipmentId == item.id">
+                                <option selected v-bind:value="item.id">[[item.name]]</option>
+                            </template>
+                            <template v-else>
+                                <option v-bind:value="item.id">[[item.name]]</option>
+                            </template>
+                        </template>
+                    </select>
+                </div>
+            </div>
+        </div>

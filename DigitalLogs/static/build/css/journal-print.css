@@ -25,6 +25,9 @@ table {
   height: 99%;
 }
 
+th.rotate  {
+  vertical-align: bottom !important;
+}
 th.rotate > div > span {
   padding: 0 !important;
   text-align: left;
@@ -268,4 +271,19 @@ th.rotate > div > span {
 
 .addmargintop {
   margin-top: 15px;
+}
+
+.print-container .table-striped>tbody>tr:nth-of-type(odd) {
+  background: transparent;
+}
+
+.densers-header {
+  height: 100px;
+}
+.header-vsns {
+  height: 150px;
+}
+
+.repair_print_wrapper {
+  margin: 10px 0 0;
 }

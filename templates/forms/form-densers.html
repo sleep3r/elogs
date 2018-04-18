@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     {% for n in form.columns %}
-                    <th class="rotate"><div><span>pH</span></div></th>
+                    <th class="rotate densers-header"><div><span>pH</span></div></th>
                     <th class="rotate"><div><span>{% trans "Медь" %}{% trans ", мг/л" %}</span></div></th>
                     <th class="rotate"><div><span>{% trans "Железо" %}{% trans ", мг/л" %}</span></div></th>
                     <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>
@@ -99,7 +99,7 @@
             </tbody>
         </table>
         </form>
-        <button class="btn btn-success" v-on:click="savePostForm('{{form.name}}')" >{% trans "Сохранить" %}</button>
+        <button class="btn btn-success" v-on:click="saveRecord('{{form.name}}')" >{% trans "Сохранить" %}</button>
     </div>
 </div>
 

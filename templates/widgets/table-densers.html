@@ -1,34 +1,9 @@
 {% load i18n %}
-<style>
-th { text-align: center; }
-
-th.rotate {
-  height: 140px;
-  white-space: nowrap;
-
-}
-
-th.rotate > div {
-  transform:
-    translate(5px, 51px)
-    rotate(270deg);
-  width: 1px;
-}
-
-th.rotate > div > span {
-  padding: 5px 50px;
-  text-align: left;
-}
-
-tr.mini td {
-    font-size: 10px;
-}
-
-</style>
 <div class="x_panel">
     <div class="x_title notitle">
         <h2>{{table.title}}</h2>
         <div class="clearfix"></div>
+        <a class="btn btn-success pull-right editintable" href="/leaching/all/edit"><i class="glyphicon glyphicon-pencil"></i></a>
     </div>
     <div class="x_content">
 
@@ -48,7 +23,7 @@ tr.mini td {
             </tr>
             <tr>
                 {% for n in table.columns %}
-                <th class="rotate"><div><span>pH</span></div></th>
+                <th class="rotate densers-header"><div><span>pH</span></div></th>
                 <th class="rotate"><div><span>{% trans "Медь" %}{% trans ", мг/л" %}</span></div></th>
                 <th class="rotate"><div><span>{% trans "Железо" %}{% trans ", мг/л" %}</span></div></th>
                 <th class="rotate"><div><span>{% trans "Ж:Т" %}</span></div></th>

@@ -6,11 +6,6 @@ tr.mini td {
 
 th { text-align: center; }
 
-th.rotate {
-  height: 160px;
-  white-space: nowrap;
-
-}
 .tablewrapper h4 {
   display: block;
 }
@@ -46,18 +41,6 @@ th.rotate {
   display: inline-block;
   position: relative;
   top: 0;
-}
-
-th.rotate > div {
-  transform:
-    translate(5px, 51px)
-    rotate(270deg);
-  width: 1px;
-}
-
-th.rotate > div > span {
-  padding: 5px 50px;
-  text-align: left;
 }
 
 tr.mini td {
@@ -131,6 +114,7 @@ td {
 
 .editwrapper td .form-control {
   padding: 0 !important;
+  padding-left: 2px !important;
   height: 100%;
   min-height: 30px;
   border: none; 
@@ -153,4 +137,34 @@ td {
   background-color: transparent;
 }
 
+th { text-align: center; }
+
+th.rotate {
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+    translate(5px, 5px)
+    rotate(270deg);
+  width: 1px;
+}
+
+th.rotate > div > span {
+  padding: 5px 0;
+  text-align: left;
+}
+
+tr.mini td {
+    font-size: 10px;
+}
+
+
 .form-reagents__fence-state { width: 600px !important; }
+
+.densers-header {
+  height: 150px;
+}
+.header-vsns {
+  height: 190px;
+}

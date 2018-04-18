@@ -1,3 +1,19 @@
+.editwrapper.editwrapper .table-bordered,
+.editwrapper.editwrapper .table-bordered>tbody>tr>td,
+.editwrapper.editwrapper .table-bordered>tbody>tr>th,
+.editwrapper.editwrapper .table-bordered>tfoot>tr>td,
+.editwrapper.editwrapper .table-bordered>tfoot>tr>th,
+.editwrapper.editwrapper .table-bordered>thead>tr>td,
+.editwrapper.editwrapper .table-bordered>thead>tr>th {
+    border-color: #ccc; /* границы таблиц в редактировании */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .x_title h2, table.tile_info td p {
     white-space: nowrap;
     text-overflow: ellipsis;

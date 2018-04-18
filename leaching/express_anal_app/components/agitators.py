@@ -8,6 +8,7 @@ from leaching.express_anal_app.journal_forms import *
 from django.http import HttpResponseRedirect
 from leaching.express_anal_app.models import *
 
+
 def leaching_save_agitators(request):
     print('\n----FORM-----')
     print(request.POST['comment'])

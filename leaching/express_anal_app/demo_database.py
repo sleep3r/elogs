@@ -8,7 +8,7 @@ from django.db.models import Model
 from django.utils import timezone
 
 from furnace.fractional_app.models import *
-from furnace.fractional_app.models import models as famodels
+from furnace.fractional_app import models as famodels
 from leaching.express_anal_app import models as eamodels
 from leaching.repair_app import models as remodels
 from leaching.express_anal_app.models import *

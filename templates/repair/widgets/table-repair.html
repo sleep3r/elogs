@@ -1,0 +1,39 @@
+{% load i18n %}
+<table class="table table-striped table-hover table-bordered" >
+    <thead>
+
+        <tr>
+            <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
+            <th colspan="3">Записиь о работах, выполненных по устранению дефектов</th>
+            <th>
+                <a class="btn btn-success" v-on:click="goToEdit()">{% trans "Изменить" %}</a>
+            </th>
+        </tr>
+        <tr>
+            <th>Дата осмотра </th>
+            <th>Наименование узла в характеристика дефектов</th>
+            <th>Подпись лица производящего осмотр</th>
+            <th>Дата и обём выполненных работ по устранению дефектов</th>
+            <th>Фактический срок службы узла, детали</th>
+            <th>Подпись лица, ответственного за выполнение ремонта</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="item, num in tables.form_repair.data.items">
+            <td>[[item.date | formatDate]]</td>
+            <td>[[item.name]]</td>
+            <td></td>
+            <td>[[item.comment]]</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
