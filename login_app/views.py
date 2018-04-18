@@ -50,13 +50,15 @@ def get_messages(request):
 
 @process_json_view(auth_required=False)
 def read_message(request):
-    ids = request.GET.get('ids') or []
-    for msg_id in ids:
-        msg = Message.objects.get(id=msg_id)
-        if msg.addressee == request.user.employee:
-            msg.is_read = True
-            msg.save()
-        else:
-            raise AccessError(message="Попытка отметиь чужое сообщение как прочитанное")
+
+    print(request.POST)
+    msg_id = json.loads(request.POST.get('ids[]')) or 0
+    print(msg_id)
+    msg = Message.objects.get(id=int(msg_id))
+    if msg.addressee == request.user.employee:
+        msg.is_read = True
+        msg.save()
+    else:
+        raise AccessError(message="Попытка отметиь чужое сообщение как прочитанное")
 
     return {"status": 0}
