@@ -32,4 +32,3 @@ class Message(models.Model):
                             )
 
     addressee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, related_name='messages')
-    position = models.CharField(max_length=10, verbose_name='Тип сообщения', null=True, blank=True)

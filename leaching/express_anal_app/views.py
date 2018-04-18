@@ -49,7 +49,7 @@ def index(request):
             {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
         ],
         'user_name': str(request.user.employee),
-        'notifications': get_messages_dict()
+        'notifications': get_messages_dict(request.user.employee)
     }
 
     template = loader.get_template('index.html')
