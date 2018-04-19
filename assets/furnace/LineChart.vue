@@ -1,9 +1,51 @@
+<template>
+  <div>
+    <div class="filters-box">
+      <div 
+        class="filters" 
+        @click="setFilters('day')">Д</div>
+      <div 
+        class="filters" 
+        @click="setFilters('week')">Н</div>
+      <div 
+        class="filters" 
+        @click="setFilters('month')">М</div>
+      <div 
+        class="filters" 
+        @click="setFilters('year')">Г</div>
+      <div 
+        class="filters" 
+        @click="setFilters()">Все</div>
+
+      <div style="float:right;">
+        <datetime
+          input-class="form-control input-sm"
+          v-model="date_from"
+          placeholder="От"
+          type="datetime"
+          input-format="DD.MM.YYYY HH:mm"
+          moment-locale="ru" />
+
+        <datetime
+          input-class="form-control input-sm"
+          v-model="date_to"
+          placeholder="До"
+          type="datetime"
+          input-format="DD.MM.YYYY HH:mm"
+          moment-locale="ru" />
+      </div>
+    </div>    
+    <svg class="line-chart"/>
+  </div>
+</template>
+
+
 <script>
 import * as d3 from 'd3'
+import filter from 'lodash/filter'
 
 export default {
   name: 'LineChart',
-  template: '<svg/>',
   props: {
     points: {
       type: Array,
@@ -18,21 +60,70 @@ export default {
       default: 400
     }
   },
+  data() {
+    return {
+      filter_from: 0,
+      filter_to: 0
+    }
+  },
+  computed: {
+    filteredPoints() {
+      return filter(this.points, d => {
+        return d[0] * 1000 >= this.filter_from 
+            && d[0] * 1000 <= this.filter_to
+      })
+    },
+    date_from: {
+      get() {
+        return new Date(this.filter_from).toISOString()
+      },
+      set(val) {
+        this.filter_from = +moment(val)
+      }
+    },
+    date_to: {
+      get() {
+        return new Date(this.filter_to).toISOString()
+      },
+      set(val) {
+        this.filter_to = +moment(val)
+      }
+    }
+  },
   mounted() {
-    this.render()
+    this.setFilters()
   },
   watch: {
-    points() {
-      this.render()
+    filteredPoints() {
+      this.render(this.filteredPoints)
     }
   },
   methods: {
-    render() {
-      let margin = {top: 70, right: 20, bottom: 50, left: 40}
+    setFilters(from, to) {
+      switch (from) {
+        case 'day':
+          from = +moment().subtract(1, 'days')
+          break
+        case 'week':
+          from = +moment().subtract(1, 'weeks')
+          break
+        case 'month':
+          from = +moment().subtract(1, 'months')
+          break
+        case 'year':
+          from = +moment().subtract(1, 'years')
+          break
+      }
+
+      this.filter_from = from || d3.min(this.points, d => d[0] * 1000)
+      this.filter_to = to || Date.now()
+    },
+    render(data) {
+      let margin = {top: 20, right: 20, bottom: 50, left: 40}
       let width = this.width - margin.left - margin.right
       let height = this.height - margin.top - margin.bottom
 
-      let svg = d3.select(this.$el)
+      let svg = d3.select(this.$el).select('.line-chart')
         .attr('viewBox', `0 0 ${this.width} ${this.height}`)
 
       var ru_RU = d3.timeFormatDefaultLocale({
@@ -50,8 +141,6 @@ export default {
         "shortMonths": ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"]
     })
       svg.selectAll('g').remove()
-
-      let data = this.points
 
       var x = d3.scaleTime()
         .rangeRound([0, width]);
@@ -75,15 +164,7 @@ export default {
         .select(".domain")
           .remove();
 
-      g.append("g")
-          .call(d3.axisLeft(y))
-        // .append("text")
-        //   .attr("fill", "#000")
-        //   .attr("transform", "rotate(-90)")
-        //   .attr("y", 6)
-        //   .attr("dy", "0.71em")
-        //   .attr("text-anchor", "end")
-        //   .text("Price ($)");
+      g.append("g").call(d3.axisLeft(y))
 
       g.append("path")
           .datum(data)
@@ -97,3 +178,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  div.filters {
+    cursor: pointer;
+    display: inline-block;
+    background-color: #efefef;
+    width: 2em;
+    text-align: center;
+
+    &:hover {
+     background-color: #f4f4f4;
+    }
+  }
+</style>
