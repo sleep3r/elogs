@@ -29,8 +29,7 @@ export default {
         errors: []
      }
   },
-  computed: {
-  },
+
   created() {
     this.getMessages()
     this.timer = setInterval(this.getMessages, 5000)
@@ -40,6 +39,8 @@ export default {
         axios.get('/auth/messages')
             .then(({ data }) => {
                 this.items = data.messages
+                let counter = document.getElementById("notifications_count")
+                counter.innerHTML = Object.keys(data.messages).length
             })
             .catch(e => {
                 this.errors.push(e)
