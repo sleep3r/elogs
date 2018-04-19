@@ -65,16 +65,21 @@
 {% include "widgets/shift.html" with shift=info %}
 
 <div class="pagewrapper">
+
     <div class="tablewrapper">
         {% include "widgets/table-cinder.html" with table=cinder %}
     </div>
 
     <div class="tablewrapper">
-        {% include "widgets/table-baki.html" with table=baki %}
+        {% include "widgets/table-schiehta.html" with table=schiehta %}
     </div>
 
     <div class="tablewrapper">
         {% include "widgets/table-neutral.html" with table=neutral %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-baki.html" with table=baki %}
     </div>
 
     <div class="tablewrapper">
@@ -83,10 +88,6 @@
 
     <div class="tablewrapper">
         {% include "widgets/table-empty-containers.html" with table=empty_containers %}
-    </div>
-
-    <div class="tablewrapper">
-        {% include "widgets/table-schiehta.html" with table=schiehta %}
     </div>
 
     <div class="tablewrapper">
