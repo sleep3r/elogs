@@ -20,7 +20,7 @@ def get_addressees(all=False, positions=None, ids=None, plant=None):
 
 
 def report_critical(model, where=None):
-    fields = model.get_critical()
+    fields = model.get_critical(where=where)
     if fields:
         for emp in get_addressees(all=True):
             msg = Message(type='critical_value', text=f'Критические значения в полях: {fields}', addressee=emp)

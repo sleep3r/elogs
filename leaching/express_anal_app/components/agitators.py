@@ -126,7 +126,6 @@ def save_record(request):
 @process_json_view(auth_required=False)
 def add_record(request):
     journal = Journal.objects.get(name='Журнал экспресс анализов')
-
     print(request.POST)
     
     if 'shift_id' in request.POST:
@@ -159,14 +158,14 @@ def add_record(request):
                 model.time = currentTime
                 model.before = state == 'true'
                 if 'comment' in request.POST:
-                    model.comment = request.POST['comment']
+                    model.comment = request.POST.get('comment')
                 else:
                     model.comment = '...'
-                    report_critical(model)
+                model.save()
+                report_critical(model)
 
     return {
         'result': 'ok',
-        'added': [],
         'data': data
     }
 

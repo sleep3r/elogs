@@ -134,7 +134,7 @@ def leaching_update_hydrometal(request):
             if field in item:
                 setattr(model, field, item[field])
         model.save()
-        report_critical(model)
+        report_critical(model, where=man)
 
 
     return {
