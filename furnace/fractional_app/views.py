@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from furnace.fractional_app.models import *
+from leaching.express_anal_app.services.messages import get_messages_dict
 from utils.deep_dict import deep_dict
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
@@ -10,8 +11,13 @@ from django.template import loader
 from utils.webutils import process_json_view
 @login_required
 def index(request):
+    context = {
+        'user_name': str(request.user.employee),
+        'notifications': get_messages_dict(request.user.employee)
+    }
+
     template = loader.get_template('furnace-index.html')
-    return HttpResponse(template.render())
+    return HttpResponse(template.render(context, request))
 
 
 @process_json_view(auth_required=False)

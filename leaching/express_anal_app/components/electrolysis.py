@@ -1,4 +1,6 @@
 import json
+
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *

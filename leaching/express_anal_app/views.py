@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
+from leaching.express_anal_app.services.messages import get_messages_dict
 from leaching.express_anal_app.tables import get_free_tanks_table
 from utils.errors import AccessError
 from utils.webutils import parse, process_json_view
@@ -48,19 +49,7 @@ def index(request):
             {'title': _("Надо пошурудить в печи"), 'time': "08:00"}
         ],
         'user_name': str(request.user.employee),
-        'notifications': [{
-            'type': 'asd',
-            'message': "Здорова, как делишки?",
-            'id': -1
-        }, {
-            'type': 'asd',
-            'message': "Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки? Здорова, как делишки?",
-            'id': -2
-        }, {
-            'type': 'asd',
-            'message': "Здорова, как делишки?",
-            'id': -3
-        }]
+        'notifications': get_messages_dict(request.user.employee)
     }
 
     template = loader.get_template('index.html')
@@ -268,7 +257,7 @@ def leaching_jurnal(request):
         'schiehta': schiehta,
         'reagents': reagents,
         'user_name': str(request.user.employee),
-
+        'notifications': get_messages_dict(request.user.employee),
         'info': {'data': data_info, 'dump': pprint.pformat(data_info)},
 
         'form_validate': None if 'validate' not in request.GET else {

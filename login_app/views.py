@@ -7,7 +7,10 @@ from django.contrib.auth import views, authenticate, login, logout
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
-from utils.webutils import process_json_view, generate_csrf
+from login_app.models import Message
+from utils.deep_dict import deep_dict
+from utils.errors import AccessError
+from utils.webutils import process_json_view, generate_csrf, model_to_dict
 
 
 @process_json_view(auth_required=False)
@@ -37,3 +40,25 @@ def login_page(request, error=None):
     return HttpResponse(template.render(context, request))
 
 
+@process_json_view(auth_required=False)
+def get_messages(request):
+    res = deep_dict()
+    for m in Message.objects.filter(is_read=False):
+        res['messages'][m.id] = model_to_dict(m)
+    return res
+
+
+@process_json_view(auth_required=False)
+def read_message(request):
+
+    print(request.POST)
+    msg_id = json.loads(request.POST.get('ids[]')) or 0
+    print(msg_id)
+    msg = Message.objects.get(id=int(msg_id))
+    if msg.addressee == request.user.employee:
+        msg.is_read = True
+        msg.save()
+    else:
+        raise AccessError(message="Попытка отметиь чужое сообщение как прочитанное")
+
+    return {"status": 0}

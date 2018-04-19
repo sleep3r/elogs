@@ -1,4 +1,7 @@
 import json
+
+from leaching.express_anal_app.services.messages import report_critical
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -8,7 +11,6 @@ from leaching.express_anal_app.models import *
 
 @process_json_view(auth_required=False)
 def get_table(request):
-
     if 'shift_id' in request.GET:
         shift = Shift.objects.get(id=request.GET['shift_id'])
     else:
@@ -20,6 +22,7 @@ def get_table(request):
         'items': items,
         'current_count': len(items)
     }
+
 
 @process_json_view(auth_required=False)
 def save_record(request):
@@ -35,6 +38,7 @@ def save_record(request):
             if field in item:
                 setattr(model, field, item[field])
         model.save()
+        report_critical(model)
 
     return {
         'result': 'ok'
@@ -65,6 +69,7 @@ def add_record(request):
         model.shift = shift
         model.time = date_time.replace(hour=int(key) + 1, minute=0, second=0, microsecond=0)
         model.save()
+        report_critical(model)
 
     return {
         'result': 'ok'

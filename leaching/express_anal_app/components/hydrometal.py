@@ -1,4 +1,7 @@
 import json
+
+from leaching.express_anal_app.services.messages import report_critical
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -57,6 +60,7 @@ def leaching_save_hydrometal_json(request):
         form = HydrometalForm(model)
         if form.is_valid():
             form.save()
+            report_critical(model)
         else:
             print(form.errors)
 
@@ -112,6 +116,7 @@ def leaching_update_hydrometal(request):
             setattr(cinder_model, field, data['extra'][field])
 
     cinder_model.save()
+    report_critical(cinder_model)
 
     manns = ['1','4']
     for man in manns:
@@ -129,6 +134,8 @@ def leaching_update_hydrometal(request):
             if field in item:
                 setattr(model, field, item[field])
         model.save()
+        report_critical(model)
+
 
     return {
         'result': 'ok',

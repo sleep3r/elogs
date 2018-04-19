@@ -1,4 +1,7 @@
 import json
+
+from leaching.express_anal_app.services.messages import report_critical
+from login_app.models import Message
 from utils.webutils import parse, process_json_view
 from leaching.express_anal_app import tables
 from leaching.express_anal_app.journal_forms import *
@@ -35,6 +38,7 @@ def save_record(request):
             if field in item:
                 setattr(model, field, item[field])
         model.save()
+        report_critical(model)
 
     return {
         'result': 'ok'
@@ -67,6 +71,7 @@ def add_record(request):
         model.shift = shift
         model.time = date_time
         model.save()
+        report_critical(model)
 
     return {
         'result': 'ok'
