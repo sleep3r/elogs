@@ -144,7 +144,7 @@ svg.prediction .bar rect {
 }
 
 svg.labels .bar rect:hover {
-  fill: rgb(28, 187, 156);
+//  fill: rgb(28, 187, 156);
 }
 
 .bar text, .axis text {

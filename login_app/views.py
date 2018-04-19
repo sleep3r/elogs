@@ -43,6 +43,7 @@ def login_page(request, error=None):
 @process_json_view(auth_required=False)
 def get_messages(request):
     res = deep_dict()
+    res['messages'] = {}
     for m in Message.objects.filter(is_read=False):
         res['messages'][m.id] = model_to_dict(m)
     return res
