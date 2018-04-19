@@ -24,7 +24,7 @@ def index(request):
 def granularity_object(request):
     res = deep_dict()
 
-    for o in MeasurementPair.objects.all()[:2]:
+    for o in MeasurementPair.objects.filter(is_active=True)[:2]:
         res['data'][o.id+1234]['cinder']['time'] = (o.cinder.user_time + timedelta(days=700)).timestamp()
         res['data'][o.id+1234]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
         res['data'][o.id+1234]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
@@ -33,8 +33,7 @@ def granularity_object(request):
         res['data'][o.id+1234]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
         res['data'][o.id+1234]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
 
-
-    for o in MeasurementPair.objects.all():
+    for o in MeasurementPair.objects.filter(is_active=True):
         res['data'][o.id]['cinder']['time'] = o.cinder.user_time.timestamp()
         res['data'][o.id]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
         res['data'][o.id]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
@@ -59,12 +58,12 @@ def granularity_gaphs(request):
     cinders = []
     schieht = []
 
-    for o in MeasurementPair.objects.all():
+    for o in MeasurementPair.objects.filter(is_active=True):
         masses = [w.mass for w in o.cinder.weights.all()]
         min_sizes = [w.min_size for w in o.cinder.weights.all()]
         cinders.append([o.cinder.user_time.timestamp(), get_mean(masses, min_sizes)])
 
-        masses = [w.mass for w in o.schieht.weights.all()]
+        masses = [w.mass for w in o.schieht.weights.filter(is_active=True)]
         min_sizes = [w.min_size for w in o.schieht.weights.all()]
         schieht.append([o.schieht.user_time.timestamp(), get_mean(masses, min_sizes)])
 

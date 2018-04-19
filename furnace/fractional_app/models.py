@@ -47,6 +47,7 @@ class Weight(models.Model):
 class MeasurementPair(models.Model):
     cinder = models.OneToOneField(CinderMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair')
     schieht = models.OneToOneField(SchiehtMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair')
+    is_active = models.BooleanField(SchiehtMeasurement, default=True, null=False, blank=False)
 
     def add_weights(self, schiehts, cinder, stime, ctime):
         self.cinder = CinderMeasurement().add(cinder, CINDER_SIZES, ctime)
