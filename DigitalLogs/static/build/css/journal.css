@@ -77,6 +77,10 @@ tr.mini th { vertical-align: middle !important; }
   margin: 0;
 }
 
+.wrappercell {
+    padding: 0 !important;
+}
+
 .tablewrapper .navbar-right {
   margin: 0;
   min-width: 10px;
@@ -167,4 +171,26 @@ tr.mini td {
 }
 .header-vsns {
   height: 190px;
+}
+
+
+.removeleftborder.removeleftborder {
+  border-left: none !important;
+}
+
+.removetopborder.removetopborder {
+  border-top: none !important;
+}
+
+.removerightborder.removerightborder {
+  border-right: none !important;
+}
+
+.removebottomborder.removebottomborder {
+  border-bottom: none !important;
+}
+
+.insidetable {
+  margin: 0;
+  border: none;
 }

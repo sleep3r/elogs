@@ -2,12 +2,6 @@
 <div class="x_panel">
     <div class="x_title">
         <h2>{{table.title}}</h2>
-        <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-        </ul>
         <div class="clearfix"></div>
 <a class="btn btn-success pull-right editintable" href="/leaching/all/edit"><i class="glyphicon glyphicon-pencil"></i></a>
     </div>
@@ -33,18 +27,18 @@
                 <th>{% trans "Zn пыль" %}{% trans ",<br>кюбели" %}</th>
                 <td>{{table.data.states.delivered.zn_dust}}</td>
                 <td>{{table.data.states.taken.zn_dust}}</td>
-                <td>
+                <td class="wrappercell">
                     <table class="table table-bordered insidetable">
                         <tr>
                             <th class="removeleftborder removetopborder">{% trans "1ст" %}</th>
-                            <td class="removetopborder">{{table.data.stages_zn_dust.1st}}{% trans "кб" %}</td>
+                            <td class="removetopborder">{{table.data.stages_zn_dust.1st}}</td>
                             <th class="removetopborder">Cd</th>
                             <td class="removetopborder removerightborder">{{table.data.stages_zn_dust.cd}}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder">{% trans "2ст" %}</th>
                             <td>{{table.data.stages_zn_dust.2st}}</td>
-                            <td rowspan="2" colspan="2" class="removebottomborder">{% trans "16 кб" %}</td>
+                            <td rowspan="2" colspan="2" class="removebottomborder">{{table.data.stages_zn_dust.cd}}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder removebottomborder">{% trans "3ст" %}</th>
