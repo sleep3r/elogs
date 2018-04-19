@@ -92,7 +92,7 @@ class LeachingExpressAnal(JournalTable):
     current = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name='Выход по току')
     density = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name='Уд. вес')
 
-    def get_critical(self, where):
+    def get_critical(self, where=None):
         if where == 'hsls':
             return get_critical_values(self, values_bounds['top_block']['hsls'])
         elif where == 'larox':

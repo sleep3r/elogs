@@ -33,18 +33,18 @@
                 <th>{% trans "Zn пыль" %}{% trans ",<br>кюбели" %}</th>
                 <td>{{table.data.states.delivered.zn_dust}}</td>
                 <td>{{table.data.states.taken.zn_dust}}</td>
-                <td>
+                <td class="wrappercell">
                     <table class="table table-bordered insidetable">
                         <tr>
                             <th class="removeleftborder removetopborder">{% trans "1ст" %}</th>
-                            <td class="removetopborder">{{table.data.stages_zn_dust.1st}}{% trans "кб" %}</td>
+                            <td class="removetopborder">{{table.data.stages_zn_dust.1st}}</td>
                             <th class="removetopborder">Cd</th>
                             <td class="removetopborder removerightborder">{{table.data.stages_zn_dust.cd}}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder">{% trans "2ст" %}</th>
                             <td>{{table.data.stages_zn_dust.2st}}</td>
-                            <td rowspan="2" colspan="2" class="removebottomborder">{% trans "16 кб" %}</td>
+                            <td rowspan="2" colspan="2" class="removebottomborder">{{table.data.stages_zn_dust.cd}}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder removebottomborder">{% trans "3ст" %}</th>
