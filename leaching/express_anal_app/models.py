@@ -439,7 +439,8 @@ class ShiftInfo(JournalTable):
     free_14_t = models.CharField(max_length=10, blank=True)
 
     def get_critical(self):
-        return get_critical_values(self, values_bounds['tanks'])
+        # return get_critical_values(self, values_bounds['tanks'])
+        return get_critical_values(self, values_bounds['shift_info'])
 
 
 class Schieht(JournalTable):

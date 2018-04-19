@@ -129,7 +129,6 @@ values_bounds = {
         'out_ruch_cd': (0, 1500),
         'out_neutr': (0, 200),
         'out_cu_pulp': (0, 200),
-        'density': (0, 200),
         'in_fe': (0, 2500),
         'in_fe_hi': (0, 2500),
         'in_poor_cd': (0, 2500),
