@@ -3,14 +3,18 @@
     <div class="x_panel">
       <div class="x_title"><h4>Фракционный состав шихты и огарка</h4></div>
       <div class="x_content">
-        <div class="form-group">
+        <div class="date-control">
           <datetime 
             v-model="selected_time"
             input-class="form-control"
             placeholder="Выбор даты и времени"
             type="datetime"
-            input-format="DD-MM-YYYY HH:mm"
+            input-format="DD.MM.YYYY HH:mm"
             moment-locale="ru" />
+          <button
+            @click="toCurrent()"
+            class="btn btn-default"
+            type="button">Текущее время</button>
         </div>
         <br>
         <div class="carousel">
@@ -99,15 +103,17 @@
     data() {
       return {
         gallery_index: 2,
-        current_time: new Date(),
+        current_time: Date.now(),
         selected_time: '',
         slideTransition: 'slide-left'
-      };
+      }
+    },
+    mounted() {
+      this.toCurrent()
     },
     watch: {
       selected_time(val) {
-        let time = Date.parse(val)
-        this.gallery_index = this.closest(this.fracData, time)
+        this.moveToTime(val)
       }
     },
     computed: {
@@ -140,24 +146,33 @@
           }
         );
       },
+      moveToTime(val) {
+        let time = Date.parse(val)
+        this.gallery_index = this.closest(this.fracData, time)
+      },
+      toCurrent() {
+        let time = new Date(this.current_time).toISOString()
+        this.moveToTime(time)
+        // this.selected_time = time
+      },
       prevFrame() {
         if (this.gallery_index > 2) {
           this.slideTransition = 'slide-right'
-          this.gallery_index--;
+          this.gallery_index -= 3;
         }
       },
       nextFrame() {
         if (this.gallery_index < this.fracData.length - 3) {
           this.slideTransition = 'slide-left'
-          this.gallery_index++;
+          this.gallery_index += 3;
         }
       },
-      closest(array,num){
+      closest(array, num) {
         var i=0;
-        var minDiff= array[array.length - 1].cinder.time * 1000
+        var minDiff = array[array.length - 1].cinder.time * 1000
         var ans;
         for(i in array){
-            var m=Math.abs(num - array[i].cinder.time * 1000 )
+            var m = Math.abs(num - array[i].cinder.time * 1000)
             // console.log(num, Date.parse(array[i].cinder.time), i, m)
             if(m<minDiff){ 
                     minDiff=m; 
@@ -165,7 +180,7 @@
                 }
           }
         return parseInt(ans)
-}
+      }
     },
     components: {
       barChart,
@@ -187,13 +202,22 @@
   };
 </script>
 
-<style>
+<style lang="scss">
 .x_panel {
   margin-bottom: 10px;
 }
 
 .tablewrapper.gaphs {
   width: calc(50% - 10px);
+}
+
+.date-control {
+  display: flex;
+
+  .vdatetime {
+    flex-grow: 1;
+  }
+
 }
 
 .carousel, .carousel-inner {
@@ -236,22 +260,29 @@
 
 .slide-left-move,
 .slide-right-move {
-  transition: transform 0.75s;
+  transition: transform 1s;
 }
 
 .slide-left-leave-active,
 .slide-left-enter-active,
 .slide-right-leave-active,
 .slide-right-enter-active {
-  transition: 0.75s;
+  transition: 1s;
 }
 .slide-left-enter {
   opacity: 0;
-  transform: translate(100%, 0);
+  transform: translate(300%, 0);
 }
 
-.slide-right-leave {
-  transform: translate(400%, 0);
+.slide-right-enter {
+  transform: translate(-300%, 0);
+  opacity: 0;
+}
+
+.slide-left-leave-to
+{
+  transform: translate(-100%, 0);
+  opacity: 0;
 }
 
 .slide-right-leave-to {
@@ -265,13 +296,9 @@
 .slide-right-leave {
   max-width: 20%;
   position: absolute;
+}
 
-}
-.slide-left-leave-to,
-.slide-right-enter {
-  transform: translate(-100%, 0);
-  opacity: 0;
-}
+
 
 .timeframe:not(.prediction) + .timeframe.prediction {
   border-left: 1px dotted gray;
@@ -287,10 +314,12 @@
   text-align: center;
 }
 
-.furnace-dashboard .vdatetime-popup__header,
-.furnace-dashboard .vdatetime-popup__date-picker__item--selected:hover>span>span,
-.furnace-dashboard .vdatetime-popup__date-picker__item--selected>span>span
- {
-  background: rgb(28, 187, 156);
+.furnace-dashboard {
+  .vdatetime-popup__header,
+  .vdatetime-popup__date-picker__item--selected:hover>span>span,
+  .vdatetime-popup__date-picker__item--selected>span>span
+  {
+    background: rgb(28, 187, 156);
+  }
 }
 </style>

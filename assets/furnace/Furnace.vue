@@ -17,6 +17,8 @@
 <script>
 import axios from 'axios'
 import Spinner from 'vue-simple-spinner'
+import orderBy from 'lodash/orderBy'
+import transform from 'lodash/transform'
 
 import furnaceDashboard from './Dashboard.vue'
 export default {
@@ -29,7 +31,7 @@ export default {
   },
   computed: {
     furnace_array() {
-      return _.orderBy(_.transform(this.furnace_data, (r, v, k) => {
+      return orderBy(transform(this.furnace_data, (r, v, k) => {
         r.push(v)
       }, []), frame => frame.cinder.time)
     }
