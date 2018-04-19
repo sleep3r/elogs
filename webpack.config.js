@@ -7,6 +7,7 @@ module.exports = {
   mode: 'development',
   context: path.join(__dirname, 'assets'),
   entry: {
+    messages: './notifications/index',
     furnace: './furnace/index'
   },
   output: {

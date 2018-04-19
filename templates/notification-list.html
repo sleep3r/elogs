@@ -1,25 +1,3 @@
-{% if notifications|length > 0 %}
-    <li class="notification-header">
-        <span class="notification-read-all" onclick="Notifications.readAll(event, this);">
-            <span class="glyphicon glyphicon-remove">
-            </span>
-        </span>
-    </li>
-{% endif %}
-{% for notification in notifications %}
-    <li class="notification" data-message="{{notification.message}}" data-id="{{notification.id}}">
-        <a href="javascript:;" onclick="return Notifications.open(event, this)">
-            <div class="notification__number">
-                <span class="badge badge-secondary">{{notification.id}}</span>
-            </div>
-            <!--<div class="notification-icon">-->
-                <!--<img src="/static/images/notif/{{notification.type}}.png">-->
-            <!--</div>-->
-            <div class="notification-text">
-                <p>
-                    {{notification.message|truncatechars:50}}
-                </p>
-            </div>
-        </a>
-    </li>
-{% endfor %}
+{% load render_bundle from webpack_loader %}
+<div id="messages-app"></div>
+{% render_bundle 'messages' %}
