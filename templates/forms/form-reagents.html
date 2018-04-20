@@ -31,7 +31,7 @@
                 <th>{% trans "Сдано" %}</th>
             </tr>
             <tr>
-                <th>{% trans "Соль Шлиппе" %}</th>
+                <th>{% trans "Соль Шлиппе" %}{% trans ", кг" %}</th>
                 <template v-if="tables.{{form.name}}.data.items">
 
                         <td><input class="form-control" type="text" v-model="tables.{{form.name}}.data.items.states.delivered.shlippe"  /></td>
@@ -116,7 +116,7 @@
                 <th>{% trans "Состояние ограждений" %}:</th>
                 <td colspan="3">
                     <template v-if="tables.{{form.name}}.data.items">
-                        <textarea  class="form-reagents__fence-state" rows="6"  name="fence_state" v-model="tables.{{form.name}}.data.items.fence_state"></textarea>
+                        <textarea  class="textareainside" rows="6"  name="fence_state" v-model="tables.{{form.name}}.data.items.fence_state"></textarea>
                     </template>
                 </td>
             </tr>

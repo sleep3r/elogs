@@ -81,6 +81,11 @@ tr.mini th { vertical-align: middle !important; }
     padding: 0 !important;
 }
 
+.textareainside {
+    box-sizing: border-box;
+    width: 100% !important;
+}
+
 .tablewrapper .navbar-right {
   margin: 0;
   min-width: 10px;
