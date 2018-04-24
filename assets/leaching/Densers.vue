@@ -39,19 +39,49 @@
             </thead>
             <tbody>
                 <template v-if="items">
-                    <tr class="mini" v-for="(row, hour) in items">
-                        <td>{{hour}}<sup>00</sup></td>
-                        <template v-for="denser in row">
-                            <td>{{denser.hs.ph }}</td>
-                            <td>{{denser.hs.cu }}</td>
-                            <td>{{denser.hs.fe }}</td>
-                            <td>{{denser.hs.liq_sol }} :1</td>
+                    <tr class="mini" v-for="(row, combine_id) in items" v-on:click="editRow(combine_id)">
+                        <td>{{row.hour}}<sup>00</sup></td>
+                        <template v-for="denser in row.item">
+                            <template v-if="editableId === combine_id">
+                                <td><input type="text" v-model="denser.hs.ph"></td>
+                                <td><input type="text" v-model="denser.hs.cu" ></td>
+                                <td><input type="text" v-model="denser.hs.fe"></td>
+                                <td><input type="text" v-model="denser.hs.liq_sol"></td>
 
-                            <td>{{denser.ls.ph }}</td>
-                            <td>{{denser.ls.liq_sol }} :1</td>
+                                <td><input type="text" v-model="denser.ls.ph"></td>
+                                <td><input type="text" v-model="denser.ls.liq_sol"></td>
+                            </template>
+                            <template v-else>
+                                <td>{{denser.hs.ph }}</td>
+                                <td>{{denser.hs.cu }}</td>
+                                <td>{{denser.hs.fe }}</td>
+                                <td>{{denser.hs.liq_sol }} :1</td>
+
+                                <td>{{denser.ls.ph }}</td>
+                                <td>{{denser.ls.liq_sol }} :1</td>
+                            </template>
                         </template>
                     </tr>
+
                 </template>
+                    <tr v-if="state == 'add' ">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="btn btn-success" v-on:click="">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </a>
+                        </td>
+                        <td colspan="18"></td>
+                    </tr>
             </tbody>
         </table>
     </div>
@@ -65,6 +95,8 @@ export default {
   name: 'Densers',
   data() {
     return {
+        state: '',
+        editableId: '',
         items: [],
         errors: [],
         lang: {
@@ -76,25 +108,41 @@ export default {
      }
   },
   created() {
+       console.log('created:.....')
        this.headers = this.getTableHeaders()
        this.getDensers()
   },
   methods: {
+      editRow(combineId) {
+        console.log(combineId)
+        this.editableId = combineId
+      },
       getTableHeaders() {
           return { densers: ["10", "11", "12"] }
       },
+      getShiftFromUrl() {
+        let uri = window.location.search.substring(1);
+        let params = new URLSearchParams(uri);
+        let id = params.get('shift') ? params.get('shift') : 0
+        return id
+      },
       getDensers() {
-        let shiftId = 441
+
+        let shiftId = this.getShiftFromUrl()
+        console.log(shiftId)
         axios.get('/leaching/api/densers?shift_id=' + shiftId)
-            .then(({ data }) => {
-                this.items = data.items
-                console.log(data)
+            .then( ( responce ) => {
+                this.items = responce.data.items
+                console.info('responce')
+                console.log(responce)
 
             })
             .catch(e => {
                 this.errors.push(e)
             })
-    }
+      },
+
+
 
   }
 }
