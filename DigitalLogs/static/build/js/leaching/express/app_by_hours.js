@@ -172,7 +172,7 @@ var appEA = new Vue({
   },
   created: function() {
     this.tables['form_express_analysis'].init(this)
-    this.tables['form_densers'].init(this)
+    // this.tables['form_densers'].init(this)
   },
   methods: {
     addNewRow: function(formId) {

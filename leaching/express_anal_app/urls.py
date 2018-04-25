@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from leaching.express_anal_app import views
 from leaching.express_anal_app.components import agitators, cinder, reagents, ready_tanks, neutural_solution, security, \
     empty_tanks, densers_neutural, shift_info, schiehta, electrolysis, sample2, veu, shifts, express_analysis, hydrometal, \
-    pulps
+    pulps, densers
 
 
 urlpatterns = [
@@ -43,9 +43,12 @@ urlpatterns = [
     url('save/tanks$', views.leaching_save_tanks),
     url('save/densers/neutural$', views.leaching_save_neutural_densers),
 
-    url('api/densers$', views.leaching_api_densers),
+
+    url('api/densers$', densers.get_table),
     url('save/densers$', views.leaching_save_densers),
-    url('save/densers/json$', views.leaching_save_densers_json),
+    url('densers/add', densers.add_record),
+    url('densers/save', densers.save_record),
+    url('save/densers/json$', densers.leaching_save_densers_json),
 
     url('api/agitators$', agitators.leaching_api_agitators),
     url('save/agitators$', agitators.leaching_save_agitators),
