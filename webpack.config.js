@@ -8,6 +8,7 @@ module.exports = {
   context: path.join(__dirname, 'assets'),
   entry: {
     messages: './notifications/index',
+    leaching: './leaching/index',
     furnace: './furnace/index'
   },
   output: {

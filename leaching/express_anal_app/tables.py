@@ -38,8 +38,25 @@ def get_densers_table(shift=None, hour=None):
         for attr in ['ph', 'cu', 'fe', 'liq_sol']:
             time_index = int(d.time.strftime("%H"))
             res[time_index][d.point][d.sink][attr] = getattr(d, attr)
+            res[time_index][d.point][d.sink]['id'] = d.id
 
-    return res.clear_empty().get_dict()
+    densers = ['10', '11', '12']
+    sinks = ['hs', 'ls']
+
+    result = deep_dict()
+    for (hour, item) in res.items():
+        combine_id = ""
+        for denser in densers:
+            for sink in sinks:
+                record_id = item[denser][sink]['id']
+                combine_id += str(record_id) + ";"
+        element = {
+            'item': item,
+            'hour': hour
+        }
+        result[combine_id] = element
+
+    return result.clear_empty().get_dict()
 
 
 def get_leaching_express_anal_table(shift=None, hour=None):

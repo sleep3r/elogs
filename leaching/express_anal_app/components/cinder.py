@@ -23,6 +23,7 @@ def leaching_cinder(request):
         'current_count': len(items)
     }
 
+
 @process_json_view(auth_required=False)
 def save_record(request):
     journal = Journal.objects.get(name='Журнал экспресс анализов')
