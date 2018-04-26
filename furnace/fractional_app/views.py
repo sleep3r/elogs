@@ -63,7 +63,7 @@ def granularity_gaphs(request):
         min_sizes = [w.min_size for w in o.cinder.weights.all()]
         cinders.append([o.cinder.user_time.timestamp(), get_mean(masses, min_sizes)])
 
-        masses = [w.mass for w in o.schieht.weights.filter(is_active=True)]
+        masses = [w.mass for w in o.schieht.weights.all()]
         min_sizes = [w.min_size for w in o.schieht.weights.all()]
         schieht.append([o.schieht.user_time.timestamp(), get_mean(masses, min_sizes)])
 
