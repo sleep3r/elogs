@@ -48,7 +48,7 @@
             </thead>
             <tbody>
                 <template v-if="tables.{{form.name}}.data">
-                    <tr class="mini" v-for="(row, hour) in tables.{{form.name}}.data.items">
+                    <tr v-for="(row, hour) in tables.{{form.name}}.data.items">
                         <td>[[hour]]<sup>00</sup></td>
                         <template v-for="denser in row">
                             <td>[[denser.hs.ph |formatNumber]]</td>
@@ -62,7 +62,7 @@
                     </tr>
                 </template>
 
-                <tr class="mini">
+                <tr>
                     <td width="100px">
                         <select class="form-control" name="select_time" v-on:change="onChange('{{form.name}}')">
                             <option value="8">8:00</option>

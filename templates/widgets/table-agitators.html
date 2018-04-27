@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 {% for num, row in table.data.times.items %}
-                <tr class="mini">
+                <tr>
                     {% if num == 0 %}
                     <th rowspan="3">{% trans "До" %}</th>
                     {% endif %}
@@ -56,7 +56,7 @@
                 </tr>
                 {% endfor %}
                 {% for num, row in table.data.times.items %}
-                <tr class="mini">
+                <tr>
                     {% if num == 0 %}
                     <th rowspan="3">{% trans "После" %}</th>
                     {% endif %}

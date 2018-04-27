@@ -41,7 +41,7 @@
             </thead>
             <tbody >
                 <template v-if="tables.{{form.name}}.data">
-                <tr class="mini" v-for="(item, hour) in tables.{{form.name}}.data.items">
+                <trv-for="(item, hour) in tables.{{form.name}}.data.items">
                     <td><b>[[hour]]</b><sup>00</sup></td>
                     <template v-if="item.lshs">
                             <td>[[item.lshs.co |formatNumber]]</td>
@@ -86,7 +86,7 @@
             <tbody >
 
                 <template v-if="tables.{{form.name}}.rows">
-                    <tr class="mini"  v-for="(row, key) in tables.{{form.name}}.rows">
+                    <tr v-for="(row, key) in tables.{{form.name}}.rows">
                         <template v-if="row.info">
                             <td><b>[[row.hour]]</b><sup>00</sup>
                                 <input class="form-control" type="hidden" v-bind:name="'time_'+row.hour"  v-bind:value="row.hour"  />

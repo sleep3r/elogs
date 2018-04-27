@@ -70,7 +70,7 @@
 
                     </tr>
                 <template v-for="(item, key) in tables.{{form.name}}.data.items">
-                    <tr class="mini">
+                    <tr>
                         <td><a  v-on:click="onRow(key,'{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-edit"></i></a></td>
                         <td cat="zn">[[item.zn_pulp.liq_sol |formatNumber]]</td>
                         <td>[[item.zn_pulp.ph |formatNumber]]</td>
@@ -96,7 +96,7 @@
                     </tr>
                 </template>
                     <template v-if="tables.{{form.name}}.state == 'edit'">
-                        <tr class="mini">
+                        <tr>
                             <td><a  v-on:click="saveRecord('{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
                             <td><input class="form-control" type="number" name="zn_pulp.liq_sol" v-model="tables.{{form.name}}.current.zn_pulp.liq_sol" /></td>
                             <td><input class="form-control" type="number" name="zn_pulp.ph" v-model="tables.{{form.name}}.current.zn_pulp.ph" /></td>
@@ -119,7 +119,7 @@
                         </tr>
                     </template>
                     <template v-if="tables.{{form.name}}.state == 'add'">
-                        <tr class="mini">
+                        <tr>
                             <td><a  v-on:click="addRecord('{{form.name}}')"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i></a></td>
                             <td><input class="form-control" type="number" name="zn_pulp.liq_sol" v-model="tables.{{form.name}}.newRecord.zn_pulp.liq_sol" /></td>
                             <td><input class="form-control" type="number" name="zn_pulp.ph"  v-model="tables.{{form.name}}.newRecord.zn_pulp.ph" /></td>

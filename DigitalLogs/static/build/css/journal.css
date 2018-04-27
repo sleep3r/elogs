@@ -43,10 +43,6 @@ th { text-align: center; }
   top: 0;
 }
 
-tr.mini td {
-    font-size: 10px;
-}
-
 .form-reagents__fence-state { width: 600px !important; }
 
 .shift_info tbody th { text-align: right; }
@@ -163,11 +159,6 @@ th.rotate > div > span {
   padding: 5px 0;
   text-align: left;
 }
-
-tr.mini td {
-    font-size: 10px;
-}
-
 
 .form-reagents__fence-state { width: 600px !important; }
 

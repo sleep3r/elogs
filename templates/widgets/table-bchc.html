@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 {% for dt, row in table.data.items %}
-                <tr class="mini">
+                <tr>
                     <td>{{dt.time |date:"H"}}<sup>00</sup></td>
                     <td>{{row.lshs.co |floatformat:2}}</td>
                     <td>{{row.lshs.sb |floatformat:2}}</td>

@@ -40,7 +40,7 @@
             </thead>
             <tbody>
                 <template v-if="items">
-                    <tr class="mini" v-for="(row, combine_id) in items" v-on:click="editRow(combine_id)">
+                    <tr v-for="(row, combine_id) in items" v-on:click="editRow(combine_id)">
                         <td>{{row.hour}}<sup>00</sup></td>
                         <template v-for="denser in row.item">
                             <template v-if="editableId === combine_id">
