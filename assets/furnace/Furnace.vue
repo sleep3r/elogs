@@ -37,11 +37,11 @@ export default {
     }
   },
   created() {
-    axios.get('/furnace/frac/measurements/get').then(({ data }) => {
+    axios.get('/furnace/fractional/measurements/get').then(({ data }) => {
       this.furnace_data = data.data
     })
 
-    axios.get('/furnace/frac/granularity_gaphs/get').then(({ data }) => {
+    axios.get('/furnace/fractional/granularity_gaphs/get').then(({ data }) => {
       this.gaphs_data = data.data
     })
   },

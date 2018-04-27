@@ -24,8 +24,7 @@ urlpatterns = [
     url('^$', views.index),
     path('admin/', admin.site.urls),
     url('leaching/repair', include('leaching.repair_app.urls')),
-    url('fractional', include('furnace.fractional_app.urls')),
     url('leaching', include('leaching.express_anal_app.urls')),
-    url('^furnace/frac', include('furnace.fractional_app.urls')),
+    url('^furnace/fractional', include('furnace.fractional_app.urls')),
     url('^auth', include('login_app.urls')),
 ]
