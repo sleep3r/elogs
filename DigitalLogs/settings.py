@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
     'furnace.fractional_app.apps.FurnaceFractionalAppConfig',
+    'furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
 ]
 
