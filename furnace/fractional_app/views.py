@@ -9,6 +9,8 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
 from utils.webutils import process_json_view
+
+
 @login_required
 def index(request):
     context = {
