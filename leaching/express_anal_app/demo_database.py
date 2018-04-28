@@ -398,7 +398,9 @@ class DatabaseFiller:
         for i in range(100):
             r = Repairs()
             r.equipment = random.choice(equipments)
-            r.date = timezone.now() - timedelta(days=random.randint(0, 400))
+            date = timezone.now() - timedelta(days=random.randint(0, 400))
+            r.date = date
+            r.date_performed = date
             r.name = gen_text(max_words=7)
             r.comment = gen_text(max_words=15)
             r.save()
@@ -504,6 +506,7 @@ class DatabaseFiller:
 
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
+
 
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
