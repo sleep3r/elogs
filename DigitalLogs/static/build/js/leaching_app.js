@@ -416,7 +416,7 @@ var app = new Vue({
             current: {},
             current_count: 0,
             state: 'add',
-            initRecord: {'items': {'0':{ 'shift_total':0,'day_total':0, 'in_process':0}, '1': { 'shift_total':0,'day_total':0, 'in_process':0}} },
+            initRecord: {'items': {'0':{ 'shift_total':'','day_total':'', 'in_process':''}, '1': { 'shift_total': '','day_total': '', 'in_process': ''}} },
             init: function(scope){
                 console.info(this.formId)
                 let form = document.getElementById(this.formId)
