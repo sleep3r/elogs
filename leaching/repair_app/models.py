@@ -20,7 +20,8 @@ class Repairs(models.Model):
 
     date = models.DateTimeField(verbose_name='Дата осмотра')
     name = models.CharField(max_length=1024, blank=True, verbose_name='Наименование узла и характеристика дефектов')
-    comment = models.CharField(max_length=1024, blank=True, verbose_name='Дата и объем выполненных работ по устранению'
+    date_performed = models.DateTimeField(verbose_name='Дата выполненных работ', default=timezone.now)
+    comment = models.CharField(max_length=1024, blank=True, verbose_name='Объем выполненных работ по устранению'
                                                                          ' неисправностей')
     equipment = models.ForeignKey(Equipment, on_delete=models.SET_NULL, null=True,
                                   verbose_name='Оборудование', related_name='repairs')
