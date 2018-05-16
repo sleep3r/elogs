@@ -423,14 +423,52 @@ class DatabaseFiller:
         }
 
         for field_name, values in data.items():
-            for value in values:
+            for i, value in enumerate(values):
                 if type(value) is not str:
                     value = str(value)
-                v = CellValue(
+                    CellValue(
+                        journal_page=journal_page,
+                        table_name=table_name,
+                        field_name=field_name,
+                        value=value,
+                        index=i
+                    ).save()
+
+    def fill_small_table_jp(self, journal_page):
+        table_name = "small table"
+        n = 10
+        data = {
+            "storage": [1234] * n,
+            "containers_reciept": [456] * n,
+            "shipped_empty_num": [10] * n,
+            "poured_containers_num": [30] * n,
+            "residue_empty_containers1": [20] * n,
+            "residue_empty_containers2": [20] * n,
+            "residue_defective_containers": [3] * n,
+            "residue_braces": [3] * n,
+            "residue_beds": [3] * n,
+            "residue_stops": [15] * n
+        }
+
+        for field_name, values in data.items():
+            for i, value in enumerate(values):
+                if type(value) is not str:
+                    value = str(value)
+                CellValue(
                     journal_page=journal_page,
                     table_name=table_name,
                     field_name=field_name,
-                    value=value).save()
+                    value=value,
+                    index=i
+                ).save()
+
+            CellValue(
+                journal_page=journal_page,
+                table_name=table_name,
+                field_name=field_name + "_total",
+                value=sum(values),
+                ).save()
+
 
 
     # --------------------------------------------------------------------------------------------
@@ -478,7 +516,7 @@ class DatabaseFiller:
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_journal_pages(self):
-        JournalPage(type="shift", journal_name="Журнал рапортов").save()
+        JournalPage(type="shift", journal_name="report journal").save()
 
     def fill_shifts(self):
         dates = [parse('10-10-2015'), parse('12-10-2015')]
