@@ -12,6 +12,8 @@ from furnace.fractional_app import models as famodels
 from leaching.express_anal_app import models as eamodels
 from leaching.repair_app import models as remodels
 from leaching.express_anal_app.models import *
+from common.all_journals_app import models as comodels
+from common.all_journals_app.models import *
 from leaching.repair_app.models import *
 from utils.webutils import parse, translate
 from django.utils.translation import gettext as _
@@ -392,7 +394,6 @@ class DatabaseFiller:
         for e in eq_list:
             Equipment(name=e).save()
 
-
     def fill_leaching_repairs(self):
         equipments = list(Equipment.objects.all())
         for i in range(100):
@@ -404,6 +405,32 @@ class DatabaseFiller:
             r.name = gen_text(max_words=7)
             r.comment = gen_text(max_words=15)
             r.save()
+
+    def fill_big_table_jp(self, journal_page):
+        table_name = "big table"
+        n = 10
+        data = {
+            "wagon_num": [1234] * n,
+            "conc_num": ["ЗГОК"] * n,
+            "supply_time": ["11:00"] * n,
+            "dispatch_time": ["12:00"] * n,
+            "downtime": ["12:00"] * n,
+            "recieved_conc": [3] * n,
+            "recieved_beds": [3] * n,
+            "recieved_stops": [3] * n,
+            "recieved_braces": [3] * n,
+            "passed_with_shift": ["Что-нибудь"] * n
+        }
+
+        for field_name, values in data.items():
+            for value in values:
+                if type(value) is not str:
+                    value = str(value)
+                v = CellValue(
+                    journal_page=journal_page,
+                    table_name=table_name,
+                    field_name=field_name,
+                    value=value).save()
 
 
     # --------------------------------------------------------------------------------------------
@@ -450,6 +477,9 @@ class DatabaseFiller:
         Journal(name='Журнал обжига',
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
+    def fill_journal_pages(self):
+        JournalPage(type="shift", journal_name="Журнал рапортов").save()
+
     def fill_shifts(self):
         dates = [parse('10-10-2015'), parse('12-10-2015')]
 
@@ -469,6 +499,13 @@ class DatabaseFiller:
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
                 attribute(shift=shift)
 
+    def fill_journalpages_data(self, journal_page):
+        for name in dir(self):
+            attribute = getattr(self, name)
+            if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
+                attribute(journal_page=journal_page)
+
+
     def clean_database(self):
         exception_models = [User, Employee, Shift, Journal, JournalTable, Model]
 
@@ -486,6 +523,7 @@ class DatabaseFiller:
                 db_models.append(obj)
 
         db_models.extend([Journal, Shift, Employee])
+        db_models.extend([JournalPage, CellValue])
 
         for u in User.objects.all():  # delete user
             if not u.is_superuser:
@@ -498,6 +536,7 @@ class DatabaseFiller:
         # create journal and shift
         self.fill_employees()
         self.fill_journals()
+        self.fill_journal_pages()
         self.fill_shifts()
 
         self.fill_fractional_app()
@@ -506,6 +545,10 @@ class DatabaseFiller:
 
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
+
+        for jp in JournalPage.objects.all():
+            self.fill_journalpages_data(journal_page=jp)
+
 
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
