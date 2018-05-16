@@ -1,8 +1,17 @@
 {% load express_tags %} {# Loading our tags #}
 
-{% choose_val full_data|keyval:table_name|keyval:field_name index %} {# Setting val variable #}
+{% comment %}
+    In the context there must be following variables:
 
-{% with info=fields_info|keyval:journal_page|keyval:table_name|keyval:field_name %}
-    <input class="form-control" type="{{info.type}}" v-bind:name="'row.larox.co_'+row.hour" v-bind:value="row.info.larox.co"
-       placeholder=""/>
+    table_name
+    field_name
+    journal_page
+{% endcomment %}
+
+{% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
+{#    {% with info=fields_info|keyval:journal_page|keyval:table_name|keyval:field_name %}#}
+        <input class="form-control" type="text" v-bind:name="'row.larox.co_'+row.hour"
+               v-bind:value="row.info.larox.co"
+               value="{{ val }}"/>
+{#    {% endwith %}#}
 {% endwith %}

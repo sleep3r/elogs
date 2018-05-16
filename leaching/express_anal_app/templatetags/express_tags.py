@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django import template
 from django.utils.html import mark_safe
 
@@ -22,18 +24,19 @@ def addclass(value):
 
 
 @register.simple_tag()
-def fid(field_id, index=None):
-    return '{% include "value.html" with fid=' + str(field_id) + ' index=' + str(index) + ' %}'
+def value(fid, index=None):
+    return '{% include "value.html" with field_name=' + str(fid) + ' index=' + str(index) + ' %}'
 
 
 @register.filter
 def keyval(dict, key):
+    # pprint(dict)
     return dict[key]
 
 
-@register.inclusion_tag('value.html', takes_context=True)
+@register.filter
 def choose_val(field_info, index):
-    if index:
-        return {'val': field_info[index]}
+    if index is not None:
+        return field_info[index]
     else:
-        return {'val': field_info}
+        return field_info
