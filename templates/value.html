@@ -1,8 +1,8 @@
 {% load express_tags %} {# Loading our tags #}
 
-{% choose_val full_data|keyval:page|keyval:table|keyval:field index %} {# Setting val variable #}
+{% choose_val full_data|keyval:table_name|keyval:field_name index %} {# Setting val variable #}
 
-{% with info=fields_info|keyval:page|keyval:table|keyval:field %}
+{% with info=fields_info|keyval:journal_page|keyval:table_name|keyval:field_name %}
     <input class="form-control" type="{{info.type}}" v-bind:name="'row.larox.co_'+row.hour" v-bind:value="row.info.larox.co"
        placeholder=""/>
 {% endwith %}

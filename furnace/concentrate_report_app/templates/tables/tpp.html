@@ -1,6 +1,8 @@
 {% load express_tags %}
 
-{% with table="big_table" table_data=full_data|keyval:page|keyval:table %}
+{% with table_name="big_table" %}
+
+    {% debug %}
 
     <table>
         <tr>

@@ -507,7 +507,6 @@ class DatabaseFiller:
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
 
-
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
         self.create_demo_database()
