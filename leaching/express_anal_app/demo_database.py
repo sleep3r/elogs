@@ -406,8 +406,47 @@ class DatabaseFiller:
             r.comment = gen_text(max_words=15)
             r.save()
 
+    def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=False):
+        for field_name, values in data.items():
+            if type(values) is not list:
+                values = [values]
+            for i, value in enumerate(values):
+                if type(value) is not str:
+                    value = str(value)
+                if do_index:
+                    index = i
+                else:
+                    index = None
+                CellValue(
+                    journal_page=journal_page,
+                    table_name=table_name,
+                    field_name=field_name,
+                    value=value,
+                    index=index
+                ).save()
+
+    def fill_upper_fields_table_jp(self, journal_page):
+        table_name = "upper_fields"
+        data = {
+            "master": "Лупа",
+            "senior_crane_operator": "Пупа",
+            "storage": "12-1",
+            "crane_operator": "Кто-то",
+            "sling_operator": "Стив Джобс",
+            "date": "10.12.12",
+            "shift": "1-200-800"
+        }
+        self.fill_table_from_journal_page(journal_page, table_name, data)
+
+    def fill_lower_fields_table_jp(self, journal_page):
+        table_name = "lower_fields"
+        data = {
+            "notes": "Nice work!",
+        }
+        self.fill_table_from_journal_page(journal_page, table_name, data)
+
     def fill_big_table_jp(self, journal_page):
-        table_name = "big table"
+        table_name = "big_table"
         n = 10
         data = {
             "wagon_num": [1234] * n,
@@ -422,20 +461,10 @@ class DatabaseFiller:
             "passed_with_shift": ["Что-нибудь"] * n
         }
 
-        for field_name, values in data.items():
-            for i, value in enumerate(values):
-                if type(value) is not str:
-                    value = str(value)
-                    CellValue(
-                        journal_page=journal_page,
-                        table_name=table_name,
-                        field_name=field_name,
-                        value=value,
-                        index=i
-                    ).save()
+        self.fill_table_from_journal_page(journal_page, table_name, data, do_index=True)
 
     def fill_small_table_jp(self, journal_page):
-        table_name = "small table"
+        table_name = "small_table"
         n = 10
         data = {
             "storage": [1234] * n,
@@ -450,24 +479,12 @@ class DatabaseFiller:
             "residue_stops": [15] * n
         }
 
-        for field_name, values in data.items():
-            for i, value in enumerate(values):
-                if type(value) is not str:
-                    value = str(value)
-                CellValue(
-                    journal_page=journal_page,
-                    table_name=table_name,
-                    field_name=field_name,
-                    value=value,
-                    index=i
-                ).save()
+        self.fill_table_from_journal_page(journal_page, table_name, data, do_index=True)
 
-            CellValue(
-                journal_page=journal_page,
-                table_name=table_name,
-                field_name=field_name + "_total",
-                value=sum(values),
-                ).save()
+        new_data = dict()
+        for key in data.keys():
+            new_data[key + "_total"] = sum(data[key])
+        self.fill_table_from_journal_page(journal_page, table_name, new_data, do_index=False)
 
 
 
