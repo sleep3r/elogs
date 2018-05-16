@@ -21,28 +21,28 @@
                             <td>{% trans 'За смену' %}</td>
 
                             <td v-if=" tables.{{form.name}}.data.items['0'] ">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['0'].shift_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['0'].shift_total "/>
                             </td>
                             <td v-if=" tables.{{form.name}}.data.items['1'] ">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].shift_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].shift_total "/>
                             </td>
                         </tr>
                         <tr>
                             <td>{% trans 'За сутки' %}</td>
                             <td v-if=" tables.{{form.name}}.data.items['0']" >
-                                <input class="form-control" type="text"  name="day_total" v-model="tables.{{form.name}}.data.items['0'].day_total "/>
+                                <input class="form-control" type="number"  name="day_total" v-model="tables.{{form.name}}.data.items['0'].day_total "/>
                             </td>
                             <td v-if=" tables.{{form.name}}.data.items['1']">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].day_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].day_total "/>
                             </td>
                         </tr>
                         <tr>
                             <td>{% trans 'В процесс' %}</td>
                             <td v-if=" tables.{{form.name}}.data.items['0'] ">
-                                <input class="form-control" type="text" value="" name="in_process" v-model="tables.{{form.name}}.data.items['0'].in_process "/>
+                                <input class="form-control" type="number" value="" name="in_process" v-model="tables.{{form.name}}.data.items['0'].in_process "/>
                             </td>
                             <td v-if=" tables.{{form.name}}.data.items['1'] ">
-                                <input class="form-control" type="text" value="" name="in_process" v-model="tables.{{form.name}}.data.items['1'].in_process "/>
+                                <input class="form-control" type="number" value="" name="in_process" v-model="tables.{{form.name}}.data.items['1'].in_process "/>
                             </td>
                         </tr>
                     </template>
@@ -50,19 +50,19 @@
                          <tr>
                             <td>{% trans 'За смену' %}</td>
                             <td v-if=" tables.{{form.name}}.data.items['0'] ">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['0'].shift_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['0'].shift_total "/>
                             </td>
                             <td v-if=" tables.{{form.name}}.data.items['1'] ">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].shift_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].shift_total "/>
                             </td>
                         </tr>
                         <tr>
                             <td>{% trans 'За сутки' %}</td>
                             <td v-if=" tables.{{form.name}}.data.items['0']" >
-                                <input class="form-control" type="text"  name="day_total" v-model="tables.{{form.name}}.data.items['0'].day_total "/>
+                                <input class="form-control" type="number"  name="day_total" v-model="tables.{{form.name}}.data.items['0'].day_total "/>
                             </td>
                             <td v-if=" tables.{{form.name}}.data.items['1']">
-                                <input class="form-control" type="text" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].day_total "/>
+                                <input class="form-control" type="number" name="shift_total" v-model="tables.{{form.name}}.data.items['1'].day_total "/>
                             </td>
                         </tr>
                         <tr>

@@ -80,7 +80,7 @@ def add_record(request):
         if col_num in data:
             model = Cinder()
             for field in fields:
-                setattr(model, field, data[col_num].get(field))
+                setattr(model, field, data[col_num].get(field) or 0)
             model.journal = journal
             model.shift = shift
             model.time = currentTime

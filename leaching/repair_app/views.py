@@ -82,7 +82,7 @@ def get_items(request):
 
     records = []
     for num, item in enumerate(items):
-        row = {'num': num, 'name': item.name, 'id': item.id, 'comment': item.comment, 'date': item.date.strftime("%Y-%m-%dT%H:%M")}
+        row = {'num': num, 'name': item.name, 'id': item.id, 'date_performed': item.date_performed.strftime("%Y-%m-%dT%H:%M"), 'comment': item.comment, 'date': item.date.strftime("%Y-%m-%dT%H:%M")}
         records.append(row)
 
     return {
