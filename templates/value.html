@@ -1,1 +1,8 @@
-<i>000</i>
+{% load express_tags %} {# Loading our tags #}
+
+{% choose_val full_data|keyval:page|keyval:table|keyval:field index %} {# Setting val variable #}
+
+{% with info=fields_info|keyval:page|keyval:table|keyval:field %}
+    <input class="form-control" type="{{info.type}}" v-bind:name="'row.larox.co_'+row.hour" v-bind:value="row.info.larox.co"
+       placeholder=""/>
+{% endwith %}

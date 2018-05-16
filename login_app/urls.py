@@ -8,4 +8,3 @@ urlpatterns = [
     url(r'messages$', views.get_messages),
     url(r'read_message$', views.read_message),
 ]
-

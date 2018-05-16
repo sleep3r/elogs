@@ -7,6 +7,12 @@ class deep_dict(defaultdict):
         if d is not None:
             self.from_dict(d)
 
+    def __getattr__(self, key):
+        return self[key]
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
     def from_dict(self, d):
         for k, v in d.items():
             self[k] = deep_dict()
