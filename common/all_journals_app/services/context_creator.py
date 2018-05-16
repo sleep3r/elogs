@@ -1,5 +1,5 @@
 from common.all_journals_app.models import CellValue, JournalPage
-from common.all_journals_app.tabes import fields_info
+from common.all_journals_app.tables import fields_info
 from utils.deep_dict import deep_dict
 
 

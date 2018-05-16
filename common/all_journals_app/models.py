@@ -9,10 +9,10 @@ class JournalPage(models.Model):
 
 
 class CellValue(models.Model):
-    object = models.ForeignKey(JournalPage, on_delete=models.CASCADE, related_name='weights')
+    journal_page = models.ForeignKey(JournalPage, on_delete=models.CASCADE)
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
     field_name = models.CharField(max_length=128, verbose_name='Название поля')
-    index = models.IntegerField(null=True, blank=True, default=None)
+    index = models.IntegerField(null=True, blank=True, default=None, verbose_name='Номер строчки')
 
     value = models.CharField(max_length=1024, verbose_name='Минимальный размер')
 

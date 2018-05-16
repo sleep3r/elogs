@@ -1,4 +1,4 @@
-from common.all_journals_app.tabes.tables.conc_raports_tables import *
+from common.all_journals_app.tables.tables.conc_raports_tables import *
 from utils.deep_dict import deep_dict
 
 fields_info = deep_dict()
