@@ -1,5 +1,7 @@
 {% load i18n %}
+{% for table in tables %}
 <div class="x_panel">
+
     <div class="x_title">
         <h2>{{ table.title }}</h2>
         <ul class="nav navbar-right panel_toolbox">
@@ -11,3 +13,4 @@
         {% include table.name %}
     </div>
 </div>
+{% endfor %}
