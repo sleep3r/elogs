@@ -1,0 +1,20 @@
+{% load express_tags %}
+
+{% with table_name="lower_fields" %}
+    {% with table_data=full_data|keyval:table_name %}
+
+
+
+        <table>
+            <tr>
+                <th> Заметки </th>
+            </tr>
+
+            <tr>
+                <td>{% include "value.html" with field_name="notes" index=None %}</td>
+            </tr>
+
+        </table>
+
+    {% endwith %}
+{% endwith %}

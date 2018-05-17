@@ -1,0 +1,43 @@
+{% load express_tags %}
+
+{% with table_name="upper_fields" %}
+    {% with table_data=full_data|keyval:table_name %}
+
+
+
+        <table>
+            <tr>
+                <th> Мастер </th>
+                <th> Старший крановщик </th>
+                <th> Склад </th>
+                <th> Крановщик </th>
+                <th> Стропальщик </th>
+                <th> Дата </th>
+                <th> Смена </th>
+            </tr>
+
+            <tr>
+                <td>{% include "value.html" with field_name="master" index=None %}</td>
+                <td>{% include "value.html" with field_name="senior_crane_operator" index=None %}</td>
+                <td>{% include "value.html" with field_name="storage" index=None %}</td>
+                <td>{% include "value.html" with field_name="crane_operator" index=None %}</td>
+                <td>{% include "value.html" with field_name="sling_operator" index=None %}</td>
+                <td>{% include "value.html" with field_name="date" index=None %}</td>
+                <td>{% include "value.html" with field_name="shift" index=None %}</td>
+            </tr>
+
+            <tr class="newline">
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+
+    {% endwith %}
+{% endwith %}

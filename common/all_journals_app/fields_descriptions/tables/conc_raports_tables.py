@@ -1,6 +1,19 @@
 import json
 from utils.deep_dict import deep_dict
 
+
+ut = deep_dict()
+#------Upper Table--------
+ut.master = dict(type="text", min_normal=0, max_normal=100)
+ut.senior_crane_operator = dict(type="text", min_normal=0, max_normal=100)
+
+ut.storage = dict(type="text", min_normal=0, max_normal=100)
+ut.crane_operator = dict(type="text", min_normal=0, max_normal=100)
+ut.sling_operator = dict(type="text", min_normal=0, max_normal=100)
+
+ut.date = dict(type="time", min_normal=5, max_normal=100)
+ut.shift = dict(type="text", min_normal=0, max_normal=100)
+
 bt = deep_dict()
 
 #-------Big Table-------------
@@ -45,8 +58,16 @@ st.residue_beds_total = dict(type="number", min_normal=0, max_normal=100)
 st.residue_stops_total = dict(type="number", min_normal=0, max_normal=100)
 st.residue_braces_total = dict(type="number", min_normal=0, max_normal=100)
 
+#---------lower table----------
+lt = deep_dict()
+
+lt.notes = dict(type="text", min_normal=0, max_normal=100)
+
 
 big_table_desc = bt.clear_empty().get_dict()
 small_table_desc = st.clear_empty().get_dict()
+upper_table_desc = ut.clear_empty().get_dict()
+lower_table_desc = lt.clear_empty().get_dict()
+
 
 # --------------------------------------- small table -----------------------------------------------------
