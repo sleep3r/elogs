@@ -40,3 +40,8 @@ def choose_val(field_info, index):
         return field_info[index]
     else:
         return field_info
+
+
+@register.filter()
+def to_num(value):
+    return round(float(value), 2)
