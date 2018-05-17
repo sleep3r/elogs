@@ -533,7 +533,7 @@ class DatabaseFiller:
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_journal_pages(self):
-        JournalPage(type="shift", journal_name="report journal").save()
+        JournalPage(type="shift", journal_name="conc_report_journal").save()
 
     def fill_shifts(self):
         dates = [parse('10-10-2015'), parse('12-10-2015')]
@@ -581,7 +581,7 @@ class DatabaseFiller:
         db_models.extend([JournalPage, CellValue])
 
         for u in User.objects.all():  # delete user
-            if not u.is_superuser:
+            if not u.username == 'inframine' and not u.is_superuser:
                 u.delete()
 
         for t in db_models:

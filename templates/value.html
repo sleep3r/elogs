@@ -13,9 +13,10 @@
 
         {% if info.type == "number" and val|to_num > info.max_normal or val|to_num < info.min_normal %}
             <input class="form-control red" type="{{ info.type }}"
-                   value="{{ val }}" title="{{ field_name }}" data-info="{{ info }}"/>
+                   value="{{ val }}" title="{{ field_name }}" data-info="{{ info }}" name="{{ field_name }}"/>
         {% else %}
-            <input class="form-control" type="{{ info.type }}" value="{{ val }}" title="{{ field_name }}"/>
+            <input class="form-control" type="{{ info.type }}" value="{{ val }}" title="{{ field_name }}"
+                   name="{{ field_name }}"/>
         {% endif %}
 
     {% endwith %}

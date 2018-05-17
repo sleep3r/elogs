@@ -16,3 +16,8 @@ class CellValue(models.Model):
 
     value = models.CharField(max_length=1024, verbose_name='Значение поля')
 
+    def __str__(self):
+        return "journal_page: " + str(self.journal_page) + " table_name: " \
+               + str(self.table_name) + " field_name: " + str(self.field_name) +\
+               " index: " + str(self.index) + " value: " + str(self.value)
+

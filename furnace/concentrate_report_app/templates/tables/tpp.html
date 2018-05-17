@@ -3,50 +3,52 @@
 {% with table_name="big_table" %}
     {% with table_data=full_data|keyval:table_name %}
 
-{#        <p>{{ full_data }}</p>#}
-{#        <p>{{ fields_info }}</p>#}
-{#        <p>{{ table_data }}</p>#}
-{#        <p>{{ table_data.wagon_num }}</p>#}
+        {#        <p>{{ full_data }}</p>#}
+        {#        <p>{{ fields_info }}</p>#}
+        {#        <p>{{ table_data }}</p>#}
+        {#        <p>{{ table_data.wagon_num }}</p>#}
 
-        {{ hello }}
-
-        <table>
-            <tr>
-                <th> Номер вагона </th>
-                <th> Наименование концентрата </th>
-                <th> Время поставки </th>
-                <th> Время сообщения диспетчеру </th>
-                <th> Время перепростоя </th>
-                <th> Поступило контейнеров </th>
-                <th> Поступило поддонов </th>
-                <th> Поступило упоров </th>
-                <th> Поступило скоб </th>
-            </tr>
-            {% for f_name in table_data.wagon_num %}
+        <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+            <input hidden name="table_name" value="{{ table_name }}">
+            <input hidden name="journal_page" value="{{ journal_page }}">
+            <table>
                 <tr>
-                    <td>{% include "value.html" with field_name="wagon_num" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="conc_num" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="supply_time" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="dispatch_time" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="downtime" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="recieved_conc" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="recieved_beds" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="recieved_stops" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="recieved_braces" index=forloop.counter0 %}</td>
+                    <th> Номер вагона</th>
+                    <th> Наименование концентрата</th>
+                    <th> Время поставки</th>
+                    <th> Время сообщения диспетчеру</th>
+                    <th> Время перепростоя</th>
+                    <th> Поступило контейнеров</th>
+                    <th> Поступило поддонов</th>
+                    <th> Поступило упоров</th>
+                    <th> Поступило скоб</th>
                 </tr>
-            {% endfor %}
-            <tr class="newline">
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-        </table>
+                {% for f_name in table_data.wagon_num %}
+                    <tr>
+                        <td>{% include "value.html" with field_name="wagon_num" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="conc_num" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="supply_time" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="dispatch_time" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="downtime" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="recieved_conc" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="recieved_beds" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="recieved_stops" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="recieved_braces" index=forloop.counter0 %}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="newline">
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+        </form>
 
     {% endwith %}
 {% endwith %}
