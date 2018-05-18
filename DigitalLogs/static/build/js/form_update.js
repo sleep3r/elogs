@@ -6,6 +6,8 @@ function on_form_change(form) {
         success: console.log,
         dataType: "json"
     });
+
+    // clone_last_line(form)
 }
 
 function on_input_change(input) {
@@ -19,6 +21,22 @@ function on_input_change(input) {
 
     $(input).attr('placeholder', info.units);
     $(input).attr('title', info.units);
+}
+
+function clone_last_line(from) {
+    const table = $(form).find("table");
+    const last_line = table.find("tr:last");
+
+    let filled = 0;
+    last_line.find('input').each(function () {
+        if (this.value !== "") {
+            filled++;
+        }
+    });
+
+    if (filled === 0) {
+        last_line.clone().appendTo(table);
+    }
 }
 
 $(document).ready(function () {
