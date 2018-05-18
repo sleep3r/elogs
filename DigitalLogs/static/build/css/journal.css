@@ -196,6 +196,6 @@ th.rotate > div > span {
     padding: 0px !important;
 }
 
-.journaltablewrapper .form_control {
+.journaltablewrapper .form-control {
     border: none;
 }

@@ -191,10 +191,11 @@ th.rotate > div > span {
   border: none;
 }
 
+
 .journaltablewrapper td {
-    padding: 0px;
+    padding: 0px !important;
 }
 
-.journaltablewrapper .form_control {
+.journaltablewrapper .form-control {
     border: none;
 }
