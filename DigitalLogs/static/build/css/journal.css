@@ -53,7 +53,7 @@ tr.mini th { vertical-align: middle !important; }
 
 .tablewrapper {
   display: inline-flex;
-  flex: 1;  
+  flex: 1;
   margin: 4px;
 }
 .pagewrapper {
@@ -98,7 +98,7 @@ tr.mini th { vertical-align: middle !important; }
   padding: 0;
   min-width: 150px;
 }
- 
+
 
 .x_content table {
   height: 100% !important;
@@ -122,7 +122,7 @@ td {
   padding-left: 2px !important;
   height: 100%;
   min-height: 30px;
-  border: none; 
+  border: none;
   background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
 }
 
@@ -131,8 +131,8 @@ td {
     animation-duration: 1s;
     animation-timing-function: linear;
 }
-        
-         
+
+
 @keyframes changeColors {
   0% {background-color: #26B99A55;}
   100% {background-color: initial;}
@@ -189,4 +189,13 @@ th.rotate > div > span {
 .insidetable {
   margin: 0;
   border: none;
+}
+
+
+.journaltablewrapper td {
+    padding: 0px !important;
+}
+
+.journaltablewrapper .form_control {
+    border: none;
 }
