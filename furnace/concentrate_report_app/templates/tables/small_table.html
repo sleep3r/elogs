@@ -4,8 +4,10 @@
     {% with table_data=full_data|keyval:table_name %}
 
         {{ hello }}
-
-        <table>
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        <table class="table table-bordered">
             <tr>
                 <th> Склад </th>
                 <th> Поступление контейнеров </th>
@@ -19,7 +21,7 @@
                 <th> Количество скоб </th>
             </tr>
             {% for f_name in table_data.storage %}
-                <tr>
+                <tr class="indexed-line">
                     <td>{% include "value.html" with field_name="storage" index=forloop.counter0 %}</td>
                     <td>{% include "value.html" with field_name="containers_reciept" index=forloop.counter0 %}</td>
                     <td>{% include "value.html" with field_name="shipped_empty_num" index=forloop.counter0 %}</td>
@@ -46,19 +48,7 @@
                 <td>{% include "value.html" with field_name="residue_beds_total" index=None %}</td>
                 <td>{% include "value.html" with field_name="residue_stops_total" index=None %}</td>
             </tr>
-
-            <tr class="newline">
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
         </table>
-
+    </form>
     {% endwith %}
 {% endwith %}
