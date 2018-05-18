@@ -30,5 +30,6 @@ def get_common_context(page):
 
     res.journal_name = page.journal_name
     res.journal_page = page.id
+    res.editable = False
 
     return res

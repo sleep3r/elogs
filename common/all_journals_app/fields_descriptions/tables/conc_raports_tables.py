@@ -4,30 +4,30 @@ from utils.deep_dict import deep_dict
 
 ut = deep_dict()
 #------Upper Table--------
-ut.master = dict(type="text", min_normal=0, max_normal=100)
-ut.senior_crane_operator = dict(type="text", min_normal=0, max_normal=100)
+ut.master = dict(type="text", min_normal=10, max_normal=1000)
+ut.senior_crane_operator = dict(type="text", min_normal=10, max_normal=1000)
 
-ut.storage = dict(type="text", min_normal=0, max_normal=100)
-ut.crane_operator = dict(type="text", min_normal=0, max_normal=100)
-ut.sling_operator = dict(type="text", min_normal=0, max_normal=100)
+ut.storage = dict(type="text", min_normal=10, max_normal=1000)
+ut.crane_operator = dict(type="text", min_normal=10, max_normal=1000)
+ut.sling_operator = dict(type="text", min_normal=10, max_normal=1000)
 
-ut.date = dict(type="time", min_normal=5, max_normal=100)
-ut.shift = dict(type="text", min_normal=0, max_normal=100)
+ut.date = dict(type="time", min_normal=10, max_normal=1000)
+ut.shift = dict(type="text", min_normal=10, max_normal=1000)
 
 bt = deep_dict()
 
 #-------Big Table-------------
-bt.wagon_num = dict(type="number", min_normal=0, max_normal=100)
-bt.conc_num = dict(type="text", min_normal=0, max_normal=100)
+bt.wagon_num = dict(type="number", min_normal=10, max_normal=1000)
+bt.conc_num = dict(type="text", min_normal=10, max_normal=1000)
 
-bt.supply_time = dict(type="time", min_normal=0, max_normal=100)
-bt.dispatch_time = dict(type="time", min_normal=0, max_normal=100)
-bt.downtime = dict(type="time", min_normal=0, max_normal=100)
+bt.supply_time = dict(type="time", min_normal=10, max_normal=1000)
+bt.dispatch_time = dict(type="time", min_normal=10, max_normal=1000)
+bt.downtime = dict(type="time", min_normal=10, max_normal=1000)
 
-bt.recieved_conc = dict(type="number", min_normal=5, max_normal=100)
-bt.recieved_beds = dict(type="number", min_normal=0, max_normal=100)
-bt.recieved_stops = dict(type="number", min_normal=0, max_normal=100)
-bt.recieved_braces = dict(type="number", min_normal=0, max_normal=100)
+bt.recieved_conc = dict(type="number", min_normal=10, max_normal=1000, units='шт')
+bt.recieved_beds = dict(type="number", min_normal=10, max_normal=1000, units='шт')
+bt.recieved_stops = dict(type="number", min_normal=10, max_normal=1000, units='шт')
+bt.recieved_braces = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 
 
 st = deep_dict()
