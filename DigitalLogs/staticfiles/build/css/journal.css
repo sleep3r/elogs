@@ -199,3 +199,8 @@ th.rotate > div > span {
 .journaltablewrapper .form-control {
     border: none;
 }
+
+.my-test-class {
+  color: yellow;
+  background-color: yellow;
+}
