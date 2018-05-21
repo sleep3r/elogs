@@ -17,6 +17,10 @@ def index(request):
     main_table.title = "План загрузки шихты"
     main_table.name = 'tables/main_table.html'
 
-    context.tables = [main_table]
+    year_plan_schieht = deep_dict()
+    year_plan_schieht.title = "Расчет годового плана шихты"
+    year_plan_schieht.name = "tables/year_plan_schieht.html"
+
+    context.tables = [main_table, year_plan_schieht]
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context, request))
