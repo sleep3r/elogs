@@ -27,6 +27,7 @@ urlpatterns = [
     url('leaching', include('leaching.express_anal_app.urls')),
     url('^furnace/fractional', include('furnace.fractional_app.urls')),
     url('furnace/concentrate', include('furnace.concentrate_report_app.urls')),
+    url('electrolysis/', include('furnace.concentrate_report_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
 ]
