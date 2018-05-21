@@ -1,6 +1,5 @@
 function on_form_change(form) {
     clear_empty_lines(form);
-    clone_last_line(form);
 
     $.ajax({
         type: 'POST',
@@ -9,6 +8,8 @@ function on_form_change(form) {
         success: console.log,
         dataType: "json"
     });
+
+    clone_last_line(form);
 }
 
 function on_input_change(input) {
@@ -68,6 +69,8 @@ $(document).ready(function () {
     document.querySelectorAll(".general-value").forEach(input => {
         on_input_change(input);
     });
+
+    $("form").trigger("input")
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
