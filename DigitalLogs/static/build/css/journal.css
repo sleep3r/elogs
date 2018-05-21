@@ -198,6 +198,7 @@ th.rotate > div > span {
 
 .journaltablewrapper .form-control {
     border: none;
+    line-height: 1.42857143 !important;
 }
 
 input[readonly] {

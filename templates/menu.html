@@ -2,23 +2,28 @@
 <br/>
 <h3>{% trans "Аналитика завода" %}</h3>
 <ul class="nav side-menu">
-  <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
-    <ul class="nav child_menu">
-        <!--<li><a href="#level1_1">Обжиг</a>-->
-        <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-              <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
-              <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
-          </ul>
-        </li>
-        <li><a>{% trans "Обжиг" %}<span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-              <li class="sub_menu"><a href="/furnace/fractional">{% trans "Ситовой анализ огарка и шихты" %}</a></li>
-              <li class="sub_menu"><a href="/furnace/concentrate/tpp">{% trans "Сводка по поступлению расходу и остаткам цинковых концентратов" %}</a></li>
-              <li class="sub_menu"><a href="/furnace/shihta">{% trans "План загрузки Шихты" %}</a></li>
-              <li class="sub_menu"><a href="/furnace/repair">{% trans "Журнал по ремонту" %}</a></li>
-          </ul>
-        </li>
-    </ul>
-  </li>
+    <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+            <!--<li><a href="#level1_1">Обжиг</a>-->
+            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
+                    <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
+                </ul>
+            </li>
+            <li><a>{% trans "Обжиг" %}<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="/furnace/fractional">{% trans "Ситовой анализ огарка и шихты" %}</a></li>
+                    <li class="sub_menu"><a href="/furnace/concentrate/tpp">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a></li>
+                    <li class="sub_menu"><a href="/furnace/shihta">{% trans "План загрузки Шихты" %}</a></li>
+                    <li class="sub_menu"><a href="/furnace/repair">{% trans "Журнал по ремонту" %}</a></li>
+                </ul>
+            </li>
+            <li><a>{% trans "Электролиз" %}<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="/electrolysis/technical">{% trans "Технологический журнал электролиза 4 степени" %}</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 </ul>
