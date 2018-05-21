@@ -1,3 +1,4 @@
+import datetime
 import json
 import secrets
 import string
@@ -6,6 +7,7 @@ from collections import defaultdict
 from json import JSONEncoder
 from traceback import print_exc
 
+from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -65,6 +67,7 @@ def process_json_view(auth_required=True):
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
             response["Access-Control-Allow-Credentials"] = "true"
+
             return response
 
         return csrf_exempt(w)
@@ -173,3 +176,12 @@ def translate(name):
 
 def model_to_dict(model):
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
+
+
+def set_cookie(response, key, value, days_expire = 7):
+  if days_expire is None:
+    max_age = 365 * 24 * 60 * 60  #one year
+  else:
+    max_age = days_expire * 24 * 60 * 60
+  expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
+  response.set_cookie(key, value, max_age=max_age, expires=expires, domain=SESSION_COOKIE_DOMAIN, secure=SESSION_COOKIE_SECURE or None)
