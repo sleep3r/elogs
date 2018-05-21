@@ -29,7 +29,10 @@ def get_common_context(journal_name):
     if page_exists:
         page = JournalPage.objects.get(journal_name=journal_name)
     else:
-        page = JournalPage(type="shift", journal_name=journal_name).save()
+        page = JournalPage(type="shift", journal_name=journal_name)
+        page.save()
+
+
 
     res['full_data'] = get_full_data(page)
     res['fields_info'] = get_fields_info()
