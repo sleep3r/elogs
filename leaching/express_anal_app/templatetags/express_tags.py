@@ -2,6 +2,7 @@ from pprint import pprint
 
 from django import template
 from django.utils.html import mark_safe
+from utils.deep_dict import deep_dict
 
 register = template.Library()
 
@@ -9,6 +10,7 @@ register = template.Library()
 class UnfilledCell():
     def __str__(self):
         return "Unfilled"
+
 
 @register.simple_tag()
 def model_desc(obj):
@@ -38,7 +40,12 @@ def keyval(dict, key):
 
 
 @register.filter
-def keyval_special(dict, key):
+def table_keyval(dict, key):
+    return dict.get(key, deep_dict())
+
+
+@register.filter
+def cell_keyval(dict, key):
     return dict.get(key, UnfilledCell())
 
 

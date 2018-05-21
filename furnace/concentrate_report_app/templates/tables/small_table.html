@@ -1,7 +1,7 @@
 {% load express_tags %}
 
 {% with table_name="small_table" %}
-    {% with table_data=full_data|keyval:table_name %}
+    {% with table_data=full_data|table_keyval:table_name %}
 
         {{ hello }}
     <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
@@ -21,7 +21,7 @@
                 <th> Количество скоб </th>
             </tr>
 
-            <tr class="indexed-line">
+            <tr>
                 <td>{% include "value.html" with field_name="storage1" index=None %}</td>
                 <td>{% include "value.html" with field_name="containers_reciept1" index=None %}</td>
                 <td>{% include "value.html" with field_name="shipped_empty_num1" index=None %}</td>
@@ -34,7 +34,7 @@
                 <td>{% include "value.html" with field_name="residue_stops1" index=None %}</td>
             </tr>
 
-            <tr class="indexed-line">
+            <tr>
                 <td>{% include "value.html" with field_name="storage2" index=None %}</td>
                 <td>{% include "value.html" with field_name="containers_reciept2" index=None %}</td>
                 <td>{% include "value.html" with field_name="shipped_empty_num2" index=None %}</td>

@@ -19,7 +19,7 @@ def index(request):
 
 @login_required
 def tpp(request):
-    context = get_common_context(JournalPage.objects.get(journal_name="concentrate_report_journal"))
+    context = get_common_context(journal_name="concentrate_report_journal")
     big_table = deep_dict()
     small_table = deep_dict()
     upper_table = deep_dict()
@@ -38,6 +38,7 @@ def tpp(request):
     lower_table.name = 'tables/lower_table.html'
 
     context.tables = [upper_table, big_table, small_table, lower_table]
+    # context.tables = [big_table, small_table]
 
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context.get_dict(), request))

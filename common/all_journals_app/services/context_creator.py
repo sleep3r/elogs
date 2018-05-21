@@ -22,12 +22,20 @@ def get_fields_info():
     return fields_info_desc
 
 
-def get_common_context(page):
+def get_common_context(journal_name):
     res = deep_dict()
+
+    page_exists = JournalPage.objects.filter(journal_name=journal_name).count()
+    if page_exists:
+        page = JournalPage.objects.get(journal_name=journal_name)
+    else:
+        page = JournalPage(type="shift", journal_name=journal_name).save()
 
     res['full_data'] = get_full_data(page)
     res['fields_info'] = get_fields_info()
 
+    res.unfilled_cell = "Unfilled"
+    res.unfilled_table = deep_dict()
     res.journal_name = page.journal_name
     res.journal_page = page.id
     res.editable = False
