@@ -199,3 +199,7 @@ th.rotate > div > span {
 .journaltablewrapper .form-control {
     border: none;
 }
+
+input[readonly] {
+    background-color: transparent !important;
+  }

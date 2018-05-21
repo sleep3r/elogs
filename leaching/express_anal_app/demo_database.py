@@ -3,6 +3,7 @@ import random
 from datetime import timedelta
 from inspect import ismethod
 from itertools import product
+from random import randint
 
 from django.db.models import Model
 from django.utils import timezone
@@ -411,16 +412,19 @@ class DatabaseFiller:
             if type(values) is not list:
                 values = [values]
             for i, value in enumerate(values):
+                index_marker_in_field_name = ""
                 if type(value) is not str:
                     value = str(value)
                 if do_index:
                     index = i
                 else:
+                    if len(values) > 1:
+                        index_marker_in_field_name = str(i + 1)
                     index = None
                 CellValue(
                     journal_page=journal_page,
                     table_name=table_name,
-                    field_name=field_name,
+                    field_name=field_name + index_marker_in_field_name,
                     value=value,
                     index=index
                 ).save()
@@ -466,25 +470,28 @@ class DatabaseFiller:
     def fill_small_table_jp(self, journal_page):
         table_name = "small_table"
         n = 10
+        min, max = 10, 100
         data = {
-            "storage": [1234] * n,
-            "containers_reciept": [456] * n,
-            "shipped_empty_num": [10] * n,
-            "poured_containers_num": [30] * n,
-            "residue_empty_containers1": [20] * n,
-            "residue_empty_containers2": [20] * n,
-            "residue_defective_containers": [3] * n,
-            "residue_braces": [3] * n,
-            "residue_beds": [3] * n,
-            "residue_stops": [15] * n
+            "storage": [1, 2],
+            "containers_reciept": [randint(min, max), randint(min, max)],
+            "shipped_empty_num": [randint(min, max), randint(min, max)],
+            "poured_containers_num": [randint(min, max), randint(min, max)],
+            "residue_empty_containers1": [randint(min, max), randint(min, max)],
+            "residue_empty_containers2": [randint(min, max), randint(min, max)],
+            "residue_defective_containers": [randint(min, max), randint(min, max)],
+            "residue_braces": [randint(min, max), randint(min, max)],
+            "residue_beds": [randint(min, max), randint(min, max)],
+            "residue_stops": [randint(min, max), randint(min, max)]
         }
 
-        self.fill_table_from_journal_page(journal_page, table_name, data, do_index=True)
+        self.fill_table_from_journal_page(journal_page, table_name, data)
 
         new_data = dict()
         for key in data.keys():
             new_data[key + "_total"] = sum(data[key])
-        self.fill_table_from_journal_page(journal_page, table_name, new_data, do_index=False)
+        new_data["storage_total"] = "Итого"
+
+        self.fill_table_from_journal_page(journal_page, table_name, new_data)
 
 
 

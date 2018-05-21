@@ -1,4 +1,6 @@
 function on_form_change(form) {
+    clear_empty_lines(form);
+
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -6,6 +8,8 @@ function on_form_change(form) {
         success: console.log,
         dataType: "json"
     });
+
+    clone_last_line(form);
 }
 
 function on_input_change(input) {
@@ -21,8 +25,54 @@ function on_input_change(input) {
     $(input).attr('title', info.units);
 }
 
+
+function line_is_empty(tr_line) {
+    let filled = 0;
+    tr_line.find('input').each(function () {
+        if (this.value.trim() !== "") {
+            filled++;
+        }
+    });
+
+    return filled === 0;
+}
+
+
+function clone_last_line(form) {
+
+    const table = $(form).find("table");
+    const last_line = table.find(".indexed-line:last");
+
+    if (!line_is_empty(last_line)) {
+        let new_last_line = last_line.clone();
+        new_last_line.find("input").val("");
+        new_last_line.find(".index-input").val(last_line.find(".index-input").val()*1 + 1);
+        table.append(new_last_line);
+    }
+}
+
+
+function clear_empty_lines(form) {
+    const table = $(form).find("table");
+
+    $(table.find(".indexed-line").get().reverse()).each(function (index) {
+        if (line_is_empty($(this))) {
+            this.remove();
+        } else {
+            return false;
+        }
+    });
+}
+
+
 $(document).ready(function () {
     document.querySelectorAll(".general-value").forEach(input => {
         on_input_change(input);
     });
+
+    $("form").trigger("input")
+
+    String.prototype.trim = function () {
+        return this.replace(/^\s*/, "").replace(/\s*$/, "");
+    }
 })

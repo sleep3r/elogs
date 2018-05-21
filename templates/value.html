@@ -8,30 +8,11 @@
     journal_page
 {% endcomment %}
 
-{% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
+{% with val=table_data|keyval_special:field_name|choose_val_special:index %} {# Setting val variable#}
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
-
         <input class="form-control general-value" type="{{ info.type }}" oninput="on_input_change(this)"
                value="{{ val }}" data-info="{{ info }}"
                name="{{ field_name }}"/>
 
     {% endwith %}
 {% endwith %}
-
-
-<script>
-    {#function on_input_change(input) {#}
-    {#    const json = input.dataset.info.replace(/'/g, '"');#}
-    {#    const info = JSON.parse(json);#}
-    {#    if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {#}
-    {#        input.className = input.className.replace(/ black/g, "") + " red";#}
-    {#    } else {#}
-    {#        input.className = input.className.replace(/ red/g, "") + " black";#}
-    {#    }#}
-    {#}#}
-    {#    $(document).ready(function () {#}
-    {#        document.querySelectorAll(".general-value").forEach(input => {#}
-    {#            on_input_change(input)#}
-    {#        })#}
-    {#    })#}
-</script>

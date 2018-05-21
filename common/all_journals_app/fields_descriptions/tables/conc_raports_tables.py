@@ -32,31 +32,30 @@ bt.recieved_braces = dict(type="number", min_normal=10, max_normal=1000, units='
 
 st = deep_dict()
 #--------Small Table------------
-st.storage = dict(type="number", min_normal=0, max_normal=100)
-st.containers_reciept= dict(type="number", min_normal=0, max_normal=100)
 
-st.shipped_empty_num = dict(type="number", min_normal=0, max_normal=100)
-st.poured_containers_num = dict(type="number", min_normal=0, max_normal=100)
-st.residue_empty_containers1 = dict(type="number", min_normal=0, max_normal=100)
-st.residue_empty_containers2 = dict(type="number", min_normal=0, max_normal=100)
-st.residue_defective_containers = dict(type="number", min_normal=0, max_normal=100)
+field_names = [
+    "storage",
+    "containers_reciept",
+    "shipped_empty_num",
+    "poured_containers_num",
+    "residue_empty_containers1",
+    "residue_empty_containers2",
+    "residue_defective_containers",
+    "residue_braces",
+    "residue_beds",
+    "residue_stops"
+]
 
-st.residue_beds = dict(type="number", min_normal=0, max_normal=100)
-st.residue_stops = dict(type="number", min_normal=0, max_normal=100)
-st.residue_braces = dict(type="number", min_normal=0, max_normal=100)
+fields_info = [
+    dict(type="text", min_normal=0, max_normal=100),
+] + [dict(type="number", min_normal=0, max_normal=100)] * 9
 
-st.storage_total = dict(type="number", min_normal=0, max_normal=100)
-st.containers_reciept_total = dict(type="number", min_normal=0, max_normal=100)
+for index in range(1, 4):
+    if index == 3:
+        index = "_total"
+    for field_name, field_info in zip(field_names, fields_info):
+        st[field_name + str(index)] = field_info
 
-st.shipped_empty_num_total = dict(type="number", min_normal=0, max_normal=100)
-st.poured_containers_num_total = dict(type="number", min_normal=0, max_normal=100)
-st.residue_empty_containers1_total = dict(type="number", min_normal=0, max_normal=100)
-st.residue_empty_containers2_total = dict(type="number", min_normal=0, max_normal=100)
-st.residue_defective_containers_total = dict(type="number", min_normal=0, max_normal=100)
-
-st.residue_beds_total = dict(type="number", min_normal=0, max_normal=100)
-st.residue_stops_total = dict(type="number", min_normal=0, max_normal=100)
-st.residue_braces_total = dict(type="number", min_normal=0, max_normal=100)
 
 #---------lower table----------
 lt = deep_dict()

@@ -6,6 +6,10 @@ from django.utils.html import mark_safe
 register = template.Library()
 
 
+class UnfilledCell():
+    def __str__(self):
+        return "Unfilled"
+
 @register.simple_tag()
 def model_desc(obj):
     if obj.__doc__:
@@ -30,8 +34,12 @@ def value(fid, index=None):
 
 @register.filter
 def keyval(dict, key):
-    # pprint(dict)
     return dict[key]
+
+
+@register.filter
+def keyval_special(dict, key):
+    return dict.get(key, UnfilledCell())
 
 
 @register.filter
@@ -40,6 +48,15 @@ def choose_val(field_info, index):
         return field_info[index]
     else:
         return field_info
+
+
+@register.filter
+def choose_val_special(field_info, index):
+    if index is None or isinstance(field_info, UnfilledCell):
+        return field_info
+    else:
+        return field_info[index]
+
 
 
 @register.filter()
