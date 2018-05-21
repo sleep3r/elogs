@@ -1,0 +1,41 @@
+{% load express_tags %}
+
+{% with table_name="main_table" %}
+
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+
+
+        <label>Выберите месяц</label>
+        <input type="month" name="slected_month">
+        <br/>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> План
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" autocomplete="off"> По факту
+          </label>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> Конц. смт </th>
+                    <th> Zn </th>
+                    <th> Соотношение </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="newline">
+                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text"></td>
+                    <td><input class="form-control" type="text"></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="button" class="btn btn-primary" value="Назад">
+        <input type="button" class="btn btn-success pull-right" value="Далее">
+    </form>
+{% endwith %}
