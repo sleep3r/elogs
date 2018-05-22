@@ -1,5 +1,6 @@
 from common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
-from common.all_journals_app.fields_descriptions.tables.input_output_report import main_table_desc
+from common.all_journals_app.fields_descriptions.tables.input_output_report import *
+
 from utils.deep_dict import deep_dict
 
 fields_info_desc = deep_dict()
@@ -9,4 +10,6 @@ fields_info_desc.concentrate_report_journal.small_table = small_table_desc
 fields_info_desc.concentrate_report_journal.upper_fields = upper_table_desc
 fields_info_desc.concentrate_report_journal.lower_fields = lower_table_desc
 
-fields_info_desc.report_income_outcome_schieht.loading_schieht_table = main_table_desc
+fields_info_desc.report_income_outcome_schieht.main_table = main_table_desc
+fields_info_desc.report_income_outcome_schieht.supply_zinc_table = supply_zinc_desc
+

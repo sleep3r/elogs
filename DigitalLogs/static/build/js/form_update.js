@@ -1,5 +1,10 @@
 function on_form_change(form) {
+    clone_last_line(form);
     clear_empty_lines(form);
+
+    if (!$(form).find()) {
+
+    }
 
     $.ajax({
         type: 'POST',
@@ -8,13 +13,12 @@ function on_form_change(form) {
         success: console.log,
         dataType: "json"
     });
-
-    clone_last_line(form);
 }
 
 function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
+    input.type=info.type;
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
     } else {
@@ -55,9 +59,13 @@ function clone_last_line(form) {
 function clear_empty_lines(form) {
     const table = $(form).find("table");
 
+    let last_line = null;
     $(table.find(".indexed-line").get().reverse()).each(function (index) {
         if (line_is_empty($(this))) {
-            this.remove();
+            if (last_line) {
+                last_line.remove();
+            }
+            last_line = this;
         } else {
             return false;
         }

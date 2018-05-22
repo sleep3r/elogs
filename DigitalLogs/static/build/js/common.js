@@ -70,3 +70,16 @@ function getCookie(name) {
      }
      return cookieValue;
  }
+
+
+Date.prototype.decrementMonth = function () {
+    return new Date(this.setMonth(this.getMonth() - 1));
+};
+
+Date.prototype.incrementMonth = function () {
+    return new Date(this.setMonth(this.getMonth() + 2));
+};
+
+Date.prototype.getMonthWithYear = function() {
+    return this.getFullYear() + '-' + this.getMonth();
+}

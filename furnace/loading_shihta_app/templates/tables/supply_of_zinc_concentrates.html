@@ -1,21 +1,9 @@
 {% load express_tags %}
 
-{% with table_name=main_table_id %}
+{% with table_name=supply_zinc_table_id %}
     <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
         <input hidden name="table_name" value="{{ table_name }}">
         <input hidden name="journal_page" value="{{ journal_page }}">
-
-        <label>Выберите месяц </label>
-        <input type="month" name="slected_month" id="selected_month" onchange="changeMonth()" value="{{ selected_month }}">
-        <br/>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary  {% if mode == "plan" %}active{% endif %}">
-            <input type="radio" name="mode" id="plan" autocomplete="off" {% if mode == "plan" %}checked="checked"{% endif %}> План
-          </label>
-          <label class="btn btn-secondary {% if mode == "fact" %}active{% endif %}">
-            <input type="radio" name="mode" id="fact" autocomplete="off" {% if mode == "fact" %}checked="checked"{% endif %}> По факту
-          </label>
-        </div>
 
         {% with table_data=full_data|table_keyval:table_name %}
         <table class="table table-bordered">
@@ -23,7 +11,6 @@
                 <tr>
                     <th> Конц. смт </th>
                     <th> Zn </th>
-                    <th> Соотношение </th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +19,6 @@
                         <input class="index-input" hidden name="index" value=0>
                         <td>{% include "value.html" with field_name="concentrate" index=0 %}</td>
                         <td>{% include "value.html" with field_name="zn" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="ratio" index=0 %}</td>
                     </tr>
             {% else  %}
                 {% for _ in table_data.concentrate %}
@@ -40,7 +26,6 @@
                         <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
                         <td>{% include "value.html" with field_name="concentrate" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="zn" index=forloop.counter0 %}</td>
-                        <td>{% include "value.html" with field_name="ratio" index=forloop.counter0 %}</td>
                     </tr>
                 {%  endfor %}
             {%  endif %}
@@ -48,29 +33,31 @@
 
         </table>
         {%  endwith %}
+        <input type="button" class="btn btn-primary" id="sozc__btn-back" value="Назад">
+        <input type="button" class="btn btn-success pull-right" id="sozc__btn-next" value="Далее">
     </form>
 {% endwith %}
+
 <script>
-    function getRedirectLink() {
-        let date = $("#selected_month").val();
-        let mode = $('input[name=mode]:checked').attr('id');
-        console.log(date);
-        console.info(mode);
-        return "/furnace/shihta?month=" + date + "&mode=" + mode;
+
+    function redirect(baseLink = '/', date, mode) {
+        window.location.href = baseLink + "?month=" + date + "&mode=" + mode;
     }
 
-
     $(document).ready(()=>{
-        $("input:radio").change(function(event){
-            window.location.href = getRedirectLink()
+        $("#sozc__btn-back").on('click', () => {
+           let date = $("#selected_month").val();
+           let mode = $('input[name=mode]:checked').attr('id');
+           let prev = (new Date(date)).decrementMonth();
+           redirect('/furnace/shihta', prev.getMonthWithYear(), mode);
         });
 
-        $("#selected_month").change((event)=>{
-            window.location.href = getRedirectLink()
+        $("#sozc__btn-next").on('click', ()=>{
+            let date = $("#selected_month").val();
+           let mode = $('input[name=mode]:checked').attr('id');
+           let next = (new Date(date)).incrementMonth();
+           redirect('/furnace/shihta', next.getMonthWithYear(), mode);
         });
-
-
-    });
-
+    })
 </script>
 
