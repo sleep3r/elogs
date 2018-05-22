@@ -5,15 +5,15 @@
         <input hidden name="table_name" value="{{ table_name }}">
         <input hidden name="journal_page" value="{{ journal_page }}">
 
-        <label>Выберите месяц</label>
+        <label>Выберите месяц {{ mode }}</label>
         <input type="month" name="slected_month" id="selected_month" onchange="changeMonth()" value="{{ selected_month }}">
         <br/>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary active">
-            <input type="radio" name="mode" id="plan" autocomplete="off" > План
+          <label class="btn btn-secondary  {% if mode == "plan" %}active{% endif %}">
+            <input type="radio" name="mode" id="plan" autocomplete="off" {% if mode == "plan" %}checked="checked"{% endif %}> План
           </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="mode" id="fact" autocomplete="off" > По факту
+          <label class="btn btn-secondary {% if mode == "fact" %}active{% endif %}">
+            <input type="radio" name="mode" id="fact" autocomplete="off" {% if mode == "fact" %}checked="checked"{% endif %}> По факту
           </label>
         </div>
 

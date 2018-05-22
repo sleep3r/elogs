@@ -13,7 +13,7 @@ from common.all_journals_app.services.context_creator import get_common_context
 # Create your views here.
 @login_required
 def index(request):
-    context = get_common_context(journal_name="svodka_income_outcome_shihta")
+    context = get_common_context(journal_name="report_income_outcome_schieht")
 
     main_table = deep_dict()
     main_table.title = "План загрузки шихты"
@@ -33,7 +33,7 @@ def index(request):
     if 'mode' in request.GET:
         mode = request.GET['mode']
     else:
-        mode = 'fact'  # 'plan'
+        mode = 'plan'  # 'plan'
 
 
     context.mode = mode
@@ -46,5 +46,10 @@ def index(request):
 
     context.dump = pprint.pformat(context.full_data, indent=4)
     context.tables = [main_table]
+    year_plan_schieht = deep_dict()
+    year_plan_schieht.title = "Расчет годового плана шихты"
+    year_plan_schieht.name = "tables/year_plan_schieht.html"
+
+    context.tables = [main_table, year_plan_schieht]
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context, request))
