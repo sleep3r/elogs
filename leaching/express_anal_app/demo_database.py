@@ -407,20 +407,16 @@ class DatabaseFiller:
             r.comment = gen_text(max_words=15)
             r.save()
 
-    def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=False):
+    def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=True):
         for field_name, values in data.items():
             if type(values) is not list:
                 values = [values]
+
             for i, value in enumerate(values):
                 index_marker_in_field_name = ""
                 if type(value) is not str:
                     value = str(value)
-                if do_index:
-                    index = i
-                else:
-                    if len(values) > 1:
-                        index_marker_in_field_name = str(i + 1)
-                    index = None
+                index = i
                 CellValue(
                     journal_page=journal_page,
                     table_name=table_name,
@@ -566,7 +562,6 @@ class DatabaseFiller:
             attribute = getattr(self, name)
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
                 attribute(journal_page=journal_page)
-
 
     def clean_database(self):
         exception_models = [User, Employee, Shift, Journal, JournalTable, Model]

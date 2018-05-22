@@ -13,7 +13,9 @@ def get_full_data(page):
         if val.index is not None:
             res[val.table_name][val.field_name][val.index] = val.value
         else:
-            res[val.table_name][val.field_name] = val.value
+            raise ValueError()
+
+    pprint(res['main_table'])
 
     return res
 

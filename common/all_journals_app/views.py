@@ -21,7 +21,6 @@ def change_table(request):
     for field_name in request.POST:
         values = request.POST.getlist(field_name)
         for i, val in enumerate(values):
-            index = i if len(values) > 1 else None
-            CellValue(journal_page=page, value=val, index=index, field_name=field_name, table_name=tn).save()
+            CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
 
     return {"status": 1}
