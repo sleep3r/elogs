@@ -55,7 +55,7 @@ def index(request):
 
     context.tables = [main_table,
                       year_plan_schieht,
-                      small_plan_table,
+                      # small_plan_table,
                       supply_zinc_table]
 
     template = loader.get_template('common.html')
