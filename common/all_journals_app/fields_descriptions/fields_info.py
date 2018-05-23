@@ -13,5 +13,7 @@ fields_info_desc.concentrate_report_journal.lower_fields = lower_table_desc
 fields_info_desc.report_income_outcome_schieht.main_table = main_table_desc
 fields_info_desc.report_income_outcome_schieht.supply_zinc_table = supply_zinc_desc
 fields_info_desc.report_income_outcome_schieht.year_plan_schieht = year_plan_schieht_desc
+fields_info_desc.report_income_outcome_schieht.summary_table = summary_table_desc
+
 
 fields_info_desc = fields_info_desc.get_dict()
