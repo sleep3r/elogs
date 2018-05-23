@@ -52,7 +52,7 @@
            redirect('/furnace/shihta', prev.getMonthWithYear(), mode);
         });
 
-        $("#sozc__btn-next").on('click', ()=>{
+        $("#sozc__btn-next").on('click', () => {
             let date = $("#selected_month").val();
            let mode = $('input[name=mode]:checked').attr('id');
            let next = (new Date(date)).incrementMonth();
