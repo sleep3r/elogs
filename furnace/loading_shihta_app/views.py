@@ -37,7 +37,7 @@ def index(request):
 
     context.date_year = current_date[0]
     context.date_month = current_date[1]
-    
+
     # context.main_table_id = 'main_table_' + mode + '_' + str(selected_date)
     # context.supply_zinc_table_id = 'supply_zinc_table_' + mode + str(selected_date)
     context.main_table_id = 'main_table'

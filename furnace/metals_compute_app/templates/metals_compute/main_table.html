@@ -1,0 +1,77 @@
+{% load express_tags %}
+
+
+<div align="center">
+    <b>Tables</b>
+</div>
+
+{% with table_name="metals_compute_table" %}
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        {% with table_data=full_data|table_keyval:table_name %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>выданно концнт ВМТ</th>
+                    <th>выданно концнт СМТ</th>
+                    <th>Выданно огарка</th>
+                    <th>Zn, конц</th>
+                    <th>Pb</th>
+                    <th>Cu</th>
+                    <th>Cd,	Fe</th>
+
+                    <th>SiO2</th>
+                    <th>Zn, огар</th>
+                    <th>Pb</th>
+                    <th>Cu</th>
+                    <th>Cd,	Fe</th>
+                    <th>SiO2</th>
+                    <th>S</th>
+                    <th>As</th>
+                    <th>Sb</th>
+                    <th>S сульф</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if table_data.vmt|length == 0 %}
+                <tr class="indexed-line">
+                    <td>{% include "value.html" with field_name="vmt" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cmt" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="zn_end" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="pb" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cu" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cd_fe" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SiO2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Zn_furn" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb3" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb4" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                </tr>
+            {% else %}
+                <tr class="indexed-line">
+                    <td>{% include "value.html" with field_name="vmt" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cmt" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="zn_end" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="pb" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cu" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cd_fe" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SiO2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Zn_furn" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb3" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb4" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb5" index=0 %}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% endwith %}
+        </form>
+{% endwith %}

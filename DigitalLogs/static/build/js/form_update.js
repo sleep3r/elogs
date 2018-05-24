@@ -18,11 +18,28 @@ function on_form_change(form) {
 function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-    input.type=info.type;
+
+    if (info.type !== "droplist" ) {
+        input.type = info.type;
+    }
+
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
     } else {
         $(input).addClass('black').removeClass('red')
+    }
+
+    if (info.type === "datalist" ) {
+        $(input).removeAttr( "type" );
+        $(input).attr('list', 'datalist');
+
+        if($('#caplist').length == 0) {
+            $(input).after('<datalist id="datalist"></datalist>');
+            info.options.forEach((name)=>{
+                $("#caplist").append("<option>" + name + "</option>");
+            })
+        }
+
     }
 
     $(input).attr('placeholder', info.units);

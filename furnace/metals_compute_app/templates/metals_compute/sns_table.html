@@ -1,0 +1,63 @@
+{% load express_tags %}
+
+{% with table_name="sns_table" %}
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        {% with table_data=full_data|table_keyval:table_name %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>СМТ</th>
+                    <th>Zn%</th>
+                    <th>Содержание Zn в концентрате,тонн</th>
+                    <th>Pb, %</th>
+                    <th>Содержание  Pb в концентрате,тонн</th>
+                    <th>Cu, %</th>
+                    <th>Содержание Cu в концентрате,тонн</th>
+                    <th>Cd, %</th>
+                    <th>Содержание Cd в концентрате,тонн</th>
+                    <th>Au, г/т	Содержание Au в концентрате,тонн</th>
+                    <th>Ag, г/т	Содержание Ag в концентрате,тонн</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if table_data.cmt|length == 0 %}
+                <tr class="indexed-line">
+                    <input class="index-input" hidden name="index" value=0>
+                    <td>{% include "value.html" with field_name="caption" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="cmt" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="znp" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SodZn" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb_" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SodPb" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Cu_" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SodCu" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Cd_" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="SodCd" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Au" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="Ag" index=0 %}</td>
+                </tr>
+            {% else %}
+                <tr class="indexed-line">
+                    <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+                    <td>{% include "value.html" with field_name="caption" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="cmt" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="znp" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="SodZn" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="Pb_" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="SodPb" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="Cu_" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="SodCu" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="Cd_" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="SodCd" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="Au" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="Ag" index=forloop.counter0 %}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% endwith %}
+        </form>
+{% endwith %}

@@ -15,7 +15,7 @@
             </thead>
             <tbody>
             {% if table_data.concentrate|length == 0 %}
-                <tr class="indexed-line">
+                <tr>
                     <input class="index-input" hidden name="index" value="0">
                     <td>НЗП</td>
                     <td>{% include "value.html" with field_name="nzp_concentrate" index=0 %}</td>
@@ -28,10 +28,12 @@
                 </tr>
                 <tr>
                     <td>Итого</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             {% else  %}
                 {% for _ in table_data.concentrate %}
-                    <tr class="indexed-line">
+                    <tr >
                         <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
                         <td>{% include "value.html" with field_name="nzp_concentrate" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="nzp_zn" index=forloop.counter0 %}</td>

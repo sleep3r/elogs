@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
+    'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
 ]
 
 MIDDLEWARE = [
