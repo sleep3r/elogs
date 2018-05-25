@@ -1,6 +1,7 @@
 from common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
+from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
 
 
 from utils.deep_dict import deep_dict
@@ -21,4 +22,5 @@ fields_info_desc.metals_compute.metals_compute_table = metals_main_desc
 fields_info_desc.metals_compute.sns_table = sns_table_desc
 fields_info_desc.metals_compute.sgok_table = sgok_table_desc
 
+fields_info_desc.electrolysis_technical_report_4_degree.left_table = left_table_desc
 # fields_info_desc = fields_info_desc.get_dict()
