@@ -13,6 +13,9 @@ from common.all_journals_app.services.context_creator import get_common_context
 
 
 # Create your views here.
+from utils.webutils import translate
+
+
 @login_required
 def index(request):
     context = get_common_context(journal_name="metals_compute")
@@ -29,10 +32,15 @@ def index(request):
     sgok_table.title = "СГОК таблица"
     sgok_table.name = "metals_compute/sgok_table.html"
 
+    gof_table = deep_dict()
+    gof_table.title = "ГОФ таблица"
+    gof_table.name = "metals_compute/gof_table.html"
+
     context.tables = [
                        main_table,
                        sns_table,
-                       sgok_table
+                       sgok_table,
+                       gof_table
                       ]
 
     context.sgok_table.columns = ["ЗГОК",
@@ -58,6 +66,7 @@ def index(request):
 "отклонение"]
 
     context.sgok_table.fields = fields_info_desc.metals_compute.sgok_table.keys()
+    context.gof_table.fields = fields_info_desc.metals_compute.gof_table.keys()
 
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context, request))
