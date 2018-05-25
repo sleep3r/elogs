@@ -69,3 +69,8 @@ def choose_val_special(field_info, index):
 @register.filter()
 def to_num(value):
     return round(float(value), 2)
+
+
+@register.filter(name='split')
+def split(value, arg):
+    return value.split(arg)
