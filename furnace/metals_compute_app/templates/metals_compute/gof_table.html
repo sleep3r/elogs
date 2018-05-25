@@ -1,0 +1,47 @@
+{% load express_tags %}
+
+
+{% with table_name="gof_table" %}
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        {% with table_data=full_data|table_keyval:table_name %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2">ГОФ</th>
+                    <th colspan="3">Приход концентрата (Пасечникова)</th>
+                    <th colspan="2">остаток на 01.12.13</th>
+                    <th colspan="2">итого</th>
+                    <th colspan="2">Расход концентрата</th>
+                    <th colspan="2">остаток концентрата на 01.12.13ЦЕх</th>
+                    <th colspan="2">остаток концентрата на 01.12.13 Кусманов</th>
+                    <th colspan="2">невязка 01.12.13</th>
+                    <th colspan="2">Данные по сводке</th>
+                </tr>
+                <tr>
+                    {% with columns="ВМТ|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк|СМТ|Цинк" %}
+                    {% for column_name in columns|split:"|" %}
+                        <th>{{ column_name }}</th>
+                    {%  endfor %}
+                    {%  endwith %}
+                </tr>
+            </thead>
+            <tbody>
+                {% with row_names="ЗГОК|Арт-ий|Усть-ТАЛ|Карагайлы|Верх-Бер|Белоусовка|Жезкент|Ер Тай|Н.Широкинский|Лесосиб|Алтын-Топкан" %}
+                {% for row_name in row_names|split:"|" %}
+                <tr>
+                    <th>{{ row_name }}</th>
+                    {% with row_index=forloop.counter0  %}
+                        {% for name in gof_table.fields %}
+                            <td>{% include "value.html" with field_name=name index=row_index %}</td>
+                        {% endfor %}
+                    {% endwith %}
+                </tr>
+                {% endfor %}
+                {% endwith %}
+            </tbody>
+        </table>
+        {% endwith %}
+        </form>
+{% endwith %}

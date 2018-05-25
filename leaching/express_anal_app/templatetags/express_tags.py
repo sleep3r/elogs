@@ -74,3 +74,8 @@ def stack(a, b):
 @register.filter()
 def to_num(value):
     return round(float(value), 2)
+
+
+@register.filter(name='split')
+def split(value, arg):
+    return value.split(arg)
