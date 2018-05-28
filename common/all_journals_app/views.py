@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
+from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage
 from utils.webutils import process_json_view
 
@@ -24,3 +25,9 @@ def change_table(request):
             CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
 
     return {"status": 1}
+
+
+@csrf_exempt
+@process_json_view(auth_required=False)
+def get_fields_descriptions(request):
+    return fields_info_desc

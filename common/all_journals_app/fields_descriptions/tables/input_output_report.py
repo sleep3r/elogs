@@ -32,15 +32,16 @@ year_plan_schieht_desc = yps.clear_empty().get_dict()
 
 bt = deep_dict()
 
-#------Loading Schieht Table--------
+#------ Loading Schieht Table --------
 
-main_table  = deep_dict()
+main_table = deep_dict()
 main_table.concentrate = dict(type="number", min_normal=10, max_normal=1000)
 main_table.zn = dict(type="number", min_normal=10, max_normal=1000, units='')
 main_table.ratio = dict(type="number", min_normal=10, max_normal=1000, units='')
 main_table_desc = main_table.clear_empty().get_dict()
 
-#-----Supply of zinc concentrates table ----
+
+#----- Supply of zinc concentrates table ----
 supply_zinc = deep_dict()
 supply_zinc.concentrate = dict(type="number", min_normal=10, max_normal=20000)
 supply_zinc.zn = dict(type="number", min_normal=10, max_normal=10000)

@@ -56,6 +56,11 @@ function clone_last_line(form) {
 }
 
 
+function add_first_line(form) {
+
+}
+
+
 function clear_empty_lines(form) {
     const table = $(form).find("table");
 
@@ -74,13 +79,21 @@ function clear_empty_lines(form) {
 
 
 $(document).ready(function () {
-    document.querySelectorAll(".general-value").forEach(input => {
+    document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
         on_input_change(input);
     });
 
-    $("form").trigger("input")
+    $("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
-    }
-})
+    };
+
+    $.ajax({ // Adding getting fields_info from server and saving in to local storage
+        type: 'GET',
+        url: '/common/fields_info/',
+        dataType: "json",
+    }).done((res)=>{
+        window.localStorage.setItem("fields_info", res)
+    });
+});
