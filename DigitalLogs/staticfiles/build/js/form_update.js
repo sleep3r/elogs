@@ -1,6 +1,10 @@
 function on_form_change(form) {
-    clear_empty_lines(form);
     clone_last_line(form);
+    clear_empty_lines(form);
+
+    if (!$(form).find()) {
+
+    }
 
     $.ajax({
         type: 'POST',
@@ -14,10 +18,20 @@ function on_form_change(form) {
 function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
+
+    if (info.type !== "droplist" ) {
+        input.type = info.type;
+    }
+
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
     } else {
         $(input).addClass('black').removeClass('red')
+    }
+
+    if (info.type === "droplist" ) {
+        $(input).attr('list', 'caplist')
+        $(input).add('datalist')
     }
 
     $(input).attr('placeholder', info.units);
@@ -54,9 +68,13 @@ function clone_last_line(form) {
 function clear_empty_lines(form) {
     const table = $(form).find("table");
 
+    let last_line = null;
     $(table.find(".indexed-line").get().reverse()).each(function (index) {
         if (line_is_empty($(this))) {
-            this.remove();
+            if (last_line) {
+                last_line.remove();
+            }
+            last_line = this;
         } else {
             return false;
         }
@@ -68,6 +86,8 @@ $(document).ready(function () {
     document.querySelectorAll(".general-value").forEach(input => {
         on_input_change(input);
     });
+
+    $("form").trigger("input")
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");

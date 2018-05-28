@@ -25,31 +25,6 @@
 
         </table>
         {%  endwith %}
-        <input type="button" class="btn btn-primary" id="sozc__btn-back" value="Назад">
-        <input type="button" class="btn btn-success pull-right" id="sozc__btn-next" value="Далее">
     </form>
 {% endwith %}
-
-<script>
-
-    function redirect(baseLink = '/', date, mode) {
-        window.location.href = baseLink + "?month=" + date + "&mode=" + mode;
-    }
-
-    $(document).ready(()=>{
-        $("#sozc__btn-back").on('click', () => {
-           let date = $("#selected_month").val();
-           let mode = $('input[name=mode]:checked').attr('id');
-           let prev = (new Date(date)).decrementMonth();
-           redirect('/furnace/shihta', prev.getMonthWithYear(), mode);
-        });
-
-        $("#sozc__btn-next").on('click', ()=>{
-            let date = $("#selected_month").val();
-           let mode = $('input[name=mode]:checked').attr('id');
-           let next = (new Date(date)).incrementMonth();
-           redirect('/furnace/shihta', next.getMonthWithYear(), mode);
-        });
-    })
-</script>
 

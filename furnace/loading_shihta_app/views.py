@@ -32,10 +32,17 @@ def index(request):
         mode = 'plan'  # 'plan'
 
     context.mode = mode
+
+    current_date = selected_date.split("-")
+
+    context.date_year = current_date[0]
+    context.date_month = current_date[1]
+
     # context.main_table_id = 'main_table_' + mode + '_' + str(selected_date)
     # context.supply_zinc_table_id = 'supply_zinc_table_' + mode + str(selected_date)
     context.main_table_id = 'main_table'
     context.supply_zinc_table_id = 'supply_zinc_table'
+    context.summary_table_id = 'summary_table'
 
     main_table = deep_dict()
     main_table.title = "План загрузки шихты"
@@ -53,10 +60,18 @@ def index(request):
     supply_zinc_table.title = "Поставка цинковых концентратов"
     supply_zinc_table.name = "tables/supply_of_zinc_concentrates.html"
 
-    context.tables = [main_table,
+
+    summary_table = deep_dict()
+    summary_table.title = "НЗП и склады"
+    summary_table.name = "tables/summary_table.html"
+
+    context.tables = [
+                      main_table,
                       year_plan_schieht,
                       # small_plan_table,
-                      supply_zinc_table]
+                      supply_zinc_table,
+                      summary_table
+                      ]
 
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context, request))

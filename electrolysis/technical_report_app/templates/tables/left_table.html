@@ -1,0 +1,45 @@
+{% load express_tags %}
+
+{% with table_name="left_table" %}
+    {% with table_data=full_data|table_keyval:table_name %}
+    {% with table_info=fields_info|keyval:journal_name|keyval:table_name %}
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2"> Параметры </th>
+                    <th colspan="12"> Время замеров </th>
+                    <th rowspan="2"> Несоотвествия </th>
+                    <th rowspan="2"> Принятые меры </th>
+                </tr>
+                <tr>
+                    {% for time in table_info.times %}
+                        <th> {{ time }} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row_name in table_info.row_names %}
+                    <tr>
+                        <td> {{row_name.view}} </td>
+                        {% for header in table_info.times|stack:table_info.last_headers %}
+                        <td>
+                            {% with row_name.db|add:header as field_name %}
+                            {% include "value.html" with index=0 %}
+                            {% endwith %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    {% endwith %}
+    {% endwith %}
+{% endwith %}
+
+<script>
+    $()
+</script>
