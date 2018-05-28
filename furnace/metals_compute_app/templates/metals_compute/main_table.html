@@ -1,10 +1,5 @@
 {% load express_tags %}
 
-
-<div align="center">
-    <b>Tables</b>
-</div>
-
 {% with table_name="metals_compute_table" %}
     <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
         <input hidden name="table_name" value="{{ table_name }}">

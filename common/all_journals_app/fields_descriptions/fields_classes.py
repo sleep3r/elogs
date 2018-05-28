@@ -1,2 +1,6 @@
 numeric_default = dict(type="number")
+date_default = dict(type="date")
+month_default = dict(type="month")
+time_default = dict(type="time", min_normal=10, max_normal=1000)
+text_default = dict(type="text")
 datalist_default = dict(type="datalist", options=[])

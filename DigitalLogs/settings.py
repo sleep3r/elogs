@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
     'furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
     'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
+    'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'electrolysis.technical_report_app.apps.TechnicalReportAppConfig'
 ]

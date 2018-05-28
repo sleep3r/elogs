@@ -1,4 +1,4 @@
-from common.all_journals_app.fields_descriptions.fields_classes import numeric_default
+from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
 
@@ -69,3 +69,5 @@ gof_fields = ["vmt", "cmt", "zinc", "cmt2", "zinc2", "cmt3", "zinc3", "cmt4", "z
 for field_name in gof_fields:
     gof[field_name] = numeric_default
 gof_table_desc = gof.clear_empty().get_dict()
+
+

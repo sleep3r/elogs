@@ -67,7 +67,7 @@ def choose_val_special(field_info, index):
 
 @register.filter
 def stack(a, b):
-    return a + b;
+    return a + b
 
 
 
