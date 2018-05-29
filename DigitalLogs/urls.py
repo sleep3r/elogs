@@ -30,6 +30,7 @@ urlpatterns = [
     url('furnace/shihta', include('furnace.loading_shihta_app.urls')),
     url('furnace/metals', include('furnace.metals_compute_app.urls')),
     url('furnace/technologicaltasks', include('furnace.replaceable_technological_tasks_app.urls')),
+    url('furnace/repair', include('furnace.repair_app.urls')),
     url('electrolysis/technical', include('electrolysis.technical_report_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),

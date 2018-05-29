@@ -33,12 +33,15 @@ function on_input_change(input) {
         $(input).removeAttr( "type" );
         $(input).attr('list', 'datalist');
 
-        if($('#datalist').length == 0) {
+        if ($('#datalist').length == 0) {
             $(input).after('<datalist id="datalist"></datalist>');
             info.options.forEach((name)=>{
                 $("#datalist").append("<option>" + name + "</option>");
             })
         }
+    }
+
+    if (info.type == "text") {
 
     }
 
