@@ -213,6 +213,18 @@ th.rotate > div > span {
     background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
 }
 
+.row_of_tables {
+    display: flex;
+}
+
+.row_of_tables table {
+    margin: 3px;
+}
+
+.journaltablewrapper .table_header_input{
+    display: inline;
+}
+
 
 input[readonly] {
     background-color: transparent !important;

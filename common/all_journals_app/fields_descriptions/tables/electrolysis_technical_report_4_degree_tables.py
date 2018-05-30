@@ -105,7 +105,7 @@ rt.co2 = numeric_default
 rt.cd2 = numeric_default
 rt.sb2 = numeric_default
 rt.fe2p2 = numeric_default
-rt.weight2_1 = numeric_default
+rt.weight1_2 = numeric_default
 
 #--------part3–--------#
 
@@ -114,6 +114,7 @@ rt.pumpnum10 = numeric_default
 rt.pumpnum11 = numeric_default
 rt.pumpnum12 = numeric_default
 rt.reason2 = text_default
+rt.tank_anal = numeric_default
 rt.pumpnum13 = numeric_default
 rt.pumpnum14 = numeric_default
 rt.pumpnum15 = numeric_default
