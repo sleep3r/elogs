@@ -26,10 +26,10 @@ def index(request):
     right_table = deep_dict()
 
     left_table.title = "Крекс Шпекс"
-    left_table.name = "tables/left_table.html"
+    left_table.name = "technical_report_tables/left_table.html"
 
     right_table.title = "666"
-    right_table.name = "tables/right_table.html"
+    right_table.name = "technical_report_tables/right_table.html"
 
     context.tables = [left_table, right_table]
     return HttpResponse(template.render(context, request))
