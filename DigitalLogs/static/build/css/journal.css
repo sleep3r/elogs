@@ -193,13 +193,26 @@ th.rotate > div > span {
 
 
 .journaltablewrapper td {
-    padding: 0px !important;
+    padding: 0 !important;
+}
+
+.journaltablewrapper th {
+    padding: 8px;
 }
 
 .journaltablewrapper .form-control {
     border: none;
+    min-width: 0;
     line-height: 1.42857143 !important;
+    height: 100%;
+    min-height: 30px;
+    background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
 }
+
+.journaltablewrapper .form-control:focus{
+    background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
+}
+
 
 input[readonly] {
     background-color: transparent !important;

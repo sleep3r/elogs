@@ -29,4 +29,6 @@ fields_info_desc.technological_tasks.replaceable_tasks_table = technologial_task
 fields_info_desc.furnace_repair.repair_table = repair_table_desc
 
 fields_info_desc.electrolysis_technical_report_4_degree.left_table = left_table_desc
+fields_info_desc.electrolysis_technical_report_4_degree.right_table = right_table_desc
+
 # fields_info_desc = fields_info_desc.get_dict()
