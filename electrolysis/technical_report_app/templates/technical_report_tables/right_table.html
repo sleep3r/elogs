@@ -1,0 +1,102 @@
+{% load express_tags %}
+
+{% with table_name="right_table" %}
+    {% with table_data=full_data|table_keyval:table_name %}
+    {% with table_info=fields_info|keyval:journal_name|keyval:table_name %}
+    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+        <input hidden name="table_name" value="{{ table_name }}">
+        <input hidden name="journal_page" value="{{ journal_page }}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th rowspan="2" colspan="3">
+                        Установленные технологический режим<br>
+                        H2SO4 <span class="table_header_input">{% include "value.html" with field_name="h2so4" index=0 %}</span><br>
+                        Zn в отр. <span class="table_header_input">{% include "value.html" with field_name="zn" index=0 %}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th> Кол-во р-ра </th>
+                    <th> Гор. бак, м3</th>
+                    <th> Хол. бак, м3</th>
+                </tr>
+
+                <tr>
+                    <th>ВИУ №1</th>
+                    <td>{% include "value.html" with field_name="viu1_1"  index=0 %}</td>
+                    <td>{% include "value.html" with field_name="viu1_2"  index=0 %}</td>
+                </tr>
+
+                <tr>
+                    <th>ВИУ №2</th>
+                    <td>{% include "value.html" with field_name="viu2_1"  index=0 %}</td>
+                    <td>{% include "value.html" with field_name="viu2_2"  index=0 %}</td>
+                </tr>
+
+                <tr>
+                    <th>ВИУ №3</th>
+                    <td> {% include "value.html" with field_name="viu3_1"  index=0 %} </td>
+                    <td>{% include "value.html" with field_name="viu3_2"  index=0 %}</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">4 чан - {% include "value.html" with field_name="tank4"  index=0 %}</th>
+                    <th>3 чан - {% include "value.html" with field_name="tank3"  index=0 %}</th>
+                </tr>
+
+                <tr>
+                    <th colspan="2">5 чан - {% include "value.html" with field_name="tank5"  index=0 %}</th>
+                    <th>4A чан - {% include "value.html" with field_name="tank4A"  index=0 %}</th>
+                </tr>
+
+                <tr>
+                    <th> Примеси </th>
+                    <td colspan="2"> мг/л </td>
+                </tr>
+
+                <tr>
+                    <th> Cu </th>
+                    <td colspan="2"> {% include "value.html" with field_name="cu1"  index=0 %}</td>
+                </tr>
+
+                <tr>
+                    <th> Co </th>
+                    <td colspan="2"> {% include "value.html" with field_name="co1" index=0 %}</td>
+                </tr>
+                <tr>
+                    <th> Cd </th>
+                    <td colspan="2"> {% include "value.html" with field_name="cd1" index=0 %}</td>
+                </tr>
+                <tr>
+                    <th> Sb </th>
+                    <td colspan="2"> {% include "value.html" with field_name="sb1" index=0 %}</td>
+                </tr>
+                <tr>
+                    <th> Fe2+ </th>
+                    <td colspan="2"> {% include "value.html" with field_name="fe2p1" index=0 %}</td>
+                </tr>
+                <tr>
+                    <th> BT % </th>
+                    <td colspan="2"> {% include "value.html" with field_name="bt1" index=0 %}</td>
+                </tr>
+                <tr>
+                    <th> Уд. вес (ЦВМО) г/см3 </th>
+                    <td colspan="2"> {% include "value.html" with field_name="weight1_1" index=0 %}</td>
+                </tr>
+
+                <tr>
+                    <th> Уд. вес (5 чан) г/см3</th>
+                    <td colspan="2"> {% include "value.html" with field_name="weight2_1" index=0 %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    {% endwith %}
+    {% endwith %}
+{% endwith %}
+
+<script>
+    $()
+</script>
