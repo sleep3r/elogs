@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
     'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
     'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
+    'furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'electrolysis.technical_report_app.apps.TechnicalReportAppConfig'
 ]
