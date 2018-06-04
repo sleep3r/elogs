@@ -19,7 +19,7 @@ function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
-    if (info.type !== "droplist" ) {
+    if (info.type !== "droplist") { // for dropdowns
         input.type = info.type;
     }
 
@@ -29,19 +29,16 @@ function on_input_change(input) {
         $(input).addClass('black').removeClass('red')
     }
 
-    if (info.type === "datalist" ) {
-        $(input).removeAttr( "type" );
+    if (info.type === "datalist") {
+        $(input).removeAttr("type");
         $(input).attr('list', 'datalist');
 
         if ($('#datalist').length == 0) {
             $(input).after('<datalist id="datalist"></datalist>');
-            info.options.forEach((name)=>{
+            info.options.forEach((name) => {
                 $("#datalist").append("<option>" + name + "</option>");
             })
         }
-    }
-
-    if (info.type == "text") {
 
     }
 
@@ -51,6 +48,7 @@ function on_input_change(input) {
 
 
 function line_is_empty(tr_line) {
+    console.log('tr_line', tr_line)
     let filled = 0;
     tr_line.find('input').each(function () {
         if (this.value.trim() !== "") {
@@ -70,14 +68,9 @@ function clone_last_line(form) {
     if (!line_is_empty(last_line)) {
         let new_last_line = last_line.clone();
         new_last_line.find("input").val("");
-        new_last_line.find(".index-input").val(last_line.find(".index-input").val()*1 + 1);
+        new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
         table.append(new_last_line);
     }
-}
-
-
-function add_first_line(form) {
-
 }
 
 
@@ -98,6 +91,19 @@ function clear_empty_lines(form) {
 }
 
 
+function showPopup() {
+    let popup = document.getElementById("myPopup");
+    popup.classList.add("show");
+    $("#my_input").focus();
+}
+
+
+function hidePopups() {
+    let popup = document.getElementById("myPopup");
+    popup.classList.remove("show");
+}
+
+
 $(document).ready(function () {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
         on_input_change(input);
@@ -113,7 +119,15 @@ $(document).ready(function () {
         type: 'GET',
         url: '/common/fields_info/',
         dataType: "json",
-    }).done((res)=>{
+    }).done((res) => {
         window.localStorage.setItem("fields_info", res)
     });
+
+    $('[readonly]').focus(function () { // delete cursor for readonly fields
+        $('[readonly]').blur();
+    });
+
+    $('.indexed-line:has([readonly]):last').filter((index, line) => { // deleting empty line for readonly cases
+        return line_is_empty($(line));
+    }).remove();
 });

@@ -46,13 +46,13 @@ def index(request):
     context.sgok_table.columns = ["ЗГОК",
 "Арт-ий",
 "Усть-ТАЛ",
-"Карагайлы",
+"Кара<wbr>гайлы",
 "Верх-Бер",
-"Белоусовка",
-"Жезкент",
+"Бело<wbr>усовка",
+"Жез<wbr>кент",
 "Ер Тай",
-"Н.Широкинский",
-"Лесосиб",
+"Н.Широ<wbr>кинский",
+"Лесо<wbr>сиб",
 "Алтын-Топкан",
 "итого ВМТ",
 "ИТОГО СМТ",
@@ -63,7 +63,7 @@ def index(request):
 "Лента",
 "потеря бункеров ОВЦО",
 "лента итого",
-"отклонение"]
+"откло<wbr>нение"]
 
     context.sgok_table.fields = fields_info_desc.metals_compute.sgok_table.keys()
     context.gof_table.fields = fields_info_desc.metals_compute.gof_table.keys()

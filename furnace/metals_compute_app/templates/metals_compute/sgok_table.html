@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     {% for column_name in sgok_table.columns %}
-                        <th>{{ column_name }}</th>
+                        <th>{{ column_name|safe }}</th>
                     {%  endfor %}
                 </tr>
             </thead>

@@ -257,7 +257,7 @@ fieldset.monospace textarea {
     overflow: hidden;
 }
 
-body.popup .submit-row {
+body.popup-comment .submit-row {
     overflow: auto;
 }
 
