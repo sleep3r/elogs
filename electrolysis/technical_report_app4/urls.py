@@ -1,4 +1,4 @@
-from electrolysis.technical_report_app import views
+from electrolysis.technical_report_app4 import views
 from django.conf.urls import url, include
 from django.urls import path
 
