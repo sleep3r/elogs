@@ -5,6 +5,7 @@ from common.all_journals_app.fields_descriptions.tables.input_output_report impo
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
 from common.all_journals_app.fields_descriptions.tables.technological_tasks import *
+import common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_3_degree_tables as t
 
 
 from utils.deep_dict import deep_dict
@@ -33,4 +34,6 @@ fields_info_desc.furnace_changed_fraction.main_table = change_fraction_table_des
 fields_info_desc.electrolysis_technical_report_4_degree.left_table = left_table_desc
 fields_info_desc.electrolysis_technical_report_4_degree.right_table = right_table_desc
 
+fields_info_desc.electrolysis_technical_report_3_degree.left_table = t.left_table_desc
+fields_info_desc.electrolysis_technical_report_3_degree.right_table = t.right_table_desc
 # fields_info_desc = fields_info_desc.get_dict()

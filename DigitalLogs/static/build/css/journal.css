@@ -222,7 +222,8 @@ th.rotate > div > span {
 }
 
 .journaltablewrapper .table_header_input{
-    display: inline;
+    width: 100%;
+    display: flex;
 }
 
 
