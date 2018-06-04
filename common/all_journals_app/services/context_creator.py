@@ -24,10 +24,12 @@ def get_fields_info():
     return fields_info_desc
 
 
-def get_common_context(journal_name, page_type='edit'):
+def get_common_context(journal_name, page_mode='edit', page_type="shift"):
     res = deep_dict()
 
-    page = JournalPage.objects.get_or_create(journal_name=journal_name)[0]
+    page = JournalPage.objects.get_or_create(
+        journal_name=journal_name,
+        type=page_type)[0]
     page.save()
 
     res['full_data'] = get_full_data(page)
@@ -38,15 +40,12 @@ def get_common_context(journal_name, page_type='edit'):
     res.journal_name = page.journal_name
     res.journal_page = page.id
 
-    if page_type == 'view':
+    if page_mode == 'view':
         res.editable = 'readonly'
-    elif page_type == 'edit':
+    elif page_mode == 'edit':
         res.editable = ''
-    elif page_type == 'validate':
+    elif page_mode == 'validate':
         res.editable = 'readonly'
         res.validate = True
-    elif page_type == 'comment':
-        res.editable = 'readonly'
-        res.comment = True
 
     return res

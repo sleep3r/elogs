@@ -35,6 +35,7 @@ urlpatterns = [
     url('electrolysis/technical4', include('electrolysis.technical_report_app4.urls')),
     url('electrolysis/technical3', include('electrolysis.technical_report_app3.urls')),
     url('electrolysis/technical12', include('electrolysis.technical_report_app12.urls')),
+    url('electrolysis/repair', include('electrolysis.repair_report_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
 ]

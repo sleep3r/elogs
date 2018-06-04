@@ -20,4 +20,3 @@ class CellValue(models.Model):
         return "journal_page: " + str(self.journal_page) + " table_name: " \
                + str(self.table_name) + " field_name: " + str(self.field_name) +\
                " index: " + str(self.index) + " value: " + str(self.value)
-

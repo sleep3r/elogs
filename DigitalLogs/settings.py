@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
     'electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
     'electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
+    'electrolysis.repair_report_app.apps.RepairReportAppConfig',
 ]
 
 MIDDLEWARE = [

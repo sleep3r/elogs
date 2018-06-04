@@ -7,6 +7,7 @@ from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_r
 from common.all_journals_app.fields_descriptions.tables.technological_tasks import *
 import common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_3_degree_tables as t3
 import common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_12_degree_tables as t12
+from common.all_journals_app.fields_descriptions.tables.electrolysis_repair_report_tables import *
 
 
 from utils.deep_dict import deep_dict
@@ -40,4 +41,6 @@ fields_info_desc.electrolysis_technical_report_3_degree.right_table = t3.right_t
 
 fields_info_desc.electrolysis_technical_report_12_degree.left_table = t12.left_table_desc
 fields_info_desc.electrolysis_technical_report_12_degree.right_table = t12.right_table_desc
+
+fields_info_desc.electrolysis_repair_report_tables.main_table = main_table_desc
 # fields_info_desc = fields_info_desc.get_dict()

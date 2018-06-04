@@ -41,31 +41,30 @@ def value(fid, index=None):
 
 
 @register.filter
-def keyval(dict, key):
-    return dict[key]
+def keyval(d, key):
+    return d[key]
 
 
 @register.filter
-def table_keyval(dict, key):
-    return dict.get(key, deep_dict())
+def table_keyval(d, key):
+    d.clear_empty()
+    return d.get(key, deep_dict())
 
 
 @register.filter
-def cell_keyval(dict, key):
-    return dict.get(key, UnfilledCell())
+def cell_keyval(d, key):
+    d.clear_empty()
+    return d.get(key, [UnfilledCell()])
 
 
 @register.filter
 def choose_val(field_info, index):
-    if index is not None:
-        return field_info[index]
-    else:
-        return field_info
+    return field_info[index]
 
 
 @register.filter
 def choose_val_special(field_info, index):
-    if index is None or isinstance(field_info, UnfilledCell):
+    if isinstance(field_info, UnfilledCell):
         return field_info
     else:
         return field_info[index]

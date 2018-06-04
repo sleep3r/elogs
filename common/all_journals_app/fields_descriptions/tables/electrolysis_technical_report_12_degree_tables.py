@@ -114,29 +114,4 @@ rt.cryst2 = numeric_default
 
 
 
-
-
-
-#--------part2----------#
-
-rt.pumpnum1 = numeric_default
-rt.pumpnum2 = numeric_default
-rt.pumpnum3 = numeric_default
-rt.pumpnum4 = numeric_default
-rt.pumpnum5 = numeric_default
-rt.pumpnum6 = numeric_default
-rt.pumpnum7 = numeric_default
-rt.pumpnum8 = numeric_default
-rt.pumpnum9 = numeric_default
-rt.pumpnum10 = numeric_default
-rt.pumpnum11 = numeric_default
-rt.pumpnum12 = numeric_default
-rt.zumppumpnum = numeric_default
-rt.shampoopumpnum1 = numeric_default
-rt.shampoopumpnum2 = numeric_default
-rt.shampoopumpnum3 = numeric_default
-rt.reason1 = text_default
-rt.reason2 = text_default
-
-
 right_table_desc = rt.clear_empty().get_dict()
