@@ -39,6 +39,7 @@ function on_input_change(input) {
                 $("#datalist").append("<option>" + name + "</option>");
             })
         }
+
     }
 
     $(input).attr('placeholder', info.units);

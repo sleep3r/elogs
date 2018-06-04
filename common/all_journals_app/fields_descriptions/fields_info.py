@@ -1,4 +1,6 @@
+from common.all_journals_app.fields_descriptions.tables.change_fraction import change_fraction_table_desc
 from common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
+from common.all_journals_app.fields_descriptions.tables.furnace_repair_table import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
@@ -25,6 +27,10 @@ fields_info_desc.metals_compute.sgok_table = sgok_table_desc
 fields_info_desc.metals_compute.gof_table = gof_table_desc
 
 fields_info_desc.technological_tasks.replaceable_tasks_table = technologial_tasks_main_desc
+fields_info_desc.furnace_repair.repair_table = repair_table_desc
+fields_info_desc.furnace_changed_fraction.main_table = change_fraction_table_desc
 
 fields_info_desc.electrolysis_technical_report_4_degree.left_table = left_table_desc
+fields_info_desc.electrolysis_technical_report_4_degree.right_table = right_table_desc
+
 # fields_info_desc = fields_info_desc.get_dict()

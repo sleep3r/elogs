@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'login_app.apps.LoginApp',
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
+    'furnace.repair_app.apps.FurnaceRepairAppConfig',
     'furnace.fractional_app.apps.FurnaceFractionalAppConfig',
     'furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
     'furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
     'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
     'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
+    'furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'electrolysis.technical_report_app.apps.TechnicalReportAppConfig'
 ]

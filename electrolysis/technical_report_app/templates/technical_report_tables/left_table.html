@@ -23,7 +23,7 @@
             <tbody>
                 {% for row_name in table_info.row_names %}
                     <tr>
-                        <td> {{row_name.view}} </td>
+                        <th> {{row_name.view}} </th>
                         {% for header in table_info.times|stack:table_info.last_headers %}
                         <td>
                             {% with row_name.db|add:header as field_name %}
