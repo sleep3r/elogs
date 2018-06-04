@@ -1,6 +1,5 @@
 {% load express_tags %}
 
-
 {% with table_name="repair_table" %}
     <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
         <input hidden name="table_name" value="{{ table_name }}">
