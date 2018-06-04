@@ -24,7 +24,7 @@ def get_fields_info():
     return fields_info_desc
 
 
-def get_common_context(journal_name):
+def get_common_context(journal_name, page_type='edit'):
     res = deep_dict()
 
     page = JournalPage.objects.get_or_create(journal_name=journal_name)[0]
@@ -37,6 +37,16 @@ def get_common_context(journal_name):
     res.unfilled_table = deep_dict()
     res.journal_name = page.journal_name
     res.journal_page = page.id
-    res.editable = False
+
+    if page_type == 'view':
+        res.editable = 'readonly'
+    elif page_type == 'edit':
+        res.editable = ''
+    elif page_type == 'validate':
+        res.editable = 'readonly'
+        res.validate = True
+    elif page_type == 'comment':
+        res.editable = 'readonly'
+        res.comment = True
 
     return res

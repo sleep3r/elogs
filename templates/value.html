@@ -12,7 +12,6 @@
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
         <input class="form-control general-value" oninput="on_input_change(this)"
                value="{{ val }}" data-info="{{ info }}"
-               name="{{ field_name }}"/>
-
+               name="{{ field_name }}" {{ editable }}/>
     {% endwith %}
 {% endwith %}

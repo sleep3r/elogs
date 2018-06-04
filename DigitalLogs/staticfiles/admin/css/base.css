@@ -814,7 +814,7 @@ table#change-history tbody th {
     float: right;
 }
 
-.popup .colM {
+.popup-comment .colM {
     width: auto;
 }
 
@@ -965,14 +965,14 @@ table#change-history tbody th {
 }
 
 /* POPUP */
-.popup #content {
+.popup-comment #content {
     padding: 20px;
 }
 
-.popup #container {
+.popup-comment #container {
     min-width: 0;
 }
 
-.popup #header {
+.popup-comment #header {
     padding: 10px 20px;
 }
