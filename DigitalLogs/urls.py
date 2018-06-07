@@ -41,11 +41,3 @@ urlpatterns = [
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
 ]
-
-
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
