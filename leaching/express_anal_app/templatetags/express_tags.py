@@ -59,6 +59,7 @@ def cell_keyval(d, key):
 
 @register.filter
 def choose_val(field_info, index):
+    print(field_info, index)
     return field_info[index]
 
 
@@ -73,7 +74,6 @@ def choose_val_special(field_info, index):
 @register.filter
 def stack(a, b):
     return a + b
-
 
 
 @register.filter()

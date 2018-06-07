@@ -14,7 +14,7 @@ def index(request):
     template = loader.get_template('common.html')
 
     top_table = deep_dict()
-    top_table.title = "1-2 серия"
+    top_table.title = "Журанл рапортов мастеров смен"
     top_table.name = "masters_raports_app/top_table.html"
 
     seria3_table = deep_dict()
@@ -36,4 +36,9 @@ def index(request):
         params_table
     ]
 
+    last_table = deep_dict()
+    last_table.title = "Последняя таблица"
+    last_table.name = "masters_raports_app/last_table.html"
+
+    context.tables = [top_table, last_table]
     return HttpResponse(template.render(context, request))

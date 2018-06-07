@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.urls import path
 
 # from leaching.express_anal_app import views
+from DigitalLogs import settings
 from furnace.fractional_app import views
 
 urlpatterns = [
@@ -40,3 +41,11 @@ urlpatterns = [
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
 ]
+
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
