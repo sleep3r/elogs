@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
     'login_app.apps.LoginApp',
+    'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
     'furnace.repair_app.apps.FurnaceRepairAppConfig',
@@ -48,11 +49,11 @@ INSTALLED_APPS = [
     'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
     'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
     'furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
-    'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
     'electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
     'electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
     'electrolysis.repair_report_app.apps.RepairReportAppConfig',
+    'electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
