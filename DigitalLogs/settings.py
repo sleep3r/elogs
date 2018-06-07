@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from django.conf.global_settings import INTERNAL_IPS
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -26,7 +27,7 @@ SECRET_KEY = 'u-l(u==u!yqn!5k$a=1-k8zf7!1d2*3a(mxm4ec+a-9-hxduk8'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149']
-
+INTERNAL_IPS += ['127.0.0.1']
 
 # Application definition
 
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
     'electrolysis.repair_report_app.apps.RepairReportAppConfig',
     'electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'DigitalLogs.urls'
@@ -83,15 +86,14 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
 
-            'libraries':{
-                    'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
+            'libraries': {
+                'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
             }
         },
     },
 ]
 
 WSGI_APPLICATION = 'DigitalLogs.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -102,7 +104,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # driver='{ODBC Driver 13 for SQL Server}',
 #                           server='WIN-E402USVKBEF',
@@ -140,7 +141,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

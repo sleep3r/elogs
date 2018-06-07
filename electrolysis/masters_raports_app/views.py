@@ -17,5 +17,9 @@ def index(request):
     top_table.title = "Журанл рапортов мастеров смен"
     top_table.name = "masters_raports_app/top_table.html"
 
-    context.tables = [top_table]
+    last_table = deep_dict()
+    last_table.title = "Последняя таблица"
+    last_table.name = "masters_raports_app/last_table.html"
+
+    context.tables = [top_table, last_table]
     return HttpResponse(template.render(context, request))

@@ -10,3 +10,23 @@ node_modules
 webpack-stats.json
 DigitalLogs/static/webpack_bundles/*
 DigitalLogs/staticfiles/webpack_bundles/*
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
