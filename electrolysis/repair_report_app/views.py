@@ -17,9 +17,9 @@ from django.template import loader
 # from common.all_journals_app.models import JournalPage
 from common.all_journals_app.services.context_creator import get_common_context
 
+
 # Create your views here.
 def index(request):
-
     context = get_common_context(
         journal_name="electrolysis_technical_report_3_degree",
         page_type="equipment"
