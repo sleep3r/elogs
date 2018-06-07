@@ -13,9 +13,9 @@ def index(request):
     context = get_common_context(journal_name="masters_raports")
     template = loader.get_template('common.html')
 
-    left_table = deep_dict()
-    left_table.title = "Журанл рапортов мастеров смен"
-    left_table.name = "masters_raports_app/left_table.html"
+    top_table = deep_dict()
+    top_table.title = "Журанл рапортов мастеров смен"
+    top_table.name = "masters_raports_app/top_table.html"
 
-    context.tables = [left_table]
+    context.tables = [top_table]
     return HttpResponse(template.render(context, request))
