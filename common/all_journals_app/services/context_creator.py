@@ -1,4 +1,8 @@
+import datetime
+from datetime import date
 from pprint import pprint
+
+from django.utils import timezone
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage
@@ -24,7 +28,13 @@ def get_fields_info():
     return fields_info_desc
 
 
-def get_common_context(journal_name, page_mode='edit', page_type="shift"):
+def get_page_list(journal_name, request, page_type):
+    # Тут надо все даты выдернуть и вот это вот все
+    today = timezone.now().date()
+    return [today - datetime.timedelta(days=1*i) for i in range(30)]
+
+
+def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
     page = JournalPage.objects.get_or_create(
@@ -39,6 +49,10 @@ def get_common_context(journal_name, page_mode='edit', page_type="shift"):
     res.unfilled_table = deep_dict()
     res.journal_name = page.journal_name
     res.journal_page = page.id
+
+    page_mode = request.GET.get('page_mode') or 'edit'
+
+    print(page_mode)
 
     if page_mode == 'view':
         res.editable = 'readonly'

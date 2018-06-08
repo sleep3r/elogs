@@ -22,7 +22,8 @@ from common.all_journals_app.services.context_creator import get_common_context
 def index(request):
     context = get_common_context(
         journal_name="electrolysis_technical_report_3_degree",
-        page_type="equipment"
+        page_type="equipment",
+        request=request
     )
 
     template = loader.get_template('common.html')

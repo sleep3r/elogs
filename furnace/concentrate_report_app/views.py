@@ -19,7 +19,7 @@ def index(request):
 
 @login_required
 def tpp(request):
-    context = get_common_context(journal_name="concentrate_report_journal")
+    context = get_common_context(journal_name="concentrate_report_journal", request=request)
     big_table = deep_dict()
     small_table = deep_dict()
     upper_table = deep_dict()

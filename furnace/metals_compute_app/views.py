@@ -18,7 +18,7 @@ from utils.webutils import translate
 
 @login_required
 def index(request):
-    context = get_common_context(journal_name="metals_compute")
+    context = get_common_context(journal_name="metals_compute", request=request)
 
     main_table = deep_dict()
     main_table.title = "Среднее содержание за месяц"
