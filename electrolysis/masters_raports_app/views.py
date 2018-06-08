@@ -13,9 +13,9 @@ def index(request):
     context = get_common_context(journal_name="masters_raports")
     template = loader.get_template('common.html')
 
-    top_table = deep_dict()
-    top_table.title = "Журанл рапортов мастеров смен"
-    top_table.name = "masters_raports_app/top_table.html"
+    seria1_table = deep_dict()
+    seria1_table.title = "Журанл рапортов мастеров смен"
+    seria1_table.name = "masters_raports_app/seria1_table.html"
 
     seria3_table = deep_dict()
     seria3_table.title = "3-я серия"
@@ -46,7 +46,7 @@ def index(request):
     last_table.name = "masters_raports_app/last_table.html"
 
     context.tables = [
-        top_table,
+        seria1_table,
         seria3_table,
         seria4_table,
         params_table,

@@ -1,4 +1,4 @@
-from common.all_journals_app.fields_descriptions.fields_classes import date_default, text_default
+from common.all_journals_app.fields_descriptions.fields_classes import date_default, text_default, numeric_default
 from utils.deep_dict import deep_dict
 
 lt = deep_dict()
@@ -22,5 +22,28 @@ lt.weight2 = text_default
 lt.passed_sing = text_default
 lt.accepted_sign = text_default
 
-
 last_table_desc = lt.clear_empty().get_dict()
+
+s1 = deep_dict()
+s1.h2so4_fact = numeric_default
+s1.zn_fact = numeric_default
+s1.sm_fact = numeric_default
+s1.q_fact = numeric_default
+s1.h2so4_nesootv = numeric_default
+s1.zn_nesootv = numeric_default
+s1.sm_nesootv = numeric_default
+s1.q_nesootv = numeric_default
+s1.h2so4_mery = text_default
+s1.zn_mery = text_default
+s1.sm_mery = text_default
+s1.q_mery = text_default
+s1.h2so4_rosp = text_default
+s1.zn_rosp = text_default
+s1.sm_rosp = text_default
+s1.q_rosp = text_default
+
+s1.gradirni = text_default
+
+seria1_table_desc = s1.clear_empty().get_dict()
+seria3_table_desc = s1.clear_empty().get_dict()
+seria4_table_desc = s1.clear_empty().get_dict()

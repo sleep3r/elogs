@@ -1,6 +1,6 @@
 from common.all_journals_app.fields_descriptions.tables.change_fraction import change_fraction_table_desc
 from common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
-from common.all_journals_app.fields_descriptions.tables.electrolysis_masters_reports import last_table_desc
+from common.all_journals_app.fields_descriptions.tables.electrolysis_masters_reports import *
 from common.all_journals_app.fields_descriptions.tables.furnace_repair_table import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
@@ -45,4 +45,8 @@ fields_info_desc.electrolysis_technical_report_12_degree.right_table = t12.right
 
 fields_info_desc.electrolysis_repair_report_tables.main_table = main_table_desc
 
+
+fields_info_desc.masters_report.seria1_table = seria1_table_desc
+fields_info_desc.masters_report.seria3_table = seria3_table_desc
+fields_info_desc.masters_report.seria4_table = seria4_table_desc
 fields_info_desc.masters_report.last_table = last_table_desc
