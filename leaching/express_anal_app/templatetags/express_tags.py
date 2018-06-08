@@ -47,7 +47,7 @@ def keyval(d, key):
 @register.filter
 def table_keyval(d, key):
     res = deep_dict(d).clear_empty()[key]
-    if isinstance(res, deep_dict):  # this if is only for proper serialization 
+    if isinstance(res, deep_dict):  # this if is only for proper serialization
         return res.get_dict()
     return res
 
