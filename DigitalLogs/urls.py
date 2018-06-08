@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.urls import path
 
 # from leaching.express_anal_app import views
+from DigitalLogs import settings
 from furnace.fractional_app import views
 
 urlpatterns = [
@@ -36,6 +37,7 @@ urlpatterns = [
     url('electrolysis/technical3', include('electrolysis.technical_report_app3.urls')),
     url('electrolysis/technical12', include('electrolysis.technical_report_app12.urls')),
     url('electrolysis/repair', include('electrolysis.repair_report_app.urls')),
+    url('electrolysis/masters_raports', include('electrolysis.masters_raports_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
 ]
