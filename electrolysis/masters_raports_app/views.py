@@ -29,16 +29,16 @@ def index(request):
     params_table.title = "Параметры"
     params_table.name = "masters_raports_app/params_table.html"
 
-    context.tables = [
-        top_table,
-        seria3_table,
-        seria4_table,
-        params_table
-    ]
-
     last_table = deep_dict()
     last_table.title = "Последняя таблица"
     last_table.name = "masters_raports_app/last_table.html"
 
-    context.tables = [top_table, last_table]
+    context.tables = [
+        top_table,
+        seria3_table,
+        seria4_table,
+        params_table,
+        last_table
+    ]
+
     return HttpResponse(template.render(context, request))
