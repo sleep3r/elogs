@@ -1,0 +1,52 @@
+{% load express_tags %}
+
+
+{% with table_name="melt_area2_table" %}
+<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+    <input hidden name="table_name" value="{{ table_name }}">
+    <input hidden name="journal_page" value="{{ journal_page }}">
+    {% with table_data=full_data|table_keyval:table_name %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="6">Плавильный участок 2</th>
+            </tr>
+            <tr>
+                <th>Отгрузка</th>
+                <th>На отгрузку</th>
+                <th>Обвзяка</th>
+                <th>ЦРС</th>
+                <th>Остаток Zn</th>
+                <th>Дросс</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Примечение NH<sub>4</sub>Cl</td>
+                <td colspan="5"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th colspan="2">УППЦМ</th></tr>
+            <tr><th>Zn пыль</th><th>Бункера</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    {% endwith %}
+</form>
+{% endwith %}

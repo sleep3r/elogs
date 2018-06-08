@@ -29,16 +29,32 @@ def index(request):
     params_table.title = "Параметры"
     params_table.name = "masters_raports_app/params_table.html"
 
-    context.tables = [
-        top_table,
-        seria3_table,
-        seria4_table,
-        params_table
-    ]
+    melt_area1_table = deep_dict()
+    melt_area1_table.title = "Плавильный участок-1"
+    melt_area1_table.name = "masters_raports_app/melt_area1.html"
+
+    melt_area2_table = deep_dict()
+    melt_area2_table.title = "Плавильный участок-2"
+    melt_area2_table.name = "masters_raports_app/melt_area2.html"
+
+    zinc_table = deep_dict()
+    zinc_table.title = "Цинк товарный"
+    zinc_table.name = "masters_raports_app/zinc_table.html"
 
     last_table = deep_dict()
     last_table.title = "Последняя таблица"
     last_table.name = "masters_raports_app/last_table.html"
 
-    context.tables = [top_table, last_table]
+    context.tables = [
+        top_table,
+        seria3_table,
+        seria4_table,
+        params_table,
+        melt_area1_table,
+        melt_area2_table,
+        zinc_table,
+        # last_table
+    ]
+
+
     return HttpResponse(template.render(context, request))
