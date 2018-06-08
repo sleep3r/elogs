@@ -14,9 +14,6 @@ mt.work_done = text_default
 mt.texpl_time = text_default
 mt.signature2 = text_default
 
-
-
-
 main_table_desc = mt.clear_empty().get_dict()
 
 
