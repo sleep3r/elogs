@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<table class="table">
+    <tr>
+        <td>Выберите страницу:</td>
+        <td>
+            <p>Some text and select and bla bla</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+{#            {% url request.resolver_match.view_name %}#}
+            {% url "tpp" %}
+{#            <a href={} class="btn btn-default">View mode</a>#}
+        </td>
+    </tr>
+</table>
