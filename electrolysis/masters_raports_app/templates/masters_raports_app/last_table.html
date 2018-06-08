@@ -6,10 +6,9 @@
         <input hidden name="journal_page" value="{{ journal_page }}">
         {% with table_data=full_data|table_keyval:table_name %}
         <table class="table table-bordered">
-            {{ table_data }}
             <tr>
                 <th>Время</th>
-                <td>{% include "value.html" with field_name="time1" index=forloop.counter0 %}</td>
+                <td>{% include "value.html" with field_name="time1" index=0 %}</td>
                 <td>{% include "value.html" with field_name="time2" index=forloop.counter0 %}</td>
                 <td>{% include "value.html" with field_name="time3" index=forloop.counter0 %}</td>
                 <td>{% include "value.html" with field_name="time4" index=forloop.counter0 %}</td>

@@ -53,7 +53,7 @@ def index(request):
         melt_area1_table,
         melt_area2_table,
         zinc_table,
-        # last_table
+        last_table
     ]
 
 
