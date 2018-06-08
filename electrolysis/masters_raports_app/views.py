@@ -56,5 +56,4 @@ def index(request):
         last_table
     ]
 
-
     return HttpResponse(template.render(context, request))

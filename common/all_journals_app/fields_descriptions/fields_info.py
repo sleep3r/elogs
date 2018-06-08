@@ -45,8 +45,11 @@ fields_info_desc.electrolysis_technical_report_12_degree.right_table = t12.right
 
 fields_info_desc.electrolysis_repair_report_tables.main_table = main_table_desc
 
-
 fields_info_desc.masters_report.seria1_table = seria1_table_desc
 fields_info_desc.masters_report.seria3_table = seria3_table_desc
 fields_info_desc.masters_report.seria4_table = seria4_table_desc
+fields_info_desc.masters_report.params_table = params_table_desc
+fields_info_desc.masters_report.melt_area1_table = melt_area1_table_desc
+fields_info_desc.masters_report.melt_area2_table = melt_area2_table_desc
+fields_info_desc.masters_report.zinc_table = zinc_table_desc
 fields_info_desc.masters_report.last_table = last_table_desc
