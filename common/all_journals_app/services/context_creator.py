@@ -15,8 +15,6 @@ def get_full_data(page):
         else:
             raise ValueError()
 
-    pprint(res['main_table'])
-
     return res
 
 

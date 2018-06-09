@@ -111,6 +111,11 @@ def set_global_context(context, key, value):
     return ''
 
 
+@register.filter('formatter')
+def formatter(string, obj):
+    return string.format(object)
+
+
 @register.tag('for_or_create')
 def do_for_or_create(parser, token):
     bits = token.split_contents()

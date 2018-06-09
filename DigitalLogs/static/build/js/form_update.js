@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 function on_form_change(form) {
     clone_last_line(form);
     clear_empty_lines(form);
@@ -91,16 +93,23 @@ function clear_empty_lines(form) {
 }
 
 
-function showPopup() {
-    let popup = document.getElementById("myPopup");
-    popup.classList.add("show");
-    $("#my_input").focus();
+function showPopup(field) {
+    let comment_id = field
+    let comment_input_id = comment_id + "_input";
+    comment = document.getElementById(comment_id)
+    comment_input = document.getElementById(comment_input_id)
+    console.log(comment_id)
+    console.log(comment)
+    $(comment).addClass("show");
+    $(comment_input).focus();
+
 }
 
 
-function hidePopups() {
-    let popup = document.getElementById("myPopup");
-    popup.classList.remove("show");
+function hidePopups(field) {
+    let comment_id = "#" + field;
+    console.log(1)
+    $(comment_id).removeClass("show");
 }
 
 

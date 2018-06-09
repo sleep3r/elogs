@@ -194,10 +194,13 @@ th.rotate > div > span {
 
 .journaltablewrapper td {
     padding: 0 !important;
+    position: relative;
+    /* word-break: break-word; */
 }
 
 .journaltablewrapper th {
     padding: 8px;
+    /* word-break: break-word; */
 }
 
 .journaltablewrapper .form-control {
@@ -206,6 +209,7 @@ th.rotate > div > span {
     line-height: 1.42857143 !important;
     height: 100%;
     min-height: 30px;
+    word-break: break-word;
     background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
 }
 
@@ -226,7 +230,51 @@ th.rotate > div > span {
     display: flex;
 }
 
-
 input[readonly] {
     background-color: transparent !important;
+    background: white !important;
+  }
+
+
+  /* .popup-comment {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  } */
+
+  /* The actual popup */
+  .table .popup-comment-content {
+      visibility: hidden;
+      background-color: #FFFFA2;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -80px;
+  }
+
+  /* Popup arrow */
+  .table .popup-comment-content::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: yellow transparent transparent transparent;
+  }
+
+  /* Toggle this class - hide and show the popup */
+  .table .show {
+      visibility: visible;
+      /* -webkit-animation: fadeIn 0s;
+      animation: fadeIn 0s; */
   }
