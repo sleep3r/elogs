@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from django.conf.global_settings import INTERNAL_IPS
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -27,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
     'login_app.apps.LoginApp',
+    'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
     'furnace.repair_app.apps.FurnaceRepairAppConfig',
@@ -48,11 +49,11 @@ INSTALLED_APPS = [
     'furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
     'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
     'furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
-    'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
     'electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
     'electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
     'electrolysis.repair_report_app.apps.RepairReportAppConfig',
+    'electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -82,15 +83,14 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
 
-            'libraries':{
-                    'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
+            'libraries': {
+                'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
             }
         },
     },
 ]
 
 WSGI_APPLICATION = 'DigitalLogs.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -101,7 +101,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # driver='{ODBC Driver 13 for SQL Server}',
 #                           server='WIN-E402USVKBEF',
@@ -139,7 +138,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

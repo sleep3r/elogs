@@ -18,6 +18,7 @@ class UnfilledCell():
         return "Unfilled"
 
 
+# descriptions for admin
 @register.simple_tag()
 def model_desc(obj):
     if obj.__doc__:
@@ -31,54 +32,34 @@ def addclass(value):
 
 
 @register.filter(name='formatDate')
-def addclass(value):
+def format_date(value):
     return value
-
-
-@register.simple_tag()
-def value(fid, index=None):
-    return '{% include "value.html" with field_name=' + str(fid) + ' index=' + str(index) + ' %}'
 
 
 @register.filter
 def keyval(d, key):
-    return d[key]
+    res = deep_dict(d).clear_empty()[key]
+    if isinstance(res, deep_dict):  # this if is only for proper serialization
+        return res.get_dict()
+    return res
 
 
 @register.filter
 def table_keyval(d, key):
-    d.clear_empty()
-    return d.get(key, deep_dict())
-
-
-@register.filter
-def cell_keyval(d, key):
-    d.clear_empty()
-    return d.get(key, [UnfilledCell()])
+    res = deep_dict(d).clear_empty()[key]
+    if isinstance(res, deep_dict):  # this if is only for proper serialization
+        return res.get_dict()
+    return res
 
 
 @register.filter
 def choose_val(field_info, index):
-    return field_info[index]
-
-
-@register.filter
-def choose_val_special(field_info, index):
-    if isinstance(field_info, UnfilledCell):
-        return field_info
-    else:
-        return field_info[index]
+    return field_info[index] if index in field_info else UnfilledCell()
 
 
 @register.filter
 def stack(a, b):
     return a + b
-
-
-
-@register.filter()
-def to_num(value):
-    return round(float(value), 2)
 
 
 @register.filter(name='split')
