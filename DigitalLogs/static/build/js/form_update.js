@@ -102,7 +102,6 @@ function showPopup(field) {
     console.log(comment)
     $(comment).addClass("show");
     $(comment_input).focus();
-
 }
 
 
@@ -136,7 +135,17 @@ $(document).ready(function () {
         $('[readonly]').blur();
     });
 
+
     $('.indexed-line:has([readonly]):last').filter((index, line) => { // deleting empty line for readonly cases
         return line_is_empty($(line));
     }).remove();
+
+
+    let validate = $("input[name='validate']").attr("value");
+    console.log(validate);
+    if (validate === "True") {
+        console.log('check');
+        $('.indexed-line').removeClass('indexed-line')
+    }
+
 });

@@ -50,7 +50,6 @@ def get_common_context(journal_name, request, page_type="shift"):
 
     page_mode = request.GET.get('page_mode') or 'edit'
 
-    print(page_mode)
 
     if page_mode == 'view':
         res.editable = 'readonly'

@@ -8,12 +8,7 @@
     journal_page
 {% endcomment %}
 
-<<<<<<< HEAD
-
-{% with val=table_data|cell_keyval:field_name|choose_val:index %} {# Setting val variable#}
-=======
 {% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
->>>>>>> 16ab50221ef4ac62e0eb92586f47e54d7db68145
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
         {% with str_index=index|stringformat:"i" %}
             {% with field_comment_name=field_name|add:"_comment"|add:str_index %}
@@ -32,8 +27,8 @@
                        {% endif %}/>
 
                 {% if validate %}
-                
-                    {% with comment=table_data|cell_keyval:field_comment_name|keyval:0 %}
+
+                    {% with comment=table_data|keyval:field_comment_name|keyval:0 %}
                         <span class="popup-comment-content" id="{{ field_comment_name }}">
                            <textarea name="{{ field_comment_name }}"
                            id="{{ field_comment_name|add:"_input" }}"
