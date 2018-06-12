@@ -23,7 +23,7 @@
                        value="{{ val }}" data-info="{{ info }}"
                        name="{{ field_name }}" {{ editable }}
                        {% if validate %}
-                       onclick="showPopup('{{ field_comment_name }}')"
+                       onclick="showPopup('{{ field_comment_name }}', event)"
                        {% endif %}/>
 
                 {% if validate %}

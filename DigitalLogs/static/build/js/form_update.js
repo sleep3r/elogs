@@ -93,22 +93,35 @@ function clear_empty_lines(form) {
 }
 
 
-function showPopup(field) {
+function showPopup(field, event) {
     let comment_id = field
     let comment_input_id = comment_id + "_input";
-    comment = document.getElementById(comment_id)
-    comment_input = document.getElementById(comment_input_id)
-    console.log(comment_id)
-    console.log(comment)
+    comment = document.getElementById(comment_id);
+    comment_input = document.getElementById(comment_input_id);
+    input = $(comment).siblings()[0];
+
+    $(input).css(
+        "background",
+        "radial-gradient(white 80%, #24A48A)"
+    );
+    cell = $(comment).parent();
+    // if (cell.is(':last-child')) {
+    //     $(comment).addClass("show-extreme")
+    // }
     $(comment).addClass("show");
     $(comment_input).focus();
 }
 
 
 function hidePopups(field) {
-    let comment_id = "#" + field;
-    console.log(1)
-    $(comment_id).removeClass("show");
+    let comment_id = field;
+    comment = document.getElementById(comment_id);
+    input = $(comment).siblings()[0];
+    $(input).css(
+        "background",
+        "white"
+    );
+    $(".popup-comment-content").removeClass("show");
 }
 
 

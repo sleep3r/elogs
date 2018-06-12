@@ -213,6 +213,15 @@ th.rotate > div > span {
     background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
 }
 
+.journaltablewrapper .form-control[readonly] {
+    background-color: transparent !important;
+    background: white;
+}
+
+.journaltablewrapper .form-control[readonly]:focus {
+    background: white;
+}
+
 .journaltablewrapper .form-control:focus{
     background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
 }
@@ -232,8 +241,8 @@ th.rotate > div > span {
 
 input[readonly] {
     background-color: transparent !important;
-    background: white !important;
-  }
+    background: white;
+}
 
 
   /* .popup-comment {
@@ -246,35 +255,43 @@ input[readonly] {
       user-select: none;
   } */
 
+.table .extreme {
+    left: 0% !important;
+}
+
   /* The actual popup */
-  .table .popup-comment-content {
-      visibility: hidden;
-      background-color: #FFFFA2;
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -80px;
-  }
+.table .popup-comment-content {
+    visibility: hidden;
+    background-color: #24A48A;
+    text-align: center;
+    border-radius: 2px;
+    padding: 1px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    right: -25%;
+    margin-bottom: 10px;
+    margin-left: -80px;
+ }
 
   /* Popup arrow */
-  .table .popup-comment-content::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: yellow transparent transparent transparent;
-  }
-
+.table .popup-comment-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #24A48A transparent transparent transparent;
+}
+.popup-comment-content > textarea {
+    resize: none;
+    line-height: 18px;
+}
   /* Toggle this class - hide and show the popup */
-  .table .show {
-      visibility: visible;
-      /* -webkit-animation: fadeIn 0s;
-      animation: fadeIn 0s; */
-  }
+.table .show {
+    visibility: visible;
+    /* -webkit-animation: fadeIn 0s;
+    animation: fadeIn 0s; */
+}
