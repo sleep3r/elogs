@@ -33,6 +33,7 @@ urlpatterns = [
     url('furnace/technologicaltasks', include('furnace.replaceable_technological_tasks_app.urls')),
     url('furnace/repair', include('furnace.repair_app.urls')),
     url('furnace/changed_fraction', include('furnace.changed_fraction_app.urls')),
+    url('furnace/furnace_area', include('furnace.reports_furnace_area_app.urls')),
     url('electrolysis/technical4', include('electrolysis.technical_report_app4.urls')),
     url('electrolysis/technical3', include('electrolysis.technical_report_app3.urls')),
     url('electrolysis/technical12', include('electrolysis.technical_report_app12.urls')),
