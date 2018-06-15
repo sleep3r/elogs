@@ -17,6 +17,11 @@ def index(request):
     main_table.title = "Печной участок"
     main_table.name = "reports_furnace_area/main_table.html"
 
+    udel_table = deep_dict()
+    udel_table.title = "Удельная производительность печей"
+    udel_table.name = "reports_furnace_area/udel_table.html"
+
+
     area_class_cinder = deep_dict()
     area_class_cinder.title = "Участок классификаци огарка"
     area_class_cinder.name = "reports_furnace_area/area_class_cinder.html"
@@ -37,13 +42,24 @@ def index(request):
     fences_table.title = "Ограждения"
     fences_table.name = "reports_furnace_area/fences_table.html"
 
+    page2_table1 = deep_dict()
+    page2_table1.title = "Концентрация по времени"
+    page2_table1.name = "reports_furnace_area/page2_table1.html"
+
+    page2_table2 = deep_dict()
+    page2_table2.title = "Места отбора пробы"
+    page2_table2.name = "reports_furnace_area/page2_table2.html"
+
     context.tables = [
         main_table,
+        udel_table,
         area_class_cinder,
         electrofilter,
         warehouse_concentrates,
         airmachines,
-        fences_table
+        fences_table,
+        page2_table1,
+        page2_table2
     ]
 
     return HttpResponse(template.render(context, request))
