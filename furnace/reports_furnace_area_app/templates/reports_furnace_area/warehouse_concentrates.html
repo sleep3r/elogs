@@ -8,12 +8,44 @@
     {% with table_data=full_data|table_keyval:table_name %}
     <table class="table table-bordered">
         <thead>
-        <tr>
-        </tr>
+            <tr>
+                <th rowspan="2" colspan="2"> Загрузка концентратов </th>
+                <th colspan="4"> Подход вагонов </th>
+                <th> Шихта </th>
+            </tr>
+            <tr>
+                <th colspan="2"> Разгружено п/вагонов </th>
+                <th> На станции </th>
+                <th> В отгрузке </th>
+                <td></td>
+            </tr>
         </thrad>
         <tbody>
-        <tr>
-        </tr>
+            <tr>
+                <th> За смену, вмт </th>
+                <th> За сутки, вмт </th>
+                <th> За смену </th>
+                <th> За сутки </th>
+                <td rowspan="4"> </td>
+                <td rowspan="4"> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+
+            </tr>
         </tbody>
     </table>
     {% endwith %}

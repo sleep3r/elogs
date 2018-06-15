@@ -30,12 +30,12 @@ def index(request):
     warehouse_concentrates.name = "reports_furnace_area/warehouse_concentrates.html"
 
     airmachines = deep_dict()
-    airmachines.title = "Участок воздуховных машин"
+    airmachines.title = "Участок воздуходувных машин"
     airmachines.name = "reports_furnace_area/airmachines.html"
 
-    constraints_table = deep_dict()
-    constraints_table.title = "Ограничения"
-    constraints_table.name = "reports_furnace_area/constraints_table.html"
+    fences_table = deep_dict()
+    fences_table.title = "Ограждения"
+    fences_table.name = "reports_furnace_area/fences_table.html"
 
     context.tables = [
         main_table,
@@ -43,7 +43,7 @@ def index(request):
         electrofilter,
         warehouse_concentrates,
         airmachines,
-
+        fences_table
     ]
 
     return HttpResponse(template.render(context, request))

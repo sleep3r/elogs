@@ -8,12 +8,78 @@
     {% with table_data=full_data|table_keyval:table_name %}
     <table class="table table-bordered">
         <thead>
-        <tr>
-        </tr>
+            <tr>
+                <th rowspan="2"> Электрофильтр </th>
+                <th colspan="2"> Температура </th>
+                <th rowspan="2"> Вольтамперная характеристика </th>
+                <th rowspan="2"> Концентрация SO<sub>2</sub> </th>
+                <th colspan="3"> Запылённость газа по системам </th>
+                <th rowspan="2"> Откачка пыли с бункеров по факту </th>
+                <th colspan="2"> Вакуум насос </th>
+            </tr>
+            <tr>
+                <th> Вход </th>
+                <th> Выход </th>
+                <th> 1 </th>
+                <th> 2 </th>
+                <th> 3 </th>
+                <th> 1 </th>
+                <th> 2 </th>
+            </tr>
         </thrad>
         <tbody>
-        <tr>
-        </tr>
+            <tr>
+                <th rowspan="2"> ГК-30М </th>
+                <th> 1 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td rowspan="6"></td>
+                <td rowspan="6"></td>
+                <td rowspan="6"></td>
+                <td></td>
+                <td rowspan="6"></td>
+                <td rowspan="6"></td>
+
+            </tr>
+            <tr>
+                <th> 2 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <th rowspan="2"> ГК-30Г </th>
+                <th> 1 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th> 2 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th rowspan="2"> ГК-60 </th>
+                <th> 1 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th> 2 секция </th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
     {% endwith %}
