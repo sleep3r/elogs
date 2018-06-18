@@ -10,3 +10,53 @@ ut.ks3 = numeric_default   # № печи
 ut.val3 = numeric_default  # значение
 
 udel_table_desc = ut.clear_empty().get_dict()
+
+
+p2t1 = deep_dict()
+p2t1.time = time_default
+p2t1.collector = numeric_default
+p2t1.concentration = numeric_default
+p2t1.mixture = text_default
+p2t1.conformity = text_default
+p2t1.sign = text_default
+page2_table1_desc = p2t1.clear_empty().get_dict()
+
+
+p2t2 = deep_dict()
+p2t2.time = time_default
+p2t2.place = numeric_default
+p2t2.S_cinder = numeric_default
+p2t2.S_general = text_default
+p2t2.conformity = text_default
+p2t2.sign = text_default
+p2t2.event = text_default
+page2_table2_desc = p2t2.clear_empty().get_dict()
+
+
+p2t3 = deep_dict()
+p2t3.time = time_default
+p2t3.character = text_default
+p2t3.correction = text_default
+p2t3.extra = numeric_default
+p2t3.ks_comment = text_default
+page2_table3_desc = p2t3.clear_empty().get_dict()
+
+
+p2t4 = deep_dict()
+p2t4.time = time_default
+p2t4.comments = text_default
+p2t4.mark = text_default
+p2t4.sign = text_default
+page2_table4_desc = p2t4.clear_empty().get_dict()
+
+p2t5 = deep_dict()
+p2t5.material = text_default
+p2t5.note = text_default
+p2t5.aspiration = text_default
+p2t5.kip = text_default
+p2t5.electro = text_default
+p2t5.extra_note = text_default
+page2_table5_desc = p2t5.clear_empty().get_dict()
+
+
+

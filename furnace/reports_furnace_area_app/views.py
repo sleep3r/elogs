@@ -50,6 +50,18 @@ def index(request):
     page2_table2.title = "Места отбора пробы"
     page2_table2.name = "reports_furnace_area/page2_table2.html"
 
+    page2_table3 = deep_dict()
+    page2_table3.title = "Корректирующие действия"
+    page2_table3.name = "reports_furnace_area/page2_table3.html"
+
+    page2_table4 = deep_dict()
+    page2_table4.title = "Самоохрана"
+    page2_table4.name = "reports_furnace_area/page2_table4.html"
+
+    page2_table5 = deep_dict()
+    page2_table5.title = "Мат. Тех. Ценности"
+    page2_table5.name = "reports_furnace_area/page2_table5.html"
+
     context.tables = [
         main_table,
         udel_table,
@@ -59,7 +71,10 @@ def index(request):
         airmachines,
         fences_table,
         page2_table1,
-        page2_table2
+        page2_table2,
+        page2_table3,
+        page2_table4,
+        page2_table5,
     ]
 
     return HttpResponse(template.render(context, request))

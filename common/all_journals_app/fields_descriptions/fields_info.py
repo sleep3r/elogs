@@ -2,7 +2,7 @@ from common.all_journals_app.fields_descriptions.tables.change_fraction import c
 from common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_masters_reports import *
 from common.all_journals_app.fields_descriptions.tables.furnace_repair_table import *
-from common.all_journals_app.fields_descriptions.tables.furnace_stove_area import udel_table_desc
+from common.all_journals_app.fields_descriptions.tables.furnace_stove_area import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
@@ -53,3 +53,8 @@ fields_info_desc.masters_report.zinc_table = zinc_table_desc
 fields_info_desc.masters_report.last_table = last_table_desc
 
 fields_info_desc.reports_furnace_area.udel_table = udel_table_desc
+fields_info_desc.reports_furnace_area.table1 = page2_table1_desc
+fields_info_desc.reports_furnace_area.table2 = page2_table2_desc
+fields_info_desc.reports_furnace_area.table3 = page2_table3_desc
+fields_info_desc.reports_furnace_area.table4 = page2_table4_desc
+fields_info_desc.reports_furnace_area.table5 = page2_table5_desc
