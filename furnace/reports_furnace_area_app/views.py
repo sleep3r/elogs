@@ -21,7 +21,6 @@ def index(request):
     udel_table.title = "Удельная производительность печей"
     udel_table.name = "reports_furnace_area/udel_table.html"
 
-
     area_class_cinder = deep_dict()
     area_class_cinder.title = "Участок классификаци огарка"
     area_class_cinder.name = "reports_furnace_area/area_class_cinder.html"

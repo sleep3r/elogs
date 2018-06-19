@@ -57,6 +57,7 @@ fields_info_desc.reports_furnace_area.page1_table3 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table4 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table5 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table6 = page1_table3_desc
+fields_info_desc.reports_furnace_area.page1_table7 = page1_fences_desc
 
 
 fields_info_desc.reports_furnace_area.table1 = page2_table1_desc

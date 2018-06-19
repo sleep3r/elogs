@@ -34,6 +34,13 @@ p1t3.silos9 = numeric_default
 
 page1_table3_desc = p1t3.clear_empty().get_dict()
 
+fences = deep_dict()
+fences.results = text_default
+fences.sign1 = text_default
+fences.term = date_default
+fences.mark = text_default
+fences.sign2 = text_default
+page1_fences_desc = fences.clear_empty().get_dict()
 
 
 p2t1 = deep_dict()
