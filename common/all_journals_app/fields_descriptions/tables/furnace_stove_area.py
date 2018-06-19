@@ -11,6 +11,30 @@ ut.val3 = numeric_default  # значение
 
 udel_table_desc = ut.clear_empty().get_dict()
 
+p1t3 = deep_dict()
+p1t3.gmc4_1 = numeric_default
+p1t3.gmc4_2 = numeric_default
+p1t3.gmc1_1 = numeric_default
+p1t3.gmc1_2 = numeric_default
+p1t3.uk3 = numeric_default
+p1t3.uk5 = numeric_default
+p1t3.uk7 = numeric_default
+p1t3.uk4 = numeric_default
+p1t3.uk6 = numeric_default
+p1t3.tonn = numeric_default
+p1t3.silos1 = numeric_default
+p1t3.silos2 = numeric_default
+p1t3.silos3 = numeric_default
+p1t3.silos4 = numeric_default
+p1t3.silos5 = numeric_default
+p1t3.silos6 = numeric_default
+p1t3.silos7 = numeric_default
+p1t3.silos8 = numeric_default
+p1t3.silos9 = numeric_default
+
+page1_table3_desc = p1t3.clear_empty().get_dict()
+
+
 
 p2t1 = deep_dict()
 p2t1.time = time_default
@@ -48,6 +72,7 @@ p2t4.comments = text_default
 p2t4.mark = text_default
 p2t4.sign = text_default
 page2_table4_desc = p2t4.clear_empty().get_dict()
+
 
 p2t5 = deep_dict()
 p2t5.material = text_default
