@@ -83,10 +83,34 @@ ef.s1_fact = numeric_default
 ef.s2_fact = numeric_default
 ef.vak1 = text_default
 ef.vak2 = text_default
-
-
 electro_filters_desc = ef.clear_empty().get_dict()
 
+
+wc = deep_dict()
+wc.shihta = numeric_default
+wc.on_station = numeric_default
+wc.unload = numeric_default
+wc.r1_per_shift = numeric_default
+wc.r1_per_day = numeric_default
+wc.r1_unload_shift = numeric_default
+wc.r1_unload_day = numeric_default
+
+wc.r2_per_shift = numeric_default
+wc.r2_per_day = numeric_default
+wc.r2_unload_shift = numeric_default
+wc.r2_unload_day = numeric_default
+
+wc.r3_per_shift = numeric_default
+wc.r3_per_day = numeric_default
+wc.r3_unload_shift = numeric_default
+wc.r3_unload_day = numeric_default
+
+wc.crusher_number = numeric_default
+wc.moisture = numeric_default
+
+
+
+wh_concentrates_desc = wc.clear_empty().get_dict()
 
 p2t1 = deep_dict()
 p2t1.time = time_default
