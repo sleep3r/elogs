@@ -52,13 +52,14 @@ fields_info_desc.masters_report.melt_area2_table = melt_area2_table_desc
 fields_info_desc.masters_report.zinc_table = zinc_table_desc
 fields_info_desc.masters_report.last_table = last_table_desc
 
+
+fields_info_desc.reports_furnace_area.main_table = fa_main_table_desc
 fields_info_desc.reports_furnace_area.udel_table = udel_table_desc
 fields_info_desc.reports_furnace_area.page1_table3 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table4 = electro_filters_desc
 fields_info_desc.reports_furnace_area.page1_table5 = wh_concentrates_desc
-fields_info_desc.reports_furnace_area.page1_table6 = page1_table3_desc
+fields_info_desc.reports_furnace_area.page1_table6 = air_machines_desc
 fields_info_desc.reports_furnace_area.page1_table7 = page1_fences_desc
-
 
 fields_info_desc.reports_furnace_area.table1 = page2_table1_desc
 fields_info_desc.reports_furnace_area.table2 = page2_table2_desc

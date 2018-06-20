@@ -1,6 +1,21 @@
 from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
+p1t1 = deep_dict()
+p1t1.number = numeric_default
+p1t1.rate = numeric_default
+p1t1.elasticity = numeric_default
+p1t1.rate_o2 = numeric_default
+p1t1.rate_o2_prc = numeric_default
+p1t1.temperture_in_layer = numeric_default
+p1t1.temperture_under = numeric_default
+p1t1.volume = numeric_default
+p1t1.pressure = numeric_default
+p1t1.uio = numeric_default
+p1t1.smoke = text_default
+fa_main_table_desc = p1t1.clear_empty().get_dict()
+
+
 ut = deep_dict()
 ut.ks1 = numeric_default   # № печи
 ut.val1 = numeric_default  # значение
@@ -8,7 +23,6 @@ ut.ks2 = numeric_default   # № печи
 ut.val2 = numeric_default  # значение
 ut.ks3 = numeric_default   # № печи
 ut.val3 = numeric_default  # значение
-
 udel_table_desc = ut.clear_empty().get_dict()
 
 p1t3 = deep_dict()
@@ -53,7 +67,6 @@ ef.G_s1_t_in = numeric_default
 ef.G_s2_t_in = numeric_default
 ef.s1_t_in = numeric_default
 ef.s2_t_in = numeric_default
-
 ef.M_s1_t_out = numeric_default
 ef.M_s2_t_out = numeric_default
 ef.G_s1_t_out = numeric_default
@@ -94,23 +107,25 @@ wc.r1_per_shift = numeric_default
 wc.r1_per_day = numeric_default
 wc.r1_unload_shift = numeric_default
 wc.r1_unload_day = numeric_default
-
 wc.r2_per_shift = numeric_default
 wc.r2_per_day = numeric_default
 wc.r2_unload_shift = numeric_default
 wc.r2_unload_day = numeric_default
-
 wc.r3_per_shift = numeric_default
 wc.r3_per_day = numeric_default
 wc.r3_unload_shift = numeric_default
 wc.r3_unload_day = numeric_default
-
 wc.crusher_number = numeric_default
 wc.moisture = numeric_default
-
-
-
 wh_concentrates_desc = wc.clear_empty().get_dict()
+
+
+am = deep_dict()
+am.conc_o2 = numeric_default
+am.time_start = time_default
+am.cnt_in_process = numeric_default
+air_machines_desc = am.clear_empty().get_dict()
+
 
 p2t1 = deep_dict()
 p2t1.time = time_default
@@ -158,6 +173,4 @@ p2t5.kip = text_default
 p2t5.electro = text_default
 p2t5.extra_note = text_default
 page2_table5_desc = p2t5.clear_empty().get_dict()
-
-
 
