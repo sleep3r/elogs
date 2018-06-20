@@ -43,6 +43,48 @@ fences.sign2 = text_default
 page1_fences_desc = fences.clear_empty().get_dict()
 
 
+ef = deep_dict()
+ef.M_s1_t_in = numeric_default
+ef.M_s2_t_in = numeric_default
+ef.G_s1_t_in = numeric_default
+ef.G_s2_t_in = numeric_default
+ef.s1_t_in = numeric_default
+ef.s2_t_in = numeric_default
+
+ef.M_s1_t_out = numeric_default
+ef.M_s2_t_out = numeric_default
+ef.G_s1_t_out = numeric_default
+ef.G_s2_t_out = numeric_default
+ef.s1_t_out = numeric_default
+ef.s2_t_out = numeric_default
+ef.M_s1_vam = numeric_default
+ef.M_s2_vam = numeric_default
+ef.G_s1_vam = numeric_default
+ef.G_s2_vam = numeric_default
+ef.s1_vam = numeric_default
+ef.s2_vam = numeric_default
+ef.M_s1_con = numeric_default
+ef.M_s2_con = numeric_default
+ef.G_s1_con = numeric_default
+ef.G_s2_con = numeric_default
+ef.s1_con = numeric_default
+ef.s2_con = numeric_default
+ef.gas1 = text_default
+ef.gas2 = text_default
+ef.gas3 = text_default
+ef.M_s1_fact = numeric_default
+ef.M_s2_fact = numeric_default
+ef.G_s1_fact = numeric_default
+ef.G_s2_fact = numeric_default
+ef.s1_fact = numeric_default
+ef.s2_fact = numeric_default
+ef.vak1 = text_default
+ef.vak2 = text_default
+
+
+electro_filters_desc = ef.clear_empty().get_dict()
+
+
 p2t1 = deep_dict()
 p2t1.time = time_default
 p2t1.collector = numeric_default

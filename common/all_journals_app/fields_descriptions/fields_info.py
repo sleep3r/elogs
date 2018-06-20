@@ -54,7 +54,7 @@ fields_info_desc.masters_report.last_table = last_table_desc
 
 fields_info_desc.reports_furnace_area.udel_table = udel_table_desc
 fields_info_desc.reports_furnace_area.page1_table3 = page1_table3_desc
-fields_info_desc.reports_furnace_area.page1_table4 = page1_table3_desc
+fields_info_desc.reports_furnace_area.page1_table4 = electro_filters_desc
 fields_info_desc.reports_furnace_area.page1_table5 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table6 = page1_table3_desc
 fields_info_desc.reports_furnace_area.page1_table7 = page1_fences_desc
