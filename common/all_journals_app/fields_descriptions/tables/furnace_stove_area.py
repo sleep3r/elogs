@@ -31,6 +31,9 @@ p1t3.silos6 = numeric_default
 p1t3.silos7 = numeric_default
 p1t3.silos8 = numeric_default
 p1t3.silos9 = numeric_default
+p1t3.elevators = numeric_default
+p1t3.mills = numeric_default
+p1t3.separators = numeric_default
 
 page1_table3_desc = p1t3.clear_empty().get_dict()
 
