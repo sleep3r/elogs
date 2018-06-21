@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 function on_form_change(form) {
+    console.log("on_form_change()");
     clone_last_line(form);
     clear_empty_lines(form);
 
@@ -18,6 +19,7 @@ function on_form_change(form) {
 }
 
 function on_input_change(input) {
+    console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
@@ -50,7 +52,6 @@ function on_input_change(input) {
 
 
 function line_is_empty(tr_line) {
-    console.log('tr_line', tr_line)
     let filled = 0;
     tr_line.find('input').each(function () {
         if (this.value.trim() !== "") {
