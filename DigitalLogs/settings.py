@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
     'furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
     'furnace.reports_furnace_area_app.apps.FurnaceReportsFurnaceAreaAppConfig',
+    'furnace.buffering_app.apps.BufferingAppConfig',
     'electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
     'electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
     'electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
