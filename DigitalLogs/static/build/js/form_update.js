@@ -1,6 +1,9 @@
 /*jshint esversion: 6 */
 
+var savingForms = {}; // in this object save/replace table-form by table_name as index
+
 function on_form_change(form) {
+    console.log("on_form_change()");
     clone_last_line(form);
     clear_empty_lines(form);
 
@@ -8,6 +11,19 @@ function on_form_change(form) {
 
     }
 
+    let table_name = form.table_name.value;
+    savingForms[table_name] = form;
+}
+
+function validatedSendJournal() {
+    // check changed forms and send
+    for (var item in savingForms) {
+        let form = savingForms[item];
+        sendTable(form);
+    };
+}
+
+function sendTable(form) {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -17,7 +33,9 @@ function on_form_change(form) {
     });
 }
 
+
 function on_input_change(input) {
+    console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
@@ -50,7 +68,6 @@ function on_input_change(input) {
 
 
 function line_is_empty(tr_line) {
-    console.log('tr_line', tr_line)
     let filled = 0;
     tr_line.find('input').each(function () {
         if (this.value.trim() !== "") {
@@ -160,5 +177,7 @@ $(document).ready(function () {
         console.log('check');
         $('.indexed-line').removeClass('indexed-line')
     }
+
+    setInterval(validatedSendJournal, 10000 );
 
 });
