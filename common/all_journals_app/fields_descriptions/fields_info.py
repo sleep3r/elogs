@@ -66,3 +66,10 @@ fields_info_desc.reports_furnace_area.table2 = page2_table2_desc
 fields_info_desc.reports_furnace_area.table3 = page2_table3_desc
 fields_info_desc.reports_furnace_area.table4 = page2_table4_desc
 fields_info_desc.reports_furnace_area.table5 = page2_table5_desc
+
+
+bf = deep_dict()
+bf.column1 = numeric_default
+bf.column2 = numeric_default
+bf.column3 = numeric_default
+fields_info_desc.buff_journal.trening_table = bf.clear_empty().get_dict()
