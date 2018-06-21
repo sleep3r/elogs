@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getMessages() {
-        axios.get('/auth/messages')
+        axios.get('/common/messages/get')
             .then(({ data }) => {
                 this.items = data.messages
                 let counter = document.getElementById("notifications_count")

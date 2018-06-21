@@ -41,4 +41,5 @@ urlpatterns = [
     url('electrolysis/masters_raports', include('electrolysis.masters_raports_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
+    url('^common/messages', include('common.messages_app.urls')),
 ]

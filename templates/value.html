@@ -19,7 +19,7 @@
             {% set_global_context "onclick" "" %}
         {% endif %} -->
 
-                <input class="form-control general-value" oninput="on_input_change(this)"
+                <input class="form-control general-value" oninput="on_input_change(this)" onblur="on_blur_add_message()"
                        value="{{ val }}" data-info="{{ info }}"
                        name="{{ field_name }}" {{ editable }}
                        {% if validate %}

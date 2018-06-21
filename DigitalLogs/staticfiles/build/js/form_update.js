@@ -15,6 +15,27 @@ function on_form_change(form) {
     });
 }
 
+function on_blur_add_message(input) {
+    if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
+        $(input).addClass('red').removeClass('black');
+
+        $.ajax({
+            url: "/common/messages/add",
+            type: 'POST',
+            data: {'check': true, 'field': 'Некорректное значение'},
+
+            success: function (json) {
+                if (json.result) {
+                    var doc = $.parseHTML(json.notifications_list);
+                    $('#notifications-list').html(doc);
+                }
+            }
+        });
+
+    }
+    
+}
+
 function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
