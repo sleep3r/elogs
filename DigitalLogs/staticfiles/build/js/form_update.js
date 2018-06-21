@@ -1,4 +1,9 @@
+/*jshint esversion: 6 */
+
+var savingForms = {}; // in this object save/replace table-form by table_name as index
+
 function on_form_change(form) {
+    console.log("on_form_change()");
     clone_last_line(form);
     clear_empty_lines(form);
 
@@ -6,6 +11,19 @@ function on_form_change(form) {
 
     }
 
+    let table_name = form.table_name.value;
+    savingForms[table_name] = form;
+}
+
+function validatedSendJournal() {
+    // check changed forms and send
+    for (var item in savingForms) {
+        let form = savingForms[item];
+        sendTable(form);
+    };
+}
+
+function sendTable(form) {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -15,32 +33,35 @@ function on_form_change(form) {
     });
 }
 
-function on_blur_add_message(input) {
+function add_message(input) {
+    console.log("on_input_change()");
+    const json = input.dataset.info.replace(/'/g, '"');
+    const info = JSON.parse(json);
+
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
 
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
-            data: {'check': true, 'field': 'Некорректное значение'},
-
+            data: { 'check': true, 'while_adding_field_name': input.name, 'while_adding_field_value':input.value},
             success: function (json) {
                 if (json.result) {
-                    var doc = $.parseHTML(json.notifications_list);
-                    $('#notifications-list').html(doc);
+                    console.log(json.result)
                 }
             }
         });
-
+        
     }
-    
+
 }
 
 function on_input_change(input) {
+    console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
-    if (info.type !== "droplist" ) {
+    if (info.type !== "droplist") { // for dropdowns
         input.type = info.type;
     }
 
@@ -50,9 +71,17 @@ function on_input_change(input) {
         $(input).addClass('black').removeClass('red')
     }
 
-    if (info.type === "droplist" ) {
-        $(input).attr('list', 'caplist')
-        $(input).add('datalist')
+    if (info.type === "datalist") {
+        $(input).removeAttr("type");
+        $(input).attr('list', 'datalist');
+
+        if ($('#datalist').length == 0) {
+            $(input).after('<datalist id="datalist"></datalist>');
+            info.options.forEach((name) => {
+                $("#datalist").append("<option>" + name + "</option>");
+            })
+        }
+
     }
 
     $(input).attr('placeholder', info.units);
@@ -80,7 +109,7 @@ function clone_last_line(form) {
     if (!line_is_empty(last_line)) {
         let new_last_line = last_line.clone();
         new_last_line.find("input").val("");
-        new_last_line.find(".index-input").val(last_line.find(".index-input").val()*1 + 1);
+        new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
         table.append(new_last_line);
     }
 }
@@ -103,14 +132,74 @@ function clear_empty_lines(form) {
 }
 
 
+function showPopup(field, event) {
+    let comment_id = field
+    let comment_input_id = comment_id + "_input";
+    comment = document.getElementById(comment_id);
+    comment_input = document.getElementById(comment_input_id);
+    input = $(comment).siblings()[0];
+
+    $(input).css(
+        "background",
+        "radial-gradient(white 80%, #24A48A)"
+    );
+    cell = $(comment).parent();
+    // if (cell.is(':last-child')) {
+    //     $(comment).addClass("show-extreme")
+    // }
+    $(comment).addClass("show");
+    $(comment_input).focus();
+}
+
+
+function hidePopups(field) {
+    let comment_id = field;
+    comment = document.getElementById(comment_id);
+    input = $(comment).siblings()[0];
+    $(input).css(
+        "background",
+        "white"
+    );
+    $(".popup-comment-content").removeClass("show");
+}
+
+
 $(document).ready(function () {
-    document.querySelectorAll(".general-value").forEach(input => {
+    document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
         on_input_change(input);
     });
 
-    $("form").trigger("input")
+    $("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
+    };
+
+    $.ajax({ // Adding getting fields_info from server and saving in to local storage
+        type: 'GET',
+        url: '/common/fields_info/',
+        dataType: "json",
+    }).done((res) => {
+        window.localStorage.setItem("fields_info", res)
+    });
+
+    $('[readonly]').focus(function () { // delete cursor for readonly fields
+        $('[readonly]').blur();
+    });
+
+
+    $('.indexed-line:has([readonly]):last').filter((index, line) => { // deleting empty line for readonly cases
+        return line_is_empty($(line));
+    }).remove();
+
+
+    let validate = $("input[name='validate']").attr("value");
+    console.log(validate);
+    if (validate === "True") {
+        console.log('check');
+        $('.indexed-line').removeClass('indexed-line')
     }
-})
+
+    setInterval(validatedSendJournal, 10000 );
+
+});

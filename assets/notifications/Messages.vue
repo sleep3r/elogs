@@ -32,7 +32,7 @@ export default {
 
   created() {
     this.getMessages()
-    this.timer = setInterval(this.getMessages, 55000)
+    this.timer = setInterval(this.getMessages, 10000)
   },
   methods: {
     getMessages() {
