@@ -24,8 +24,6 @@ function validatedSendJournal() {
 }
 
 function sendTable(form) {
-    onsole.log(form.table_name.value)
-    console.log(form)
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),

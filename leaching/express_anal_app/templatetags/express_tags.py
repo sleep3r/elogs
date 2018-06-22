@@ -15,7 +15,7 @@ register = template.Library()
 
 class UnfilledCell():
     def __str__(self):
-        return "Unfilled"
+        return ""
 
 
 # descriptions for admin
