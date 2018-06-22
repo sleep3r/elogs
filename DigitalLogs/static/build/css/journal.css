@@ -269,7 +269,7 @@ input[readonly] {
     position: absolute;
     z-index: 1;
     bottom: 100%;
-    right: -25%;
+    /* right: -25%; */
     margin-bottom: 10px;
     margin-left: -80px;
  }
