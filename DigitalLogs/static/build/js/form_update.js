@@ -24,6 +24,8 @@ function validatedSendJournal() {
 }
 
 function sendTable(form) {
+    onsole.log(form.table_name.value)
+    console.log(form)
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -110,29 +112,25 @@ function clear_empty_lines(form) {
 }
 
 
-function showPopup(field, event) {
-    let comment_id = field
-    let comment_input_id = comment_id + "_input";
-    comment = document.getElementById(comment_id);
-    comment_input = document.getElementById(comment_input_id);
-    input = $(comment).siblings()[0];
+function showPopup(input) {
+    comment = $(input).siblings()[0];
+    comment_input = $(comment).children()[0];
 
     $(input).css(
         "background",
         "radial-gradient(white 80%, #24A48A)"
     );
-    cell = $(comment).parent();
-    // if (cell.is(':last-child')) {
-    //     $(comment).addClass("show-extreme")
-    // }
+    // cell = $(comment).parent();
+    // // if (cell.is(':last-child')) {
+    // //     $(comment).addClass("show-extreme")
+    // // }
     $(comment).addClass("show");
     $(comment_input).focus();
 }
 
 
-function hidePopups(field) {
-    let comment_id = field;
-    comment = document.getElementById(comment_id);
+function hidePopups(textarea) {
+    comment = $(textarea).parent()[0];
     input = $(comment).siblings()[0];
     $(input).css(
         "background",
