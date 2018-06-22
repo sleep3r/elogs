@@ -33,6 +33,28 @@ function sendTable(form) {
     });
 }
 
+function add_message(input) {
+    console.log("on_input_change()");
+    const json = input.dataset.info.replace(/'/g, '"');
+    const info = JSON.parse(json);
+
+    if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
+        $(input).addClass('red').removeClass('black');
+
+        $.ajax({
+            url: "/common/messages/add",
+            type: 'POST',
+            data: { 'check': true, 'while_adding_field_name': input.name, 'while_adding_field_value':input.value},
+            success: function (json) {
+                if (json.result) {
+                    console.log(json.result)
+                }
+            }
+        });
+        
+    }
+
+}
 
 function on_input_change(input) {
     console.log("on_input_change()");

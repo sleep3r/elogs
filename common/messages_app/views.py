@@ -8,29 +8,10 @@ from utils.deep_dict import deep_dict
 from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 from login_app.models import Message, Employee
 from common.all_journals_app.models import CellValue
-from leaching.express_anal_app.services import messages
-#from common.messages_app.helpers.critical_getter import get_critical_fields
-
+from common.messages_app.services.messages import get_addressees
 
 class GetMessagesView(View):
-    @staticmethod
-    def get_addressees(all=False, positions=None, ids=None, plant=None):
-        res = []
-        if all:
-            return Employee.objects.only('user')
-        if positions:
-            for p in positions:
-                emp = Employee.objects.filter(plant=plant, position=p)
-                res.extend(emp)
-        if ids:
-            for id in ids:
-                emp = Employee.objects.get(id=id)
-                res.append(emp)
-
-        return res
-
     def get(self, request):
-        #self.check_messages()
         result = request.user.employee.has_unreaded()
         res = deep_dict()
 
@@ -61,7 +42,20 @@ class ReadMessagesView(View):
 
 
 class AddMessagesView(View):
-    def get(self, request):
+    def post(self, request):
+        field_name = request.POST.get('while_adding_field_name', None)
+        field_value = request.POST.get('while_adding_field_value', None)
+        result = False
+        if field_name:
+                result = True
+                for emp in get_addressees(all=True):
+                    msg = Message(
+                     type='critical_value', text=f'Петрович {request.user.employee.name} ввел в поле {field_name} некорректное значение {field_value}' , addressee=emp)
+                    msg.save()
         
-       
-        return 
+        return HttpResponse(
+            json.dumps({
+                "result": result ,
+            }),
+            content_type="application/json"
+        )
