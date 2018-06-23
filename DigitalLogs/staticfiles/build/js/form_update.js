@@ -1,6 +1,5 @@
 /*jshint esversion: 6 */
 
-var savingForms = {}; // in this object save/replace table-form by table_name as index
 
 function on_form_change(form) {
     console.log("on_form_change()");
@@ -11,19 +10,6 @@ function on_form_change(form) {
 
     }
 
-    let table_name = form.table_name.value;
-    savingForms[table_name] = form;
-}
-
-function validatedSendJournal() {
-    // check changed forms and send
-    for (var item in savingForms) {
-        let form = savingForms[item];
-        sendTable(form);
-    };
-}
-
-function sendTable(form) {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -40,11 +26,12 @@ function add_message(input) {
 
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
-
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
-            data: { 'check': true, 'while_adding_field_name': input.name, 'while_adding_field_value':input.value},
+            data: { 'check': true, 'field_name': input.name, 'field_value': input.value, 
+                    'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
+                    'index':$(input).attr('index') },
             success: function (json) {
                 if (json.result) {
                     console.log(json.result)
@@ -52,6 +39,19 @@ function add_message(input) {
             }
         });
         
+    } else{
+        $.ajax({
+            url: "/common/messages/del",
+            type: 'POST',
+            data: { 'check': true, 'field_name': input.name, 
+                    'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
+                    'index':$(input).attr('index') },
+            success: function (json) {
+                if (json.result) {
+                    console.log(json.result)
+                }
+            }
+        });
     }
 
 }
@@ -200,6 +200,5 @@ $(document).ready(function () {
         $('.indexed-line').removeClass('indexed-line')
     }
 
-    setInterval(validatedSendJournal, 10000 );
 
 });

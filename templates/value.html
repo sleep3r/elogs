@@ -12,16 +12,16 @@
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
         {% with str_index=index|stringformat:"i" %}
             {% with field_comment_name=field_name|add:"_comment"|add:str_index %}
+                {% with id=full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 
         <!-- {% if validate %}
             {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
-
                 <input class="form-control general-value" oninput="on_input_change(this)" onchange="add_message(this)"
-                       value="{{ val }}" data-info="{{ info }}"
-                       name="{{ field_name }}" {{ editable }}
+                       value="{{ val }}" data-info="{{ info }}" table-name = "{{table_name}}" journal-page = "{{journal_page}}"
+                       name="{{ field_name }}" index = "{{index}}" {{ editable }}
                        {% if validate %}
                        onclick="showPopup('{{ field_comment_name }}', event)"
                        {% endif %}/>
@@ -38,6 +38,7 @@
                         </span>
                     {% endwith %}
                 {% endif %}
+                {% endwith %}
             {% endwith %}
         {% endwith %}
      {% endwith %}
