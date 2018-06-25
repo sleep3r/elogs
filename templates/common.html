@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block title %}
+    <title>{{ journal_title }}</title>
 {% endblock %}
 
 {% block css %}
@@ -9,7 +10,29 @@
 {% endblock %}
 
 {% block content %}
+
+    <script language="JavaScript">
+
+    $( document ).ready(function() {
+        var element = $('.journal_title'), originalY = element.offset().top;
+
+        $(window).on('scroll', function (event) {
+            var scrollPos = $(window).scrollTop();
+            if (scrollPos > 0) {
+                element.addClass('sticky');
+            }
+            else {
+                element.removeClass('sticky');
+            }
+
+        });
+    });
+
+    </script>
+
+    <div class="content">
     {% include "widget.html" %}
+    </div>
 {% endblock %}
 
 {% block footer %}
@@ -18,6 +41,7 @@
     <script src="/static/build/js/form_update.js"></script>
 
 {% endblock %}
+
 
 
 

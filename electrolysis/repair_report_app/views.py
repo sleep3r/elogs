@@ -25,6 +25,7 @@ def index(request):
         page_type="equipment",
         request=request
     )
+    context.journal_title = 'Журнал по ремонту оборудования'
 
     template = loader.get_template('common.html')
 
