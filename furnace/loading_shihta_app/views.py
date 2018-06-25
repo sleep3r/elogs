@@ -14,6 +14,7 @@ from common.all_journals_app.services.context_creator import get_common_context
 @login_required
 def index(request):
     context = get_common_context(journal_name="report_income_outcome_schieht", request=request)
+    context.journal_title = 'План загрузки Шихты'
 
     if 'month' in request.GET:
         selected_date = request.GET['month']

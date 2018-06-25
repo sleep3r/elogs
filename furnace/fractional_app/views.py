@@ -15,8 +15,10 @@ from utils.webutils import process_json_view
 def index(request):
     context = {
         'user_name': str(request.user.employee),
-        'notifications': get_messages_dict(request.user.employee)
+        'notifications': get_messages_dict(request.user.employee),
+        'journal_title': 'Ситовой анализ огарка и шихты'
     }
+
 
     template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render(context, request))
