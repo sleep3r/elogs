@@ -22,11 +22,9 @@
                     <td></td>
                     <th style="width:100px">Дата осмотра </th>
                     <th>Наименование узла в характеристика дефектов</th>
-                    <th>Подпись лица производящего осмотр</th>
                     <th>Дата выполненных работ</th>
                     <th>Обём выполненных работ по устранению дефектов</th>
                     <th>Фактический срок службы узла, детали</th>
-                    <th>Подпись лица, ответственного за выполнение ремонта</th>
                 </tr>
                 <tr>
                     <td>...</td>
@@ -35,8 +33,6 @@
                     <th>3</th>
                     <th>4</th>
                     <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -46,20 +42,16 @@
                         <td></td>
                         <td>[[item.date | formatDate]]</td>
                         <td>[[item.name]]</td>
-                        <td>&nbsp</td>
                         <td>[[item.date_performed | formatDate]]</td>
                         <td>[[item.comment]]</td>
-                        <td>&nbsp</td>
                         <td>&nbsp</td>
                     </template>
                     <template v-if=" item.id == tables.form_repair.editableId ">
                         <td><a class="btn btn-danger" v-on:click="removeRecord(item.id,'form_repair')"><i class="glyphicon glyphicon-remove"></i></a></td>
                         <td><input type="datetime-local" name="date" v-model="item.date"></td>
                         <td><input type="text" name="name" v-model="item.name"></td>
-                        <td>&nbsp</td>
                         <td><input type="date" name="date" v-model="item.date_performed" ></td>
                         <td><input type="text" name="comment" v-model="item.comment"></td>
-                        <td></td>
                         <td></td>
                         <td><a class="btn btn-success" v-on:click="saveRecord('form_repair')"><i class="glyphicon glyphicon-ok"></i></a></td>
                     </template>
@@ -68,10 +60,8 @@
                     <td></td>
                     <td><input type="datetime-local" name="date" v-model="tables.form_repair.current.date"></td>
                     <td><input type="text" name="name" v-model="tables.form_repair.current.name"></td>
-                    <td>&nbsp</td>
                     <td><input type="date" name="comment" v-model="tables.form_repair.current.date_performed"></td>
                     <td><input type="text" name="comment" v-model="tables.form_repair.current.comment"></td>
-                    <td>&nbsp</td>
                     <td>&nbsp</td>
                     <td>
                         <template v-if="">
