@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage
 from utils.webutils import process_json_view
+from common.messages_app.services import messages
+
 
 
 @csrf_exempt
@@ -23,7 +25,7 @@ def change_table(request):
         values = request.POST.getlist(field_name)
         for i, val in enumerate(values):
             CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
-
+    
     return {"status": 1}
 
 
