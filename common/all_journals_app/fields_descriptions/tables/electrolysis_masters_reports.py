@@ -1,4 +1,4 @@
-from common.all_journals_app.fields_descriptions.fields_classes import date_default, text_default, numeric_default
+from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
 lt = deep_dict()
@@ -14,13 +14,8 @@ lt.defence4 = text_default
 lt.weight1 = text_default
 lt.passed_fio = text_default
 lt.accepted_fio = text_default
-lt.sign1 = text_default
-lt.sign2 = text_default
-lt.sign3 = text_default
-lt.sign4 = text_default
 lt.weight2 = text_default
 lt.passed_sing = text_default
-lt.accepted_sign = text_default
 
 last_table_desc = lt.clear_empty().get_dict()
 
@@ -51,12 +46,10 @@ pt = deep_dict()
 pt.percent_Pb = numeric_default
 # pt.n_Pb = text_default
 # pt.mery_Pb = text_default
-# pt.sign_Pb = text_default
 
 # pt.percent_Cu = text_default
 # pt.n_Cu = text_default
 # pt.mery_Cu = text_default
-# pt.sign_Cu = text_default
 
 
 a1 = deep_dict()

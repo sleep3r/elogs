@@ -43,7 +43,7 @@ lt.row_names = [{"db": db, "view": view} for db, view in
              zip(rows_names_for_db, rows_names_for_view)]
 
 
-field_infos_for_rows = [numeric_default] * 12 + [text_default] * 2
+field_infos_for_rows = [gl_default]*2 + [gsm3_default]*2 +[temperature_default]*3 + [pa_default]*2+[dict(type="number", units = "Рн?")]+[temperature_default]*3
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
@@ -52,9 +52,12 @@ lt.times = [
 
 lt.last_headers = ["mismatches", "measures"]
 for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
-    for time in lt.times + lt.last_headers:
+    for time in lt.times:
         field_name = row_name + time
         lt[field_name] = desc
+    for last in lt.last_headers:
+        field_name = row_name + last
+        lt[field_name] = text_default
 
 left_table_desc = lt.clear_empty().get_dict()
 
@@ -63,63 +66,63 @@ rt = deep_dict()
 
 
 rt.h2so4 = text_default
-rt.zn = text_default
+rt.zn = gl_default
 rt.viu_in = numeric_default
 
 #--------part1----------#
-rt.viu1_1 = numeric_default
-rt.viu1_2 = numeric_default
-rt.viu2_1 = numeric_default
-rt.viu2_2 = numeric_default
-rt.viu3_1 = numeric_default
-rt.viu3_2 = numeric_default
+rt.viu1_1 = m3_default
+rt.viu1_2 = m3_default
+rt.viu2_1 = m3_default
+rt.viu2_2 = m3_default
+rt.viu3_1 = m3_default
+rt.viu3_2 = m3_default
 rt.tank3 = numeric_default
 rt.tank4 = numeric_default
 rt.tank5 = numeric_default
 rt.tank4A = numeric_default
-rt.cu1 = numeric_default
-rt.co1 = numeric_default
-rt.cd1 = numeric_default
-rt.sb1 = numeric_default
-rt.fe2p1 = numeric_default
-rt.bt1 = numeric_default
-rt.weight1_1 = numeric_default
-rt.weight2_1 = numeric_default
+rt.cu1 = mgl_default
+rt.co1 = mgl_default
+rt.cd1 = mgl_default
+rt.sb1 = mgl_default
+rt.fe2p1 = mgl_default
+rt.bt1 = percent_default
+rt.weight1_1 = gsm3_default
+rt.weight2_1 = gsm3_default
 
 
 #--------part2----------#
 
-rt.pumpnum1 = numeric_default
-rt.pumpnum2 = numeric_default
-rt.pumpnum3 = numeric_default
-rt.pumpnum4 = numeric_default
-rt.pumpnum5 = numeric_default
-rt.pumpnum6 = numeric_default
-rt.pumpnum7 = numeric_default
-rt.pumpnum8 = numeric_default
+rt.pumpnum1 = number_default
+rt.pumpnum2 = number_default
+rt.pumpnum3 = number_default
+rt.pumpnum4 = number_default
+rt.pumpnum5 = number_default
+rt.pumpnum6 = number_default
+rt.pumpnum7 = number_default
+rt.pumpnum8 = number_default
 
 rt.reason1 = text_default
-rt.tank_analisys = numeric_default
-rt.cu2 = numeric_default
-rt.co2 = numeric_default
-rt.cd2 = numeric_default
-rt.sb2 = numeric_default
-rt.fe2p2 = numeric_default
-rt.weight1_2 = numeric_default
+rt.tank_analisys = number_default
+rt.cu2 = mgl_default
+rt.co2 = mgl_default
+rt.cd2 = mgl_default
+rt.sb2 = mgl_default
+rt.fe2p2 = mgl_default
+rt.weight1_2 = gsm3_default
 
 #--------part3–--------#
 
-rt.pumpnum9 = numeric_default
-rt.pumpnum10 = numeric_default
-rt.pumpnum11 = numeric_default
-rt.pumpnum12 = numeric_default
+rt.pumpnum9 = number_default
+rt.pumpnum10 = number_default
+rt.pumpnum11 = number_default
+rt.pumpnum12 = number_default
 rt.reason2 = text_default
-rt.pumpnum13 = numeric_default
-rt.pumpnum14 = numeric_default
-rt.pumpnum15 = numeric_default
-rt.pumpnum16 = numeric_default
-rt.pumpnum17 = numeric_default
-rt.pumpnum18 = numeric_default
+rt.pumpnum13 = number_default
+rt.pumpnum14 = number_default
+rt.pumpnum15 = number_default
+rt.pumpnum16 = number_default
+rt.pumpnum17 = number_default
+rt.pumpnum18 = number_default
 
 rt.reason3 = text_default
 rt.reason3 = text_default

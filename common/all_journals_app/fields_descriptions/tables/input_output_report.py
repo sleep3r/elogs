@@ -1,32 +1,33 @@
 from utils.deep_dict import deep_dict
+from common.all_journals_app.fields_descriptions.fields_classes import *
 
 
 
 #------year plan schieht--------
 yps = deep_dict()
-yps.concentrate = dict(type='number', min_normal=10, max_normal=1000)
-yps.year_plans = dict(type='number', min_normal=10, max_normal=1000)
-yps.month_smt = dict(type='number', min_normal=10, max_normal=1000)
-yps.day_smt = dict(type='number', min_normal=10, max_normal=1000)
-yps.tonns_a_year = dict(type='number', min_normal=10, max_normal=1000)
-yps.schieht_frac = dict(type='number', min_normal=10, max_normal=1000)
-yps.zn = dict(type='number', min_normal=10, max_normal=1000)
-yps.s = dict(type='number', min_normal=10, max_normal=1000)
-yps.h2o = dict(type='number', min_normal=10, max_normal=1000)
-yps.fe = dict(type='number', min_normal=10, max_normal=1000)
-yps.cu = dict(type='number', min_normal=10, max_normal=1000)
-yps.pb = dict(type='number', min_normal=10, max_normal=1000)
-yps.sio2 = dict(type='number', min_normal=10, max_normal=1000)
-yps.cd = dict(type='number', min_normal=10, max_normal=1000)
-yps.cao = dict(type='number', min_normal=10, max_normal=1000)
-yps.mgo = dict(type='number', min_normal=10, max_normal=1000)
-yps.K = dict(type='number', min_normal=10, max_normal=1000)
-yps.na = dict(type='number', min_normal=10, max_normal=1000)
-yps.arsenic = dict(type='number', min_normal=10, max_normal=1000)
-yps.co = dict(type='number', min_normal=10, max_normal=1000)
-yps.au = dict(type='number', min_normal=10, max_normal=1000)
-yps.ag = dict(type='number', min_normal=10, max_normal=1000)
-yps.vmt = dict(type='number', min_normal=10, max_normal=1000)
+yps.concentrate = text_default
+yps.year_plans = smt_default
+yps.month_smt = smt_default
+yps.day_smt = smt_default
+yps.tonns_a_year = ton_default
+yps.schieht_frac = percent_default
+yps.zn = percent_default
+yps.s = percent_default
+yps.h2o = percent_default
+yps.fe = percent_default
+yps.cu = percent_default
+yps.pb = percent_default
+yps.sio2 = percent_default
+yps.cd = percent_default
+yps.cao = percent_default
+yps.mgo = percent_default
+yps.K = percent_default
+yps.na = percent_default
+yps.arsenic = percent_default
+yps.co = percent_default
+yps.au = gt_default
+yps.ag = gt_default
+yps.vmt = vmt_default
 yps.norm = dict(type='number', min_normal=10, max_normal=1000)
 year_plan_schieht_desc = yps.clear_empty().get_dict()
 
@@ -43,7 +44,7 @@ main_table_desc = main_table.clear_empty().get_dict()
 
 #----- Supply of zinc concentrates table ----
 supply_zinc = deep_dict()
-supply_zinc.concentrate = dict(type="number", min_normal=10, max_normal=20000)
+supply_zinc.concentrate = smt_default
 supply_zinc.zn = dict(type="number", min_normal=10, max_normal=10000)
 supply_zinc_desc = supply_zinc.clear_empty().get_dict()
 

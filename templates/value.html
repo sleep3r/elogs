@@ -14,6 +14,7 @@
             {% with field_comment_name=field_name|add:"_comment"|add:str_index %}
                 {% with id=full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 
+
         <!-- {% if validate %}
             {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
         {% else %}
@@ -23,18 +24,17 @@
                        value="{{ val }}" data-info="{{ info }}" table-name = "{{table_name}}" journal-page = "{{journal_page}}"
                        name="{{ field_name }}" index = "{{index}}" {{ editable }}
                        {% if validate %}
-                       onclick="showPopup('{{ field_comment_name }}', event)"
+                       onclick="showPopup(this)"
                        {% endif %}/>
 
                 {% if validate %}
 
-                    {% with comment=table_data|keyval:field_comment_name|keyval:0 %}
-                        <span class="popup-comment-content" id="{{ field_comment_name }}">
+                    {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
+                        <span class="popup-comment-content" id="{{ field_comment_name }}" >
                            <textarea name="{{ field_comment_name }}"
+                           placeholder="Комментарий..."
                            id="{{ field_comment_name|add:"_input" }}"
-                           rows="2" onblur="hidePopups('{{ field_comment_name }}')" cols="50">
-                           {{ comment }}
-                           </textarea>
+                           rows="2" onblur="hidePopups(this)" cols="50">{{ comment }}</textarea>
                         </span>
                     {% endwith %}
                 {% endif %}
