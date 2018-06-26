@@ -12,11 +12,9 @@
         <tr>
             <th>Дата осмотра </th>
             <th>Наименование узла в характеристика дефектов</th>
-            <th>Подпись лица производящего осмотр</th>
             <th>Дата выполненных работ</th>
             <th>Объём выполненных работ по устранению дефектов</th>
             <th>Фактический срок службы узла, детали</th>
-            <th>Подпись лица, ответственного за выполнение ремонта</th>
         </tr>
         <tr>
             <th>1</th>
@@ -24,18 +22,14 @@
             <th>3</th>
             <th>4</th>
             <th>5</th>
-            <th>6</th>
-            <th>7</th>
         </tr>
     </thead>
     <tbody>
         <tr v-for="item, num in tables.form_repair.data.items">
             <td>[[item.date | formatDate]]</td>
             <td>[[item.name]]</td>
-            <td></td>
             <td>[[item.date_performed | formatDate]]</td>
             <td>[[item.comment]]</td>
-            <td></td>
             <td></td>
         </tr>
     </tbody>
