@@ -1,24 +1,25 @@
 import json
 from utils.deep_dict import deep_dict
+from common.all_journals_app.fields_descriptions.fields_classes import *
 
 
 ut = deep_dict()
 #------Upper Table--------
-ut.master = dict(type="text", min_normal=10, max_normal=1000)
-ut.senior_crane_operator = dict(type="text", min_normal=10, max_normal=1000)
+ut.master = employee_default
+ut.senior_crane_operator = employee_default
 
-ut.storage = dict(type="text", min_normal=10, max_normal=1000)
-ut.crane_operator = dict(type="text", min_normal=10, max_normal=1000)
-ut.sling_operator = dict(type="text", min_normal=10, max_normal=1000)
+ut.storage = dict(type="text", min_normal=10, max_normal=1000, units='№')
+ut.crane_operator = employee_default
+ut.sling_operator = employee_default
 
-ut.date = dict(type="time", min_normal=10, max_normal=1000)
-ut.shift = dict(type="text", min_normal=10, max_normal=1000)
+ut.date = dict(type="date", min_normal=10, max_normal=1000)
+ut.shift = dict(type="text", min_normal=10, max_normal=1000, units='№')
 
 bt = deep_dict()
 
 #-------Big Table-------------
-bt.wagon_num = dict(type="number", min_normal=10, max_normal=1000)
-bt.conc_num = dict(type="text", min_normal=10, max_normal=1000)
+bt.wagon_num = dict(type="number", min_normal=10, max_normal=1000, units = '№')
+bt.conc_num = text_default
 
 bt.supply_time = dict(type="time", min_normal=10, max_normal=1000)
 bt.dispatch_time = dict(type="time", min_normal=10, max_normal=1000)
@@ -48,7 +49,7 @@ field_names = [
 
 fields_info = [
     dict(type="text", min_normal=0, max_normal=100),
-] + [dict(type="number", min_normal=0, max_normal=100)] * 9
+] + [dict(type="number", min_normal=0, max_normal=100, units="шт")] * 9
 
 for index in range(1, 4):
     if index == 3:
