@@ -1,5 +1,19 @@
 {% load i18n %}
 <input hidden name="validate" value="{{ validate }}">
+<div class="journaltablewrapper">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Управление всем</h2>
+            <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            {% include "all_journals_app/journal_control_panel.html" %}
+        </div>
+    </div>
+</div>
 {% for table in tables %}
 <div class="journaltablewrapper">
     <div class="x_panel">
