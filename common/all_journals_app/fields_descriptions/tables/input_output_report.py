@@ -5,7 +5,6 @@ from common.all_journals_app.fields_descriptions.fields_classes import *
 
 #------year plan schieht--------
 yps = deep_dict()
-yps.concentrate = text_default
 yps.concentrate = dict(type="datalist", min_normal=10, max_normal=20000, options=["ЗГОК", "Арт-ий",
                                                                                   "Усть-ТАЛ",
                                                                                   "Карагайлы",
