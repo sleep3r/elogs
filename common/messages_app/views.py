@@ -12,18 +12,11 @@ from common.messages_app.services import messages
 
 class GetMessagesView(View):
     def get(self, request):
-        result = request.user.employee.has_unreaded()
         res = deep_dict()
-        if result:
-            res['result'] = result
-            res['messages'] = {}
-            for m in Message.objects.filter(is_read=False, addressee=Employee.objects.only('user').get(user=self.request.user.id)):
-                res['messages'][m.id] = model_to_dict(m)
-            return res
-
-        else:
-            res['result'] = result
-            return res
+        res['messages'] = {}
+        for m in Message.objects.filter(is_read=False, addressee=Employee.objects.only('user').get(user=self.request.user.id)):
+            res['messages'][m.id] = model_to_dict(m)
+        return res
 
 
 class ReadMessagesView(View):

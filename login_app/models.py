@@ -6,11 +6,6 @@ from utils.settings import CSRF_LENGTH
 
 
 class Employee(models.Model):
-    @staticmethod
-    def has_unreaded():
-            messages = Message.objects.filter(is_read=False)
-            return True if messages else False
-            
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     position = models.CharField(max_length=128, blank=True, choices=(('master', 'Мастер'),
