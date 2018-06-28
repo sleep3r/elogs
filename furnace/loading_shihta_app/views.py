@@ -1,4 +1,5 @@
 import pprint
+import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -16,17 +17,14 @@ def index(request):
     context = get_common_context(journal_name="report_income_outcome_schieht", request=request)
     context.journal_title = 'План загрузки Шихты'
 
-    if 'month' in request.GET:
+    if request.GET.get('month', None):
         selected_date = request.GET['month']
         current_date = selected_date.split('-')
-        if 1 in current_date:
-            month = current_date[1]
-        else:
-            month = 5
-        context.selected_month = selected_date
     else:
-        selected_date = '2018-05'
-
+        selected_date = datetime.date.today().strftime("%Y-%m")
+        
+    context.selected_month = selected_date
+   
     if 'mode' in request.GET:
         mode = request.GET['mode']
     else:
