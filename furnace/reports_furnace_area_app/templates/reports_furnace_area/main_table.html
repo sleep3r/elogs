@@ -15,7 +15,7 @@
                     <th colspan="2"> Тепмпература </th>
                     <th rowspan="2"> V </th>
                     <th> Давление под сводом </th>
-                    <th rowspan="2"> УИО </th>
+                    <th rowspan="2" colspan="2"> УИО </th>
                     <th rowspan="2"> Дымососы </th>
                 </tr>
                 <tr>
@@ -39,6 +39,7 @@
                         <td>{% include "value.html" with field_name="temperture_under" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="volume" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="pressure" index=forloop.counter0 %}</td>
+                        <td>{% include "value.html" with field_name="uio_select" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="uio" index=forloop.counter0 %}</td>
                         <td>{% include "value.html" with field_name="smoke" index=forloop.counter0 %}</td>
                     </tr>
