@@ -73,7 +73,14 @@ class AddMessagesView(View):
                         cell_journal_page=adding_journal_page,)
                     new_msg.save()
         else:
-            messages.check_del_string(adding_table_name, adding_journal_page, adding_row_index)
+            msgs = messages.filter_or_none(Message, is_read=False,
+                                      cell_table_name=adding_table_name,
+                                      row_index=adding_row_index,
+                                      cell_journal_page=adding_journal_page)
+            if msgs:
+                for m in msgs:
+                    m.is_read = True
+                    m.save()
             
         return JsonResponse({"result": 1})
 
