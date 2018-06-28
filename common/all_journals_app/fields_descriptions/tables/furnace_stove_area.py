@@ -11,6 +11,7 @@ p1t1.temperture_in_layer = temperature_default
 p1t1.temperture_under = temperature_default
 p1t1.volume = m3_default
 p1t1.pressure = kgsm2_default
+p1t1.uio_select = dict(type="datalist", options=['-','Pб', 'Pт', 'Qп'])
 p1t1.uio = numeric_default
 p1t1.smoke = text_default
 fa_main_table_desc = p1t1.clear_empty().get_dict()
