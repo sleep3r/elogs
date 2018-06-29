@@ -1,5 +1,16 @@
 <template>
-  <svg :class="{labels, prediction }"/>
+  <svg :class="{labels, prediction }">
+    <defs>
+      <linearGradient id="gradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" style="stop-color:rgba(128,0,128,1);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:rgba(26,7,135,1);stop-opacity:1" />
+      </linearGradient>
+      <linearGradient id="gradOrange" x1="0%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  </svg>
 </template>
 
 <script>
@@ -80,6 +91,7 @@ export default {
         .attr("class", "bar")
         .attr("transform", function(d) { return "translate(" + x(d[0]) + "," + y(d[1]) + ")"; });
 
+
     bar.append("rect")
         .attr("x", 3)
         .attr("width", function(d, i) { 
@@ -133,14 +145,18 @@ export default {
 svg {
   width: 100%;
   height: 100%;
+
 }
 
 .bar rect {
-  fill: steelblue;
+  fill: url('#gradBlue');
+  fill-opacity: 0.5;
 }
 
+
 svg.prediction .bar rect {
-  fill: brown;
+  fill: url('#gradOrange');
+  fill-opacity: 0.5;
 }
 
 svg.labels .bar rect:hover {
@@ -148,7 +164,7 @@ svg.labels .bar rect:hover {
 }
 
 .bar text, .axis text {
-  fill: #000;
+  fill: #CCC;
   font: 16px sans-serif;
   font-weight: bold;
 }
