@@ -49,15 +49,6 @@ def get_common_context(journal_name, request, page_type="shift"):
     res.journal_name = page.journal_name
     res.journal_page = page.id
 
-    page_mode = request.GET.get('page_mode') or 'edit'
-
-
-    if page_mode == 'view':
-        res.editable = 'readonly'
-    elif page_mode == 'edit':
-        res.editable = ''
-    elif page_mode == 'validate':
-        res.editable = 'readonly'
-        res.validate = True
+    res.page_mode = request.GET.get('page_mode') or 'edit'
 
     return res
