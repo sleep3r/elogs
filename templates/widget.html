@@ -1,5 +1,6 @@
 {% load i18n %}
-<input hidden name="validate" value="{{ validate }}">
+<input hidden name="validate"
+       value={% if page_mode == 'validate' %} True {% endif %}>
 <div class="journaltablewrapper">
     <div class="x_panel">
         <div class="x_title">
