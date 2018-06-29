@@ -21,10 +21,11 @@ from common.all_journals_app.services.context_creator import get_common_context
 # Create your views here.
 def index(request):
     context = get_common_context(
-        journal_name="electrolysis_technical_report_3_degree",
+        journal_name="electrolysis_repair_report_tables",
         page_type="equipment",
         request=request
     )
+    context.journal_title = 'Журнал по ремонту оборудования'
 
     template = loader.get_template('common.html')
 

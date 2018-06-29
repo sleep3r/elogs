@@ -10,9 +10,7 @@
         <thead>
             <tr>
                 <th rowspan="2"> Результаты осмотра </th>
-                <th rowspan="2"> Подпись лица производящего осмотр </th>
                 <th colspan="2"> Запись лица ответственного за исправное состояние </th>
-                <th rowspan="2"> Подпись лица производившего осмотр </th>
             </tr>
             <tr>
                 <th>Срок устранения неисправности</th>
@@ -24,10 +22,8 @@
                 <tr class="indexed-line">
                     <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
                     <td>{% include "value.html" with field_name="results" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="sign1" index=forloop.counter0 %}</td>
                     <td>{% include "value.html" with field_name="term" index=forloop.counter0 %}</td>
                     <td>{% include "value.html" with field_name="mark" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="sign2" index=forloop.counter0 %}</td>
                 </tr>
             {%  endfor_or_create %}
         </tbody>

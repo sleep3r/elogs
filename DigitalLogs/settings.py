@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'login_app.apps.LoginApp',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
+    'common.messages_app.apps.CommonMessagesAppConfig',
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
     'furnace.repair_app.apps.FurnaceRepairAppConfig',

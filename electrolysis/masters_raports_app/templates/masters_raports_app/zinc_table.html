@@ -77,6 +77,8 @@
                 <th colspan="3">Отгрузка за сутки</th>
                 <th>Сутки + -</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>Zn кат ПУ-1</td>
                 <td>Zn кат ПУ-2</td>
@@ -84,17 +86,16 @@
                 <td>Чушки, т</td>
                 <td>Блоки, т</td>
                 <td>Конт, т</td>
-                <td rowspan="3">{% include "value.html" with field_name="sk7" index=0 %}</td>
+                <td rowspan="2">{% include "value.html" with field_name="sk7" index=0 %}</td>
             </tr>
-        </thead>
-        <tbody>
+            <tr>
                 <td>{% include "value.html" with field_name="sk1" index=0 %}</td>
                 <td>{% include "value.html" with field_name="sk2" index=0 %}</td>
                 <td>{% include "value.html" with field_name="sk3" index=0 %}</td>
                 <td>{% include "value.html" with field_name="sk4" index=0 %}</td>
-
                 <td>{% include "value.html" with field_name="sk5" index=0 %}</td>
                 <td>{% include "value.html" with field_name="sk6" index=0 %}</td>
+            </tr>
         </tbody>
     </table>
 

@@ -15,6 +15,7 @@ from common.all_journals_app.services.context_creator import get_common_context
 @login_required
 def index(request):
     context = get_common_context(journal_name="technological_tasks", request=request)
+    context.journal_title = 'Журнал сменных производственных, тех. заданий'
 
     replaceable_tasks_table = deep_dict()
     replaceable_tasks_table.title = "Технологические задания"

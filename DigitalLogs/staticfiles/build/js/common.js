@@ -1,7 +1,7 @@
 var Notifications = {
     markAsRead_: function(ids) {
         jQuery.ajax({
-            url: '/auth/read_message',
+            url: '/common/messages/read',
             data: {ids: ids},
             method: 'POST',
             //contentType: 'application/json',

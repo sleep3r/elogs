@@ -1,4 +1,4 @@
-from common.all_journals_app.fields_descriptions.fields_classes import date_default, text_default, numeric_default
+from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
 lt = deep_dict()
@@ -14,13 +14,8 @@ lt.defence4 = text_default
 lt.weight1 = text_default
 lt.passed_fio = text_default
 lt.accepted_fio = text_default
-lt.sign1 = text_default
-lt.sign2 = text_default
-lt.sign3 = text_default
-lt.sign4 = text_default
 lt.weight2 = text_default
 lt.passed_sing = text_default
-lt.accepted_sign = text_default
 
 last_table_desc = lt.clear_empty().get_dict()
 
@@ -30,33 +25,48 @@ s4 = deep_dict()
 
 s1.h2so4_fact = numeric_default
 s1.zn_fact = numeric_default
-s1.sm_fact = numeric_default
+s1.t_sm_fact = temperature_default
 s1.q_fact = numeric_default
 s1.h2so4_nesootv = numeric_default
 s1.zn_nesootv = numeric_default
-s1.sm_nesootv = numeric_default
+s1.t_sm_nesootv = temperature_default
 s1.q_nesootv = numeric_default
 s1.h2so4_mery = text_default
 s1.zn_mery = text_default
-s1.sm_mery = text_default
+s1.t_sm_mery = temperature_default
 s1.q_mery = text_default
 s1.h2so4_rosp = text_default
 s1.zn_rosp = text_default
-s1.sm_rosp = text_default
+s1.t_sm_rosp = temperature_default
 s1.q_rosp = text_default
 s1.gradirni = text_default
+s1.cooler1 = number_default #
+s1.cooler2 = number_default
+s1.cooler3 = number_default
+s1.cooler4 = number_default
+s1.cooler5 = number_default
+s1.cooler6 = number_default
+s1.cooler7 = number_default
+s1.cooler8 = number_default
+s1.t_otr_fact = temperature_default
+s1.t_otr_nesootv = temperature_default
+s1.t_otr_mery = temperature_default
+s1.t_otr_rosp = temperature_default
 
 
 pt = deep_dict()
-pt.percent_Pb = numeric_default
+pt.percent_Pb = percent_default
+pt.percent_Cu = percent_default
+pt.percent_Fe = percent_default
+pt.percent_Cd = percent_default
+pt.percent_Al = percent_default
+pt.percent_Zn = percent_default
 # pt.n_Pb = text_default
 # pt.mery_Pb = text_default
-# pt.sign_Pb = text_default
 
 # pt.percent_Cu = text_default
 # pt.n_Cu = text_default
 # pt.mery_Cu = text_default
-# pt.sign_Cu = text_default
 
 
 a1 = deep_dict()

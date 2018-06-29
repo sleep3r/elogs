@@ -12,6 +12,7 @@ from common.all_journals_app.services.context_creator import get_common_context
 def index(request):
     context = get_common_context(journal_name="reports_furnace_area", request=request)
     template = loader.get_template('common.html')
+    context.journal_title = "Журнал печного участка"
 
     main_table = deep_dict()
     main_table.title = "Печной участок"
