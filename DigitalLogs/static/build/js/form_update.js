@@ -21,6 +21,7 @@ function on_form_change(form) {
 
 function add_message(input) {
     console.log("on_input_change()");
+
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
@@ -60,10 +61,6 @@ function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-
-    if (info.type !== "droplist") { // for dropdowns
-        input.type = info.type;
-    }
 
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
