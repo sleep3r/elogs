@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'common.messages_app.apps.CommonMessagesAppConfig',
     'leaching.express_anal_app.apps.ExpressAnalApp',
     'leaching.repair_app.apps.LeachingRepairAppConfig',
+
+    'leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
     'leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
+
     'furnace.repair_app.apps.FurnaceRepairAppConfig',
     'furnace.fractional_app.apps.FurnaceFractionalAppConfig',
     'furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',

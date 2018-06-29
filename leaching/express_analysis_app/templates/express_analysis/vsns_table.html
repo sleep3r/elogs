@@ -1,0 +1,21 @@
+{% load express_tags %}
+
+
+{% with table_name="vsns_table" %}
+<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+    <input hidden name="table_name" value="{{ table_name }}">
+    <input hidden name="journal_page" value="{{ journal_page }}">
+    {% with table_data=full_data|table_keyval:table_name %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        </tr>
+        </tbody>
+    </table>
+    {% endwith %}
+</form>
+{% endwith %}
