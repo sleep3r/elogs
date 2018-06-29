@@ -20,21 +20,33 @@
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
-                <input class="form-control general-value" oninput="on_input_change(this)" onchange="add_message(this)"
-                       value="{{ val }}" data-info="{{ info }}" table-name = "{{table_name}}" journal-page = "{{journal_page}}"
-                       name="{{ field_name }}" index = "{{index}}" {{ editable }}
-                       {% if validate %}
-                       onclick="showPopup(this)"
+                <input class="form-control general-value"
+                       oninput="on_input_change(this)"
+                       onchange="add_message(this)"
+                       value="{{ val }}"
+                       data-info="{{ info }}"
+                       table-name = "{{table_name}}"
+                       journal-page = "{{journal_page}}"
+                       name="{{ field_name }}"
+                       index = "{{index}}"
+                       {% if page_mode == 'view' %}
+                           readonly
+                       {% endif %}
+                       {% if page_mode == 'validate' %}
+                           onclick="showPopup(this)"
                        {% endif %}/>
 
-                {% if validate %}
-
+                {% if page_mode == 'validate' %}
                     {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
                         <span class="popup-comment-content" id="{{ field_comment_name }}" >
                            <textarea name="{{ field_comment_name }}"
-                           placeholder="Комментарий..."
-                           id="{{ field_comment_name|add:"_input" }}"
-                           rows="2" onblur="hidePopups(this)" cols="50">{{ comment }}</textarea>
+                                     placeholder="Комментарий..."
+                                     id="{{ field_comment_name|add:"_input" }}"
+                                     rows="2"
+                                     onblur="hidePopups(this)"
+                                     cols="50">
+                                {{ comment }}
+                            </textarea>
                         </span>
                     {% endwith %}
                 {% endif %}
