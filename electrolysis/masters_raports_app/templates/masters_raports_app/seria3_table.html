@@ -21,14 +21,23 @@
                 </tr>
             </thead>
             <tbody>
-               <tr>
+                <tr>
                     <td>H2SO4</td>
                     <td>{% include "value.html" with field_name="h2so4_fact" index=0 %} </td>
                     <td>{% include "value.html" with field_name="h2so4_nesootv" index=0 %}</td>
                     <td>{% include "value.html" with field_name="h2so4_mery" index=0 %}</td>
                     <td>{% include "value.html" with field_name="h2so4_rosp" index=0 %}</td>
-                    <td rowspan="5"> 1 2 3 4 5 6 7 8
-                    {% include "value.html" with field_name="gradirni" index=0 %}
+                    <td rowspan="5">
+                        <table width="100%">
+                            <tr>
+                                <th>1-</th>
+                                <td>{% include "value.html" with field_name="cooler1" index=0 %}</td>
+                            </tr>
+                            <tr>
+                                <th>2-</th>
+                                <td>{% include "value.html" with field_name="cooler2" index=0 %}</td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -39,11 +48,11 @@
                     <td>{% include "value.html" with field_name="zn_rosp" index=0 %}</td>
                 </tr>
                 <tr>
-                    <td>1 см</td>
-                    <td>{% include "value.html" with field_name="sm_fact" index=0 %} </td>
-                    <td>{% include "value.html" with field_name="sm_nesootv" index=0 %}</td>
-                    <td>{% include "value.html" with field_name="sm_mery" index=0 %}</td>
-                    <td>{% include "value.html" with field_name="sm_rosp" index=0 %}</td>
+                    <td>t<sub>см</sub></td>
+                    <td>{% include "value.html" with field_name="t_sm_fact" index=0 %} </td>
+                    <td>{% include "value.html" with field_name="t_sm_nesootv" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="t_sm_mery" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="t_sm_rosp" index=0 %}</td>
                 </tr>
                 <tr>
                     <td>Q</td>
@@ -53,14 +62,44 @@
                     <td>{% include "value.html" with field_name="q_rosp" index=0 %}</td>
                 </tr>
                 <tr>
+                    <td>t<sub>отр</sub></td>
+                    <td>{% include "value.html" with field_name="t_otr_fact" index=0 %} </td>
+                    <td>{% include "value.html" with field_name="t_otr_nesootv" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="t_otr_mery" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="t_otr_rosp" index=0 %}</td>
+                </tr>
+                <tr>
                     <td>I</td>
                     <td colspan="5">
-                        <table width="100%">
-                            <tr> <th>Уд. хол.</th><td></td>  <th>ВТ-</th><td></td> <th>%</th> <th>V3</th> </tr>
-                            <tr> <th>Co-</th><td></td>  <th>Ж:Т 1-</th><td></td> <th>V4</th> </tr>
-                            <tr> <th>Sb-</th><td></td>  <th>Ж:Т 2-</th><td></td> <th>V4</th> </tr>
-                            <tr> <th>V5-</th><td></td>  <th>уд нейтр.</th><td></td> <th>V6</th> </tr>
-                            <tr> <th>Fe-</th><td></td>  <th>уд см.</th><td></td> <th>V6</th> </tr>
+                        <table width="80%">
+                            <tr>
+                                <th>уд.хол-</th>
+                                <td>{% include "value.html" with field_name="ud_hold" index=0 %}</td>
+        
+                                <th>t<sub>н</sub>-</th>
+                                <td>{% include "value.html" with field_name="t_n" index=0 %}</td>
+        
+                                <th>V1-</th>
+                                <td>{% include "value.html" with field_name="V1" index=0 %}</td>
+                            </tr>
+                            <tr>
+                                <th>уд.отр-</th>
+                                <td>{% include "value.html" with field_name="ud_waste" index=0 %}</td>
+        
+                                <th>t<sub>гр</sub>-</th>
+                                <td>{% include "value.html" with field_name="t_gr" index=0 %}</td>
+        
+                                <th>V2-</th>
+                                <td>{% include "value.html" with field_name="V2" index=0 %}</td>
+                            </tr>
+                            <tr>
+                                <th>уд.нейт-</th>
+                                <td>{% include "value.html" with field_name="ud_neutral" index=0 %}</td>
+                            </tr>
+                            <tr>
+                                <th>уд.ГМЦ-</th>
+                                <td>{% include "value.html" with field_name="ud_GMC" index=0 %}</td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
