@@ -29,7 +29,7 @@ function add_message(input) {
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 'field_value': input.value, 
+            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -38,12 +38,12 @@ function add_message(input) {
                 }
             }
         });
-        
+
     } else{
         $.ajax({
             url: "/common/messages/del",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 
+            data: { 'check': true, 'field_name': input.name,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -133,17 +133,14 @@ function clear_empty_lines(form) {
 
 
 function showPopup(input) {
+    console.log(1)
     comment = $(input).siblings()[0];
-    comment_input = $(comment).children()[0];
+    comment_input = $(comment).children()[1];
 
     $(input).css(
         "background",
         "radial-gradient(white 80%, #24A48A)"
     );
-    // cell = $(comment).parent();
-    // // if (cell.is(':last-child')) {
-    // //     $(comment).addClass("show-extreme")
-    // // }
     $(comment).addClass("show");
     $(comment_input).focus();
 }
