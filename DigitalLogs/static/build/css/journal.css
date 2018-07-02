@@ -339,6 +339,10 @@ input[readonly] {
     border: none;
 }
 
+.comment-close-button:hover {
+    cursor: pointer; 
+}
+
 
 /*.sticky + .content {*/
         /*padding-top: 100px;*/

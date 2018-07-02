@@ -133,7 +133,6 @@ function clear_empty_lines(form) {
 
 
 function showPopup(input) {
-    console.log(1)
     comment = $(input).siblings()[0];
     comment_input = $(comment).children()[1];
 
@@ -146,14 +145,28 @@ function showPopup(input) {
 }
 
 
-function hidePopups(textarea) {
-    comment = $(textarea).parent()[0];
-    input = $(comment).siblings()[0];
-    $(input).css(
+function hidePopups() {
+    // comment = $(textarea).parent()[0];
+    // input = $(comment).siblings()[0];
+    $(".general-value").css(
         "background",
         "white"
     );
     $(".popup-comment-content").removeClass("show");
+}
+
+function hidePopusOnMouseUp(event) {
+    let active_comment = $(".show")[0];
+    if (active_comment) {
+        let active_input = $(active_comment).siblings()[0];
+        let hideFlag = !(
+            event.target == active_input ||
+            event.target == active_comment ||
+            $.contains( active_comment, event.target));
+        if (hideFlag) {
+            hidePopups();
+        }
+    }
 }
 
 
@@ -187,10 +200,12 @@ $(document).ready(function () {
 
 
     let validate = $("input[name='validate']").attr("value");
-    console.log(validate);
+    let view = $("input[name='view']").attr("value");
     if (validate === "True") {
-        console.log('check');
         $('.indexed-line').removeClass('indexed-line')
+    }
+    if (view === "True") {
+        document.addEventListener('mouseup', hidePopusOnMouseUp);
     }
 
 
