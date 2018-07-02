@@ -94,6 +94,9 @@ export default {
 
     bar.append("rect")
         .attr("x", 3)
+        .attr("stroke","steelblue")
+        .attr("stroke-width", "5")
+        .attr("stroke-linecap", "square")
         .attr("width", function(d, i) { 
           return (i < data.length - 1 
           ? x(data[i + 1][0]) - x(data[i][0])
