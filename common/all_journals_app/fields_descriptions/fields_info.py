@@ -4,6 +4,7 @@ from common.all_journals_app.fields_descriptions.tables.electrolysis_masters_rep
 from common.all_journals_app.fields_descriptions.tables.furnace_repair_table import *
 from common.all_journals_app.fields_descriptions.tables.furnace_stove_area import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
+from common.all_journals_app.fields_descriptions.tables.leaching_express_analysis import vsns_table_desc
 from common.all_journals_app.fields_descriptions.tables.leaching_repair_equipment import leaching_repair_table_desc
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
@@ -16,6 +17,8 @@ from common.all_journals_app.fields_descriptions.tables.electrolysis_repair_repo
 from utils.deep_dict import deep_dict
 
 fields_info_desc = deep_dict()
+
+fields_info_desc.leaching_express_analysis.vsns_table = vsns_table_desc
 
 
 fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_desc
