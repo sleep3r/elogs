@@ -123,8 +123,9 @@ rt.pumpnum15 = number_default
 rt.pumpnum16 = number_default
 rt.pumpnum17 = number_default
 rt.pumpnum18 = number_default
+rt.reason3 = text_default
+rt.zump_pump = number_default
+rt.reason4 = text_default
 
-rt.reason3 = text_default
-rt.reason3 = text_default
 
 right_table_desc = rt.clear_empty().get_dict()
