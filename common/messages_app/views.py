@@ -12,18 +12,11 @@ from common.messages_app.services import messages
 
 class GetMessagesView(View):
     def get(self, request):
-        result = request.user.employee.has_unreaded()
         res = deep_dict()
-        if result:
-            res['result'] = result
-            res['messages'] = {}
-            for m in Message.objects.filter(is_read=False, addressee=Employee.objects.only('user').get(user=self.request.user.id)):
-                res['messages'][m.id] = model_to_dict(m)
-            return res
-
-        else:
-            res['result'] = result
-            return res
+        res['messages'] = {}
+        for m in Message.objects.filter(is_read=False, addressee=Employee.objects.only('user').get(user=self.request.user.id)):
+            res['messages'][m.id] = model_to_dict(m)
+        return res
 
 
 class ReadMessagesView(View):
@@ -73,7 +66,14 @@ class AddMessagesView(View):
                         cell_journal_page=adding_journal_page,)
                     new_msg.save()
         else:
-            messages.check_del_string(adding_table_name, adding_journal_page, adding_row_index)
+            msgs = messages.filter_or_none(Message, is_read=False,
+                                      cell_table_name=adding_table_name,
+                                      row_index=adding_row_index,
+                                      cell_journal_page=adding_journal_page)
+            if msgs:
+                for m in msgs:
+                    m.is_read = True
+                    m.save()
             
         return JsonResponse({"result": 1})
 

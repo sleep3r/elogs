@@ -30,7 +30,7 @@ function add_message(input) {
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 'field_value': input.value, 
+            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -39,12 +39,12 @@ function add_message(input) {
                 }
             }
         });
-        
+
     } else{
         $.ajax({
             url: "/common/messages/del",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 
+            data: { 'check': true, 'field_name': input.name,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -133,29 +133,48 @@ function clear_empty_lines(form) {
 
 function showPopup(input) {
     comment = $(input).siblings()[0];
-    comment_input = $(comment).children()[0];
+    comment_input = $(comment).children()[1];
 
     $(input).css(
         "background",
         "radial-gradient(white 80%, #24A48A)"
     );
-    // cell = $(comment).parent();
-    // // if (cell.is(':last-child')) {
-    // //     $(comment).addClass("show-extreme")
-    // // }
     $(comment).addClass("show");
     $(comment_input).focus();
 }
 
 
-function hidePopups(textarea) {
-    comment = $(textarea).parent()[0];
-    input = $(comment).siblings()[0];
-    $(input).css(
+function hidePopups() {
+    $(".general-value").css(
         "background",
         "white"
     );
     $(".popup-comment-content").removeClass("show");
+}
+
+function hidePopusOnMouseUp(event) {
+    let active_comment = $(".popup-comment-content.show")[0];
+    console.log(active_comment);
+    if (active_comment) {
+        let active_input = $(active_comment).siblings()[0];
+        let hideFlag = !(
+            event.target == active_input ||
+            event.target == active_comment ||
+            $.contains( active_comment, event.target));
+        if (hideFlag) {
+            hidePopups();
+        }
+    }
+}
+
+function addCommentNotification(input) {
+    comment = $(input).siblings()[0];
+    comment_notification = $(input).siblings()[1];
+    comment_input = $(comment).children()[1];
+    console.log($(comment_input).text());
+    if ($(comment_input).text()) {
+        $(comment_notification).addClass("show")
+    }
 }
 
 
@@ -189,10 +208,13 @@ $(document).ready(function () {
 
 
     let validate = $("input[name='validate']").attr("value");
-    console.log(validate);
+    let view = $("input[name='view']").attr("value");
     if (validate === "True") {
-        console.log('check');
         $('.indexed-line').removeClass('indexed-line')
+    }
+    document.addEventListener('mouseup', hidePopusOnMouseUp);
+    if (view === "True") {
+        document.querySelectorAll(".general-value").forEach(addCommentNotification)
     }
 
 
