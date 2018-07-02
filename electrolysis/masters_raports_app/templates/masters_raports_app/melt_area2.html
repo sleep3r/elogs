@@ -1,40 +1,39 @@
+{% extends "table.html" %}
 {% load express_tags %}
 
+{% block title %}Плавильный участок-2{% endblock %}
 
-{% with table_name="melt_area2_table" %}
-<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-    <input hidden name="table_name" value="{{ table_name }}">
-    <input hidden name="journal_page" value="{{ journal_page }}">
-    {% with table_data=full_data|table_keyval:table_name %}
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th colspan="6">Плавильный участок 2</th>
-            </tr>
-            <tr>
-                <th>Отгрузка</th>
-                <th>На отгрузку</th>
-                <th>Обвзяка</th>
-                <th>ЦРС</th>
-                <th>Остаток Zn</th>
-                <th>Дросс</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{% include "value.html" with field_name="col1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="col2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="col3" index=0 %}</td>
-                <td>{% include "value.html" with field_name="col4" index=0 %}</td>
-                <td>{% include "value.html" with field_name="col5" index=0 %}</td>
-                <td>{% include "value.html" with field_name="col6" index=0 %}</td>
-            </tr>
-            <tr>
-                <td>Примечение NH<sub>4</sub>Cl</td>
-                <td colspan="5">{% include "value.html" with field_name="desc" index=0 %}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block table %}
+    <thead>
+        <tr>
+            <th colspan="6">Плавильный участок 2</th>
+        </tr>
+        <tr>
+            <th>Отгрузка</th>
+            <th>На отгрузку</th>
+            <th>Обвзяка</th>
+            <th>ЦРС</th>
+            <th>Остаток Zn</th>
+            <th>Дросс</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% include "value.html" with field_name="col1" index=0 %}</td>
+            <td>{% include "value.html" with field_name="col2" index=0 %}</td>
+            <td>{% include "value.html" with field_name="col3" index=0 %}</td>
+            <td>{% include "value.html" with field_name="col4" index=0 %}</td>
+            <td>{% include "value.html" with field_name="col5" index=0 %}</td>
+            <td>{% include "value.html" with field_name="col6" index=0 %}</td>
+        </tr>
+        <tr>
+            <td>Примечение NH<sub>4</sub>Cl</td>
+            <td colspan="5">{% include "value.html" with field_name="desc" index=0 %}</td>
+        </tr>
+    </tbody>
+{% endblock %}
+
+{% block additional_lower %}
     <table class="table table-bordered">
         <thead>
             <tr><th colspan="2">УППЦМ</th></tr>
@@ -47,6 +46,4 @@
             </tr>
         </tbody>
     </table>
-    {% endwith %}
-</form>
-{% endwith %}
+{% endblock %}

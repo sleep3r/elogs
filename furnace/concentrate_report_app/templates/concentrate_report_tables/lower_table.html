@@ -1,23 +1,16 @@
-{% load express_tags %}
+{% extends "table.html" %}
 
-{% with table_name="lower_fields" %}
-    {% with table_data=full_data|table_keyval:table_name %}
+{% block title %}Нижняя таблица{% endblock %}
 
+{% block table %}
+    <tr>
+        <th> Заметки </th>
+    </tr>
 
-    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-        <input hidden name="table_name" value="{{ table_name }}">
-        <input hidden name="journal_page" value="{{ journal_page }}">
-        <table class="table table-bordered">
-            <tr>
-                <th> Заметки </th>
-            </tr>
+    <tr>
+        <td>{% include "value.html" with field_name="notes" index=0 %}</td>
+    </tr>
+{% endblock %}
 
-            <tr>
-                <td>{% include "value.html" with field_name="notes" index=0 %}</td>
-            </tr>
+        
 
-        </table>
-    </form>
-
-    {% endwith %}
-{% endwith %}

@@ -92,6 +92,11 @@ def set_global_context(context, key, value):
     return ''
 
 
+@register.simple_tag
+def get_table_name(table_link):
+    return table_link.split('/')[-1].split('.')[0]
+
+
 @register.filter('formatter')
 def formatter(string, obj):
     return string.format(object)

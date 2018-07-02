@@ -1,27 +1,21 @@
+{% extends "table.html" %}
 {% load express_tags %}
 
+{% block title %}Участок воздуходувных машин{% endblock %}
 
-{% with table_name="page1_table6" %}
-<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-    <input hidden name="table_name" value="{{ table_name }}">
-    <input hidden name="journal_page" value="{{ journal_page }}">
-    {% with table_data=full_data|table_keyval:table_name %}
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th> Концентрация O<sub>2</sub> в помещении </th>
-                <th> Время пуска и остановки воздушных машин </th>
-                <th> В работе воздуходувных машин</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{% include "value.html" with field_name="conc_o2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="time_start" index=0 %}</td>
-                <td>{% include "value.html" with field_name="cnt_in_process" index=0 %}</td>
-            </tr>
-        </tbody>
-    </table>
-    {% endwith %}
-</form>
-{% endwith %}
+{% block table %}
+    <thead>
+        <tr>
+            <th> Концентрация O<sub>2</sub> в помещении </th>
+            <th> Время пуска и остановки воздушных машин </th>
+            <th> В работе воздуходувных машин</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% include "value.html" with field_name="conc_o2" index=0 %}</td>
+            <td>{% include "value.html" with field_name="time_start" index=0 %}</td>
+            <td>{% include "value.html" with field_name="cnt_in_process" index=0 %}</td>
+        </tr>
+    </tbody>
+{% endblock %}

@@ -29,10 +29,8 @@ def index(request):
     left_table = deep_dict()
     right_table = deep_dict()
 
-    left_table.title = "Левая таблица"
     left_table.name = "technical_report12_tables/left_table.html"
 
-    right_table.title = "Правая таблица"
     right_table.name = "technical_report12_tables/right_table.html"
 
     context.tables = [left_table, right_table]

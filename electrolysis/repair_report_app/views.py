@@ -32,7 +32,6 @@ def index(request):
     main_table = deep_dict()
     right_table = deep_dict()
 
-    main_table.title = "Ремонт"
     main_table.name = "repair_app_tables/main_table.html"
 
     context.tables = [main_table]

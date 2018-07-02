@@ -1,12 +1,10 @@
+{% extends "table.html" %}
 {% load express_tags %}
 
-{% with table_name="right_table" %}
-    {% with table_data=full_data|table_keyval:table_name %}
-    {% with table_info=fields_info|keyval:journal_name|keyval:table_name %}
-    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)" class="row_of_tables">
-        <input hidden name="table_name" value="{{ table_name }}">
-        <input hidden name="journal_page" value="{{ journal_page }}">
-        <table class="table table-bordered">
+{% block title %}Правая таблица{% endblock %}
+
+{% block form_class %}row_of_tables{% endblock %}
+{% block table %}
             <thead>
                 <tr>
                     <th colspan="2"> Установленные технологический режим </th>
@@ -76,8 +74,9 @@
                 </tr>
 
             </tbody>
-        </table>
+{% endblock %}
 
+{% block additional_lower %}
         <table class="table table-bordered">
             <tr>
                 <th colspan="3"> Остаток ПАВ</th>
@@ -125,11 +124,4 @@
                 <td>{% include "value.html" with field_name="cryst2" index=0 %}</td>
             </tr>
         </table>
-    </form>
-    {% endwith %}
-    {% endwith %}
-{% endwith %}
-
-<script>
-    $()
-</script>
+{% endblock %}

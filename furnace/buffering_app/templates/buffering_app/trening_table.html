@@ -1,27 +1,21 @@
+{% extends "table.html" %}
 {% load express_tags %}
 
+{% block title %}Тестовая таблица{% endblock %}
 
-{% with table_name="trening_table" %}
-<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-    <input hidden name="table_name" value="{{ table_name }}">
-    <input hidden name="journal_page" value="{{ journal_page }}">
-    {% with table_data=full_data|table_keyval:table_name %}
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-                <th>Column 3</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{% include "value.html" with field_name="column1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="column2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="column3" index=0 %}</td>
-            </tr>
-        </tbody>
-    </table>
-    {% endwith %}
-</form>
-{% endwith %}
+{% block table %}
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{% include "value.html" with field_name="column1" index=0 %}</td>
+            <td>{% include "value.html" with field_name="column2" index=0 %}</td>
+            <td>{% include "value.html" with field_name="column3" index=0 %}</td>
+        </tr>
+    </tbody>
+{% endblock %}
