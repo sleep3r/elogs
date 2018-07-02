@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url('leaching/repair', include('leaching.repair_app.urls')),
     url('^leaching/', include('leaching.express_anal_app.urls')),
-    url('^leaching_new/', include('leaching.express_anal_app.urls')),
+    url('^leaching_new/journal', include('leaching.express_analysis_app.urls')),
     url('^leaching_new/repair', include('leaching.repair_reports_app.urls')),
     url('^furnace/fractional', include('furnace.fractional_app.urls')),
     url('furnace/concentrate', include('furnace.concentrate_report_app.urls')),
