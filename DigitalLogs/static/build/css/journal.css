@@ -349,7 +349,14 @@ input[readonly] {
     top: 0;
     right: 0;
     color: #ffd800;
+    opacity: 0.5;
+    cursor: pointer;
 }
+
+.comment-notification:hover {
+    opacity: 1;
+}
+
 
 /*.sticky + .content {*/
         /*padding-top: 100px;*/

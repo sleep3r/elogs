@@ -132,7 +132,7 @@ function clear_empty_lines(form) {
 }
 
 
-function showPopup(input) {
+function showValidatePopup(input) {
     comment = $(input).siblings()[0];
     comment_input = $(comment).children()[1];
 
@@ -142,6 +142,18 @@ function showPopup(input) {
     );
     $(comment).addClass("show");
     $(comment_input).focus();
+}
+
+function showViewPopup(icon) {
+    input = $(icon).siblings()[0];
+    comment = $(icon).siblings()[1];
+    comment_input = $(comment).children()[1];
+
+    $(input).css(
+        "background",
+        "radial-gradient(white 80%, #24A48A)"
+    );
+    $(comment).addClass("show");
 }
 
 
