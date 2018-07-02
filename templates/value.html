@@ -45,9 +45,6 @@
                            <textarea name="{{ field_comment_name }}"
                                      placeholder="Комментарий..."
                                      rows="2"
-                                     {% if page_mode == 'validate' %}
-                                         onblur="hidePopups()"
-                                     {% endif %}
                                      cols="50"
                                      {% if page_mode == 'view' %}
                                          readonly="readonly"
@@ -56,6 +53,12 @@
                         </span>
                     {% endwith %}
                 {% endif %}
+
+                {% if page_mode == "view" %}
+                     <i class="material-icons comment-notification">mail_outline</i>
+                {% endif %}
+
+
                 {% endwith %}
             {% endwith %}
      {% endwith %}

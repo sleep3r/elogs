@@ -146,8 +146,6 @@ function showPopup(input) {
 
 
 function hidePopups() {
-    // comment = $(textarea).parent()[0];
-    // input = $(comment).siblings()[0];
     $(".general-value").css(
         "background",
         "white"
@@ -156,7 +154,8 @@ function hidePopups() {
 }
 
 function hidePopusOnMouseUp(event) {
-    let active_comment = $(".show")[0];
+    let active_comment = $(".popup-comment-content.show")[0];
+    console.log(active_comment);
     if (active_comment) {
         let active_input = $(active_comment).siblings()[0];
         let hideFlag = !(
@@ -166,6 +165,16 @@ function hidePopusOnMouseUp(event) {
         if (hideFlag) {
             hidePopups();
         }
+    }
+}
+
+function addCommentNotification(input) {
+    comment = $(input).siblings()[0];
+    comment_notification = $(input).siblings()[1];
+    comment_input = $(comment).children()[1];
+    console.log($(comment_input).text());
+    if ($(comment_input).text()) {
+        $(comment_notification).addClass("show")
     }
 }
 
@@ -204,8 +213,9 @@ $(document).ready(function () {
     if (validate === "True") {
         $('.indexed-line').removeClass('indexed-line')
     }
+    document.addEventListener('mouseup', hidePopusOnMouseUp);
     if (view === "True") {
-        document.addEventListener('mouseup', hidePopusOnMouseUp);
+        document.querySelectorAll(".general-value").forEach(addCommentNotification)
     }
 
 

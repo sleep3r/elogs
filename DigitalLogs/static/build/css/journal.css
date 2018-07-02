@@ -340,9 +340,16 @@ input[readonly] {
 }
 
 .comment-close-button:hover {
-    cursor: pointer; 
+    cursor: pointer;
 }
 
+.comment-notification {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ffd800;
+}
 
 /*.sticky + .content {*/
         /*padding-top: 100px;*/
