@@ -62,6 +62,8 @@ function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
+    input.type = info.type;
+
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $(input).addClass('red').removeClass('black');
     } else {
