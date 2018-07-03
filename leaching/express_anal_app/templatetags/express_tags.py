@@ -67,6 +67,14 @@ def split(value, arg):
     return value.split(arg)
 
 
+@register.filter('default_for_responsible')
+def default_for_responsible(responsible):
+    if responsible is None or responsible == {}:
+        return ""
+    else:
+        return responsible
+
+
 @register.simple_tag(takes_context=True)
 def set_global_context(context, key, value):
     """

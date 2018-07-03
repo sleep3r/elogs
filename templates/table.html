@@ -8,7 +8,7 @@
 <div class="journaltablewrapper">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{% block title %}{% endblock %} ({{responsible|default_if_none:''}})</h2>
+            <h2>{% block title %}{% endblock %} ({{ responsible|default_for_responsible }})</h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li>
                     <a class="collapse-link">
