@@ -16,6 +16,18 @@ def index(request):
 
     template = loader.get_template('common.html')
 
+    context.vsns_table.columns = [_("Кобальт Co") + _(', мг/л'), _("Сурьма") + _(', мг/л'), _("Медь") + _(', мг/л'),
+                                  _("Кадмий"),
+                                  _("Твердое После 1ст") + _(', г/л'), "pH (BCHC)", _("Железо Fe") + _(', мг/л'),
+                                  "As" + _(', мг/л'),
+                                  _("Твёрдое") + _(', г/л'), _("Уд. вес"),
+                                  _("Кобальт") + _(', мг/л'), _("Сурьма") + _(', мг/л'), _("Кадмий") + _(', мг/л'),
+                                  _("Твердое") + _(', г/л'), "pH", _("Кадмий") + _(', мг/л'),
+                                  _("Кобальт") + _(', мг/л'),
+                                  _("Сурьма") + _(', мг/л'), _("Медь") + _(', мг/л'), _("Железо") + _(', мг/л'),
+                                  _("Выход по току"), _("Уд. вес"), _("Норма") + _(', мг/л'), _("Факт") + _(', мг/л'),
+                                  _("Несоответствие") + _(', мг/л'), _("Коррекция"), _("Мастер")]
+
     vsns_table = deep_dict()
     vsns_table.title = "BCHC"
     vsns_table.name = "express_analysis/vsns_table.html"
@@ -24,26 +36,18 @@ def index(request):
     appt_hydrometal_table.title = "Аппаратчик - гидрометаллург"
     appt_hydrometal_table.name = "express_analysis/appt_hydrometal_table.html"
 
-    context.vsns_table.columns = [_("Кобальт Co") + _(', мг/л'), _("Сурьма") + _(', мг/л'), _("Медь") + _(', мг/л'), _("Кадмий"),
-               _("Твердое После 1ст") + _(', г/л'), "pH (BCHC)", _("Железо Fe") + _(', мг/л'), "As" + _(', мг/л'),
-               _("Твёрдое") + _(', г/л'), _("Уд. вес"),
-               _("Кобальт") + _(', мг/л'), _("Сурьма") + _(', мг/л'), _("Кадмий") + _(', мг/л'),
-               _("Твердое") + _(', г/л'), "pH", _("Кадмий") + _(', мг/л'), _("Кобальт") + _(', мг/л'),
-               _("Сурьма") + _(', мг/л'), _("Медь") + _(', мг/л'), _("Железо") + _(', мг/л'),
-               _("Выход по току"), _("Уд. вес"), _("Норма") + _(', мг/л'), _("Факт") + _(', мг/л'),
-               _("Несоответствие") + _(', мг/л'), _("Коррекция"), _("Мастер")]
-
+    agitators_table = deep_dict()
+    agitators_table.title = "Агитаторы очистки"
+    agitators_table.name = "express_analysis/agitators_table.html"
 
     thickeners_table = deep_dict()
     thickeners_table.title = "Сгустители"
     thickeners_table.name = "express_analysis/thickeners_table.html"
-
     context.thickeners_table.columns = [_("pH"), _("Медь")+ _(', мг/л'), _("Железо")+ _(', мг/л'), _("Ж:Т"), _("pH"), _("Ж:Т")] * 3
-
 
     zinc_pulp_table = deep_dict()
     zinc_pulp_table.title = "Цинковая пульпа"
     zinc_pulp_table.name = "express_analysis/zinc_pulp_table.html"
 
-    context.tables = [vsns_table, appt_hydrometal_table, thickeners_table, zinc_pulp_table]
+    context.tables = [vsns_table, appt_hydrometal_table,  thickeners_table, zinc_pulp_table, agitators_table]
     return HttpResponse(template.render(context, request))
