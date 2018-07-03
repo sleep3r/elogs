@@ -19,6 +19,9 @@ def change_table(request):
 
     page = JournalPage.objects.get(id=int(jp))
 
+    employee = request.user.employee
+    page.employee_set.add(employee)
+
     CellValue.objects.filter(table_name=tn, journal_page=page).delete()
 
     for field_name in request.POST:

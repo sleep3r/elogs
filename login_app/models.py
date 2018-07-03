@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from common.all_journals_app.models import CellValue
+from common.all_journals_app.models import CellValue, JournalPage
 
 from utils.settings import CSRF_LENGTH
 
@@ -19,6 +19,7 @@ class Employee(models.Model):
                                                                                     ('electrolysis', 'Электролиз'),
                                                                                     ))
     csrf = models.CharField(max_length=CSRF_LENGTH, default='')
+    owned_journal_pages = models.ManyToManyField(JournalPage)
 
     def __str__(self):
         return f'{self.name}'

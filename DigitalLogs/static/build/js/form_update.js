@@ -200,11 +200,11 @@ function addCommentNotification(input) {
 
 
 $(document).ready(function () {
-    document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-        on_input_change(input);
-    });
+    //document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
+    //    on_input_change(input);
+    //});
 
-    $("form").trigger("input"); // Process initial table data
+    //$("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");

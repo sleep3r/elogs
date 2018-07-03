@@ -6,7 +6,9 @@ var app = new Vue({
     },
     created: function () {
         console.info('myModal.create')
-        this.$http.get('leaching/shift/accessible')
+        plant = location.pathname.split('/')[1]
+        journal_name = location.pathname.split('/')[2]
+        this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
             .then(response => {
                 console.log(response.data);
                 this.answer = response.data;
