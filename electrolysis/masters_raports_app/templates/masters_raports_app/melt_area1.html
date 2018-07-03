@@ -4,6 +4,7 @@
 {% block title %}Плавильный участок-1{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             <th colspan="6">Плавильный участок 1</th>
@@ -31,4 +32,5 @@
             <td colspan="5">{% include "value.html" with field_name="desc" index=0 %}</td>
         </tr>
     </tbody>
+</table>
 {% endblock %}

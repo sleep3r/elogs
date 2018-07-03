@@ -4,6 +4,7 @@
 {% block title %}Удельная производительность печей{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
         <thead>
             <tr>
                 <th>КС №</th>
@@ -24,4 +25,5 @@
                 <td>{% include "value.html" with field_name="val3" index=0 %}</td>
             </tr>
         </tbody>
+</table>
 {% endblock %}

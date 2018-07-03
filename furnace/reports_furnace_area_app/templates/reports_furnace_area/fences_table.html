@@ -4,6 +4,7 @@
 {% block title %}Ограждения{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             <th rowspan="2"> Результаты осмотра </th>
@@ -24,4 +25,5 @@
             </tr>
         {%  endfor_or_create %}
     </tbody>
+</table>
 {% endblock %}

@@ -3,6 +3,7 @@
 {% block title %}Нижняя таблица{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <tr>
         <th> Заметки </th>
     </tr>
@@ -10,6 +11,7 @@
     <tr>
         <td>{% include "value.html" with field_name="notes" index=0 %}</td>
     </tr>
+</table>
 {% endblock %}
 
         

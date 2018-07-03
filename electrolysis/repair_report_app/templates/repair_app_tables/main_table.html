@@ -4,6 +4,7 @@
 {% block title %}Ремонт{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             <th colspan="3">Записиь о дефектах, обнаруженных при осмотрах</th>
@@ -29,4 +30,5 @@
             </tr>
         {% endfor_or_create %}
     </tbody>
+</table>
 {% endblock %}

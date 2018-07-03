@@ -4,6 +4,7 @@
 {% block title %}Тестовая таблица{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Column 1</th>
@@ -18,4 +19,5 @@
             <td>{% include "value.html" with field_name="column3" index=0 %}</td>
         </tr>
     </tbody>
+</table>
 {% endblock %}

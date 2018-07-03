@@ -3,23 +3,25 @@
 {% block title %}Верхняя таблица{% endblock %}
 
 {% block table %}
-            <tr>
-                <th> Мастер </th>
-                <th> Старший крановщик </th>
-                <th> Склад </th>
-                <th> Крановщик </th>
-                <th> Стропальщик </th>
-                <th> Дата </th>
-                <th> Смена </th>
-            </tr>
+<table class="table table-bordered">
+    <tr>
+        <th> Мастер </th>
+        <th> Старший крановщик </th>
+        <th> Склад </th>
+        <th> Крановщик </th>
+        <th> Стропальщик </th>
+        <th> Дата </th>
+        <th> Смена </th>
+    </tr>
 
-            <tr>
-                <td>{% include "value.html" with field_name="master" index=0 %}</td>
-                <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>
-                <td>{% include "value.html" with field_name="storage" index=0 %}</td>
-                <td>{% include "value.html" with field_name="crane_operator" index=0 %}</td>
-                <td>{% include "value.html" with field_name="sling_operator" index=0 %}</td>
-                <td>{% include "value.html" with field_name="date" index=0 %}</td>
-                <td>{% include "value.html" with field_name="shift" index=0 %}</td>
-            </tr>
+    <tr>
+        <td>{% include "value.html" with field_name="master" index=0 %}</td>
+        <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="storage" index=0 %}</td>
+        <td>{% include "value.html" with field_name="crane_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="sling_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="date" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shift" index=0 %}</td>
+    </tr>
+</table>
 {% endblock %}

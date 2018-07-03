@@ -4,6 +4,7 @@
 {% block title %}СГОК таблица{% endblock %}
 
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             {% for column_name in sgok_table.columns %}
@@ -32,5 +33,6 @@
         {% endfor %}
     {% endif %}
     </tbody>
+</table>
 </table>
 {% endblock %}

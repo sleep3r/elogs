@@ -5,6 +5,7 @@
 
 {% block form_class %}row_of_tables{% endblock %}
 {% block table %}
+<table class="table table-bordered">
     <thead>
         <tr>
             <th colspan="3"> Установленные технологический режим </th>
@@ -96,6 +97,7 @@
             <td colspan="2"> {% include "value.html" with field_name="weight2_1" index=0 %}</td>
         </tr>
     </tbody>
+</table>
 {% endblock %}
 
 {% block additional_lower %}

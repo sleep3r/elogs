@@ -94,7 +94,7 @@ def set_global_context(context, key, value):
 
 @register.simple_tag
 def get_table_name(table_link):
-    return table_link.split('/')[-1].split('.')[0]
+    return '.'.join(table_link.split('/')[-1].split('.')[:-1])
 
 
 @register.filter('formatter')
