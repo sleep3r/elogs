@@ -36,25 +36,23 @@
                        {% endif %}
                        />
 
-                {% if page_mode == "validate"  or page_mode == "view" %}
-                    {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
-                    <!-- {{ field_comment_name }}
-                    {{ table_data|keyval:field_comment_name }}
-                    {{ comment }} -->
-                        <span class="popup-comment-content">
-                           <div class="comment-close-button"
-                                     onclick="hidePopups()">&#10006;</div>
-                           <textarea name="{{ field_comment_name }}"
-                                     placeholder="Комментарий..."
-                                     rows="2"
-                                     cols="50"
-                                     {% if page_mode == 'view' %}
-                                         readonly="readonly"
-                                     {% endif %}
-                                     >{{ comment }}</textarea>
-                        </span>
-                    {% endwith %}
-                {% endif %}
+                {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
+                <!-- {{ field_comment_name }}
+                {{ table_data|keyval:field_comment_name }}
+                {{ comment }} -->
+                    <span class="popup-comment-content">
+                       <div class="comment-close-button"
+                                 onclick="hidePopups()">&#10006;</div>
+                       <textarea name="{{ field_comment_name }}"
+                                 placeholder="Комментарий..."
+                                 rows="2"
+                                 cols="50"
+                                 {% if page_mode == 'view' %}
+                                     readonly="readonly"
+                                 {% endif %}
+                                 >{{ comment }}</textarea>
+                    </span>
+                {% endwith %}
 
                 {% if page_mode == "view" %}
                      <i class="material-icons comment-notification"
