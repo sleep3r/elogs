@@ -19,6 +19,8 @@ from utils.deep_dict import deep_dict
 fields_info_desc = deep_dict()
 
 fields_info_desc.leaching_express_analysis.vsns_table = vsns_table_desc
+fields_info_desc.leaching_express_analysis.thickeners_table = thickeners_table_desc
+fields_info_desc.leaching_express_analysis.zinc_pulp_table = zinc_pulp_desc
 fields_info_desc.leaching_express_analysis.appt_hydrometal_table = aph_table_desc
 fields_info_desc.leaching_express_analysis.agitators_table = agitator_table_desc
 

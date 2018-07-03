@@ -32,6 +32,58 @@ vsns.mng_correction = numeric_default
 vsns.master = text_default
 vsns_table_desc = vsns.clear_empty().get_dict()
 
+#------------------
+
+thickeners = deep_dict()
+thickeners.time = time_default
+
+thickeners.vs10_pH = ph_default
+thickeners.vs10_Cu = mgl_default
+thickeners.vs10_Fe = mgl_default
+thickeners.vs10_liquid_solid = numeric_default
+thickeners.ns10_pH = ph_default
+thickeners.ns10_liquid_solid = numeric_default
+
+thickeners.vs11_pH = ph_default
+thickeners.vs11_Cu = mgl_default
+thickeners.vs11_Fe = mgl_default
+thickeners.vs11_liquid_solid = numeric_default
+thickeners.ns11_pH = ph_default
+thickeners.ns11_liquid_solid = numeric_default
+
+thickeners.vs12_pH = ph_default
+thickeners.vs12_Cu = mgl_default
+thickeners.vs12_Fe = mgl_default
+thickeners.vs12_liquid_solid = numeric_default
+thickeners.ns12_pH = ph_default
+thickeners.ns12_liquid_solid = numeric_default
+
+
+thickeners_table_desc = thickeners.clear_empty().get_dict()
+
+#----------
+
+zinc_pulp = deep_dict()
+zinc_pulp.zn_pulp_liquid_solid = numeric_default
+zinc_pulp.zn_pulp_pH = ph_default
+zinc_pulp.zn_pulp_temperature = temperature_default
+zinc_pulp.cu_pulp_liquid_solid = numeric_default
+zinc_pulp.cu_pulp_before = numeric_default
+zinc_pulp.cu_pulp_after = numeric_default
+zinc_pulp.cu_pulp_tv = numeric_default
+zinc_pulp.iron_solution_h2so4 = mgl_default
+zinc_pulp.iron_solution_tv = mgl_default
+zinc_pulp.iron_solution_Sb = mgl_default
+zinc_pulp.iron_solution_Cu = mgl_default
+zinc_pulp.iron_solution_Fe = mgl_default
+zinc_pulp.iron_solution_specific_weight = mgl_default
+zinc_pulp.iron_solution_As = mgl_default
+zinc_pulp.iron_solution_Cl = mgl_default
+zinc_pulp.concentrate_Shlippe = gl_default
+zinc_pulp.active_PAV = mhour_default
+zinc_pulp.high_Fe = numeric_default
+
+zinc_pulp_desc = zinc_pulp.clear_empty().get_dict()
 
 aph = deep_dict()
 aph.mann1_pH = numeric_default

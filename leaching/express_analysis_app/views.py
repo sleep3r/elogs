@@ -40,9 +40,14 @@ def index(request):
     agitators_table.title = "Агитаторы очистки"
     agitators_table.name = "express_analysis/agitators_table.html"
 
-    context.tables = [
-        vsns_table,
-        appt_hydrometal_table,
-        agitators_table
-    ]
+    thickeners_table = deep_dict()
+    thickeners_table.title = "Сгустители"
+    thickeners_table.name = "express_analysis/thickeners_table.html"
+    context.thickeners_table.columns = [_("pH"), _("Медь")+ _(', мг/л'), _("Железо")+ _(', мг/л'), _("Ж:Т"), _("pH"), _("Ж:Т")] * 3
+
+    zinc_pulp_table = deep_dict()
+    zinc_pulp_table.title = "Цинковая пульпа"
+    zinc_pulp_table.name = "express_analysis/zinc_pulp_table.html"
+
+    context.tables = [vsns_table, appt_hydrometal_table,  thickeners_table, zinc_pulp_table, agitators_table]
     return HttpResponse(template.render(context, request))
