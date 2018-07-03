@@ -10,8 +10,7 @@
 
 {% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
-        {% with str_index=index|stringformat:"i" %}
-            {% with field_comment_name=field_name|add:"_comment"|add:str_index %}
+            {% with field_comment_name=field_name|add:"_comment" %}
                 {% with id=full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 
 
@@ -21,7 +20,7 @@
             {% set_global_context "onclick" "" %}
         {% endif %} -->
                 <input class="form-control general-value"
-                       oninput="on_input_change(this)"
+                       oninput="_.debounce(on_input_change)"
                        onchange="add_message(this)"
                        value="{{ val }}"
                        data-info="{{ info }}"
@@ -29,29 +28,41 @@
                        journal-page = "{{journal_page}}"
                        name="{{ field_name }}"
                        index = "{{index}}"
-                       {% if page_mode == 'view' %}
-                           readonly
+                       {% if page_mode == 'view' or page_mode == 'validate'%}
+                           readonly="readonly"
                        {% endif %}
-                       {% if page_mode == 'validate' %}
-                           onclick="showPopup(this)"
-                       {% endif %}/>
+                       {% if page_mode == 'validate'%}
+                           onclick="showValidatePopup(this)"
+                       {% endif %}
+                       />
 
-                {% if page_mode == 'validate' %}
+                {% if page_mode == "validate"  or page_mode == "view" %}
                     {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
-                        <span class="popup-comment-content" id="{{ field_comment_name }}" >
+                    <!-- {{ field_comment_name }}
+                    {{ table_data|keyval:field_comment_name }}
+                    {{ comment }} -->
+                        <span class="popup-comment-content">
+                           <div class="comment-close-button"
+                                     onclick="hidePopups()">&#10006;</div>
                            <textarea name="{{ field_comment_name }}"
                                      placeholder="Комментарий..."
-                                     id="{{ field_comment_name|add:"_input" }}"
                                      rows="2"
-                                     onblur="hidePopups(this)"
-                                     cols="50">
-                                {{ comment }}
-                            </textarea>
+                                     cols="50"
+                                     {% if page_mode == 'view' %}
+                                         readonly="readonly"
+                                     {% endif %}
+                                     >{{ comment }}</textarea>
                         </span>
                     {% endwith %}
                 {% endif %}
+
+                {% if page_mode == "view" %}
+                     <i class="material-icons comment-notification"
+                         onclick="showViewPopup(this)">mail_outline</i>
+                {% endif %}
+
+
                 {% endwith %}
             {% endwith %}
-        {% endwith %}
      {% endwith %}
 {% endwith %}
