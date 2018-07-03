@@ -55,4 +55,68 @@ aph.fe_shave = numeric_default
 aph_table_desc = aph.clear_empty().get_dict()
 
 
+agt = deep_dict()
+agt.a1314_Cd_before1 = numeric_default
+agt.a1314_Cu_before1 = numeric_default
+agt.a1314_Co_before1 = numeric_default
+agt.a15_pH_before1 = numeric_default
+agt.a15_Cu_before1 = numeric_default
+agt.a17_pH_before1 = numeric_default
+agt.a17_Cu_before1 = numeric_default
+agt.a19_H2SO4_before1 = numeric_default
+agt.a19_Cu_before1 = numeric_default
+
+agt.a1314_Cd_before2 = numeric_default
+agt.a1314_Cu_before2 = numeric_default
+agt.a1314_Co_before2 = numeric_default
+agt.a15_pH_before2 = numeric_default
+agt.a15_Cu_before2 = numeric_default
+agt.a17_pH_before2 = numeric_default
+agt.a17_Cu_before2 = numeric_default
+agt.a19_H2SO4_before2 = numeric_default
+agt.a19_Cu_before2 = numeric_default
+
+agt.a1314_Cd_before3 = numeric_default
+agt.a1314_Cu_before3 = numeric_default
+agt.a1314_Co_before3 = numeric_default
+agt.a15_pH_before3 = numeric_default
+agt.a15_Cu_before3 = numeric_default
+agt.a17_pH_before3 = numeric_default
+agt.a17_Cu_before3 = numeric_default
+agt.a19_H2SO4_before3 = numeric_default
+agt.a19_Cu_before3 = numeric_default
+
+agt.a1314_Cd_after1 = numeric_default
+agt.a1314_Cu_after1 = numeric_default
+agt.a1314_Co_after1 = numeric_default
+agt.a15_pH_after1 = numeric_default
+agt.a15_Cu_after1 = numeric_default
+agt.a17_pH_after1 = numeric_default
+agt.a17_Cu_after1 = numeric_default
+agt.a19_H2SO4_after1 = numeric_default
+agt.a19_Cu_after1 = numeric_default
+
+agt.a1314_Cd_after2 = numeric_default
+agt.a1314_Cu_after2 = numeric_default
+agt.a1314_Co_after2 = numeric_default
+agt.a15_pH_after2 = numeric_default
+agt.a15_Cu_after2 = numeric_default
+agt.a17_pH_after2 = numeric_default
+agt.a17_Cu_after2 = numeric_default
+agt.a19_H2SO4_after2 = numeric_default
+agt.a19_Cu_after2 = numeric_default
+
+agt.a1314_Cd_after3 = numeric_default
+agt.a1314_Cu_after3 = numeric_default
+agt.a1314_Co_after3 = numeric_default
+agt.a15_pH_after3 = numeric_default
+agt.a15_Cu_after3 = numeric_default
+agt.a17_pH_after3 = numeric_default
+agt.a17_Cu_after3 = numeric_default
+agt.a19_H2SO4_after3 = numeric_default
+agt.a19_Cu_after3 = numeric_default
+
+agt.comment = text_default
+agitator_table_desc = agt.clear_empty().get_dict()
+
 
