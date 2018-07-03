@@ -370,11 +370,11 @@ class DatabaseFiller:
         cinder_base = [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
         schieht_base = [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
         for i in range(100):
-            time = timezone.now() - datetime.timedelta(hours=2 * i)
+            time = timezone.now() - timedelta(hours=2 * i)
             cinder = [c + random.uniform(0, 2) for c in cinder_base]
             schieht = [s + random.uniform(0, 2) for s in schieht_base]
 
-            mp = MeasurementPair().add_weights(cinder, schieht, time, time - datetime.timedelta(minutes=30))
+            mp = MeasurementPair().add_weights(cinder, schieht, time, time - timedelta(minutes=30))
             mp.save()
 
 
@@ -593,7 +593,7 @@ class DatabaseFiller:
         # create journal and shift
         self.fill_employees()
         self.fill_journals()
-        self.fill_journal_pages()
+        # self.fill_journal_pages()
         self.fill_shifts()
 
         self.fill_fractional_app()
@@ -603,8 +603,8 @@ class DatabaseFiller:
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
 
-        for jp in JournalPage.objects.all():
-            self.fill_journalpages_data(journal_page=jp)
+        # for jp in JournalPage.objects.all():
+        #     self.fill_journalpages_data(journal_page=jp)
 
 
     def recreate_database(self, *args, **kwargs):

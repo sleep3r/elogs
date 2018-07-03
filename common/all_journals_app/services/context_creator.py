@@ -51,7 +51,7 @@ def get_page_mode(request):
     return page_mode
 
 
-def get_common_context(journal_name, request):
+def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
     page_id = request.GET.get('id', None)
@@ -63,7 +63,13 @@ def get_common_context(journal_name, request):
         page = JournalPage.objects.filter(
             journal_name=journal_name).order_by('-shift_date').first()
         if not page:
-            page = JournalPage(journal_name=journal_name)
+            page = JournalPage(
+                journal_name=journal_name,
+                shift_date=date.today(),
+                shift_order=1,
+                type=page_type,
+                plant=request.path.split("/")[1]
+            )
     page.save()
 
     res.full_data = get_full_data(page)
