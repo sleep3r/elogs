@@ -167,8 +167,8 @@ agt.a17_pH_after3 = numeric_default
 agt.a17_Cu_after3 = numeric_default
 agt.a19_H2SO4_after3 = numeric_default
 agt.a19_Cu_after3 = numeric_default
+agt.journal_comment = text_default
 
-agt.comment = text_default
 agitator_table_desc = agt.clear_empty().get_dict()
 
 
