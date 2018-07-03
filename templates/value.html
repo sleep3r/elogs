@@ -20,7 +20,7 @@
             {% set_global_context "onclick" "" %}
         {% endif %} -->
                 <input class="form-control general-value"
-                       oninput="_.debounce(on_input_change)"
+                       oninput="on_input_change(this)"
                        onchange="add_message(this)"
                        value="{{ val }}"
                        data-info="{{ info }}"

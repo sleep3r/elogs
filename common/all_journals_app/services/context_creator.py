@@ -34,10 +34,10 @@ def get_page_list(journal_name, request, page_type):
     return [today - datetime.timedelta(days=1*i) for i in range(30)]
 
 def get_page_mode(request):
-    page_mode = request.GET.get('page_mode') or "edit"
+    page_mode = request.GET.get('page_mode')
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
-    if page_mode == "edit":
+    if not page_mode:
         if plant == employee.plant:
             roles_with_edit_permission = ["laborant", "master"]
             roles_with_validate_permission = ["admin", "boss"]
