@@ -13,8 +13,8 @@ class CellValue(models.Model):
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
     field_name = models.CharField(max_length=128, verbose_name='Название поля')
     index = models.IntegerField(null=True, blank=True, default=None, verbose_name='Номер строчки')
-
     value = models.CharField(max_length=1024, verbose_name='Значение поля')
+    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return "journal_page: " + str(self.journal_page) + " table_name: " \

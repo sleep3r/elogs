@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
+from login_app.models import Employee
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage
@@ -24,7 +25,7 @@ def change_table(request):
     for field_name in request.POST:
         values = request.POST.getlist(field_name)
         for i, val in enumerate(values):
-            CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
+            CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn, responsible=request.user.employee).save()
     
     return {"status": 1}
 
