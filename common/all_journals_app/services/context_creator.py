@@ -8,6 +8,7 @@ from common.all_journals_app.fields_descriptions.fields_info import fields_info_
 from common.all_journals_app.models import CellValue, JournalPage
 from common.all_journals_app.fields_descriptions import fields_info
 from utils.deep_dict import deep_dict
+from login_app.models import Employee
 
 
 def get_full_data(page):
@@ -32,6 +33,22 @@ def get_page_list(journal_name, request, page_type):
     today = timezone.now().date()
     return [today - datetime.timedelta(days=1*i) for i in range(30)]
 
+def get_page_mode(request):
+    page_mode = request.GET.get('page_mode') or "edit"
+    employee = Employee.objects.get(user=request.user)
+    plant = request.path.split("/")[1]
+    if page_mode == "edit":
+        if plant == employee.plant:
+            roles_with_edit_permission = ["laborant", "master"]
+            roles_with_validate_permission = ["admin", "boss"]
+            if employee.position in roles_with_edit_permission:
+                page_mode = "edit"
+            if employee.position in roles_with_validate_permission:
+                page_mode = "validate"
+        else:
+            page_mode = "view"
+    return page_mode
+
 
 def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
@@ -41,14 +58,13 @@ def get_common_context(journal_name, request, page_type="shift"):
         type=page_type)[0]
     page.save()
 
-    res['full_data'] = get_full_data(page)
-    res['fields_info'] = get_fields_info()
+    res.full_data = get_full_data(page)
+    res.fields_info = get_fields_info()
 
     res.unfilled_cell = "Unfilled"
     res.unfilled_table = deep_dict()
     res.journal_name = page.journal_name
     res.journal_page = page.id
 
-    res.page_mode = request.GET.get('page_mode') or 'edit'
-
+    res.page_mode = get_page_mode(request)
     return res
