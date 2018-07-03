@@ -20,6 +20,10 @@ def index(request):
     vsns_table.title = "BCHC"
     vsns_table.name = "express_analysis/vsns_table.html"
 
+    appt_hydrometal_table = deep_dict()
+    appt_hydrometal_table.title = "Аппаратчик - гидрометаллург"
+    appt_hydrometal_table.name = "express_analysis/appt_hydrometal_table.html"
+
     context.vsns_table.columns = [_("Кобальт Co") + _(', мг/л'), _("Сурьма") + _(', мг/л'), _("Медь") + _(', мг/л'), _("Кадмий"),
                _("Твердое После 1ст") + _(', г/л'), "pH (BCHC)", _("Железо Fe") + _(', мг/л'), "As" + _(', мг/л'),
                _("Твёрдое") + _(', г/л'), _("Уд. вес"),
