@@ -29,5 +29,17 @@ def index(request):
                _("Выход по току"), _("Уд. вес"), _("Норма") + _(', мг/л'), _("Факт") + _(', мг/л'),
                _("Несоответствие") + _(', мг/л'), _("Коррекция"), _("Мастер")]
 
-    context.tables = [vsns_table]
+
+    thickeners_table = deep_dict()
+    thickeners_table.title = "Сгустители"
+    thickeners_table.name = "express_analysis/thickeners_table.html"
+
+    context.thickeners_table.columns = [_("pH"), _("Медь")+ _(', мг/л'), _("Железо")+ _(', мг/л'), _("Ж:Т"), _("pH"), _("Ж:Т")] * 3
+
+
+    zinc_pulp_table = deep_dict()
+    zinc_pulp_table.title = "Цинковая пульпа"
+    zinc_pulp_table.name = "express_analysis/zinc_pulp_table.html"
+
+    context.tables = [vsns_table, thickeners_table, zinc_pulp_table]
     return HttpResponse(template.render(context, request))
