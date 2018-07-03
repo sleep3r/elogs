@@ -97,6 +97,11 @@ def formatter(string, obj):
     return string.format(object)
 
 
+@register.filter(name='times')
+def times(number):
+    return range(number)
+
+
 @register.tag('for_or_create')
 def do_for_or_create(parser, token):
     bits = token.split_contents()

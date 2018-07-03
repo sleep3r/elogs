@@ -45,5 +45,5 @@ def index(request):
     zinc_pulp_table.title = "Цинковая пульпа"
     zinc_pulp_table.name = "express_analysis/zinc_pulp_table.html"
 
-    context.tables = [vsns_table, thickeners_table, zinc_pulp_table]
+    context.tables = [vsns_table, appt_hydrometal_table, thickeners_table, zinc_pulp_table]
     return HttpResponse(template.render(context, request))
