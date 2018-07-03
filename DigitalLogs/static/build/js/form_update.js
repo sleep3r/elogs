@@ -1,15 +1,8 @@
 /*jshint esversion: 6 */
 
 
-function on_form_change(form) {
-    console.log("on_form_change()");
-    clone_last_line(form);
-    clear_empty_lines(form);
-
-    if (!$(form).find()) {
-
-    }
-
+var send_form =  _.debounce((form) => {
+    console.log("send_form()");
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -17,16 +10,25 @@ function on_form_change(form) {
         success: console.log,
         dataType: "json"
     });
+}, 1500);
+
+
+function on_form_change(form) {
+    console.log("on_form_change()");
+    clone_last_line(form);
+    clear_empty_lines(form);
+
+    send_form(form);
 }
 
-function add_message(input) {
-    console.log("on_input_change()");
+
+var add_message_debounced = _.debounce((input) => {
+    console.log("add_message_debounced()");
 
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
-        $(input).addClass('red').removeClass('black');
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
@@ -39,7 +41,6 @@ function add_message(input) {
                 }
             }
         });
-
     } else{
         $.ajax({
             url: "/common/messages/del",
@@ -54,8 +55,14 @@ function add_message(input) {
             }
         });
     }
+}, 1500);
 
+
+function add_message(input) {
+    console.log("add_message()");
+    add_message_debounced(input)
 }
+
 
 function on_input_change(input) {
     console.log("on_input_change()");
@@ -64,17 +71,17 @@ function on_input_change(input) {
 
     input.type = info.type;
 
-    if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
-        $(input).addClass('red').removeClass('black');
-    } else {
-        $(input).addClass('black').removeClass('red')
-    }
-
-    if (info.type === "datalist") {
+    if (input.type === "number") {
+        if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
+            $(input).addClass('red').removeClass('black');
+        } else {
+            $(input).addClass('black').removeClass('red')
+        }
+    } else if (info.type === "datalist") {
         $(input).removeAttr("type");
         $(input).attr('list', 'datalist');
 
-        if ($('#datalist').length == 0) {
+        if ($('#datalist').length === 0) {
             $(input).after('<datalist id="datalist"></datalist>');
             info.options.forEach((name) => {
                 $("#datalist").append("<option>" + name + "</option>");
@@ -131,7 +138,7 @@ function clear_empty_lines(form) {
 }
 
 
-function showPopup(input) {
+function showValidatePopup(input) {
     comment = $(input).siblings()[0];
     comment_input = $(comment).children()[1];
 
@@ -141,6 +148,18 @@ function showPopup(input) {
     );
     $(comment).addClass("show");
     $(comment_input).focus();
+}
+
+function showViewPopup(icon) {
+    input = $(icon).siblings()[0];
+    comment = $(icon).siblings()[1];
+    comment_input = $(comment).children()[1];
+
+    $(input).css(
+        "background",
+        "radial-gradient(white 80%, #24A48A)"
+    );
+    $(comment).addClass("show");
 }
 
 
