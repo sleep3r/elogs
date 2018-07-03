@@ -18,8 +18,7 @@ def index(request):
     context.journal_title = 'Журнал по ремонту'
 
     repair_table = deep_dict()
-    repair_table.title = "Ремонты по Обжиговому цеху"
-    repair_table.name = "furnace_repair/repair.html"
+    repair_table.name = "furnace_repair/repair_table.html"
 
     context.tables = [
                        repair_table,

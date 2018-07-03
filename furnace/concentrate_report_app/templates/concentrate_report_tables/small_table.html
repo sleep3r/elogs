@@ -1,65 +1,59 @@
-{% load express_tags %}
+{% extends "table.html" %}
 
-{% with table_name="small_table" %}
-    {% with table_data=full_data|table_keyval:table_name %}
+{% block title %}Маленькая таблица{% endblock %}
 
-        {{ hello }}
-    <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-        <input hidden name="table_name" value="{{ table_name }}">
-        <input hidden name="journal_page" value="{{ journal_page }}">
-        <table class="table table-bordered">
-            <tr>
-                <th> Склад </th>
-                <th> Поступление контейнеров </th>
-                <th> Отгружено порожних </th>
-                <th> Высыпано контейнеров </th>
-                <th> Остаток пустых контейнеров </th>
-                <th> Остаток пустых контейнеров </th>
-                <th> Остаток бракованых контейнеров</th>
-                <th> Остаток скоб</th>
-                <th> Количество поддонов </th>
-                <th> Количество скоб </th>
-            </tr>
+{% block table %}
+<table class="table table-bordered">
+    <tr>
+        <th> Склад </th>
+        <th> Поступление контейнеров </th>
+        <th> Отгружено порожних </th>
+        <th> Высыпано контейнеров </th>
+        <th> Остаток пустых контейнеров </th>
+        <th> Остаток пустых контейнеров </th>
+        <th> Остаток бракованых контейнеров</th>
+        <th> Остаток скоб</th>
+        <th> Количество поддонов </th>
+        <th> Количество скоб </th>
+    </tr>
 
-            <tr>
-                <th>1</th>
-                <td>{% include "value.html" with field_name="containers_reciept1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="shipped_empty_num1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="poured_containers_num1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers11" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers21" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_defective_containers1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_braces1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_beds1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_stops1" index=0 %}</td>
-            </tr>
+    <tr>
+        <th>1</th>
+        <td>{% include "value.html" with field_name="containers_reciept1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers11" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers21" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops1" index=0 %}</td>
+    </tr>
 
-            <tr>
-                <th>2</th>
-                <td>{% include "value.html" with field_name="containers_reciept2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="shipped_empty_num2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="poured_containers_num2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers12" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers22" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_defective_containers2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_braces2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_beds2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_stops2" index=0 %}</td>
-            </tr>
+    <tr>
+        <th>2</th>
+        <td>{% include "value.html" with field_name="containers_reciept2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers12" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers22" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops2" index=0 %}</td>
+    </tr>
 
-            <tr>
-                <th>Итого</th>
-                <td>{% include "value.html" with field_name="containers_reciept_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="shipped_empty_num_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="poured_containers_num_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers1_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_empty_containers2_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_defective_containers_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_braces_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_beds_total" index=0 %}</td>
-                <td>{% include "value.html" with field_name="residue_stops_total" index=0 %}</td>
-            </tr>
-        </table>
-    </form>
-    {% endwith %}
-{% endwith %}
+    <tr>
+        <th>Итого</th>
+        <td>{% include "value.html" with field_name="containers_reciept_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers1_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers2_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops_total" index=0 %}</td>
+    </tr>
+</table>
+{% endblock %}

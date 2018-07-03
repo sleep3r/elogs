@@ -18,7 +18,6 @@ def index(request):
     context.journal_title = 'Журнал сменных производственных, тех. заданий'
 
     replaceable_tasks_table = deep_dict()
-    replaceable_tasks_table.title = "Технологические задания"
     replaceable_tasks_table.name = 'technologicaltasks/main_table.html'
 
     context.tables = [

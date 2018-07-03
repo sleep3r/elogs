@@ -44,24 +44,19 @@ def index(request):
     context.summary_table_id = 'summary_table'
 
     main_table = deep_dict()
-    main_table.title = "План загрузки шихты"
     main_table.name = 'tables/main_table.html'
 
     year_plan_schieht = deep_dict()
-    year_plan_schieht.title = "Расчет годового плана шихты"
     year_plan_schieht.name = "tables/year_plan_schieht.html"
 
     small_plan_table = deep_dict()
-    small_plan_table.title = "Какая-то таблица"
     small_plan_table.name = "tables/small_plan_table.html"
 
     supply_zinc_table = deep_dict()
-    supply_zinc_table.title = "Поставка цинковых концентратов"
     supply_zinc_table.name = "tables/supply_of_zinc_concentrates.html"
 
 
     summary_table = deep_dict()
-    summary_table.title = "НЗП и склады"
     summary_table.name = "tables/summary_table.html"
 
     context.tables = [

@@ -27,16 +27,12 @@ def tpp(request):
     upper_table = deep_dict()
     lower_table = deep_dict()
 
-    big_table.title = "Большая таблица"
     big_table.name = 'concentrate_report_tables/big_table.html'
 
-    small_table.title = "Маленькая таблица"
     small_table.name = 'concentrate_report_tables/small_table.html'
 
-    upper_table.title = "Верхняя таблица"
     upper_table.name = 'concentrate_report_tables/upper_table.html'
 
-    lower_table.title = "Нижняя таблица"
     lower_table.name = 'concentrate_report_tables/lower_table.html'
 
     context.tables = [upper_table, big_table, small_table, lower_table]
