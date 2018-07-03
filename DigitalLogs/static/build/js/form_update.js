@@ -198,6 +198,10 @@ function addCommentNotification(input) {
     }
 }
 
+function CollapseComment(elem) {
+    $(elem).next().collapse('toggle');
+}
+
 
 $(document).ready(function () {
     //document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input

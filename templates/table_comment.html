@@ -1,0 +1,13 @@
+
+<div {% if page_mode == 'validate' %}hidden{% endif %}>
+    <span onclick="CollapseComment(this)">Комментарий</span>
+    <div class="collapse table-comment-wrapper">
+        <textarea class="table-comment" name="comment"
+                  placeholder="Комментарий..."
+                  {% if page_mode == 'view' %}
+                    readonly="readonly"
+                  {% endif %}
+
+        >{{ comment }}</textarea>
+    </div>
+</div>

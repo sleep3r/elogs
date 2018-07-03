@@ -22,13 +22,15 @@
             <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)" class="{% block form_class %}{% endblock %}">
                 <input hidden name="table_name" value="{{ table_name }}">
                 <input hidden name="journal_page" value="{{ journal_page }}">
-                
+
                 {% block additional_upper %}{% endblock %}
-                
+
                 {% block table %}{% endblock %}
-                
+
                 {% block additional_lower %}{% endblock %}
-                
+
+                {% include "table_comment.html" with comment=table_data|keyval:"comment"|choose_val:0 %}
+
             </form>
             {% block js %}{% endblock %}
         </div>
