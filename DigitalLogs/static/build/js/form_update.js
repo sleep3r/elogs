@@ -35,7 +35,7 @@ var add_message_debounced = _.debounce((input) => {
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
-                if (json.result) {
+                if (json && json.result) {
                     console.log(json.result)
                 }
             }
@@ -48,7 +48,7 @@ var add_message_debounced = _.debounce((input) => {
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
-                if (json.result) {
+                if (json && json.result) {
                     console.log(json.result)
                 }
             }
@@ -150,6 +150,7 @@ function showValidatePopup(input) {
     $(comment).addClass("show");
     $(comment_input).focus();
 }
+
 
 function showViewPopup(icon) {
     input = $(icon).siblings()[0];

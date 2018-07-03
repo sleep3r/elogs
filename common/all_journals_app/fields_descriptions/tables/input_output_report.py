@@ -19,6 +19,7 @@ yps.month_smt = smt_default
 yps.day_smt = smt_default
 yps.tonns_a_year = ton_default
 yps.schieht_frac = percent_default
+yps.empty_field = text_default
 yps.zn = percent_default
 yps.s = percent_default
 yps.h2o = percent_default
