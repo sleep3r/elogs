@@ -23,7 +23,7 @@ fields_info_desc.leaching_express_analysis.thickeners_table = thickeners_table_d
 fields_info_desc.leaching_express_analysis.zinc_pulp_table = zinc_pulp_desc
 fields_info_desc.leaching_express_analysis.appt_hydrometal_table = aph_table_desc
 fields_info_desc.leaching_express_analysis.agitators_table = agitator_table_desc
-
+fields_info_desc.leaching_express_analysis.reagents_table = reagents_table_desc
 
 fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_desc
 

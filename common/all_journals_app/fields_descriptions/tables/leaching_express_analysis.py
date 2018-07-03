@@ -168,7 +168,37 @@ agt.a17_Cu_after3 = numeric_default
 agt.a19_H2SO4_after3 = numeric_default
 agt.a19_Cu_after3 = numeric_default
 agt.journal_comment = text_default
-
 agitator_table_desc = agt.clear_empty().get_dict()
 
+
+rt = deep_dict()
+rt.delivery_salt = numeric_default
+rt.delivery_Zn_dust = numeric_default
+rt.delivery_Mn_ore = numeric_default
+rt.delivery_Magnoflok = numeric_default
+rt.delivery_Fe_shave = numeric_default
+
+rt.income_salt = numeric_default
+rt.income_Zn_dust = numeric_default
+rt.income_Mn_ore = numeric_default
+rt.income_Magnaflok = numeric_default
+rt.income_Fe_shave = numeric_default
+
+rt.outcome_salt = numeric_default
+rt.outcome_Zn_1st = numeric_default
+rt.outcome_Zn_2st = numeric_default
+rt.outcome_Zn_3st = numeric_default
+rt.outcome_Zn_Cd = numeric_default
+rt.outcome_Mn_ore = numeric_default
+rt.outcome_Magnaflok = numeric_default
+rt.outcome_Fe_shave = numeric_default
+
+rt.passed_Zn_dust = numeric_default
+rt.passed_Mn_ore = numeric_default
+rt.passed_Magnaflok = numeric_default
+rt.passed_Fe_shave = numeric_default
+
+rt.state_fances = text_default
+
+reagents_table_desc = rt.clear_empty().get_dict()
 
