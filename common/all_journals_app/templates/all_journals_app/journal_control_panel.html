@@ -10,17 +10,24 @@
         </i>
     </button>
     <div>
-        <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
-           class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
-            View mode
-        </a>
-        <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
-           class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
-            Edit mode
-        </a>
+        {% if page_mode == "edit" or page_mode == "view" %}
+        {% if shift_is_active %}
+            <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
+               class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
+                View mode
+            </a>
+            <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
+               class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
+                Edit mode
+            </a>
+        {% endif %}
+        {% endif %}
+        <!-- {% if page_mode == "validate" or page_mode == "view" %}
         <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
            class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
             Validate mode
         </a>
+        {% endif %} -->
+
     </div>
 </div>
