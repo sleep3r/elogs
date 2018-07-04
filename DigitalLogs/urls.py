@@ -25,10 +25,8 @@ from common.all_journals_app.services import shifts
 urlpatterns = [
     url('^$', views.index),
     path('admin/', admin.site.urls),
-    url('leaching/repair', include('leaching.repair_app.urls')),
-    url('^leaching/', include('leaching.express_anal_app.urls')),
-    url('^leaching_new/journal', include('leaching.express_analysis_app.urls')),
-    url('^leaching_new/repair', include('leaching.repair_reports_app.urls')),
+    url('^leaching/journal', include('leaching.express_analysis_app.urls')),
+    url('^leaching/repair', include('leaching.repair_reports_app.urls')),
     url('furnace/fractional', include('furnace.fractional_app.urls')),
     url('furnace/concentrate_report_journal', include('furnace.concentrate_report_app.urls')),
     url('furnace/report_income_outcome_schieht', include('furnace.loading_shihta_app.urls')),

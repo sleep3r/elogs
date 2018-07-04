@@ -4,6 +4,12 @@
 <ul class="nav side-menu">
     <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
+            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
+                    <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
+                </ul>
+            </li>
             <li><a>{% trans "Обжиг" %}<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li class="sub_menu"><a href="/furnace/fractional">{% trans "Ситовой анализ огарка и шихты" %}</a></li>
@@ -15,18 +21,6 @@
                     <li class="sub_menu"><a href="/furnace/furnace_changed_fraction">{% trans "Рабочий журнал изменения фракции" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/reports_furnace_area">{% trans "Журнал печного участка" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/buff_journal">{% trans "Журнал Проверки" %}</a></li>
-                </ul>
-            </li>
-            <li><a>{% trans "Выщелачивание (NEW)" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/leaching_new/journal">{% trans "Журнал экспресс анализа" %}</a></li>
-                    <li class="sub_menu"><a href="/leaching_new/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
-                </ul>
-            </li>
-            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
-                    <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
                 </ul>
             </li>
             <li><a>{% trans "Электролиз" %}<span class="fa fa-chevron-down"></span></a>

@@ -29,7 +29,6 @@ def index(request):
                                   _("Несоответствие") + _(', мг/л'), _("Коррекция"), _("Мастер")]
 
     shift_info_table = deep_dict()
-    shift_info_table.title = "Смена"
     shift_info_table.name = "express_analysis/shift_info_table.html"
 
     vsns_table = deep_dict()

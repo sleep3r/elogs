@@ -15,8 +15,7 @@ def index(request):
     template = loader.get_template('common.html')
 
     left_table = deep_dict()
-    left_table.title = "Первая"
-    left_table.name = "repair_reports/repair.html"
+    left_table.name = "repair_reports/repair_table.html"
 
     context.tables = [left_table]
     return HttpResponse(template.render(context, request))
