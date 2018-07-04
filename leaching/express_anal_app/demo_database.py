@@ -6,6 +6,8 @@ from itertools import product
 from random import randint
 
 from django.db.models import Model
+# from django.contrib.auth.model import Group, Permission
+# from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
 from furnace.fractional_app.models import *
@@ -571,6 +573,52 @@ class DatabaseFiller:
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
                 attribute(journal_page=journal_page)
 
+    def create_permissions_and_groups(self):
+
+        # Plants permission
+        content_type = ContentType.objects.get_for_model(Plant)
+        modify_leaching = Permission(
+            name="Modify Leaching Plant",
+            codename="modify_leaching",
+            content_type=content_type
+        )
+        modify_leaching.save()
+        modify_furnace = Permission(
+            name="Modify Furnace Plant",
+            codename="modify_furnace",
+            content_type=content_type
+        )
+        modify_furnace.save()
+        modify_electrolysis= Permission(
+            name="Modify Electrolysis Plant",
+            codename="modify_electrolysis",
+            content_type=content_type
+        )
+        modify_electrolysis.save()
+
+        # Cell permissions
+        content_type = ContentType.objects.get_for_model(CellValue)
+        validate_cells = Permission(
+            name="Validate Cells",
+            codename="validate_cells",
+            content_type=content_type
+        )
+        validate_cells.save()
+
+        edit_cells = Permission(
+            name="Validate Cells",
+            codename="validate_cells",
+            content_type=content_type
+        )
+
+        # Groups
+        laborants = Group(
+            name="Laborant",
+            permissions=[]  )
+
+
+
+
     def clean_database(self):
         exception_models = [User, Employee, Shift, Journal, JournalTable, Model]
 
@@ -588,7 +636,7 @@ class DatabaseFiller:
                 db_models.append(obj)
 
         db_models.extend([Journal, Shift, Employee])
-        db_models.extend([JournalPage, CellValue])
+        db_models.extend([JournalPage, CellValue, Plant])
 
         for u in User.objects.all():  # delete user
             if not u.username == 'inframine' and not u.is_superuser:
@@ -599,6 +647,7 @@ class DatabaseFiller:
 
     def create_demo_database(self):
         # create journal and shift
+        self.fill_plants()
         self.fill_employees()
         self.fill_journals()
         self.fill_journal_pages()

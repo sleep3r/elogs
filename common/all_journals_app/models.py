@@ -17,11 +17,6 @@ class Plant(models.Model):
 
 
 class JournalPage(models.Model):
-    # NUMBER_OF_SHIFTS = {
-    #     'leaching': 2,
-    #     'furnace': 3,
-    #     'electrolysis': 4
-    # }
     type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
                                                      ('equipment', 'Оборудование'),
                                                      ('month', 'Месяц')))
