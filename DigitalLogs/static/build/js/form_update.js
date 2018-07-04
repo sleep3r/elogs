@@ -188,8 +188,8 @@ function hidePopusOnMouseUp(event) {
 }
 
 function addCommentNotification(input) {
-    comment = $(input).siblings()[0];
-    comment_notification = $(input).siblings()[1];
+    comment = $(input).siblings("span")[0];
+    comment_notification = $(input).siblings("i")[0];
     comment_input = $(comment).children()[1];
     console.log($(comment_input).text());
     if ($(comment_input).text()) {
