@@ -41,7 +41,7 @@ def get_page_mode(request, page):
     plant_permission_name = app + ".modify_" + plant
     if not page_mode:
         if employee.user.has_perm(plant_permission_name):
-            print(page.shift_is_active, employee.user.has_perm(app + ".edit_cells"))
+            print(page.shift_is_active, employee.user.has_perm(app + ".edit_cells"), employee.user.has_perm(app + ".validate_cells"))
             if page.shift_is_active and employee.user.has_perm(app + ".edit_cells"):
                 return "edit"
             if employee.user.has_perm(app + ".validate_cells"):

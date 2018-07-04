@@ -109,9 +109,9 @@ function line_is_empty(tr_line) {
 
 function clone_last_line(form) {
 
-    const table = $(form).find("table");
+    const table = $(form).find("table:not(.table-insided)");
     const last_line = table.find(".indexed-line:last");
-
+    console.log(line_is_empty(last_line))
     if (!line_is_empty(last_line)) {
         let new_last_line = last_line.clone();
         new_last_line.find("input").val("");
