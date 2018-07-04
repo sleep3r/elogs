@@ -1,5 +1,4 @@
-import datetime
-from datetime import date
+from datetime import date, datetime
 from pprint import pprint
 
 from django.utils import timezone
@@ -55,22 +54,23 @@ def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
     page_id = request.GET.get('id', None)
-    plant = request.path.split("/")[1]
+    plant_name = request.path.split("/")[1]
+    plant = Plant.objects.get(name=plant_name)
     # get exact journal page
     if page_id:
         page = JournalPage.objects.get(id=page_id)
     # get latest journal page
     else:
-        page = JournalPage.objects.filter(
-            journal_name=journal_name).order_by('-shift_date').first()
-        if not page:
-            page = JournalPage(
+        for shift_order in range(1, plant.number_of_shifts+1):
+            page = JournalPage.objects.get_or_create(
                 journal_name=journal_name,
                 shift_date=date.today(),
-                shift_order=1,
+                shift_order=shift_order,
                 type=page_type,
-                plant=Plant.objects.get(name=plant)
-            )
+                plant=plant
+            )[0]
+            if page.shift_is_active:
+                break
     page.save()
 
     res.full_data = get_full_data(page)
