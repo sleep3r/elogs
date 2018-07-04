@@ -221,3 +221,14 @@ loads.bunkers_oc = numeric_default
 
 loads.description  = text_default
 loads_table_desc = loads.clear_empty().get_dict()
+
+sample = deep_dict()
+sample.time = time_default
+sample.Cd = numeric_default
+sample.Cu = numeric_default
+sample.VIU1 = numeric_default
+sample.VIU2 = numeric_default
+sample.VIU3 = numeric_default
+
+
+sample_table_desc = sample.clear_empty().get_dict()

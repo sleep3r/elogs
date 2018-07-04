@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load express_tags %}
+
+
+{% with table_name="sample_table" %}
+<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+    <input hidden name="table_name" value="{{ table_name }}">
+    <input hidden name="journal_page" value="{{ journal_page }}">
+    {% with table_data=full_data|table_keyval:table_name %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>{% trans "Время" %}</th>
+                <th>{% trans "Cd, мг/л" %}</th>
+                <th>{% trans "Cu, мг/л" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for idx in 5|times %}
+            <tr data-number="{{ idx }}">
+                <td>{% include "value.html" with field_name="time" index=idx %}</td>
+                <td>{% include "value.html" with field_name="Cd" index=idx %}</td>
+                <td>{% include "value.html" with field_name="Cu" index=idx %}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th>{% trans "ВИУ" %}</th>
+                <td>{% include "value.html" with field_name="VIU1" index=5 %}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endwith %}
+</form>
+{% endwith %}

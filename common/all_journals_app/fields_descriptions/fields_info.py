@@ -25,6 +25,8 @@ fields_info_desc.leaching_express_analysis.appt_hydrometal_table = aph_table_des
 fields_info_desc.leaching_express_analysis.agitators_table = agitator_table_desc
 fields_info_desc.leaching_express_analysis.reagents_table = reagents_table_desc
 fields_info_desc.leaching_express_analysis.cinder_table = cinder_table_desc
+fields_info_desc.leaching_express_analysis.sample_table = sample_table_desc
+
 
 
 fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_desc
