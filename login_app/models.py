@@ -18,8 +18,8 @@ class Employee(models.Model):
                                                                                     ('leaching', 'Выщелачивание'),
                                                                                     ('electrolysis', 'Электролиз'),
                                                                                     ))
-    csrf = models.CharField(max_length=CSRF_LENGTH, default='')
-    owned_journal_pages = models.ManyToManyField(JournalPage)
+    csrf = models.CharField(max_length=CSRF_LENGTH, default=' ')
+    owned_journal_pages = models.ManyToManyField(JournalPage, blank=True)
 
     def __str__(self):
         return f'{self.name}'

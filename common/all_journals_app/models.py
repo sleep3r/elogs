@@ -21,7 +21,6 @@ class Plant(models.Model):
 
 
 class JournalPage(models.Model):
-
     type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
                                                      ('equipment', 'Оборудование'),
                                                      ('month', 'Месяц')))
