@@ -536,7 +536,10 @@ class DatabaseFiller:
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_journal_pages(self):
-        JournalPage(type="shift", journal_name="concentrate_report_journal").save()
+        JournalPage(
+            type="shift",
+            journal_name="concentrate_report_journal",
+            plant=Plant.objects.get(name="furnace")).save()
 
     def fill_shifts(self):
         dates = [parse('10-10-2015'), parse('12-10-2015')]
@@ -550,6 +553,11 @@ class DatabaseFiller:
             sh.laborant = random.choice(Employee.objects.filter(position='laborant'))
             sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
             sh.save()
+
+    def fill_plants(self):
+        Plant(name="furnace", number_of_shifts=3).save()
+        Plant(name="electrolysis", number_of_shifts=4).save()
+        Plant(name="leaching", number_of_shifts=2).save()
 
     def fill_shift_data(self, shift):
         for name in dir(self):
@@ -593,7 +601,7 @@ class DatabaseFiller:
         # create journal and shift
         self.fill_employees()
         self.fill_journals()
-        # self.fill_journal_pages()
+        self.fill_journal_pages()
         self.fill_shifts()
 
         self.fill_fractional_app()
@@ -603,8 +611,8 @@ class DatabaseFiller:
         for sh in Shift.objects.all():
             self.fill_shift_data(shift=sh)
 
-        # for jp in JournalPage.objects.all():
-        #     self.fill_journalpages_data(journal_page=jp)
+        for jp in JournalPage.objects.all():
+            self.fill_journalpages_data(journal_page=jp)
 
 
     def recreate_database(self, *args, **kwargs):
