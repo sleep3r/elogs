@@ -61,7 +61,9 @@ def index(request):
     schieht_table.title = "Шихта"
     schieht_table.name = "express_analysis/schieht_table.html"
 
-
+    loads_table = deep_dict()
+    loads_table.title = "Нагрузки"
+    loads_table.name = "express_analysis/loads_table.html"
 
     context.tables = [
         vsns_table,
@@ -71,7 +73,8 @@ def index(request):
         agitators_table,
         cinder_table,
         schieht_table,
-        reagents_table
+        reagents_table,
+        loads_table
     ]
 
     return HttpResponse(template.render(context, request))

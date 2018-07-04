@@ -204,7 +204,20 @@ cn.day_total = numeric_default
 cn.in_process = numeric_default
 cinder_table_desc = cn.clear_empty().get_dict()
 
+
 schieht = deep_dict()
 schieht.value = numeric_default
 schieht.name = text_default
 schieht_table_desc = schieht.clear_empty().get_dict()
+
+
+loads = deep_dict()
+loads.time7 = numeric_default
+loads.time12 = numeric_default
+loads.counter = numeric_default
+loads.bunker_cvco = numeric_default
+loads.silos = numeric_default
+loads.bunkers_oc = numeric_default
+
+loads.description  = text_default
+loads_table_desc = loads.clear_empty().get_dict()
