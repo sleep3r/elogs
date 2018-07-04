@@ -3,6 +3,11 @@ from datetime import time, date, datetime, timedelta
 
 
 class Plant(models.Model):
+    NUMBER_OF_SHIFTS = {
+        'leaching': 2,
+        'furnace': 3,
+        'electrolysis': 4
+    }
     name = models.CharField(null=True,
                              blank=True,
                              default='leaching',
@@ -10,10 +15,9 @@ class Plant(models.Model):
                              choices=(('leaching', 'Выщелачивание'),
                                       ('furnace', 'Обжиг'),
                                       ('electrolysis', 'Электролиз')))
-    number_of_shifts = models.IntegerField(null=True,
-                                      blank=True,
-                                      default=1,
-                                      verbose_name='Количестов смен')
+    @property
+    def number_of_shifts(self):
+        return Plant.NUMBER_OF_SHIFTS[self.name]
 
 
 class JournalPage(models.Model):
@@ -24,14 +28,8 @@ class JournalPage(models.Model):
 
     # for shift type
     plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
-    shift_order = models.IntegerField(null=True,
-                                      blank=True,
-                                      default=1,
-                                      verbose_name='Номер смены')
-    shift_date = models.DateField(null=True,
-                                  blank=True,
-                                  default=date(year=1999, month=6, day=15),
-                                  verbose_name='Дата начала смены')
+    shift_order = models.IntegerField(verbose_name='Номер смены')
+    shift_date = models.DateField(verbose_name='Дата начала смены')
 
     @property
     def shift_start_time(self):
@@ -43,6 +41,10 @@ class JournalPage(models.Model):
     def shift_end_time(self):
         shift_length = timedelta(hours=24 // self.plant.number_of_shifts)
         return self.shift_start_time + shift_length
+
+    @property
+    def shift_is_active(self):
+        return self.shift_start_time <= datetime.now() <= self.shift_end_time
 
     class Meta:
         unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name']

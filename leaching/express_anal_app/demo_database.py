@@ -579,9 +579,9 @@ class DatabaseFiller:
             sh.save()
 
     def fill_plants(self):
-        Plant(name="furnace", number_of_shifts=3).save()
-        Plant(name="electrolysis", number_of_shifts=4).save()
-        Plant(name="leaching", number_of_shifts=2).save()
+        Plant(name="furnace").save()
+        Plant(name="electrolysis").save()
+        Plant(name="leaching").save()
 
     def fill_shift_data(self, shift):
         for name in dir(self):
