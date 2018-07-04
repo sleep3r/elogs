@@ -6,7 +6,9 @@
 <input hidden name="view"
       value={% if page_mode == 'view' %} True {% endif %}>
 
-{% include "all_journals_app/journal_control_panel.html" %}
+{% if page_type == 'shift' %}
+    {% include "all_journals_app/journal_control_panel.html" %}
+{% endif %}
 
 {% for table in tables %}
     {% get_table_name table.name as tn %}

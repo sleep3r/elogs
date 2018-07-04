@@ -28,12 +28,12 @@ class JournalPage(models.Model):
 
     # for shift type
     plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
-    shift_order = models.IntegerField(verbose_name='Номер смены')
-    shift_date = models.DateField(verbose_name='Дата начала смены')
+    shift_order = models.IntegerField(blank=True, verbose_name='Номер смены')
+    shift_date = models.DateField(blank=True, verbose_name='Дата начала смены')
 
     @property
     def shift_start_time(self):
-        shift_hour = (8 + (self.shift_order-1) * self.plant.number_of_shifts) % 24
+        shift_hour = (8 + (self.shift_order-1) * (24//self.plant.number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
         return datetime.combine(self.shift_date, shift_time)
 

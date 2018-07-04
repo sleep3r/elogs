@@ -52,25 +52,42 @@ def get_page_mode(request, page):
 
 def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
+    res.page_type = page_type
 
     res.page_id = request.GET.get('id', None)
     plant_name = request.path.split("/")[1]
     plant = Plant.objects.get(name=plant_name)
     # get exact journal page
-    if res.page_id:
-        page = JournalPage.objects.get(id=res.page_id)
-    # get latest journal page
-    else:
-        for shift_order in range(1, plant.number_of_shifts+1):
+
+    if res.page_type == 'shift':
+        if res.page_id:
+            page = JournalPage.objects.get(id=res.page_id)
+        else:
+            for shift_order in range(1, plant.number_of_shifts+1):
+                page = JournalPage.objects.get_or_create(
+                    journal_name=journal_name,
+                    shift_date=date.today(),
+                    shift_order=shift_order,
+                    type=page_type,
+                    plant=plant
+                )[0]
+                if page.shift_is_active:
+                    break
+        res.shift_is_active = page.shift_is_active
+        res.shift_order = page.shift_order
+        res.shift_date = page.shift_date
+        res.page_mode = get_page_mode(request, page)
+
+    if res.page_type == 'equipment':
+        if res.page_id:
+            page = JournalPage.objects.get(id=res.page_id)
+        else:
             page = JournalPage.objects.get_or_create(
                 journal_name=journal_name,
-                shift_date=date.today(),
-                shift_order=shift_order,
-                type=page_type,
-                plant=plant
+                plant=plant,
+                type=res.page_type
             )[0]
-            if page.shift_is_active:
-                break
+
     page.save()
 
     res.full_data = get_full_data(page)
@@ -81,8 +98,5 @@ def get_common_context(journal_name, request, page_type="shift"):
     res.journal_name = page.journal_name
     res.journal_page = page.id
 
-    res.shift_is_active = page.shift_is_active
-    res.shift_order = page.shift_order
-    res.shift_date = page.shift_date
-    res.page_mode = get_page_mode(request, page)
+
     return res
