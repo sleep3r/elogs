@@ -61,6 +61,10 @@ def choose_val(field_info, index):
 def stack(a, b):
     return a + b
 
+@register.filter
+def index(sequence, position):
+    return sequence[position]
+
 
 @register.filter(name='split')
 def split(value, arg):
