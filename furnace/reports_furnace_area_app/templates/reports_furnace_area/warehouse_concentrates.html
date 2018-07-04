@@ -1,58 +1,54 @@
+{% extends "table.html" %}
 {% load express_tags %}
 
+{% block title %}Склад концентратов{% endblock %}
 
-{% with table_name="page1_table5" %}
-<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
-    <input hidden name="table_name" value="{{ table_name }}">
-    <input hidden name="journal_page" value="{{ journal_page }}">
-    {% with table_data=full_data|table_keyval:table_name %}
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th rowspan="2" colspan="2"> Загрузка концентратов </th>
-                <th colspan="4"> Подход вагонов </th>
-                <th> Шихта </th>
-            </tr>
-            <tr>
-                <th colspan="2"> Разгружено п/вагонов </th>
-                <th> На станции </th>
-                <th> В отгрузке </th>
-                <td>{% include "value.html" with field_name="shihta" index=0 %}</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th> За смену, вмт </th>
-                <th> За сутки, вмт </th>
-                <th> За смену </th>
-                <th> За сутки </th>
-                <td rowspan="4">{% include "value.html" with field_name="on_station" index=0 %}</td>
-                <td rowspan="4">{% include "value.html" with field_name="unload" index=0 %}</td>
-                <td>Дробилка №</td>
-            </tr>
-            <tr>
-                <td>{% include "value.html" with field_name="r1_per_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r1_per_day" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r1_unload_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r1_unload_day" index=0 %}</td>
-                <td>{% include "value.html" with field_name="crusher_number" index=0 %}</td>
-            </tr>
-            <tr>
-                <td>{% include "value.html" with field_name="r2_per_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r2_per_day" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r2_unload_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r2_unload_day" index=0 %}</td>
-                <td> Влага: </td>
-            </tr>
-            <tr>
-                <td>{% include "value.html" with field_name="r3_per_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r3_per_day" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r3_unload_shift" index=0 %}</td>
-                <td>{% include "value.html" with field_name="r3_unload_day" index=0 %}</td>
-                <td>{% include "value.html" with field_name="moisture" index=0 %}</td>
-            </tr>
-        </tbody>
-    </table>
-    {% endwith %}
-</form>
-{% endwith %}
+{% block table %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th rowspan="2" colspan="2"> Загрузка концентратов </th>
+            <th colspan="4"> Подход вагонов </th>
+            <th> Шихта </th>
+        </tr>
+        <tr>
+            <th colspan="2"> Разгружено п/вагонов </th>
+            <th> На станции </th>
+            <th> В отгрузке </th>
+            <td>{% include "value.html" with field_name="shihta" index=0 %}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th> За смену, вмт </th>
+            <th> За сутки, вмт </th>
+            <th> За смену </th>
+            <th> За сутки </th>
+            <td rowspan="4">{% include "value.html" with field_name="on_station" index=0 %}</td>
+            <td rowspan="4">{% include "value.html" with field_name="unload" index=0 %}</td>
+            <td>Дробилка №</td>
+        </tr>
+        <tr>
+            <td>{% include "value.html" with field_name="r1_per_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r1_per_day" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r1_unload_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r1_unload_day" index=0 %}</td>
+            <td>{% include "value.html" with field_name="crusher_number" index=0 %}</td>
+        </tr>
+        <tr>
+            <td>{% include "value.html" with field_name="r2_per_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r2_per_day" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r2_unload_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r2_unload_day" index=0 %}</td>
+            <td> Влага: </td>
+        </tr>
+        <tr>
+            <td>{% include "value.html" with field_name="r3_per_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r3_per_day" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r3_unload_shift" index=0 %}</td>
+            <td>{% include "value.html" with field_name="r3_unload_day" index=0 %}</td>
+            <td>{% include "value.html" with field_name="moisture" index=0 %}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

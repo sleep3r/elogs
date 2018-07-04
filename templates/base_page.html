@@ -35,12 +35,13 @@
     <link href="/static/build/css/journal.css" rel="stylesheet">
     <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
     <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="/static/vendors/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     {% endblock %}
     {% block extracss %}
     {% endblock %}
     <!-- jQuery -->
     <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="/static/vendors/"></script>
     <script src="/static/vendors/underscore/underscore-min.js"></script>
 </head>
 <body class="nav-md">
@@ -76,12 +77,18 @@
             </div>
         </div>
     </div>
+    {% include "modals/pick_shift.html" %}
     {% block footer %}
     <!-- Bootstrap -->
     <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/static/vendors/moment/min/moment.min.js"></script>
     <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="/static/build/js/common.js"></script>
+    <script src="/static/build/js/leaching_edit.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="/static/vendors/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="/static/build/js/datepicker.js"></script>
+    <script src="/static/build/js/shift.js"></script>
     {% endblock %}
 </body>
 </html>

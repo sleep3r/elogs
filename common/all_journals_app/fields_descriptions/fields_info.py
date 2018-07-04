@@ -38,20 +38,20 @@ fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_d
 
 fields_info_desc.concentrate_report_journal.big_table = big_table_desc
 fields_info_desc.concentrate_report_journal.small_table = small_table_desc
-fields_info_desc.concentrate_report_journal.upper_fields = upper_table_desc
-fields_info_desc.concentrate_report_journal.lower_fields = lower_table_desc
+fields_info_desc.concentrate_report_journal.upper_table = upper_table_desc
+fields_info_desc.concentrate_report_journal.lower_table = lower_table_desc
 
 fields_info_desc.report_income_outcome_schieht.main_table = main_table_desc
-fields_info_desc.report_income_outcome_schieht.supply_zinc_table = supply_zinc_desc
+fields_info_desc.report_income_outcome_schieht.supply_of_zinc_concentrates = supply_zinc_desc
 fields_info_desc.report_income_outcome_schieht.year_plan_schieht = year_plan_schieht_desc
 fields_info_desc.report_income_outcome_schieht.summary_table = summary_table_desc
 
-fields_info_desc.metals_compute.metals_compute_table = metals_main_desc
+fields_info_desc.metals_compute.main_table = metals_main_desc
 fields_info_desc.metals_compute.sns_table = sns_table_desc
 fields_info_desc.metals_compute.sgok_table = sgok_table_desc
 fields_info_desc.metals_compute.gof_table = gof_table_desc
 
-fields_info_desc.technological_tasks.replaceable_tasks_table = technologial_tasks_main_desc
+fields_info_desc.technological_tasks.main_table = technologial_tasks_main_desc
 fields_info_desc.furnace_repair.repair_table = repair_table_desc
 fields_info_desc.furnace_changed_fraction.main_table = change_fraction_table_desc
 
@@ -61,7 +61,7 @@ fields_info_desc.electrolysis_technical_report_3_degree.left_table = t3.left_tab
 fields_info_desc.electrolysis_technical_report_3_degree.right_table = t3.right_table_desc
 fields_info_desc.electrolysis_technical_report_12_degree.left_table = t12.left_table_desc
 fields_info_desc.electrolysis_technical_report_12_degree.right_table = t12.right_table_desc
-fields_info_desc.electrolysis_repair_report_tables.main_table1 = repair_main_table_desc
+fields_info_desc.electrolysis_repair_report_tables.main_table = repair_main_table_desc
 
 fields_info_desc.masters_report.seria1_table = seria1_table_desc
 fields_info_desc.masters_report.seria3_table = seria3_table_desc
@@ -75,17 +75,17 @@ fields_info_desc.masters_report.last_table = last_table_desc
 
 fields_info_desc.reports_furnace_area.main_table = fa_main_table_desc
 fields_info_desc.reports_furnace_area.udel_table = udel_table_desc
-fields_info_desc.reports_furnace_area.page1_table3 = page1_table3_desc
-fields_info_desc.reports_furnace_area.page1_table4 = electro_filters_desc
-fields_info_desc.reports_furnace_area.page1_table5 = wh_concentrates_desc
-fields_info_desc.reports_furnace_area.page1_table6 = air_machines_desc
-fields_info_desc.reports_furnace_area.page1_table7 = page1_fences_desc
+fields_info_desc.reports_furnace_area.area_class_cinder = page1_table3_desc
+fields_info_desc.reports_furnace_area.electrofilter = electro_filters_desc
+fields_info_desc.reports_furnace_area.warehouse_concentrates = wh_concentrates_desc
+fields_info_desc.reports_furnace_area.airmachines = air_machines_desc
+fields_info_desc.reports_furnace_area.fences_table = page1_fences_desc
 
-fields_info_desc.reports_furnace_area.table1 = page2_table1_desc
-fields_info_desc.reports_furnace_area.table2 = page2_table2_desc
-fields_info_desc.reports_furnace_area.table3 = page2_table3_desc
-fields_info_desc.reports_furnace_area.table4 = page2_table4_desc
-fields_info_desc.reports_furnace_area.table5 = page2_table5_desc
+fields_info_desc.reports_furnace_area.concentration_by_time_table = page2_table1_desc
+fields_info_desc.reports_furnace_area.places_of_sampling_table = page2_table2_desc
+fields_info_desc.reports_furnace_area.corrective_actions_table = page2_table3_desc
+fields_info_desc.reports_furnace_area.self_protection_table = page2_table4_desc
+fields_info_desc.reports_furnace_area.worth_table = page2_table5_desc
 
 
 bf = deep_dict()

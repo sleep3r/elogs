@@ -22,19 +22,15 @@ def index(request):
     context.journal_title = 'Рассчёт металлов'
 
     main_table = deep_dict()
-    main_table.title = "Среднее содержание за месяц"
     main_table.name = 'metals_compute/main_table.html'
 
     sns_table = deep_dict()
-    sns_table.title = "СНС"
     sns_table.name = "metals_compute/sns_table.html"
 
     sgok_table = deep_dict()
-    sgok_table.title = "СГОК таблица"
     sgok_table.name = "metals_compute/sgok_table.html"
 
     gof_table = deep_dict()
-    gof_table.title = "ГОФ таблица"
     gof_table.name = "metals_compute/gof_table.html"
 
     context.tables = [

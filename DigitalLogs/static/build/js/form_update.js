@@ -24,7 +24,6 @@ function on_form_change(form) {
 
 var add_message_debounced = _.debounce((input) => {
     console.log("add_message_debounced()");
-
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
@@ -36,7 +35,7 @@ var add_message_debounced = _.debounce((input) => {
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
-                if (json.result) {
+                if (json && json.result) {
                     console.log(json.result)
                 }
             }
@@ -49,7 +48,7 @@ var add_message_debounced = _.debounce((input) => {
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
-                if (json.result) {
+                if (json && json.result) {
                     console.log(json.result)
                 }
             }
@@ -69,7 +68,9 @@ function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
-    input.type = info.type;
+
+        input.type = info.type;
+
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -187,8 +188,8 @@ function hidePopusOnMouseUp(event) {
 }
 
 function addCommentNotification(input) {
-    comment = $(input).siblings()[0];
-    comment_notification = $(input).siblings()[1];
+    comment = $(input).siblings("span")[0];
+    comment_notification = $(input).siblings("i")[0];
     comment_input = $(comment).children()[1];
     console.log($(comment_input).text());
     if ($(comment_input).text()) {
@@ -196,10 +197,14 @@ function addCommentNotification(input) {
     }
 }
 
+function CollapseComment(elem) {
+    $(elem).next().collapse('toggle');
+}
+
 
 $(document).ready(function () {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-        on_input_change(input);
+       on_input_change(input);
     });
 
     $("form").trigger("input"); // Process initial table data

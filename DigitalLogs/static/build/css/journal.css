@@ -357,6 +357,10 @@ input[readonly] {
     opacity: 1;
 }
 
+.table-comment {
+    width: 100%;
+    resize: vertical;
+}
 
 /*.sticky + .content {*/
         /*padding-top: 100px;*/

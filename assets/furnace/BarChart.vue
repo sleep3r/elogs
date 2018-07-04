@@ -124,9 +124,9 @@ export default {
             .call(d3.axisBottom(x))
             .append("text")
               .attr("x", width - 6)
-              .attr("dy", "3.5em")
+              .attr("dy", "2.5em")
               .attr("text-anchor", "end")
-              .text("Размер")
+              .text("Фракция, мкм")
 
           g.append("g")
             .attr("class", "axis axis--y")
@@ -136,7 +136,7 @@ export default {
               .attr("y", 6)
               .attr("dy", "-1.75em")
               .attr("text-anchor", "end")
-              .text("Фракция")
+              .text("Массовый процент, %")
       }
     }
   }
@@ -161,11 +161,11 @@ svg.prediction .bar rect {
   fill: url('#gradOrange');
   fill-opacity: 0.5;
 }
-
+/*
 svg.labels .bar rect:hover {
-//  fill: rgb(28, 187, 156);
+  fill: rgb(28, 187, 156);
 }
-
+*/
 .bar text, .axis text {
   fill: #CCC;
   font: 16px sans-serif;

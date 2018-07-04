@@ -16,35 +16,27 @@ def index(request):
     template = loader.get_template('common.html')
 
     seria1_table = deep_dict()
-    seria1_table.title = "1-я 2-я серия"
     seria1_table.name = "masters_raports_app/seria1_table.html"
 
     seria3_table = deep_dict()
-    seria3_table.title = "3-я серия"
     seria3_table.name = "masters_raports_app/seria3_table.html"
 
     seria4_table = deep_dict()
-    seria4_table.title = "4-я серия"
     seria4_table.name = "masters_raports_app/seria4_table.html"
 
     params_table = deep_dict()
-    params_table.title = "Параметры"
     params_table.name = "masters_raports_app/params_table.html"
 
     melt_area1_table = deep_dict()
-    melt_area1_table.title = "Плавильный участок-1"
     melt_area1_table.name = "masters_raports_app/melt_area1.html"
 
     melt_area2_table = deep_dict()
-    melt_area2_table.title = "Плавильный участок-2"
     melt_area2_table.name = "masters_raports_app/melt_area2.html"
 
     zinc_table = deep_dict()
-    zinc_table.title = "Цинк товарный"
     zinc_table.name = "masters_raports_app/zinc_table.html"
 
     last_table = deep_dict()
-    last_table.title = "Последняя таблица"
     last_table.name = "masters_raports_app/last_table.html"
 
     context.tables = [

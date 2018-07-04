@@ -15,52 +15,40 @@ def index(request):
     context.journal_title = "Журнал печного участка"
 
     main_table = deep_dict()
-    main_table.title = "Печной участок"
     main_table.name = "reports_furnace_area/main_table.html"
 
     udel_table = deep_dict()
-    udel_table.title = "Удельная производительность печей"
     udel_table.name = "reports_furnace_area/udel_table.html"
 
     area_class_cinder = deep_dict()
-    area_class_cinder.title = "Участок классификаци огарка"
     area_class_cinder.name = "reports_furnace_area/area_class_cinder.html"
 
     electrofilter = deep_dict()
-    electrofilter.title = "Участок электрофильтров"
     electrofilter.name = "reports_furnace_area/electrofilter.html"
 
     warehouse_concentrates = deep_dict()
-    warehouse_concentrates.title = "Склад концентратов"
     warehouse_concentrates.name = "reports_furnace_area/warehouse_concentrates.html"
 
     airmachines = deep_dict()
-    airmachines.title = "Участок воздуходувных машин"
     airmachines.name = "reports_furnace_area/airmachines.html"
 
     fences_table = deep_dict()
-    fences_table.title = "Ограждения"
     fences_table.name = "reports_furnace_area/fences_table.html"
 
     page2_table1 = deep_dict()
-    page2_table1.title = "Концентрация по времени"
-    page2_table1.name = "reports_furnace_area/page2_table1.html"
+    page2_table1.name = "reports_furnace_area/concentration_by_time_table.html"
 
     page2_table2 = deep_dict()
-    page2_table2.title = "Места отбора пробы"
-    page2_table2.name = "reports_furnace_area/page2_table2.html"
+    page2_table2.name = "reports_furnace_area/places_of_sampling_table.html"
 
     page2_table3 = deep_dict()
-    page2_table3.title = "Корректирующие действия"
-    page2_table3.name = "reports_furnace_area/page2_table3.html"
+    page2_table3.name = "reports_furnace_area/corrective_actions_table.html"
 
     page2_table4 = deep_dict()
-    page2_table4.title = "Самоохрана"
-    page2_table4.name = "reports_furnace_area/page2_table4.html"
+    page2_table4.name = "reports_furnace_area/self_protection_table.html"
 
     page2_table5 = deep_dict()
-    page2_table5.title = "Мат. Тех. Ценности"
-    page2_table5.name = "reports_furnace_area/page2_table5.html"
+    page2_table5.name = "reports_furnace_area/worth_table.html"
 
     context.tables = [
         main_table,

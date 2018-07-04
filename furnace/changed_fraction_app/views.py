@@ -11,7 +11,6 @@ def index(request):
     context.journal_title = "Рабочий журнал изменения фракции"
 
     main_table = deep_dict()
-    main_table.title = "Изменение фракции"
     main_table.name = "furnace_changed_fraction/main_table.html"
 
     context.tables = [

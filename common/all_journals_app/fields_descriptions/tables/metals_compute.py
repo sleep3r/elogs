@@ -89,9 +89,11 @@ gof['vmt'] = vmt_default
 for smt,zink in zip(gof_fields_smt, gof_fields_ton):
     gof[smt] = smt_default
     gof[zink] = ton_default
-# for field_name in gof_fields_ton:
-#     gof[field_name] = ton_default
 
+gof.remainder_date = date_default
+gof.remainder_date_guild = date_default
+gof.remainder_date_Kusmanov = date_default
+gof.discrepancy_date = date_default
 
 gof_table_desc = gof.clear_empty().get_dict()
 

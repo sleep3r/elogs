@@ -6,6 +6,8 @@ from itertools import product
 from random import randint
 
 from django.db.models import Model
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
 from furnace.fractional_app.models import *
@@ -370,11 +372,11 @@ class DatabaseFiller:
         cinder_base = [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
         schieht_base = [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
         for i in range(100):
-            time = timezone.now() - datetime.timedelta(hours=2 * i)
+            time = timezone.now() - timedelta(hours=2 * i)
             cinder = [c + random.uniform(0, 2) for c in cinder_base]
             schieht = [s + random.uniform(0, 2) for s in schieht_base]
 
-            mp = MeasurementPair().add_weights(cinder, schieht, time, time - datetime.timedelta(minutes=30))
+            mp = MeasurementPair().add_weights(cinder, schieht, time, time - timedelta(minutes=30))
             mp.save()
 
 
@@ -502,7 +504,7 @@ class DatabaseFiller:
             e = Employee()
             e.name = f + ' ' + l
             e.position = 'laborant'
-            e.plant = 'leaching'
+            e.plant = 'electrolysis'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -511,7 +513,7 @@ class DatabaseFiller:
             e = Employee()
             e.name = f + ' ' + l
             e.position = 'master'
-            e.plant = 'leaching'
+            e.plant = 'furnace'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
@@ -519,11 +521,33 @@ class DatabaseFiller:
         for f, l in product(kz_names, ru_l_names):
             e = Employee()
             e.name = f + ' ' + l
-            e.position = 'hydro'
-            e.plant = 'leaching'
+            e.position = 'boss'
+            e.plant = 'furnace'
             lname = translate(e.name).replace(' ', '_')
             e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
             e.save()
+
+        for f, l in product(ru_names, kz_l_names):
+            e = Employee()
+            e.name = f + ' ' + l
+            e.position = 'boss'
+            e.plant = 'electrolysis'
+            lname = translate(e.name).replace(' ', '_')
+            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
+            e.save()
+
+        for e in Employee.objects.all():
+            if e.position == "boss":
+                e.user.groups.add(Group.objects.get(name="Boss"))
+            else:
+                e.user.groups.add(Group.objects.get(name="Laborant"))
+
+            e.user.groups.add(Group.objects.get(name=e.plant.title()))
+            e.save()
+
+
+
+
 
     def fill_journals(self):
         Journal(name='Журнал экспресс анализов',
@@ -536,7 +560,10 @@ class DatabaseFiller:
                 description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_journal_pages(self):
-        JournalPage(type="shift", journal_name="concentrate_report_journal").save()
+        JournalPage(
+            type="shift",
+            journal_name="concentrate_report_journal",
+            plant=Plant.objects.get(name="furnace")).save()
 
     def fill_shifts(self):
         dates = [parse('10-10-2015'), parse('12-10-2015')]
@@ -548,8 +575,13 @@ class DatabaseFiller:
             sh.order = random.randint(1, 2)
             sh.master = random.choice(Employee.objects.filter(position='master'))
             sh.laborant = random.choice(Employee.objects.filter(position='laborant'))
-            sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
+            # sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
             sh.save()
+
+    def fill_plants(self):
+        Plant(name="furnace").save()
+        Plant(name="electrolysis").save()
+        Plant(name="leaching").save()
 
     def fill_shift_data(self, shift):
         for name in dir(self):
@@ -562,6 +594,88 @@ class DatabaseFiller:
             attribute = getattr(self, name)
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
                 attribute(journal_page=journal_page)
+
+    def create_permissions_and_groups(self):
+        content_type = ContentType.objects.get_for_model(CellValue)
+        modify_leaching = Permission(
+            name="Modify Leaching Plant",
+            codename="modify_leaching",
+            content_type=content_type
+        )
+        modify_leaching.save()
+        modify_furnace = Permission(
+            name="Modify Furnace Plant",
+            codename="modify_furnace",
+            content_type=content_type
+        )
+        modify_furnace.save()
+        modify_electrolysis= Permission(
+            name="Modify Electrolysis Plant",
+            codename="modify_electrolysis",
+            content_type=content_type
+        )
+        modify_electrolysis.save()
+
+        # Cell permissions
+        validate_cells = Permission(
+            name="Validate Cells",
+            codename="validate_cells",
+            content_type=content_type
+        )
+        validate_cells.save()
+
+        edit_cells = Permission(
+            name="Edit Cells",
+            codename="edit_cells",
+            content_type=content_type
+        )
+        edit_cells.save()
+
+        view_cells = Permission(
+            name="View Cells",
+            codename="view_cells",
+            content_type=content_type
+        )
+        view_cells.save()
+
+        # Groups
+        laborants = Group(
+            name="Laborant",
+        )
+        laborants.save()
+        laborants.permissions.set([edit_cells])
+        laborants.save()
+
+        boss = Group(
+            name="Boss",
+        )
+        boss.save()
+        boss.permissions.set([validate_cells])
+        boss.save()
+
+        leaching = Group(
+            name="Leaching",
+        )
+        leaching.save()
+        leaching.permissions.set([modify_leaching])
+        leaching.save()
+
+        furnace = Group(
+            name="Furnace",
+        )
+        furnace.save()
+        furnace.permissions.set([modify_furnace])
+        furnace.save()
+
+        electrolysis = Group(
+            name="Electrolysis",
+        )
+        electrolysis.save()
+        electrolysis.permissions.set([modify_electrolysis])
+        electrolysis.save()
+
+
+
 
     def clean_database(self):
         exception_models = [User, Employee, Shift, Journal, JournalTable, Model]
@@ -580,7 +694,7 @@ class DatabaseFiller:
                 db_models.append(obj)
 
         db_models.extend([Journal, Shift, Employee])
-        db_models.extend([JournalPage, CellValue])
+        db_models.extend([JournalPage, CellValue, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             if not u.username == 'inframine' and not u.is_superuser:
@@ -591,6 +705,8 @@ class DatabaseFiller:
 
     def create_demo_database(self):
         # create journal and shift
+        self.create_permissions_and_groups()
+        self.fill_plants()
         self.fill_employees()
         self.fill_journals()
         self.fill_journal_pages()

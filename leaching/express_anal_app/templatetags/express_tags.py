@@ -54,7 +54,7 @@ def table_keyval(d, key):
 
 @register.filter
 def choose_val(field_info, index):
-    return field_info[index] if index in field_info else UnfilledCell()
+    return field_info[index] if index in field_info else ""
 
 
 @register.filter
@@ -69,6 +69,14 @@ def index(sequence, position):
 @register.filter(name='split')
 def split(value, arg):
     return value.split(arg)
+
+
+@register.filter('default_for_responsible')
+def default_for_responsible(responsible):
+    if responsible is None or responsible == {}:
+        return ""
+    else:
+        return responsible
 
 
 @register.simple_tag(takes_context=True)
@@ -94,6 +102,11 @@ def set_global_context(context, key, value):
     """
     context.dicts[0][key] = value
     return ''
+
+
+@register.simple_tag
+def get_table_name(table_link):
+    return '.'.join(table_link.split('/')[-1].split('.')[:-1])
 
 
 @register.filter('formatter')
