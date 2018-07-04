@@ -362,6 +362,8 @@ input[readonly] {
     resize: vertical;
 }
 
-/*.sticky + .content {*/
-        /*padding-top: 100px;*/
-/*}*/
+.journal_namepull-left {
+    float: left;
+    font-weight: bold;
+    line-height: 55px;
+}
