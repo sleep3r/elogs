@@ -110,6 +110,10 @@
     },
     mounted() {
       this.toCurrent()
+      window.addEventListener('keydown', this.keyDownFrame)
+    },
+    destroyed() {
+      window.removeEventListener('keydown', this.keyDownFrame)
     },
     watch: {
       selected_time(val) {
@@ -154,6 +158,12 @@
         let time = new Date(this.current_time).toISOString()
         this.moveToTime(time)
         // this.selected_time = time
+      },
+      keyDownFrame(e) {
+        if (e.keyCode === 37) // left
+          this.prevFrame()
+        else if (e.keyCode === 39) // right
+          this.nextFrame()
       },
       prevFrame() {
         if (this.gallery_index > 2) {
@@ -237,6 +247,7 @@
 .carousel .carousel-chevron {
   align-self: center;
   cursor: pointer;
+  font-size: 20px;
 }
 
 .carousel .carousel-labels {
