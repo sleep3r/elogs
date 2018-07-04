@@ -125,9 +125,9 @@ def index(request):
     neutral_table.name = "express_analysis/neutral_table.html"
 
     context.tables = [
+        appt_hydrometal_table,
         shift_info_table,
         vsns_table,
-        appt_hydrometal_table,
         thickeners_table,
         zinc_pulp_table,
         agitators_table,
