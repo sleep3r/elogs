@@ -53,12 +53,17 @@ def index(request):
     reagents_table.title = "Реагенты"
     reagents_table.name = "express_analysis/reagents_table.html"
 
+    cinder_table = deep_dict()
+    cinder_table.title = "Огарок"
+    cinder_table.name = "express_analysis/cinder_table.html"
+
     context.tables = [
         vsns_table,
         appt_hydrometal_table,
         thickeners_table,
         zinc_pulp_table,
         agitators_table,
+        cinder_table,
         reagents_table
     ]
 

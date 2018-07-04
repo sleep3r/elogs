@@ -177,13 +177,11 @@ rt.delivery_Zn_dust = numeric_default
 rt.delivery_Mn_ore = numeric_default
 rt.delivery_Magnoflok = numeric_default
 rt.delivery_Fe_shave = numeric_default
-
 rt.income_salt = numeric_default
 rt.income_Zn_dust = numeric_default
 rt.income_Mn_ore = numeric_default
 rt.income_Magnaflok = numeric_default
 rt.income_Fe_shave = numeric_default
-
 rt.outcome_salt = numeric_default
 rt.outcome_Zn_1st = numeric_default
 rt.outcome_Zn_2st = numeric_default
@@ -192,13 +190,17 @@ rt.outcome_Zn_Cd = numeric_default
 rt.outcome_Mn_ore = numeric_default
 rt.outcome_Magnaflok = numeric_default
 rt.outcome_Fe_shave = numeric_default
-
 rt.passed_Zn_dust = numeric_default
 rt.passed_Mn_ore = numeric_default
 rt.passed_Magnaflok = numeric_default
 rt.passed_Fe_shave = numeric_default
-
 rt.state_fances = text_default
-
 reagents_table_desc = rt.clear_empty().get_dict()
+
+
+cn = deep_dict()
+cn.shift_total = numeric_default
+cn.day_total = numeric_default
+cn.in_process = numeric_default
+cinder_table_desc = cn.clear_empty().get_dict()
 
