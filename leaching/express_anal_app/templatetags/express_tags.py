@@ -54,7 +54,7 @@ def table_keyval(d, key):
 
 @register.filter
 def choose_val(field_info, index):
-    return field_info[index] if index in field_info else UnfilledCell()
+    return field_info[index] if index in field_info else ""
 
 
 @register.filter
