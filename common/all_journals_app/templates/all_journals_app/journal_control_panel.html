@@ -1,15 +1,4 @@
 <div class="table">
-    <div>
-        <span>Выберите страницу:</span>
-    </div>
-    <button class="btn btn-success pull-right"
-            onclick='clickOnWizard()'
-            data-toggle="modal"
-            data-target="#myModal">
-        <i class="glyphicon glyphicon-edit">
-        </i>
-    </button>
-    <div>
         <a href="{{ request.path }}?page_mode=view"
            class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
             View mode
@@ -22,5 +11,15 @@
            class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
             Validate mode
         </a>
+        <div class="col-xs-2">
+            <input value="{{shift_date}}, {{shift_order}}-ая смена"
+                   type="text"
+                   placeholder="Выберите дату и время"
+                   class="form-control"
+                   onclick="clickOnWizard()"
+                   data-toggle="modal"
+                   data-target="#myModal">
+            </input>
+        </div>
     </div>
 </div>

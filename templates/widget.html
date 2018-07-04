@@ -6,20 +6,7 @@
 <input hidden name="view"
       value={% if page_mode == 'view' %} True {% endif %}>
 
-<div class="journaltablewrapper">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>{{shift_date}}, {{shift_order}}-ая смена</h2>
-            <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            {% include "all_journals_app/journal_control_panel.html" %}
-        </div>
-    </div>
-</div>
+{% include "all_journals_app/journal_control_panel.html" %}
 
 {% for table in tables %}
     {% get_table_name table.name as tn %}
