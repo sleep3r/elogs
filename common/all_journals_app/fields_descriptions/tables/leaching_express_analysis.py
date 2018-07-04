@@ -199,7 +199,7 @@ reagents_table_desc = rt.clear_empty().get_dict()
 
 
 tanks_availability = deep_dict()
-cols = ['prev_measurements_waste_tank_1-2seria', 'current_measurements_waste_tank_1-2seria', 'divergence_waste_tank_1-2seria', 
+db_names = ['prev_measurements_waste_tank_1-2seria', 'current_measurements_waste_tank_1-2seria', 'divergence_waste_tank_1-2seria', 
 'prev_measurements_manns_1-9', 'current_measurements_manns_1-9', 'divergence_manns_1-9', 
 'prev_measurements_manns_VTV_10-12', 'current_measurements_manns_VTV_10-12', 'divergence_manns_VTV_10-12', 
 'prev_measurements_thickener-9', 'current_measurements_thickener-9', 'divergence_thickener-9', 
@@ -211,7 +211,7 @@ cols = ['prev_measurements_waste_tank_1-2seria', 'current_measurements_waste_tan
 'prev_measurements_-', 'current_measurements_-', 'divergence_-', 
 'prev_measurements_removable_balance', 'current_measurements_removable_balance', 'divergence_removable_balance', 
 'prev_measurements_daily_balance', 'current_measurements_daily_balance', 'divergence_daily_balance']
-for name in cols:
+for name in db_names:
     tanks_availability[name] = numeric_default
 tanks_availability_desc = tanks_availability.clear_empty().get_dict()
 
@@ -240,6 +240,19 @@ schieht = deep_dict()
 schieht.value = numeric_default
 schieht.name = text_default
 schieht_table_desc = schieht.clear_empty().get_dict()
+
+
+tanks_for_finished_products = deep_dict()
+num_names = ["Cd_tank", "Cu_tank", "Co_tank", "Sb_tank", "Fe_tank", "VT_tank", "specific_weight_tank", "norm_tank", "fact_tank"]
+text_names = ["correction_tank", "master_tank"]
+
+for tank in '345':
+    for name in num_names:
+        tanks_for_finished_products[name+tank] = mgl_default
+    for name in text_names:
+        tanks_for_finished_products[name+tank] = text_default
+    
+tanks_for_finished_products_desc = tanks_for_finished_products.clear_empty().get_dict()
 
 
 loads = deep_dict()

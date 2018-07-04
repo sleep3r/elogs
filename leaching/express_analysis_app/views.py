@@ -103,6 +103,12 @@ def index(request):
     schieht_table.title = "Шихта"
     schieht_table.name = "express_analysis/schieht_table.html"
 
+
+    tanks_for_finished_products_table = deep_dict()
+    tanks_for_finished_products_table.title = "Баки готовой продукции"
+    tanks_for_finished_products_table.name = "express_analysis/tanks_for_finished_products_table.html"
+
+
     loads_table = deep_dict()
     loads_table.title = "Нагрузки"
     loads_table.name = "express_analysis/loads_table.html"
@@ -126,6 +132,7 @@ def index(request):
         reagents_table,
         loads_table,
         sample_table,
+        tanks_for_finished_products_table,
     ]
 
     return HttpResponse(template.render(context, request))
