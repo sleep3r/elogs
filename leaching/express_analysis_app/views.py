@@ -95,6 +95,21 @@ def index(request):
     self_protection_table.title = "Самоохрана"
     self_protection_table.name = "express_analysis/self_protection_table.html"
 
+    cinder_table = deep_dict()
+    cinder_table.title = "Огарок"
+    cinder_table.name = "express_analysis/cinder_table.html"
+
+    schieht_table = deep_dict()
+    schieht_table.title = "Шихта"
+    schieht_table.name = "express_analysis/schieht_table.html"
+
+    loads_table = deep_dict()
+    loads_table.title = "Нагрузки"
+    loads_table.name = "express_analysis/loads_table.html"
+
+    sample_table = deep_dict()
+    sample_table.title = "Пробник"
+    sample_table.name = "express_analysis/sample_table.html"
 
     context.tables = [
         vsns_table,
@@ -106,6 +121,11 @@ def index(request):
         tanks_availability_table,
         neutral_thickeners_table,
         self_protection_table,
+        cinder_table,
+        schieht_table,
+        reagents_table,
+        loads_table,
+        sample_table,
     ]
 
     return HttpResponse(template.render(context, request))

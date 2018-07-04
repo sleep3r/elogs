@@ -29,6 +29,8 @@ fields_info_desc.leaching_express_analysis.neutral_thickeners_table = neutral_th
 fields_info_desc.leaching_express_analysis.tanks_availability_table = tanks_availability_desc
 
 fields_info_desc.leaching_express_analysis.self_protection_table = self_protection_desc
+fields_info_desc.leaching_express_analysis.cinder_table = cinder_table_desc
+fields_info_desc.leaching_express_analysis.sample_table = sample_table_desc
 
 
 

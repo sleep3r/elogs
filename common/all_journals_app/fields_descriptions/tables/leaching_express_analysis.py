@@ -177,13 +177,11 @@ rt.delivery_Zn_dust = numeric_default
 rt.delivery_Mn_ore = numeric_default
 rt.delivery_Magnoflok = numeric_default
 rt.delivery_Fe_shave = numeric_default
-
 rt.income_salt = numeric_default
 rt.income_Zn_dust = numeric_default
 rt.income_Mn_ore = numeric_default
 rt.income_Magnaflok = numeric_default
 rt.income_Fe_shave = numeric_default
-
 rt.outcome_salt = numeric_default
 rt.outcome_Zn_1st = numeric_default
 rt.outcome_Zn_2st = numeric_default
@@ -192,14 +190,11 @@ rt.outcome_Zn_Cd = numeric_default
 rt.outcome_Mn_ore = numeric_default
 rt.outcome_Magnaflok = numeric_default
 rt.outcome_Fe_shave = numeric_default
-
 rt.passed_Zn_dust = numeric_default
 rt.passed_Mn_ore = numeric_default
 rt.passed_Magnaflok = numeric_default
 rt.passed_Fe_shave = numeric_default
-
 rt.state_fances = text_default
-
 reagents_table_desc = rt.clear_empty().get_dict()
 
 
@@ -216,20 +211,16 @@ cols = ['prev_measurements_waste_tank_1-2seria', 'current_measurements_waste_tan
 'prev_measurements_-', 'current_measurements_-', 'divergence_-', 
 'prev_measurements_removable_balance', 'current_measurements_removable_balance', 'divergence_removable_balance', 
 'prev_measurements_daily_balance', 'current_measurements_daily_balance', 'divergence_daily_balance']
-
 for name in cols:
     tanks_availability[name] = numeric_default
-
 tanks_availability_desc = tanks_availability.clear_empty().get_dict()
 
 
 neutral_thickeners = deep_dict()
-
 sediment = ["sediment"+str(i+1) for i in range(8)] + ["sediment13"]
 liquid_solid = ["liquid_solid"+str(i+1) for i in range(8)] + ["liquid_solid13"]
 for name in sediment+liquid_solid:
     neutral_thickeners[name] = numeric_default
-
 neutral_thickeners_desc = neutral_thickeners.clear_empty().get_dict()
 
 
@@ -238,3 +229,37 @@ self_protection.visiting_time = time_default
 self_protection.visiting = text_default
 self_protection.notation = text_default
 self_protection_desc = self_protection.clear_empty().get_dict()
+cn = deep_dict()
+cn.shift_total = numeric_default
+cn.day_total = numeric_default
+cn.in_process = numeric_default
+cinder_table_desc = cn.clear_empty().get_dict()
+
+
+schieht = deep_dict()
+schieht.value = numeric_default
+schieht.name = text_default
+schieht_table_desc = schieht.clear_empty().get_dict()
+
+
+loads = deep_dict()
+loads.time7 = numeric_default
+loads.time12 = numeric_default
+loads.counter = numeric_default
+loads.bunker_cvco = numeric_default
+loads.silos = numeric_default
+loads.bunkers_oc = numeric_default
+
+loads.description  = text_default
+loads_table_desc = loads.clear_empty().get_dict()
+
+sample = deep_dict()
+sample.time = time_default
+sample.Cd = numeric_default
+sample.Cu = numeric_default
+sample.VIU1 = numeric_default
+sample.VIU2 = numeric_default
+sample.VIU3 = numeric_default
+
+
+sample_table_desc = sample.clear_empty().get_dict()
