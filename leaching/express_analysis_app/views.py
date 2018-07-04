@@ -69,6 +69,10 @@ def index(request):
     sample_table.title = "Пробник"
     sample_table.name = "express_analysis/sample_table.html"
 
+    neutral_table = deep_dict()
+    neutral_table.title = "Нейтральный р-р"
+    neutral_table.name = "express_analysis/neutral_table.html"
+
     context.tables = [
         vsns_table,
         appt_hydrometal_table,
@@ -80,6 +84,7 @@ def index(request):
         reagents_table,
         loads_table,
         sample_table,
+        neutral_table,
     ]
 
     return HttpResponse(template.render(context, request))

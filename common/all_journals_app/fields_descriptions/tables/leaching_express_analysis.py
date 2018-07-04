@@ -229,6 +229,16 @@ sample.Cu = numeric_default
 sample.VIU1 = numeric_default
 sample.VIU2 = numeric_default
 sample.VIU3 = numeric_default
-
-
 sample_table_desc = sample.clear_empty().get_dict()
+
+neutral = deep_dict()
+neutral.neutral_solution = numeric_default
+neutral.leach1 = numeric_default
+neutral.leach2 = numeric_default
+neutral.bak_3 = numeric_default
+neutral.bak_4 = numeric_default
+neutral.summary = numeric_default
+neutral.bak_seria3 = numeric_default
+neutral.bak_5 = numeric_default
+neutral.bak_6 = numeric_default
+neutral_table_desc = neutral.clear_empty().get_dict()
