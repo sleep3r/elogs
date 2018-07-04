@@ -1,0 +1,34 @@
+{% load express_tags %}
+{% load i18n %}
+
+
+{% with table_name="tanks_availability_table" %}
+<form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)">
+    <input hidden name="table_name" value="{{ table_name }}">
+    <input hidden name="journal_page" value="{{ journal_page }}">
+    {% with table_data=full_data|table_keyval:table_name %}
+    <table class="table table-bordered">
+        <thead>
+                <tr>
+                    <th></th>
+                    <th>{% trans "Ёмкости" %}</th>
+                    <th>{% trans "Пред. замеры" %}</th>
+                    <th>{% trans "Текущ. замеры" %}</th>
+                    <th>{% trans "Отклонение" %}</th>
+                </tr>
+            </thead>
+        <tbody>
+            {% for subColumn in tanks_availability_table.columns %} 
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>{{subColumn|safe}}</th>
+                        {% for name in tanks_availability_table.db_columns|index:forloop.counter %}
+                            <td>{% include "value.html" with field_name=name index=0 %}</td>
+                        {% endfor %}
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endwith %}
+</form>
+{% endwith %}
