@@ -2,6 +2,27 @@ from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
 
+shift_info = deep_dict()
+shift_info.this_master = text_default
+shift_info.next_master = text_default
+shift_info.out_sol_t = text_default
+shift_info.out_sol_c = text_default
+shift_info.out_pulp_cvck = text_default
+shift_info.out_cu_kek = text_default
+shift_info.out_cd_sponge = text_default
+shift_info.out_neutr = text_default
+shift_info.out_Cd = text_default
+shift_info.neutral_hmc = text_default
+shift_info.out_cu_pulp = text_default
+shift_info.in_filtrate_ls = text_default
+shift_info.in_filtrate_dens = text_default
+shift_info.in_fe_hi = text_default
+shift_info.in_poor_cd = text_default
+
+
+shift_info_table_desc = shift_info.clear_empty().get_dict()
+
+
 vsns = deep_dict()
 vsns.time = time_default
 vsns.vsns_cobalt = numeric_default
@@ -32,11 +53,9 @@ vsns.mng_correction = numeric_default
 vsns.master = text_default
 vsns_table_desc = vsns.clear_empty().get_dict()
 
-#------------------
 
 thickeners = deep_dict()
 thickeners.time = time_default
-
 thickeners.vs10_pH = ph_default
 thickeners.vs10_Cu = mgl_default
 thickeners.vs10_Fe = mgl_default
@@ -50,18 +69,14 @@ thickeners.vs11_Fe = mgl_default
 thickeners.vs11_liquid_solid = numeric_default
 thickeners.ns11_pH = ph_default
 thickeners.ns11_liquid_solid = numeric_default
-
 thickeners.vs12_pH = ph_default
 thickeners.vs12_Cu = mgl_default
 thickeners.vs12_Fe = mgl_default
 thickeners.vs12_liquid_solid = numeric_default
 thickeners.ns12_pH = ph_default
 thickeners.ns12_liquid_solid = numeric_default
-
-
 thickeners_table_desc = thickeners.clear_empty().get_dict()
 
-#----------
 
 zinc_pulp = deep_dict()
 zinc_pulp.zn_pulp_liquid_solid = numeric_default
@@ -82,7 +97,6 @@ zinc_pulp.iron_solution_Cl = mgl_default
 zinc_pulp.concentrate_Shlippe = gl_default
 zinc_pulp.active_PAV = mhour_default
 zinc_pulp.high_Fe = numeric_default
-
 zinc_pulp_desc = zinc_pulp.clear_empty().get_dict()
 
 aph = deep_dict()

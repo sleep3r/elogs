@@ -28,6 +28,10 @@ def index(request):
                                   _("Выход по току"), _("Уд. вес"), _("Норма") + _(', мг/л'), _("Факт") + _(', мг/л'),
                                   _("Несоответствие") + _(', мг/л'), _("Коррекция"), _("Мастер")]
 
+    shift_info_table = deep_dict()
+    shift_info_table.title = "Смена"
+    shift_info_table.name = "express_analysis/shift_info_table.html"
+
     vsns_table = deep_dict()
     vsns_table.title = "BCHC"
     vsns_table.name = "express_analysis/vsns_table.html"
@@ -116,6 +120,7 @@ def index(request):
     neutral_table.name = "express_analysis/neutral_table.html"
 
     context.tables = [
+        shift_info_table,
         vsns_table,
         appt_hydrometal_table,
         thickeners_table,

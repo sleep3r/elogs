@@ -31,7 +31,7 @@ fields_info_desc.leaching_express_analysis.cinder_table = cinder_table_desc
 fields_info_desc.leaching_express_analysis.sample_table = sample_table_desc
 fields_info_desc.leaching_express_analysis.loads_table = loads_table_desc
 fields_info_desc.leaching_express_analysis.neutral_table = neutral_table_desc
-
+fields_info_desc.leaching_express_analysis.shift_info_table = shift_info_table_desc
 
 
 fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_desc
