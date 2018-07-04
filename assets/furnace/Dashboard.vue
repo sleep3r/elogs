@@ -142,7 +142,7 @@
           },
           {
             width: "1200",
-            height: "900"
+            height: "auto"
           }
         );
       },

@@ -109,7 +109,7 @@ export default {
             .call(d3.axisBottom(x))
             .append("text")
               .attr("x", width - 6)
-              .attr("dy", "3.5em")
+              .attr("dy", "2.5em")
               .attr("text-anchor", "end")
               .text("Размер")
 
@@ -142,11 +142,11 @@ svg {
 svg.prediction .bar rect {
   fill: brown;
 }
-
+/*
 svg.labels .bar rect:hover {
-//  fill: rgb(28, 187, 156);
+  fill: rgb(28, 187, 156);
 }
-
+*/
 .bar text, .axis text {
   fill: #000;
   font: 16px sans-serif;
