@@ -81,6 +81,7 @@ def get_common_context(journal_name, request, page_type="shift"):
     res.journal_name = page.journal_name
     res.journal_page = page.id
 
+    res.shift_is_active = page.shift_is_active
     res.shift_order = page.shift_order
     res.shift_date = page.shift_date
     res.page_mode = get_page_mode(request, page)
