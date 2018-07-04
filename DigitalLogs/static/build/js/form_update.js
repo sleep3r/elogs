@@ -67,7 +67,6 @@ function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-
     if (info.type !== "droplist") { // for dropdowns
         input.type = info.type;
     }
@@ -204,11 +203,11 @@ function CollapseComment(elem) {
 
 
 $(document).ready(function () {
-    //document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-    //    on_input_change(input);
-    //});
+    document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
+       on_input_change(input);
+    });
 
-    //$("form").trigger("input"); // Process initial table data
+    $("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
