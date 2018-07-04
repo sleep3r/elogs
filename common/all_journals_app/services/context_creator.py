@@ -5,7 +5,7 @@ from pprint import pprint
 from django.utils import timezone
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from common.all_journals_app.models import CellValue, JournalPage
+from common.all_journals_app.models import CellValue, JournalPage, Plant
 from common.all_journals_app.fields_descriptions import fields_info
 from utils.deep_dict import deep_dict
 from login_app.models import Employee
@@ -55,6 +55,7 @@ def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
     page_id = request.GET.get('id', None)
+    plant = request.path.split("/")[1]
     # get exact journal page
     if page_id:
         page = JournalPage.objects.get(id=page_id)
@@ -68,7 +69,7 @@ def get_common_context(journal_name, request, page_type="shift"):
                 shift_date=date.today(),
                 shift_order=1,
                 type=page_type,
-                plant=request.path.split("/")[1]
+                plant=Plant.objects.get(name=plant)
             )
     page.save()
 

@@ -2,27 +2,33 @@ from django.db import models
 from datetime import time, date, datetime, timedelta
 
 
-
-
-class JournalPage(models.Model):
-    NUMBER_OF_SHIFTS = {
-        'leaching': 2,
-        'furnace': 3,
-        'electrolysis': 4
-    }
-    type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
-                                                     ('equipment', 'Оборудование'),
-                                                     ('month', 'Месяц')))
-    journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
-
-    # for shift type
-    plant = models.CharField(null=True,
+class Plant(models.Model):
+    name = models.CharField(null=True,
                              blank=True,
                              default='leaching',
                              max_length=128,
                              choices=(('leaching', 'Выщелачивание'),
                                       ('furnace', 'Обжиг'),
                                       ('electrolysis', 'Электролиз')))
+    number_of_shifts = models.IntegerField(null=True,
+                                      blank=True,
+                                      default=1,
+                                      verbose_name='Количестов смен')
+
+
+class JournalPage(models.Model):
+    # NUMBER_OF_SHIFTS = {
+    #     'leaching': 2,
+    #     'furnace': 3,
+    #     'electrolysis': 4
+    # }
+    type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
+                                                     ('equipment', 'Оборудование'),
+                                                     ('month', 'Месяц')))
+    journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
+
+    # for shift type
+    plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
     shift_order = models.IntegerField(null=True,
                                       blank=True,
                                       default=1,
@@ -34,13 +40,13 @@ class JournalPage(models.Model):
 
     @property
     def shift_start_time(self):
-        shift_hour = (8 + (self.shift_order-1) * (24//JournalPage.NUMBER_OF_SHIFTS[self.plant])) % 24
+        shift_hour = (8 + (self.shift_order-1) * self.plant.number_of_shifts) % 24
         shift_time = time(hour=shift_hour)
         return datetime.combine(self.shift_date, shift_time)
 
     @property
     def shift_end_time(self):
-        shift_length = timedelta(hours=24//JournalPage.NUMBER_OF_SHIFTS[self.plant])
+        shift_length = timedelta(hours=24 // self.plant.number_of_shifts)
         return self.shift_start_time + shift_length
 
     class Meta:

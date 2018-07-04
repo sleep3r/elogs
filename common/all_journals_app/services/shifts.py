@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 from utils.webutils import process_json_view
-from common.all_journals_app.models import JournalPage
+from common.all_journals_app.models import JournalPage, Plant
 
 
 def shift_event(request, journal_page, is_owned):
@@ -18,6 +18,7 @@ def shift_event(request, journal_page, is_owned):
 @process_json_view(auth_required=False)
 def get_shifts(request, plant, journal_name):
     result = []
+    plant = Plant.objects.get(name=plant)
     employee = request.user.employee
     recent_pages = JournalPage.objects.filter(plant=plant,
                                               journal_name=journal_name,
@@ -25,7 +26,7 @@ def get_shifts(request, plant, journal_name):
 
     today = date.today()
     for day in range(30):
-        for shift_order in range(1, JournalPage.NUMBER_OF_SHIFTS[plant]+1):
+        for shift_order in range(1, plant.number_of_shifts + 1):
             shift_date = today - timedelta(day)
             page = recent_pages.filter(shift_order=shift_order, shift_date=shift_date).first()
             if not page:
