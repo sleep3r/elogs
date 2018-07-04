@@ -38,16 +38,16 @@ def get_page_mode(request):
     page_mode = request.GET.get('page_mode')
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
+    app = 'all_journals_app'
+    plant_permission_name = app + ".modify_" + plant
     if not page_mode:
-        if plant == employee.plant:
-            roles_with_edit_permission = ["laborant", "master"]
-            roles_with_validate_permission = ["admin", "boss"]
-            if employee.position in roles_with_edit_permission:
-                page_mode = "edit"
-            if employee.position in roles_with_validate_permission:
-                page_mode = "validate"
+        if employee.user.has_perm(plant_permission_name):
+            if employee.user.has_perm(app + ".edit_cells"):
+                return "edit"
+            if employee.user.has_perm(app + ".validate_cells"):
+                return "validate"
         else:
-            page_mode = "view"
+            return "view"
     return page_mode
 
 
