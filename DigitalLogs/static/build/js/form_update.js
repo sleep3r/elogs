@@ -207,7 +207,7 @@ $(document).ready(function () {
        on_input_change(input);
     });
 
-    $("form").trigger("input"); // Process initial table data
+    // $("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");

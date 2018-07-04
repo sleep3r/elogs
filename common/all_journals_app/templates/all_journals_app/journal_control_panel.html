@@ -1,5 +1,16 @@
 <div class="table">
-        <a href="{{ request.path }}?page_mode=view"
+    <div>
+        <span>Выберите страницу:</span>
+    </div>
+    <button class="btn btn-success pull-right"
+            onclick='clickOnWizard()'
+            data-toggle="modal"
+            data-target="#myModal">
+        <i class="glyphicon glyphicon-edit">
+        </i>
+    </button>
+    <div>
+        <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
            class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
             View mode
         </a>

@@ -33,7 +33,7 @@ def get_page_list(journal_name, request, page_type):
     today = timezone.now().date()
     return [today - datetime.timedelta(days=1*i) for i in range(30)]
 
-def get_page_mode(request):
+def get_page_mode(request, page):
     page_mode = request.GET.get('page_mode')
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
@@ -41,24 +41,24 @@ def get_page_mode(request):
     plant_permission_name = app + ".modify_" + plant
     if not page_mode:
         if employee.user.has_perm(plant_permission_name):
-            if employee.user.has_perm(app + ".edit_cells"):
+            print(page.shift_is_active, employee.user.has_perm(app + ".edit_cells"))
+            if page.shift_is_active and employee.user.has_perm(app + ".edit_cells"):
                 return "edit"
             if employee.user.has_perm(app + ".validate_cells"):
                 return "validate"
-        else:
-            return "view"
+        return "view"
     return page_mode
 
 
 def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
-    page_id = request.GET.get('id', None)
+    res.page_id = request.GET.get('id', None)
     plant_name = request.path.split("/")[1]
     plant = Plant.objects.get(name=plant_name)
     # get exact journal page
-    if page_id:
-        page = JournalPage.objects.get(id=page_id)
+    if res.page_id:
+        page = JournalPage.objects.get(id=res.page_id)
     # get latest journal page
     else:
         for shift_order in range(1, plant.number_of_shifts+1):
@@ -83,5 +83,5 @@ def get_common_context(journal_name, request, page_type="shift"):
 
     res.shift_order = page.shift_order
     res.shift_date = page.shift_date
-    res.page_mode = get_page_mode(request)
+    res.page_mode = get_page_mode(request, page)
     return res
