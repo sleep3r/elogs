@@ -57,6 +57,12 @@ def index(request):
     cinder_table.title = "Огарок"
     cinder_table.name = "express_analysis/cinder_table.html"
 
+    schieht_table = deep_dict()
+    schieht_table.title = "Шихта"
+    schieht_table.name = "express_analysis/schieht_table.html"
+
+
+
     context.tables = [
         vsns_table,
         appt_hydrometal_table,
@@ -64,6 +70,7 @@ def index(request):
         zinc_pulp_table,
         agitators_table,
         cinder_table,
+        schieht_table,
         reagents_table
     ]
 

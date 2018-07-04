@@ -204,3 +204,7 @@ cn.day_total = numeric_default
 cn.in_process = numeric_default
 cinder_table_desc = cn.clear_empty().get_dict()
 
+schieht = deep_dict()
+schieht.value = numeric_default
+schieht.name = text_default
+schieht_table_desc = schieht.clear_empty().get_dict()
