@@ -23,7 +23,7 @@ bt.conc_num = text_default
 
 bt.supply_time = dict(type="time", min_normal=10, max_normal=1000)
 bt.dispatch_time = dict(type="time", min_normal=10, max_normal=1000)
-bt.downtime = dict(type="time", min_normal=10, max_normal=1000)
+bt.downtime = dict(type="number", min_normal=10, max_normal=1000)
 
 bt.recieved_conc = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 bt.recieved_beds = dict(type="number", min_normal=10, max_normal=1000, units='шт')

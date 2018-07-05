@@ -22,6 +22,8 @@ from DigitalLogs import settings
 from furnace.fractional_app import views
 from common.all_journals_app.services import shifts
 
+handler403 = "common.all_journals_app.views.permission_denied"
+
 urlpatterns = [
     url('^$', views.index),
     path('admin/', admin.site.urls),

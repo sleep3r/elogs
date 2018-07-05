@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -53,3 +53,10 @@ def add_responsible(request):
         cell.save()
 
     return {"result":1} 
+def permission_denied(request, exception, template_name='errors/403.html'):
+    try:
+        template = loader.get_template(template_name)
+    except TemplateDoesNotExist:
+        return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
+    return HttpResponseForbidden(
+        template.render(request=request, context={'exception': str(exception)}))
