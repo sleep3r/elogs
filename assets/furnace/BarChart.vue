@@ -111,7 +111,7 @@ export default {
               .attr("x", width - 6)
               .attr("dy", "2.5em")
               .attr("text-anchor", "end")
-              .text("Размер")
+              .text("Фракция, мкм")
 
           g.append("g")
             .attr("class", "axis axis--y")
@@ -121,7 +121,7 @@ export default {
               .attr("y", 6)
               .attr("dy", "-1.75em")
               .attr("text-anchor", "end")
-              .text("Фракция")
+              .text("Массовый процент, %")
       }
     }
   }

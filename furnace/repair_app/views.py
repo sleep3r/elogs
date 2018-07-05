@@ -14,7 +14,7 @@ from common.all_journals_app.services.context_creator import get_common_context
 
 @login_required
 def index(request):
-    context = get_common_context(journal_name="furnace_repair", request=request)
+    context = get_common_context(journal_name="furnace_repair", request=request, page_type='equipment')
     context.journal_title = 'Журнал по ремонту'
 
     repair_table = deep_dict()
