@@ -21,7 +21,6 @@
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
-                <input type="hidden" name="{{ field_name }}_index" value="{{index}}" />
                     <input class="form-control general-value"
                        oninput="on_input_change(this)"
                        onchange="add_message(this);add_responsible(this);"
