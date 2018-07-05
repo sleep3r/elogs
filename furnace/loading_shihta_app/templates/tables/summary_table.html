@@ -26,8 +26,8 @@
         </tr>
         <tr>
             <td>Итого</td>
-            <td></td>
-            <td></td>
+            <td>{% include "value.html" with field_name="itogo_concentrate" index=0 %}</td>
+            <td>{% include "value.html" with field_name="itogo_zn" index=0 %}</td>
         </tr>
     {% else %}
         {% for _ in table_data.concentrate %}
