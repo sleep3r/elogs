@@ -98,3 +98,47 @@ gof.discrepancy_date = date_default
 gof_table_desc = gof.clear_empty().get_dict()
 
 
+avg_month = deep_dict()
+avg_month_fields = [
+    "moisture",
+    "issued",
+    "SMT",
+    "cinder",
+    "Zn_conc",
+    "Pb",
+    "Cu",
+    "Cd",
+    "Fe",
+    "SiO2",
+    "Zn_cinder",
+    "Znk",
+    "Znb",
+    "Pb2",
+    "Cu2",
+    "Cd2",
+    "Fe2",
+    "SiO2_2",
+    "S",
+    "As",
+    "Sb",
+    "S_sulf",
+]
+for field in avg_month_fields:
+    avg_month[field] = numeric_default
+avg_month_table_desc = avg_month.clear_empty().get_dict()
+
+
+cinder = deep_dict()
+cinder.date_cinder = date_default
+cinder.gold = numeric_default
+cinder.silver = numeric_default
+cinder_conc_table_desc = cinder.clear_empty().get_dict()
+
+
+concentrat = deep_dict()
+concentrat.date_conc = date_default
+concentrat.gold = numeric_default
+concentrat.silver = numeric_default
+concentrat_table_desc = concentrat.clear_empty().get_dict()
+
+
