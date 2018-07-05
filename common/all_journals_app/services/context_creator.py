@@ -61,7 +61,7 @@ def get_common_context(journal_name, request, page_type="shift"):
                 )[0]
                 if page.shift_is_active:
                     break
-        res.shift_is_active = page.shift_is_active
+        res.shift_is_active_or_no_shifts = page.shift_is_active
         res.shift_order = page.shift_order
         res.shift_date = page.shift_date
         print(get_page_mode(request, page))
@@ -75,6 +75,7 @@ def get_common_context(journal_name, request, page_type="shift"):
                 plant=plant,
                 type=res.page_type
             )[0]
+        res.shift_is_active_or_no_shifts = True
 
 
     res.page_mode = get_page_mode(request, page)

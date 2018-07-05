@@ -43,8 +43,12 @@ def default_page_mode(request, page):
     if plant_permission(request):
         if employee.user.has_perm(VALIDATE_CELLS):
             return "validate"
-        elif page.shift_is_active and employee.user.has_perm(EDIT_CELLS):
-            return "edit"
+        elif employee.user.has_perm(EDIT_CELLS):
+            if page.type == "shift":
+                if page.shift_is_active:
+                    return "edit"
+            if page.type == "equipment":
+                return "edit"
         elif employee.user.has_perm(VIEW_CELLS):
             return "view"
         else:

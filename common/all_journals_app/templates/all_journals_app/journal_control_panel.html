@@ -1,8 +1,20 @@
 <div class="table">
     <div>
-        <span>Выберите страницу:</span>
-    </div>
-    <div>
+        {% if page_type == 'shift' %}
+        <div>
+            <span>Выберите страницу:</span>
+        </div>
+        <div class="col-xs-2">
+            <input value="{{shift_date}}, {{shift_order}}-ая смена"
+                   type="text"
+                   placeholder="Выберите дату и время"
+                   class="form-control"
+                   onclick="clickOnWizard()"
+                   data-toggle="modal"
+                   data-target="#myModal">
+            </input>
+        </div>
+        {% endif %}
         {% if superuser %}
             <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
                class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
@@ -18,7 +30,7 @@
             </a>
         {% else %}
             {% if page_mode == "edit" or page_mode == "view" %}
-            {% if shift_is_active and has_plant_perm %}
+            {% if shift_is_active_or_no_shifts and has_plant_perm %}
                 <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
                    class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
                     Просмотр
@@ -31,15 +43,5 @@
             {% endif %}
         {% endif %}
 
-        <div class="col-xs-2">
-            <input value="{{shift_date}}, {{shift_order}}-ая смена"
-                   type="text"
-                   placeholder="Выберите дату и время"
-                   class="form-control"
-                   onclick="clickOnWizard()"
-                   data-toggle="modal"
-                   data-target="#myModal">
-            </input>
-        </div>
     </div>
 </div>
