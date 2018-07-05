@@ -23,7 +23,7 @@
                     <input class="form-control general-value"
                        oninput="on_input_change(this)"
                        onchange="add_message(this)"
-                       value="{{ val }}"
+                       value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
                        table-name = "{{table_name}}"
                        journal-page = "{{journal_page}}"
