@@ -16,7 +16,6 @@ def index(request):
     template = loader.get_template('common.html')
 
     trening_table = deep_dict()
-    trening_table.title = "проверочная"
     trening_table.name = "buffering_app/trening_table.html"
 
     context.tables = [trening_table]

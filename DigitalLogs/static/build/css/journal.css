@@ -362,11 +362,13 @@ input[readonly] {
     resize: vertical;
 }
 
+.journal_namepull-left {
+    float: left;
+    font-weight: bold;
+    line-height: 55px;
+}
+
 .table-insided {
     margin-bottom: 0 !important;
     width: 100%;
 }
-
-/*.sticky + .content {*/
-        /*padding-top: 100px;*/
-/*}*/

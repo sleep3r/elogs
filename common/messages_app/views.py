@@ -14,7 +14,7 @@ class GetMessagesView(View):
     def get(self, request):
         res = deep_dict()
         res['messages'] = {}
-        for m in Message.objects.filter(is_read=False, addressee=Employee.objects.only('user').get(user=self.request.user.id)):
+        for m in Message.objects.filter(is_read=False, addressee=self.request.user.employee):
             res['messages'][m.id] = model_to_dict(m)
         return res
 
@@ -30,7 +30,7 @@ class ReadMessagesView(View):
             raise AccessError(
                 message="Попытка отметить чужое сообщение как прочитанное")
 
-        return {"status": 0}
+        return JsonResponse({"result": 1})
 
 
 class AddMessagesView(View):
@@ -77,6 +77,7 @@ class AddMessagesView(View):
             
         return JsonResponse({"result": 1})
 
+
 class DelMessagesView(View):
     def post(self, request):
         deleting_table_name = request.POST.get('table_name', None)
@@ -94,3 +95,54 @@ class DelMessagesView(View):
             for message in messages_on_delete:
                 message.is_read = True
                 message.save()
+
+        return JsonResponse({"result": 1})
+
+
+
+class AddComment(View):
+    def post(self, request):
+        comment_text = request.POST.get('comment_text', None)
+        table_name = request.POST.get('table_name', None)
+        field_name = request.POST.get('field_name', None)
+        row_index = request.POST.get('index', None)
+        journal_page = request.POST.get('journal_page', None)
+        if comment_text:
+            for emp in messages.get_addressees(all=True):
+                msg = messages.filter_or_none(Message, type='comment',
+                                              addressee=emp,
+                                              is_read=False,
+                                              cell_table_name=table_name,
+                                              cell_field_name=field_name,
+                                              cell_journal_page=journal_page,
+                                              row_index=row_index)
+
+                if msg:
+                    for m in msg:
+                        m.text = f'Петрович {request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}'
+                        m.save()
+
+                else:
+                    new_msg = Message(
+                        type='comment',
+                        text=f'Петрович {request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}',
+                        addressee=emp,
+                        cell_table_name=table_name,
+                        cell_field_name=field_name,
+                        cell_journal_page=journal_page,
+                        row_index=row_index)
+                    new_msg.save()
+
+        else:
+            msgs = messages.filter_or_none(Message, is_read=False,
+                                           cell_table_name=table_name,
+                                           cell_field_name=field_name,
+                                           cell_journal_page=journal_page,
+                                           row_index=row_index
+                                           )
+            if msgs:
+                for m in msgs:
+                    m.is_read = True
+                    m.save()
+        
+        return JsonResponse({"result": 1})

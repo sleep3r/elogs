@@ -4,6 +4,8 @@ from common.all_journals_app.fields_descriptions.tables.electrolysis_masters_rep
 from common.all_journals_app.fields_descriptions.tables.furnace_repair_table import *
 from common.all_journals_app.fields_descriptions.tables.furnace_stove_area import *
 from common.all_journals_app.fields_descriptions.tables.input_output_report import *
+from common.all_journals_app.fields_descriptions.tables.leaching_express_analysis import *
+from common.all_journals_app.fields_descriptions.tables.leaching_repair_equipment import leaching_repair_table_desc
 from common.all_journals_app.fields_descriptions.tables.metals_compute import *
 from common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
 from common.all_journals_app.fields_descriptions.tables.technological_tasks import *
@@ -15,6 +17,24 @@ from common.all_journals_app.fields_descriptions.tables.electrolysis_repair_repo
 from utils.deep_dict import deep_dict
 
 fields_info_desc = deep_dict()
+
+fields_info_desc.leaching_express_analysis.vsns_table = vsns_table_desc
+fields_info_desc.leaching_express_analysis.thickeners_table = thickeners_table_desc
+fields_info_desc.leaching_express_analysis.zinc_pulp_table = zinc_pulp_desc
+fields_info_desc.leaching_express_analysis.appt_hydrometal_table = aph_table_desc
+fields_info_desc.leaching_express_analysis.agitators_table = agitator_table_desc
+fields_info_desc.leaching_express_analysis.reagents_table = reagents_table_desc
+fields_info_desc.leaching_express_analysis.neutral_thickeners_table = neutral_thickeners_desc
+fields_info_desc.leaching_express_analysis.tanks_availability_table = tanks_availability_desc
+fields_info_desc.leaching_express_analysis.tanks_for_finished_products_table = tanks_for_finished_products_desc
+fields_info_desc.leaching_express_analysis.self_protection_table = self_protection_desc
+fields_info_desc.leaching_express_analysis.cinder_table = cinder_table_desc
+fields_info_desc.leaching_express_analysis.sample_table = sample_table_desc
+fields_info_desc.leaching_express_analysis.loads_table = loads_table_desc
+fields_info_desc.leaching_express_analysis.neutral_table = neutral_table_desc
+fields_info_desc.leaching_express_analysis.shift_info_table = shift_info_table_desc
+
+fields_info_desc.leaching_repair_quipment.repair_table = leaching_repair_table_desc
 
 fields_info_desc.concentrate_report_journal.big_table = big_table_desc
 fields_info_desc.concentrate_report_journal.small_table = small_table_desc

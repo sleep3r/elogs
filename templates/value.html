@@ -22,7 +22,7 @@
                 <input class="form-control general-value"
                        oninput="on_input_change(this)"
                        onchange="add_message(this)"
-                       value="{{ val }}"
+                       value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
                        table-name = "{{table_name}}"
                        journal-page = "{{journal_page}}"
@@ -45,7 +45,11 @@
                                  onclick="hidePopups()">&#10006;</div>
                        <textarea name="{{ field_comment_name }}"
                                  placeholder="Комментарий..."
-                                 rows="2"
+                                 rows="2" onchange="add_comment(this)"
+                                 table-name = "{{table_name}}"
+                                 journal-page = "{{journal_page}}"
+                                 name="{{ field_name }}"
+                                 index = "{{index}}"
                                  cols="50"
                                  {% if page_mode == 'view' %}
                                      readonly="readonly"
