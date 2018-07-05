@@ -2,12 +2,15 @@ from datetime import date, datetime
 from pprint import pprint
 
 from django.utils import timezone
+from django.core.exceptions import PermissionDenied
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage, Plant
 from common.all_journals_app.fields_descriptions import fields_info
 from utils.deep_dict import deep_dict
 from login_app.models import Employee
+from .page_modes import get_page_mode, plant_permission, PageModeError
+
 
 
 def get_full_data(page):
@@ -33,21 +36,6 @@ def get_page_list(journal_name, request, page_type):
     today = timezone.now().date()
     return [today - datetime.timedelta(days=1*i) for i in range(30)]
 
-def get_page_mode(request, page):
-    page_mode = request.GET.get('page_mode')
-    employee = Employee.objects.get(user=request.user)
-    plant = request.path.split("/")[1]
-    app = 'all_journals_app'
-    plant_permission_name = app + ".modify_" + plant
-    if not page_mode:
-        if employee.user.has_perm(plant_permission_name):
-            print(page.shift_is_active, employee.user.has_perm(app + ".edit_cells"), employee.user.has_perm(app + ".validate_cells"))
-            if page.shift_is_active and employee.user.has_perm(app + ".edit_cells"):
-                return "edit"
-            if employee.user.has_perm(app + ".validate_cells"):
-                return "validate"
-        return "view"
-    return page_mode
 
 
 def get_common_context(journal_name, request, page_type="shift"):
@@ -76,7 +64,7 @@ def get_common_context(journal_name, request, page_type="shift"):
         res.shift_is_active = page.shift_is_active
         res.shift_order = page.shift_order
         res.shift_date = page.shift_date
-        res.page_mode = get_page_mode(request, page)
+        print(get_page_mode(request, page))
 
     if res.page_type == 'equipment':
         if res.page_id:
@@ -87,6 +75,10 @@ def get_common_context(journal_name, request, page_type="shift"):
                 plant=plant,
                 type=res.page_type
             )[0]
+
+
+    res.page_mode = get_page_mode(request, page)
+    res.has_plant_perm = plant_permission(request)
 
     page.save()
 

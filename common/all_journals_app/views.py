@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -29,7 +29,7 @@ def change_table(request):
         values = request.POST.getlist(field_name)
         for i, val in enumerate(values):
             CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn, responsible=request.user.employee).save()
-    
+
     return {"status": 1}
 
 
@@ -37,3 +37,11 @@ def change_table(request):
 @process_json_view(auth_required=False)
 def get_fields_descriptions(request):
     return fields_info_desc
+
+def permission_denied(request, exception, template_name='errors/403.html'):
+    try:
+        template = loader.get_template(template_name)
+    except TemplateDoesNotExist:
+        return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
+    return HttpResponseForbidden(
+        template.render(request=request, context={'exception': str(exception)}))
