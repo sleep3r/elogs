@@ -58,13 +58,14 @@ var add_message_debounced = _.debounce((input) => {
 
 
 function add_message(input) {
+    console.log("add_message()");
     add_message_debounced(input)
 }
 
 
 var add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
-    
+
     $.ajax({
         url: "/common/messages/comment",
         type: 'POST',
@@ -93,7 +94,9 @@ function on_input_change(input) {
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
-    input.type = info.type;
+
+        input.type = info.type;
+
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -133,9 +136,9 @@ function line_is_empty(tr_line) {
 
 function clone_last_line(form) {
 
-    const table = $(form).find("table");
+    const table = $(form).find("table:not(.table-insided)");
     const last_line = table.find(".indexed-line:last");
-
+    console.log(line_is_empty(last_line))
     if (!line_is_empty(last_line)) {
         let new_last_line = last_line.clone();
         new_last_line.find("input").val("");
@@ -173,7 +176,6 @@ function showValidatePopup(input) {
     $(comment).addClass("show");
     $(comment_input).focus();
 }
-
 
 function showViewPopup(icon) {
     input = $(icon).siblings()[0];
@@ -227,12 +229,38 @@ function CollapseComment(elem) {
 
 
 $(document).ready(function () {
+    $.confirm({
+    title: 'Confirm!',
+    content: 'Simple confirm!',
+    buttons: {
+        confirm: function () {
+            $.alert('Confirmed!');
+        },
+        cancel: function () {
+            $.alert('Canceled!');
+        },
+        somethingElse: {
+            text: 'Something else',
+            btnClass: 'btn-blue',
+            keys: ['enter', 'shift'],
+            action: function(){
+                $.alert('Something else?');
+            }
+        }
+    }
+});
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
        on_input_change(input);
     });
 
-    $("form").trigger("input"); // Process initial table data
+    let edit = $("input[name='edit']").attr("value");
+    let validate = $("input[name='validate']").attr("value");
+    let view = $("input[name='view']").attr("value");
 
+    // if (edit === "True") {
+    //     if
+    //     $("form").trigger("input"); // Process initial table data
+    // }
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
     };
@@ -254,9 +282,6 @@ $(document).ready(function () {
         return line_is_empty($(line));
     }).remove();
 
-
-    let validate = $("input[name='validate']").attr("value");
-    let view = $("input[name='view']").attr("value");
     if (validate === "True") {
         $('.indexed-line').removeClass('indexed-line')
     }

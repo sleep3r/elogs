@@ -65,7 +65,7 @@ function add_message(input) {
 
 var add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
-    
+
     $.ajax({
         url: "/common/messages/comment",
         type: 'POST',
@@ -227,13 +227,15 @@ function CollapseComment(elem) {
     $(elem).next().collapse('toggle');
 }
 
-
-$(document).ready(function () {
+function on_ready() {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
        on_input_change(input);
     });
 
-    // $("form").trigger("input"); // Process initial table data
+    let edit = $("input[name='edit']").attr("value");
+    let validate = $("input[name='validate']").attr("value");
+    let view = $("input[name='view']").attr("value");
+
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
@@ -256,9 +258,6 @@ $(document).ready(function () {
         return line_is_empty($(line));
     }).remove();
 
-
-    let validate = $("input[name='validate']").attr("value");
-    let view = $("input[name='view']").attr("value");
     if (validate === "True") {
         $('.indexed-line').removeClass('indexed-line')
     }
@@ -266,6 +265,33 @@ $(document).ready(function () {
     if (view === "True") {
         document.querySelectorAll(".general-value").forEach(addCommentNotification)
     }
+}
 
-
+$(document).ready(function () {
+    let edit = $("input[name='edit']").attr("value");
+    if (edit === "True") {
+        let has_edited = $("input[name='has_edited']").attr("value");
+        console.log(has_edited)
+        if (!(has_edited === "True")) {
+            $.confirm({
+                title: 'Продолжить?',
+                content: 'Вы будете назначены отвественным за этот журнал',
+                autoClose: 'cancel|60000',
+                theme: 'supervan',
+                buttons: {
+                    confirm: {
+                        text: "Да",
+                        action: function() {$("form").trigger("input")}
+                    },
+                    cancel: {
+                        text: "Назад",
+                        action: function () {
+                            history.back();
+                        },
+                    }
+                }
+            });
+        }
+    }
+    on_ready();
 });

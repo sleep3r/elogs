@@ -58,7 +58,7 @@
                     </span>
                 {% endwith %}
 
-                {% if page_mode == "view" %}
+                {% if page_mode == "view"  or page_mode == "validate" %}
                      <i class="material-icons comment-notification"
                          onclick="showViewPopup(this)">mail</i>
                 {% endif %}
