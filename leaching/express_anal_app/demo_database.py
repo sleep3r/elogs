@@ -543,7 +543,11 @@ class DatabaseFiller:
                 e.user.groups.add(Group.objects.get(name="Laborant"))
 
             e.user.groups.add(Group.objects.get(name=e.plant.title()))
+            e.user.user_permissions.add(Permission.objects.get(codename="view_cells"))
             e.save()
+
+        superuser = User.objects.get(username="inframine")
+        Employee(name="inframine", position="admin", user=superuser).save()
 
 
 

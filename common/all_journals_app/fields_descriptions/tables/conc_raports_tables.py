@@ -19,11 +19,19 @@ bt = deep_dict()
 
 #-------Big Table-------------
 bt.wagon_num = dict(type="number", min_normal=10, max_normal=1000, units = '№')
-bt.conc_num = text_default
+bt.conc_num = dict(type="datalist",options=["ЗГОК", "Арт-ий",
+                                                        "Усть-ТАЛ",
+                                                        "Карагайлы",
+                                                        "Верх-Бер",
+                                                        "Белоусовка",
+                                                        "Жезкент",
+                                                        "Н.Широкинский",
+                                                        "Лесосиб",
+                                                        "Алтын-Топкан"])
 
 bt.supply_time = dict(type="time", min_normal=10, max_normal=1000)
 bt.dispatch_time = dict(type="time", min_normal=10, max_normal=1000)
-bt.downtime = dict(type="time", min_normal=10, max_normal=1000)
+bt.downtime = dict(type="number", min_normal=10, max_normal=1000)
 
 bt.recieved_conc = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 bt.recieved_beds = dict(type="number", min_normal=10, max_normal=1000, units='шт')

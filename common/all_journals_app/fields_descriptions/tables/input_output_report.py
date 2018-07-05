@@ -62,4 +62,6 @@ summary.nzp_concentrate = dict(type="number", min_normal=5, max_normal=20000)
 summary.nzp_zn = dict(type="number", min_normal=5, max_normal=20000)
 summary.sklad_concentrate = dict(type="number", min_normal=5, max_normal=20000)
 summary.sklad_zn = dict(type="number", min_normal=5, max_normal=20000)
+summary.itogo_concentrate = numeric_default
+summary.itogo_zn = numeric_default
 summary_table_desc = summary.clear_empty().get_dict()
