@@ -79,7 +79,7 @@ def get_common_context(journal_name, request, page_type="shift"):
 
     res.page_mode = get_page_mode(request, page)
     res.has_plant_perm = plant_permission(request)
-
+    res.superuser = request.user.is_superuser
     page.save()
 
     res.full_data = get_full_data(page)

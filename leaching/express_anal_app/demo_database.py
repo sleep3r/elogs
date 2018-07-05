@@ -546,6 +546,9 @@ class DatabaseFiller:
             e.user.user_permissions.add(Permission.objects.get(codename="view_cells"))
             e.save()
 
+        superuser = User.objects.get(username="inframine")
+        Employee(name="inframine", position="admin", user=superuser).save()
+
 
 
 

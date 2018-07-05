@@ -3,8 +3,7 @@
         <span>Выберите страницу:</span>
     </div>
     <div>
-        {% if page_mode == "edit" or page_mode == "view" %}
-        {% if shift_is_active and has_plant_perm %}
+        {% if superuser %}
             <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
                class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
                 Просмотр
@@ -13,14 +12,24 @@
                class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
                 Редактирование
             </a>
+            <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
+               class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
+                Validate mode
+            </a>
+        {% else %}
+            {% if page_mode == "edit" or page_mode == "view" %}
+            {% if shift_is_active and has_plant_perm %}
+                <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
+                   class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
+                    Просмотр
+                </a>
+                <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
+                   class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
+                    Редактирование
+                </a>
+            {% endif %}
+            {% endif %}
         {% endif %}
-        {% endif %}
-        <!-- {% if page_mode == "validate" %}
-        <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
-           class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
-            Validate mode
-        </a>
-        {% endif %} -->
 
         <div class="col-xs-2">
             <input value="{{shift_date}}, {{shift_order}}-ая смена"

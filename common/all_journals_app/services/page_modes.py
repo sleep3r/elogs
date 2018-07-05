@@ -21,6 +21,8 @@ def page_mode_is_valid(request, page):
     employee = Employee.objects.get(user=request.user)
     page_mode = request.GET.get('page_mode')
     if page_mode:
+        if request.user.is_superuser:
+                return True
         if plant_permission(request):
             if page_mode == "validate":
                 return employee.user.has_perm(VALIDATE_CELLS)
