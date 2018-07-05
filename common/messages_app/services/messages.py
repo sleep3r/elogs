@@ -23,3 +23,10 @@ def filter_or_none(model, *args, **kwargs):
         return model.objects.filter(*args, **kwargs)
     except model.DoesNotExist:
         return None
+
+
+def get_or_none(model, *args, **kwargs):
+    try:
+        return model.objects.get(*args, **kwargs)
+    except model.DoesNotExist:
+        return None

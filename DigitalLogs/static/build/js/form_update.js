@@ -69,7 +69,7 @@ var add_comment_debounced = _.debounce((textarea) => {
     $.ajax({
         url: "/common/messages/comment",
         type: 'POST',
-        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('table-name'), 'comment_text': $(textarea).val(),
+        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
                     'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
                     'index':$(textarea).attr('index') },
         success: function (json) {
@@ -87,6 +87,34 @@ function add_comment(textarea) {
     console.log("add_comment()");
     add_comment_debounced(textarea)
 }
+
+
+
+var add_responsible_debounced = _.debounce((input) => {
+    console.log("add_responsible_debounced()");
+    
+    $.ajax({
+        url: "/common/add_responsible",
+        type: 'POST',
+        data: { 'check': true, 'field_name': $(input).attr('name'),
+                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
+                'index':$(input).attr('index') },
+        success: function (json) {
+            if (json && json.result) {
+                console.log(json.result)
+            }
+        }
+    });
+
+}, 1500);
+
+
+
+function add_responsible(input) {
+    console.log("add_responsible()");
+    add_responsible_debounced(input)
+}
+
 
 
 function on_input_change(input) {
@@ -118,7 +146,6 @@ function on_input_change(input) {
     }
 
     $(input).attr('placeholder', info.units);
-    $(input).attr('title', info.units);
 }
 
 
