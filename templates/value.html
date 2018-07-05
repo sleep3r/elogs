@@ -8,6 +8,8 @@
     journal_page
 {% endcomment %}
 
+{% set_global_context 'responsible' full_data|keyval:"responsible"|keyval:table_name|keyval:field_name|keyval:index|default_for_responsible %}
+
 {% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
             {% with field_comment_name=field_name|add:"_comment" %}
@@ -19,9 +21,10 @@
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
-                <input class="form-control general-value"
+                    <input class="form-control general-value"
                        oninput="on_input_change(this)"
-                       onchange="add_message(this)"
+                       onchange="add_message(this);add_responsible(this);"
+                       title="{% if responsible %}Заполнил: {{ responsible }}{% endif %}" 
                        value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
                        table-name = "{{table_name}}"
@@ -35,6 +38,7 @@
                            onclick="showValidatePopup(this)"
                        {% endif %}
                        />
+
 
                 {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
                 <!-- {{ field_comment_name }}

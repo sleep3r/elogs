@@ -20,7 +20,7 @@ def get_full_data(page):
         if val.index is not None:
             res[val.table_name][val.field_name][val.index] = val.value
             res['id'][val.table_name][val.field_name][val.index] = val.id
-            res['responsible'][val.table_name] = val.responsible
+            res['responsible'][val.table_name][val.field_name][val.index] = val.responsible
         else:
             raise ValueError()
 
