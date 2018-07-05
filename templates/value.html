@@ -19,7 +19,8 @@
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
-                <input class="form-control general-value"
+                <input type="hidden" name="{{ field_name }}_index" value="{{index}}" />
+                    <input class="form-control general-value"
                        oninput="on_input_change(this)"
                        onchange="add_message(this)"
                        value="{{ val }}"
@@ -35,6 +36,7 @@
                            onclick="showValidatePopup(this)"
                        {% endif %}
                        />
+
 
                 {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
                 <!-- {{ field_comment_name }}
