@@ -149,6 +149,14 @@ function on_input_change(input) {
 }
 
 
+function reformat_on_change(input) {
+    if (input.value === "")
+        return;
+    if (input.type === "number") {
+        input.value = +(input.value*1.0).toFixed(2);
+    }
+}
+
 function line_is_empty(tr_line) {
     let filled = 0;
     tr_line.find('input.general-value').each(function () {

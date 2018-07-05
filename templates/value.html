@@ -23,7 +23,7 @@
         {% endif %} -->
                     <input class="form-control general-value"
                        oninput="on_input_change(this)"
-                       onchange="add_message(this);add_responsible(this);"
+                       onchange="add_message(this);add_responsible(this);reformat_on_change(this)"
                        title="{% if responsible %}Заполнил: {{ responsible }}{% endif %}" 
                        value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
