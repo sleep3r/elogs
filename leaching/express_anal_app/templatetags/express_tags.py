@@ -61,6 +61,10 @@ def choose_val(field_info, index):
 def stack(a, b):
     return a + b
 
+@register.filter
+def index(sequence, position):
+    return sequence[position]
+
 
 @register.filter(name='split')
 def split(value, arg):
@@ -108,6 +112,11 @@ def get_table_name(table_link):
 @register.filter('formatter')
 def formatter(string, obj):
     return string.format(object)
+
+
+@register.filter(name='times')
+def times(number):
+    return range(number)
 
 
 @register.tag('for_or_create')

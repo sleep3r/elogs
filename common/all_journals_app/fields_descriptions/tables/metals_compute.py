@@ -14,10 +14,10 @@ fs['zn_end'] = ton_default
 
 metals_main_desc = fs.clear_empty().get_dict()
 
-
-
 sns = deep_dict()
-sns.caption = dict(type="datalist", min_normal=10, max_normal=20000, options=["ЗГОК","Арт-ий",
+sns.caption = dict(type="datalist", options=[
+    "ЗГОК",
+    "Арт-ий",
     "Усть-ТАЛ",
     "Карагайлы",
     "Верх-Бер",
