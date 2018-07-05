@@ -33,11 +33,30 @@ def index(request):
     gof_table = deep_dict()
     gof_table.name = "metals_compute/gof_table.html"
 
+    # среднее сожержание за месяц
+    avg_month_table = deep_dict()
+    avg_month_table.name = "metals_compute/avg_month_table.html"
+
+    contain_zn_table = deep_dict()
+    contain_zn_table.name = "metals_compute/contain_zn_table.html"
+
+    cinder_conc_table = deep_dict()
+    cinder_conc_table.name = "metals_compute/cinder_conc_table.html"
+
+    concentrat_table = deep_dict()
+    concentrat_table.name = "metals_compute/concentrat_table.html"
+
     context.tables = [
-                       main_table,
-                       sns_table,
-                       sgok_table,
-                       gof_table
+        # avg_month_table,
+        contain_zn_table,
+        cinder_conc_table,
+        concentrat_table,
+        main_table,
+        sns_table,
+        sgok_table,
+        gof_table,
+
+
                       ]
 
     context.sgok_table.columns = [
@@ -66,6 +85,7 @@ def index(request):
 
     context.sgok_table.fields = fields_info_desc.metals_compute.sgok_table.keys()
     context.gof_table.fields = fields_info_desc.metals_compute.gof_table.keys()
+    context.avg_month_table.fields = fields_info_desc.metals_compute.avg_month_table.keys()
 
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context, request))
