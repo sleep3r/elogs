@@ -31,7 +31,7 @@ var add_message_debounced = _.debounce((input) => {
         $.ajax({
             url: "/common/messages/add",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
+            data: { 'type':'critical_value', 'check': true, 'field_name': input.name, 'field_value': input.value,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -63,13 +63,40 @@ function add_message(input) {
 }
 
 
+var add_comment_debounced = _.debounce((textarea) => {
+    console.log("add_comment_debounced()");
+    
+    $.ajax({
+        url: "/common/messages/comment",
+        type: 'POST',
+        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('table-name'), 'comment_text': $(textarea).val(),
+                    'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
+                    'index':$(textarea).attr('index') },
+        success: function (json) {
+            if (json && json.result) {
+                console.log(json.result)
+            }
+        }
+    });
+
+}, 1500);
+
+
+
+function add_comment(textarea) {
+    console.log("add_comment()");
+    add_comment_debounced(textarea)
+}
+
+
 function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-    if (info.type !== "droplist") { // for dropdowns
+
+
         input.type = info.type;
-    }
+
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -149,7 +176,6 @@ function showValidatePopup(input) {
     $(comment).addClass("show");
     $(comment_input).focus();
 }
-
 
 function showViewPopup(icon) {
     input = $(icon).siblings()[0];

@@ -2,13 +2,13 @@
 
 {% set_global_context 'table_data' full_data|table_keyval:table_name %}
 {% set_global_context 'table_info' fields_info|keyval:journal_name|keyval:table_name %}
-{% set_global_context 'responsible' full_data|keyval:"responsible"|keyval:table_name %}
+{% set_global_context 'responsible' full_data|keyval:"responsible"|keyval:table_name|default_for_responsible %}
 
 
 <div class="journaltablewrapper">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{% block title %}{% endblock %} ({{ responsible|default_for_responsible }})</h2>
+            <h2>{% block title %}{% endblock %} <span style="font-size:80%; color:rgb(158, 158, 158)">(Ответственный: {{ responsible }})</span></h2>
             <ul class="nav navbar-right panel_toolbox">
                 <li>
                     <a class="collapse-link">
@@ -32,6 +32,21 @@
                 {% include "table_comment.html" with comment=table_data|keyval:"comment"|choose_val:0 %}
 
             </form>
+
+            <script>
+                if (!$("[name = master]").val()) {
+                    $("[name = master]").val("{{ responsible }}");
+                }
+                
+                if (!$("[name = employee]").val()) {
+                        $("[name = employee]").val("{{ responsible }}");
+                    } 
+                
+                if (!$("[name = executer]").val()) {
+                        $("[name = executer]").val("{{ responsible }}");
+                    }
+            </script>
+
             {% block js %}{% endblock %}
         </div>
     </div>
