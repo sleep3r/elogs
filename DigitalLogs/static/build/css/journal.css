@@ -367,3 +367,8 @@ input[readonly] {
     font-weight: bold;
     line-height: 55px;
 }
+
+.table-insided {
+    margin-bottom: 0 !important;
+    width: 100%;
+}

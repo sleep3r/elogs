@@ -110,9 +110,9 @@ function line_is_empty(tr_line) {
 
 function clone_last_line(form) {
 
-    const table = $(form).find("table");
+    const table = $(form).find("table:not(.table-insided)");
     const last_line = table.find(".indexed-line:last");
-
+    console.log(line_is_empty(last_line))
     if (!line_is_empty(last_line)) {
         let new_last_line = last_line.clone();
         new_last_line.find("input").val("");
@@ -207,7 +207,7 @@ $(document).ready(function () {
        on_input_change(input);
     });
 
-    $("form").trigger("input"); // Process initial table data
+    // $("form").trigger("input"); // Process initial table data
 
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
