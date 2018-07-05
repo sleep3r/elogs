@@ -151,7 +151,7 @@ function on_input_change(input) {
 
 function line_is_empty(tr_line) {
     let filled = 0;
-    tr_line.find('input').each(function () {
+    tr_line.find('input.general-value').each(function () {
         if (this.value.trim() !== "") {
             filled++;
         }
