@@ -69,7 +69,7 @@ var add_comment_debounced = _.debounce((textarea) => {
     $.ajax({
         url: "/common/messages/comment",
         type: 'POST',
-        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('table-name'), 'comment_text': $(textarea).val(),
+        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
                     'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
                     'index':$(textarea).attr('index') },
         success: function (json) {
@@ -87,6 +87,34 @@ function add_comment(textarea) {
     console.log("add_comment()");
     add_comment_debounced(textarea)
 }
+
+
+
+var add_responsible_debounced = _.debounce((input) => {
+    console.log("add_responsible_debounced()");
+    
+    $.ajax({
+        url: "/common/add_responsible",
+        type: 'POST',
+        data: { 'check': true, 'field_name': $(input).attr('name'),
+                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
+                'index':$(input).attr('index') },
+        success: function (json) {
+            if (json && json.result) {
+                console.log(json.result)
+            }
+        }
+    });
+
+}, 1500);
+
+
+
+function add_responsible(input) {
+    console.log("add_responsible()");
+    add_responsible_debounced(input)
+}
+
 
 
 function on_input_change(input) {
@@ -118,13 +146,12 @@ function on_input_change(input) {
     }
 
     $(input).attr('placeholder', info.units);
-    $(input).attr('title', info.units);
 }
 
 
 function line_is_empty(tr_line) {
     let filled = 0;
-    tr_line.find('input').each(function () {
+    tr_line.find('input.general-value').each(function () {
         if (this.value.trim() !== "") {
             filled++;
         }
@@ -227,28 +254,7 @@ function CollapseComment(elem) {
     $(elem).next().collapse('toggle');
 }
 
-
-$(document).ready(function () {
-    $.confirm({
-    title: 'Confirm!',
-    content: 'Simple confirm!',
-    buttons: {
-        confirm: function () {
-            $.alert('Confirmed!');
-        },
-        cancel: function () {
-            $.alert('Canceled!');
-        },
-        somethingElse: {
-            text: 'Something else',
-            btnClass: 'btn-blue',
-            keys: ['enter', 'shift'],
-            action: function(){
-                $.alert('Something else?');
-            }
-        }
-    }
-});
+function on_ready() {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
        on_input_change(input);
     });
@@ -257,10 +263,7 @@ $(document).ready(function () {
     let validate = $("input[name='validate']").attr("value");
     let view = $("input[name='view']").attr("value");
 
-    // if (edit === "True") {
-    //     if
-    //     $("form").trigger("input"); // Process initial table data
-    // }
+
     String.prototype.trim = function () {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
     };
@@ -289,6 +292,33 @@ $(document).ready(function () {
     if (view === "True") {
         document.querySelectorAll(".general-value").forEach(addCommentNotification)
     }
+}
 
-
+$(document).ready(function () {
+    let edit = $("input[name='edit']").attr("value");
+    if (edit === "True") {
+        let has_edited = $("input[name='has_edited']").attr("value");
+        console.log(has_edited)
+        if (!(has_edited === "True")) {
+            $.confirm({
+                title: 'Продолжить?',
+                content: 'Вы будете назначены отвественным за этот журнал',
+                autoClose: 'cancel|60000',
+                theme: 'supervan',
+                buttons: {
+                    confirm: {
+                        text: "Да",
+                        action: function() {$("form").trigger("input")}
+                    },
+                    cancel: {
+                        text: "Назад",
+                        action: function () {
+                            history.back();
+                        },
+                    }
+                }
+            });
+        }
+    }
+    on_ready();
 });

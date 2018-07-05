@@ -372,3 +372,15 @@ input[readonly] {
     margin-bottom: 0 !important;
     width: 100%;
 }
+
+.table-comment-button {
+    cursor: pointer;
+}
+
+.table-comment-button:hover {
+    text-decoration: underline
+}
+
+.table-comment-button:active {
+    color: #29BA9C;
+}

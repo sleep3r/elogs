@@ -1,9 +1,9 @@
 
 <div>
-    <span onclick="CollapseComment(this)">Комментарий</span>
+    <span onclick="CollapseComment(this)" class="table-comment-button">Коментарий</span>
     <div class="collapse table-comment-wrapper">
         <textarea class="table-comment" name="comment"
-                  placeholder="Комментарий..."
+                  placeholder="Коментарий..."
                   {% if page_mode == 'view' %}
                     readonly="readonly"
                   {% endif %}
