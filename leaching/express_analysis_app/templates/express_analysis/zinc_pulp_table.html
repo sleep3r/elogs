@@ -1,0 +1,96 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Цинковая пульпа{% endblock %}
+
+{% block table %}
+ <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="3" >{% trans "Цинковая (Zn) пульпа" %}</th>
+                <th colspan="4" >{% trans "Медная пульпа" %}</th>
+                <th colspan="8" >{% trans "Железистый раствор" %}{% trans ", мг/л" %}</th>
+                <th>{% trans "Концентрат Sb в р-ре соли Шлиппе" %}{% trans ", г/л" %}</th>
+                <th>{% trans "Активн. ПАВ" %}{% trans ", метр/час" %}</th>
+                <th>{% trans "Высоко Fe р-р" %}</th>
+            </tr>
+            <tr>
+                <th>{% trans "Ж:Т" %}</th>
+                <th>pH</th>
+                <th>t°</th>
+                <th>{% trans "Ж:Т" %}</th>
+                <th>{% trans "До" %}</th>
+                <th>{% trans "После" %}</th>
+                <th>ТВ</th>
+                <th>H<sub>2</sub>SO<sub>4</sub></th>
+                <th>ТВ</th>
+                <th>Sb</th>
+                <th>Cu</th>
+                <th>Fe</th>
+                <th>{% trans "уд. вес" %}</th>
+                <th>As</th>
+                <th>Cl</th>
+                <td>{% include "value.html" with field_name="concentrate_Shlippe" index=0 %}</td>
+                <td>{% include "value.html" with field_name="active_PAV" index=0 %}</td>
+                <td>{% include "value.html" with field_name="high_Fe" index=0 %}</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% include "value.html" with field_name="zn_pulp_liquid_solid" index=0 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_pH" index=0 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_temperature" index=0 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_liquid_solid" index=0 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_before" index=0 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_after" index=0 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_tv" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_h2so4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_tv" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Sb" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cu" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Fe" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_specific_weight" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_As" index=0 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cl" index=0 %}</td>
+                <th colspan="2">Анализы оборот. сгуст.</th>
+                <td rowspan="3">{% include "value.html" with field_name="high_Fe" index=1 %}</td>
+            </tr>
+            <tr>
+                <td>{% include "value.html" with field_name="zn_pulp_liquid_solid" index=1 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_pH" index=1 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_temperature" index=1 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_liquid_solid" index=1 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_before" index=1 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_after" index=1 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_tv" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_h2so4" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_tv" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Sb" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cu" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Fe" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_specific_weight" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_As" index=1 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cl" index=1 %}</td>
+                <td rowspan="2" colspan="2">{% include "value.html" with field_name="thickener_assays" index=0 %}</td>
+            </tr>
+            <tr>
+                <td>{% include "value.html" with field_name="zn_pulp_liquid_solid" index=2 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_pH" index=2 %}</td>
+                <td>{% include "value.html" with field_name="zn_pulp_temperature" index=2 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_liquid_solid" index=2 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_before" index=2 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_after" index=2 %}</td>
+                <td>{% include "value.html" with field_name="cu_pulp_tv" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_h2so4" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_tv" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Sb" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cu" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Fe" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_specific_weight" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_As" index=2 %}</td>
+                <td>{% include "value.html" with field_name="iron_solution_Cl" index=2 %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

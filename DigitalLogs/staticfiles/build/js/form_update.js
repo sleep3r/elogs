@@ -58,7 +58,6 @@ var add_message_debounced = _.debounce((input) => {
 
 
 function add_message(input) {
-    console.log("add_message()");
     add_message_debounced(input)
 }
 
@@ -93,9 +92,8 @@ function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-    if (info.type !== "droplist") { // for dropdowns
-        input.type = info.type;
-    }
+
+    input.type = info.type;
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -214,8 +212,8 @@ function hidePopusOnMouseUp(event) {
 }
 
 function addCommentNotification(input) {
-    comment = $(input).siblings()[0];
-    comment_notification = $(input).siblings()[1];
+    comment = $(input).siblings("span")[0];
+    comment_notification = $(input).siblings("i")[0];
     comment_input = $(comment).children()[1];
     console.log($(comment_input).text());
     if ($(comment_input).text()) {

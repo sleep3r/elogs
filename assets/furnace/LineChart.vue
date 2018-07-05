@@ -35,7 +35,18 @@
           moment-locale="ru" />
       </div>
     </div>    
-    <svg class="line-chart"/>
+    <svg class="line-chart">
+      <defs>
+        <linearGradient id="gradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" style="stop-color:rgba(135,123,237,1);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgba(26,7,135,1);stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="gradOrange" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+        </linearGradient>
+      </defs>
+    </svg>
   </div>
 </template>
 
@@ -169,10 +180,11 @@ export default {
       g.append("path")
           .datum(data)
           .attr("fill", "none")
-          .attr("stroke", "steelblue")
+          .attr("stroke", "url('#gradBlue')")
           .attr("stroke-linejoin", "round")
           .attr("stroke-linecap", "round")
           .attr("stroke-width", 1.5)
+          .attr("stroke-opacity", 0.5)
           .attr("d", line)
     }
   }

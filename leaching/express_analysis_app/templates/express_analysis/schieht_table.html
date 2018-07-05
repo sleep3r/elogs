@@ -1,0 +1,18 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Шихта{% endblock %}
+
+{% block table %}
+    <table class="table table-bordered">
+            <tbody>
+            {%  for number in 3|times %}
+            <tr>
+                <td>{% include "value.html" with field_name="value" index=number %}</td>
+                <td>{% include "value.html" with field_name="name" index=number %}</td>
+            </tr>
+            {%  endfor %}
+            </tbody>
+    </table>
+{% endblock %}

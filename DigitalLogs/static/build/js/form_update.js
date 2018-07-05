@@ -93,9 +93,10 @@ function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
-    if (info.type !== "droplist") { // for dropdowns
+
+
         input.type = info.type;
-    }
+
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -175,7 +176,6 @@ function showValidatePopup(input) {
     $(comment).addClass("show");
     $(comment_input).focus();
 }
-
 
 function showViewPopup(icon) {
     input = $(icon).siblings()[0];
