@@ -384,3 +384,8 @@ input[readonly] {
 .table-comment-button:active {
     color: #29BA9C;
 }
+
+.general-value {
+    padding-left: 3px;
+    padding-right: 2px;
+}

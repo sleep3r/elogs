@@ -374,7 +374,7 @@ input[readonly] {
 }
 
 .table-comment-button {
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .table-comment-button:hover {
@@ -383,4 +383,10 @@ input[readonly] {
 
 .table-comment-button:active {
     color: #29BA9C;
+}
+
+
+.general-value {
+    padding-left: 6px;
+    padding-right: 3px;
 }
