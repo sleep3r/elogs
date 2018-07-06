@@ -41,13 +41,15 @@ var Notifications = {
         });
         (new PNotify({
           target: document.body,
-          text: msg,
+            title: 'Внимание',
+            text: msg,
           buttons: {
             closer: true,
             closer_hover: false,
             sticker: false,
           },
-          styling: 'bootstrap3',
+          styling: 'brighttheme',
+          type: 'error',
           hide: false,
           addclass: 'notification-full'
         })).open();
