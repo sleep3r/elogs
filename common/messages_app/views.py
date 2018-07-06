@@ -5,10 +5,12 @@ from django.views import View
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from utils.deep_dict import deep_dict
+from utils.errors import AccessError
 from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 from login_app.models import Message, Employee
 from common.all_journals_app.models import CellValue
 from common.messages_app.services import messages
+
 
 class GetMessagesView(View):
     def get(self, request):
@@ -42,7 +44,7 @@ class AddMessagesView(View):
         adding_field_value = request.POST.get('field_value', None)
         if adding_field_value:
             for emp in messages.get_addressees(all=True):
-                msg = messages.filter_or_none(Message,type='critical_value',
+                msg = messages.filter_or_none(Message, type='critical_value',
                         addressee=emp, 
                         cell_field_name = adding_field_name,
                         cell_table_name = adding_table_name,
