@@ -11,24 +11,7 @@
 
 {% block content %}
 
-    <script language="JavaScript">
 
-    $( document ).ready(function() {
-        var element = $('.journal_title'), originalY = element.offset().top;
-
-        $(window).on('scroll', function (event) {
-            var scrollPos = $(window).scrollTop();
-            if (scrollPos > 0) {
-                element.addClass('sticky');
-            }
-            else {
-                element.removeClass('sticky');
-            }
-
-        });
-    });
-
-    </script>
 
     <div class="content">
     {% include "widget.html" %}
