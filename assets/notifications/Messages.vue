@@ -28,7 +28,7 @@ export default {
 
   created() {
     this.getMessages()
-    this.timer = setInterval(this.getMessages, 10000)
+    this.timer = setInterval(this.getMessages, 90000)
   },
   methods: {
     getMessages() {
