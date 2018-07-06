@@ -8,23 +8,25 @@
     journal_page
 {% endcomment %}
 
-{% set_global_context 'responsible' full_data|keyval:"responsible"|keyval:table_name|keyval:field_name|keyval:index|default_for_responsible %}
 
 {% with val=table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
     {% with info=fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
             {% with field_comment_name=field_name|add:"_comment" %}
                 {% with id=full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
-
+                     {% with field_responsible_name=field_name|add:"_responsible" %}
 
         <!-- {% if validate %}
             {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
         {% else %}
             {% set_global_context "onclick" "" %}
         {% endif %} -->
+         {% with responsible=table_data|keyval:field_responsible_name|choose_val:index %} 
+                    <input class = "resp" hidden name="{{ field_responsible_name }}" value="{{responsible}}" >
+
                     <input class="form-control general-value"
                        oninput="on_input_change(this)"
-                       onchange="add_message(this);add_responsible(this);reformat_on_change(this)"
-                       title="{% if responsible %}Заполнил: {{ responsible }}{% endif %}"
+                       onchange="add_message(this);add_responsible(this, '{{ user.employee }}');reformat_on_change(this)"
+                       title="{% if responsible %}{% if val %}Заполнил: {{ responsible }}{% endif %}{% endif %}"
                        value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
                        table-name = "{{table_name}}"
@@ -38,7 +40,7 @@
                            onclick="showValidatePopup(this)"
                        {% endif %}
                        />
-
+        {% endwith %}
 
                 {% with comment=table_data|keyval:field_comment_name|choose_val:index %}
                 <!-- {{ field_comment_name }}
@@ -50,11 +52,11 @@
                        <textarea name="{{ field_comment_name }}"
                                  placeholder="Комментарий..."
                                  rows="2"
+                                 class="popup-comment-content-textarea"
                                  oninput="addCommentNotification(this);"
                                  onchange="add_comment(this);"
                                  table-name = "{{table_name}}"
                                  journal-page = "{{journal_page}}"
-                                 name="{{ field_name }}"
                                  index = "{{index}}"
                                  cols="50"
                                  {% if page_mode == 'view' %}
@@ -69,7 +71,7 @@
                          onclick="showViewPopup(this)">mail</i>
                 {% endif %}
 
-
+                    {% endwith %}
                 {% endwith %}
             {% endwith %}
      {% endwith %}

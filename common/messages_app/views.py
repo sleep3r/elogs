@@ -119,13 +119,13 @@ class AddComment(View):
 
                 if msg:
                     for m in msg:
-                        m.text = f'<b>{request.user.employee.name}</b> оставил к таблице <b>{table_name}</b> комментарий: {comment_text}'
+                        m.text = f'{request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}'
                         m.save()
 
                 else:
                     new_msg = Message(
                         type='comment',
-                        text=f'<b>{request.user.employee.name}</b> оставил к таблице <b>{table_name}</b> комментарий: {comment_text}',
+                        text=f'{request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}',
                         addressee=emp,
                         cell_table_name=table_name,
                         cell_field_name=field_name,
