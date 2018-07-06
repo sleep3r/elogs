@@ -5,7 +5,7 @@
 
 {% block form_class %}row_of_tables{% endblock %}
 {% block table %}
-<table class="table table-bordered">
+<table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
             <th colspan="3"> Установленные технологический режим </th>
@@ -103,7 +103,7 @@
 {% endblock %}
 
 {% block additional_lower %}
-    <table class="table table-bordered">
+    <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
                 <th colspan="3"> В работе ВИУ </th> <td colspan="1">{% include "value.html" with field_name="viu_in" index=0 %} </td>
@@ -180,7 +180,7 @@
 
     </table>
 
-        <table class="table table-bordered">
+        <table class="table table-bordered elog-journal-table">
             <thead>
                 <tr>
                     <th colspan="4">

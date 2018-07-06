@@ -12,7 +12,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        <table class="table table-bordered">
+        <table class="table table-bordered elog-journal-table">
             <thead>
                 <tr>
                     <th rowspan="3" class="rotate"><div><span>Время</span></div></th>
