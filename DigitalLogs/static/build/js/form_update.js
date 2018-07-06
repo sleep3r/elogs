@@ -92,7 +92,7 @@ function add_comment(textarea) {
 
 var add_responsible_debounced = _.debounce((input) => {
     console.log("add_responsible_debounced()");
-    
+
     $.ajax({
         url: "/common/add_responsible",
         type: 'POST',
@@ -123,7 +123,7 @@ function on_input_change(input) {
     const info = JSON.parse(json);
 
 
-        input.type = info.type;
+    input.type = info.type;
 
 
     if (input.type === "number") {
@@ -146,9 +146,11 @@ function on_input_change(input) {
     }
 
     $(input).attr('placeholder', info.units);
+    addCommentNotification(input);
 }
 
 
+<<<<<<< Updated upstream
 function reformat_on_change(input) {
     if (input.value === "")
         return;
@@ -156,6 +158,8 @@ function reformat_on_change(input) {
         input.value = +(input.value*1.0).toFixed(2);
     }
 }
+=======
+>>>>>>> Stashed changes
 
 function line_is_empty(tr_line) {
     let filled = 0;
@@ -248,13 +252,15 @@ function hidePopusOnMouseUp(event) {
     }
 }
 
-function addCommentNotification(input) {
-    comment = $(input).siblings("span")[0];
-    comment_notification = $(input).siblings("i")[0];
-    comment_input = $(comment).children()[1];
-    console.log($(comment_input).text());
-    if ($(comment_input).text()) {
+function addCommentNotification(textarea) {
+    comment = $(textarea).parent()[0];
+    comment_notification = $(comment).siblings("i")[0];
+    console.log($(textarea).val());
+    if ($(textarea).val()) {
         $(comment_notification).addClass("show")
+    }
+    else {
+        $(comment_notification).removeClass("show")
     }
 }
 
@@ -297,8 +303,8 @@ function on_ready() {
         $('.indexed-line').removeClass('indexed-line')
     }
     document.addEventListener('mouseup', hidePopusOnMouseUp);
-    if (view === "True") {
-        document.querySelectorAll(".general-value").forEach(addCommentNotification)
+    if (view === "True" || validate === "True") {
+        document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
 }
 
