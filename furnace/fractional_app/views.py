@@ -30,21 +30,21 @@ def granularity_object(request):
 
     for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True)[:2]:
         res['data'][o.id+1234]['cinder']['time'] = (o.cinder.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
-        res['data'][o.id+1234]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
+        res['data'][o.id+1234]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
+        res['data'][o.id+1234]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
 
         res['data'][o.id+1234]['schieht']['time'] = (o.schieht.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
-        res['data'][o.id+1234]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
+        res['data'][o.id+1234]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
+        res['data'][o.id+1234]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
 
     for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True):
         res['data'][o.id]['cinder']['time'] = o.cinder.user_time.timestamp()
-        res['data'][o.id]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
-        res['data'][o.id]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
+        res['data'][o.id]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
+        res['data'][o.id]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
 
         res['data'][o.id]['schieht']['time'] = o.schieht.user_time.timestamp()
-        res['data'][o.id]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
-        res['data'][o.id]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
+        res['data'][o.id]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
+        res['data'][o.id]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
 
     return res
 

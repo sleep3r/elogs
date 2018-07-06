@@ -1,0 +1,91 @@
+<template>
+  <div class="fractional-form">
+    <h2>Огарок</h2>
+    <table>
+      <tr>
+        <td>Размер</td>
+        <td
+          v-for="(size, i) in cinder.min_sizes"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="cinder.min_sizes[i]">
+        </td>
+      </tr>
+      <tr>
+        <td>Масса</td>
+        <td
+          v-for="(mass, i) in cinder.masses"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="cinder.masses[i]"></td>
+      </tr>
+    </table>
+    <h2>Шихта</h2>
+    <table>
+      <tr>
+        <td>Размер</td>
+        <td
+          v-for="(size, i) in schieht.min_sizes"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="schieht.min_sizes[i]">
+        </td>
+      </tr>
+      <tr>
+        <td>Масса</td>
+        <td
+          v-for="(mass, i) in schieht.masses"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="schieht.masses[i]">
+        </td>
+      </tr>
+    </table>
+    <button>OK</button>
+    <button @click="$emit('close')">Не ОК</button>
+  </div>
+</template>
+
+<script>
+import _ from 'lodash'
+
+export default {
+  name: 'MeasurementForm',
+  props: {
+    timeframe: {
+      type: Object,
+      default: () => {}
+    },
+  },
+  data() {
+    return {
+      cinder: {},
+      schieht: {}
+    }
+  },
+  created() {
+    this.cinder = this.timeframe.cinder
+    this.schieht = this.timeframe.schieht
+  }
+}
+</script>
+
+<style lang="scss">
+  .fractional-form {
+    input {
+      width: 3em;
+    }
+  }
+</style>

@@ -1,7 +1,12 @@
 <template>
   <div class="furnace-dashboard">
     <div class="x_panel">
-      <div class="x_title"><h4>Фракционный состав шихты и огарка</h4></div>
+      <div class="x_title">
+        <h4 class="pull-left">Фракционный состав шихты и огарка</h4>
+        <button
+          class="pull-right"
+          @click="addMeasurement">Добавить измерение</button>
+      </div>
       <div class="x_content">
         <div class="date-control">
           <datetime 
@@ -36,7 +41,7 @@
               :key="timeframe.cinder.time">
               <div 
                 class="carousel-chart" 
-                @click="modalChart(timeframe.cinder)">
+                @click="modalChart(timeframe.cinder, timeframe)">
                 <bar-chart 
                   :min-sizes="timeframe.cinder.min_sizes"
                   :masses="timeframe.cinder.masses"
@@ -46,7 +51,7 @@
               <div class="spacer"/>
               <div 
                 class="carousel-chart" 
-                @click="modalChart(timeframe.schieht)">
+                @click="modalChart(timeframe.schieht, timeframe)">
                 <bar-chart
                   :min-sizes="timeframe.schieht.min_sizes"
                   :masses="timeframe.schieht.masses"
@@ -87,6 +92,7 @@
 <script>
   import barChart from "./BarChart.vue";
   import lineChart from "./LineChart.vue";
+  import measurementForm from "./Form.vue";
 
   export default {
     name: "FurnaceDashboard",
@@ -134,11 +140,14 @@
       is_prediction(time) {
         return time * 1000 > this.current_time;
       },
-      modalChart(val) {
-        console.log("click", val);
+      addMeasurement() {
+        this.$modal.show(measurementForm)
+      },
+      modalChart(val, timeframe) {
         this.$modal.show(
           barChart,
           {
+            timeframe,
             minSizes: val.min_sizes,
             masses: val.masses,
             labels: true,
