@@ -2,8 +2,6 @@
 
 
 var send_form =  _.debounce((form) => {
-    console.log("send_form()");
-    console.log($(form).serialize())
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -171,7 +169,6 @@ function line_is_empty(tr_line) {
 
 
 function clone_last_line(form) {
-    // console.log("clone_last_line")
     const tables = $(form).find("table:not(.table-insided)");
     for (i=0; i<tables.get().length; i++) {
         table = $(tables.get()[i])
@@ -187,13 +184,11 @@ function clone_last_line(form) {
 
 
 function clear_empty_lines(form) {
-    // console.log("clear_empty_lines")
     const tables = $(form).find("table:not(.table-insided)");
 
     for (i=0; i<tables.get().length; i++) {
         table = $(tables.get()[i])
         let last_line = null;
-        // console.log("clearing ", table)
         $(table.find(".indexed-line").get().reverse()).each(function (index) {
             if (line_is_empty($(this))) {
                 if (last_line) {
