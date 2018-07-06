@@ -134,6 +134,9 @@
           Math.max(0, index - 2),
           Math.min(this.fracData.length, index ? index + 3 : frame)
         );
+      },
+      last_timeframe() {
+        return _.last(_.filter(this.fracData, o => !this.is_prediction(o.cinder.time)))
       }
     },
     methods: {
@@ -142,7 +145,7 @@
       },
       addMeasurement() {
         this.$modal.show(measurementForm, {
-          timeframe: Object.assign({}, this.current_timeframes[2], { id: undefined })
+          timeframe: _.cloneDeep(_.omit(this.last_timeframe, 'id'))
         })
       },
       modalChart(val, timeframe) {
@@ -157,7 +160,7 @@
           },
           {
             width: "1200",
-            height: "auto"
+            height: "85%"
           }
         );
       },
