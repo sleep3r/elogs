@@ -66,7 +66,7 @@ def get_common_context(journal_name, request, page_type="shift"):
         res.shift_date = page.shift_date
         print(get_page_mode(request, page))
 
-    if res.page_type == 'equipment':
+    if res.page_type == 'equipment' or res.page_type == 'year':
         if res.page_id:
             page = JournalPage.objects.get(id=res.page_id)
         else:
@@ -76,7 +76,6 @@ def get_common_context(journal_name, request, page_type="shift"):
                 type=res.page_type
             )[0]
         res.shift_is_active_or_no_shifts = True
-
 
     res.page_mode = get_page_mode(request, page)
     res.has_plant_perm = plant_permission(request)

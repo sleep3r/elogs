@@ -45,9 +45,13 @@ bt = deep_dict()
 #------ Loading Schieht Table --------
 
 main_table = deep_dict()
-main_table.concentrate = dict(type="number", min_normal=10, max_normal=1000)
-main_table.zn = dict(type="number", min_normal=10, max_normal=1000, units='')
-main_table.ratio = dict(type="number", min_normal=10, max_normal=1000, units='')
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+for month in months:
+    for p_f in ['plan', 'fact']:
+        main_table['concentrate__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000)
+        main_table['zn__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000, units='')
+        main_table['ratio__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000, units='')
 main_table_desc = main_table.clear_empty().get_dict()
 
 

@@ -1,48 +1,51 @@
 {% extends "table.html" %} 
 {% load express_tags %}
 
-{% block title %}План загрузки шихты{% endblock %} 
-
-{% block additional_upper %}
-    <label>Выберите месяц </label>
-        <input type="month" name="slected_month" id="selected_month" onchange="changeMonth()"
-            value="{{ selected_month }}">
-        <br/>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary  {% if mode == "plan" %}active{% endif %}">
-                <input type="radio" name="mode" id="plan" autocomplete="off"
-                    {% if mode == "plan" %}checked="checked"{% endif %}> План
-            </label>
-            <label class="btn btn-secondary {% if mode == "fact" %}active{% endif %}">
-                <input type="radio" name="mode" id="fact" autocomplete="off"
-                    {% if mode == "fact" %}checked="checked"{% endif %}> По факту
-            </label>
-        </div>
-{% endblock %}
+{% block title %}Поступление, расходы и остатки Zn концентратов{% endblock %}
 
 {% block table %}
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th> Конц. смт</th>
-            <th> Zn</th>
-            <th> Соотношение</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        {% for_or_create _ in table_data.concentrate %}
-        <tr class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td>{% include "value.html" with field_name="concentrate" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="zn" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="ratio" index=forloop.counter0 %}</td>
-        </tr>
-        {% endfor_or_create %}
-    </tbody>
-</table>
+    <ul class="nav nav-tabs">
+        {% for month in months %}
+            <li class="{% if month == cur_month %}active{% endif %}">
+                <a aria-selected="{% if month == cur_month %}true{% endif %}"
+                   data-toggle="tab"
+                   href="#{{ month|add:"_table" }}">{{ months_trans|keyval:month }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for month in months %}
+            <div class="tab-pane fade {% if month == cur_month %}active in{% endif %}" id={{ month|add:"_table" }}>
+                {% for p_f in plan_or_fact %}
+                    <div style="width: 50%; float:{% if p_f == 'plan' %}left{% else %}right{% endif %}">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th> Конц. смт {% if p_f == 'plan' %} (по плану) {% else %} (по факту) {% endif %}</th>
+                                    <th> Zn {% if p_f == 'plan' %} (по плану) {% else %} (по факту) {% endif %}</th>
+                                    <th> Соотношение {% if p_f == 'plan' %} (по плану) {% else %} (по факту) {% endif %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% with "concentrate__"|add:p_f|add:"__"|add:month as field_name %}
+                                {% for_or_create _ in table_data|keyval:field_name %}
+                                <tr class="indexed-line">
+                                    <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+                                    <td>{% include "value.html" with field_name="concentrate__"|add:p_f|add:"__"|add:month index=forloop.counter0 %}</td>
+                                    <td>{% include "value.html" with field_name="zn__"|add:p_f|add:"__"|add:month index=forloop.counter0 %}</td>
+                                    <td>{% include "value.html" with field_name="ratio__"|add:p_f|add:"__"|add:month index=forloop.counter0 %}</td>
+                                </tr>
+                                {% endfor_or_create %}
+                                {% endwith %}
+                            </tbody>
+                        </table>
+                        </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
-
 {% block js %}
     <script>
     function getRedirectLink() {
