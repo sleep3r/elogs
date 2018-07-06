@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      v-if="labels"
+      v-if="labels && !prediction"
       class="pull-right"
       @click="editMeasurement">Редактировать измерение</button>
     <svg :class="{labels, prediction }">

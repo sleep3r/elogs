@@ -1,5 +1,6 @@
 <template>
   <div class="fractional-form">
+    <h1>Внести данные</h1>
     <h2>Огарок</h2>
     <table>
       <tr>
@@ -55,8 +56,10 @@
         </td>
       </tr>
     </table>
-    <button @click="submit">OK</button>
-    <button @click="$emit('close')">Не ОК</button>
+    <div class="controls">
+      <button @click="submit">OK</button>
+      <button @click="$emit('close')">Отмена</button>
+    </div>
   </div>
 </template>
 
@@ -104,8 +107,14 @@ export default {
 
 <style lang="scss">
   .fractional-form {
+    padding: 1em;
     input {
       width: 3em;
+    }
+    
+    .controls {
+      margin-top: 1.5em;
+      float: right;
     }
   }
 </style>
