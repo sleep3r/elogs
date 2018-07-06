@@ -11,6 +11,7 @@ from django.template import loader
 from utils.webutils import process_json_view
 import json
 
+
 @login_required
 def index(request):
     context = {
@@ -22,6 +23,7 @@ def index(request):
 
     template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render(context, request))
+
 
 @login_required
 def add_measurement(request):
@@ -35,7 +37,6 @@ def add_measurement(request):
         return HttpResponse(status=201)
     return HttpResponse(status=405)
     
-
 
 @process_json_view(auth_required=False)
 def granularity_object(request):

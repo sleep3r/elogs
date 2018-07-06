@@ -71,6 +71,24 @@
     </div>
     {% include "modals/pick_shift.html" %}
     {% block footer %}
+    <script language="JavaScript">
+
+    $( document ).ready(function() {
+        var element = $('.journal_title'), originalY = element.offset().top;
+
+        $(window).on('scroll', function (event) {
+            var scrollPos = $(window).scrollTop();
+            if (scrollPos > 0) {
+                element.addClass('sticky');
+            }
+            else {
+                element.removeClass('sticky');
+            }
+
+        });
+    });
+
+    </script>
     <!-- Bootstrap -->
     <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/static/build/js/leaching_edit.js"></script>

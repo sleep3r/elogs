@@ -112,16 +112,20 @@ function on_input_change(input) {
             $(input).addClass('black').removeClass('red')
         }
     } else if (info.type === "datalist") {
-        $(input).removeAttr("type");
-        $(input).attr('list', 'datalist');
+        if ($(input).attr('data-pagmode') === "validate") {
+            $(input).removeAttr("type");
+        } else {
 
-        if ($('#datalist').length === 0) {
-            $(input).after('<datalist id="datalist"></datalist>');
-            info.options.forEach((name) => {
-                $("#datalist").append("<option>" + name + "</option>");
-            })
+            $(input).removeAttr("type");
+            $(input).attr('list', 'datalist');
+
+            if ($('#datalist').length === 0) {
+                $(input).after('<datalist id="datalist"></datalist>');
+                info.options.forEach((name) => {
+                    $("#datalist").append("<option>" + name + "</option>");
+                })
+            }
         }
-
     }
 
     $(input).attr('placeholder', info.units);
