@@ -52,13 +52,13 @@ class AddMessagesView(View):
                 
                 if msg:
                     for m in msg:
-                        m.text = f'Петрович {request.user.employee.name} ввел в поле {adding_field_name} некорректное значение {adding_field_value}'
+                        m.text = f'{request.user.employee.name} ввел в поле {adding_field_name} некорректное значение {adding_field_value}'
                         m.save()
 
                 else:
                     new_msg = Message(
                         type='critical_value', 
-                        text=f'Петрович {request.user.employee.name} ввел в поле {adding_field_name} некорректное значение {adding_field_value}',
+                        text=f'{request.user.employee.name} ввел в поле {adding_field_name} некорректное значение {adding_field_value}',
                         addressee=emp,
                         cell_field_name=adding_field_name,
                         cell_table_name=adding_table_name,
