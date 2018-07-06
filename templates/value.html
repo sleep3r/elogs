@@ -23,13 +23,8 @@
         {% endif %} -->
                     <input class="form-control general-value"
                        oninput="on_input_change(this)"
-<<<<<<< Updated upstream
                        onchange="add_message(this);add_responsible(this);reformat_on_change(this)"
-                       title="{% if responsible %}Заполнил: {{ responsible }}{% endif %}" 
-=======
-                       onchange="add_message(this);add_responsible(this);"
                        title="{% if responsible %}Заполнил: {{ responsible }}{% endif %}"
->>>>>>> Stashed changes
                        value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
                        table-name = "{{table_name}}"
