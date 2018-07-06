@@ -22,7 +22,9 @@
             type="button">Текущее время</button>
         </div>
         <br>
-        <div class="carousel">
+        <div
+          class="carousel"
+          v-if="fracData.length">
           <div class="carousel-labels">
             <span>ОГАРОК</span>
             <span>ШИХТА</span>
@@ -63,6 +65,10 @@
           <i 
             class="glyphicon glyphicon-chevron-right carousel-chevron"
             @click="nextFrame"/>
+        </div>
+        <div
+          v-else>
+          Данные отсутствуют
         </div>
       </div>
     </div>

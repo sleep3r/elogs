@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div v-if="furnace_array.length">
+    <div 
+      class="spinner-container" 
+      v-if="loading">
+      <spinner/>
+    </div>
+    <div v-else>
       <furnace-dashboard 
         :frac-data="furnace_array" 
         :gaphs-data="gaphs_data" />
     </div>
-    <div 
-      class="spinner-container" 
-      v-else>
-      <spinner/>
-    </div>
+
     <modals-container/>
   </div>
 </template>
@@ -26,7 +27,8 @@ export default {
   data() { 
     return {
       furnace_data: {},
-      gaphs_data: {}
+      gaphs_data: {},
+      loading: true
     }
   },
   computed: {
@@ -37,13 +39,13 @@ export default {
     }
   },
   created() {
-    axios.get('/furnace/fractional/measurements/get').then(({ data }) => {
-      this.furnace_data = data.data
-    })
+    Promise.all([axios.get('/furnace/fractional/measurements/get'),
+      axios.get('/furnace/fractional/granularity_gaphs/get')]).then(resp => {
+        this.furnace_data = resp[0].data.data
+        this.gaphs_data = resp[1].data.data
+        this.loading = false
+      }) 
 
-    axios.get('/furnace/fractional/granularity_gaphs/get').then(({ data }) => {
-      this.gaphs_data = data.data
-    })
   },
   components: {
     Spinner,
