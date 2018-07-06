@@ -2,9 +2,6 @@
   <div>
   <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
-                <div class="notification__number">
-                    <span class="badge badge-secondary">{{item.id}}</span>
-                </div>
                 <div class="notification-icon">
                     <img v-bind:src="'/static/images/notif/' + item.type + '.png'">
                 </div>
