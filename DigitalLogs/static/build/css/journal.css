@@ -4,17 +4,20 @@ tr.mini td {
    font-size: 10px;
 }
 
-th { text-align: center; }
+th {
+    text-align: center;
+    color: #73879C;
+}
 
 .tablewrapper h4 {
   display: block;
 }
 
-
 .smallwrapper {
   display: flex;
   margin-bottom: 4px;
 }
+
 .smallwrapper:last-child {
   display: flex;
   margin-bottom: 0;
@@ -43,12 +46,11 @@ th { text-align: center; }
   top: 0;
 }
 
-.form-reagents__fence-state { width: 600px !important; }
+/*.form-reagents__fence-state { width: 600px !important; }*/
 
 .shift_info tbody th { text-align: right; }
 
-
-td { text-align: center; }
+/*td { text-align: center; }*/
 tr.mini th { vertical-align: middle !important; }
 
 .tablewrapper {
@@ -142,8 +144,6 @@ td {
   background-color: transparent;
 }
 
-th { text-align: center; }
-
 th.rotate {
   white-space: nowrap;
 }
@@ -159,8 +159,6 @@ th.rotate > div > span {
   padding: 5px 0;
   text-align: left;
 }
-
-.form-reagents__fence-state { width: 600px !important; }
 
 .densers-header {
   height: 150px;
@@ -193,14 +191,8 @@ th.rotate > div > span {
 
 
 .journaltablewrapper td {
-    padding: 0 !important;
+    padding: 0 !important; /* to have inputs inside cells*/
     position: relative;
-    /* word-break: break-word; */
-}
-
-.journaltablewrapper th {
-    padding: 8px;
-    /* word-break: break-word; */
 }
 
 .journaltablewrapper .form-control {
@@ -256,7 +248,7 @@ input[readonly] {
   } */
 
 .table .extreme {
-    left: 0% !important;
+    left: 0 !important;
 }
 
   /* The actual popup */
@@ -309,6 +301,7 @@ input[readonly] {
     line-height: 55px;
     font-weight: bold;
 }
+
 .journal_title {
     /*background-color: #2A3F54;*/
     /*color: #eee;*/
@@ -322,6 +315,10 @@ input[readonly] {
     top: 0;
     width: -webkit-fill-available;
     transition: left 5s ease-in;
+}
+
+.sticky + .right_col {
+    margin-top: 57px;
 }
 
 .comment-close-button {
@@ -371,4 +368,26 @@ input[readonly] {
 .table-insided {
     margin-bottom: 0 !important;
     width: 100%;
+}
+
+.table-comment-button {
+    cursor: pointer;
+}
+
+.table-comment-button:hover {
+    text-decoration: underline
+}
+
+.table-comment-button:active {
+    color: #29BA9C;
+}
+
+.elog-journal-table tr th, .general-value {
+    /*important because it's really important and to override bootstrap*/
+    padding-left: 3px !important;
+    padding-right: 2px !important;
+}
+
+.popup-comment-content textarea::placeholder {
+    color: #BBBBBB;
 }

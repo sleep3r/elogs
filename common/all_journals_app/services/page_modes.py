@@ -38,17 +38,15 @@ def page_mode_is_valid(request, page):
     else:
         return False
 
+def has_edited(request, page):
+    return page in request.user.employee.owned_journal_pages.all();
+
+
 def default_page_mode(request, page):
     employee = Employee.objects.get(user=request.user)
     if plant_permission(request):
         if employee.user.has_perm(VALIDATE_CELLS):
             return "validate"
-        elif employee.user.has_perm(EDIT_CELLS):
-            if page.type == "shift":
-                if page.shift_is_active:
-                    return "edit"
-            if page.type == "equipment":
-                return "edit"
         elif employee.user.has_perm(VIEW_CELLS):
             return "view"
         else:

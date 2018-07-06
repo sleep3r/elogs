@@ -9,7 +9,7 @@ from common.all_journals_app.models import CellValue, JournalPage, Plant
 from common.all_journals_app.fields_descriptions import fields_info
 from utils.deep_dict import deep_dict
 from login_app.models import Employee
-from .page_modes import get_page_mode, plant_permission, PageModeError
+from .page_modes import get_page_mode, plant_permission, PageModeError, has_edited
 
 
 
@@ -20,7 +20,7 @@ def get_full_data(page):
         if val.index is not None:
             res[val.table_name][val.field_name][val.index] = val.value
             res['id'][val.table_name][val.field_name][val.index] = val.id
-            res['responsible'][val.table_name] = val.responsible
+            res['responsible'][val.table_name][val.field_name][val.index] = val.responsible
         else:
             raise ValueError()
 
@@ -78,6 +78,7 @@ def get_common_context(journal_name, request, page_type="shift"):
         res.shift_is_active_or_no_shifts = True
 
     res.page_mode = get_page_mode(request, page)
+    res.has_edited = has_edited(request, page)
     res.has_plant_perm = plant_permission(request)
     res.superuser = request.user.is_superuser
     page.save()
