@@ -23,7 +23,8 @@ class Plant(models.Model):
 class JournalPage(models.Model):
     type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
                                                      ('equipment', 'Оборудование'),
-                                                     ('month', 'Месяц')))
+                                                     ('month', 'Месяц'),
+                                                     ('year', 'Год')))
     journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
 
     # for shift type

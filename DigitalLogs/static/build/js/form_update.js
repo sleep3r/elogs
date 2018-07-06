@@ -2,7 +2,6 @@
 
 
 var send_form =  _.debounce((form) => {
-    console.log("send_form()");
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -171,33 +170,37 @@ function line_is_empty(tr_line) {
 
 
 function clone_last_line(form) {
-
-    const table = $(form).find("table:not(.table-insided)");
-    const last_line = table.find(".indexed-line:last");
-    console.log(line_is_empty(last_line))
-    if (!line_is_empty(last_line)) {
-        let new_last_line = last_line.clone();
-        new_last_line.find("input").val("");
-        new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
-        table.append(new_last_line);
+    const tables = $(form).find("table:not(.table-insided)");
+    for (i=0; i<tables.get().length; i++) {
+        table = $(tables.get()[i])
+        const last_line = table.find(".indexed-line:last");
+        if (!line_is_empty(last_line)) {
+            let new_last_line = last_line.clone();
+            new_last_line.find("input").val("");
+            new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
+            table.append(new_last_line);
+        }
     }
 }
 
 
 function clear_empty_lines(form) {
-    const table = $(form).find("table");
+    const tables = $(form).find("table:not(.table-insided)");
 
-    let last_line = null;
-    $(table.find(".indexed-line").get().reverse()).each(function (index) {
-        if (line_is_empty($(this))) {
-            if (last_line) {
-                last_line.remove();
+    for (i=0; i<tables.get().length; i++) {
+        table = $(tables.get()[i])
+        let last_line = null;
+        $(table.find(".indexed-line").get().reverse()).each(function (index) {
+            if (line_is_empty($(this))) {
+                if (last_line) {
+                    last_line.remove();
+                }
+                last_line = this;
+            } else {
+                return false;
             }
-            last_line = this;
-        } else {
-            return false;
-        }
-    });
+        });
+    }
 }
 
 
