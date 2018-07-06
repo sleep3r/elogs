@@ -15,6 +15,7 @@ var send_form =  _.debounce((form) => {
 
 function on_form_change(form) {
     console.log("on_form_change()");
+    console.log($(form).serialize());
     clone_last_line(form);
     clear_empty_lines(form);
 

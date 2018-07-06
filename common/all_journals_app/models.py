@@ -28,8 +28,8 @@ class JournalPage(models.Model):
 
     # for shift type
     plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
-    shift_order = models.IntegerField(blank=True, verbose_name='Номер смены')
-    shift_date = models.DateField(blank=True, verbose_name='Дата начала смены')
+    shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
+    shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
 
     @property
     def shift_start_time(self):
