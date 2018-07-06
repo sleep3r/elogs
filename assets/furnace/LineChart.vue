@@ -78,8 +78,11 @@ export default {
     }
   },
   computed: {
+    orderedPoints() {
+      return _.orderBy(this.points, o => o[0])
+    },
     filteredPoints() {
-      return filter(this.points, d => {
+      return filter(this.orderedPoints, d => {
         return d[0] * 1000 >= this.filter_from 
             && d[0] * 1000 <= this.filter_to
       })

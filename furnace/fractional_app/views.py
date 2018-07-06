@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from furnace.fractional_app.models import *
@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
 from utils.webutils import process_json_view
-
+import json
 
 @login_required
 def index(request):
@@ -23,6 +23,19 @@ def index(request):
     template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render(context, request))
 
+@login_required
+def add_measurement(request):
+    if request.method == 'POST':
+        req = json.loads(request.body)
+        time = timezone.now()
+        mp = MeasurementPair() if not hasattr(req, 'id') else MeasurementPair.objects.get(id=int(req['id']))
+        # omg nb schieht first
+        mp.add_weights(req['schieht']['masses'], req['cinder']['masses'], time, time - timedelta(minutes=30))
+        mp.save()
+        return HttpResponse(status=201)
+    return HttpResponse(status=405)
+    
+
 
 @process_json_view(auth_required=False)
 def granularity_object(request):
@@ -30,21 +43,21 @@ def granularity_object(request):
 
     for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True)[:2]:
         res['data'][o.id+1234]['cinder']['time'] = (o.cinder.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
-        res['data'][o.id+1234]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
+        res['data'][o.id+1234]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
+        res['data'][o.id+1234]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
 
         res['data'][o.id+1234]['schieht']['time'] = (o.schieht.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
-        res['data'][o.id+1234]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
+        res['data'][o.id+1234]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
+        res['data'][o.id+1234]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
 
     for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True):
         res['data'][o.id]['cinder']['time'] = o.cinder.user_time.timestamp()
-        res['data'][o.id]['cinder']['masses'] = [float(w.mass) for w in o.cinder.weights.all()]
-        res['data'][o.id]['cinder']['min_sizes'] = [float(w.min_size) for w in o.cinder.weights.all()]
+        res['data'][o.id]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
+        res['data'][o.id]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
 
         res['data'][o.id]['schieht']['time'] = o.schieht.user_time.timestamp()
-        res['data'][o.id]['schieht']['masses'] = [float(w.mass) for w in o.schieht.weights.all()]
-        res['data'][o.id]['schieht']['min_sizes'] = [float(w.min_size) for w in o.schieht.weights.all()]
+        res['data'][o.id]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
+        res['data'][o.id]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
 
     return res
 
