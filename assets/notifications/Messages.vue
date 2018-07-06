@@ -3,7 +3,8 @@
   <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
             <div class="notification-icon">
-                <img v-bind:src="'/static/images/notif/' + item.type + '.png'">
+                <i v-if="item.type === 'comment' " class="material-icons" style="font-size:24px; color: #669900;" >announcement</i>
+                <i v-else-if="item.type === 'critical_value' " class="material-icons" style="font-size:24px; color: #FF0000;" >new_releases</i>
             </div>
             <div class="notification-text">
                 <p v-html="item.text"></p>
