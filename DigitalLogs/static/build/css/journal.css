@@ -317,6 +317,10 @@ input[readonly] {
     transition: left 5s ease-in;
 }
 
+.sticky + .right_col {
+    margin-top: 57px;
+}
+
 .comment-close-button {
     height: 10px;
     width: 10px;
