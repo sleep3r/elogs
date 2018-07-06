@@ -248,7 +248,7 @@ input[readonly] {
   } */
 
 .table .extreme {
-    left: 0% !important;
+    left: 0 !important;
 }
 
   /* The actual popup */
@@ -386,4 +386,8 @@ input[readonly] {
     /*important because it's really important and to override bootstrap*/
     padding-left: 3px !important;
     padding-right: 2px !important;
+}
+
+.popup-comment-content textarea::placeholder {
+    color: #BBBBBB;
 }
