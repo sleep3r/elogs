@@ -2,14 +2,12 @@
   <div>
   <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
-                <div class="notification-icon">
-                    <img v-bind:src="'/static/images/notif/' + item.type + '.png'">
-                </div>
-                <div class="notification-text">
-                    <p>
-                        {{item.text}}
-                    </p>
-                </div>
+            <div class="notification-icon">
+                <img v-bind:src="'/static/images/notif/' + item.type + '.png'">
+            </div>
+            <div class="notification-text">
+                <p v-html="item.text"></p>
+            </div>
         </a>
   </li>
   </div>
