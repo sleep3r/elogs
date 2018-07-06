@@ -11,6 +11,7 @@
             type="number"
             min="0"
             step="0.01"
+            readonly
             v-model="cinder.min_sizes[i]">
         </td>
       </tr>
@@ -37,6 +38,7 @@
             type="number"
             min="0"
             step="0.01"
+            readonly
             v-model="schieht.min_sizes[i]">
         </td>
       </tr>
@@ -53,13 +55,14 @@
         </td>
       </tr>
     </table>
-    <button>OK</button>
+    <button @click="submit">OK</button>
     <button @click="$emit('close')">Не ОК</button>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import axios from 'axios'
 
 export default {
   name: 'MeasurementForm',
@@ -78,6 +81,15 @@ export default {
   created() {
     this.cinder = this.timeframe.cinder
     this.schieht = this.timeframe.schieht
+  },
+  methods: {
+    submit() {
+      console.log('submit form')
+      axios.post('/furnace/fractional/measurements/post', {
+        cinder: this.cinder,
+        schieht: this.schieht
+      })
+    }
   }
 }
 </script>

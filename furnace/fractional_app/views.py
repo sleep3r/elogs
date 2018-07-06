@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from furnace.fractional_app.models import *
@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
 from utils.webutils import process_json_view
-
+import json
 
 @login_required
 def index(request):
@@ -22,6 +22,17 @@ def index(request):
 
     template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render(context, request))
+
+@login_required
+def add_measurement(request):
+    if request.method == 'POST':
+        req = json.loads(request.body)
+        time = timezone.now()
+        mp = MeasurementPair().add_weights(req['cinder']['masses'], req['schieht']['masses'], time, time - timedelta(minutes=30))
+        mp.save()
+        return HttpResponse(status=201)
+    return HttpResponse(status=405)
+    
 
 
 @process_json_view(auth_required=False)

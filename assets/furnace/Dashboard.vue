@@ -141,7 +141,9 @@
         return time * 1000 > this.current_time;
       },
       addMeasurement() {
-        this.$modal.show(measurementForm)
+        this.$modal.show(measurementForm, {
+          timeframe: this.current_timeframes[2]
+        })
       },
       modalChart(val, timeframe) {
         this.$modal.show(
