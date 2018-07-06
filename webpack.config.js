@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
       path: path.resolve('./DigitalLogs/static/webpack_bundles'),
-      filename: "[name]-[hash].js"
+      filename: "[name].js"
   },
   module: {
     rules: [
