@@ -1,26 +1,37 @@
 <template>
-  <svg :class="{labels, prediction }">
-    <defs>
-      <linearGradient id="gradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" style="stop-color:rgba(128,0,128,1);stop-opacity:1" />
-        <stop offset="100%" style="stop-color:rgba(26,7,135,1);stop-opacity:1" />
-      </linearGradient>
-      <linearGradient id="gradOrange" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
-        <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
-      </linearGradient>
-    </defs>
-  </svg>
+  <div class="fractional-chart">
+    <button
+      style="position: absolute;"
+      v-if="labels && !prediction"
+      class="pull-right"
+      @click="editMeasurement">Редактировать измерение</button>
+    <svg :class="{ labels, prediction }">
+      <defs>
+        <linearGradient id="gradBlue" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" style="stop-color:rgba(128,0,128,1);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgba(26,7,135,1);stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="gradOrange" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
 import map from 'lodash/map'
+import measurementForm from './Form.vue';
 
 export default {
   name: "BarChart",
-  template: `<svg/>`,
   props: {
+      timeframe: {
+        type: Object,
+        default: () => {}
+      },
       minSizes: {
           type: Array,
           required: true
@@ -31,11 +42,11 @@ export default {
       },
       width: {
         type: Number,
-        default: 1200
+        default: 1000
       },
       height: {
         type: Number,
-        default: 800
+        default: 600
       },
       labels: {
         type: Boolean,
@@ -56,17 +67,21 @@ export default {
       this.render()
     }
   },
-
   mounted() {
     this.render()
   },
   methods: {
+    editMeasurement() {
+      this.$modal.show(measurementForm, {
+        timeframe: this.timeframe
+      })
+    },
     render() {
-    let margin = {top: 70, right: 20, bottom: 50, left: 40}
+    let margin = {top: 30, right: 40, bottom: 70, left: 40}
     let width = this.width - margin.left - margin.right
     let height = this.height - margin.top - margin.bottom
 
-    let svg = d3.select(this.$el)
+    let svg = d3.select(this.$el).select('svg')
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
 
     svg.selectAll('g').remove()
@@ -134,7 +149,7 @@ export default {
             .append("text")
               .attr("transform", "rotate(-90)")
               .attr("y", 6)
-              .attr("dy", "-1.75em")
+              .attr("dy", "-3.25em")
               .attr("text-anchor", "end")
               .text("Массовый процент, %")
       }
@@ -145,10 +160,13 @@ export default {
 
 <style>
 
+.fractional-chart {
+  height: 100%;
+}
+
 svg {
   width: 100%;
   height: 100%;
-
 }
 
 .bar rect {
@@ -161,11 +179,7 @@ svg.prediction .bar rect {
   fill: url('#gradOrange');
   fill-opacity: 0.5;
 }
-/*
-svg.labels .bar rect:hover {
-  fill: rgb(28, 187, 156);
-}
-*/
+
 .bar text, .axis text {
   fill: #CCC;
   font: 16px sans-serif;

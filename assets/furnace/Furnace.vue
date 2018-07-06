@@ -32,7 +32,7 @@ export default {
   computed: {
     furnace_array() {
       return orderBy(transform(this.furnace_data, (r, v, k) => {
-        r.push(v)
+        r.push(Object.assign({id: k}, v))
       }, []), frame => frame.cinder.time)
     }
   },
