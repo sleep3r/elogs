@@ -150,7 +150,6 @@ function on_input_change(input) {
 }
 
 
-<<<<<<< Updated upstream
 function reformat_on_change(input) {
     if (input.value === "")
         return;
@@ -158,8 +157,6 @@ function reformat_on_change(input) {
         input.value = +(input.value*1.0).toFixed(2);
     }
 }
-=======
->>>>>>> Stashed changes
 
 function line_is_empty(tr_line) {
     let filled = 0;
