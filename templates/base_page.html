@@ -15,39 +15,24 @@
     <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/static/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
-    <!-- bootstrap-progressbar -->
-    <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="/static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
     <!-- Google Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/static/v/fonts/icons.css">
 
     <!-- Custom Theme Style -->
     <link href="/static/build/css/custom.min.css" rel="stylesheet">
     <link href="/static/build/css/journal.css" rel="stylesheet">
-    <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
     <link href="/static/vendors/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
     <link href="/static/vendors/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
+    <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+
     {% endblock %}
     {% block extracss %}
     {% endblock %}
     <!-- jQuery -->
     <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
-
     <!-- underscore -->
     <script src="/static/vendors/underscore/underscore-min.js"></script>
     <script src="/static/build/js/common.js"></script>
-
     <!-- jquery-confirm -->
     <script src="/static/vendors/jquery-confirm/js/jquery-confirm.js"></script>
 </head>
@@ -58,7 +43,7 @@
             <div class="col-md-3 left_col">
               <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                  <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>KazZinc E-Logs</span></a>
+                  <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>E-Logs</span></a>
                 </div>
                 <div class="clearfix"></div>
             {% block sidebarmenu %}
@@ -88,14 +73,15 @@
     {% block footer %}
     <!-- Bootstrap -->
     <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="/static/build/js/leaching_edit.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
-    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="/static/v/vue/vue.js"></script>
+    <script src="/static/v/vue/vue-resource.min.js" ></script>
+    <script src="/static/v/moment/moment.min.js"></script>
     <script src="/static/vendors/fullcalendar/dist/fullcalendar.js"></script>
     <script src="/static/build/js/datepicker.js"></script>
     <script src="/static/build/js/shift.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
     {% endblock %}
 </body>
 </html>

@@ -4,22 +4,22 @@
 <ul class="nav side-menu">
     <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
-            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
-                    <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
-                </ul>
-            </li>
             <li><a>{% trans "Обжиг" %}<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li class="sub_menu"><a href="/furnace/fractional">{% trans "Ситовой анализ огарка и шихты" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/concentrate_report_journal/tpp">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a></li>
-                    <li class="sub_menu"><a href="/furnace/report_income_outcome_schieht">{% trans "План загрузки Шихты" %}</a></li>
+                    <li class="sub_menu"><a href="/furnace/report_income_outcome_schieht">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/metals_compute">{% trans "Рассчёт металлов" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/technological_tasks">{% trans "Журнал сменных производственных, тех. заданий" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/furnace_repair">{% trans "Журнал по ремонту" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/furnace_changed_fraction">{% trans "Рабочий журнал изменения фракции" %}</a></li>
                     <li class="sub_menu"><a href="/furnace/reports_furnace_area">{% trans "Журнал печного участка" %}</a></li>
+                </ul>
+            </li>
+            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="/leaching/journal">{% trans "Журнал экспресс анализа" %}</a></li>
+                    <li class="sub_menu"><a href="/leaching/repair">{% trans "Журнал по ремонту оборудования" %}</a></li>
                 </ul>
             </li>
             <li><a>{% trans "Электролиз" %}<span class="fa fa-chevron-down"></span></a>
