@@ -142,7 +142,7 @@
       },
       addMeasurement() {
         this.$modal.show(measurementForm, {
-          timeframe: this.current_timeframes[2]
+          timeframe: Object.assign({}, this.current_timeframes[2], { id: undefined })
         })
       },
       modalChart(val, timeframe) {

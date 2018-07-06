@@ -50,6 +50,11 @@ class MeasurementPair(models.Model):
     is_active = models.BooleanField(SchiehtMeasurement, default=True, null=False, blank=False)
 
     def add_weights(self, schiehts, cinder, stime, ctime):
+        if self.cinder:
+            self.cinder.delete()
+
+        if self.schieht:
+            self.schieht.delete()
         self.cinder = CinderMeasurement().add(cinder, CINDER_SIZES, ctime)
         self.schieht = SchiehtMeasurement().add(schiehts, SCHIEHT_SIZES, stime)
         self.save()

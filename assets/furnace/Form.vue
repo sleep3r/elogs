@@ -79,15 +79,23 @@ export default {
     }
   },
   created() {
-    this.cinder = this.timeframe.cinder
-    this.schieht = this.timeframe.schieht
+    this.cinder = Object.assign({}, this.timeframe.cinder, this.timeframe.id ? {} 
+    : {masses: new Array(this.timeframe.cinder.min_sizes.length).fill(0)})
+    this.schieht = Object.assign({}, this.timeframe.schieht, this.timeframe.id ? {}
+    : {masses: new Array(this.timeframe.schieht.min_sizes.length).fill(0)})
   },
   methods: {
     submit() {
       console.log('submit form')
       axios.post('/furnace/fractional/measurements/post', {
         cinder: this.cinder,
-        schieht: this.schieht
+        schieht: this.schieht,
+        id: this.timeframe.id
+      }).then(({data}) => {
+        this.$emit('close')
+        if (!this.timeframe.id) {
+          window.location.reload()
+        }
       })
     }
   }

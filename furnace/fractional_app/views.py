@@ -28,7 +28,9 @@ def add_measurement(request):
     if request.method == 'POST':
         req = json.loads(request.body)
         time = timezone.now()
-        mp = MeasurementPair().add_weights(req['cinder']['masses'], req['schieht']['masses'], time, time - timedelta(minutes=30))
+        mp = MeasurementPair() if not hasattr(req, 'id') else MeasurementPair.objects.get(id=int(req['id']))
+        # omg nb schieht first
+        mp.add_weights(req['schieht']['masses'], req['cinder']['masses'], time, time - timedelta(minutes=30))
         mp.save()
         return HttpResponse(status=201)
     return HttpResponse(status=405)
