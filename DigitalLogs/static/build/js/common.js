@@ -85,3 +85,16 @@ Date.prototype.incrementMonth = function () {
 Date.prototype.getMonthWithYear = function() {
     return this.getFullYear() + '-' + this.getMonth();
 }
+
+
+function GetURLParameter(paramName) {
+    let url = window.location.search.substring(1);
+    let urlParams = url.split('&');
+    for (let i = 0; i < urlParams.length; i++) {
+        let parameterName = urlParams[i].split('=');
+        if (parameterName[0] === paramName) {
+            return parameterName[1];
+        }
+    }
+    return "";
+}
