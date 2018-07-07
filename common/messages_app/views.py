@@ -61,7 +61,7 @@ class AddMessagesView(View):
                         is_read=False)
 
 
-                msg_text = f'<b>{request.user.employee.name}</b> ввел в поле [{row_index}] {self.getLinkToJournal(journal_page_id,  table_name, field_name, row_index)} некорректное значение {adding_field_value}'
+                msg_text = f'<b>{request.user.employee.name}</b> ввел в поле {self.getLinkToJournal(journal_page_id,  table_name, field_name, row_index)} некорректное значение {adding_field_value}'
 
                 if msg:
                     for m in msg:
