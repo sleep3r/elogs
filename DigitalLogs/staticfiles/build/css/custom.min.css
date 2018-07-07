@@ -167,10 +167,13 @@ input[type=number]::-webkit-outer-spin-button {
     visibility: hidden;
 }
 .nav-sm .container.body .right_col {
-    /* padding: 10px 20px; */
-    margin-left: 70px;
     z-index: 2;
 }
+
+.nav-sm .container.body .right_col .content {
+    margin-left: 70px;
+}
+
 .nav-sm .navbar.nav_title {
     width: 70px;
 }
