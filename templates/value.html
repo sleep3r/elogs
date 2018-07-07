@@ -23,7 +23,7 @@
          {% with responsible=table_data|keyval:field_responsible_name|choose_val:index %} 
                     <input class = "resp" hidden name="{{ field_responsible_name }}" value="{{responsible}}" >
 
-                    <input class="form-control general-value"
+                    <input class="form-control general-value {{ field_name }}_{{index}}"
                        oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');"
                        onchange="add_message(this);reformat_on_change(this)"
                        title="{% if responsible %}{% if val %}Заполнил: {{ responsible }}{% endif %}{% endif %}"
