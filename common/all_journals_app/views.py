@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
-from django.template import loader
+from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from login_app.models import Employee
 
@@ -52,7 +52,9 @@ def add_responsible(request):
         cell.responsible = request.user.employee
         cell.save()
 
-    return {"result":1} 
+    return {"result":1}
+
+
 def permission_denied(request, exception, template_name='errors/403.html'):
     try:
         template = loader.get_template(template_name)

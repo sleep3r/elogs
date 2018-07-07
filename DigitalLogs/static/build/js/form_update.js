@@ -89,29 +89,9 @@ function add_comment(textarea) {
 
 
 
-var add_responsible_debounced = _.debounce((input) => {
-    console.log("add_responsible_debounced()");
-
-    $.ajax({
-        url: "/common/add_responsible",
-        type: 'POST',
-        data: { 'check': true, 'field_name': $(input).attr('name'),
-                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                'index':$(input).attr('index') },
-        success: function (json) {
-            if (json && json.result) {
-                console.log(json.result)
-            }
-        }
-    });
-
-}, 1500);
-
-
-
-function add_responsible(input) {
-    console.log("add_responsible()");
-    add_responsible_debounced(input)
+function add_responsible(input,user) {
+    $(input).siblings(".resp").attr("value", user);
+   
 }
 
 
@@ -132,16 +112,20 @@ function on_input_change(input) {
             $(input).addClass('black').removeClass('red')
         }
     } else if (info.type === "datalist") {
-        $(input).removeAttr("type");
-        $(input).attr('list', 'datalist');
+        if ($(input).attr('data-pagmode') === "validate") {
+            $(input).removeAttr("type");
+        } else {
 
-        if ($('#datalist').length === 0) {
-            $(input).after('<datalist id="datalist"></datalist>');
-            info.options.forEach((name) => {
-                $("#datalist").append("<option>" + name + "</option>");
-            })
+            $(input).removeAttr("type");
+            $(input).attr('list', 'datalist');
+
+            if ($('#datalist').length === 0) {
+                $(input).after('<datalist id="datalist"></datalist>');
+                info.options.forEach((name) => {
+                    $("#datalist").append("<option>" + name + "</option>");
+                })
+            }
         }
-
     }
 
     $(input).attr('placeholder', info.units);
@@ -205,7 +189,7 @@ function clear_empty_lines(form) {
 
 
 function showValidatePopup(input) {
-    comment = $(input).siblings()[0];
+    comment = $(input).siblings(".popup-comment-content")[0];
     comment_input = $(comment).children()[1];
 
     $(input).css(
@@ -217,9 +201,9 @@ function showValidatePopup(input) {
 }
 
 function showViewPopup(icon) {
-    input = $(icon).siblings()[0];
-    comment = $(icon).siblings()[1];
-    comment_input = $(comment).children()[1];
+    input = $(icon).siblings(".general-value")[0];
+    comment = $(icon).siblings(".popup-comment-content")[0];
+    comment_input = $(comment).children(".popup-comment-content-textarea")[0];
 
     $(input).css(
         "background",
@@ -241,7 +225,7 @@ function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
     console.log(active_comment);
     if (active_comment) {
-        let active_input = $(active_comment).siblings()[0];
+        let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
             event.target == active_input ||
             event.target == active_comment ||
