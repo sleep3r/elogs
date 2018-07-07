@@ -32,7 +32,8 @@ def add_measurement(request):
         time = timezone.now()
         mp = MeasurementPair() if not hasattr(req, 'id') else MeasurementPair.objects.get(id=int(req['id']))
         # omg nb schieht first
-        mp.add_weights(req['schieht']['masses'], req['cinder']['masses'], time, time - timedelta(minutes=30))
+        mp.add(req['schieht']['masses'], req['schieht']['min_sizes'],\
+            req['cinder']['masses'], req['cinder']['min_sizes'], time, time - timedelta(minutes=30))
         mp.save()
         return HttpResponse(status=201)
     return HttpResponse(status=405)

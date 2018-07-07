@@ -12,8 +12,15 @@
             type="number"
             min="0"
             step="0.01"
-            readonly
             v-model="cinder.min_sizes[i]">
+        </td>
+        <td>
+          <i
+            class="glyphicon glyphicon-plus"
+            @click="cinder.min_sizes.push(0); cinder.masses.push(0)"/>
+          <i
+            class="glyphicon glyphicon-minus"
+            @click="cinder.min_sizes.pop(); cinder.masses.pop()"/>
         </td>
       </tr>
       <tr>
@@ -39,8 +46,15 @@
             type="number"
             min="0"
             step="0.01"
-            readonly
             v-model="schieht.min_sizes[i]">
+        </td>
+        <td>
+          <i
+            class="glyphicon glyphicon-plus"
+            @click="schieht.min_sizes.push(0); schieht.masses.push(0)"/>
+          <i
+            class="glyphicon glyphicon-minus"
+            @click="schieht.min_sizes.pop(); schieht.masses.pop()"/>
         </td>
       </tr>
       <tr>
