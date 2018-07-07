@@ -8,7 +8,7 @@ from utils.deep_dict import deep_dict
 from utils.errors import AccessError
 from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 from login_app.models import Message, Employee
-from common.all_journals_app.models import CellValue
+from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages
 
 
@@ -42,42 +42,47 @@ class AddMessagesView(View):
         plant_name = j_page.plant.name
 
         return f'<a href="/{plant_name}/{journal_name}/?page_mode=edit&highlight={field_name}_{row_index}#table_id_{table_name}">{field_name}</a>'
+
     def post(self, request):
-        adding_table_name = request.POST.get('table_name', None)
-        adding_field_name = request.POST.get('field_name', None)
-        adding_row_index = request.POST.get('index', None)
-        adding_journal_page = request.POST.get('journal_page', None)
+        table_name = request.POST.get('table_name', None)
+        field_name = request.POST.get('field_name', None)
+        row_index = request.POST.get('index', None)
+        journal_page_id = request.POST.get('journal_page', None)
         adding_field_value = request.POST.get('field_value', None)
+
         if adding_field_value:
             for emp in messages.get_addressees(all=True):
                 msg = messages.filter_or_none(Message, type='critical_value',
                         addressee=emp, 
-                        cell_field_name = adding_field_name,
-                        cell_table_name = adding_table_name,
-                        row_index = adding_row_index,
-                        cell_journal_page = adding_journal_page,
+                        cell_field_name = field_name,
+                        cell_table_name = table_name,
+                        row_index = row_index,
+                        cell_journal_page = journal_page_id,
                         is_read=False)
-                
+
+
+                msg_text = f'<b>{request.user.employee.name}</b> ввел в поле [{row_index}] {self.getLinkToJournal(journal_page_id,  table_name, field_name, row_index)} некорректное значение {adding_field_value}'
+
                 if msg:
                     for m in msg:
-                        m.text = f'<b>{request.user.employee.name}</b> ввел в поле <b>{adding_field_name}</b> некорректное значение {adding_field_value}'
+                        m.text = msg_text
                         m.save()
 
                 else:
                     new_msg = Message(
                         type='critical_value', 
-                        text=f'<b>{request.user.employee.name}</b> ввел в поле <b>{adding_field_name}</b> некорректное значение {adding_field_value}',
+                        text=msg_text,
                         addressee=emp,
-                        cell_field_name=adding_field_name,
-                        cell_table_name=adding_table_name,
-                        row_index=adding_row_index,
-                        cell_journal_page=adding_journal_page,)
+                        cell_field_name=field_name,
+                        cell_table_name=table_name,
+                        row_index=row_index,
+                        cell_journal_page=journal_page_id,)
                     new_msg.save()
         else:
             msgs = messages.filter_or_none(Message, is_read=False,
-                                      cell_table_name=adding_table_name,
-                                      row_index=adding_row_index,
-                                      cell_journal_page=adding_journal_page)
+                                      cell_table_name=table_name,
+                                      row_index=row_index,
+                                      cell_journal_page=journal_page_id)
             if msgs:
                 for m in msgs:
                     m.is_read = True
