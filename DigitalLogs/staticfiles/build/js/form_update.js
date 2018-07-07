@@ -2,7 +2,6 @@
 
 
 var send_form =  _.debounce((form) => {
-    console.log("send_form()");
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -90,29 +89,9 @@ function add_comment(textarea) {
 
 
 
-var add_responsible_debounced = _.debounce((input) => {
-    console.log("add_responsible_debounced()");
-    
-    $.ajax({
-        url: "/common/add_responsible",
-        type: 'POST',
-        data: { 'check': true, 'field_name': $(input).attr('name'),
-                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                'index':$(input).attr('index') },
-        success: function (json) {
-            if (json && json.result) {
-                console.log(json.result)
-            }
-        }
-    });
-
-}, 1500);
-
-
-
-function add_responsible(input) {
-    console.log("add_responsible()");
-    add_responsible_debounced(input)
+function add_responsible(input,user) {
+    $(input).siblings(".resp").attr("value", user);
+   
 }
 
 
@@ -123,7 +102,7 @@ function on_input_change(input) {
     const info = JSON.parse(json);
 
 
-        input.type = info.type;
+    input.type = info.type;
 
 
     if (input.type === "number") {
@@ -133,21 +112,34 @@ function on_input_change(input) {
             $(input).addClass('black').removeClass('red')
         }
     } else if (info.type === "datalist") {
-        $(input).removeAttr("type");
-        $(input).attr('list', 'datalist');
+        if ($(input).attr('data-pagmode') === "validate") {
+            $(input).removeAttr("type");
+        } else {
 
-        if ($('#datalist').length === 0) {
-            $(input).after('<datalist id="datalist"></datalist>');
-            info.options.forEach((name) => {
-                $("#datalist").append("<option>" + name + "</option>");
-            })
+            $(input).removeAttr("type");
+            $(input).attr('list', 'datalist');
+
+            if ($('#datalist').length === 0) {
+                $(input).after('<datalist id="datalist"></datalist>');
+                info.options.forEach((name) => {
+                    $("#datalist").append("<option>" + name + "</option>");
+                })
+            }
         }
-
     }
 
     $(input).attr('placeholder', info.units);
+    addCommentNotification(input);
 }
 
+
+function reformat_on_change(input) {
+    if (input.value === "")
+        return;
+    if (input.type === "number") {
+        input.value = +(input.value*1.0).toFixed(2);
+    }
+}
 
 function line_is_empty(tr_line) {
     let filled = 0;
@@ -162,38 +154,42 @@ function line_is_empty(tr_line) {
 
 
 function clone_last_line(form) {
-
-    const table = $(form).find("table:not(.table-insided)");
-    const last_line = table.find(".indexed-line:last");
-    console.log(line_is_empty(last_line))
-    if (!line_is_empty(last_line)) {
-        let new_last_line = last_line.clone();
-        new_last_line.find("input").val("");
-        new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
-        table.append(new_last_line);
+    const tables = $(form).find("table:not(.table-insided)");
+    for (i=0; i<tables.get().length; i++) {
+        table = $(tables.get()[i])
+        const last_line = table.find(".indexed-line:last");
+        if (!line_is_empty(last_line)) {
+            let new_last_line = last_line.clone();
+            new_last_line.find("input").val("");
+            new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
+            table.append(new_last_line);
+        }
     }
 }
 
 
 function clear_empty_lines(form) {
-    const table = $(form).find("table");
+    const tables = $(form).find("table:not(.table-insided)");
 
-    let last_line = null;
-    $(table.find(".indexed-line").get().reverse()).each(function (index) {
-        if (line_is_empty($(this))) {
-            if (last_line) {
-                last_line.remove();
+    for (i=0; i<tables.get().length; i++) {
+        table = $(tables.get()[i])
+        let last_line = null;
+        $(table.find(".indexed-line").get().reverse()).each(function (index) {
+            if (line_is_empty($(this))) {
+                if (last_line) {
+                    last_line.remove();
+                }
+                last_line = this;
+            } else {
+                return false;
             }
-            last_line = this;
-        } else {
-            return false;
-        }
-    });
+        });
+    }
 }
 
 
 function showValidatePopup(input) {
-    comment = $(input).siblings()[0];
+    comment = $(input).siblings(".popup-comment-content")[0];
     comment_input = $(comment).children()[1];
 
     $(input).css(
@@ -205,9 +201,9 @@ function showValidatePopup(input) {
 }
 
 function showViewPopup(icon) {
-    input = $(icon).siblings()[0];
-    comment = $(icon).siblings()[1];
-    comment_input = $(comment).children()[1];
+    input = $(icon).siblings(".general-value")[0];
+    comment = $(icon).siblings(".popup-comment-content")[0];
+    comment_input = $(comment).children(".popup-comment-content-textarea")[0];
 
     $(input).css(
         "background",
@@ -229,7 +225,7 @@ function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
     console.log(active_comment);
     if (active_comment) {
-        let active_input = $(active_comment).siblings()[0];
+        let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
             event.target == active_input ||
             event.target == active_comment ||
@@ -240,13 +236,15 @@ function hidePopusOnMouseUp(event) {
     }
 }
 
-function addCommentNotification(input) {
-    comment = $(input).siblings("span")[0];
-    comment_notification = $(input).siblings("i")[0];
-    comment_input = $(comment).children()[1];
-    console.log($(comment_input).text());
-    if ($(comment_input).text()) {
+function addCommentNotification(textarea) {
+    comment = $(textarea).parent()[0];
+    comment_notification = $(comment).siblings("i")[0];
+    console.log($(textarea).val());
+    if ($(textarea).val()) {
         $(comment_notification).addClass("show")
+    }
+    else {
+        $(comment_notification).removeClass("show")
     }
 }
 
@@ -289,8 +287,8 @@ function on_ready() {
         $('.indexed-line').removeClass('indexed-line')
     }
     document.addEventListener('mouseup', hidePopusOnMouseUp);
-    if (view === "True") {
-        document.querySelectorAll(".general-value").forEach(addCommentNotification)
+    if (view === "True" || validate === "True") {
+        document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
 }
 

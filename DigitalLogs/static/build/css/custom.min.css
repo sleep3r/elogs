@@ -477,6 +477,11 @@ body {
     font-weight: 400;
     line-height: 1.471;
 }
+
+.main_container {
+    overflow-x: hidden;
+}
+
 .main_container .top_nav {
     display: block;
     /* margin-left: 230px; */

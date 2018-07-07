@@ -167,7 +167,7 @@ input[type=number]::-webkit-outer-spin-button {
     visibility: hidden;
 }
 .nav-sm .container.body .right_col {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     margin-left: 70px;
     z-index: 2;
 }
@@ -344,7 +344,7 @@ body .container.body .right_col {
     background: #F7F7F7;
 }
 .nav-md .container.body .right_col {
-    padding: 10px 20px 0;
+    /* padding: 10px 20px 0; */
     margin-left: 230px;
 }
 .nav_title {
@@ -366,9 +366,9 @@ body .container.body .right_col {
     width: 100%;
     padding-right: 0;
 }
-.right_col {
+/* .right_col {
     padding: 10px!important;
-}
+} */
 }
 @media (max-width:1200px) {
     .x_title h2 {
@@ -477,9 +477,14 @@ body {
     font-weight: 400;
     line-height: 1.471;
 }
+
+.main_container {
+    overflow-x: hidden;
+}
+
 .main_container .top_nav {
     display: block;
-    margin-left: 230px;
+    /* margin-left: 230px; */
 }
 .no-padding {
     padding: 0!important;
@@ -523,7 +528,7 @@ body {
 table.no-margin .progress {
     margin-bottom: 0;
 }
-.main_content {
+.main_container .content {
     padding: 10px 20px;
 }
 .col-md-55 {
@@ -1357,7 +1362,7 @@ ul.msg_list li a .message {
     -webkit-box-shadow: none;
     right: 0;
     left: auto;
-    width: 220px;
+    width: 500px;
 }
 .navbar-nav .open .dropdown-menu.msg_list {
     width: 300px;
@@ -3715,11 +3720,11 @@ ul.verticle_bars li {
     background-color: rgba(231, 76, 60, .88);
     border-color: rgba(231, 76, 60, .88);
 }
-.ui-pnotify.dark .ui-pnotify-container {
-    color: #E9EDEF;
-    background-color: rgba(52, 73, 94, .88);
-    border-color: rgba(52, 73, 94, .88);
-}
+/*.ui-pnotify.dark .ui-pnotify-container {*/
+    /*color: #E9EDEF;*/
+    /*background-color: rgba(52, 73, 94, .88);*/
+    /*border-color: rgba(52, 73, 94, .88);*/
+/*}*/
 .custom-notifications {
     position: fixed;
     margin: 15px;
@@ -3849,17 +3854,17 @@ ul.notifications {
 .notification-text {
     pointer-events: none;
 }
-.notification-full .ui-pnotify-container {
-    background: #EEE;
-    color: black;
-    border: solid 1px lightgray;
-    padding: 20px;
-    font-size: 18px;
-    box-shadow: 2px 2px lightgray;
-}
-.notification-full .ui-pnotify-icon {
-    display: none !important;
-}
+/*.notification-full .ui-pnotify-container {*/
+    /*background: #EEE;*/
+    /*color: black;*/
+    /*border: solid 1px lightgray;*/
+    /*padding: 20px;*/
+    /*font-size: 18px;*/
+    /*box-shadow: 2px 2px lightgray;*/
+/*}*/
+/*.notification-full .ui-pnotify-icon {*/
+    /*display: none !important;*/
+/*}*/
 .notification-header {
     text-align: right;
 }
