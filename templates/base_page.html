@@ -60,10 +60,10 @@
             </div>
         {% endblock %}
 
-        {% block top-nav %}
+        <div class="right_col" role="main">
+            {% block top-nav %}
             {% include "top_nav.html" %}
-        {% endblock %}
-            <div class="right_col" role="main">
+            {% endblock %}
             {% block content %}
             {% endblock %}
             </div>
@@ -82,5 +82,24 @@
     <script src="/static/build/js/shift.js"></script>
     <script src="/static/vendors/pnotify/pnotify.custom.min.js"></script>
     {% endblock %}
+
+    <script>
+    $( document ).ready(function() {
+        var element = $('.journal_title'), originalY = element.offset().top;
+
+        $(window).on('scroll', function (event) {
+            var scrollPos = $(window).scrollTop();
+            if (scrollPos > 0) {
+                element.addClass('sticky');
+                element.width(element.parent().width())
+            }
+            else {
+                element.removeClass('sticky');
+            }
+
+        });
+    });
+
+    </script>
 </body>
 </html>
