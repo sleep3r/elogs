@@ -100,8 +100,10 @@ function GetURLParameter(paramName) {
 }
 
 $(document).ready(function () {
-    setTimeout(() => {
-        let field_name = GetURLParameter("highlight");
-        $("table ." + field_name + "").addClass("highlight");
-    }, 1000);
+    let field_name = GetURLParameter("highlight");
+    if (field_name.length > 0) {
+        setTimeout(() => {
+            $("table ." + field_name + "").addClass("highlight");
+        }, 1000);
+    }
 });
