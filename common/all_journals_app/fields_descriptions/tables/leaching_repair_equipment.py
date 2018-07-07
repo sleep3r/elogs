@@ -1,13 +1,17 @@
-from leaching.repair_app.models import Equipment
+from leaching.repair_reports_app.models import Equipment
+from django.db import ProgrammingError
 from utils.deep_dict import deep_dict
 from common.all_journals_app.fields_descriptions.fields_classes import *
 
 
 def get_equipent():
-    items = Equipment.objects.all().order_by('name')
-    equipments = []
-    for item in items:
-        equipments.append(item.name)
+    try:
+        items = Equipment.objects.all().order_by('name')
+        equipments = []
+        for item in items:
+            equipments.append(item.name)
+    except ProgrammingError:
+        return
     return equipments
 
 rt = deep_dict()

@@ -29,8 +29,15 @@ class JournalPage(models.Model):
 
     # for shift type
     plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
-    shift_order = models.IntegerField(null=True, verbose_name='Номер смены')
-    shift_date = models.DateField(null=True, verbose_name='Дата начала смены')
+    shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
+    shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
+    date = models.DateField(blank=True, null=True, verbose_name='Дата')
+    year = models.IntegerField(blank=True, null=True, verbose_name='Год')
+    month = models.IntegerField(blank=True, null=True, verbose_name='Месяц')
+    equipment = models.CharField(max_length=256, null=True, verbose_name='Оборудование')
+
+
+
 
     @property
     def shift_start_time(self):

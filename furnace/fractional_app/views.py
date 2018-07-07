@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from furnace.fractional_app.models import *
-from leaching.express_anal_app.services.messages import get_messages_dict
+from common.all_journals_app.services.messages import get_messages_dict
 from utils.deep_dict import deep_dict
 from django.http import HttpResponse, JsonResponse
 from django.template import loader

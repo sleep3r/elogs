@@ -14,7 +14,7 @@ class Employee(models.Model):
                                                                      ('admin', 'Админ'),
                                                                      ('boss', 'Начальник цеха'),
                                                                      ))
-    plant = models.CharField(max_length=10, verbose_name='Цех', null=True, choices=(('furnace', 'Обжиг'),
+    plant = models.CharField(max_length=128, verbose_name='Цех', null=True, choices=(('furnace', 'Обжиг'),
                                                                                     ('leaching', 'Выщелачивание'),
                                                                                     ('electrolysis', 'Электролиз'),
                                                                                     ))

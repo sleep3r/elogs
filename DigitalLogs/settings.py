@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'login_app.apps.LoginApp',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'common.messages_app.apps.CommonMessagesAppConfig',
-    'leaching.express_anal_app.apps.ExpressAnalApp',
-    'leaching.repair_app.apps.LeachingRepairAppConfig',
-
+    # # 'leaching.express_anal_app.apps.ExpressAnalApp',
+    # # 'leaching.repair_app.apps.LeachingRepairAppConfig',
+    #
     'leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
     'leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
@@ -91,7 +91,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
+                'express_tags': 'common.all_journals_app.templatetags.express_tags',
             }
         },
     },
@@ -104,9 +104,17 @@ WSGI_APPLICATION = 'DigitalLogs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'DjangoRelease',
+        'HOST': '88.99.2.149',
+        'PORT': '',
+        'USER': 'InframineDeveloper',
+        'PASSWORD': 'Singapore2017',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
 }
 
 # driver='{ODBC Driver 13 for SQL Server}',
