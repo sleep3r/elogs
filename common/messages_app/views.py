@@ -36,6 +36,12 @@ class ReadMessagesView(View):
 
 
 class AddMessagesView(View):
+    def getLinkToJournal(self, page_id, table_name, field_name, row_index):
+        j_page = JournalPage.objects.get(id=page_id)
+        journal_name = j_page.journal_name
+        plant_name = j_page.plant.name
+
+        return f'<a href="/{plant_name}/{journal_name}/?page_mode=edit&highlight={field_name}_{row_index}#table_id_{table_name}">{field_name}</a>'
     def post(self, request):
         adding_table_name = request.POST.get('table_name', None)
         adding_field_name = request.POST.get('field_name', None)
