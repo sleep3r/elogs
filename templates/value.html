@@ -24,8 +24,8 @@
                     <input class = "resp" hidden name="{{ field_responsible_name }}" value="{{responsible}}" >
 
                     <input class="form-control general-value"
-                       oninput="on_input_change(this)"
-                       onchange="add_message(this);add_responsible(this, '{{ user.employee }}');reformat_on_change(this)"
+                       oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');"
+                       onchange="add_message(this);reformat_on_change(this)"
                        title="{% if responsible %}{% if val %}Заполнил: {{ responsible }}{% endif %}{% endif %}"
                        value="{% firstof auto_val val %}"
                        data-info="{{ info }}"
