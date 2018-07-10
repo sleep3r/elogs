@@ -19,10 +19,24 @@ def get_addressees(all=False, positions=None, ids=None, plant=None):
     return res
 
 
-def filter_or_none(model, *args, **kwargs):
+def filter_or_none(cell, type, addressee):
     try:
-        return model.objects.filter(*args, **kwargs)
-    except model.DoesNotExist:
+        if addressee:
+            return Message.objects.filter(addressee=addressee,
+                                          type=type,
+                                          cell_field_name=cell.field_name,
+                                          cell_table_name=cell.table_name,
+                                          row_index=cell.index,
+                                          cell_journal_page=cell.journal_page_id,
+                                          is_read=False)
+        else:
+            return Message.objects.filter(type=type,
+                                          cell_field_name=cell.field_name,
+                                          cell_table_name=cell.table_name,
+                                          row_index=cell.index,
+                                          cell_journal_page=cell.journal_page_id,
+                                          is_read=False)
+    except Message.DoesNotExist:
         return None
 
 
@@ -31,3 +45,4 @@ def get_or_none(model, *args, **kwargs):
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         return None
+

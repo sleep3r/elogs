@@ -2,6 +2,7 @@ import json
 
 from django.http import JsonResponse
 from django.views import View
+from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from utils.deep_dict import deep_dict
@@ -12,8 +13,43 @@ from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages
 
+class MessageView(View):
 
-class GetMessagesView(View):
+    def getCell(self, request):
+        journal_page = request.POST.get('journal_page', None)
+        table_name = request.POST.get('table_name', None)
+        field_name = request.POST.get('field_name', None)
+        row_index = request.POST.get('index', None)
+        cell = messages.get_or_none(CellValue, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
+        return cell
+
+    @staticmethod    
+    def getLinkToJournal(cell):
+        j_page = cell.journal_page
+        journal_name = j_page.journal_name
+        plant_name = j_page.plant.name
+        return f'<a href="/{plant_name}/{journal_name}/?page_mode=edit&highlight={cell.field_name}_{cell.index}#table_id_{cell.table_name}">{cell.field_name}</a>'
+
+    def create(self, cell, type, addressee, text):
+        new_msg = Message(
+                  addressee=addressee,
+                  type=type,
+                  text=text,
+                  cell_field_name=cell.field_name,
+                  cell_table_name=cell.table_name,
+                  row_index=cell.index,
+                  cell_journal_page=cell.journal_page_id)
+        new_msg.save()
+
+
+    def update(self, cell):
+        msgs = messages.filter_or_none(cell, type, addressee=None)
+        if msgs:
+            for m in msgs:
+                m.is_read = True
+                m.save()
+
+
     def get(self, request):
         res = deep_dict()
         res['messages'] = {}
@@ -22,141 +58,68 @@ class GetMessagesView(View):
         return res
 
 
-class ReadMessagesView(View):
-    def post(self, request):
-        msg_id = json.loads(request.POST.get('ids[]')) or 0
-        msg = Message.objects.get(id=int(msg_id))
-        if msg.addressee == request.user.employee:
-            msg.is_read = True
-            msg.save()
-        else:
-            raise AccessError(
-                message="Попытка отметить чужое сообщение как прочитанное")
+    def post(self, request, crud, type=None):
+        cell = self.getCell(request)
+        if crud == 'create':
 
-        return JsonResponse({"result": 1})
-
-
-class AddMessagesView(View):
-    def getLinkToJournal(self, page_id, table_name, field_name, row_index):
-        j_page = JournalPage.objects.get(id=page_id)
-        journal_name = j_page.journal_name
-        plant_name = j_page.plant.name
-
-        return f'<a href="/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{row_index}#table_id_{table_name}">{field_name}</a>'
-
-    def post(self, request):
-        table_name = request.POST.get('table_name', None)
-        field_name = request.POST.get('field_name', None)
-        row_index = request.POST.get('index', None)
-        journal_page_id = request.POST.get('journal_page', None)
-        adding_field_value = request.POST.get('field_value', None)
-
-        if adding_field_value:
-            for emp in messages.get_addressees(all=True):
-                msg = messages.filter_or_none(Message, type='critical_value',
-                        addressee=emp,
-                        cell_field_name = field_name,
-                        cell_table_name = table_name,
-                        row_index = row_index,
-                        cell_journal_page = journal_page_id,
-                        is_read=False)
-
-
-                msg_text = f'<b>{request.user.employee.name}</b> ввел в поле {self.getLinkToJournal(journal_page_id,  table_name, field_name, row_index)} некорректное значение {adding_field_value}'
-
-                if msg:
-                    for m in msg:
-                        m.text = msg_text
-                        m.save()
-
+            if type == 'critical_value':
+                value = request.POST.get('field_value', None)
+                if value:
+                    m_text = f'<b>{request.user.employee.name}</b> ввел в поле {self.getLinkToJournal(cell)} некорректное значение {value}'
+                    for emp in messages.get_addressees(all=True):
+                        msg = messages.filter_or_none(cell, type, emp)
+                        if msg:
+                            for m in msg:
+                                m.text = m_text
+                                m.save()
+                        else:
+                            self.create(cell, type, emp, m_text)
                 else:
-                    new_msg = Message(
-                        type='critical_value',
-                        text=msg_text,
-                        addressee=emp,
-                        cell_field_name=field_name,
-                        cell_table_name=table_name,
-                        row_index=row_index,
-                        cell_journal_page=journal_page_id,)
-                    new_msg.save()
-        else:
-            msgs = messages.filter_or_none(Message, is_read=False,
-                                      cell_table_name=table_name,
-                                      row_index=row_index,
-                                      cell_journal_page=journal_page_id)
-            if msgs:
-                for m in msgs:
-                    m.is_read = True
-                    m.save()
-
-        return JsonResponse({"result": 1})
+                    self.update()
 
 
-class DelMessagesView(View):
-    def post(self, request):
-        deleting_table_name = request.POST.get('table_name', None)
-        deleting_field_name = request.POST.get('field_name', None)
-        deleting_row_index = request.POST.get('index', None)
-        deleting_journal_page = request.POST.get('journal_page', None)
-
-        messages_on_delete = messages.filter_or_none(Message, is_read = False,
-                                                     type='critical_value',
-                                                     cell_field_name=deleting_field_name,
-                                                     cell_journal_page=deleting_journal_page,
-                                                     cell_table_name=deleting_table_name,
-                                                     row_index=deleting_row_index)
-        if messages_on_delete:
-            for message in messages_on_delete:
-                message.is_read = True
-                message.save()
-
-        return JsonResponse({"result": 1})
-
-
-
-class AddComment(View):
-    def post(self, request):
-        comment_text = request.POST.get('comment_text', None)
-        table_name = request.POST.get('table_name', None)
-        field_name = request.POST.get('field_name', None)
-        row_index = request.POST.get('index', None)
-        journal_page = request.POST.get('journal_page', None)
-        if comment_text:
-            for emp in messages.get_addressees(all=True):
-                msg = messages.filter_or_none(Message, type='comment',
-                                              addressee=emp,
-                                              is_read=False,
-                                              cell_table_name=table_name,
-                                              cell_field_name=field_name,
-                                              cell_journal_page=journal_page,
-                                              row_index=row_index)
-
-                if msg:
-                    for m in msg:
-                        m.text = f'{request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}'
-                        m.save()
-
+            if type == 'comment':
+                comment_text = request.POST.get('comment_text', None)
+                if comment_text:
+                    c_text = f'<b>{request.user.employee.name}</b> оставил к полю {self.getLinkToJournal(cell)} комментарий: {comment_text}'
+                    for emp in messages.get_addressees(all=True):
+                        msg = messages.filter_or_none(cell, type, emp)
+                        if msg:
+                            for m in msg:
+                                m.text = c_text
+                                m.save()
+                        else:
+                            self.create(cell, type, emp, c_text)
                 else:
-                    new_msg = Message(
-                        type='comment',
-                        text=f'{request.user.employee.name} оставил к таблице {table_name} комментарий: {comment_text}',
-                        addressee=emp,
-                        cell_table_name=table_name,
-                        cell_field_name=field_name,
-                        cell_journal_page=journal_page,
-                        row_index=row_index)
-                    new_msg.save()
+                    self.update()
 
-        else:
-            msgs = messages.filter_or_none(Message, is_read=False,
-                                           cell_table_name=table_name,
-                                           cell_field_name=field_name,
-                                           cell_journal_page=journal_page,
-                                           row_index=row_index
-                                           )
-            if msgs:
-                for m in msgs:
-                    m.is_read = True
-                    m.save()
+
+        if crud == 'read':
+            msg_id = json.loads(request.POST.get('ids[]')) or 0
+            msg = Message.objects.get(id=int(msg_id))
+            if msg.addressee == request.user.employee:
+                msg.is_read = True
+                msg.save()
+            else:
+                raise AccessError(
+                    message="Попытка отметить чужое сообщение как прочитанное")
+
+
+        if crud == 'update':
+            self.update()
 
         return JsonResponse({"result": 1})
+
+
+class MessagesList(ListView):
+    model = Message
+    paginate_by = 5
+    context_object_name = 'messages'
+    template_name = 'messages_list.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(addressee=self.request.user.employee)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

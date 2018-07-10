@@ -45,6 +45,6 @@ urlpatterns = [
     url('electrolysis/masters_raports', include('electrolysis.masters_raports_app.urls')),
     url('^auth', include('login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
-    url('^common/messages', include('common.messages_app.urls')),
+    path('common/messages/', include('common.messages_app.urls')),
     url(r'^(?P<plant>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', shifts.get_shifts),
 ]

@@ -31,9 +31,9 @@ var add_message_debounced = _.debounce((input) => {
 
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $.ajax({
-            url: "/common/messages/add",
+            url: "/common/messages/create/critical_value/",
             type: 'POST',
-            data: { 'type':'critical_value', 'check': true, 'field_name': input.name, 'field_value': input.value,
+            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -44,7 +44,7 @@ var add_message_debounced = _.debounce((input) => {
         });
     } else{
         $.ajax({
-            url: "/common/messages/del",
+            url: "/common/messages/update/critical_value/",
             type: 'POST',
             data: { 'check': true, 'field_name': input.name,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
@@ -69,11 +69,11 @@ var add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
 
     $.ajax({
-        url: "/common/messages/comment",
+        url: "/common/messages/create/comment/",
         type: 'POST',
-        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
-                    'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
-                    'index':$(textarea).attr('index') },
+        data: { 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
+                'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
+                'index':$(textarea).attr('index') },
         success: function (json) {
             if (json && json.result) {
                 console.log(json.result)
