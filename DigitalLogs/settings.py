@@ -102,6 +102,14 @@ WSGI_APPLICATION = 'DigitalLogs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
@@ -116,24 +124,6 @@ DATABASES = {
         },
     },
 }
-
-# driver='{ODBC Driver 13 for SQL Server}',
-#                           server='WIN-E402USVKBEF',
-#                           database='ZincSales_Dev',
-#                           username='ZincSales_Dev',
-#                           password='Singapore2017',
-#                           trusted_connection='yes'
-#                           )
-
-# DATABASES = {
-#     'default': {
-#         'NAME': 'my_database',
-#         'ENGINE': 'sqlserver_ado',
-#         'HOST': 'dbserver\\ss2012',
-#         'USER': '',
-#         'PASSWORD': '',
-#     }
-# }
 
 
 # Password validation

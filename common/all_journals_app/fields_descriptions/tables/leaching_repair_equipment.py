@@ -1,5 +1,5 @@
 from leaching.repair_reports_app.models import Equipment
-from django.db import ProgrammingError
+from django.db import ProgrammingError, OperationalError
 from utils.deep_dict import deep_dict
 from common.all_journals_app.fields_descriptions.fields_classes import *
 
@@ -10,7 +10,7 @@ def get_equipent():
         equipments = []
         for item in items:
             equipments.append(item.name)
-    except ProgrammingError:
+    except (ProgrammingError, OperationalError):
         return
     return equipments
 
