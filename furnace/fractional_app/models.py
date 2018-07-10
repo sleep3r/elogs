@@ -49,6 +49,20 @@ class MeasurementPair(models.Model):
     schieht = models.OneToOneField(SchiehtMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair')
     is_active = models.BooleanField(SchiehtMeasurement, default=True, null=False, blank=False)
 
+
+    def add(self, schiehts, schieht_sizes, cinder, cinder_sizes, ctime, stime):
+        if self.cinder:
+            self.cinder.delete()
+
+        if self.schieht:
+            self.schieht.delete()
+        self.cinder = CinderMeasurement().add(cinder, cinder_sizes, ctime)
+        self.schieht = SchiehtMeasurement().add(schiehts, schieht_sizes, stime)
+        self.save()
+
+        return self
+
+
     def add_weights(self, schiehts, cinder, stime, ctime):
         if self.cinder:
             self.cinder.delete()

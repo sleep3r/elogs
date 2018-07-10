@@ -1,5 +1,5 @@
 <template>
-  <div class="furnace-dashboard">
+  <div class="furnace-dashboard content">
     <div class="x_panel">
       <div class="x_title">
         <h4 class="pull-left">Фракционный состав шихты и огарка</h4>
