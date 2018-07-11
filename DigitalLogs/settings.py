@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'login_app.apps.LoginApp',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'common.messages_app.apps.CommonMessagesAppConfig',
-    'leaching.express_anal_app.apps.ExpressAnalApp',
-    'leaching.repair_app.apps.LeachingRepairAppConfig',
-
+    # # 'leaching.express_anal_app.apps.ExpressAnalApp',
+    # # 'leaching.repair_app.apps.LeachingRepairAppConfig',
+    #
     'leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
     'leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
@@ -91,7 +91,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'leaching.express_anal_app.templatetags.express_tags',
+                'express_tags': 'common.all_journals_app.templatetags.express_tags',
             }
         },
     },
@@ -109,22 +109,20 @@ DATABASES = {
     }
 }
 
-# driver='{ODBC Driver 13 for SQL Server}',
-#                           server='WIN-E402USVKBEF',
-#                           database='ZincSales_Dev',
-#                           username='ZincSales_Dev',
-#                           password='Singapore2017',
-#                           trusted_connection='yes'
-#                           )
-
+# 
 # DATABASES = {
 #     'default': {
-#         'NAME': 'my_database',
-#         'ENGINE': 'sqlserver_ado',
-#         'HOST': 'dbserver\\ss2012',
-#         'USER': '',
-#         'PASSWORD': '',
-#     }
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'DjangoRelease',
+#         'HOST': '88.99.2.149',
+#         'PORT': '',
+#         'USER': 'InframineDeveloper',
+#         'PASSWORD': 'Singapore2017',
+#
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 13 for SQL Server',
+#         },
+#     },
 # }
 
 
