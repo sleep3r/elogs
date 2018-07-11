@@ -28,7 +28,7 @@ def index(request):
 
     lower_table.name = 'concentrate_report_tables/lower_table.html'
 
-    context.tables = [upper_table, big_table, small_table, lower_table]
+    context.tables = [upper_table, big_table, small_table]
 
     template = loader.get_template('common.html')
     return HttpResponse(template.render(context.get_dict(), request))

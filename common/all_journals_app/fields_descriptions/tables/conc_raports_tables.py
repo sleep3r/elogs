@@ -30,8 +30,10 @@ bt.conc_num = dict(type="datalist",options=["ЗГОК", "Арт-ий",
                                                         "Алтын-Топкан"])
 
 bt.supply_time = dict(type="time", min_normal=10, max_normal=1000)
-bt.dispatch_time = dict(type="time", min_normal=10, max_normal=1000)
-bt.downtime = dict(type="number", min_normal=10, max_normal=1000)
+bt.plan_cleaning_time = dict(type="time", min_normal=10, max_normal=1000)
+bt.fact_cleaning_time = dict(type="time", min_normal=10, max_normal=1000)
+
+bt.downtime = dict(type="number", min_normal=0, max_normal=1.5)
 
 bt.recieved_conc = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 bt.recieved_beds = dict(type="number", min_normal=10, max_normal=1000, units='шт')

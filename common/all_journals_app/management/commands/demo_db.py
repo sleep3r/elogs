@@ -20,44 +20,52 @@ class Command(BaseCommand):
         parser.add_argument(
             '--clean',
             action="store_true",
-            dest='clean',
             help='Cleans db',
         )
 
         parser.add_argument(
             '--create',
             action="store_true",
-            dest='create',
             help='Creates db',
         )
 
         parser.add_argument(
             '--recreate',
             action="store_true",
-            dest='recreate',
             help='Recreates db',
         )
 
+        parser.add_argument(
+            '-frac',
+            type=int,
+            help='Number of fraction hists to create',
+        )
 
-    def handle_noargs(self, **options):
-        print("Recreating db")
-        df = DatabaseFiller()
-        df.recreate_database()
+        parser.add_argument(
+            '-employee',
+            action="store_true",
+            help='Number of fraction hists to create',
+        )
 
     def handle(self, *args, **options):
         df = DatabaseFiller()
-
-        if options["clean"]:
+        frac_num = options["frac"]
+        add_employee = options["employee"]
+        if options["clean"] or options["recreate"]:
             print("Cleaning db")
             df.clean_database()
 
-        if options["create"]:
+        if options["create"] or options["recreate"]:
             print("Creating db")
-            df.create_demo_database()
+            print("Adding permissions...")
+            df.create_permissions_and_groups()
+            print("Adding plants...")
+            df.fill_plants()
+            if add_employee:
+                print("Adding Employees...")
+                df.fill_employees()
+            if frac_num:
+                print("Filling fractional app...")
+                df.fill_fractional_app(frac_num)
 
-        if options["recreate"]:
-            print("Recreating db")
-            df.recreate_database()
-
-        print("done")
-        # command_to_process()
+        print("Done!")
