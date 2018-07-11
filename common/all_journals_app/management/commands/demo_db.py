@@ -25,10 +25,17 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '--created',
+            '--create',
             action="store_true",
             dest='create',
             help='Creates db',
+        )
+
+        parser.add_argument(
+            '--recreate',
+            action="store_true",
+            dest='recreate',
+            help='Recreates db',
         )
 
 
@@ -48,4 +55,9 @@ class Command(BaseCommand):
             print("Creating db")
             df.create_demo_database()
 
+        if options["recreate"]:
+            print("Recreating db")
+            df.recreate_database()
+
+        print("done")
         # command_to_process()

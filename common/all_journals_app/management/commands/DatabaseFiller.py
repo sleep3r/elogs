@@ -699,14 +699,18 @@ class DatabaseFiller:
 
     def create_demo_database(self):
         # create journal and shift
+        print("Adding permissions...")
         self.create_permissions_and_groups()
+        print("Adding plants...")
         self.fill_plants()
+        print("Adding Employees...")
         self.fill_employees()
         # self.fill_journals()
         # self.fill_journal_pages()
         # self.fill_shifts()
 
-        # self.fill_fractional_app()
+        print("Filling fractional app...")
+        self.fill_fractional_app()
         # self.fill_equipement()
         # self.fill_leaching_repairs()
 
