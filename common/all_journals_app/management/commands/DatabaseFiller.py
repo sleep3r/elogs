@@ -369,10 +369,10 @@ class DatabaseFiller:
     #         r.save()
 
 
-    def fill_fractional_app(self):
+    def fill_fractional_app(self, n):
         cinder_base = [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
         schieht_base = [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
-        for i in range(100):
+        for i in range(n):
             time = timezone.now() - timedelta(hours=2 * i)
             cinder = [c + random.uniform(0, 2) for c in cinder_base]
             schieht = [s + random.uniform(0, 2) for s in schieht_base]
@@ -542,19 +542,7 @@ class DatabaseFiller:
             e.user.groups.add(Group.objects.get(name=e.plant.title()))
             e.user.user_permissions.add(Permission.objects.get(codename="view_cells"))
             e.save()
-        superuser = User.objects.get(username="inframine")
-        Employee(name="inframine", position="admin", user=superuser).save()
 
-
-    # def fill_journals(self):
-    #     Journal(name='Журнал экспресс анализов',
-    #             description='Журнал экспресс анализов в цехе выщелачивания', plant='leaching').save()
-    #     Journal(name='Журнал планового ремонта',
-    #             description='Журнал планового ремонта в цехе выщелачивания', plant='leaching').save()
-    #     Journal(name='Журнал капитального ремонта',
-    #             description='Журнал капитального в цехе выщелачивания', plant='leaching').save()
-    #     Journal(name='Журнал обжига',
-    #             description='Журнал обжига в цехе обжига', plant='furnace').save()
 
     def fill_journal_pages(self):
         JournalPage(
@@ -562,29 +550,11 @@ class DatabaseFiller:
             journal_name="concentrate_report_journal",
             plant=Plant.objects.get(name="furnace")).save()
 
-    # def fill_shifts(self):
-    #     dates = [parse('10-10-2015'), parse('12-10-2015')]
-    #
-    #     for i in range(4):
-    #         sh = Shift()
-    #         sh.date = dates[i % 2]
-    #         sh.plant = 'leaching'
-    #         sh.order = random.randint(1, 2)
-    #         sh.master = random.choice(Employee.objects.filter(position='master'))
-    #         sh.laborant = random.choice(Employee.objects.filter(position='laborant'))
-    #         # sh.hydro = random.choice(Employee.objects.filter(position='hydro'))
-    #         sh.save()
-
     def fill_plants(self):
         Plant(name="furnace").save()
         Plant(name="electrolysis").save()
         Plant(name="leaching").save()
 
-    # def fill_shift_data(self, shift):
-    #     for name in dir(self):
-    #         attribute = getattr(self, name)
-    #         if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table'):
-    #             attribute(shift=shift)
 
     def fill_journalpages_data(self, journal_page):
         for name in dir(self):
@@ -593,6 +563,9 @@ class DatabaseFiller:
                 attribute(journal_page=journal_page)
 
     def create_permissions_and_groups(self):
+        superuser = User.objects.get(username="inframine")
+        Employee(name="inframine", position="admin", user=superuser).save()
+        
         content_type = ContentType.objects.get_for_model(CellValue)
         modify_leaching = Permission(
             name="Modify Leaching Plant",
@@ -672,23 +645,14 @@ class DatabaseFiller:
         electrolysis.save()
 
 
-
-
     def clean_database(self):
+        exception_models = [User, Model]
+        db_models = []
+        for name, obj in inspect.getmembers(famodels):
+            if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
+                db_models.append(obj)
 
-        # for name, obj in inspect.getmembers(eamodels):
-        #     if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
-        #         db_models.append(obj)
-        #
-        # for name, obj in inspect.getmembers(famodels):
-        #     if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
-        #         db_models.append(obj)
-        #
-        # for name, obj in inspect.getmembers(remodels):
-        #     if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
-        #         db_models.append(obj)
-
-        db_models = [Employee, JournalPage, CellValue, Plant, Group, Permission]
+        db_models.extend([Employee, JournalPage, CellValue, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             if not u.username == 'inframine' and not u.is_superuser:
@@ -697,28 +661,13 @@ class DatabaseFiller:
         for t in db_models:
             t.objects.all().delete()
 
-    def create_demo_database(self):
-        # create journal and shift
-        print("Adding permissions...")
+    def create_demo_database(self, n):
         self.create_permissions_and_groups()
-        print("Adding plants...")
         self.fill_plants()
-        print("Adding Employees...")
         self.fill_employees()
-        # self.fill_journals()
-        # self.fill_journal_pages()
-        # self.fill_shifts()
-
-        print("Filling fractional app...")
-        self.fill_fractional_app()
+        self.fill_fractional_app(n)
         # self.fill_equipement()
         # self.fill_leaching_repairs()
-
-        # for sh in Shift.objects.all():
-        #     self.fill_shift_data(shift=sh)
-
-        # for jp in JournalPage.objects.all():
-        #     self.fill_journalpages_data(journal_page=jp)
 
 
     def recreate_database(self, *args, **kwargs):

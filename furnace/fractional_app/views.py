@@ -37,7 +37,7 @@ def add_measurement(request):
         mp.save()
         return HttpResponse(status=201)
     return HttpResponse(status=405)
-    
+
 
 @process_json_view(auth_required=False)
 def granularity_object(request):
