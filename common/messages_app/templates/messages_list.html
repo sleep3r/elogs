@@ -6,15 +6,14 @@
 {% endblock %}
 
 {% block css %}
-   {{ block.super }}
-    
+   {{ block.super }} 
 {% endblock %}
 
 {% block content %}
     <div class="content">
-        <div class="infinite-container">
+        <ul class="notifications">
             {% for message in messages %}
-                <div class="infinite-item">
+                <div class="notification">
                     <div class="notification-icon">
                         {% if message.type == 'critical_value' %}
                             <i class="material-icons" style="font-size:24px; color: #FF0000;">new_releases</i>
@@ -29,17 +28,14 @@
                         </p>
                         <h6>{{ message.text|truncatechars:100 }}</h6>
                     </div>
-                    <hr>
                 </div>   
             {% endfor %}
-        </div>
-        
-        <div class="loading" style="display: none;">
-            Загрузка...
-        </div>
-        
+        </ul>
+
+        <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
+
         {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">ЕЩЕ</a>
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
         {% endif %}
     </div>
 {% endblock %}
@@ -47,12 +43,11 @@
 {% block footer %}
     {{ block.super }}
     <script src="/static/build/js/custom.js"></script>
-    <script src="/static/build/js/form_update.js"></script>
-    <script src="/static/build/js/messages/infinite.min.js"></script>
     <script src="/static/build/js/messages/jquery.waypoints.min.js"></script>
+    <script src="/static/build/js/messages/infinite.min.js"></script>
     <script>
         var infinite = new Waypoint.Infinite({
-            element: $('.infinite-container')[0],
+            element: $('.content')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();
             },
@@ -61,5 +56,4 @@
             }
         });
     </script>
-    
 {% endblock %}

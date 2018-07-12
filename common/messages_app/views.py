@@ -41,7 +41,6 @@ class MessageView(View):
                   cell_journal_page=cell.journal_page_id)
         new_msg.save()
 
-
     def update(self, cell):
         msgs = messages.filter_or_none(cell, type, addressee=None)
         if msgs:
@@ -49,14 +48,12 @@ class MessageView(View):
                 m.is_read = True
                 m.save()
 
-
     def get(self, request):
         res = deep_dict()
         res['messages'] = {}
         for m in Message.objects.filter(is_read=False, addressee=self.request.user.employee):
             res['messages'][m.id] = model_to_dict(m)
         return res
-
 
     def post(self, request, crud, type=None):
         cell = self.getCell(request)
@@ -113,12 +110,12 @@ class MessageView(View):
 
 class MessagesList(ListView):
     model = Message
-    paginate_by = 5
+    paginate_by = 10
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
-    def get_queryset(self):
-        return self.model.objects.filter(addressee=self.request.user.employee)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(addressee=self.request.user.employee)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
