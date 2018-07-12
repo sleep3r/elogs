@@ -1,0 +1,27 @@
+{% extends 'base_page.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans "Пошаговое заполнение журнала" %}</title>
+{% endblock %}
+
+{% block content %}
+    <a onclick="leaching.shiftSelect('/leaching/journal/timeing')" class="btn btn-warning">Таблицы заполняемые по часам</a>
+    {% include "widgets/wizard.html" %}
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/static/build/js/custom.js"></script>
+    <script src="/static/build/js/leaching_edit.js"></script>
+    <script src="/static/build/js/common.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="/static/build/js/leaching_app.js"></script>
+{% endblock %}

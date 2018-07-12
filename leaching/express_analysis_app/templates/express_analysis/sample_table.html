@@ -1,0 +1,30 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Пробник{% endblock %}
+
+{% block table %}
+    <table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th>{% trans "Время" %}</th>
+                <th>{% trans "Cd, мг/л" %}</th>
+                <th>{% trans "Cu, мг/л" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for idx in 5|times %}
+            <tr data-number="{{ idx }}">
+                <td>{% include "value.html" with field_name="time" index=idx %}</td>
+                <td>{% include "value.html" with field_name="Cd" index=idx %}</td>
+                <td>{% include "value.html" with field_name="Cu" index=idx %}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th>{% trans "ВИУ" %}</th>
+                <td>{% include "value.html" with field_name="VIU1" index=5 %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

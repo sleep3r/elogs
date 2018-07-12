@@ -1,0 +1,18 @@
+{% load express_tags %}
+{% load i18n %}
+
+<input hidden name="validate"
+       value={% if page_mode == 'validate' %} True {% endif %}>
+<input hidden name="view"
+      value={% if page_mode == 'view' %} True {% endif %}>
+<input hidden name="edit"
+    value={% if page_mode == 'edit' %} True {% endif %}>
+<input hidden name="has_edited"
+    value={% if has_edited %} True {% endif %}>
+
+{% include "all_journals_app/journal_control_panel.html" %}
+
+{% for table in tables %}
+    {% get_table_name table.name as tn %}
+    {% include table.name with table_name=tn%}
+{% endfor %}

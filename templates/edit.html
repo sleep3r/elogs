@@ -1,0 +1,38 @@
+{% load i18n %}
+{% include "header.html" %}
+
+
+<div class="editwrapper">
+<div id="app">
+{% include "forms/form-shift-choice.html" with form=form_shift %}
+{% include "forms/form-veu.html" with form=form_veu %}
+{% include "forms/form-sample2.html" with form=form_sample2 %}
+{% include "forms/form-electrolysis.html" with form=form_electrolysis %}
+{% include "forms/form-schieht.html" with form=form_schiehta %}
+{% include "forms/form-shift-info.html" with form=form_shift_info %}
+{% include "forms/form-neutural-densers.html" with form=form_densers_neutural %}
+{% include "forms/form-free-tanks.html" with form=form_empty_tanks %}
+{% include "forms/form-self-security.html" with form=form_self_security %}
+{% include "forms/form-neutural-solution.html" with form=form_neutural_solution %}
+{% include "forms/form-ready-tanks.html" with form=form_ready_tanks %}
+{% include "forms/form-reagents.html" with form=form_reagents %}
+{% include "forms/form-cinder.html" with form=form_cinder %}
+{% include "forms/form-agitators.html" with form=form_agitators %}
+{% include "forms/form-pulps.html" with form=form_pulps %}
+{% include "forms/form-hydrometal.html" with form=form_hydrometal %}
+{% include "forms/form-densers.html" with form=form_densers %}
+{% include "forms/form-express-analysis.html" with form=form_express_analysis %}
+
+</div>
+
+<br><hr>
+<div class="row">
+    <div><h3>Лист 2</h3></div>
+</div>
+
+
+
+
+</div>
+
+{% include "footer.html" %}

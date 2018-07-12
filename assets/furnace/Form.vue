@@ -1,0 +1,134 @@
+<template>
+  <div class="fractional-form">
+    <h1>Внести данные</h1>
+    <h2>Огарок</h2>
+    <table>
+      <tr>
+        <td>Размер</td>
+        <td
+          v-for="(size, i) in cinder.min_sizes"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="cinder.min_sizes[i]">
+        </td>
+        <td>
+          <i
+            class="glyphicon glyphicon-plus"
+            @click="cinder.min_sizes.push(0); cinder.masses.push(0)"/>
+          <i
+            class="glyphicon glyphicon-minus"
+            @click="cinder.min_sizes.pop(); cinder.masses.pop()"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Масса</td>
+        <td
+          v-for="(mass, i) in cinder.masses"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="cinder.masses[i]"></td>
+      </tr>
+    </table>
+    <h2>Шихта</h2>
+    <table>
+      <tr>
+        <td>Размер</td>
+        <td
+          v-for="(size, i) in schieht.min_sizes"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="schieht.min_sizes[i]">
+        </td>
+        <td>
+          <i
+            class="glyphicon glyphicon-plus"
+            @click="schieht.min_sizes.push(0); schieht.masses.push(0)"/>
+          <i
+            class="glyphicon glyphicon-minus"
+            @click="schieht.min_sizes.pop(); schieht.masses.pop()"/>
+        </td>
+      </tr>
+      <tr>
+        <td>Масса</td>
+        <td
+          v-for="(mass, i) in schieht.masses"
+          :key="i">
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            v-model="schieht.masses[i]">
+        </td>
+      </tr>
+    </table>
+    <div class="controls">
+      <button @click="submit">OK</button>
+      <button @click="$emit('close')">Отмена</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import _ from 'lodash'
+import axios from 'axios'
+
+export default {
+  name: 'MeasurementForm',
+  props: {
+    timeframe: {
+      type: Object,
+      default: () => {}
+    },
+  },
+  data() {
+    return {
+      cinder: {},
+      schieht: {}
+    }
+  },
+  created() {
+    this.cinder = Object.assign({}, this.timeframe.cinder, this.timeframe.id ? {} 
+    : {masses: new Array(this.timeframe.cinder.min_sizes.length).fill(0)})
+    this.schieht = Object.assign({}, this.timeframe.schieht, this.timeframe.id ? {}
+    : {masses: new Array(this.timeframe.schieht.min_sizes.length).fill(0)})
+  },
+  methods: {
+    submit() {
+      console.log('submit form')
+      axios.post('/furnace/fractional/measurements/post', {
+        cinder: this.cinder,
+        schieht: this.schieht,
+        id: this.timeframe.id
+      }).then(({data}) => {
+        this.$emit('close')
+        if (!this.timeframe.id) {
+          window.location.reload()
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+  .fractional-form {
+    padding: 1em;
+    input {
+      width: 3em;
+    }
+    
+    .controls {
+      margin-top: 1.5em;
+      float: right;
+    }
+  }
+</style>

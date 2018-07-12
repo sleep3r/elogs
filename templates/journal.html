@@ -1,0 +1,142 @@
+{% extends 'base_page.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{% trans "Журнал Экспресс анализа" %}</title>
+{% endblock %}
+
+{% block css %}
+   {{ block.super }}
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+ <link href="/static/vendors/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% if form_validate %}
+<div id="app" class="validating">
+{% else %}
+<div id="app">
+{% endif %}
+
+
+
+<div class="page-title">
+    <div class="title_left">
+      <h3>{{title}}&nbsp;</h3>
+    </div>
+    <div class="date--right">
+       <h4>{{info.data.date | date:"c"}}</h4>
+        <a class="btn btn-info pull-right" href="?shift={{shift.data.id}}&print"><i class="glyphicon glyphicon-print"></i> {% trans "Печатная версия" %}</a>
+    </div>
+    <!-- Trigger the modal with a button -->
+</div>
+
+{% if not form_validate %}
+<div class="col-md-12 col-sm-12 col-xs-12" >
+  <h3>{% trans "Лист" %} 1 </h3>
+
+  <button class="btn btn-success pull-right" onclick='clickOnWizard()' data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i>&nbsp;{% trans "Заполнить" %}</button>
+</div>
+{% endif %}
+
+{% include "forms/form-shift-choice.html" with form=form_shift %}
+
+<div class="pagewrapper">
+    <div class="tablewrapper">
+        {% include "widgets/table-bchc.html" with table=bchc %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-apparat.html" with table=apparat %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-densers.html" with table=sgustiteli %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-znpulp.html" with table=znpulp %}
+    </div>
+    <div class="tablewrapper" >
+        {% include "widgets/table-agitators.html" with table=agitators %}
+    </div>
+</div>
+
+{% include "widgets/shift.html" with shift=info %}
+
+<div class="pagewrapper">
+
+    <div class="tablewrapper">
+        {% include "widgets/table-cinder.html" with table=cinder %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-schiehta.html" with table=schiehta %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-neutral.html" with table=neutral %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-baki.html" with table=baki %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-electrolysis.html" with table=electrolysis %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-empty-containers.html" with table=empty_containers %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-reagents.html" with table=reagents %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-simple.html" with table=probnik %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-neutral-densers.html" with table=neutral_densers %}
+    </div>
+
+    <div class="tablewrapper">
+        {% include "widgets/table-security.html" with table=security %}
+    </div>
+</div>
+
+{% if form_validate %}
+    {% include "widgets/form-validate.html" with form=form_validate %}
+{% endif %}
+
+</div>
+  {% include "modals/pick_shift.html" %}
+{% endblock %}
+
+
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/vendors/moment/min/moment.min.js"></script>
+    <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/static/build/js/custom.js"></script>
+    <script src="/static/build/js/leaching_edit.js"></script>
+    <script src="/static/build/js/common.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="/static/vendors/fullcalendar/dist/fullcalendar.js"></script>
+    <!--<script src="/static/vendors/fullcalendar/dist/lang/ru.js"></script>-->
+    <!--<script src="/static/build/js/leaching_app.js"></script>-->
+    <script src="/static/build/js/datepicker.js"></script>
+    <script src="/static/build/js/leaching_shift.js"></script>
+
+{% endblock %}
+
+

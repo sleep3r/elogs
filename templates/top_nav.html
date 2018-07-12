@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="top_nav journal_title">
+  <div class="nav_menu">
+    <nav>
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      </div>
+        <div class="journal_namepull-left" >{{ journal_title }}</div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="display: inline-block">
+            <span class="badge badge-danger" id="notifications_count"></span>
+            <img src="/static/images/no-avatar.png" alt="">{{ user_name }}
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            {% include "notification-list.html" with notifications=notifications %}
+          </ul>
+        </li>
+        <li>
+            <a href="/auth/logout" aria-expanded="false" style="display: inline-block"><i class="glyphicon glyphicon-log-out large"></i> Выйти из системы</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

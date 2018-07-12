@@ -1,0 +1,5 @@
+django-pyodbc-azure
+pyfunctional
+django
+python-dateutil
+django-webpack-loader

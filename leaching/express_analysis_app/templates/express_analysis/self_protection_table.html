@@ -1,0 +1,32 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Самоохрана{% endblock %}
+
+{% block table %}
+    <table class="table table-bordered elog-journal-table">
+        <thead>
+                <tr>
+                    <th colspan="3">{% trans "Самоохрана" %}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">{% trans "Обход" %}</th>
+                    <th>{% trans "Примечание" %}</th>
+                </tr>
+            </thead>
+        <tbody>
+            <tr>
+                <td>{% include "value.html" with field_name="visiting_time" index=0 %}</td>
+                <td>{% include "value.html" with field_name="visiting" index=0 %}</td>
+                <td rowspan="3">{% include "value.html" with field_name="notation" index=0 %}</td>
+            </tr>
+            {% for _ in 2|times %}
+                <tr>
+                    <td>{% include "value.html" with field_name="visiting_time" index=forloop.counter %}</td>
+                    <td>{% include "value.html" with field_name="visiting" index=forloop.counter %}</td>
+                </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

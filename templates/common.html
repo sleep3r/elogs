@@ -1,0 +1,28 @@
+{% extends 'base_page.html' %}
+{% load i18n %}
+
+{% block title %}
+    <title>{{ journal_title }}</title>
+{% endblock %}
+
+{% block css %}
+   {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+    {% include "widget.html" %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/build/js/custom.js"></script>
+    <script src="/static/build/js/form_update.js"></script>
+
+{% endblock %}
+
+
+
+
+

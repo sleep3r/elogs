@@ -1,0 +1,59 @@
+{% extends "table.html" %}
+
+{% block title %}Разгружено/остаток{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+    <tr>
+        <th> Склад </th>
+        <th> Поступление контейнеров </th>
+        <th> Отгружено порожних </th>
+        <th> Разгружено контейнеров </th>
+        <th> Остаток пустых контейнеров </th>
+        <th> Остаток пустых контейнеров </th>
+        <th> Остаток бракованых контейнеров</th>
+        <th> Остаток скоб</th>
+        <th> Количество поддонов </th>
+        <th> Количество скоб </th>
+    </tr>
+
+    <tr>
+        <th>1</th>
+        <td>{% include "value.html" with field_name="containers_reciept1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers11" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers21" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds1" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops1" index=0 %}</td>
+    </tr>
+
+    <tr>
+        <th>2</th>
+        <td>{% include "value.html" with field_name="containers_reciept2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers12" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers22" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds2" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops2" index=0 %}</td>
+    </tr>
+
+    <tr>
+        <th>Итого</th>
+        <td>{% include "value.html" with field_name="containers_reciept_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shipped_empty_num_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="poured_containers_num_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers1_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_empty_containers2_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_defective_containers_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_braces_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_beds_total" index=0 %}</td>
+        <td>{% include "value.html" with field_name="residue_stops_total" index=0 %}</td>
+    </tr>
+</table>
+{% endblock %}

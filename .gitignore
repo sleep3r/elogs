@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -30,6 +31,20 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+=======
+# gitignore for python projects
+.idea
+__pycache__
+*.pyc
+*.py[co]
+express_anal_app/__pycache__/apps.cpython-36.pyc
+.svn
+.DS_Store
+node_modules
+webpack-stats.json
+DigitalLogs/static/webpack_bundles/*
+DigitalLogs/staticfiles/webpack_bundles/*
+>>>>>>> release/1.0
 
 # Installer logs
 pip-log.txt
@@ -50,6 +65,7 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+<<<<<<< HEAD
 
 # Django stuff:
 *.log
@@ -102,3 +118,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+=======
+>>>>>>> release/1.0

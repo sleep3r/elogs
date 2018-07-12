@@ -1,0 +1,112 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Левая таблица{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="2"> Параметры </th>
+            <th colspan="12"> Время замеров </th>
+            <th rowspan="2"> Несоотвествия </th>
+            <th rowspan="2"> Принятые меры </th>
+        </tr>
+        <tr>
+            {% for time in table_info.times %}
+                <th> {{ time }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row_name in table_info.row_names %}
+            <tr>
+                <th> {{row_name.view}} </th>
+                {% for header in table_info.times|stack:table_info.last_headers %}
+                <td>
+                    {% with row_name.db|add:header as field_name %}
+                    {% include "value.html" with index=0 %}
+                    {% endwith %}
+                </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block additional_lower %}
+        <table class="table table-bordered elog-journal-table">
+            <thead>
+                <tr>
+                    <th colspan="15"> Работа обрудования </th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <th>Град №1</th>
+                    <th>Град №2</th>
+                    <th>Град №3</th>
+                    <th>Град №4</th>
+                    <th>Град №5</th>
+                    <th>Град №6</th>
+                    <th>Град №7</th>
+                    <th>Град №8</th>
+                    <th>Град №9</th>
+                    <th colspan="2">Кристализаторы</th>
+                </tr>
+                <tr>
+                    <th> Вент. скорость</th>
+                    <td> {% include "value.html" with field_name="grad1_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad2_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad3_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad4_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad5_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad6_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad7_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad8_vent"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad9_vent"  index=0 %} </td>
+                    <th>№1</th>
+                    <td> {% include "value.html" with field_name="crystal1"  index=0 %} </td>
+                </tr>
+
+                <tr>
+                    <th> Режим (з/л)</th>
+                    <td> {% include "value.html" with field_name="grad1_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad2_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad3_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad4_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad5_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad6_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad7_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad8_mode"  index=0 %} </td>
+                    <td> {% include "value.html" with field_name="grad9_mode"  index=0 %} </td>
+                    <th>№2</th>
+                    <td> {% include "value.html" with field_name="crystal2"  index=0 %} </td>
+                </tr>
+                <tr>
+                    <th colspan="2">Расход нейтр. р-ра</th>
+                    <th colspan="3">Промывка/чистка</th>
+                    <th colspan="7">Работа насосов</th>
+                </tr>
+                <tr>
+                    <th> Общий </th>
+                    <td> {% include "value.html" with field_name="common1"  index=0 %} </td>
+                    <td colspan="3"> {% include "value.html" with field_name="common2"  index=0 %} </td>
+                    <td colspan="7" rowspan="3"> {% include "value.html" with field_name="pumps_summ"  index=0 %} </td>
+                </tr>
+
+                <tr>
+                    <th> 3 серии </th>
+                    <td> {% include "value.html" with field_name="series31"  index=0 %} </td>
+                    <td colspan="3"> {% include "value.html" with field_name="series32"  index=0 %} </td>
+                </tr>
+
+                <tr>
+                    <th> 4 серии </th>
+                    <td> {% include "value.html" with field_name="series41"  index=0 %} </td>
+                    <td colspan="3"> {% include "value.html" with field_name="series42"  index=0 %} </td>
+                </tr>
+
+            </thead>
+        </table>
+{% endblock %}

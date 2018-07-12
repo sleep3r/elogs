@@ -1,0 +1,30 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Свободные ёмкости{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+        <thead>
+                <tr>
+                    <th></th>
+                    <th>{% trans "Ёмкости" %}</th>
+                    <th>{% trans "Пред. замеры" %}</th>
+                    <th>{% trans "Текущ. замеры" %}</th>
+                    <th>{% trans "Отклонение" %}</th>
+                </tr>
+            </thead>
+        <tbody>
+            {% for subColumn in tanks_availability_table.columns %} 
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>{{subColumn|safe}}</th>
+                        {% for name in tanks_availability_table.db_columns|index:forloop.counter %}
+                            <td>{% include "value.html" with field_name=name index=0 %}</td>
+                        {% endfor %}
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

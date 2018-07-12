@@ -1,0 +1,72 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Содержание в{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th colspan="1" rowspan="2"></th>
+            <th colspan="2">Содержание Zn</th>
+            <th colspan="2">Содержание Pb</th>
+            <th colspan="2">Содержание Cu</th>
+            <th colspan="2">Содержание Cd</th>
+            <th colspan="2">Содержание Au</th>
+            <th colspan="2">Содержание Ag</th>
+        </tr>
+        <tr>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+            <th>{% trans "в концентрате тонн" %}</th>
+            <th>{% trans "в огарке" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>{% trans "отклонение Кусманов" %}</th>
+            <td>{% include "value.html" with field_name="Zn_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Zn_cin" index=0 %}</td>
+
+            <td>{% include "value.html" with field_name="Pb_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Pb_cin" index=0 %}</td>
+
+            <td>{% include "value.html" with field_name="Cu_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Cu_cin" index=0 %}</td>
+
+            <td>{% include "value.html" with field_name="Cd_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Cd_cin" index=0 %}</td>
+
+            <td>{% include "value.html" with field_name="Au_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Au_cin" index=0 %}</td>
+
+            <td>{% include "value.html" with field_name="Ag_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="Ag_cin" index=0 %}</td>
+        </tr>
+        <tr>
+            <th>{% trans "отклонение OTK" %}</th>
+            <td>{% include "value.html" with field_name="Zn_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Zn_cin" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Pb_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Pb_cin" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Cu_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Cu_cin" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Cd_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Cd_cin" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Au_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Au_cin" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Ag_con" index=1 %}</td>
+            <td>{% include "value.html" with field_name="Ag_cin" index=1 %}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

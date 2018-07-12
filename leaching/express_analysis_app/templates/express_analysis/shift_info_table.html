@@ -1,0 +1,109 @@
+{% extends "table.html" %}
+{% load i18n %}
+{% load express_tags %}
+
+{% block title %}Смена{% endblock %}
+{% block table %}
+ <table class="table table-bordered elog-journal-table" >
+        <tr>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <th>
+                 {% trans "Мастер сдал" %}
+            </th>
+            <td>{% include "value.html" with field_name="this_master" index=0 %}</td>
+        </tr>
+        <tr>
+            <th>
+                 {% trans "Мастер принял" %}
+            </th>
+            <td>{% include "value.html" with field_name="next_master" index=0 %}</td>
+        </tr>
+        <thead>
+            <tr class="headings">
+                <th colspan="5" >{% trans "Откачено" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+           <tr>
+             <th>{% trans "Выход ТВ" %}</th>
+               <td>{% include "value.html" with field_name="out_sol_t" index=0 %}</td>
+               <td colspan="2" >
+                   {% include "value.html" with field_name="out_sol_c" index=0 %}
+               </td>
+           </tr>
+           <tr >
+             <th>{% trans "Пульпы ЦВЦК" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="out_pulp_cvck" index=0 %}
+               </td>
+           </tr>
+           <tr >
+             <th>{% trans "Медного кека, тн" %}</th>
+               <td>{% include "value.html" with field_name="out_cu_kek" index=0 %}</td>
+               <th>{% trans "Cd губка" %}</th>
+               <td>{% include "value.html" with field_name="out_cd_sponge" index=0 %}</td>
+           </tr>
+           <tr>
+             <th>{% trans "Отработ в ЦВОЦ" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="out_neutr" index=0 %}
+               </td>
+           </tr>
+           <tr>
+             <th>{% trans "Богато-кадмиевого" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="out_Cd" index=0 %}
+               </td>
+           </tr>
+           <tr>
+             <th>{% trans "Нейтрального в ХМЦ" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="neutral_hmc" index=0 %}
+               </td>
+           </tr>
+           <tr>
+             <th>{% trans "Cu Пульпа" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="out_cu_pulp" index=0 %}
+               </td>
+           </tr>
+        </tbody>
+        <thead>
+           <tr class="headings">
+               <th colspan="4" >{% trans "Принято" %}</th>
+           </tr>
+        </thead>
+        <tbody >
+           <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}</th>
+               <td>
+                   {% include "value.html" with field_name="in_filtrate_ls" index=0 %}
+               </td>
+               <th>{% trans "Уд. вес" %}</th>
+               <td>
+                   {% include "value.html" with field_name="in_filtrate_dens" index=0 %}
+               </td>
+           </tr>
+           <tr><th>{% trans "Железистого из ЦВОЦ" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="in_fe" index=0 %}
+               </td>
+           </tr>
+           <tr>
+               <th>{% trans "Высоко железистого из ЦВОЦ" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="in_fe_hi" index=0 %}
+               </td>
+           </tr>
+           <tr>
+               <th>{% trans "Бедно-кадмиего" %}</th>
+               <td colspan="3">
+                   {% include "value.html" with field_name="in_poor_cd" index=0 %}
+               </td>
+           </tr>
+        </tbody>
+     </table>
+{% endblock %}
