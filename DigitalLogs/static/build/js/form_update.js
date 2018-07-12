@@ -9,12 +9,11 @@ var send_form =  _.debounce((form) => {
         success: console.log,
         dataType: "json"
     });
-}, 1500);
+}, 300);
 
 
 function on_form_change(form) {
     console.log("on_form_change()");
-    console.log($(form).serialize());
     clone_last_line(form);
     clear_empty_lines(form);
 
@@ -54,7 +53,7 @@ var add_message_debounced = _.debounce((input) => {
             }
         });
     }
-}, 1500);
+}, 300);
 
 
 function add_message(input) {
@@ -79,7 +78,7 @@ var add_comment_debounced = _.debounce((textarea) => {
         }
     });
 
-}, 1500);
+}, 300);
 
 
 
@@ -131,6 +130,8 @@ function on_input_change(input) {
 
     $(input).attr('placeholder', info.units);
     addCommentNotification(input);
+    // send_form($(input).closest("form"));
+    // add_message_debounced($(input).closest("form"))
 }
 
 
@@ -162,6 +163,7 @@ function clone_last_line(form) {
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
             new_last_line.find("input").val("");
+            new_last_line.find("textarea").val("");
             new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
             table.append(new_last_line);
         }
