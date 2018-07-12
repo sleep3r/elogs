@@ -5,7 +5,10 @@
       <div class="nav toggle">
         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
       </div>
-        <div class="journal_namepull-left" >{{ journal_title }}</div>
+        <div class="journal_namepull-left" >{{ journal_title }} 
+          <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
+          <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:limegreen"> Синхронизировано</i>
+        </div>
       <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="display: inline-block">

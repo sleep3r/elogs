@@ -6,8 +6,11 @@ var send_form =  _.debounce((form) => {
         type: 'POST',
         url: $(form).attr('action'),
         data: $(form).serialize(),
-        success: console.log,
-        dataType: "json"
+        dataType: "json",
+        success: function (data) {
+            $("#async").hide();
+            $("#sync").show();
+        }
     });
 }, 300);
 
@@ -299,6 +302,8 @@ function on_ready() {
     }
     // document.addEventListener('shown.bs.collapse', FocusShownComment);
     $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
+
+    $("#sync").show();
 }
 
 $(document).ready(function () {

@@ -24,7 +24,7 @@
                     <input class = "resp" hidden name="{{ field_responsible_name }}" value="{{responsible}}" >
 
                     <input class="form-control general-value {{ field_name }}_{{index}}"
-                       oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');"
+                       oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');$('#sync').hide();$('#async').show();"
                        onchange="add_message(this);reformat_on_change(this)"
                        title="{% if responsible %}{% if val %}Заполнил: {{ responsible }}{% endif %}{% endif %}"
                        value="{% firstof auto_val val %}"
