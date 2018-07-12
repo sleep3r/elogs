@@ -37,7 +37,7 @@ urlpatterns = [
     url('furnace/furnace_repair', include('furnace.repair_app.urls')),
     url('furnace/furnace_changed_fraction', include('furnace.changed_fraction_app.urls')),
     url('furnace/buff_journal', include('furnace.buffering_app.urls')),
-    url('furnace/reports_furnace_area', include('furnace.reports_furnace_area_app.urls')),
+    url('leaching/reports_furnace_area', include('furnace.reports_furnace_area_app.urls')),
     url('electrolysis/electrolysis_technical_report_4_degree', include('electrolysis.technical_report_app4.urls')),
     url('electrolysis/electrolysis_technical_report_3_degree', include('electrolysis.technical_report_app3.urls')),
     url('electrolysis/electrolysis_technical_report_12_degree', include('electrolysis.technical_report_app12.urls')),

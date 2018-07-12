@@ -6,10 +6,13 @@ var send_form =  _.debounce((form) => {
         type: 'POST',
         url: $(form).attr('action'),
         data: $(form).serialize(),
-        success: console.log,
-        dataType: "json"
+        dataType: "json",
+        success: function (data) {
+            $("#async").hide();
+            $("#sync").show();
+        }
     });
-}, 1500);
+}, 300);
 
 
 function on_form_change(form) {
@@ -53,7 +56,7 @@ var add_message_debounced = _.debounce((input) => {
             }
         });
     }
-}, 1500);
+}, 300);
 
 
 function add_message(input) {
@@ -78,7 +81,7 @@ var add_comment_debounced = _.debounce((textarea) => {
         }
     });
 
-}, 1500);
+}, 300);
 
 
 
@@ -91,7 +94,7 @@ function add_comment(textarea) {
 
 function add_responsible(input,user) {
     $(input).siblings(".resp").attr("value", user);
-   
+
 }
 
 
@@ -130,6 +133,8 @@ function on_input_change(input) {
 
     $(input).attr('placeholder', info.units);
     addCommentNotification(input);
+    // send_form($(input).closest("form"));
+    // add_message_debounced($(input).closest("form"))
 }
 
 
@@ -161,6 +166,7 @@ function clone_last_line(form) {
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
             new_last_line.find("input").val("");
+            new_last_line.find("textarea").val("");
             new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
             table.append(new_last_line);
         }
@@ -223,7 +229,6 @@ function hidePopups() {
 
 function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
-    console.log(active_comment);
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
@@ -249,7 +254,12 @@ function addCommentNotification(textarea) {
 }
 
 function CollapseComment(elem) {
-    $(elem).next().collapse('toggle');
+    container = $(elem).next();
+    container.collapse('toggle');
+}
+
+function FocusShownComment(event) {
+    $(event.target).children(".table-comment").focus();
 }
 
 function on_ready() {
@@ -290,6 +300,10 @@ function on_ready() {
     if (view === "True" || validate === "True") {
         document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
+    // document.addEventListener('shown.bs.collapse', FocusShownComment);
+    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
+
+    $("#sync").show();
 }
 
 $(document).ready(function () {

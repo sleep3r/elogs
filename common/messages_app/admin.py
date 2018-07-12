@@ -1,5 +1,5 @@
 from django.contrib import admin
-from login_app.models import *
+from common.messages_app.models import Message
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 

@@ -7,7 +7,8 @@ from django.shortcuts import render
 from utils.deep_dict import deep_dict
 from utils.errors import AccessError
 from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
-from login_app.models import Message, Employee
+from login_app.models import Employee
+from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages
 
@@ -41,7 +42,7 @@ class AddMessagesView(View):
         journal_name = j_page.journal_name
         plant_name = j_page.plant.name
 
-        return f'<a href="/{plant_name}/{journal_name}/?page_mode=edit&highlight={field_name}_{row_index}#table_id_{table_name}">{field_name}</a>'
+        return f'<a href="/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{row_index}#table_id_{table_name}">{field_name}</a>'
 
     def post(self, request):
         table_name = request.POST.get('table_name', None)
@@ -53,7 +54,7 @@ class AddMessagesView(View):
         if adding_field_value:
             for emp in messages.get_addressees(all=True):
                 msg = messages.filter_or_none(Message, type='critical_value',
-                        addressee=emp, 
+                        addressee=emp,
                         cell_field_name = field_name,
                         cell_table_name = table_name,
                         row_index = row_index,
@@ -70,7 +71,7 @@ class AddMessagesView(View):
 
                 else:
                     new_msg = Message(
-                        type='critical_value', 
+                        type='critical_value',
                         text=msg_text,
                         addressee=emp,
                         cell_field_name=field_name,
@@ -87,7 +88,7 @@ class AddMessagesView(View):
                 for m in msgs:
                     m.is_read = True
                     m.save()
-            
+
         return JsonResponse({"result": 1})
 
 
@@ -98,11 +99,11 @@ class DelMessagesView(View):
         deleting_row_index = request.POST.get('index', None)
         deleting_journal_page = request.POST.get('journal_page', None)
 
-        messages_on_delete = messages.filter_or_none(Message, is_read = False, 
-                                                     type='critical_value', 
-                                                     cell_field_name=deleting_field_name, 
-                                                     cell_journal_page=deleting_journal_page, 
-                                                     cell_table_name=deleting_table_name, 
+        messages_on_delete = messages.filter_or_none(Message, is_read = False,
+                                                     type='critical_value',
+                                                     cell_field_name=deleting_field_name,
+                                                     cell_journal_page=deleting_journal_page,
+                                                     cell_table_name=deleting_table_name,
                                                      row_index=deleting_row_index)
         if messages_on_delete:
             for message in messages_on_delete:
@@ -157,5 +158,5 @@ class AddComment(View):
                 for m in msgs:
                     m.is_read = True
                     m.save()
-        
+
         return JsonResponse({"result": 1})
