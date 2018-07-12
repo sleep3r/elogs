@@ -14,7 +14,6 @@ var send_form =  _.debounce((form) => {
 
 function on_form_change(form) {
     console.log("on_form_change()");
-    console.log($(form).serialize());
     clone_last_line(form);
     clear_empty_lines(form);
 
@@ -162,6 +161,7 @@ function clone_last_line(form) {
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
             new_last_line.find("input").val("");
+            new_last_line.find("textarea").val("");
             new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
             table.append(new_last_line);
         }
