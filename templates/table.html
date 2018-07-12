@@ -29,8 +29,9 @@
                 {% block additional_lower %}{% endblock %}
 
                 {% include "table_comment.html" with comment=table_data|keyval:"comment"|choose_val:0 %}
-
             </form>
+
+
 
             {% block js %}{% endblock %}
         </div>
