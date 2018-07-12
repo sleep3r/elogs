@@ -29,6 +29,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149']
 
 # Application definition
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'guardian.backends.ObjectPermissionBackend',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
+    'guardian',
     'login_app.apps.LoginApp',
     'common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'common.messages_app.apps.CommonMessagesAppConfig',
@@ -109,7 +114,7 @@ DATABASES = {
     }
 }
 
-# 
+#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'sql_server.pyodbc',
