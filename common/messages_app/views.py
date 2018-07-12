@@ -28,7 +28,8 @@ class MessageView(View):
         j_page = cell.journal_page
         journal_name = j_page.journal_name
         plant_name = j_page.plant.name
-        return f'<a href="/{plant_name}/{journal_name}?page_mode=edit&highlight={cell.field_name}_{cell.index}#table_id_{cell.table_name}">{cell.field_name}</a>'
+        field_name = cell.field_name.replace("_comment", "")
+        return f'<a href="/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{cell.index}#table_id_{cell.table_name}">{field_name}</a>'
 
     def create(self, cell, type, addressee, text):
         new_msg = Message(
