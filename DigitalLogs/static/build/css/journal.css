@@ -422,3 +422,7 @@ footer {
 .modal-title {
     display: inline;
 }
+
+#message-modal-alert {
+    display: none;
+}
