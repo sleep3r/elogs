@@ -9,7 +9,7 @@ var send_form =  _.debounce((form) => {
         success: console.log,
         dataType: "json"
     });
-}, 1500);
+}, 300);
 
 
 function on_form_change(form) {
@@ -53,7 +53,7 @@ var add_message_debounced = _.debounce((input) => {
             }
         });
     }
-}, 1500);
+}, 300);
 
 
 function add_message(input) {
@@ -78,7 +78,7 @@ var add_comment_debounced = _.debounce((textarea) => {
         }
     });
 
-}, 1500);
+}, 300);
 
 
 
@@ -130,6 +130,8 @@ function on_input_change(input) {
 
     $(input).attr('placeholder', info.units);
     addCommentNotification(input);
+    // send_form($(input).closest("form"));
+    // add_message_debounced($(input).closest("form"))
 }
 
 
