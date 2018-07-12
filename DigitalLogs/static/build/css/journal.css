@@ -402,3 +402,27 @@ input[readonly] {
 .popup-comment-content textarea::placeholder {
     color: #BBBBBB;
 }
+
+footer {
+    font-size: 16px;
+}
+
+.dev-message-button {
+    cursor: pointer;
+}
+
+.dev-message-button:hover {
+    text-decoration: underline;
+}
+
+.medium-icon {
+    font-size: 18px;
+}
+
+.modal-title {
+    display: inline;
+}
+
+#message-modal-alert {
+    display: none;
+}

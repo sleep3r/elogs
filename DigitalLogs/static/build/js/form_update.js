@@ -332,6 +332,36 @@ function checkKey(e) {
 }
 
 
+function SendMessageToDevelopers() {
+    console.log("SendMessageToDevelopers");
+    let theme = $("#devs-message-theme").val();
+    let text = $("#devs-message-text").val();
+    let plant = document.URL.split("?")[0].split("/")[3];
+    let journal = document.URL.split("?")[0].split("/")[4];
+    let data = {
+        "theme": theme, "text": text,
+        "user": backend.user.username, "email": backend.user.email,
+        "plant": plant, "journal": journal,
+    };
+    if (text && theme && text.length < 1000 && theme.length < 200) {
+        $("#MessageToDevelopersModal").modal("hide");
+        $.ajax({
+            type: 'POST',
+            url: "/common/send-message-to-devs",
+            data: data,
+            success: console.log,
+            dataType: "json"
+        });
+        $("#message-modal-alert").css("display", "none")
+        $("#devs-message-theme").val("");
+        $("#devs-message-text").val("");
+
+    }
+    else {
+        $("#message-modal-alert").css("display", "block");
+    }
+}
+
 function on_ready() {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
        on_input_change(input);
@@ -378,7 +408,7 @@ function on_ready() {
     document.onkeydown = checkKey;
 }
 
-$(document).ready(function () {
+function shift_confirmation() {
     let edit = $("input[name='edit']").attr("value");
     if (edit === "True") {
         let has_edited = $("input[name='has_edited']").attr("value");
@@ -404,5 +434,9 @@ $(document).ready(function () {
             });
         }
     }
+}
+
+$(document).ready(function () {
+    shift_confirmation();
     on_ready();
 });
