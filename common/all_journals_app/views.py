@@ -6,9 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 from login_app.models import Employee
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from common.all_journals_app.models import CellValue, JournalPage
+from common.all_journals_app.models import CellValue, JournalPage, Feedback
 from utils.webutils import process_json_view
 from common.messages_app.services import messages
+from .feedback import send_feedback
 
 
 @csrf_exempt
@@ -28,7 +29,7 @@ def change_table(request):
         values = request.POST.getlist(field_name)
         for i, val in enumerate(values):
             CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
-    
+
     return {"status": 1}
 
 
@@ -62,3 +63,9 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
+
+@csrf_exempt
+@process_json_view(auth_required=False)
+def send_message_to_devs(request):
+    send_feedback(request.POST)
+    return {"result":1}
