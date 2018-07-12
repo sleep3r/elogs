@@ -402,3 +402,9 @@ input[readonly] {
 .popup-comment-content textarea::placeholder {
     color: #BBBBBB;
 }
+
+input:focus {
+    outline: 2px solid red !important;
+    ифcolor: green;
+  /*border: 1px solid red;*/
+}
