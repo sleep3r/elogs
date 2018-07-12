@@ -9,6 +9,7 @@ lt = deep_dict()
 
 rows_names_for_db = [
     "zn",
+    "zn_mix",
     "h2so4",
     "solute1",
     "solute2",
@@ -21,13 +22,14 @@ rows_names_for_db = [
 
 
 rows_names_for_view = [
-        "Zn в отр./смеси г/л",
+        "Zn в отр.",
+        "Смеси г/л",
         "H2SO4 отр. г/л",
         "Температура смеси, С",
         "Температура в ваннах, С",
         "Температура нейтр. град.",
-        "I, кА 1 степени",
-        "I, кА 2 степени"
+        "1 серия",
+        "2 серия"
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in

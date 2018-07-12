@@ -9,6 +9,7 @@ lt = deep_dict()
 
 rows_names_for_db = [
     "zn",
+    "zn_mix"
     "h2so4",
     "solute1",
     "solute2",
@@ -19,7 +20,8 @@ rows_names_for_db = [
 ]
 
 rows_names_for_view = [
-        "Zn в отр./смеси г/л",
+        "Zn в отр.",
+        "Смеси г/л",
         "H2SO4 отр. г/л",
         "Удельный вес хол-го раствора",
         "Удельный вес отр-го раствора",
