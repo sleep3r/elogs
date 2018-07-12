@@ -3,3 +3,4 @@ pyfunctional
 django
 python-dateutil
 django-webpack-loader
+telepot
