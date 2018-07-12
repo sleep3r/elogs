@@ -92,7 +92,7 @@ function add_comment(textarea) {
 
 function add_responsible(input,user) {
     $(input).siblings(".resp").attr("value", user);
-   
+
 }
 
 
@@ -224,7 +224,6 @@ function hidePopups() {
 
 function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
-    console.log(active_comment);
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
@@ -250,7 +249,12 @@ function addCommentNotification(textarea) {
 }
 
 function CollapseComment(elem) {
-    $(elem).next().collapse('toggle');
+    container = $(elem).next();
+    container.collapse('toggle');
+}
+
+function FocusShownComment(event) {
+    $(event.target).children(".table-comment").focus();
 }
 
 function on_ready() {
@@ -291,6 +295,8 @@ function on_ready() {
     if (view === "True" || validate === "True") {
         document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
+    // document.addEventListener('shown.bs.collapse', FocusShownComment);
+    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
 }
 
 $(document).ready(function () {
