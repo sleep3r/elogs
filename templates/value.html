@@ -33,6 +33,8 @@
             {% endif %}
             {% if page_mode == 'validate' %}
            onclick="showValidatePopup(this)"
+           {% else %}
+           onclick="this.select()"
             {% endif %}
     />
 {% endwith %}
