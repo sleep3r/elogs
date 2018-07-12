@@ -1,4 +1,5 @@
-from login_app.models import Employee, Message
+from login_app.models import Employee
+from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue
 
 def get_addressees(all=False, positions=None, ids=None, plant=None):

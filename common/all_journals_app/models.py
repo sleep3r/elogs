@@ -19,25 +19,25 @@ class Plant(models.Model):
     def number_of_shifts(self):
         return Plant.NUMBER_OF_SHIFTS[self.name]
 
+    class Meta:
+        verbose_name = 'Цех'
+        verbose_name_plural = 'Цеха'
 
 class JournalPage(models.Model):
     type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
                                                      ('equipment', 'Оборудование'),
                                                      ('month', 'Месяц'),
-                                                     ('year', 'Год')))
+                                                     ('year', 'Год')), verbose_name='Тип')
     journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
 
     # for shift type
-    plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True)
+    plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True, verbose_name='Цех')
     shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
     shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
     date = models.DateField(blank=True, null=True, verbose_name='Дата')
     year = models.IntegerField(blank=True, null=True, verbose_name='Год')
     month = models.IntegerField(blank=True, null=True, verbose_name='Месяц')
     equipment = models.CharField(max_length=256, null=True, verbose_name='Оборудование')
-
-
-
 
     @property
     def shift_start_time(self):
@@ -56,7 +56,8 @@ class JournalPage(models.Model):
 
     class Meta:
         unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name']
-
+        verbose_name = 'Журнал'
+        verbose_name_plural = 'Журналы'
 
 class CellValue(models.Model):
     journal_page = models.ForeignKey(JournalPage, on_delete=models.CASCADE)
@@ -70,3 +71,7 @@ class CellValue(models.Model):
         return "journal_page: " + str(self.journal_page) + " table_name: " \
                + str(self.table_name) + " field_name: " + str(self.field_name) +\
                " index: " + str(self.index) + " value: " + str(self.value)
+
+    class Meta:
+        verbose_name = 'Запись'
+        verbose_name_plural = 'Записи'

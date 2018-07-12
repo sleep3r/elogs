@@ -7,7 +7,8 @@ from django.shortcuts import render
 from utils.deep_dict import deep_dict
 from utils.errors import AccessError
 from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
-from login_app.models import Message, Employee
+from login_app.models import Employee
+from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages
 

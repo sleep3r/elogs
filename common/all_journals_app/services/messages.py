@@ -1,4 +1,6 @@
-from login_app.models import Message, Employee
+from login_app.models import Employee
+from common.messages_app.models import Message
+
 from utils.deep_dict import deep_dict
 from utils.webutils import model_to_dict
 

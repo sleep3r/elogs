@@ -18,6 +18,9 @@ class Measurement(models.Model):
 
         return self
 
+    class Meta:
+        verbose_name = 'Измерение'
+        verbose_name_plural = 'Измерения'
 
 class SchiehtMeasurement(Measurement):
     """
@@ -25,7 +28,10 @@ class SchiehtMeasurement(Measurement):
     """
     def __str__(self):
         return f'[{self.auto_time}] измерение шихты'
-
+    
+    class Meta:
+        verbose_name = 'Измерение гранулярного состава шихты'
+        verbose_name_plural = 'Измерения гранулярного состава шихты'
 
 class CinderMeasurement(Measurement):
     """
@@ -34,6 +40,9 @@ class CinderMeasurement(Measurement):
     def __str__(self):
         return f'[{self.auto_time}] измерение огарка'
 
+    class Meta:
+        verbose_name = 'Измерение гранулярного состава огарка'
+        verbose_name_plural = 'Измерения гранулярного состава огарка'
 
 class Weight(models.Model):
     mass = models.FloatField(null=True, blank=True, verbose_name='Масса')
@@ -42,11 +51,12 @@ class Weight(models.Model):
 
     class Meta:
         ordering = ['min_size']
-
+        verbose_name = 'Вес'
+        verbose_name_plural = 'Веса'
 
 class MeasurementPair(models.Model):
-    cinder = models.OneToOneField(CinderMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair')
-    schieht = models.OneToOneField(SchiehtMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair')
+    cinder = models.OneToOneField(CinderMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair',verbose_name='Огарок')
+    schieht = models.OneToOneField(SchiehtMeasurement, on_delete=models.SET_NULL, null=True, related_name='pair',verbose_name='Шихта')
     is_active = models.BooleanField(SchiehtMeasurement, default=True, null=False, blank=False)
 
 
@@ -74,3 +84,7 @@ class MeasurementPair(models.Model):
         self.save()
 
         return self
+
+    class Meta:
+        verbose_name = 'Пара измерений'
+        verbose_name_plural = 'Пары измерений'
