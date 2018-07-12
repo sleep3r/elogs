@@ -114,8 +114,8 @@ class MessagesList(ListView):
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
-    # def get_queryset(self):
-    #     return self.model.objects.filter(addressee=self.request.user.employee)
+    def get_queryset(self):
+        return self.model.objects.filter(addressee=self.request.user.employee)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
