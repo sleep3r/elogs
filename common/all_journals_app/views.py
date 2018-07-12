@@ -6,10 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 from login_app.models import Employee
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from common.all_journals_app.models import CellValue, JournalPage
+from common.all_journals_app.models import CellValue, JournalPage, Feedback
 from utils.webutils import process_json_view
 from common.messages_app.services import messages
-from .feedback import feedback
+from .feedback import send_feedback
 
 
 @csrf_exempt
@@ -67,5 +67,5 @@ def permission_denied(request, exception, template_name='errors/403.html'):
 @csrf_exempt
 @process_json_view(auth_required=False)
 def send_message_to_devs(request):
-    feedback(request.POST)
+    send_feedback(request.POST)
     return {"result":1}

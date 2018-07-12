@@ -1,4 +1,5 @@
 import telepot
+from common.all_journals_app.models import Feedback
 
 TOKEN = "484527904:AAHVkzp5hHuxWVfR0tYkIFPV-sgQkXQKqAQ"
 CHANNEL = "-1001169474805"
@@ -21,7 +22,15 @@ telepot.api.set_proxy(url)
 Bot = telepot.Bot(TOKEN)
 
 
-def feedback(data):
+def send_feedback(data):
+    Feedback(
+        username=data["user"],
+        email=data["email"],
+        plant=data["plant"],
+        journal=data["journal"],
+        theme=data["theme"],
+        text=data["text"]
+    ).save();
     Bot.sendMessage(
         CHANNEL,
         MESSAGE.format(
