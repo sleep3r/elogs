@@ -262,6 +262,76 @@ function FocusShownComment(event) {
     $(event.target).children(".table-comment").focus();
 }
 
+function dotheneedful(sibling) {
+  if (sibling != null) {
+    //start.focus();
+    input = sibling.getElementsByClassName('form-control')[0];
+    if (input.getAttribute('data-pagmode') == 'edit') {
+        console.log('edit')
+        input.focus();
+        input.select();
+    }
+    if (input.getAttribute('data-pagmode') == 'validate') {
+        console.log('validate')
+        hidePopups()
+        showValidatePopup(input)
+    }
+    console.log('sibling')
+    console.log(sibling)
+    start = sibling;
+  }
+}
+
+
+function checkKey(e) {
+
+    // if 'input' is active(e.g age mode is 'edit')
+    if (document.activeElement.tagName == 'INPUT') {
+        start = document.activeElement.parentElement
+        console.log('input')
+        console.log(start)
+    }
+
+    // if 'span' is active(e.g page mode is 'validate')
+    if (document.activeElement.tagName == 'TEXTAREA') {
+        start = document.activeElement.parentElement.parentElement
+        console.log('span')
+        console.log(start)
+    }
+    e = e || window.event;
+
+  if (e.keyCode == '38') {
+    // up arrow
+      e.preventDefault()
+    var idx = start.cellIndex;
+    var nextrow = start.parentElement.previousElementSibling;
+    if (nextrow != null) {
+      var sibling = nextrow.cells[idx];
+      dotheneedful(sibling);
+    }
+  } else if (e.keyCode == '40') {
+    // down arrow
+      e.preventDefault()
+    var idx = start.cellIndex;
+    var nextrow = start.parentElement.nextElementSibling;
+    if (nextrow != null) {
+      var sibling = nextrow.cells[idx];
+      dotheneedful(sibling);
+    }
+  } else if (e.keyCode == '37') {
+    // left arrow
+      e.preventDefault()
+    var sibling = start.previousElementSibling;
+    dotheneedful(sibling);
+  } else if (e.keyCode == '39') {
+    // right arrow
+      e.preventDefault()
+      var sibling = start.nextElementSibling;
+      dotheneedful(sibling);
+      }
+}
+
+
 function on_ready() {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
        on_input_change(input);
@@ -304,6 +374,8 @@ function on_ready() {
     $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
 
     $("#sync").show();
+
+    document.onkeydown = checkKey;
 }
 
 $(document).ready(function () {
