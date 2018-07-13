@@ -3901,3 +3901,9 @@ ul.notifications {
 .validating .table-bordered {
     background: transparent !important;
 }
+
+/** outline-cell */
+.general-value:focus {
+    outline: 3px solid green;
+    outline-style: outset;
+}
