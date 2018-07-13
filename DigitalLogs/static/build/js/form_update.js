@@ -263,7 +263,7 @@ function FocusShownComment(event) {
 }
 
 function dotheneedful(sibling) {
-  if (sibling != null) {
+  if (sibling !== null && sibling !== undefined) { // TODO: Why the fuck is it null or undefined?
     //start.focus();
     input = sibling.getElementsByClassName('form-control')[0];
     if (input.getAttribute('data-pagmode') == 'edit') {
