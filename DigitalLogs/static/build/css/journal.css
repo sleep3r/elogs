@@ -352,7 +352,7 @@ input[readonly] {
 }
 
 .comment-notification {
-    display: none;
+    visibility: hidden;
     position: absolute;
     top: 0;
     right: 0;
