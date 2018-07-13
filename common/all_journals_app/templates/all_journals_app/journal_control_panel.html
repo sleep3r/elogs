@@ -1,33 +1,35 @@
 <div class="table">
     <div>
         {% if page_type == 'shift' %}
-        <div>
-            <span>Выберите страницу:</span>
-        </div>
-        <div class="col-xs-2">
+        <div class="shift-date-selector" style="float: left;display: inline-flex;">
+            <span style="line-height: 34px;margin-right: 10px;font-weight: bold;">Выберите страницу:</span>
             <input value="{{shift_date}}, {{shift_order}}-ая смена"
                    type="text"
                    placeholder="Выберите дату и время"
                    class="form-control"
                    onclick="clickOnWizard()"
                    data-toggle="modal"
-                   data-target="#myModal">
+                   data-target="#myModal"
+                   id="shift_field">
             </input>
         </div>
         {% endif %}
+        <div class="shift-mode-buttons" style="float: right;display: inline-flex;">
         {% if superuser %}
-            <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
-               class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
-                Просмотр
-            </a>
-            <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
-               class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
-                Редактирование
-            </a>
-            <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
-               class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
-                Валидация
-            </a>
+
+                <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
+                   class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
+                    Просмотр
+                </a>
+                <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
+                   class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
+                    Редактирование
+                </a>
+                <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
+                   class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
+                    Валидация
+                </a>
+
         {% else %}
             {% if page_mode == "edit" or page_mode == "view" %}
             {% if shift_is_active_or_no_shifts and has_plant_perm %}
@@ -42,6 +44,6 @@
             {% endif %}
             {% endif %}
         {% endif %}
-
+        </div>
     </div>
 </div>
