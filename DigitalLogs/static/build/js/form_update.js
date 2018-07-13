@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 
-var send_form =  _.debounce((form) => {
+let send_form =  _.debounce((form) => {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -24,7 +24,7 @@ function on_form_change(form) {
 }
 
 
-var add_message_debounced = _.debounce((input) => {
+let add_message_debounced = _.debounce((input) => {
     console.log("add_message_debounced()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
@@ -65,7 +65,7 @@ function add_message(input) {
 }
 
 
-var add_comment_debounced = _.debounce((textarea) => {
+let add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
 
     $.ajax({
@@ -161,7 +161,7 @@ function line_is_empty(tr_line) {
 function clone_last_line(form) {
     const tables = $(form).find("table:not(.table-insided)");
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         const last_line = table.find(".indexed-line:last");
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
@@ -178,7 +178,7 @@ function clear_empty_lines(form) {
     const tables = $(form).find("table:not(.table-insided)");
 
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         let last_line = null;
         $(table.find(".indexed-line").get().reverse()).each(function (index) {
             if (line_is_empty($(this))) {
@@ -232,8 +232,8 @@ function hidePopusOnMouseUp(event) {
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
-            event.target == active_input ||
-            event.target == active_comment ||
+            event.target === active_input ||
+            event.target === active_comment ||
             $.contains( active_comment, event.target));
         if (hideFlag) {
             hidePopups();
@@ -263,21 +263,21 @@ function FocusShownComment(event) {
 }
 
 function dotheneedful(sibling) {
-  if (sibling != null) {
+  if (sibling !== null && sibling !== undefined) { // TODO: Why the fuck is it null or undefined?
     //start.focus();
     input = sibling.getElementsByClassName('form-control')[0];
-    if (input.getAttribute('data-pagmode') == 'edit') {
-        console.log('edit')
+    if (input.getAttribute('data-pagmode') === 'edit') {
+        console.log('edit');
         input.focus();
         input.select();
     }
-    if (input.getAttribute('data-pagmode') == 'validate') {
-        console.log('validate')
-        hidePopups()
+    if (input.getAttribute('data-pagmode') === 'validate') {
+        console.log('validate');
+        hidePopups();
         showValidatePopup(input)
     }
-    console.log('sibling')
-    console.log(sibling)
+    console.log('sibling');
+    console.log(sibling);
     start = sibling;
   }
 }
@@ -286,16 +286,16 @@ function dotheneedful(sibling) {
 function checkKey(e) {
 
     // if 'input' is active(e.g age mode is 'edit')
-    if (document.activeElement.tagName == 'INPUT') {
-        start = document.activeElement.parentElement
-        console.log('input')
+    if (document.activeElement.tagName === 'INPUT') {
+        start = document.activeElement.parentElement;
+        console.log('input');
         console.log(start)
     }
 
     // if 'span' is active(e.g page mode is 'validate')
-    if (document.activeElement.tagName == 'TEXTAREA') {
-        start = document.activeElement.parentElement.parentElement
-        console.log('span')
+    if (document.activeElement.tagName === 'TEXTAREA') {
+        start = document.activeElement.parentElement.parentElement;
+        console.log('span');
         console.log(start)
     }
     e = e || window.event;
@@ -352,7 +352,7 @@ function SendMessageToDevelopers() {
             success: console.log,
             dataType: "json"
         });
-        $("#message-modal-alert").css("display", "none")
+        $("#message-modal-alert").css("display", "none");
         $("#devs-message-theme").val("");
         $("#devs-message-text").val("");
 
@@ -401,7 +401,7 @@ function on_ready() {
         document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
     // document.addEventListener('shown.bs.collapse', FocusShownComment);
-    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
+    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment);
 
     $("#sync").show();
 
@@ -412,7 +412,7 @@ function shift_confirmation() {
     let edit = $("input[name='edit']").attr("value");
     if (edit === "True") {
         let has_edited = $("input[name='has_edited']").attr("value");
-        console.log(has_edited)
+        console.log(has_edited);
         if (!(has_edited === "True")) {
             $.confirm({
                 title: 'Продолжить?',

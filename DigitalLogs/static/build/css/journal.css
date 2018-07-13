@@ -426,3 +426,7 @@ footer {
 #message-modal-alert {
     display: none;
 }
+
+#shift_field {
+    width: 20em;
+}
