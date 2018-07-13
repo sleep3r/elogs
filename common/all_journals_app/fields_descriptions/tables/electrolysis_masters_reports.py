@@ -33,11 +33,11 @@ s1.t_sm_nesootv = temperature_default
 s1.q_nesootv = numeric_default
 s1.h2so4_mery = text_default
 s1.zn_mery = text_default
-s1.t_sm_mery = temperature_default
+s1.t_sm_mery = numeric_default
 s1.q_mery = text_default
 s1.h2so4_rosp = text_default
 s1.zn_rosp = text_default
-s1.t_sm_rosp = temperature_default
+s1.t_sm_rosp = numeric_default
 s1.q_rosp = text_default
 s1.gradirni = text_default
 s1.cooler1 = number_default #
@@ -50,8 +50,25 @@ s1.cooler7 = number_default
 s1.cooler8 = number_default
 s1.t_otr_fact = temperature_default
 s1.t_otr_nesootv = temperature_default
-s1.t_otr_mery = temperature_default
-s1.t_otr_rosp = temperature_default
+s1.t_otr_mery = numeric_default
+s1.t_otr_rosp = numeric_default
+
+s1.cu = mgl_default
+s1.co = mgl_default
+s1.sb = mgl_default
+s1.fe = mgl_default
+s1.cd = mgl_default
+s1.t_n = temperature_default
+s1.t_gr = temperature_default
+s1.V1 = m3_default
+s1.V2 = m3_default
+s1.V3 = m3_default
+s1.V4 = m3_default
+s1.V5 = m3_default
+s1.V6 = m3_default
+s1.V6_otr = m3_default
+s1.VII = m3_default
+
 
 
 pt = deep_dict()
