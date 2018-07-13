@@ -53,7 +53,7 @@
              placeholder="Комментарий..."
              rows="2"
              class="popup-comment-content-textarea"
-             oninput="addCommentNotification(this);"
+             oninput="addCommentNotification(this);$('#sync').hide();$('#async').show();"
              onchange="add_comment(this);"
              table-name="{{ table_name }}"
              journal-page="{{ journal_page }}"
