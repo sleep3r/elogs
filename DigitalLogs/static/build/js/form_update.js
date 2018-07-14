@@ -263,72 +263,91 @@ function FocusShownComment(event) {
 }
 
 function dotheneedful(sibling) {
-  if (sibling !== null && sibling !== undefined) { // TODO: Why the fuck is it null or undefined?
     //start.focus();
     input = sibling.getElementsByClassName('form-control')[0];
-    if (input.getAttribute('data-pagmode') === 'edit') {
-        console.log('edit');
-        input.focus();
-        input.select();
+    if (input) {
+        if (input.getAttribute('data-pagmode') === 'edit') {
+            input.focus();
+            input.select();
+        }
+        if (input.getAttribute('data-pagmode') === 'validate') {
+            hidePopups();
+            showValidatePopup(input)
+        }
     }
-    if (input.getAttribute('data-pagmode') === 'validate') {
-        console.log('validate');
-        hidePopups();
-        showValidatePopup(input)
-    }
-    console.log('sibling');
-    console.log(sibling);
     start = sibling;
-  }
 }
 
 
 function checkKey(e) {
-
-    // if 'input' is active(e.g age mode is 'edit')
+    // if 'input' is active(e.g page mode is 'edit')
     if (document.activeElement.tagName === 'INPUT') {
-        start = document.activeElement.parentElement;
-        console.log('input');
-        console.log(start)
+        input = document.activeElement;
+        if (input.type === 'number') {
+            var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
+            // If number was pressed
+            if (e.keyCode >= 48 && e.keyCode <= 57) {
+                console.log('number was pressed in number field');
+                popup.classList.remove('show')
+            } else {
+                if (e.keyCode != '37' && e.keyCode != '38' && e.keyCode != '39' && e.keyCode != '40') {
+                    popup.classList.add('show');
+                    setTimeout(function () {
+                        popup.classList.remove('show');
+                    }, 1500);
+                    console.log('not number was pressed in number field')
+                }
+                else {
+                    popup.classList.remove('show');
+                }
+                // backspace and delete
+                if (e.keyCode != 8 && e.keyCode != 46) {
+                    e.preventDefault();
+                }
+            }
+        }
+        start = input.parentElement;
     }
 
     // if 'span' is active(e.g page mode is 'validate')
     if (document.activeElement.tagName === 'TEXTAREA') {
         start = document.activeElement.parentElement.parentElement;
-        console.log('span');
-        console.log(start)
     }
     e = e || window.event;
 
-  if (e.keyCode == '38') {
-    // up arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.previousElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
+    if (e.keyCode == '38') {
+        // up arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.previousElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '40') {
+        // down arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.nextElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '37') {
+        // left arrow
+        var sibling = start.previousElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
+    } else if (e.keyCode == '39') {
+        // right arrow
+        var sibling = start.nextElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
     }
-  } else if (e.keyCode == '40') {
-    // down arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.nextElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
-    }
-  } else if (e.keyCode == '37') {
-    // left arrow
-      e.preventDefault()
-    var sibling = start.previousElementSibling;
-    dotheneedful(sibling);
-  } else if (e.keyCode == '39') {
-    // right arrow
-      e.preventDefault()
-      var sibling = start.nextElementSibling;
-      dotheneedful(sibling);
-      }
 }
 
 

@@ -430,3 +430,26 @@ footer {
 #shift_field {
     width: 20em;
 }
+
+
+.input-check-popup {
+    visibility: hidden;
+    width: 160px;
+    background-color: #73879C;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.input-check-popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
