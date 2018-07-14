@@ -305,7 +305,12 @@ function checkKey(e) {
                 console.log('number was pressed in number field');
                 popup.classList.remove('show')
             } else {
-                if (e.keyCode != '37' && e.keyCode != '38' && e.keyCode != '39' && e.keyCode != '40') {
+                if (e.keyCode != '8' &&
+                    e.keyCode != '46' &&
+                    e.keyCode != '37' &&
+                    e.keyCode != '38' &&
+                    e.keyCode != '39' &&
+                    e.keyCode != '40') {
                     popup.classList.add('show');
                     setTimeout(function () {
                         popup.classList.remove('show');
@@ -316,7 +321,7 @@ function checkKey(e) {
                     popup.classList.remove('show');
                 }
                 // backspace and delete
-                if (e.keyCode != 8 && e.keyCode != 46) {
+                if (e.keyCode != '8' && e.keyCode != '46') {
                     e.preventDefault();
                 }
             }
