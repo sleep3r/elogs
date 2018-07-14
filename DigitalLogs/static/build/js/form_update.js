@@ -1,5 +1,20 @@
 /*jshint esversion: 6 */
 
+function send_all_forms() {
+    for (form of $("form.elog-table-form").get()) {
+        console.log("sending", form);
+        $.ajax({
+            type: 'POST',
+            url: $(form).attr('action'),
+            data: $(form).serialize(),
+            dataType: "json",
+            success: function (data) {
+                $("#async").hide();
+                $("#sync").show();
+            }
+        });
+    }
+}
 
 let send_form =  _.debounce((form) => {
     $.ajax({
@@ -425,6 +440,10 @@ function on_ready() {
     $("#sync").show();
 
     document.onkeydown = checkKey;
+
+    window.addEventListener("beforeunload", function(e) {
+        send_all_forms()
+    }, false);
 }
 
 function shift_confirmation() {

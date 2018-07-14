@@ -20,22 +20,22 @@ rows_names_for_db = [
 ]
 
 rows_names_for_view = [
-        "Zn в отр.",
-        "Смеси г/л",
-        "H2SO4 отр. г/л",
-        "Удельный вес хол-го раствора",
-        "Удельный вес отр-го раствора",
-        "Температура смеси, С",
-        "Температура в ваннах, С",
-        "Температура 1",
-        "Температура 2",
+        "Zn в отр., г/л",
+        "Смеси, г/л",
+        "H2SO4 отр., г/л",
+        "Удельный вес хол-го раствора, г/см³",
+        "Удельный вес отр-го раствора, г/см³",
+        "Температура смеси, ᵒC",
+        "Температура в ваннах, ᵒC",
+        "Температура 1, ᵒC",
+        "Температура 2, ᵒC",
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
              zip(rows_names_for_db, rows_names_for_view)]
 
 
-field_infos_for_rows = [gl_default]*2 + [gsm3_default]*2+[temperature_default]*4
+field_infos_for_rows = [gl_default]*3 + [gsm3_default]*2+[temperature_default]*4
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])

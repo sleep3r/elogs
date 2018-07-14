@@ -12,10 +12,10 @@
                     {% for i in 8|times %}
                         <th>{{forloop.counter}}</th>
                     {% endfor %}
-                    <td>13</td>
+                    <th>13</th>
             </tr>
             <tr>
-                <th>{% trans "Отстои" %}</th>
+                <th>{% trans "Отстои" %}{% trans ", см" %}</th>
 
                     {% for i in 8|times %}
                         {% with ind=forloop.counter|stringformat:"i" %}

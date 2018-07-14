@@ -53,6 +53,8 @@ fields_info_desc.metals_compute.gof_table = gof_table_desc
 fields_info_desc.metals_compute.avg_month_table = avg_month_table_desc
 fields_info_desc.metals_compute.cinder_conc_table = cinder_conc_table_desc
 fields_info_desc.metals_compute.concentrat_table = concentrat_table_desc
+fields_info_desc.metals_compute.contain_zn_table = contain_zn_table_desc
+
 
 fields_info_desc.technological_tasks.main_table = technologial_tasks_main_desc
 fields_info_desc.furnace_repair.repair_table = repair_table_desc

@@ -22,14 +22,14 @@ rows_names_for_db = [
 
 
 rows_names_for_view = [
-        "Zn в отр.",
-        "Смеси г/л",
-        "H2SO4 отр. г/л",
-        "Температура смеси, С",
-        "Температура в ваннах, С",
-        "Температура нейтр. град.",
-        "1 серия",
-        "2 серия"
+        "Zn в отр., г/л",
+        "Смеси, г/л",
+        "H2SO4 отр., г/л",
+        "Температура смеси, ᵒC",
+        "Температура в ваннах, ᵒC",
+        "Температура нейтр. град., ᵒC",
+        "1 серия, кА",
+        "2 серия, кА"
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
@@ -37,7 +37,7 @@ lt.row_names = [{"db": db, "view": view} for db, view in
 
 
 # field_infos_for_rows = [numeric_default] * 12 + [text_default] * 2
-field_infos_for_rows = [gl_default]*2 + [temperature_default]*3 + [amperage_default]*2
+field_infos_for_rows = [gl_default]*3 + [temperature_default]*3 + [amperage_default]*2
 
 
 lt.times = [
