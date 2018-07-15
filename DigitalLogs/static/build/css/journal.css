@@ -385,6 +385,12 @@ input[readonly] {
     cursor: pointer;
 }
 
+/* Indicator on comments button, overrides bootstrap */
+.table-comment-button .badge {
+    color: #ffffff;
+    background-color: #5A738E;
+}
+
 .table-comment-button:hover {
     text-decoration: underline
 }
@@ -453,3 +459,4 @@ footer {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
+
