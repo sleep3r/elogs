@@ -300,8 +300,8 @@ function checkKey(e) {
         input = document.activeElement;
         if (input.type === 'number') {
             var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
-            // If number was pressed
-            if (e.keyCode >= 48 && e.keyCode <= 57) {
+            // If number or ',' or '.' was pressed
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == '188' || e.keyCode == '190') {
                 console.log('number was pressed in number field');
                 popup.classList.remove('show')
             } else {
