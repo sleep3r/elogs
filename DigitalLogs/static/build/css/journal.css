@@ -405,7 +405,7 @@ input[readonly] {
     padding-right: 2px !important;
 }
 
-.popup-comment-content textarea::placeholder {
+.popup-comment-content textarea::placeholder, .general-value::placeholder {
     color: #BBBBBB;
 }
 
