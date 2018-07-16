@@ -165,7 +165,7 @@
             prediction: this.is_prediction(val.time)
           },
           {
-            width: "1200",
+            width: "1024",
             height: "85%"
           }
         );
