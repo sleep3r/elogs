@@ -1,66 +1,47 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
+import csv
+
+from utils.webutils import translate
 
 
 class Command(BaseCommand):
+    help = 'Closes the specified poll for voting'
+
     def add_arguments(self, parser):
-        # Named (optional) arguments
-        # parser.add_argument(
-        #     '--clean',
-        #     action="store_true",
-        #     help='Cleans db',
-        # )
-        #
-        # parser.add_argument(
-        #     '--create',
-        #     action="store_true",
-        #     help='Creates db',
-        # )
-        #
-        # parser.add_argument(
-        #     '--recreate',
-        #     action="store_true",
-        #     help='Recreates db',
-        # )
-        #
-        # parser.add_argument(
-        #     '-frac',
-        #     type=int,
-        #     help='Number of fraction hists to create',
-        # )
-        #
-        # parser.add_argument(
-        #     '-employee',
-        #     action="store_true",
-        #     help='Number of fraction hists to create',
-        # )
+        parser.add_argument(
+            '--default',
+            action="store_true",
+            help='Default argument',
+        )
 
     def handle(self, *args, **options):
-        # df = DatabaseFiller()
-        # frac_num = options["frac"]
-        # add_employee = options["employee"]
-        # if options["clean"] or options["recreate"]:
-        #     print("Cleaning db")
-        #     df.clean_database()
-        #
-        # if options["create"] or options["recreate"]:
-        #     print("Creating db")
-        #     print("Adding permissions...")
-        #     df.create_permissions_and_groups()
-        #     print("Adding plants...")
-        #     df.fill_plants()
-        #     if add_employee:
-        #         print("Adding Employees...")
-        #         df.fill_employees()
-        #     if frac_num:
-        #         print("Filling fractional app...")
-        #         df.fill_fractional_app(frac_num)
-        print("Done!")
+        with open('names.csv', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            for row in users_info:
+                user_fio = row[0].split(",", 1)[0]
+                fio_ru_tuple = user_fio.split()
+                translated_user_name = translate(user_fio)
+                translated_user_name_tuple = translated_user_name.split("-")
+                user_dict = {
+                    'ru': {
+                        'last_name': fio_ru_tuple[0],
+                        'first_name': fio_ru_tuple[1] if 1 < len(fio_ru_tuple) else '',
+                        'second_name': fio_ru_tuple[2] if 2 < len(fio_ru_tuple) else '',
+                    },
+                    'en': {
+                        'last_name': translated_user_name_tuple[0],
+                        'first_name': translated_user_name_tuple[1] if 1 < len(translated_user_name_tuple) else '',
+                        'second_name': translated_user_name_tuple[2] if 2 < len(translated_user_name_tuple) else ''
+                    }
+                }
+                user_name = user_dict['en']['last_name'] \
+                            + "-" + user_dict['en']['first_name'] \
+                            + "-" + user_dict['en']['second_name']
+                user = User.objects.create_user(user_name, password='qwerty')
+                user.first_name = user_dict['ru']['first_name']
+                user.last_name = user_dict['ru']['last_name']
+                user.is_superuser = False
+                user.is_staff = True
+                user.save()
 
-
-
-
-# user=User.objects.create_user('plant1', password='qwerty')
-# user.is_superuser=True
-# user.is_staff=True
-# user.save()
