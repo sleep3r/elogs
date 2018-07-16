@@ -8,12 +8,12 @@ from utils.webutils import translate
 class Command(BaseCommand):
     help = 'Closes the specified poll for voting'
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--default',
-            action="store_true",
-            help='Default argument',
-        )
+    # def add_arguments(self, parser):
+    #     parser.add_argument(
+    #         '--default',
+    #         action="store_true",
+    #         help='Default argument',
+    #     )
 
     def handle(self, *args, **options):
         with open('names.csv', newline='') as csvfile:
