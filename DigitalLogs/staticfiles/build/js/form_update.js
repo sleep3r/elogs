@@ -1,15 +1,33 @@
 /*jshint esversion: 6 */
 
+function send_all_forms() {
+    for (form of $("form.elog-table-form").get()) {
+        console.log("sending", form);
+        $.ajax({
+            type: 'POST',
+            url: $(form).attr('action'),
+            data: $(form).serialize(),
+            dataType: "json",
+            success: function (data) {
+                $("#async").hide();
+                $("#sync").show();
+            }
+        });
+    }
+}
 
-var send_form =  _.debounce((form) => {
+let send_form =  _.debounce((form) => {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
         data: $(form).serialize(),
-        success: console.log,
-        dataType: "json"
+        dataType: "json",
+        success: function (data) {
+            $("#async").hide();
+            $("#sync").show();
+        }
     });
-}, 1500);
+}, 300);
 
 
 function on_form_change(form) {
@@ -21,16 +39,16 @@ function on_form_change(form) {
 }
 
 
-var add_message_debounced = _.debounce((input) => {
+let add_message_debounced = _.debounce((input) => {
     console.log("add_message_debounced()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
     if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
         $.ajax({
-            url: "/common/messages/add",
+            url: "/common/messages/create/critical_value/",
             type: 'POST',
-            data: { 'type':'critical_value', 'check': true, 'field_name': input.name, 'field_value': input.value,
+            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
                     'index':$(input).attr('index') },
             success: function (json) {
@@ -41,7 +59,7 @@ var add_message_debounced = _.debounce((input) => {
         });
     } else{
         $.ajax({
-            url: "/common/messages/del",
+            url: "/common/messages/update/critical_value/",
             type: 'POST',
             data: { 'check': true, 'field_name': input.name,
                     'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
@@ -53,7 +71,7 @@ var add_message_debounced = _.debounce((input) => {
             }
         });
     }
-}, 1500);
+}, 300);
 
 
 function add_message(input) {
@@ -62,15 +80,15 @@ function add_message(input) {
 }
 
 
-var add_comment_debounced = _.debounce((textarea) => {
+let add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
 
     $.ajax({
-        url: "/common/messages/comment",
+        url: "/common/messages/create/comment/",
         type: 'POST',
-        data: { 'type':'comment', 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
-                    'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
-                    'index':$(textarea).attr('index') },
+        data: { 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
+                'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
+                'index':$(textarea).attr('index') },
         success: function (json) {
             if (json && json.result) {
                 console.log(json.result)
@@ -78,7 +96,7 @@ var add_comment_debounced = _.debounce((textarea) => {
         }
     });
 
-}, 1500);
+}, 300);
 
 
 
@@ -91,7 +109,7 @@ function add_comment(textarea) {
 
 function add_responsible(input,user) {
     $(input).siblings(".resp").attr("value", user);
-   
+
 }
 
 
@@ -130,6 +148,8 @@ function on_input_change(input) {
 
     $(input).attr('placeholder', info.units);
     addCommentNotification(input);
+    // send_form($(input).closest("form"));
+    // add_message_debounced($(input).closest("form"))
 }
 
 
@@ -156,11 +176,12 @@ function line_is_empty(tr_line) {
 function clone_last_line(form) {
     const tables = $(form).find("table:not(.table-insided)");
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         const last_line = table.find(".indexed-line:last");
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
             new_last_line.find("input").val("");
+            new_last_line.find("textarea").val("");
             new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
             table.append(new_last_line);
         }
@@ -172,7 +193,7 @@ function clear_empty_lines(form) {
     const tables = $(form).find("table:not(.table-insided)");
 
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         let last_line = null;
         $(table.find(".indexed-line").get().reverse()).each(function (index) {
             if (line_is_empty($(this))) {
@@ -223,12 +244,11 @@ function hidePopups() {
 
 function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
-    console.log(active_comment);
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
-            event.target == active_input ||
-            event.target == active_comment ||
+            event.target === active_input ||
+            event.target === active_comment ||
             $.contains( active_comment, event.target));
         if (hideFlag) {
             hidePopups();
@@ -249,7 +269,136 @@ function addCommentNotification(textarea) {
 }
 
 function CollapseComment(elem) {
-    $(elem).next().collapse('toggle');
+    container = $(elem).next();
+    container.collapse('toggle');
+}
+
+function FocusShownComment(event) {
+    $(event.target).children(".table-comment").focus();
+}
+
+function dotheneedful(sibling) {
+    //start.focus();
+    input = sibling.getElementsByClassName('form-control')[0];
+    if (input) {
+        if (input.getAttribute('data-pagmode') === 'edit') {
+            input.focus();
+            input.select();
+        }
+        if (input.getAttribute('data-pagmode') === 'validate') {
+            hidePopups();
+            showValidatePopup(input)
+        }
+    }
+    start = sibling;
+}
+
+
+function checkKey(e) {
+    // if 'input' is active(e.g page mode is 'edit')
+    if (document.activeElement.tagName === 'INPUT') {
+        input = document.activeElement;
+        if (input.type === 'number') {
+            var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
+            // If number or ',' or '.' was pressed
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == '188' || e.keyCode == '190') {
+                console.log('number was pressed in number field');
+                popup.classList.remove('show')
+            } else {
+                if (e.keyCode != '8' &&
+                    e.keyCode != '46' &&
+                    e.keyCode != '37' &&
+                    e.keyCode != '38' &&
+                    e.keyCode != '39' &&
+                    e.keyCode != '40') {
+                    popup.classList.add('show');
+                    setTimeout(function () {
+                        popup.classList.remove('show');
+                    }, 1500);
+                    console.log('not number was pressed in number field')
+                }
+                else {
+                    popup.classList.remove('show');
+                }
+                // backspace and delete
+                if (e.keyCode != '8' && e.keyCode != '46') {
+                    e.preventDefault();
+                }
+            }
+        }
+        start = input.parentElement;
+    }
+
+    // if 'span' is active(e.g page mode is 'validate')
+    if (document.activeElement.tagName === 'TEXTAREA') {
+        start = document.activeElement.parentElement.parentElement;
+    }
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        // up arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.previousElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '40') {
+        // down arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.nextElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '37') {
+        // left arrow
+        var sibling = start.previousElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
+    } else if (e.keyCode == '39') {
+        // right arrow
+        var sibling = start.nextElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
+    }
+}
+
+
+function SendMessageToDevelopers() {
+    console.log("SendMessageToDevelopers");
+    let theme = $("#devs-message-theme").val();
+    let text = $("#devs-message-text").val();
+    let plant = document.URL.split("?")[0].split("/")[3];
+    let journal = document.URL.split("?")[0].split("/")[4];
+    let data = {
+        "theme": theme, "text": text,
+        "user": backend.user.username, "email": backend.user.email,
+        "plant": plant, "journal": journal,
+    };
+    if (text && theme && text.length < 1000 && theme.length < 200) {
+        $("#MessageToDevelopersModal").modal("hide");
+        $.ajax({
+            type: 'POST',
+            url: "/common/send-message-to-devs",
+            data: data,
+            success: console.log,
+            dataType: "json"
+        });
+        $("#message-modal-alert").css("display", "none");
+        $("#devs-message-theme").val("");
+        $("#devs-message-text").val("");
+
+    }
+    else {
+        $("#message-modal-alert").css("display", "block");
+    }
 }
 
 function on_ready() {
@@ -290,13 +439,23 @@ function on_ready() {
     if (view === "True" || validate === "True") {
         document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
+    // document.addEventListener('shown.bs.collapse', FocusShownComment);
+    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment);
+
+    $("#sync").show();
+
+    document.onkeydown = checkKey;
+
+    window.addEventListener("beforeunload", function(e) {
+        send_all_forms()
+    }, false);
 }
 
-$(document).ready(function () {
+function shift_confirmation() {
     let edit = $("input[name='edit']").attr("value");
     if (edit === "True") {
         let has_edited = $("input[name='has_edited']").attr("value");
-        console.log(has_edited)
+        console.log(has_edited);
         if (!(has_edited === "True")) {
             $.confirm({
                 title: 'Продолжить?',
@@ -318,5 +477,9 @@ $(document).ready(function () {
             });
         }
     }
+}
+
+$(document).ready(function () {
+    shift_confirmation();
     on_ready();
 });

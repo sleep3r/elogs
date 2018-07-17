@@ -1,8 +1,8 @@
 var Notifications = {
     markAsRead_: function(ids) {
         jQuery.ajax({
-            url: '/common/messages/read',
-            data: {ids: ids},
+            url: '/common/messages/read/',
+            data: { ids: ids },
             method: 'POST',
             //contentType: 'application/json',
             beforeSend: function(xhr, settings) {
@@ -41,13 +41,15 @@ var Notifications = {
         });
         (new PNotify({
           target: document.body,
-          text: msg,
+            title: 'Внимание',
+            text: msg,
           buttons: {
             closer: true,
             closer_hover: false,
             sticker: false,
           },
-          styling: 'bootstrap3',
+          styling: 'brighttheme',
+          type: 'error',
           hide: false,
           addclass: 'notification-full'
         })).open();
@@ -83,3 +85,25 @@ Date.prototype.incrementMonth = function () {
 Date.prototype.getMonthWithYear = function() {
     return this.getFullYear() + '-' + this.getMonth();
 }
+
+
+function GetURLParameter(paramName) {
+    let url = window.location.search.substring(1);
+    let urlParams = url.split('&');
+    for (let i = 0; i < urlParams.length; i++) {
+        let parameterName = urlParams[i].split('=');
+        if (parameterName[0] === paramName) {
+            return parameterName[1];
+        }
+    }
+    return "";
+}
+
+$(document).ready(function () {
+    let field_name = GetURLParameter("highlight");
+    if (field_name.length > 0) {
+        setTimeout(() => {
+            $("table ." + field_name + "").addClass("highlight");
+        }, 1000);
+    }
+});
