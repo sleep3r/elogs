@@ -13,8 +13,8 @@ def add_user(user_dict):
         print(f'user `{user_name}` already exists')
     else:
         user = User.objects.create_user(user_name, password='qwerty')
-        user.first_name = user_dict['ru']['first_name'].encode().decode()
-        user.last_name = user_dict['ru']['last_name'].encode().decode()
+        user.first_name = user_dict['ru']['first_name']
+        user.last_name = user_dict['ru']['last_name']
         user.is_superuser = False
         user.is_staff = True
         user.save()
