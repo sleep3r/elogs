@@ -82,7 +82,8 @@ def get_common_context(journal_name, request, page_type="shift"):
     res.has_plant_perm = plant_permission(request)
     res.superuser = request.user.is_superuser
     page.save()
-
+    res.user_fullname = f'{request.user.first_name} {request.user.last_name}'
+    print(res.user_fullname)
     res.full_data = get_full_data(page)
     res.fields_info = get_fields_info()
 
@@ -90,6 +91,5 @@ def get_common_context(journal_name, request, page_type="shift"):
     res.unfilled_table = deep_dict()
     res.journal_name = page.journal_name
     res.journal_page = page.id
-
 
     return res

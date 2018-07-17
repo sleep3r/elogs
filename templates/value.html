@@ -37,7 +37,10 @@
            onclick="showValidatePopup(this)"
             {% else %}
            onclick="this.select()"
-            {%endif %}
+            {% endif %}
+            {% if field_name in user_autocomplete_fields %}
+                kek
+            {% endif %}
     />
 
 <!--

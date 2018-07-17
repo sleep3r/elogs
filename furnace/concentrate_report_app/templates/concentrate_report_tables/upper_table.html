@@ -15,11 +15,31 @@
     </tr>
 
     <tr>
-        <td>{% include "value.html" with field_name="master" index=0 %}</td>
-        <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>
+        {% if user.employee.position == "master" %}
+            <td>{% include "value.html" with field_name="master" auto_val=user_fullname index=0 %}</td>
+        {% else %}
+            <td>{% include "value.html" with field_name="master" index=0 %}</td>
+        {% endif %}
+
+        {% if user.employee.position == "senior_crane_operator" %}
+            <td>{% include "value.html" with field_name="senior_crane_operator" auto_val=user_fullname index=0 %}</td>
+        {% else %}
+            <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>
+        {% endif %}
+        
         <td>{% include "value.html" with field_name="storage" index=0 %}</td>
-        <td>{% include "value.html" with field_name="crane_operator" index=0 %}</td>
-        <td>{% include "value.html" with field_name="sling_operator" index=0 %}</td>
+
+        {% if user.employee.position == "crane_operator" %}
+            <td>{% include "value.html" with field_name="crane_operator" auto_val=user_fullname index=0 %}</td>
+        {% else %}
+            <td>{% include "value.html" with field_name="crane_operator" index=0 %}</td>
+        {% endif %}
+
+        {% if user.employee.position == "sling_operator" %}
+            <td>{% include "value.html" with field_name="sling_operator" auto_val=user_fullname index=0 %}</td>
+        {% else %}
+            <td>{% include "value.html" with field_name="sling_operator" index=0 %}</td>
+        {% endif %}
         <td>{% include "value.html" with field_name="date" index=0 %}</td>
         <td>{% include "value.html" with field_name="shift" auto_val=shift_order index=0 %}</td>
     </tr>

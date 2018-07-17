@@ -1,19 +1,17 @@
-/*jshint esversion: 6 */
+/* jshint esversion: 6 */
 
-
-var send_form =  _.debounce((form) => {
+var send_form = _.debounce((form) => {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
         data: $(form).serialize(),
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             $("#async").hide();
             $("#sync").show();
         }
     });
 }, 300);
-
 
 function on_form_change(form) {
     console.log("on_form_change()");
@@ -22,7 +20,6 @@ function on_form_change(form) {
 
     send_form(form);
 }
-
 
 var add_message_debounced = _.debounce((input) => {
     console.log("add_message_debounced()");
@@ -33,23 +30,32 @@ var add_message_debounced = _.debounce((input) => {
         $.ajax({
             url: "/common/messages/create/critical_value/",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name, 'field_value': input.value,
-                    'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                    'index':$(input).attr('index') },
-            success: function (json) {
+            data: {
+                'check': true,
+                'field_name': input.name,
+                'field_value': input.value,
+                'table_name': $(input).attr('table-name'),
+                'journal_page': $(input).attr('journal-page'),
+                'index': $(input).attr('index')
+            },
+            success: function(json) {
                 if (json && json.result) {
                     console.log(json.result)
                 }
             }
         });
-    } else{
+    } else {
         $.ajax({
             url: "/common/messages/update/critical_value/",
             type: 'POST',
-            data: { 'check': true, 'field_name': input.name,
-                    'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                    'index':$(input).attr('index') },
-            success: function (json) {
+            data: {
+                'check': true,
+                'field_name': input.name,
+                'table_name': $(input).attr('table-name'),
+                'journal_page': $(input).attr('journal-page'),
+                'index': $(input).attr('index')
+            },
+            success: function(json) {
                 if (json && json.result) {
                     console.log(json.result)
                 }
@@ -58,12 +64,10 @@ var add_message_debounced = _.debounce((input) => {
     }
 }, 300);
 
-
 function add_message(input) {
     console.log("add_message()");
     add_message_debounced(input)
 }
-
 
 var add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
@@ -71,10 +75,15 @@ var add_comment_debounced = _.debounce((textarea) => {
     $.ajax({
         url: "/common/messages/create/comment/",
         type: 'POST',
-        data: { 'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
-                'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
-                'index':$(textarea).attr('index') },
-        success: function (json) {
+        data: {
+            'check': true,
+            'field_name': $(textarea).attr('name'),
+            'comment_text': $(textarea).val(),
+            'table_name': $(textarea).attr('table-name'),
+            'journal_page': $(textarea).attr('journal-page'),
+            'index': $(textarea).attr('index')
+        },
+        success: function(json) {
             if (json && json.result) {
                 console.log(json.result)
             }
@@ -83,30 +92,22 @@ var add_comment_debounced = _.debounce((textarea) => {
 
 }, 300);
 
-
-
 function add_comment(textarea) {
     console.log("add_comment()");
     add_comment_debounced(textarea)
 }
 
-
-
-function add_responsible(input,user) {
+function add_responsible(input, user) {
     $(input).siblings(".resp").attr("value", user);
 
 }
-
-
 
 function on_input_change(input) {
     console.log("on_input_change()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
 
-
     input.type = info.type;
-
 
     if (input.type === "number") {
         if (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) {
@@ -137,18 +138,17 @@ function on_input_change(input) {
     // add_message_debounced($(input).closest("form"))
 }
 
-
 function reformat_on_change(input) {
     if (input.value === "")
         return;
     if (input.type === "number") {
-        input.value = +(input.value*1.0).toFixed(2);
+        input.value = + (input.value * 1.0).toFixed(2);
     }
 }
 
 function line_is_empty(tr_line) {
     let filled = 0;
-    tr_line.find('input.general-value').each(function () {
+    tr_line.find('input.general-value').each(function() {
         if (this.value.trim() !== "") {
             filled++;
         }
@@ -157,10 +157,9 @@ function line_is_empty(tr_line) {
     return filled === 0;
 }
 
-
 function clone_last_line(form) {
     const tables = $(form).find("table:not(.table-insided)");
-    for (i=0; i<tables.get().length; i++) {
+    for (i = 0; i < tables.get().length; i++) {
         table = $(tables.get()[i])
         const last_line = table.find(".indexed-line:last");
         if (!line_is_empty(last_line)) {
@@ -173,14 +172,13 @@ function clone_last_line(form) {
     }
 }
 
-
 function clear_empty_lines(form) {
     const tables = $(form).find("table:not(.table-insided)");
 
-    for (i=0; i<tables.get().length; i++) {
+    for (i = 0; i < tables.get().length; i++) {
         table = $(tables.get()[i])
         let last_line = null;
-        $(table.find(".indexed-line").get().reverse()).each(function (index) {
+        $(table.find(".indexed-line").get().reverse()).each(function(index) {
             if (line_is_empty($(this))) {
                 if (last_line) {
                     last_line.remove();
@@ -193,15 +191,11 @@ function clear_empty_lines(form) {
     }
 }
 
-
 function showValidatePopup(input) {
     comment = $(input).siblings(".popup-comment-content")[0];
     comment_input = $(comment).children()[1];
 
-    $(input).css(
-        "background",
-        "radial-gradient(white 80%, #24A48A)"
-    );
+    $(input).css("background", "radial-gradient(white 80%, #24A48A)");
     $(comment).addClass("show");
     $(comment_input).focus();
 }
@@ -211,19 +205,12 @@ function showViewPopup(icon) {
     comment = $(icon).siblings(".popup-comment-content")[0];
     comment_input = $(comment).children(".popup-comment-content-textarea")[0];
 
-    $(input).css(
-        "background",
-        "radial-gradient(white 80%, #24A48A)"
-    );
+    $(input).css("background", "radial-gradient(white 80%, #24A48A)");
     $(comment).addClass("show");
 }
 
-
 function hidePopups() {
-    $(".general-value").css(
-        "background",
-        "white"
-    );
+    $(".general-value").css("background", "white");
     $(".popup-comment-content").removeClass("show");
 }
 
@@ -231,10 +218,7 @@ function hidePopusOnMouseUp(event) {
     let active_comment = $(".popup-comment-content.show")[0];
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
-        let hideFlag = !(
-            event.target == active_input ||
-            event.target == active_comment ||
-            $.contains( active_comment, event.target));
+        let hideFlag = !(event.target == active_input || event.target == active_comment || $.contains(active_comment, event.target));
         if (hideFlag) {
             hidePopups();
         }
@@ -247,8 +231,7 @@ function addCommentNotification(textarea) {
     console.log($(textarea).val());
     if ($(textarea).val()) {
         $(comment_notification).addClass("show")
-    }
-    else {
+    } else {
         $(comment_notification).removeClass("show")
     }
 }
@@ -263,25 +246,24 @@ function FocusShownComment(event) {
 }
 
 function dotheneedful(sibling) {
-  if (sibling != null) {
-    //start.focus();
-    input = sibling.getElementsByClassName('form-control')[0];
-    if (input.getAttribute('data-pagmode') == 'edit') {
-        console.log('edit')
-        input.focus();
-        input.select();
+    if (sibling != null) {
+        //start.focus();
+        input = sibling.getElementsByClassName('form-control')[0];
+        if (input.getAttribute('data-pagmode') == 'edit') {
+            console.log('edit')
+            input.focus();
+            input.select();
+        }
+        if (input.getAttribute('data-pagmode') == 'validate') {
+            console.log('validate')
+            hidePopups()
+            showValidatePopup(input)
+        }
+        console.log('sibling')
+        console.log(sibling)
+        start = sibling;
     }
-    if (input.getAttribute('data-pagmode') == 'validate') {
-        console.log('validate')
-        hidePopups()
-        showValidatePopup(input)
-    }
-    console.log('sibling')
-    console.log(sibling)
-    start = sibling;
-  }
 }
-
 
 function checkKey(e) {
 
@@ -300,37 +282,36 @@ function checkKey(e) {
     }
     e = e || window.event;
 
-  if (e.keyCode == '38') {
-    // up arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.previousElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
+    if (e.keyCode == '38') {
+        // up arrow
+        e.preventDefault()
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.previousElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            dotheneedful(sibling);
+        }
+    } else if (e.keyCode == '40') {
+        // down arrow
+        e.preventDefault()
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.nextElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            dotheneedful(sibling);
+        }
+    } else if (e.keyCode == '37') {
+        // left arrow
+        e.preventDefault()
+        var sibling = start.previousElementSibling;
+        dotheneedful(sibling);
+    } else if (e.keyCode == '39') {
+        // right arrow
+        e.preventDefault()
+        var sibling = start.nextElementSibling;
+        dotheneedful(sibling);
     }
-  } else if (e.keyCode == '40') {
-    // down arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.nextElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
-    }
-  } else if (e.keyCode == '37') {
-    // left arrow
-      e.preventDefault()
-    var sibling = start.previousElementSibling;
-    dotheneedful(sibling);
-  } else if (e.keyCode == '39') {
-    // right arrow
-      e.preventDefault()
-      var sibling = start.nextElementSibling;
-      dotheneedful(sibling);
-      }
 }
-
 
 function SendMessageToDevelopers() {
     console.log("SendMessageToDevelopers");
@@ -339,55 +320,49 @@ function SendMessageToDevelopers() {
     let plant = document.URL.split("?")[0].split("/")[3];
     let journal = document.URL.split("?")[0].split("/")[4];
     let data = {
-        "theme": theme, "text": text,
-        "user": backend.user.username, "email": backend.user.email,
-        "plant": plant, "journal": journal,
+        "theme": theme,
+        "text": text,
+        "user": backend.user.username,
+        "email": backend.user.email,
+        "plant": plant,
+        "journal": journal
     };
     if (text && theme && text.length < 1000 && theme.length < 200) {
         $("#MessageToDevelopersModal").modal("hide");
-        $.ajax({
-            type: 'POST',
-            url: "/common/send-message-to-devs",
-            data: data,
-            success: console.log,
-            dataType: "json"
-        });
+        $.ajax({type: 'POST', url: "/common/send-message-to-devs", data: data, success: console.log, dataType: "json"});
         $("#message-modal-alert").css("display", "none")
         $("#devs-message-theme").val("");
         $("#devs-message-text").val("");
 
-    }
-    else {
+    } else {
         $("#message-modal-alert").css("display", "block");
     }
 }
 
 function on_ready() {
     document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-       on_input_change(input);
+        on_input_change(input);
     });
 
     let edit = $("input[name='edit']").attr("value");
     let validate = $("input[name='validate']").attr("value");
     let view = $("input[name='view']").attr("value");
 
-
-    String.prototype.trim = function () {
+    String.prototype.trim = function() {
         return this.replace(/^\s*/, "").replace(/\s*$/, "");
     };
 
     $.ajax({ // Adding getting fields_info from server and saving in to local storage
         type: 'GET',
         url: '/common/fields_info/',
-        dataType: "json",
+        dataType: "json"
     }).done((res) => {
         window.localStorage.setItem("fields_info", res)
     });
 
-    $('[readonly]').focus(function () { // delete cursor for readonly fields
+    $('[readonly]').focus(function() { // delete cursor for readonly fields
         $('[readonly]').blur();
     });
-
 
     $('.indexed-line:has([readonly]):last').filter((index, line) => { // deleting empty line for readonly cases
         return line_is_empty($(line));
@@ -422,13 +397,15 @@ function shift_confirmation() {
                 buttons: {
                     confirm: {
                         text: "Да",
-                        action: function() {$("form").trigger("input")}
+                        action: function() {
+                            $("form").trigger("input")
+                        }
                     },
                     cancel: {
                         text: "Назад",
-                        action: function () {
+                        action: function() {
                             history.back();
-                        },
+                        }
                     }
                 }
             });
@@ -436,7 +413,7 @@ function shift_confirmation() {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     shift_confirmation();
     on_ready();
 });
