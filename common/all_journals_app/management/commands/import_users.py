@@ -10,12 +10,11 @@ class Command(BaseCommand):
     help = 'Adding users from csv file'
 
     def handle(self, *args, **options):
-        with open('names.csv', newline='') as csvfile:
+        with open('names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             for row in users_info:
                 info = row[0].split(",")
                 user_fio = info[0]
-                print(info)
                 user_ru = user_fio.split()
                 user_en = translate(user_fio).split("-")
                 user = {
