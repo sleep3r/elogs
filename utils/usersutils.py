@@ -27,3 +27,5 @@ def add_user(user_dict):
         # user.id
 
 
+def set_permissions_for_groups():
+    print("Set permissions for groups")
