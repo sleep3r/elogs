@@ -59,6 +59,7 @@ class JournalPage(models.Model):
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
 
+
 class CellValue(models.Model):
     journal_page = models.ForeignKey(JournalPage, on_delete=models.CASCADE)
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
