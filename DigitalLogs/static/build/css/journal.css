@@ -232,6 +232,7 @@ th.rotate > div > span {
 
 .row_of_tables {
     display: flex;
+    margin-bottom: 20px;
 }
 
 .row_of_tables table {
@@ -459,4 +460,3 @@ footer {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
-
