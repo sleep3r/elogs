@@ -1,8 +1,16 @@
 
 <div>
-    <span onclick="CollapseComment(this)" class="btn btn-primary table-comment-button">Коментарий</span>
+    <span onclick="CollapseComment(this)" class="btn btn-default table-comment-button">
+        Коментарий
+        <span class="badge">
+        {% if comment %}
+        1
+        {% endif %}
+        </span>
+
+    </span>
     <div class="collapse table-comment-wrapper">
-        <textarea class="table-comment" name="comment"
+        <textarea class="table-comment" name="comment" oninput="$('#sync').hide();$('#async').show();"
                   placeholder="Коментарий..."
                   {% if page_mode == 'view'  or page_mode == 'validate' %}
                     readonly="readonly"

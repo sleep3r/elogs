@@ -40,9 +40,19 @@ export default {
   },
   created() {
     Promise.all([axios.get('/furnace/fractional/measurements/get'),
-      axios.get('/furnace/fractional/granularity_gaphs/get')]).then(resp => {
-        this.furnace_data = resp[0].data.data
-        this.gaphs_data = resp[1].data.data
+      axios.get('/furnace/fractional/granularity_gaphs/get')]).then(response => {
+        if (!response[0].data.hasOwnProperty('data')) {
+            console.info('Furnace data not found!');
+            this.furnace_data = [];
+        } else {
+            this.furnace_data = response[0].data.data;
+        }
+        if (!response[1].data.hasOwnProperty('data')) {
+            console.info('Graphs data not found!');
+            this.gaphs_data = [];
+        } else {
+            this.gaphs_data = response[1].data.data;
+        }
         this.loading = false
       }) 
 

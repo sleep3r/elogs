@@ -137,7 +137,6 @@ def index(request):
         self_protection_table,
         cinder_table,
         schieht_table,
-        reagents_table,
         loads_table,
         sample_table,
         tanks_for_finished_products_table,

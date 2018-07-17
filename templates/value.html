@@ -53,7 +53,7 @@
              placeholder="Комментарий..."
              rows="2"
              class="popup-comment-content-textarea"
-             oninput="addCommentNotification(this);"
+             oninput="addCommentNotification(this);$('#sync').hide();$('#async').show();"
              onchange="add_comment(this);"
              table-name="{{ table_name }}"
              journal-page="{{ journal_page }}"
@@ -64,6 +64,10 @@
            {% endif %}
    >{{ comment }}</textarea>
 </span>
+
+
+<span class="input-check-popup">Это числовое поле</span>
+
 
 {% if page_mode == "view"  or page_mode == "validate" %}
     <i class="material-icons comment-notification"

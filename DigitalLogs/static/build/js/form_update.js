@@ -1,7 +1,22 @@
 /*jshint esversion: 6 */
 
+function send_all_forms() {
+    for (form of $("form.elog-table-form").get()) {
+        console.log("sending", form);
+        $.ajax({
+            type: 'POST',
+            url: $(form).attr('action'),
+            data: $(form).serialize(),
+            dataType: "json",
+            success: function (data) {
+                $("#async").hide();
+                $("#sync").show();
+            }
+        });
+    }
+}
 
-var send_form =  _.debounce((form) => {
+let send_form =  _.debounce((form) => {
     $.ajax({
         type: 'POST',
         url: $(form).attr('action'),
@@ -24,7 +39,7 @@ function on_form_change(form) {
 }
 
 
-var add_message_debounced = _.debounce((input) => {
+let add_message_debounced = _.debounce((input) => {
     console.log("add_message_debounced()");
     const json = input.dataset.info.replace(/'/g, '"');
     const info = JSON.parse(json);
@@ -65,7 +80,7 @@ function add_message(input) {
 }
 
 
-var add_comment_debounced = _.debounce((textarea) => {
+let add_comment_debounced = _.debounce((textarea) => {
     console.log("add_comment_debounced()");
 
     $.ajax({
@@ -161,7 +176,7 @@ function line_is_empty(tr_line) {
 function clone_last_line(form) {
     const tables = $(form).find("table:not(.table-insided)");
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         const last_line = table.find(".indexed-line:last");
         if (!line_is_empty(last_line)) {
             let new_last_line = last_line.clone();
@@ -178,7 +193,7 @@ function clear_empty_lines(form) {
     const tables = $(form).find("table:not(.table-insided)");
 
     for (i=0; i<tables.get().length; i++) {
-        table = $(tables.get()[i])
+        table = $(tables.get()[i]);
         let last_line = null;
         $(table.find(".indexed-line").get().reverse()).each(function (index) {
             if (line_is_empty($(this))) {
@@ -232,8 +247,8 @@ function hidePopusOnMouseUp(event) {
     if (active_comment) {
         let active_input = $(active_comment).siblings(".general_value")[0];
         let hideFlag = !(
-            event.target == active_input ||
-            event.target == active_comment ||
+            event.target === active_input ||
+            event.target === active_comment ||
             $.contains( active_comment, event.target));
         if (hideFlag) {
             hidePopups();
@@ -263,72 +278,96 @@ function FocusShownComment(event) {
 }
 
 function dotheneedful(sibling) {
-  if (sibling != null) {
     //start.focus();
     input = sibling.getElementsByClassName('form-control')[0];
-    if (input.getAttribute('data-pagmode') == 'edit') {
-        console.log('edit')
-        input.focus();
-        input.select();
+    if (input) {
+        if (input.getAttribute('data-pagmode') === 'edit') {
+            input.focus();
+            input.select();
+        }
+        if (input.getAttribute('data-pagmode') === 'validate') {
+            hidePopups();
+            showValidatePopup(input)
+        }
     }
-    if (input.getAttribute('data-pagmode') == 'validate') {
-        console.log('validate')
-        hidePopups()
-        showValidatePopup(input)
-    }
-    console.log('sibling')
-    console.log(sibling)
     start = sibling;
-  }
 }
 
 
 function checkKey(e) {
-
-    // if 'input' is active(e.g age mode is 'edit')
-    if (document.activeElement.tagName == 'INPUT') {
-        start = document.activeElement.parentElement
-        console.log('input')
-        console.log(start)
+    // if 'input' is active(e.g page mode is 'edit')
+    if (document.activeElement.tagName === 'INPUT') {
+        input = document.activeElement;
+        if (input.type === 'number') {
+            var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
+            // If number or ',' or '.' was pressed
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == '188' || e.keyCode == '190') {
+                console.log('number was pressed in number field');
+                popup.classList.remove('show')
+            } else {
+                if (e.keyCode != '8' &&
+                    e.keyCode != '46' &&
+                    e.keyCode != '37' &&
+                    e.keyCode != '38' &&
+                    e.keyCode != '39' &&
+                    e.keyCode != '40') {
+                    popup.classList.add('show');
+                    setTimeout(function () {
+                        popup.classList.remove('show');
+                    }, 1500);
+                    console.log('not number was pressed in number field')
+                }
+                else {
+                    popup.classList.remove('show');
+                }
+                // backspace and delete
+                if (e.keyCode != '8' && e.keyCode != '46') {
+                    e.preventDefault();
+                }
+            }
+        }
+        start = input.parentElement;
     }
 
     // if 'span' is active(e.g page mode is 'validate')
-    if (document.activeElement.tagName == 'TEXTAREA') {
-        start = document.activeElement.parentElement.parentElement
-        console.log('span')
-        console.log(start)
+    if (document.activeElement.tagName === 'TEXTAREA') {
+        start = document.activeElement.parentElement.parentElement;
     }
     e = e || window.event;
 
-  if (e.keyCode == '38') {
-    // up arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.previousElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
+    if (e.keyCode == '38') {
+        // up arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.previousElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '40') {
+        // down arrow
+        var idx = start.cellIndex;
+        var nextrow = start.parentElement.nextElementSibling;
+        if (nextrow != null) {
+            var sibling = nextrow.cells[idx];
+            if (sibling) {
+                dotheneedful(sibling);
+            }
+        }
+    } else if (e.keyCode == '37') {
+        // left arrow
+        var sibling = start.previousElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
+    } else if (e.keyCode == '39') {
+        // right arrow
+        var sibling = start.nextElementSibling;
+        if (sibling) {
+                dotheneedful(sibling);
+        }
     }
-  } else if (e.keyCode == '40') {
-    // down arrow
-      e.preventDefault()
-    var idx = start.cellIndex;
-    var nextrow = start.parentElement.nextElementSibling;
-    if (nextrow != null) {
-      var sibling = nextrow.cells[idx];
-      dotheneedful(sibling);
-    }
-  } else if (e.keyCode == '37') {
-    // left arrow
-      e.preventDefault()
-    var sibling = start.previousElementSibling;
-    dotheneedful(sibling);
-  } else if (e.keyCode == '39') {
-    // right arrow
-      e.preventDefault()
-      var sibling = start.nextElementSibling;
-      dotheneedful(sibling);
-      }
 }
 
 
@@ -352,7 +391,7 @@ function SendMessageToDevelopers() {
             success: console.log,
             dataType: "json"
         });
-        $("#message-modal-alert").css("display", "none")
+        $("#message-modal-alert").css("display", "none");
         $("#devs-message-theme").val("");
         $("#devs-message-text").val("");
 
@@ -401,18 +440,22 @@ function on_ready() {
         document.querySelectorAll(".popup-comment-content>textarea").forEach(addCommentNotification)
     }
     // document.addEventListener('shown.bs.collapse', FocusShownComment);
-    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment)
+    $(".table-comment-wrapper").on('shown.bs.collapse', FocusShownComment);
 
     $("#sync").show();
 
     document.onkeydown = checkKey;
+
+    window.addEventListener("beforeunload", function(e) {
+        send_all_forms()
+    }, false);
 }
 
 function shift_confirmation() {
     let edit = $("input[name='edit']").attr("value");
     if (edit === "True") {
         let has_edited = $("input[name='has_edited']").attr("value");
-        console.log(has_edited)
+        console.log(has_edited);
         if (!(has_edited === "True")) {
             $.confirm({
                 title: 'Продолжить?',

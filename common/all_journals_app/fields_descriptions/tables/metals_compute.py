@@ -2,8 +2,20 @@ from common.all_journals_app.fields_descriptions.fields_classes import *
 from utils.deep_dict import deep_dict
 
 
+contain_zn = deep_dict()
+contain_zn.Zn_con = ton_default
+contain_zn.Pb_con = ton_default
+contain_zn.Cu_con = ton_default
+contain_zn.Cd_con = ton_default
+contain_zn.Au_con = gt_default
+contain_zn.Ag_con = gt_default
+contain_zn_table_desc = contain_zn.clear_empty().get_dict()
+
+
+
+
 fs = deep_dict()
-fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5"]
+fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2", "Fe", "S", "As", "Sb", "S_sulf"]
 
 for field_name in fields_p:
     fs[field_name] = percent_default
@@ -34,9 +46,13 @@ sns_fields_p = ["znp","Pb_", "Cu_", "Cd_"]
 for field_name in sns_fields_p:
     sns[field_name] = percent_default
 
-sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd", "Au", "Ag"]
+sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd",]
 for field_name in sns_fields_m:
     sns[field_name] = ton_default
+
+sns_fields_gt = ["Au", "Ag"]
+for field_name in sns_fields_gt:
+    sns[field_name] = gt_default
 
 sns_table_desc = sns.clear_empty().get_dict()
 
@@ -76,6 +92,7 @@ zgok_fields = ["zgok", "art-iy", "ust-tal", "karagayls", "verh-ber", "belousovka
 for field_name in zgok_fields:
     zgok[field_name] = vmt_default
 
+zgok.itogo_smt = smt_default
 zgok['deviation'] = text_default
 sgok_table_desc = zgok.clear_empty().get_dict()
 

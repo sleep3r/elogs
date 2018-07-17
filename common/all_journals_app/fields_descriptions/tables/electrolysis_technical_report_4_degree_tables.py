@@ -25,27 +25,27 @@ rows_names_for_db = [
 ]
 
 rows_names_for_view = [
-        "Zn в отр.",
-        "Смеси г/л",
-        "H2SO4 отр. г/л",
-        "Удельный вес хол-го раствора",
-        "Удельный вес отр-го раствора",
-        "Температура смеси, С",
-        "Температура в ваннах, С",
-        "Температура H2O",
-        "Давление H2O",
-        "Давление пара",
-        "Сточные воды, Рн",
-        "Температура точки 5 ВИУ, С",
-        "Температура точки 6 ВИУ, С",
-        "Температура точки 7 ВИУ, С"
+        "Zn в отр., г/л",
+        "Смеси, г/л",
+        "H₂SO₄ отр., г/л",
+        "Удельный вес хол-го раствора, г/см³",
+        "Удельный вес отр-го раствора, г/см³",
+        "Температура смеси, ᵒC",
+        "Температура в ваннах, ᵒC",
+        "Температура H₂O, ᵒC",
+        "Давление H₂O, Па",
+        "Давление пара, Па",
+        "Сточные воды, Рh",
+        "Температура точки 5 ВИУ, ᵒC",
+        "Температура точки 6 ВИУ, ᵒC",
+        "Температура точки 7 ВИУ, ᵒC"
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
              zip(rows_names_for_db, rows_names_for_view)]
 
 
-field_infos_for_rows = [gl_default]*2 + [gsm3_default]*2 +[temperature_default]*3 + [pa_default]*2+[dict(type="number", units = "Рн?")]+[temperature_default]*3
+field_infos_for_rows = [gl_default]*3 + [gsm3_default]*2 +[temperature_default]*3 + [pa_default]*2+[dict(type="number", units = "Рh")]+[temperature_default]*3
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
