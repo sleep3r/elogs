@@ -460,3 +460,11 @@ footer {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
+
+.commentAuthor {
+    text-align: left;
+    color: white;
+    padding: 2px 0px 2px 5px;
+    font-size: 10px;
+    line-height: 10px;
+}
