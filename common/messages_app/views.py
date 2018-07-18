@@ -5,13 +5,15 @@ from django.views import View
 from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.shortcuts import render
-from utils.deep_dict import deep_dict
-from utils.errors import AccessError
-from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
+
 from login_app.models import Employee
 from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages
+
+from utils.deep_dict import deep_dict
+from utils.errors import AccessError
+from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 
 class MessageView(View):
 
@@ -29,17 +31,19 @@ class MessageView(View):
         journal_name = j_page.journal_name
         plant_name = j_page.plant.name
         field_name = cell.field_name.replace("_comment", "")
-        return f'<a href="/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{cell.index}#table_id_{cell.table_name}">{field_name}</a>'
+        return f'/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{cell.index}#table_id_{cell.table_name}">{field_name}'
 
-    def create(self, cell, type, addressee, text):
+    def create(self, request, type, cell, text, addressee, link):
         new_msg = Message(
+                  sendee = request.user.employee,
                   addressee=addressee,
                   type=type,
                   text=text,
                   cell_field_name=cell.field_name,
                   cell_table_name=cell.table_name,
                   row_index=cell.index,
-                  cell_journal_page=cell.journal_page_id)
+                  cell_journal_page=cell.journal_page_id,
+                  cell_link = link)
         new_msg.save()
 
     def update(self, cell):
@@ -63,15 +67,15 @@ class MessageView(View):
             if type == 'critical_value':
                 value = request.POST.get('field_value', None)
                 if value:
-                    m_text = f'<b>{request.user.employee.name}</b> ввел в поле {self.getLinkToJournal(cell)} некорректное значение {value}'
+                    m_link = self.getLinkToJournal(cell)
                     for emp in messages.get_addressees(all=True):
                         msg = messages.filter_or_none(cell, type, emp)
                         if msg:
                             for m in msg:
-                                m.text = m_text
+                                m.text = value
                                 m.save()
                         else:
-                            self.create(cell, type, emp, m_text)
+                            self.create(request,type, cell, value, emp, m_link)
                 else:
                     self.update()
 
@@ -79,15 +83,15 @@ class MessageView(View):
             if type == 'comment':
                 comment_text = request.POST.get('comment_text', None)
                 if comment_text:
-                    c_text = f'<b>{request.user.employee.name}</b> оставил к полю {self.getLinkToJournal(cell)} комментарий: {comment_text}'
+                    m_link = self.getLinkToJournal(cell)
                     for emp in messages.get_addressees(all=True):
                         msg = messages.filter_or_none(cell, type, emp)
                         if msg:
                             for m in msg:
-                                m.text = c_text
+                                m.text = comment_text
                                 m.save()
                         else:
-                            self.create(cell, type, emp, c_text)
+                            self.create(request, type, cell, comment_text, emp, m_link)
                 else:
                     self.update()
 
@@ -115,8 +119,8 @@ class MessagesList(ListView):
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
-    def get_queryset(self):
-        return self.model.objects.filter(addressee=self.request.user.employee)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(addressee=self.request.user.employee)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

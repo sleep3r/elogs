@@ -6,36 +6,54 @@
 {% endblock %}
 
 {% block css %}
-   {{ block.super }} 
+    {{ block.super }}
+    <link href="/static/vendors/bootstrap/dist/css/bootstrap-notifications.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
     <div class="content">
-        <ul class="notifications">
-            {% for message in messages %}
-                <div class="notification">
-                    <div class="notification-icon">
-                        {% if message.type == 'critical_value' %}
-                            <i class="material-icons" style="font-size:24px; color: #FF0000;">new_releases</i>
-                        {% elif message.type == 'comment'%}
-                            <i class="material-icons" style="font-size:24px; color: #669900;">announcement</i>
-                        {% endif %}
+        <br><br><br>
+        <ul class="notifs">
+            {% for message in messages reversed %}
+                <li class="notif">
+                    <div class="media">
+                        <div class="media-left">
+                            <div class="media-object">
+                                <img src="/static/images/no-avatar.png" class="emp-img" alt="">{{ user_name }}
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <strong class="notification-title">
+                                <a href="#">{{message.sendee}}</a> 
+                                
+                                {% if message.type == 'critical_value' %}
+                                    ввел в поле
+                                {% elif message.type == 'comment'%}
+                                    оставил к полю
+                                {% endif %}
+
+                                <a href="{{message.cell_link}}">{{message.cell_field_name}}</a>
+                            </strong>
+
+                            {% if message.type == 'critical_value' %}
+                                <p class="notif-desc-critical">{{message.text}}</p>
+                            {% elif message.type == 'comment'%}
+                                <p class="notif-desc-comment">{{message.text}}</p>
+                            {% endif %}
+
+                            <div class="notif-meta">
+                                <small class="timestamp">{{message.created}}</small>
+                            </div>
+                        </div>
                     </div>
-                    <div class="notification-text">
-                        <h3>Сообщение {{message.id}}</h3>
-                        <p>
-                            <h5>{{ message.cell_table_name }} / {{ message.cell_field_name }}</h5>
-                        </p>
-                        <h6>{{ message.text|truncatechars:100 }}</h6>
-                    </div>
-                </div>   
+                </li>
             {% endfor %}
         </ul>
 
         <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
 
         {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">ЕЩЁ</a>
         {% endif %}
     </div>
 {% endblock %}
@@ -47,7 +65,7 @@
     <script src="/static/build/js/messages/infinite.min.js"></script>
     <script>
         var infinite = new Waypoint.Infinite({
-            element: $('.content')[0],
+            element: $('.notifs')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();
             },
