@@ -8,7 +8,7 @@
 {% block css %}
    {{ block.super }}
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
- <link href="/static/vendors/fullcalendar/dist/fullcalendar.css" rel="stylesheet">
+ <link "{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
