@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from utils.webutils import process_json_view
+from e_logs.core.utils.webutils import process_json_view
 from e_logs.common.all_journals_app.models import JournalPage, Plant
 
 

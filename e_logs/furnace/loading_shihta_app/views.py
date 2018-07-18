@@ -5,7 +5,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 
 from e_logs.common.all_journals_app.models import JournalPage
 from e_logs.common.all_journals_app.services.context_creator import get_common_context

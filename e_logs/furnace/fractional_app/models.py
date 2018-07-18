@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from e_logs.furnace.fractional_app.servises.constants import SCHIEHT_SIZES, CINDER_SIZES
-from utils.errors import SemanticError
+from e_logs.core.utils.errors import SemanticError
 
 
 class Measurement(models.Model):

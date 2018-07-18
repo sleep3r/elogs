@@ -1,8 +1,8 @@
 from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
 
-from utils.deep_dict import deep_dict
-from utils.webutils import model_to_dict
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.webutils import model_to_dict
 
 
 def get_addressees(all=False, positions=None, ids=None, plant=None):

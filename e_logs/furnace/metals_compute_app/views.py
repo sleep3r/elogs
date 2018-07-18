@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 
 from e_logs.common.all_journals_app.models import JournalPage
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
@@ -13,7 +13,7 @@ from e_logs.common.all_journals_app.services.context_creator import get_common_c
 
 
 # Create your views here.
-from utils.webutils import translate
+from e_logs.core.utils.webutils import translate
 
 
 @login_required

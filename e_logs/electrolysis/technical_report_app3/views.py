@@ -1,14 +1,14 @@
 from django.shortcuts import render
 
 from django.shortcuts import render
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 
 # Create your views here.
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 from datetime import time
 
 # Create your views here.

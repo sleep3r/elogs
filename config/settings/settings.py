@@ -69,6 +69,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
 
+    'e_logs.core.apps.CoreConfig',
+
     'e_logs.common.login_app.apps.LoginApp',
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',

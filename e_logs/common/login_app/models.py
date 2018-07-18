@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from e_logs.common.all_journals_app.models import CellValue, JournalPage
 
-from utils.settings import CSRF_LENGTH
+from e_logs.core.utils.settings import CSRF_LENGTH
 
 
 class Employee(models.Model):

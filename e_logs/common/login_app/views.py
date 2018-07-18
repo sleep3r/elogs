@@ -10,9 +10,9 @@ from django.views.decorators.csrf import csrf_exempt
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.messages_app.models import Message
 
-from utils.deep_dict import deep_dict
-from utils.errors import AccessError
-from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.errors import AccessError
+from e_logs.core.utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 
 
 @process_json_view(auth_required=False)

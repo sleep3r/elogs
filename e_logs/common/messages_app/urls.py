@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.urls import path, re_path
-from utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
+from e_logs.core.utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
 from django.contrib.auth.decorators import login_required
 
 

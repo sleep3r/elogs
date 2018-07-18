@@ -14,11 +14,11 @@ from django.views.decorators.csrf import csrf_exempt
 from dateutil.parser import parse as parse_date
 from django.utils import timezone
 
-from utils.errors import SemanticError, AccessError
+from e_logs.core.utils.errors import SemanticError, AccessError
 
 # view accepts HttpRequest
 # view returns dict or defaultdict
-from utils.settings import webURL, CSRF_LENGTH
+from e_logs.core.utils.settings import webURL, CSRF_LENGTH
 
 
 class StrJSONEncoder(JSONEncoder):

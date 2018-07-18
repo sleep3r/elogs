@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from e_logs.furnace.fractional_app.models import *
 from e_logs.common.all_journals_app.services.messages import get_messages_dict
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
-from utils.webutils import process_json_view
+from e_logs.core.utils.webutils import process_json_view
 import json
 
 

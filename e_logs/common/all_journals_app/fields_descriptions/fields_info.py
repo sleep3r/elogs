@@ -14,7 +14,7 @@ import e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_te
 from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_repair_report_tables import *
 
 
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 
 fields_info_desc = deep_dict()
 

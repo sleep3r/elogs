@@ -7,7 +7,7 @@ from e_logs.common.login_app.models import Employee
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage, Feedback
-from utils.webutils import process_json_view
+from e_logs.core.utils.webutils import process_json_view
 from e_logs.common.messages_app.services import messages
 from .feedback import send_feedback
 

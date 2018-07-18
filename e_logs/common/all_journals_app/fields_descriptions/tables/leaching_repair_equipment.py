@@ -1,6 +1,7 @@
-from e_logs.leaching.repair_reports_app.models import Equipment
 from django.db import ProgrammingError, OperationalError
-from utils.deep_dict import deep_dict
+
+from e_logs.leaching.repair_reports_app.models import Equipment
+from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 

@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
 from e_logs.common.all_journals_app.fields_descriptions import fields_info
-from utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.login_app.models import Employee
 from .page_modes import get_page_mode, plant_permission, PageModeError, has_edited
 
