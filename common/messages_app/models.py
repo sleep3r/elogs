@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-from common.login_app.models import Employee
+from login_app.models import Employee
 
 from utils.settings import CSRF_LENGTH
 

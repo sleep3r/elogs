@@ -1,13 +1,11 @@
 from django.apps import AppConfig
 
-
-class CommonLoginApp(AppConfig):
-    name = 'common.login_app'
+class LoginApp(AppConfig):
+    name = 'login_app'
     verbose_name = 'Рабочие'
-
     def ready(self):
         from django.contrib.auth.models import User
-        from common.login_app.models import Employee
+        from login_app.models import Employee
 
         if not User.objects.filter(username='inframine'):
             print('Created superuser')

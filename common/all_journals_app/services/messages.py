@@ -1,4 +1,4 @@
-from common.login_app.models import Employee
+from login_app.models import Employee
 from common.messages_app.models import Message
 
 from utils.deep_dict import deep_dict
