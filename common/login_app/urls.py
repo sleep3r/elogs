@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from login_app import views
+from common.login_app import views
 urlpatterns = [
     url(r'logout$', views.logout_view),
     url(r'login$', views.login_auth),

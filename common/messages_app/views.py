@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.shortcuts import render
 
-from login_app.models import Employee
+from common.login_app.models import Employee
 from common.messages_app.models import Message
 from common.all_journals_app.models import CellValue, JournalPage
 from common.messages_app.services import messages

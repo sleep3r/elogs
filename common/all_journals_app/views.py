@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render
 from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
-from login_app.models import Employee
+from common.login_app.models import Employee
 
 from common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from common.all_journals_app.models import CellValue, JournalPage, Feedback

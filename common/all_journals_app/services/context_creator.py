@@ -8,7 +8,7 @@ from common.all_journals_app.fields_descriptions.fields_info import fields_info_
 from common.all_journals_app.models import CellValue, JournalPage, Plant
 from common.all_journals_app.fields_descriptions import fields_info
 from utils.deep_dict import deep_dict
-from login_app.models import Employee
+from common.login_app.models import Employee
 from .page_modes import get_page_mode, plant_permission, PageModeError, has_edited
 
 

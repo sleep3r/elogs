@@ -1,4 +1,4 @@
-from login_app.models import Employee
+from common.login_app.models import Employee
 from django.core.exceptions import PermissionDenied
 
 APP = 'all_journals_app'
@@ -6,6 +6,7 @@ VALIDATE_CELLS = APP + ".validate_cells"
 EDIT_CELLS = APP + ".edit_cells"
 VIEW_CELLS = APP + ".view_cells"
 PLANT_PERM = APP + ".modify_{plant}"
+
 
 class PageModeError(Exception):
     def __init__(self, value):
@@ -16,6 +17,7 @@ def plant_permission(request):
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
     return employee.user.has_perm(PLANT_PERM.format(plant=plant))
+
 
 def page_mode_is_valid(request, page):
     employee = Employee.objects.get(user=request.user)

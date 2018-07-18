@@ -43,7 +43,7 @@ urlpatterns = [
     url('electrolysis/electrolysis_technical_report_12_degree', include('electrolysis.technical_report_app12.urls')),
     url('electrolysis/electrolysis_repair_report_tables', include('electrolysis.repair_report_app.urls')),
     url('electrolysis/masters_raports', include('electrolysis.masters_raports_app.urls')),
-    url('^auth', include('login_app.urls')),
+    url('^auth', include('common.login_app.urls')),
     url('^common', include('common.all_journals_app.urls')),
     path('common/messages/', include('common.messages_app.urls')),
     url(r'^(?P<plant>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', shifts.get_shifts),
