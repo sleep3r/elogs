@@ -49,6 +49,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         df = DatabaseFiller()
+        df.reset_increment_counter('auth_group')
         frac_num = options["frac"]
         add_employee = options["employee"]
         if options["clean"] or options["recreate"]:

@@ -2,16 +2,38 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 import csv
 
-from utils.usersutils import add_user
+from utils.deep_dict import deep_dict
+from utils.usersutils import add_user, add_groups
 from utils.webutils import translate
 
+from django.contrib.auth.models import Group
 
 class Command(BaseCommand):
     help = 'Adding users from csv file'
 
+    def addUserToGroup(self, user, group_name):
+        group = Group.objects.get(name=f'{group_name}')
+        user.groups.add(group)
+
+    def groupsFromCSV(self):
+        user_groups = deep_dict()
+        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            for row in users_info:
+                info = row[0].split(",")
+                position_en = translate(info[1].lower()).replace("-", "_") if len(info) > 1 else ''
+                if position_en.find("mastera_smenyi") > 0:
+                    position_en = "i.o.mastera_smenyi"
+                user_groups[position_en] = info[1].lower()
+
+        return user_groups
+
     def handle(self, *args, **options):
         with open('names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            user_groups = self.groupsFromCSV()
+            add_groups(user_groups)
+
             for row in users_info:
                 info = row[0].split(",")
                 user_fio = info[0]
@@ -32,3 +54,4 @@ class Command(BaseCommand):
 
                 add_user(user)
         print("Users added")
+
