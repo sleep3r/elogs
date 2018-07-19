@@ -19,6 +19,15 @@ def add_user(user_dict):
         for group in user_dict["groups"]:
             user.groups.add(Group.objects.get(name=group))
         user.user_permissions.add(Permission.objects.get(codename="view_cells"))
+
+        e = Employee()
+        e.name = user.first_name + ' ' + user.last_name
+        e.position = user_dict["groups"][0].lower()
+        e.plant = user_dict["groups"][1].lower()
+        e.user = user
+
+        e.save()
+
         user.save()
         return user.id
 
