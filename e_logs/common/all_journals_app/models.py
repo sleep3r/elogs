@@ -60,22 +60,31 @@ class JournalPage(models.Model):
         verbose_name_plural = 'Журналы'
 
 
-class CellValue(models.Model):
+class Cell(models.Model):
     journal_page = models.ForeignKey(JournalPage, on_delete=models.CASCADE)
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
     field_name = models.CharField(max_length=128, verbose_name='Название поля')
     index = models.IntegerField(null=True, blank=True, default=None, verbose_name='Номер строчки')
-    value = models.CharField(max_length=1024, verbose_name='Значение поля')
-    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
 
-    def __str__(self):
-        return "journal_page: " + str(self.journal_page) + " table_name: " \
-               + str(self.table_name) + " field_name: " + str(self.field_name) +\
-               " index: " + str(self.index) + " value: " + str(self.value)
+
+class CellValue(Cell):
+    value = models.CharField(max_length=1024, verbose_name='Значение поля')
 
     class Meta:
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
+
+
+class CellInfo(Cell):
+    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
+    comment = models.ForeignKey('all_journals_app.CellValue', on_delete=models.SET_NULL, null=True)
+
+
+class Setting(models.Model):
+    name = models.CharField(max_length=128, verbose_name='Название')
+    value = models.CharField(max_length=128, verbose_name='Значение')
+    scope = models.CharField(max_length=128, verbose_name='Область')
+
 
 class Feedback(models.Model):
     theme = models.CharField(max_length=200, verbose_name='Тема')
