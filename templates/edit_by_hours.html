@@ -1,4 +1,6 @@
 {% extends 'base_page.html' %}
+{% load staticfiles %}
+
 {% load i18n %}
 {% load render_bundle from webpack_loader %}
 
@@ -22,16 +24,16 @@
 {% block footer %}
     {{ block.super }}
     <!-- Custom Theme Scripts -->
-    <script src="/static/build/js/custom.js"></script>
-    <script src="/static/build/js/leaching_edit.js"></script>
-    <script src="/static/build/js/common.js"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
-    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src = "{% static 'build/js/custom.js' %}"></script>
+    <script src = "{% static 'build/js/leaching_edit.js' %}"></script>
+    <script src = "{% static 'build/js/common.js' %}"></script>
+    <script src = "{% static 'vendors/pnotify/dist/pnotify.js' %}"></script>
+    <script src = "{% static 'vendors/pnotify/dist/pnotify.buttons.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.0/vue-resource.min.js" ></script>
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-    <script src="/static/build/js/leaching/express/app_by_hours.js"></script>
+    <script src = "{% static 'build/js/leaching/express/app_by_hours.js' %}"></script>
 
 {% endblock %}
 
