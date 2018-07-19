@@ -12,7 +12,7 @@ module.exports = {
     furnace: './furnace/index'
   },
   output: {
-      path: path.resolve('./DigitalLogs/static/webpack_bundles'),
+      path: path.resolve('./static/webpack_bundles'),
       filename: "[name].js"
   },
   module: {
