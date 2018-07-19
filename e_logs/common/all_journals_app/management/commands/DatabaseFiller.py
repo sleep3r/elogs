@@ -20,12 +20,8 @@ from e_logs.common.all_journals_app.models import *
 # from leaching.repair_app.models import *
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
-<<<<<<< HEAD:common/all_journals_app/management/commands/DatabaseFiller.py
-from login_app.models import Employee
 from django.db import connection
-=======
 from e_logs.common.login_app.models import Employee
->>>>>>> develop:e_logs/common/all_journals_app/management/commands/DatabaseFiller.py
 
 # onegin = None
 
@@ -579,7 +575,7 @@ class DatabaseFiller:
     def create_permissions_and_groups(self):
         superuser = User.objects.get(username="inframine")
         Employee(name="inframine", position="admin", user=superuser).save()
-        
+
         content_type = ContentType.objects.get_for_model(CellValue)
         modify_leaching = Permission(
             name="Modify Leaching Plant",

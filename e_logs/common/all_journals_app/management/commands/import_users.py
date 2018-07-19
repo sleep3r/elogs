@@ -2,9 +2,9 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 import csv
 
-from utils.deep_dict import deep_dict
-from utils.usersutils import add_user, get_groups
-from utils.webutils import translate
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.usersutils import add_user, get_groups
+from e_logs.core.utils.webutils import translate
 
 from django.contrib.auth.models import Group
 

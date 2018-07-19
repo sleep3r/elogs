@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group, Permission
-from login_app.models import Employee
+from e_logs.common.login_app.models import Employee
 
 
 def add_user(user_dict):
@@ -25,7 +25,6 @@ def add_user(user_dict):
 
 def get_groups(position, plant):
     groups = []
-    print(position, plant, plant == "ОЦ")
     if position == " просмотра\"":
         groups.append("Laborant")
     else:
