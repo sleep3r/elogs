@@ -10,6 +10,7 @@ node_modules
 webpack-stats.json
 DigitalLogs/static/webpack_bundles/*
 DigitalLogs/staticfiles/webpack_bundles/*
+webpack_bundles
 
 # Installer logs
 pip-log.txt
