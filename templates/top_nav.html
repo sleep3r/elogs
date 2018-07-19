@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load staticfiles %}
+
 <div class="top_nav journal_title">
   <div class="nav_menu">
     <nav>
@@ -13,7 +15,7 @@
         <li>
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="display: inline-block">
             <span class="badge badge-danger" id="notifications_count"></span>
-            <img src="/static/images/no-avatar.png" alt="">{{ user_name }}
+            <img src = "{% static 'images/no-avatar.png' %}">{{ user.employee }}
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">

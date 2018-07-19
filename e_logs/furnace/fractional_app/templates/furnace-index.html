@@ -1,4 +1,6 @@
 {% extends 'base_page.html' %}
+{% load staticfiles %}
+
 {% load i18n %}
 {% load render_bundle from webpack_loader %}
 
@@ -15,5 +17,5 @@
 {% block footer %}
     {{ block.super }}
     <!-- Custom Theme Scripts -->
-    <script src="/static/build/js/custom.js"></script>
+    <script src = "{% static 'build/js/custom.js' %}"></script>
 {% endblock %}
