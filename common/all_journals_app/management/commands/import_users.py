@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 import csv
 
 from utils.deep_dict import deep_dict
-from utils.usersutils import add_user, add_groups
+from utils.usersutils import add_user, get_groups
 from utils.webutils import translate
 
 from django.contrib.auth.models import Group
@@ -31,14 +31,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open('names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
-            user_groups = self.groupsFromCSV()
-            add_groups(user_groups)
+            # user_groups = self.groupsFromCSV()
+            # add_groups(user_groups)
 
             for row in users_info:
                 info = row[0].split(",")
                 user_fio = info[0]
+                plant = info[-1]
+                position = info[3]
                 user_ru = user_fio.split()
                 user_en = translate(user_fio).split("-")
+                groups = get_groups(position, plant)
                 user = {
                     'ru': {
                         'last_name': user_ru[0],
@@ -49,9 +52,8 @@ class Command(BaseCommand):
                         'last_name': user_en[0],
                         'first_name': user_en[1][0] if len(user_en) > 1 and len(user_en[1]) > 0 else '',
                         'second_name': user_en[2][0] if len(user_en) > 2 and len(user_en[2]) > 0 else ''
-                    }
+                    },
+                    'groups': groups
                 }
-
                 add_user(user)
         print("Users added")
-
