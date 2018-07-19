@@ -4,9 +4,11 @@
 {% set_global_context "val" table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
 {% set_global_context "info" fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
 {% set_global_context "field_comment_name" field_name|add:"_comment" %}
+{% set_global_context "field_comment_responsible_name" field_comment_name|add:"_responsible" %}
 {% set_global_context "id" full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 {% set_global_context "field_responsible_name" field_name|add:"_responsible" %}
-{% set_global_context "responsible" table_data|keyval:field_responsible_name|choose_val:index %}
+{% set_global_context "field_responsible" table_data|keyval:field_responsible_name|choose_val:index %}
+{% set_global_context "field_comment_responsible" table_data|keyval:field_comment_responsible_name|choose_val:index %}
 {% set_global_context "comment" table_data|keyval:field_comment_name|choose_val:index %}
 {#{% set_global_context "cell_id" journal_page|add:"|"|add:table_name|add:"|"|add:field_name|add:"|"|add:index %}#}
 
@@ -17,12 +19,13 @@
 {% endif %}
 -->
 
-<input class="resp" hidden name="{{ field_responsible_name }}" value="{{ responsible }}">
+<input class="resp" hidden name="{{ field_responsible_name }}" value="{{ field_responsible }}">
 
     <input class="form-control general-value {{ field_name }}_{{ index }}"
            oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');$('#sync').hide();$('#async').show();"
            onchange="add_message(this);reformat_on_change(this)"
-           title="{% if responsible %}{% if val %}Заполнил: {{ responsible }}{% endif %}{% endif %}"
+           resposible={{ field_responsible }}
+           title="{% if field_responsible %}{% if val %}Заполнил: {{ field_responsible }}{% endif %}{% endif %}"
            value="{% firstof auto_val val %}"
            data-info="{{ info }}"
            table-name="{{ table_name }}"
@@ -49,11 +52,12 @@
 <span class="popup-comment-content">
    <div class="comment-close-button"
         onclick="hidePopups()">&#10006;</div>
+   <input class="resp" hidden name="{{ field_comment_responsible_name }}" value="{{ field_comment_responsible }}">
    <textarea name="{{ field_comment_name }}"
              placeholder="Комментарий..."
              rows="2"
              class="popup-comment-content-textarea"
-             oninput="addCommentNotification(this);$('#sync').hide();$('#async').show();"
+             oninput="addCommentNotification(this);add_responsible(this, '{{ user.employee }}');;$('#sync').hide();$('#async').show();"
              onchange="add_comment(this);"
              table-name="{{ table_name }}"
              journal-page="{{ journal_page }}"
@@ -63,6 +67,9 @@
              readonly="readonly"
            {% endif %}
    >{{ comment }}</textarea>
+   {% if field_comment_responsible %}
+   <div class="commentAuthor">Автор: {{ field_comment_responsible }}</div>
+   {% endif %}
 </span>
 
 

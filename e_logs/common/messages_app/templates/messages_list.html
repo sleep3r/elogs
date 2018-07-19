@@ -1,0 +1,79 @@
+{% extends 'base_page.html' %}
+{% load staticfiles %}
+
+{% load i18n %}
+
+{% block title %}
+    <title>Все сообщения</title>
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="{% static '/vendors/bootstrap/dist/css/bootstrap-notifications.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <br><br><br>
+        <ul class="notifs">
+            {% for message in messages reversed %}
+                <li class="notif">
+                    <div class="media">
+                        <div class="media-left">
+                            <div class="media-object">
+                                <img src="/static/images/no-avatar.png" class="emp-img" alt="">{{ user_name }}
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <strong class="notification-title">
+                                <a href="#">{{message.sendee}}</a> 
+                                
+                                {% if message.type == 'critical_value' %}
+                                    ввел в поле
+                                {% elif message.type == 'comment'%}
+                                    оставил к полю
+                                {% endif %}
+
+                                <a href="{{message.cell_link}}">{{message.cell_field_name}}</a>
+                            </strong>
+
+                            {% if message.type == 'critical_value' %}
+                                <p class="notif-desc-critical">{{message.text}}</p>
+                            {% elif message.type == 'comment'%}
+                                <p class="notif-desc-comment">{{message.text}}</p>
+                            {% endif %}
+
+                            <div class="notif-meta">
+                                <small class="timestamp">{{message.created}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
+
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">ЕЩЁ</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="/static/build/js/custom.js"></script>
+    <script src="/static/build/js/messages/jquery.waypoints.min.js"></script>
+    <script src="/static/build/js/messages/infinite.min.js"></script>
+    <script>
+        var infinite = new Waypoint.Infinite({
+            element: $('.notifs')[0],
+            onBeforePageLoad: function () {
+                $('.loading').show();
+            },
+            onAfterPageLoad: function ($items) {
+                $('.loading').hide();
+            }
+        });
+    </script>
+{% endblock %}
