@@ -62,11 +62,13 @@ class MessageView(View):
 
     def post(self, request, crud, type=None):
         cell = self.getCell(request)
+        print(cell)
         if crud == 'create':
 
             if type == 'critical_value':
                 value = request.POST.get('field_value', None)
                 if value:
+                    print(value)
                     m_link = self.getLinkToJournal(cell)
                     for emp in messages.get_addressees(all=True):
                         msg = messages.filter_or_none(cell, type, emp)

@@ -1,5 +1,8 @@
-from django.db import models
 from datetime import time, date, datetime, timedelta
+
+from django.db import models
+from django.utils import timezone
+from django.utils.timezone import make_aware
 
 
 class Plant(models.Model):
@@ -43,7 +46,7 @@ class JournalPage(models.Model):
     def shift_start_time(self):
         shift_hour = (8 + (self.shift_order-1) * (24//self.plant.number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
-        return datetime.combine(self.shift_date, shift_time)
+        return make_aware(datetime.combine(self.shift_date, shift_time))
 
     @property
     def shift_end_time(self):
@@ -52,7 +55,7 @@ class JournalPage(models.Model):
 
     @property
     def shift_is_active(self):
-        return self.shift_start_time <= datetime.now() <= self.shift_end_time
+        return self.shift_start_time <= timezone.now() <= self.shift_end_time
 
     class Meta:
         unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name']

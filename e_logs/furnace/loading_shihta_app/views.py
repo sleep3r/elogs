@@ -5,6 +5,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
+from django.utils import timezone
 from e_logs.core.utils.deep_dict import deep_dict
 
 from e_logs.common.all_journals_app.models import JournalPage
@@ -39,7 +40,7 @@ def index(request):
     months_ru = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     context.months_trans = dict(zip(context.months, months_ru))
     context.plan_or_fact = ['plan', 'fact']
-    context.date_year = datetime.now().year
+    context.date_year = timezone.now().year
     context.cur_month = context.months[date.today().month-1]
 
     context.tables = [

@@ -1,5 +1,7 @@
 {% extends 'base_page.html' %}
 {% load staticfiles %}
+{% load tz %}
+
 
 {% load i18n %}
 
@@ -21,7 +23,7 @@
                     <div class="media">
                         <div class="media-left">
                             <div class="media-object">
-                                <img src = "{% static 'images/no-avatar.png" class="emp-img" alt="' %}">{{ user_name }}
+                                <img src = "{% static 'images/no-avatar.png' %}" class="emp-img">{{ user_name }}
                             </div>
                         </div>
                         <div class="media-body">

@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.db import models
 from e_logs.common.login_app.models import Employee
 
@@ -8,7 +9,7 @@ from e_logs.core.utils.settings import CSRF_LENGTH
 
 class Message(models.Model):
     is_read = models.BooleanField(default=False, verbose_name='Прочитано')
-    created = models.DateTimeField(default=datetime.now, blank=True)
+    created = models.DateTimeField(default=timezone.now, blank=True)
 
     type = models.CharField(max_length=100, verbose_name='Тип сообщения', null=True,choices=(('critical_value', 'Критическое значение'),
                                                                                               ('comment', 'Замечание')) )
