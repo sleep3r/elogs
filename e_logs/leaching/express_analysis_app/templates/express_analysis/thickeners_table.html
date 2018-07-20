@@ -22,10 +22,35 @@
                 <th colspan="2">{% trans "НС" %} 12{% trans "сг." %}</th>
             </tr>
             <tr>
-              {% for subColumn in thickeners_table.columns %}
+              {% for _ in 3|times %}
                 <th class="rotate header-vsns">
                     <div>
-                        <span>{{subColumn|safe}}</span>
+                        <span>{% trans 'pH' %}</span>
+                    </div>
+                </th>
+                <th class="rotate header-vsns">
+                    <div>
+                        <span>{% trans 'Медь' %}, {% trans 'мг/л' %}</span>
+                    </div>
+                </th>
+                <th class="rotate header-vsns">
+                    <div>
+                        <span>{% trans 'Железо' %}, {% trans 'мг/л' %}</span>
+                    </div>
+                </th>
+                <th class="rotate header-vsns">
+                    <div>
+                        <span>{% trans 'Ж:Т' %}</span>
+                    </div>
+                </th>
+                <th class="rotate header-vsns">
+                    <div>
+                        <span>{% trans 'pH' %}</span>
+                    </div>
+                </th>
+                <th class="rotate header-vsns">
+                    <div>
+                        <span>{% trans 'Ж:Т' %}</span>
                     </div>
                 </th>
               {% endfor %}

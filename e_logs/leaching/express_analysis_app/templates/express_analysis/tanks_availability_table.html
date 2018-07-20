@@ -16,15 +16,90 @@
                 </tr>
             </thead>
         <tbody>
-            {% for subColumn in tanks_availability_table.columns %} 
-                    <tr>
-                        <th>{{forloop.counter}}</th>
-                        <th>{{subColumn|safe}}</th>
-                        {% for name in tanks_availability_table.db_columns|index:forloop.counter %}
-                            <td>{% include "value.html" with field_name=name index=0 %}</td>
-                        {% endfor %}
-                    </tr>
-            {% endfor %}
+            <tr>
+                <th>1</th>
+                <th>{% trans "Бак отработ." %} {% trans "1-2 серий" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_waste_tank_1-2seria" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_waste_tank_1-2seria" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_waste_tank_1-2seria" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th>{% trans "Манны" %} №1-9</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_manns_1-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_manns_1-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_manns_1-9" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <th>{% trans "Манны" %} {% trans "ВТВ" %} №10-12</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_manns_VTV_10-12" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_manns_VTV_10-12" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_manns_VTV_10-12" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>4</th>
+                <th>{% trans "Обор-й сгуститель" %} №9</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_thickener-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_thickener-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_thickener-9" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>5</th>
+                <th>{% trans "Агитатор" %} 22</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_agitator-22" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_agitator-22" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_agitator-22" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>6</th>
+                <th>{% trans "Бак нейтр. р-ра" %}, {% trans "1-й цех" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_neutral_tank" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_neutral_tank" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_neutral_tank" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>7</th>
+                <th>{% trans "Ман отраб." %} №2, {% trans "1-й цех" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_waste_mann-2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_waste_mann-2" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_waste_mann-2" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>8</th>
+                <th>{% trans "Ман отраб." %} №3, {% trans "1-й цех" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_waste_mann-3" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_waste_mann-3" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_waste_mann-3" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>9</th>
+                <th>{% trans "Ман отраб." %} №9, {% trans "1-й цех" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_waste_mann-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_waste_mann-9" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_waste_mann-9" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>10</th>
+                <th>-</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_-" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_-" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_-" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>11</th>
+                <th>{% trans "СМЕННЫЙ БАЛАНС" %}</th>
+                    <td>{% include "value.html" with field_name="prev_measurements_removable_balance" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="current_measurements_removable_balance" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>12</th>
+                <th>{% trans "СУТОЧНЫЙ БАЛАНС" %}</th>
+                    <td>{% include "value.html" with field_name="divergence_removable_balance" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="prev_measurements_daily_balance" index=0 %}</td>
+                    <td>{% include "value.html" with field_name="divergence_daily_balance" index=0 %}</td>
+            </tr>
         </tbody>
     </table>
 {% endblock %}
