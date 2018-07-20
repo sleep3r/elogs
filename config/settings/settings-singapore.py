@@ -104,8 +104,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'e_logs.core.middleware.ExceptionMiddleware',
-
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -116,28 +114,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'DjangoRelease',
-#         'HOST': '88.99.2.149',
-#         'PORT': '',
-#         'USER': 'InframineDeveloper',
-#         'PASSWORD': 'Singapore2017',
-#
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 13 for SQL Server',
-#         },
-#     },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'DjangoRelease',
+        'HOST': '88.99.2.149',
+        'PORT': '',
+        'USER': 'InframineDeveloper',
+        'PASSWORD': 'Singapore2017',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
+}
 
 
 # Password validation
@@ -172,6 +170,7 @@ USE_L10N = True
 USE_TZ = True
 
 ugettext = lambda s: s
+
 LANGUAGES = (
     ('ru', ugettext('Russian')),
     ('en', ugettext('English')),
@@ -183,79 +182,3 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue'
-        }
-    },
-    'formatters': {
-        'main_formatter': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-        'color_formatter': {
-            '()': 'logs.formatters.ColorsFormatter',
-            'format': "[%(asctime)s] %(levelname)s %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'color_formatter',
-        },
-        'production_file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 7,
-            'formatter': 'main_formatter',
-            'filters': ['require_debug_false'],
-        },
-        'debug_file': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main_debug.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 7,
-            'formatter': 'main_formatter',
-            'filters': ['require_debug_true'],
-        },
-        'null': {
-            "class": 'logging.NullHandler',
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins', 'console', 'debug_file'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'py.warnings': {
-            'handlers': ['console', ],
-        },
-        '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
-            'level': "DEBUG",
-        },
-        'django': {
-            'handlers': ['console'],
-            'propagate': True,
-        },
-    }
-}
