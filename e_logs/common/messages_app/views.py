@@ -46,7 +46,7 @@ class MessageView(View):
                   cell_link = link)
         new_msg.save()
 
-    def update(self, cell):
+    def update(self, cell, type):
         msgs = messages.filter_or_none(cell, type, addressee=None)
         if msgs:
             for m in msgs:
@@ -78,7 +78,7 @@ class MessageView(View):
                         else:
                             self.create(request,type, cell, value, emp, m_link)
                 else:
-                    self.update(cell)
+                    self.update(cell, type)
 
 
             if type == 'comment':
@@ -95,7 +95,7 @@ class MessageView(View):
                         else:
                             self.create(request, type, cell, comment_text, emp, m_link)
                 else:
-                    self.update(cell)
+                    self.update(cell, type)
 
 
         if crud == 'read':
@@ -110,7 +110,7 @@ class MessageView(View):
 
 
         if crud == 'update':
-            self.update(cell)
+            self.update(cell, type)
 
         return JsonResponse({"result": 1})
 
@@ -122,8 +122,10 @@ class MessagesList(ListView):
     template_name = 'messages_list.html'
 
     def get_queryset(self):
+        raise AccessError()
         return self.model.objects.filter(addressee=self.request.user.employee)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    
