@@ -10,17 +10,17 @@ from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
-from furnace.fractional_app.models import *
-from furnace.fractional_app import models as famodels
+from e_logs.furnace.fractional_app.models import *
+from e_logs.furnace.fractional_app import models as famodels
 # from leaching.express_anal_app import models as eamodels
 # from leaching.repair_reports_app import models as remodels
 # from leaching.express_anal_app.models import *
-from common.all_journals_app import models as comodels
-from common.all_journals_app.models import *
+from e_logs.common.all_journals_app import models as comodels
+from e_logs.common.all_journals_app.models import *
 # from leaching.repair_app.models import *
-from utils.webutils import parse, translate
+from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
-from login_app.models import Employee
+from e_logs.common.login_app.models import Employee
 
 # onegin = None
 

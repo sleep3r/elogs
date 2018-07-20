@@ -31,12 +31,12 @@
     {% block extracss %}
     {% endblock %}
     <!-- jQuery -->
-    <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+    <script src = "{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
     <!-- underscore -->
-    <script src="/static/vendors/underscore/underscore-min.js"></script>
-    <script src="/static/build/js/common.js"></script>
+    <script src = "{% static 'vendors/underscore/underscore-min.js' %}"></script>
+    <script src = "{% static 'build/js/common.js' %}"></script>
     <!-- jquery-confirm -->
-    <script src="/static/vendors/jquery-confirm/js/jquery-confirm.js"></script>
+    <script src = "{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -93,15 +93,15 @@
 
     </script>
     <!-- Bootstrap -->
-    <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/static/build/js/leaching_edit.js"></script>
-    <script src="/static/v/vue/vue.js"></script>
-    <script src="/static/v/vue/vue-resource.min.js" ></script>
-    <script src="/static/v/moment/moment.min.js"></script>
-    <script src="/static/vendors/fullcalendar/dist/fullcalendar.js"></script>
-    <script src="/static/build/js/datepicker.js"></script>
-    <script src="/static/build/js/shift.js"></script>
-    <script src="/static/vendors/pnotify/pnotify.custom.min.js"></script>
+    <script src = "{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src = "{% static 'build/js/leaching_edit.js' %}"></script>
+    <script src = "{% static 'v/vue/vue.js' %}"></script>
+    <script src = "{% static 'v/vue/vue-resource.min.js' %}" ></script>
+    <script src = "{% static 'v/moment/moment.min.js' %}"></script>
+    <script src = "{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
+    <script src = "{% static 'build/js/datepicker.js' %}"></script>
+    <script src = "{% static 'build/js/shift.js' %}"></script>
+    <script src = "{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
     {% endblock %}
 
     <script>

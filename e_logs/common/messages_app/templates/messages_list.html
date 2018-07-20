@@ -21,7 +21,7 @@
                     <div class="media">
                         <div class="media-left">
                             <div class="media-object">
-                                <img src="/static/images/no-avatar.png" class="emp-img" alt="">{{ user_name }}
+                                <img src = "{% static 'images/no-avatar.png" class="emp-img" alt="' %}">{{ user_name }}
                             </div>
                         </div>
                         <div class="media-body">
@@ -62,9 +62,9 @@
 
 {% block footer %}
     {{ block.super }}
-    <script src="/static/build/js/custom.js"></script>
-    <script src="/static/build/js/messages/jquery.waypoints.min.js"></script>
-    <script src="/static/build/js/messages/infinite.min.js"></script>
+    <script src = "{% static 'build/js/custom.js' %}"></script>
+    <script src = "{% static 'build/js/messages/jquery.waypoints.min.js' %}"></script>
+    <script src = "{% static 'build/js/messages/infinite.min.js' %}"></script>
     <script>
         var infinite = new Waypoint.Infinite({
             element: $('.notifs')[0],
