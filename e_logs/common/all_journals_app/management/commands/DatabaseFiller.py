@@ -20,6 +20,7 @@ from e_logs.common.all_journals_app.models import *
 # from leaching.repair_app.models import *
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
+from django.db import connection
 from e_logs.common.login_app.models import Employee
 
 # onegin = None
@@ -561,6 +562,15 @@ class DatabaseFiller:
             attribute = getattr(self, name)
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
                 attribute(journal_page=journal_page)
+
+    def reset_increment_counter(self, table_name):
+        with connection.cursor() as cursor:
+            # for sqlite
+            cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+
+            # for MS SQL server
+            #  DBCC CHECKIDENT(mytable, RESEED, 0)
+
 
     def create_permissions_and_groups(self):
         superuser = User.objects.get(username="inframine")
