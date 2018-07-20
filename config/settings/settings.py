@@ -202,7 +202,7 @@ LOGGING = {
         },
         'color_formatter': {
             '()': 'logs.formatters.ColorsFormatter',
-            'format': "[%(asctime)s] %(levelname)s %(message)s",
+            'format': "[%(asctime)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
     },
@@ -247,14 +247,14 @@ LOGGING = {
             'propagate': True,
         },
         'py.warnings': {
-            'handlers': ['console', ],
+            'handlers': ['debug_file', ],
         },
         '': {
             'handlers': ['console', 'production_file', 'debug_file'],
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['console'],
+            'handlers': ['debug_file'],
             'propagate': True,
         },
     }
