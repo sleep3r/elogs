@@ -68,6 +68,9 @@ def granularity_object(request):
 def granularity_gaphs(request):
     def get_mean(masses, sizes):
         msum = sum(masses)
+        if msum == 0:
+            return 0
+            
         mass_parts = [m/msum for m in masses]
         sizes = sizes + [sizes[-1]]
         middles = [(sizes[i] + sizes[i+1])/2 for i in range(len(sizes)-1)]
