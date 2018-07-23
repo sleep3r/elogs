@@ -12,8 +12,6 @@ contain_zn.Ag_con = gt_default
 contain_zn_table_desc = contain_zn.clear_empty().get_dict()
 
 
-
-
 fs = deep_dict()
 fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2", "Fe", "S", "As", "Sb", "S_sulf"]
 

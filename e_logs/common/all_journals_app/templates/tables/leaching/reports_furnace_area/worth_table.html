@@ -1,0 +1,37 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Мат. Тех. Ценности{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+    <tr>
+        <th colspan="2"> Материально-технические ценности приняты на самохрану </th>
+    </tr>
+    <tr>
+        <td colspan="2">{% include "value.html" with field_name="material" index=0 %}</td>
+    </tr>
+    <tr>
+        <th colspan="2"> Замечания по работе оборудования </th>
+    </tr>
+    <tr>
+        <td colspan="2">{% include "value.html" with field_name="note" index=0 %}</td>
+    </tr>
+    <tr>
+        <th> Аспирация и вентиляция </th>
+        <td>{% include "value.html" with field_name="aspiration" index=0 %}</td>
+    </tr>
+    <tr>
+        <th> КИПиА </th>
+        <td>{% include "value.html" with field_name="kip" index=0 %}</td>
+    </tr>
+    <tr>
+        <th> Электроборудование </th>
+        <td>{% include "value.html" with field_name="electro" index=0 %}</td>
+    </tr>
+    <tr>
+        <th> Дополнительные замечания </th>
+        <td>{% include "value.html" with field_name="extra_note" index=0 %}</td>
+    </tr>
+</table>
+{% endblock %}

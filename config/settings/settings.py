@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import sys
 from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -69,31 +68,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
-
+    
     'e_logs.core.apps.CoreConfig',
 
     'e_logs.common.login_app.apps.LoginApp',
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
 
-    'e_logs.leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
+    # TODO: DELETE THIS APP !!!!!!!!!
     'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
-    'e_logs.furnace.repair_app.apps.FurnaceRepairAppConfig',
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
-    'e_logs.furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
-    'e_logs.furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
-    'e_logs.furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
-    'e_logs.furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
-    'e_logs.furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
-    'e_logs.furnace.reports_furnace_area_app.apps.FurnaceReportsFurnaceAreaAppConfig',
-    'e_logs.furnace.buffering_app.apps.BufferingAppConfig',
-
-    'e_logs.electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
-    'e_logs.electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
-    'e_logs.electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
-    'e_logs.electrolysis.repair_report_app.apps.RepairReportAppConfig',
-    'e_logs.electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -208,17 +193,11 @@ LOGGING = {
         },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
         'console': {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'color_formatter',
-            'stream': sys.stdout
         },
         'production_file': {
             'level': 'INFO',
@@ -229,11 +208,38 @@ LOGGING = {
             'formatter': 'main_formatter',
             'filters': ['require_debug_false'],
         },
-        'debug_file': {
+        'debug_file_debug': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main_debug.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'filename': 'logs/main_debug_debug.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_info.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_error.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_calls': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_calls.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
@@ -244,20 +250,28 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'console', 'debug_file'],
+            'handlers': ['console', 'debug_file_error'],
             'level': 'ERROR',
             'propagate': True,
         },
         'py.warnings': {
-            'handlers': ['debug_file', ],
+            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
+            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['debug_file'],
-            'propagate': True,
+            'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
+        },
+        'CALL': {
+            'handlers': ['debug_file_calls'],
+        },
+        'STDOUT': {
+            'handlers': ['console'],
+        },
+        'STDERR': {
+            'handlers': ['console'],
         },
     }
 }

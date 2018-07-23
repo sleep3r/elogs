@@ -1,0 +1,23 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Самоохрана{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th> Время обхода объекта </th>
+                <th> Замечания </th>
+                <th> Отметка об устранении </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% include "value.html" with field_name="time" index=0 %}</td>
+                <td>{% include "value.html" with field_name="comments" index=0 %}</td>
+                <td>{% include "value.html" with field_name="mark" index=0 %}</td>
+            </tr>
+        </tbody>
+</table>
+{% endblock %}

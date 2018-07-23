@@ -40,7 +40,7 @@ s1.zn_rosp = text_default
 s1.t_sm_rosp = numeric_default
 s1.q_rosp = text_default
 s1.gradirni = text_default
-s1.cooler1 = number_default #
+s1.cooler1 = number_default
 s1.cooler2 = number_default
 s1.cooler3 = number_default
 s1.cooler4 = number_default
@@ -70,7 +70,6 @@ s1.V6_otr = m3_default
 s1.VII = m3_default
 
 
-
 pt = deep_dict()
 pt.percent_Pb = percent_default
 pt.percent_Cu = percent_default
@@ -78,12 +77,6 @@ pt.percent_Fe = percent_default
 pt.percent_Cd = percent_default
 pt.percent_Al = percent_default
 pt.percent_Zn = percent_default
-# pt.n_Pb = text_default
-# pt.mery_Pb = text_default
-
-# pt.percent_Cu = text_default
-# pt.n_Cu = text_default
-# pt.mery_Cu = text_default
 
 
 a1 = deep_dict()

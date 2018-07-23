@@ -1,11 +1,9 @@
-import json
 from datetime import time
 
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
-
- #-----------------Left Table-----------------#
+# -----------------Left Table-----------------
 lt = deep_dict()
 
 rows_names_for_db = [
@@ -26,27 +24,27 @@ rows_names_for_db = [
 ]
 
 rows_names_for_view = [
-        "Zn в отр., г/л",
-        "Смеси, г/л",
-        "H₂SO₄ отр., г/л",
-        "Удельный вес хол-го раствора, г/см³",
-        "Удельный вес отр-го раствора, г/см³",
-        "Температура смеси, ᵒC",
-        "Температура в ваннах, ᵒC",
-        "Температура H₂O, ᵒC",
-        "Давление H₂O, Па",
-        "Давление пара, Па",
-        "Сточные воды, Рh",
-        "Температура точки 5 ВИУ, ᵒC",
-        "Температура точки 6 ВИУ, ᵒC",
-        "Температура точки 7 ВИУ, ᵒC"
+    "Zn в отр., г/л",
+    "Смеси, г/л",
+    "H₂SO₄ отр., г/л",
+    "Удельный вес хол-го раствора, г/см³",
+    "Удельный вес отр-го раствора, г/см³",
+    "Температура смеси, ᵒC",
+    "Температура в ваннах, ᵒC",
+    "Температура H₂O, ᵒC",
+    "Давление H₂O, Па",
+    "Давление пара, Па",
+    "Сточные воды, Рh",
+    "Температура точки 5 ВИУ, ᵒC",
+    "Температура точки 6 ВИУ, ᵒC",
+    "Температура точки 7 ВИУ, ᵒC"
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
-             zip(rows_names_for_db, rows_names_for_view)]
+                zip(rows_names_for_db, rows_names_for_view)]
 
-
-field_infos_for_rows = [gl_default]*3 + [gsm3_default]*2 +[temperature_default]*3 + [pa_default]*2+[dict(type="number", units = "Рh")]+[temperature_default]*3
+field_infos_for_rows = [gl_default] * 3 + [gsm3_default] * 2 + [temperature_default] * 3 + [pa_default] * 2 + [
+    dict(type="number", units="Рh")] + [temperature_default] * 3
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
@@ -64,15 +62,14 @@ for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
 
 left_table_desc = lt.clear_empty().get_dict()
 
-#-----------------Right Table-----------------#
+# -----------------Right Table-----------------#
 rt = deep_dict()
-
 
 rt.h2so4 = text_default
 rt.zn = gl_default
 rt.viu_in = numeric_default
 
-#--------part1----------#
+# --------part1----------#
 rt.viu1_1 = m3_default
 rt.viu1_2 = m3_default
 rt.viu2_1 = m3_default
@@ -92,8 +89,7 @@ rt.bt1 = percent_default
 rt.weight1_1 = gsm3_default
 rt.weight2_1 = gsm3_default
 
-
-#--------part2----------#
+# --------part2----------#
 
 rt.pumpnum1 = number_default
 rt.pumpnum2 = number_default
@@ -113,7 +109,7 @@ rt.sb2 = mgl_default
 rt.fe2p2 = mgl_default
 rt.weight1_2 = gsm3_default
 
-#--------part3–--------#
+# --------part3–--------#
 
 rt.pumpnum9 = number_default
 rt.pumpnum10 = number_default
@@ -129,6 +125,5 @@ rt.pumpnum18 = number_default
 rt.reason3 = text_default
 rt.zump_pump = number_default
 rt.reason4 = text_default
-
 
 right_table_desc = rt.clear_empty().get_dict()

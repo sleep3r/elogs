@@ -284,7 +284,7 @@ loads.bunker_cvco = amper_default
 loads.silos = amper_default
 loads.bunkers_oc = amper_default
 
-loads.description  = text_default
+loads.description = text_default
 loads_table_desc = loads.clear_empty().get_dict()
 
 sample = deep_dict()

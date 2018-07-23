@@ -41,20 +41,20 @@ var selectedElement = null;
 function onKeyDownAction(e) {
     // if 'input' is active(e.g page mode is 'edit')
     if (document.activeElement.tagName === 'INPUT') {
-        let input = document.activeElement;
+        const input = document.activeElement;
         if (input.type === 'number') {
-            var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
+            const popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
             // If number or ',' or '.' was pressed
-            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == '188' || e.keyCode == '190') {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === '188' || e.keyCode === '190') {
                 console.log('number was pressed in number field');
                 popup.classList.remove('show')
             } else {
-                if (e.keyCode != '8' &&
-                    e.keyCode != '46' &&
-                    e.keyCode != '37' &&
-                    e.keyCode != '38' &&
-                    e.keyCode != '39' &&
-                    e.keyCode != '40') {
+                if (e.keyCode !== '8' &&
+                    e.keyCode !== '46' &&
+                    e.keyCode !== '37' &&
+                    e.keyCode !== '38' &&
+                    e.keyCode !== '39' &&
+                    e.keyCode !== '40') {
                     popup.classList.add('show');
                     setTimeout(function () {
                         popup.classList.remove('show');
@@ -65,7 +65,7 @@ function onKeyDownAction(e) {
                     popup.classList.remove('show');
                 }
                 // backspace and delete
-                if (e.keyCode != '8' && e.keyCode != '46') {
+                if (e.keyCode !== '8' && e.keyCode !== '46') {
                     e.preventDefault();
                 }
             }
@@ -79,31 +79,31 @@ function onKeyDownAction(e) {
     }
     e = e || window.event;
 
-    if (e.keyCode == '38') { // up arrow
-        var idx = selectedElement.cellIndex;
-        var nextrow = selectedElement.parentElement.previousElementSibling;
+    if (e.keyCode === '38') { // up arrow
+        let idx = selectedElement.cellIndex;
+        let nextrow = selectedElement.parentElement.previousElementSibling;
         if (nextrow != null) {
-            var sibling = nextrow.cells[idx];
+            let sibling = nextrow.cells[idx];
             if (sibling) {
                 Journal.focusTo(sibling);
             }
         }
-    } else if (e.keyCode == '40') { // down arrow
-        var idx = selectedElement.cellIndex;
-        var nextrow = selectedElement.parentElement.nextElementSibling;
+    } else if (e.keyCode === '40') { // down arrow
+        let idx = selectedElement.cellIndex;
+        let nextrow = selectedElement.parentElement.nextElementSibling;
         if (nextrow != null) {
-            var sibling = nextrow.cells[idx];
+            let sibling = nextrow.cells[idx];
             if (sibling) {
                 Journal.focusTo(sibling);
             }
         }
-    } else if (e.keyCode == '37') { // left arrow
-        var sibling = selectedElement.previousElementSibling;
+    } else if (e.keyCode === '37') { // left arrow
+        let sibling = selectedElement.previousElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);
         }
-    } else if (e.keyCode == '39') { // right arrow
-        var sibling = selectedElement.nextElementSibling;
+    } else if (e.keyCode === '39') { // right arrow
+        let sibling = selectedElement.nextElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);
         }

@@ -3,9 +3,13 @@ import json
 import secrets
 import string
 import time
+import logging
+
 from collections import defaultdict
 from json import JSONEncoder
 from traceback import print_exc
+from functools import wraps
+
 
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
@@ -33,6 +37,7 @@ def process_json_view(auth_required=True):
     :param auth_required:
     :return:
     """
+
     def real_decorator(view):
         def w(request, **kwargs):
             if auth_required:
@@ -62,7 +67,8 @@ def process_json_view(auth_required=True):
                 if type(response) is dict:
                     response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
                 else:
-                    response = JsonResponse(response, safe=False, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
+                    response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
+                                            json_dumps_params={'indent': 4})
 
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
@@ -71,6 +77,7 @@ def process_json_view(auth_required=True):
             return response
 
         return csrf_exempt(w)
+
     return real_decorator
 
 
@@ -131,7 +138,7 @@ def translate(name):
         (u"Э", u"E"),
         (u"Ъ", u"`"),
         (u"Ь", u"'"),
-        ## Маленькие буквы
+        # Маленькие буквы
         # three-symbols
         (u"щ", u"sch"),
         # two-symbols
@@ -186,3 +193,25 @@ def set_cookie(response, key, value, days_expire = 7):
     max_age = days_expire * 24 * 60 * 60
   expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
   response.set_cookie(key, value, max_age=max_age, expires=expires, domain=SESSION_COOKIE_DOMAIN, secure=SESSION_COOKIE_SECURE or None)
+
+
+def logged(func):
+    @wraps(func)
+    def w(*args, **kwargs):
+        import os
+        import sys
+        logger = logging.getLogger('CALL')
+        logger.debug(f'Вызов {func.__name__} в {func.__module__}, строка {func.__code__.co_firstlineno}')
+        return func(*args, **kwargs)
+    return w
+
+    
+def set_cookie(response, key, value, days_expire=7):
+    if days_expire is None:
+        max_age = 365 * 24 * 60 * 60  # one year
+    else:
+        max_age = days_expire * 24 * 60 * 60
+    expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age),
+                                         "%a, %d-%b-%Y %H:%M:%S GMT")
+    response.set_cookie(key, value, max_age=max_age, expires=expires, domain=SESSION_COOKIE_DOMAIN,
+                        secure=SESSION_COOKIE_SECURE or None)
