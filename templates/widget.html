@@ -21,7 +21,7 @@
 
 {% include "all_journals_app/journal_control_panel.html" %}
 
-{% for table in tables %}
-    {% get_table_name table.name as tn %}
-    {% include table.name with table_name=tn%}
+{% for table_path in tables_paths %}
+    {% get_table_name table_path as tn %}
+    {% include table_path with table_name=tn%}
 {% endfor %}

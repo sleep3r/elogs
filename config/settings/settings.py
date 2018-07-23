@@ -76,24 +76,10 @@ INSTALLED_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
 
-    'e_logs.leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
+    # TODO: DELETE THIS APP !!!!!!!!!
     'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
-    'e_logs.furnace.repair_app.apps.FurnaceRepairAppConfig',
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
-    'e_logs.furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
-    'e_logs.furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
-    'e_logs.furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
-    'e_logs.furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
-    'e_logs.furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
-    'e_logs.furnace.reports_furnace_area_app.apps.FurnaceReportsFurnaceAreaAppConfig',
-    'e_logs.furnace.buffering_app.apps.BufferingAppConfig',
-
-    'e_logs.electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
-    'e_logs.electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
-    'e_logs.electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
-    'e_logs.electrolysis.repair_report_app.apps.RepairReportAppConfig',
-    'e_logs.electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
