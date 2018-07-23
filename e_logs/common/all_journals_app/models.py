@@ -12,12 +12,13 @@ class Plant(models.Model):
         'electrolysis': 4
     }
     name = models.CharField(null=True,
-                             blank=True,
-                             default='leaching',
-                             max_length=128,
-                             choices=(('leaching', 'Выщелачивание'),
-                                      ('furnace', 'Обжиг'),
-                                      ('electrolysis', 'Электролиз')))
+                            blank=True,
+                            default='leaching',
+                            max_length=128,
+                            choices=(('leaching', 'Выщелачивание'),
+                                     ('furnace', 'Обжиг'),
+                                     ('electrolysis', 'Электролиз')))
+
     @property
     def number_of_shifts(self):
         return Plant.NUMBER_OF_SHIFTS[self.name]
@@ -45,7 +46,7 @@ class JournalPage(models.Model):
 
     @property
     def shift_start_time(self):
-        shift_hour = (8 + (self.shift_order-1) * (24//self.plant.number_of_shifts)) % 24
+        shift_hour = (8 + (self.shift_order - 1) * (24 // self.plant.number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
         return make_aware(datetime.combine(self.shift_date, shift_time))
 
@@ -74,7 +75,7 @@ class CellValue(models.Model):
 
     def __str__(self):
         return "journal_page: " + str(self.journal_page) + " table_name: " \
-               + str(self.table_name) + " field_name: " + str(self.field_name) +\
+               + str(self.table_name) + " field_name: " + str(self.field_name) + \
                " index: " + str(self.index) + " value: " + str(self.value)
 
     class Meta:

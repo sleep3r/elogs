@@ -15,7 +15,7 @@ MESSAGE = \
 {text}
 '''
 
-url="http://185.93.3.123:8080"
+url = "http://185.93.3.123:8080"
 
 telepot.api.set_proxy(url)
 
