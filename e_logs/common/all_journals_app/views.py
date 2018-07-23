@@ -104,8 +104,9 @@ def change_table(request):
 
     for field_name in request.POST:
         values = request.POST.getlist(field_name)
-        for i, val in enumerate(values):
-            CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
+        with transaction.atomic():
+            for i, val in enumerate(values):
+                CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
 
     return {"status": 1}
 
@@ -114,23 +115,6 @@ def change_table(request):
 @process_json_view(auth_required=False)
 def get_fields_descriptions(request):
     return fields_info_desc
-
-
-@csrf_exempt
-@process_json_view(auth_required=False)
-def add_responsible(request):
-    table_name = request.POST.get('table_name', None)
-    field_name = request.POST.get('field_name', None)
-    row_index = request.POST.get('index', None)
-    journal_page = request.POST.get('journal_page', None)
-
-    cell = messages.get_or_none(CellValue, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
-
-    if cell:
-        cell.responsible = request.user.employee
-        cell.save()
-
-    return {"result":1}
 
 
 def permission_denied(request, exception, template_name='errors/403.html'):

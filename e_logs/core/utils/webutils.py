@@ -166,6 +166,7 @@ def translate(name):
         (u"ф", u"f"),
         (u"х", u"h"),
         (u"э", u"e"),
+        (u"ь", ""),
     )
     # перебираем символы в таблице и заменяем
     for symb_in, symb_out in transtable:

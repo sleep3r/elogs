@@ -20,6 +20,7 @@ from e_logs.common.all_journals_app.models import *
 # from leaching.repair_app.models import *
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
+from django.db import connection
 from e_logs.common.login_app.models import Employee
 
 # onegin = None
@@ -562,10 +563,19 @@ class DatabaseFiller:
             if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
                 attribute(journal_page=journal_page)
 
+    def reset_increment_counter(self, table_name):
+        with connection.cursor() as cursor:
+            # for sqlite
+            cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+
+            # for MS SQL server
+            #  DBCC CHECKIDENT(mytable, RESEED, 0)
+
+
     def create_permissions_and_groups(self):
         superuser = User.objects.get(username="inframine")
         Employee(name="inframine", position="admin", user=superuser).save()
-        
+
         content_type = ContentType.objects.get_for_model(CellValue)
         modify_leaching = Permission(
             name="Modify Leaching Plant",
@@ -644,6 +654,15 @@ class DatabaseFiller:
         electrolysis.permissions.set([modify_electrolysis])
         electrolysis.save()
 
+    def create_settings(self):
+        Setting(name="shift_count", value=2, journal="concentrate_report").save()
+        Setting(name="shift_count", value=100, plant="furnace").save()
+
+        Setting(name="background", value="Lupa", table="uchet").save()
+        Setting(name="background", value="Pupa", plant="prekl").save()
+
+        Setting(name="test", value="Aleksey", table="toble").save()
+
 
     def clean_database(self):
         exception_models = [User, Model]
@@ -652,7 +671,7 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
-        db_models.extend([Employee, JournalPage, CellValue, Plant, Group, Permission])
+        db_models.extend([Setting, Employee, JournalPage, CellValue, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             if not u.username == 'inframine' and not u.is_superuser:

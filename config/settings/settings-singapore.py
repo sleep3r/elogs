@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import sys
 from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -76,10 +75,24 @@ INSTALLED_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
 
-    # TODO: DELETE THIS APP !!!!!!!!!
+    'e_logs.leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
     'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
+    'e_logs.furnace.repair_app.apps.FurnaceRepairAppConfig',
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
+    'e_logs.furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
+    'e_logs.furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
+    'e_logs.furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
+    'e_logs.furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
+    'e_logs.furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
+    'e_logs.furnace.reports_furnace_area_app.apps.FurnaceReportsFurnaceAreaAppConfig',
+    'e_logs.furnace.buffering_app.apps.BufferingAppConfig',
+
+    'e_logs.electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
+    'e_logs.electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
+    'e_logs.electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
+    'e_logs.electrolysis.repair_report_app.apps.RepairReportAppConfig',
+    'e_logs.electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -91,8 +104,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'e_logs.core.middleware.ExceptionMiddleware',
-
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -103,28 +114,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'DjangoRelease',
-#         'HOST': '88.99.2.149',
-#         'PORT': '',
-#         'USER': 'InframineDeveloper',
-#         'PASSWORD': 'Singapore2017',
-#
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 13 for SQL Server',
-#         },
-#     },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'DjangoRelease',
+        'HOST': '88.99.2.149',
+        'PORT': '',
+        'USER': 'InframineDeveloper',
+        'PASSWORD': 'Singapore2017',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
+}
 
 
 # Password validation
@@ -159,6 +170,7 @@ USE_L10N = True
 USE_TZ = True
 
 ugettext = lambda s: s
+
 LANGUAGES = (
     ('ru', ugettext('Russian')),
     ('en', ugettext('English')),
@@ -170,80 +182,3 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue'
-        }
-    },
-    'formatters': {
-        'main_formatter': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-        'color_formatter': {
-            '()': 'logs.formatters.ColorsFormatter',
-            'format': "[%(asctime)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'color_formatter',
-            'stream': sys.stdout
-        },
-        'production_file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 7,
-            'formatter': 'main_formatter',
-            'filters': ['require_debug_false'],
-        },
-        'debug_file': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main_debug.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
-            'backupCount': 7,
-            'formatter': 'main_formatter',
-            'filters': ['require_debug_true'],
-        },
-        'null': {
-            "class": 'logging.NullHandler',
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins', 'console', 'debug_file'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'py.warnings': {
-            'handlers': ['debug_file', ],
-        },
-        '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
-            'level': "DEBUG",
-        },
-        'django': {
-            'handlers': ['debug_file'],
-            'propagate': True,
-        },
-    }
-}

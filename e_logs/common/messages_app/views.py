@@ -1,9 +1,9 @@
 import json
 
 from django.http import JsonResponse
+from django.db import transaction
 from django.views import View
 from django.views.generic.list import ListView
-from django.template.loader import render_to_string
 from django.shortcuts import render
 
 from e_logs.common.login_app.models import Employee
@@ -13,7 +13,7 @@ from e_logs.common.messages_app.services import messages
 
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie
+from e_logs.core.utils.webutils import model_to_dict
 
 class MessageView(View):
 
@@ -46,7 +46,7 @@ class MessageView(View):
                   cell_link = link)
         new_msg.save()
 
-    def update(self, cell):
+    def update(self, cell, type):
         msgs = messages.filter_or_none(cell, type, addressee=None)
         if msgs:
             for m in msgs:
@@ -71,13 +71,14 @@ class MessageView(View):
                     for emp in messages.get_addressees(all=True):
                         msg = messages.filter_or_none(cell, type, emp)
                         if msg:
-                            for m in msg:
-                                m.text = value
-                                m.save()
+                            with transaction.atomic():
+                                for m in msg:
+                                    m.text = value
+                                    m.save()
                         else:
                             self.create(request,type, cell, value, emp, m_link)
                 else:
-                    self.update()
+                    self.update(cell, type)
 
 
             if type == 'comment':
@@ -87,13 +88,14 @@ class MessageView(View):
                     for emp in messages.get_addressees(all=True):
                         msg = messages.filter_or_none(cell, type, emp)
                         if msg:
-                            for m in msg:
-                                m.text = comment_text
-                                m.save()
+                            with transaction.atomic():
+                                for m in msg:
+                                    m.text = comment_text
+                                    m.save()
                         else:
                             self.create(request, type, cell, comment_text, emp, m_link)
                 else:
-                    self.update()
+                    self.update(cell, type)
 
 
         if crud == 'read':
@@ -108,7 +110,7 @@ class MessageView(View):
 
 
         if crud == 'update':
-            self.update()
+            self.update(cell, type)
 
         return JsonResponse({"result": 1})
 
@@ -119,9 +121,11 @@ class MessagesList(ListView):
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
-    # def get_queryset(self):
-    #     return self.model.objects.filter(addressee=self.request.user.employee)
+    def get_queryset(self):
+        raise AccessError()
+        return self.model.objects.filter(addressee=self.request.user.employee)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    
