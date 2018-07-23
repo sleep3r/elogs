@@ -13,10 +13,10 @@ from e_logs.common.messages_app.services import messages
 
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict
+from e_logs.core.utils.webutils import model_to_dict, logged
 
 class MessageView(View):
-
+    @logged
     def getCell(self, request):
         journal_page = request.POST.get('journal_page', None)
         table_name = request.POST.get('table_name', None)
@@ -25,7 +25,8 @@ class MessageView(View):
         cell = messages.get_or_none(CellValue, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
         return cell
 
-    @staticmethod    
+    @staticmethod
+    @logged
     def getLinkToJournal(cell):
         j_page = cell.journal_page
         journal_name = j_page.journal_name
@@ -33,6 +34,7 @@ class MessageView(View):
         field_name = cell.field_name.replace("_comment", "")
         return f'/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{cell.index}#table_id_{cell.table_name}">{field_name}'
 
+    @logged
     def create(self, request, type, cell, text, addressee, link):
         new_msg = Message(
                   sendee = request.user.employee,
@@ -46,6 +48,7 @@ class MessageView(View):
                   cell_link = link)
         new_msg.save()
 
+    @logged
     def update(self, cell, type):
         msgs = messages.filter_or_none(cell, type, addressee=None)
         if msgs:
@@ -53,6 +56,7 @@ class MessageView(View):
                 m.is_read = True
                 m.save()
 
+    @logged
     def get(self, request):
         res = deep_dict()
         res['messages'] = {}
@@ -60,6 +64,7 @@ class MessageView(View):
             res['messages'][m.id] = model_to_dict(m)
         return res
 
+    @logged
     def post(self, request, crud, type=None):
         cell = self.getCell(request)
         if crud == 'create':
@@ -121,10 +126,11 @@ class MessagesList(ListView):
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
+    @logged
     def get_queryset(self):
-        raise AccessError()
         return self.model.objects.filter(addressee=self.request.user.employee)
 
+    @logged
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context

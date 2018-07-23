@@ -1,29 +1,24 @@
+import json
 from datetime import timedelta
+
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from e_logs.furnace.fractional_app.models import *
-from e_logs.common.all_journals_app.services.messages import get_messages_dict
-from e_logs.core.utils.deep_dict import deep_dict
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
+from e_logs.furnace.fractional_app.models import *
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.webutils import process_json_view
-import json
-
 
 @login_required
 def index(request):
     context = {
-        'user_name': str(request.user.employee),
-        'notifications': get_messages_dict(request.user.employee),
         'journal_title': 'Ситовой анализ огарка и шихты'
     }
-
-
     template = loader.get_template('furnace-index.html')
     return HttpResponse(template.render(context, request))
-
 
 @login_required
 def add_measurement(request):

@@ -7,13 +7,14 @@ from e_logs.common.login_app.models import Employee
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage, Feedback
-from e_logs.core.utils.webutils import process_json_view
+from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.messages_app.services import messages
 from .feedback import send_feedback
 
 
 @csrf_exempt
 @process_json_view(auth_required=False)
+@logged
 def change_table(request):
     tn = request.POST['table_name']
     jp = request.POST['journal_page']
@@ -36,10 +37,12 @@ def change_table(request):
 
 @csrf_exempt
 @process_json_view(auth_required=False)
+@logged
 def get_fields_descriptions(request):
     return fields_info_desc
 
 
+@logged
 def permission_denied(request, exception, template_name='errors/403.html'):
     try:
         template = loader.get_template(template_name)
@@ -50,6 +53,7 @@ def permission_denied(request, exception, template_name='errors/403.html'):
 
 @csrf_exempt
 @process_json_view(auth_required=False)
+@logged
 def send_message_to_devs(request):
     send_feedback(request.POST)
     return {"result":1}
