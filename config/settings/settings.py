@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import sys
 from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -69,7 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webpack_loader',
-
+    
     'e_logs.core.apps.CoreConfig',
 
     'e_logs.common.login_app.apps.LoginApp',
@@ -208,17 +207,11 @@ LOGGING = {
         },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
         'console': {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'color_formatter',
-            'stream': sys.stdout
         },
         'production_file': {
             'level': 'INFO',
@@ -229,11 +222,38 @@ LOGGING = {
             'formatter': 'main_formatter',
             'filters': ['require_debug_false'],
         },
-        'debug_file': {
+        'debug_file_debug': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/main_debug.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'filename': 'logs/main_debug_debug.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_info.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_error.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_calls': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_calls.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
@@ -244,20 +264,28 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'console', 'debug_file'],
+            'handlers': ['console', 'debug_file_error'],
             'level': 'ERROR',
             'propagate': True,
         },
         'py.warnings': {
-            'handlers': ['debug_file', ],
+            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
+            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['debug_file'],
-            'propagate': True,
+            'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
+        },
+        'CALL': {
+            'handlers': ['debug_file_calls'],
+        },
+        'STDOUT': {
+            'handlers': ['console'],
+        },
+        'STDERR': {
+            'handlers': ['console'],
         },
     }
 }
