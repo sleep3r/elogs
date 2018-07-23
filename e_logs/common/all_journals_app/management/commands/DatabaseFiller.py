@@ -573,7 +573,8 @@ class DatabaseFiller:
 
 
     def create_permissions_and_groups(self):
-        superuser = User.objects.get(username="inframine")
+        superuser = User.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
+        superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
         content_type = ContentType.objects.get_for_model(CellValue)
