@@ -15,6 +15,7 @@ from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged
 
+
 class MessageView(View):
     @logged
     def getCell(self, request):
@@ -134,4 +135,3 @@ class MessagesList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-    

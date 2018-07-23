@@ -126,7 +126,6 @@ def get_setting_value(name, plant=None, journal=None, table=None, cell=None):
             return plant_settings[0].value
 
     raise ValueError("No setting for such scope")
-    return
 
 
 class Setting(models.Model):

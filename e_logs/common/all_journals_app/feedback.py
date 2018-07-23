@@ -16,7 +16,7 @@ MESSAGE = \
 '''
 
 url="http://185.93.3.123:8080"
-# auth = ("proxyuser", "i063Pur3W5OBvqRRA")
+
 telepot.api.set_proxy(url)
 
 Bot = telepot.Bot(TOKEN)
@@ -30,7 +30,8 @@ def send_feedback(data):
         journal=data["journal"],
         theme=data["theme"],
         text=data["text"]
-    ).save();
+    ).save()
+
     Bot.sendMessage(
         CHANNEL,
         MESSAGE.format(

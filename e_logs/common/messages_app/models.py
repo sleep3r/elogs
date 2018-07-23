@@ -7,6 +7,7 @@ from e_logs.common.login_app.models import Employee
 
 from e_logs.core.utils.settings import CSRF_LENGTH
 
+
 class Message(models.Model):
     is_read = models.BooleanField(default=False, verbose_name='Прочитано')
     created = models.DateTimeField(default=timezone.now, blank=True)

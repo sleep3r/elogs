@@ -1,19 +1,18 @@
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
-
-
-#------year plan schieht--------
+# ------year plan schieht--------
 yps = deep_dict()
-yps.concentrate = dict(type="datalist",options=["ЗГОК", "Арт-ий",
-                                                        "Усть-ТАЛ",
-                                                        "Карагайлы",
-                                                        "Верх-Бер",
-                                                        "Белоусовка",
-                                                        "Жезкент",
-                                                        "Н.Широкинский",
-                                                        "Лесосиб",
-                                                        "Алтын-Топкан"])
+yps.concentrate = dict(type="datalist", options=["ЗГОК",
+                                                 "Арт-ий",
+                                                 "Усть-ТАЛ",
+                                                 "Карагайлы",
+                                                 "Верх-Бер",
+                                                 "Белоусовка",
+                                                 "Жезкент",
+                                                 "Н.Широкинский",
+                                                 "Лесосиб",
+                                                 "Алтын-Топкан"])
 yps.year_plans = smt_default
 yps.month_smt = smt_default
 yps.day_smt = smt_default
@@ -42,20 +41,20 @@ year_plan_schieht_desc = yps.clear_empty().get_dict()
 
 bt = deep_dict()
 
-#------ Loading Schieht Table --------
+# ------ Loading Schieht Table --------
 
 main_table = deep_dict()
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
+          'December']
 
 for month in months:
     for p_f in ['plan', 'fact']:
-        main_table['concentrate__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000)
-        main_table['zn__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000, units='')
-        main_table['ratio__'+p_f+'__'+month] = dict(type="number", min_normal=10, max_normal=1000, units='')
+        main_table['concentrate__' + p_f + '__' + month] = dict(type="number", min_normal=10, max_normal=1000)
+        main_table['zn__' + p_f + '__' + month] = dict(type="number", min_normal=10, max_normal=1000, units='')
+        main_table['ratio__' + p_f + '__' + month] = dict(type="number", min_normal=10, max_normal=1000, units='')
 main_table_desc = main_table.clear_empty().get_dict()
 
-
-#----- Supply of zinc concentrates table ----
+# ----- Supply of zinc concentrates table ----
 supply_zinc = deep_dict()
 supply_zinc.concentrate = smt_default
 supply_zinc.zn = dict(type="number", min_normal=10, max_normal=10000)

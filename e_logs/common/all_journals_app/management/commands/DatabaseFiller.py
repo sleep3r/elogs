@@ -12,31 +12,13 @@ from django.utils import timezone
 
 from e_logs.furnace.fractional_app.models import *
 from e_logs.furnace.fractional_app import models as famodels
-# from leaching.express_anal_app import models as eamodels
-# from leaching.repair_reports_app import models as remodels
-# from leaching.express_anal_app.models import *
 from e_logs.common.all_journals_app import models as comodels
 from e_logs.common.all_journals_app.models import *
-# from leaching.repair_app.models import *
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 from django.db import connection
 from e_logs.common.login_app.models import Employee
-
-# onegin = None
-
-#
-# def gen_text(lines=1, max_words=10):
-#     global onegin
-#     if onegin is None:
-#         onegin = open('onegin.txt', encoding='utf-8').readlines()
-#         onegin = filter(lambda x: 50 > len(x.strip()) > 10, onegin)
-#         onegin = [s.strip() for s in onegin]
-#
-#     num = random.randint(0, len(onegin) - lines)
-#     lines = onegin[num:num + lines]
-#     lines = [' '.join(l.split()[:max_words]) for l in lines]
-#     return '\n'.join(lines)
+from e_logs.leaching.repair_reports_app.models import Equipment
 
 
 class DatabaseFiller:
@@ -399,18 +381,6 @@ class DatabaseFiller:
         for e in eq_list:
             Equipment(name=e).save()
 
-    # def fill_leaching_repairs(self):
-    #     equipments = list(Equipment.objects.all())
-    #     for i in range(100):
-    #         r = Repairs()
-    #         r.equipment = random.choice(equipments)
-    #         date = timezone.now() - timedelta(days=random.randint(0, 400))
-    #         r.date = date
-    #         r.date_performed = date
-    #         r.name = gen_text(max_words=7)
-    #         r.comment = gen_text(max_words=15)
-    #         r.save()
-
     def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=True):
         for field_name, values in data.items():
             if type(values) is not list:
@@ -544,7 +514,6 @@ class DatabaseFiller:
             e.user.user_permissions.add(Permission.objects.get(codename="view_cells"))
             e.save()
 
-
     def fill_journal_pages(self):
         JournalPage(
             type="shift",
@@ -555,7 +524,6 @@ class DatabaseFiller:
         Plant(name="furnace").save()
         Plant(name="electrolysis").save()
         Plant(name="leaching").save()
-
 
     def fill_journalpages_data(self, journal_page):
         for name in dir(self):
@@ -573,7 +541,8 @@ class DatabaseFiller:
 
 
     def create_permissions_and_groups(self):
-        superuser = User.objects.get(username="inframine")
+        superuser = User.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
+        superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
         content_type = ContentType.objects.get_for_model(CellValue)
@@ -685,9 +654,6 @@ class DatabaseFiller:
         self.fill_plants()
         self.fill_employees()
         self.fill_fractional_app(n)
-        # self.fill_equipement()
-        # self.fill_leaching_repairs()
-
 
     def recreate_database(self, *args, **kwargs):
         self.clean_database()
