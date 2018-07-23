@@ -14,31 +14,31 @@
                 <th>{% trans "Сдано" %}</th>
             </tr>
             <tr>
-                <th>{% trans "Соль Шлиппе" %}{% trans ", кг" %}</th>
+                <th>{% trans "Соль Шлиппе" %}{% trans ", <i class='units'>кг</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_salt" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_salt" index=0 %}</td>
                 <td>{% include "value.html" with field_name="outcome_salt" index=0 %}</td>
                 <td>{% include "value.html" with field_name="passed_salt" index=0 %}</td>
             </tr>
             <tr>
-                <th>{% trans "Zn пыль" %}{% trans ",<br>кюбели" %}</th>
+                <th>{% trans "Zn пыль" %}{% trans ", <i class='units'>кюбели</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_Zn_dust" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_Zn_dust" index=0 %}</td>
                 <td class="wrappercell">
                     <table class="table table-bordered insidetable">
                         <tr>
-                            <th class="removeleftborder removetopborder">{% trans "1ст, т" %}</th>
+                            <th class="removeleftborder removetopborder">{% trans "1ст, <i class='units'>т</i>" %}</th>
                             <td class="removetopborder">{% include "value.html" with field_name="outcome_Zn_1st" index=0 %}</td>
                             <th class="removetopborder">Cd</th>
                             <td class="removetopborder removerightborder">{% include "value.html" with field_name="income_Zn_dust" index=0 %}</td>
                         </tr>
                         <tr>
-                            <th class="removeleftborder">{% trans "2ст, т" %}</th>
+                            <th class="removeleftborder">{% trans "2ст, <i class='units'>т</i>" %}</th>
                             <td>{% include "value.html" with field_name="outcome_Zn_2st" index=0 %}</td>
                             <td rowspan="2" colspan="2" class="removebottomborder">{% include "value.html" with field_name="income_Zn_Cd" index=0 %}</td>
                         </tr>
                         <tr>
-                            <th class="removeleftborder removebottomborder">{% trans "3ст, т" %}</th>
+                            <th class="removeleftborder removebottomborder">{% trans "3ст, <i class='units'>т</i>" %}</th>
                             <td class="removebottomborder">{% include "value.html" with field_name="outcome_Zn_3st" index=0 %}</td>
                         </tr>
                     </table>
@@ -46,21 +46,21 @@
                 <td>{% include "value.html" with field_name="passed_Zn_dust" index=0 %}</td>
             </tr>
             <tr>
-                <th>{% trans "Mn руда" %}{% trans ", тн" %}</th>
+                <th>{% trans "Mn руда" %}{% trans ", <i class='units'>тн</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_Mn_ore" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_Mn_ore" index=0 %}</td>
                 <td>{% include "value.html" with field_name="outcome_Mn_ore" index=0 %}</td>
                 <td>{% include "value.html" with field_name="passed_Mn_ore" index=0 %}</td>
             </tr>
             <tr>
-                <th>{% trans "Магнофлок" %}{% trans ", кг" %}</th>
+                <th>{% trans "Магнофлок" %}{% trans ", <i class='units'>кг</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_Magnaflok" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_Magnaflok" index=0 %}</td>
                 <td>{% include "value.html" with field_name="outcome_Magnaflok" index=0 %}</td>
                 <td>{% include "value.html" with field_name="passed_Magnaflok" index=0 %}</td>
             </tr>
             <tr>
-                <th>{% trans "Fe стружка" %}{% trans ", кг" %}</th>
+                <th>{% trans "Fe стружка" %}{% trans ", <i class='units'>кг</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_Fe_shave" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_Fe_shave" index=0 %}</td>
                 <td>{% include "value.html" with field_name="outcome_Fe_shave" index=0 %}</td>
