@@ -1,8 +1,10 @@
 from django.apps import AppConfig
 
+
 class LoginApp(AppConfig):
     name = 'e_logs.common.login_app'
     verbose_name = 'Рабочие'
+
     def ready(self):
         from django.contrib.auth.models import User
         from e_logs.common.login_app.models import Employee

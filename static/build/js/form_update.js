@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 function send_all_forms() {
-    for (form of $("form.elog-table-form").get()) {
+    for (let form of $("form.elog-table-form").get()) {
         console.log("sending", form);
         $.ajax({
             type: 'POST',
@@ -210,8 +210,8 @@ function clear_empty_lines(form) {
 
 
 function showValidatePopup(input) {
-    comment = $(input).siblings(".popup-comment-content")[0];
-    comment_input = $(comment).children()[1];
+    const comment = $(input).siblings(".popup-comment-content")[0];
+    const comment_input = $(comment).children()[1];
 
     $(input).css(
         "background",
@@ -222,9 +222,9 @@ function showValidatePopup(input) {
 }
 
 function showViewPopup(icon) {
-    input = $(icon).siblings(".general-value")[0];
-    comment = $(icon).siblings(".popup-comment-content")[0];
-    comment_input = $(comment).children(".popup-comment-content-textarea")[0];
+    const input = $(icon).siblings(".general-value")[0];
+    const comment = $(icon).siblings(".popup-comment-content")[0];
+    // const comment_input = $(comment).children(".popup-comment-content-textarea")[0];
 
     $(input).css(
         "background",
@@ -257,8 +257,8 @@ function hidePopusOnMouseUp(event) {
 }
 
 function addCommentNotification(textarea) {
-    comment = $(textarea).parent()[0];
-    comment_notification = $(comment).siblings("i")[0];
+    const comment = $(textarea).parent()[0];
+    const comment_notification = $(comment).siblings("i")[0];
     console.log($(textarea).val());
     if ($(textarea).val()) {
         $(comment_notification).addClass("show")
@@ -269,7 +269,7 @@ function addCommentNotification(textarea) {
 }
 
 function CollapseComment(elem) {
-    container = $(elem).next();
+    const container = $(elem).next();
     container.collapse('toggle');
 }
 
@@ -279,7 +279,7 @@ function FocusShownComment(event) {
 
 function dotheneedful(sibling) {
     //start.focus();
-    input = sibling.getElementsByClassName('form-control')[0];
+    const input = sibling.getElementsByClassName('form-control')[0];
     if (input) {
         if (input.getAttribute('data-pagmode') === 'edit') {
             input.focus();
@@ -297,20 +297,20 @@ function dotheneedful(sibling) {
 function checkKey(e) {
     // if 'input' is active(e.g page mode is 'edit')
     if (document.activeElement.tagName === 'INPUT') {
-        input = document.activeElement;
+        const input = document.activeElement;
         if (input.type === 'number') {
-            var popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
+            const popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
             // If number or ',' or '.' was pressed
-            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode == '188' || e.keyCode == '190') {
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === '188' || e.keyCode === '190') {
                 console.log('number was pressed in number field');
                 popup.classList.remove('show')
             } else {
-                if (e.keyCode != '8' &&
-                    e.keyCode != '46' &&
-                    e.keyCode != '37' &&
-                    e.keyCode != '38' &&
-                    e.keyCode != '39' &&
-                    e.keyCode != '40') {
+                if (e.keyCode !== '8' &&
+                    e.keyCode !== '46' &&
+                    e.keyCode !== '37' &&
+                    e.keyCode !== '38' &&
+                    e.keyCode !== '39' &&
+                    e.keyCode !== '40') {
                     popup.classList.add('show');
                     setTimeout(function () {
                         popup.classList.remove('show');
@@ -321,7 +321,7 @@ function checkKey(e) {
                     popup.classList.remove('show');
                 }
                 // backspace and delete
-                if (e.keyCode != '8' && e.keyCode != '46') {
+                if (e.keyCode !== '8' && e.keyCode !== '46') {
                     e.preventDefault();
                 }
             }
@@ -335,35 +335,35 @@ function checkKey(e) {
     }
     e = e || window.event;
 
-    if (e.keyCode == '38') {
+    if (e.keyCode === '38') {
         // up arrow
-        var idx = start.cellIndex;
-        var nextrow = start.parentElement.previousElementSibling;
+        let idx = start.cellIndex;
+        let nextrow = start.parentElement.previousElementSibling;
         if (nextrow != null) {
-            var sibling = nextrow.cells[idx];
+            let sibling = nextrow.cells[idx];
             if (sibling) {
                 dotheneedful(sibling);
             }
         }
-    } else if (e.keyCode == '40') {
+    } else if (e.keyCode === '40') {
         // down arrow
-        var idx = start.cellIndex;
-        var nextrow = start.parentElement.nextElementSibling;
+        let idx = start.cellIndex;
+        let nextrow = start.parentElement.nextElementSibling;
         if (nextrow != null) {
-            var sibling = nextrow.cells[idx];
+            let sibling = nextrow.cells[idx];
             if (sibling) {
                 dotheneedful(sibling);
             }
         }
-    } else if (e.keyCode == '37') {
+    } else if (e.keyCode === '37') {
         // left arrow
-        var sibling = start.previousElementSibling;
+        let sibling = start.previousElementSibling;
         if (sibling) {
                 dotheneedful(sibling);
         }
-    } else if (e.keyCode == '39') {
+    } else if (e.keyCode === '39') {
         // right arrow
-        var sibling = start.nextElementSibling;
+        let sibling = start.nextElementSibling;
         if (sibling) {
                 dotheneedful(sibling);
         }

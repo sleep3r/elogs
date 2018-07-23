@@ -12,7 +12,6 @@ from e_logs.common.login_app.models import Employee
 from .page_modes import get_page_mode, plant_permission, PageModeError, has_edited
 
 
-
 def get_full_data(page):
     res = deep_dict()
 
