@@ -1,6 +1,7 @@
 from os import walk
 from datetime import date, datetime
 
+from django.db import transaction
 from django.http import HttpResponse, HttpResponseForbidden
 from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
@@ -9,6 +10,7 @@ from django.views import View
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage, Feedback
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
+from e_logs.core.utils.loggers import err_logger
 from e_logs.core.utils.webutils import process_json_view
 from e_logs.common.messages_app.services import messages
 from .feedback import send_feedback
@@ -20,9 +22,11 @@ class JournalView(View):
     """ Common view for a journal. Inherit from this class when creating your own journal view """
 
     def get(self, request, plant, journal_name):
-        print('journal_name = {}'.format(journal_name))
-        page =  JournalPage.objects.filter(journal_name=journal_name).first()
+        err_logger.debug('JournalView: journal_name = {}'.format(journal_name))
+
+        page = JournalPage.objects.filter(journal_name=journal_name).first()
         page_type = page.type if page else 'shift'
+        err_logger.debug(f'JournalView: page_type: {page_type}')
         context = self.get_context(request=request, journal_name=journal_name, page_type=page_type)
         context.journal_title = journals_verbose_names[journal_name]
 
@@ -36,6 +40,7 @@ class JournalView(View):
         return HttpResponse(template.render(context, request))
 
     def get_context(self, request, journal_name, page_type):
+        err_logger.debug(f'JournalView.get_context(): page_type: {page_type}')
         return get_common_context(journal_name, request, page_type)
 
 

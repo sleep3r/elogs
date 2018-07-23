@@ -15,8 +15,8 @@ def get_equipent():
         return
     return equipments
 
-rt = deep_dict()
 
+rt = deep_dict()
 
 rt.equipment = dict(type="datalist", options=get_equipent())
 rt.date_view = date_default

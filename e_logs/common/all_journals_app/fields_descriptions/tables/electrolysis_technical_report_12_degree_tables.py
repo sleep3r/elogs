@@ -3,8 +3,7 @@ from e_logs.core.utils.deep_dict import deep_dict
 from datetime import time
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
-
- #-----------------Left Table-----------------#
+# -----------------Left Table-----------------
 lt = deep_dict()
 
 rows_names_for_db = [
@@ -20,25 +19,21 @@ rows_names_for_db = [
     "amperage2"
 ]
 
-
 rows_names_for_view = [
-        "Zn в отр., г/л",
-        "Смеси, г/л",
-        "H₂SO₄ отр., г/л",
-        "Температура смеси, ᵒC",
-        "Температура в ваннах, ᵒC",
-        "Температура нейтр. град., ᵒC",
-        "1 серия, кА",
-        "2 серия, кА"
+    "Zn в отр., г/л",
+    "Смеси, г/л",
+    "H₂SO₄ отр., г/л",
+    "Температура смеси, ᵒC",
+    "Температура в ваннах, ᵒC",
+    "Температура нейтр. град., ᵒC",
+    "1 серия, кА",
+    "2 серия, кА"
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
-             zip(rows_names_for_db, rows_names_for_view)]
+                zip(rows_names_for_db, rows_names_for_view)]
 
-
-# field_infos_for_rows = [numeric_default] * 12 + [text_default] * 2
-field_infos_for_rows = [gl_default]*3 + [temperature_default]*3 + [amperage_default]*2
-
+field_infos_for_rows = [gl_default] * 3 + [temperature_default] * 3 + [amperage_default] * 2
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
@@ -55,7 +50,6 @@ for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
         lt[field_name] = text_default
 
 left_table_desc = lt.clear_empty().get_dict()
-
 
 lt.grad1_vent = ob_min
 lt.grad2_vent = ob_min
@@ -88,16 +82,13 @@ lt.series42 = text_default
 
 lt.pumps_summ = text_default
 
-
-left_table_desc = lt.clear_empty().get_dict()
-#-----------------Right Table-----------------#
+# -----------------Right Table-----------------#
 rt = deep_dict()
-
 
 rt.h2so4 = text_default
 rt.zn = gl_default
 
-#--------part1----------#
+# --------part1----------#
 rt.solodka = gt_default
 rt.glue = gt_default
 rt.stroncii = gt_default
@@ -119,7 +110,5 @@ rt.magnaflok_resid = kg_default
 rt.stroncii_resid = kg_default
 rt.cryst1 = numeric_default
 rt.cryst2 = numeric_default
-
-
 
 right_table_desc = rt.clear_empty().get_dict()

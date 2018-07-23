@@ -1,7 +1,6 @@
 from e_logs.core.utils.deep_dict import deep_dict
 
 
-journals_verbose_names = deep_dict()
 journals_verbose_names = {
     'buff_journal': 'Журнал для проверки',
     'furnace_changed_fraction': 'Рабочий журнал изменения фракции',

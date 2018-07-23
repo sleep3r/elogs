@@ -2,7 +2,6 @@ from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 from e_logs.core.utils.deep_dict import deep_dict
 
 
-
 ts = deep_dict()
 ts.date_create = date_default
 ts.comments = text_default
