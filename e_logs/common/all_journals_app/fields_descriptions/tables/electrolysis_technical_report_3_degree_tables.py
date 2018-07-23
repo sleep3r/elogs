@@ -5,7 +5,7 @@ from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 
- #-----------------Left Table-----------------#
+# -----------------Left Table-----------------
 lt = deep_dict()
 
 rows_names_for_db = [
@@ -56,14 +56,14 @@ for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
 
 left_table_desc = lt.clear_empty().get_dict()
 
-#-----------------Right Table-----------------#
+# -----------------Right Table-----------------
 rt = deep_dict()
 
 
 rt.h2so4 = text_default
 rt.zn = gl_default
 
-#--------part1----------#
+# --------part1----------
 rt.grad1_1 = numeric_default
 rt.grad1_2 = numeric_default
 rt.grad2_1 = numeric_default
@@ -85,7 +85,7 @@ rt.weight1_1 = gsm3_default
 rt.weight2_1 = gsm3_default
 
 
-#--------part2----------#
+# --------part2----------
 
 rt.pumpnum1 = number_default
 rt.pumpnum2 = number_default

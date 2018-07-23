@@ -7,6 +7,7 @@ EDIT_CELLS = APP + ".edit_cells"
 VIEW_CELLS = APP + ".view_cells"
 PLANT_PERM = APP + ".modify_{plant}"
 
+
 class PageModeError(Exception):
     def __init__(self, value):
         self.value = value
@@ -16,6 +17,7 @@ def plant_permission(request):
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
     return employee.user.has_perm(PLANT_PERM.format(plant=plant))
+
 
 def page_mode_is_valid(request, page):
     employee = Employee.objects.get(user=request.user)
@@ -38,8 +40,9 @@ def page_mode_is_valid(request, page):
     else:
         return False
 
+
 def has_edited(request, page):
-    return page in request.user.employee.owned_journal_pages.all();
+    return page in request.user.employee.owned_journal_pages.all()
 
 
 def default_page_mode(request, page):
@@ -56,6 +59,7 @@ def default_page_mode(request, page):
             return "view"
         else:
             raise PermissionDenied("У вас нет доступа к этому цеху.")
+
 
 def get_page_mode(request, page):
     if page_mode_is_valid(request, page):

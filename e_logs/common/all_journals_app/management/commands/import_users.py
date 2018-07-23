@@ -8,6 +8,7 @@ from e_logs.core.utils.webutils import translate
 
 from django.contrib.auth.models import Group
 
+
 class Command(BaseCommand):
     help = 'Adding users from csv file'
 

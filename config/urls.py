@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 
-# from leaching.express_anal_app import views
 from config.settings import settings
 from e_logs.furnace.fractional_app import views
 from e_logs.common.all_journals_app.services import shifts
