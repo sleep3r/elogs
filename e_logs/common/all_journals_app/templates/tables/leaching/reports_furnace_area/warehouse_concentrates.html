@@ -12,7 +12,7 @@
             <th> Шихта </th>
         </tr>
         <tr>
-            <th colspan="2"> Разгружено п/вагонов, шт </th>
+            <th colspan="2"> Разгружено п/вагонов, <i class='units'>шт</i> </th>
             <th> На станции </th>
             <th> В отгрузке </th>
             <td>{% include "value.html" with field_name="shihta" index=0 %}</td>
@@ -26,7 +26,7 @@
             <th> За сутки </th>
             <td rowspan="4">{% include "value.html" with field_name="on_station" index=0 %}</td>
             <td rowspan="4">{% include "value.html" with field_name="unload" index=0 %}</td>
-            <td>Дробилка №</td>
+            <th>Дробилка №</th>
         </tr>
         <tr>
             <td>{% include "value.html" with field_name="r1_per_shift" index=0 %}</td>
@@ -40,7 +40,7 @@
             <td>{% include "value.html" with field_name="r2_per_day" index=0 %}</td>
             <td>{% include "value.html" with field_name="r2_unload_shift" index=0 %}</td>
             <td>{% include "value.html" with field_name="r2_unload_day" index=0 %}</td>
-            <td> Влага, % </td>
+            <th> Влага, <i class='units'>%</i> </th>
         </tr>
         <tr>
             <td>{% include "value.html" with field_name="r3_per_shift" index=0 %}</td>
