@@ -96,6 +96,7 @@ class MetalsJournalView(JournalView):
         context.avg_month_table.fields = fields_info_desc.metals_compute.avg_month_table.keys()
         return context
 
+
 @csrf_exempt
 @process_json_view(auth_required=False)
 def change_table(request):
@@ -131,6 +132,7 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
+
 
 @csrf_exempt
 @process_json_view(auth_required=False)

@@ -24,21 +24,27 @@ def page_mode_is_valid(request, page):
     page_mode = request.GET.get('page_mode')
     if page_mode:
         if request.user.is_superuser:
-                return True
+            return True
         if plant_permission(request):
-            if page_mode == "validate":
-                return employee.user.has_perm(VALIDATE_CELLS)
-            if page_mode == "edit":
-                if page.type == "shift":
-                    return page.shift_is_active and employee.user.has_perm(EDIT_CELLS)
-                if page.type == "equipment":
-                    return employee.user.has_perm(EDIT_CELLS)
-            if page_mode == "view":
-                return employee.user.has_perm(VIEW_CELLS)
+            return check_mode_permissions(employee, page, page_mode)
         else:
             return page_mode == "view"
     else:
         return False
+
+
+def check_mode_permissions(employee, page, page_mode):
+    is_valid = False
+    if page_mode == "validate":
+        is_valid = employee.user.has_perm(VALIDATE_CELLS)
+    if page_mode == "edit":
+        if page.type == "shift":
+            is_valid = page.shift_is_active and employee.user.has_perm(EDIT_CELLS)
+        if page.type == "equipment":
+            is_valid = employee.user.has_perm(EDIT_CELLS)
+    if page_mode == "view":
+        is_valid = employee.user.has_perm(VIEW_CELLS)
+    return is_valid
 
 
 def has_edited(request, page):
