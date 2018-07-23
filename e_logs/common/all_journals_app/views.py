@@ -21,7 +21,8 @@ class JournalView(View):
 
     def get(self, request, plant, journal_name):
         print('journal_name = {}'.format(journal_name))
-        page_type = JournalPage.objects.filter(journal_name=journal_name)[0].type
+        page =  JournalPage.objects.filter(journal_name=journal_name).first()
+        page_type = page.type if page else 'shift'
         context = self.get_context(request=request, journal_name=journal_name, page_type=page_type)
         context.journal_title = journals_verbose_names[journal_name]
 
