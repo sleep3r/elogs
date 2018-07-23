@@ -36,7 +36,7 @@
             <th colspan="2">Данные по сводке</th>
         </tr>
         <tr>
-            {% with columns="ВМТ|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>|СМТ|Цинк, <i class='units'>т</i>" %}
+            {% with columns="ВМТ|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>" %}
             {% for column_name in columns|split:"|" %}
                 <th>{{ column_name|safe }}</th>
             {%  endfor %}

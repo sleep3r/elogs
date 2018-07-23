@@ -10,7 +10,8 @@ from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
 from e_logs.common.all_journals_app.fields_descriptions import fields_info
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.loggers import err_logger
+from e_logs.core.utils.loggers import err_logger, default_logger
+from e_logs.core.utils.webutils import logged
 from .page_modes import get_page_mode, plant_permission, PageModeError, has_edited
 
 
@@ -38,6 +39,7 @@ def get_page_list(journal_name, request, page_type):
     return [today - timedelta(days=1*i) for i in range(30)]
 
 
+@logged
 def get_common_context(journal_name, request, page_type="shift"):
     res = deep_dict()
 
@@ -65,6 +67,7 @@ def get_common_context(journal_name, request, page_type="shift"):
     return res
 
 
+@logged
 def get_page(journal_name, page_type, plant, res):
     if res.page_id:
         page = JournalPage.objects.get(id=res.page_id)
@@ -94,6 +97,7 @@ def get_other_page(journal_name, plant, page_type):
     return page
 
 
+@logged
 def get_shift_page(journal_name, plant, page_type):
     err_logger.debug('Getting shift_paged page: ' + str((journal_name, plant.name, page_type)))
     page = None
@@ -107,4 +111,5 @@ def get_shift_page(journal_name, plant, page_type):
         )[0]
         if page.shift_is_active:
             break
+    default_logger.debug('Ended shift_paged page: ' + str((journal_name, plant.name, page_type)))
     return page
