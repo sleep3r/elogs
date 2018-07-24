@@ -25,7 +25,7 @@ from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView,
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 
 urlpatterns = [
-    url('^$', views.index),
+    url('^$', views.Index.as_view()),
     path('admin/', admin.site.urls),
     url('^auth', include('e_logs.common.login_app.urls')),
     url('^common', include('e_logs.common.all_journals_app.urls')),
@@ -35,4 +35,11 @@ urlpatterns = [
     url('^(?P<plant>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
     url('^(?P<plant>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
     url(r'^(?P<plant>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', shifts.get_shifts),
+    
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
