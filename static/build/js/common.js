@@ -1,4 +1,4 @@
-var Notifications = {
+let Notifications = {
     markAsRead_: function(ids) {
         jQuery.ajax({
             url: '/common/messages/read/',
@@ -14,11 +14,11 @@ var Notifications = {
         })
     },
     readAll: function(event, button) {
-        var ids = [];
-        var notifications = jQuery(button).closest('li').parent().find('li.notification');
+        let ids = [];
+        let notifications = jQuery(button).closest('li').parent().find('li.notification');
         notifications.each(function() {
             ids.push($(this).data('id'));
-        })
+        });
         this.markAsRead_(ids);
         notifications.slideUp(function() {
             $(this).remove();
@@ -27,11 +27,11 @@ var Notifications = {
     },
     open: function(event, link) {
         event.stopPropagation();
-        var element = jQuery(link).closest('li');
+        let element = jQuery(link).closest('li');
         this.markAsRead_([element.data('id')]);
-        var msg = element.data('message');
+        let msg = element.data('message');
         element.slideUp(function() {
-            var parent = $(this).parent();
+            let parent = $(this).parent();
             $(this).remove();
             if (parent.find('li.notification').length === 0) {
                 parent.find('li.notification-header').slideUp(function() {
@@ -59,7 +59,7 @@ var Notifications = {
 
 function getCookie(name) {
      var cookieValue = null;
-     if (document.cookie && document.cookie != '') {
+     if (document.cookie && document.cookie !== '') {
          var cookies = document.cookie.split(';');
          for (var i = 0; i < cookies.length; i++) {
              var cookie = jQuery.trim(cookies[i]);

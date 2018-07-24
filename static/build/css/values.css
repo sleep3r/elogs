@@ -1,0 +1,5 @@
+.elog-journal-table tr th, .general-value {
+    /*important because it's really important and to override bootstrap*/
+    padding-left: 3px !important;
+    padding-right: 2px !important;
+}

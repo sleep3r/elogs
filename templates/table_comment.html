@@ -1,7 +1,7 @@
 
 <div>
     <span onclick="Comment.collapse(this)" class="btn btn-default table-comment-button">
-        Коментарий
+        Комментарий
         <span class="badge">
         {% if comment %}
         1
@@ -11,7 +11,7 @@
     </span>
     <div class="collapse table-comment-wrapper">
         <textarea class="table-comment" name="comment" oninput="$('#sync').hide();$('#async').show();"
-                  placeholder="Коментарий..."
+                  placeholder="Комментарий..."
                   {% if page_mode == 'view'  or page_mode == 'validate' %}
                     readonly="readonly"
                   {% endif %}

@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -15,6 +15,10 @@
     <!-- Bootstrap -->
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&amp;subset=cyrillic,cyrillic-ext"
+              rel="stylesheet">
+        <!-- TODO: DELETE HTTP!>
+
     <!-- Font Awesome -->
     <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <!-- Google Material Icons -->
@@ -23,6 +27,9 @@
     <!-- Custom Theme Style -->
     <link href="{% static '/build/css/custom.min.css' %}" rel="stylesheet">
     <link href="{% static '/build/css/journal.css' %}" rel="stylesheet">
+    <link href="{% static '/build/css/elog-table.css' %}" rel="stylesheet">
+    <link href="{% static '/build/css/values.css' %}" rel="stylesheet">
+
     <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
     <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
     <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">

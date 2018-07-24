@@ -26,6 +26,7 @@ th {
 .columncontainer table tr:first-child > * {
   border-top: none;
 }
+
 .columncontainer table tr > * {
   border-top: none;
   width: 25%;
@@ -400,11 +401,6 @@ input[readonly] {
     color: #29BA9C;
 }
 
-.elog-journal-table tr th, .general-value {
-    /*important because it's really important and to override bootstrap*/
-    padding-left: 3px !important;
-    padding-right: 2px !important;
-}
 
 .popup-comment-content textarea::placeholder, .general-value::placeholder {
     color: #BBBBBB;
@@ -481,3 +477,4 @@ footer {
 .units {
     white-space: nowrap;
 }
+

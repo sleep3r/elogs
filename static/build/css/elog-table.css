@@ -1,0 +1,48 @@
+.elog-table-container { /* table container for scrolls ans other */
+    /*overflow-x: auto;*/
+}
+
+table.elog-journal-table { /*the table itself*/
+    font-family: 'Roboto Condensed Regular', sans-serif;
+    border-collapse: collapse;
+    table-layout: auto;
+    /*table-layout: fixed;*/
+    width: 100%;
+}
+
+.elog-journal-table tr:nth-child(even){background-color: #F5F5F5;} /* Even trs */
+
+table.elog-journal-table td, table.elog-journal-table th { /* td and th */
+    border: 1px solid #EAEAEA !important;
+    vertical-align: bottom;
+}
+
+.elog-journal-table th { /* th */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #666666;
+    color: white;
+
+     /* Words are broken randomly if no other choice */
+    /*word-break: break-word;*/
+    overflow: hidden; /* TODO: seems to need min-width */
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
+    hyphens: auto;
+}
+
+.non-wrapping-table {
+    border-collapse: collapse;
+    border-top: none;
+}
+
+/*----------------------------- From Svetlana design ------------------------------------------*/
+
+
+
+/*.elog-journal-table tr:nth-child(odd){*/
+    /*background-color: #EAEAEA;*/
+/*}*/
+
+/*.elog-journal-table tr:hover {background-color: #ddd;}*/

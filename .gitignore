@@ -86,3 +86,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#fucking staticfiles
+staticfiles/
+
+#fucking logs
+logs/
