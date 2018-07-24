@@ -75,6 +75,8 @@ INSTALLED_APPS = [
     'e_logs.common.login_app.apps.LoginApp',
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
+    'e_logs.common.feedback_app.apps.FeedbackAppConfig',
+
 
     # TODO: DELETE THIS APP !!!!!!!!!
     'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
