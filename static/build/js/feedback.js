@@ -16,7 +16,7 @@ class FeedBack {
             $("#MessageToDevelopersModal").modal("hide");
             $.ajax({
                 type: 'POST',
-                url: "/common/send-message-to-devs",
+                url: "/feedback/send-message",
                 data: data,
                 success: console.log,
                 dataType: "json"

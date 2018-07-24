@@ -1,5 +1,5 @@
 import telepot
-from e_logs.common.all_journals_app.models import Feedback
+from e_logs.common.feedback_app.models import Feedback
 
 TOKEN = "484527904:AAHVkzp5hHuxWVfR0tYkIFPV-sgQkXQKqAQ"
 CHANNEL = "-1001169474805"

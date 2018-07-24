@@ -8,12 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views import View
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from e_logs.common.all_journals_app.models import CellValue, JournalPage, Feedback
+from e_logs.common.all_journals_app.models import CellValue, JournalPage
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import err_logger
 from e_logs.common.messages_app.services import messages
-from .feedback import send_feedback
 
 from e_logs.common.all_journals_app.journals_descriptions.journals_info import journals_verbose_names
 
@@ -144,11 +143,3 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
-
-
-@csrf_exempt
-@process_json_view(auth_required=False)
-@logged
-def send_message_to_devs(request):
-    send_feedback(request.POST)
-    return {"result":1}
