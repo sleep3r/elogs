@@ -5,6 +5,6 @@ from django.urls import path
 urlpatterns = [
     url('measurements/get$', views.granularity_object),
     url('measurements/post', views.add_measurement),
-    url('granularity_gaphs/get$', views.granularity_gaphs),
-    url('^$', views.index)
+    url('granularity_graphs/get$', views.granularity_graphs),
+    url('^$', views.Index.as_view())
 ]

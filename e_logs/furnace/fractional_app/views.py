@@ -2,30 +2,37 @@ import json
 from datetime import timedelta
 
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+
+from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
 from e_logs.furnace.fractional_app.models import *
+from e_logs.common.all_journals_app.models import CellValue, JournalPage
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.webutils import process_json_view
 
-@login_required
-def index(request):
-    context = {
-        'journal_title': 'Ситовой анализ огарка и шихты'
-    }
-    template = loader.get_template('furnace-index.html')
-    return HttpResponse(template.render(context, request))
+
+class Index(TemplateView, LoginRequiredMixin):
+    template_name = 'furnace-index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['journal_title'] = 'Ситовой анализ огарка и шихты'
+        return context
+    
 
 @login_required
 def add_measurement(request):
     if request.method == 'POST':
         req = json.loads(request.body)
+        print(req)
         time = timezone.now()
-        mp = MeasurementPair() if not hasattr(req, 'id') else MeasurementPair.objects.get(id=int(req['id']))
+        mp = CellValue()
         # omg nb schieht first
         mp.add(req['schieht']['masses'], req['schieht']['min_sizes'],\
             req['cinder']['masses'], req['cinder']['min_sizes'], time, time - timedelta(minutes=30))
@@ -60,7 +67,7 @@ def granularity_object(request):
 
 
 @process_json_view(auth_required=False)
-def granularity_gaphs(request):
+def granularity_graphs(request):
     def get_mean(masses, sizes):
         msum = sum(masses)
         if msum == 0:

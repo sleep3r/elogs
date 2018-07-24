@@ -40,7 +40,7 @@ export default {
   },
   created() {
     Promise.all([axios.get('/furnace/fractional/measurements/get'),
-      axios.get('/furnace/fractional/granularity_gaphs/get')]).then(response => {
+      axios.get('/furnace/fractional/granularity_graphs/get')]).then(response => {
         if (!response[0].data.hasOwnProperty('data')) {
             console.info('Furnace data not found!');
             this.furnace_data = [];
