@@ -8,148 +8,35 @@
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
-                <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th>
-                <th colspan="10" >{% trans "BCHC" %}</th>
-                <th colspan="5" >{% trans "Ларокс" %}</th>
-                <th colspan="7" >{% trans "Очищенный раствор" %}</th>
-                <th colspan="6" >{% trans "Упр. Несоответствия продукции" %}</th>
-            </tr>
+                <th rowspan="3" class="rotate"><div><span>{% trans "Время" %}</span></div></th><th colspan="10" >{% trans "BCHC" %}</th><th colspan="5" >{% trans "Ларокс" %}</th><th colspan="7" >{% trans "Очищенный раствор" %}</th><th colspan="6" >{% trans "Упр. Несоответствия продукции" %}</th></tr>
             <tr>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кобальт" %} Co, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Сурьма" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Медь" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кадмий" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Твердое После 1ст" %}, {% trans "<i class='units'>г/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "pH" %} ({% trans 'ВСНС' %})</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Железо" %} Fe, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "As" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Твёрдое" %}, {% trans "<i class='units'>г/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Уд. вес" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кобальт" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Сурьма" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кадмий" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Твердое" %}, {% trans "<i class='units'>г/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "pH" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кадмий" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Кобальт" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Сурьма" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Медь" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Железо" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Выход по току" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Уд. вес" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Норма" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Факт" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Несоответствие" %}, {% trans "<i class='units no-before'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Коррекция" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans "Мастер" %}</span>
-                    </div>
-                </th>
+                <th>Co<i class='units'>мг/л</i></th>
+                <th>Sb<i class='units'>мг/л</i></th>
+                <th>Cu<i class='units'>мг/л</i></th>
+                <th>Cd<i class='units'>мг/л</i></th>
+                <th>Тв. после<br>1ст<i class='units'>г/л</i></th>
+                <th>pH (ВСНС)</th>
+                <th>Fe<i class='units'>мг/л</i></th>
+                <th>As<i class='units'>мг/л</i></th>
+                <th>Тв.<i class='units'>г/л</i></th>
+                <th>Уд. вес<i class='units'>г/см<sup>3</sup></i></th>
+                <th>Co<i class='units'>мг/л</i></th>
+                <th>Sb<i class='units'>мг/л</i></th>
+                <th>Cd<i class='units'>мг/л</i></th>
+                <th>Тв<i class='units'>г/л</i></th>
+                <th>pH</th>
+                <th>Cd<i class='units'>мг/л</i></th>
+                <th>Co<i class='units'>мг/л</i></th>
+                <th>Sb<i class='units'>мг/л</i></th>
+                <th>Cu<i class='units'>мг/л</i></th>
+                <th>Fe<i class='units'>мг/л</i></th>
+                <th>Выход по току</th>
+                <th>Уд. вес<i class='units'>г/см<sup>3</sup></i></th>
+                <th>Норма<i class='units'>мг/л</i></th>
+                <th>Факт<i class='units'>мг/л</i></th>
+                <th>Несоотв.<i class='units'>мг/л</i></th>
+                <th>Корр.</th>
+                <th>Мастер</th>
             </tr>
         </thead>
         <tbody>

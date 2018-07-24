@@ -23,36 +23,12 @@
             </tr>
             <tr>
               {% for _ in 3|times %}
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'pH' %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'Медь' %}, {% trans "<i class='units'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'Железо' %}, {% trans "<i class='units'>мг/л</i>" %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'Ж:Т' %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'pH' %}</span>
-                    </div>
-                </th>
-                <th class="rotate header-vsns">
-                    <div>
-                        <span>{% trans 'Ж:Т' %}</span>
-                    </div>
-                </th>
+                <th>pH</th>
+                <th>Cu<i class='units'>мг/л</i></th>
+                <th>Fe<i class='units'>мг/л</i></th>
+                <th>Ж:Т</th>
+                <th>pH</th>
+                <th>Ж:Т</th>
               {% endfor %}
             </tr>
         </thead>

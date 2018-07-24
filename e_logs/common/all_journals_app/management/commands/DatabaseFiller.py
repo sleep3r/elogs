@@ -18,7 +18,6 @@ from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 from django.db import connection
 from e_logs.common.login_app.models import Employee
-from e_logs.leaching.repair_reports_app.models import Equipment
 
 
 class DatabaseFiller:
@@ -364,22 +363,22 @@ class DatabaseFiller:
             mp.save()
 
 
-    def fill_equipement(self):
-        eq_list = [
-            'Агитатор «Манн» №1',
-            'Агитатор «Манн» №2',
-            'Агитатор «Манн» №3',
-            'Сгуститель №1',
-            'Сгуститель №2',
-            'Сгуститель №3',
-            'Питатель ленточный В – 500 мм',
-            'Элеватор ЦГ-400 №1',
-            'Элеватор ЦГ-400 №2',
-            'Транспортер ленточный В – 650 мм',
-        ]
+    # def fill_equipement(self):
+    #     eq_list = [
+    #         'Агитатор «Манн» №1',
+    #         'Агитатор «Манн» №2',
+    #         'Агитатор «Манн» №3',
+    #         'Сгуститель №1',
+    #         'Сгуститель №2',
+    #         'Сгуститель №3',
+    #         'Питатель ленточный В – 500 мм',
+    #         'Элеватор ЦГ-400 №1',
+    #         'Элеватор ЦГ-400 №2',
+    #         'Транспортер ленточный В – 650 мм',
+    #     ]
 
-        for e in eq_list:
-            Equipment(name=e).save()
+    #     for e in eq_list:
+    #         Equipment(name=e).save()
 
     def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=True):
         for field_name, values in data.items():

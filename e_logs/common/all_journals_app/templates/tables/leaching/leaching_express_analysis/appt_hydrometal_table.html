@@ -13,12 +13,12 @@
                 </tr>
                 <tr>
                     <th>pH</th>
-                    <th>{% trans "Кислотность" %}{% trans ", <i class='units'>г/л</i>" %}</th>
-                    <th>{% trans "Fe двухвал." %}{% trans ", <i class='units'>мг/л</i>" %}</th>
-                    <th>{% trans "Fe Общее" %}{% trans ", <i class='units'>мг/л</i>" %}</th>
+                    <th>{% trans "Кислотность" %}{% trans "<i class='units'>г/л</i>" %}</th>
+                    <th>{% trans "Fe двухвал." %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                    <th>{% trans "Fe Общее" %}{% trans "<i class='units'>мг/л</i>" %}</th>
                     <th>pH</th>
-                    <th>{% trans "Медь" %}{% trans ", <i class='units'>мг/л</i>" %}</th>
-                    <th>Fe{% trans ", <i class='units no-before'>мг/л</i>" %}</th>
+                    <th>{% trans "Медь" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                    <th>Fe{% trans "<i class='units no-before'>мг/л</i>" %}</th>
                     <th>{% trans "Сурьма" %}{% trans ",<br>мг/л" %}</th>
                     <th>{% trans "Отстои" %}</th>
                 </tr>
@@ -40,7 +40,7 @@
         </tbody>
         <tbody>
          <tr>
-                <th colspan="1">{% trans "Ситовой огарка" %}{% trans ", <i class='units'>мм</i>" %}</th>
+                <th colspan="1">{% trans "Ситовой огарка" %}{% trans "<i class='units'>мм</i>" %}</th>
                 <td colspan="5">
                     <table class="table insidetable customborders table-insided">
                         <tr>
@@ -53,13 +53,13 @@
                         </tr>
                     </table>
                 </td>
-                <th colspan="2">{% trans "Ситовой Огарка средний" %}{% trans ", <i class='units'>мм</i>" %}</th>
+                <th colspan="2">{% trans "Ситовой Огарка средний" %}{% trans "<i class='units'>мм</i>" %}</th>
                 <td>{% include "value.html" with field_name="sit_cinder_avg" index=0 %}</td>
             </tr>
             <tr>
-                <th colspan="2">{% trans "Общее Fe среднее" %}{% trans ", <i class='units'>мм</i>" %}</th>
+                <th colspan="2">{% trans "Общее Fe среднее" %}{% trans "<i class='units'>мм</i>" %}</th>
                 <td>{% include "value.html" with field_name="fe_avg" index=0 %}</td>
-                <th colspan="3">{% trans "Fe стружка Fe" %}{% trans ", <i class='units'>мг/л</i>" %}</th>
+                <th colspan="3">{% trans "Fe стружка Fe" %}{% trans "<i class='units'>мг/л</i>" %}</th>
                 <td>{% include "value.html" with field_name="fe_shave" index=0 %}</td>
             </tr>
         </tbody>
