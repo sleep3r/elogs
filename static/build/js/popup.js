@@ -1,9 +1,8 @@
 class PopUp {
 
-
     static commentSelector() { return ".popup-comment-content"; }
 
-    static showViewPopup(icon) {
+    static showView(icon) {
         let input = $(icon).siblings(".general-value")[0];
         let comment = $(icon).siblings(PopUp.commentSelector())[0];
 
@@ -14,8 +13,7 @@ class PopUp {
         $(comment).addClass("show");
     }
 
-
-    static showValidatePopup(input) {
+    static showValidate(input) {
         let comment = $(input).siblings(PopUp.commentSelector())[0];
         let comment_input = $(comment).children()[1];
 
@@ -27,17 +25,14 @@ class PopUp {
         $(comment_input).focus();
     }
 
-    static hidePopups() {
-        $(".general-value").css(
-            "background",
-            "white"
-        );
-        $(".popup-comment-content").removeClass("show");
+    static hideAll() {
+        $(".general-value").css("background", "white");
+        $(PopUp.commentSelector()).removeClass("show");
     }
 
-    static hidePopusOnMouseUp(event) {
-
-        let active_comment = $(PopUp.commentSelector() + ".show")[0];
+    static hideOnMouseUp(event) {
+        let selector = PopUp.commentSelector() + ".show";
+        let active_comment = $(selector)[0];
         if (active_comment) {
             let active_input = $(active_comment).siblings(".general_value")[0];
             let hideFlag = !(
@@ -45,7 +40,7 @@ class PopUp {
                 event.target === active_comment ||
                 $.contains( active_comment, event.target));
             if (hideFlag) {
-                PopUp.hidePopups();
+                PopUp.hideAll();
             }
         }
     }

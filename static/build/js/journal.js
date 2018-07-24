@@ -69,9 +69,9 @@ class Journal {
         if (validate === "True") {
             $('.indexed-line').removeClass('indexed-line')
         }
-        document.addEventListener('mouseup', PopUp.hidePopusOnMouseUp);
+        document.addEventListener('mouseup', PopUp.hideOnMouseUp);
         if (view === "True" || validate === "True") {
-            document.querySelectorAll(".popup-comment-content>textarea").forEach(Cell.markCommented)
+            document.querySelectorAll(".popup-comment-content > textarea").forEach(Cell.markCommented)
         }
 
         $(".table-comment-wrapper").on('shown.bs.collapse', Comment.focus);
