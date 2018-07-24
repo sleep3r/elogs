@@ -144,12 +144,3 @@ class Setting(models.Model):
     journal = models.CharField(max_length=128, verbose_name='Журнал', blank=True, null=True)
     table = models.CharField(max_length=128, verbose_name='Таблица', blank=True, null=True)
     cell = models.CharField(max_length=128, verbose_name='Ячейка', blank=True, null=True)
-
-
-class Feedback(models.Model):
-    theme = models.CharField(max_length=200, verbose_name='Тема')
-    text = models.CharField(max_length=1000, verbose_name='Сообщение')
-    plant = models.CharField(max_length=50, verbose_name='Цех')
-    journal = models.CharField(max_length=256, verbose_name="Журнал")
-    email = models.CharField(max_length=200, verbose_name='Почта')
-    username = models.CharField(max_length=200, blank=True, null=True, verbose_name='Пользователь')
