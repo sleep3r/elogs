@@ -6,7 +6,6 @@ function shift_confirmation() {
     let edit = $("input[name='edit']").attr("value");
     if (edit === "True") {
         let has_edited = $("input[name='has_edited']").attr("value");
-        console.log(has_edited);
         if (!(has_edited === "True")) {
             $.confirm({
                 title: 'Продолжить?',
