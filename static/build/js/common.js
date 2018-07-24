@@ -87,6 +87,9 @@ Date.prototype.getMonthWithYear = function() {
 }
 
 
+/**
+ * @return {string}
+ */
 function GetURLParameter(paramName) {
     let url = window.location.search.substring(1);
     let urlParams = url.split('&');

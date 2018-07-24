@@ -1,11 +1,11 @@
 class PopUp {
 
 
-    static сommentSelector() { return ".popup-comment-content"; }
+    static commentSelector() { return ".popup-comment-content"; }
 
     static showViewPopup(icon) {
         let input = $(icon).siblings(".general-value")[0];
-        let comment = $(icon).siblings(PopUp.сommentSelector())[0];
+        let comment = $(icon).siblings(PopUp.commentSelector())[0];
 
         $(input).css(
             "background",
@@ -16,7 +16,7 @@ class PopUp {
 
 
     static showValidatePopup(input) {
-        let comment = $(input).siblings(PopUp.сommentSelector())[0];
+        let comment = $(input).siblings(PopUp.commentSelector())[0];
         let comment_input = $(comment).children()[1];
 
         $(input).css(
@@ -37,7 +37,7 @@ class PopUp {
 
     static hidePopusOnMouseUp(event) {
 
-        let active_comment = $(PopUp.сommentSelector() + ".show")[0];
+        let active_comment = $(PopUp.commentSelector() + ".show")[0];
         if (active_comment) {
             let active_input = $(active_comment).siblings(".general_value")[0];
             let hideFlag = !(
