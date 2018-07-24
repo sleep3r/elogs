@@ -30,6 +30,7 @@ urlpatterns = [
     url('^auth', include('e_logs.common.login_app.urls')),
     url('^common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
+    url('^feedback/', include('e_logs.common.feedback_app.urls')),
     url('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
     url('^(?P<plant>furnace)/(?P<journal_name>metals_compute)$', MetalsJournalView.as_view()),
     url('^(?P<plant>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),

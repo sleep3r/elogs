@@ -642,8 +642,7 @@ class DatabaseFiller:
         db_models.extend([Setting, Employee, JournalPage, CellValue, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
-            if not u.username == 'inframine' and not u.is_superuser:
-                u.delete()
+            u.delete()
 
         for t in db_models:
             t.objects.all().delete()

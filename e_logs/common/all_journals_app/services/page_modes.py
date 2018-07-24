@@ -48,7 +48,7 @@ def check_mode_permissions(employee, page, page_mode):
 
 
 def has_edited(request, page):
-    return page in request.user.employee.owned_journal_pages.all()
+    return page in list(request.user.employee.owned_journal_pages.all())
 
 
 def default_page_mode(request, page):
