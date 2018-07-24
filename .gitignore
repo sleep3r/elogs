@@ -33,7 +33,10 @@ coverage.xml
 *.pot
 
 # Django stuff:
+!logs/formatters.py
+logs/*
 *.log
+*.log.*
 local_settings.py
 db.sqlite3
 
