@@ -35,7 +35,9 @@ class JournalView(View):
         tables_paths = []
         err_logger.debug('JournalView.get(): before file walk')
         for (dirpath, dirnames, filenames) in walk(templates_dir):
-            tables_paths.extend(['tables/{}/{}/'.format(plant, journal_name) + f for f in filenames])
+            tables_paths.extend(
+                ['tables/{}/{}/'.format(plant, journal_name) + f for f in filenames if f.endswith(".html")]
+            )
         err_logger.debug('JournalView.get(): after file walk')
         context.tables_paths = tables_paths
 

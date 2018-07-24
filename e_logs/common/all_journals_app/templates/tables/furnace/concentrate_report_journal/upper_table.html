@@ -3,17 +3,18 @@
 {% block title %}Ответственные по складу{% endblock %}
 
 {% block table %}
-<table class="table table-bordered elog-journal-table">
-    <tr>
-        <th> Мастер </th>
-        <th> Старший крановщик </th>
-        <th> Склад<i class='units'>№</i> </th>
-        <th> Крановщик </th>
-        <th> Стропальщик </th>
-        <th> Дата </th>
-        <th> Смена </th>
-    </tr>
-
+<table class="table table-bordered elog-table">
+    <thead>
+        <tr>
+            <th> Мастер </th>
+            <th> Старший <br> крановщик </th>
+            <th> Склад<i class='units'>№</i> </th>
+            <th> Крановщик </th>
+            <th> Стропальщик </th>
+            <th> Дата </th>
+            <th> Смена </th>
+        </tr>
+    <thead>
     <tr>
         <td>{% include "value.html" with field_name="master" index=0 %}</td>
         <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>

@@ -1,16 +1,14 @@
 var app = new Vue({
     delimiters: ['[[', ']]'],
-    el: '#myModal',
+    el: '#modal_shift',
     data: {
         answer: {}
     },
     created: function () {
-        console.info('myModal.create')
         plant = location.pathname.split('/')[1]
         journal_name = location.pathname.split('/')[2]
         this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
             .then(response => {
-                console.log(response.data);
                 this.answer = response.data;
                 init_calendar(response.data);
             })
@@ -24,7 +22,6 @@ var app = new Vue({
             if (typeof ($.fn.fullCalendar) === 'undefined') {
                 return;
             }
-            console.log('init_calendar');
 
             var date = new Date(),
                 d = date.getDate(),
@@ -109,8 +106,40 @@ var app = new Vue({
     }
 })
 
-function clickOnWizard() {
-    $("#myModal").off('shown.bs.modal').on('shown.bs.modal', () => {
-        $('#shift_calendar').fullCalendar('render');
-    });
+
+class Shift {
+
+    static showCalendar() {
+        $("#modal_shift").off('shown.bs.modal').on('shown.bs.modal', () => {
+            $('#shift_calendar').fullCalendar('render');
+        });
+    }
+
+    static confirm() {
+        let edit = $("input[name='edit']").attr("value");
+        if (edit === "True") {
+            let has_edited = $("input[name='has_edited']").attr("value");
+            if (!(has_edited === "True")) {
+                $.confirm({
+                    title: 'Продолжить?',
+                    content: 'Вы будете назначены отвественным за этот журнал',
+                    autoClose: 'cancel|60000',
+                    theme: 'supervan',
+                    buttons: {
+                        confirm: {
+                            text: "Да",
+                            action: function() {$("form").trigger("input")}
+                        },
+                        cancel: {
+                            text: "Назад",
+                            action: function () {
+                                history.back();
+                            },
+                        }
+                    }
+                });
+            }
+        }
+    }
+
 }

@@ -11,8 +11,8 @@
                 <th colspan="3" >{% trans "Цинковая (Zn) пульпа" %}</th>
                 <th colspan="4" >{% trans "Медная пульпа" %}</th>
                 <th colspan="8" >{% trans "Железистый раствор" %}{% trans "<i class='units'>мг/л</i>" %}</th>
-                <th>{% trans "Концентрат Sb в р-ре соли Шлиппе" %}{% trans "<i class='units'>г/л</i>" %}</th>
-                <th>{% trans "Активн. ПАВ" %}{% trans "<i class='units'>метр/час</i>" %}</th>
+                <th>{% trans "Концентрат Sb в р-ре соли <br> Шлиппе" %}{% trans "<i class='units'>г/л</i>" %}</th>
+                <th>{% trans "Активн.<br>ПАВ" %}{% trans "<i class='units'>метр/час</i>" %}</th>
                 <th>{% trans "Высоко Fe р-р" %}</th>
             </tr>
             <tr>
@@ -23,14 +23,14 @@
                 <th>{% trans "До" %}{% trans "<i class='units'>г/л</i>" %}</th>
                 <th>{% trans "После" %}{% trans "<i class='units'>г/л</i>" %}</th>
                 <th>ТВ{% trans "<i class='units'>г/л</i>" %}</th>
-                <th>H<sub>2</sub>SO<sub>4</sub></th>
-                <th>ТВ</th>
-                <th>Sb</th>
-                <th>Cu</th>
-                <th>Fe</th>
+                <th>H<sub>2</sub>SO<sub>4</sub><i class='units'>мг/л</i></th>
+                <th>ТВ<i class='units'>мг/л</i></th>
+                <th>Sb<i class='units'>мг/л</i></th>
+                <th>Cu<i class='units'>мг/л</i></th>
+                <th>Fe<i class='units'>мг/л</i></th>
                 <th>{% trans "уд. вес" %}</th>
-                <th>As</th>
-                <th>Cl</th>
+                <th>As<i class='units'>г/л</i></th>
+                <th>Cl<i class='units'>г/л</i></th>
                 <td>{% include "value.html" with field_name="concentrate_Shlippe" index=0 %}</td>
                 <td>{% include "value.html" with field_name="active_PAV" index=0 %}</td>
                 <td>{% include "value.html" with field_name="high_Fe" index=0 %}</td>
