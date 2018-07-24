@@ -10,7 +10,7 @@
 {% set_global_context "field_responsible" table_data|keyval:field_responsible_name|choose_val:index %}
 {% set_global_context "field_comment_responsible" table_data|keyval:field_comment_responsible_name|choose_val:index %}
 {% set_global_context "comment" table_data|keyval:field_comment_name|choose_val:index %}
-{#{% set_global_context "cell_id" journal_page|add:"|"|add:table_name|add:"|"|add:field_name|add:"|"|add:index %}#}
+{% set_global_context "cell_id" journal_page|add:"|"|add:table_name|add:"|"|add:field_name|add:"|"|add:index %}
 
 {% if validate %}
     {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
@@ -32,7 +32,8 @@
            journal-page="{{ journal_page }}"
            name="{{ field_name }}"
            index="{{ index }}"
-    {#       id="{{ cell_id }}"#}       data-pagmode="{{ page_mode }}"
+           id="{{ cell_id }}"
+            data-pagmode="{{ page_mode }}"
             {% if page_mode == 'view' or page_mode == 'validate' %}
            readonly="readonly"
             {% endif %}

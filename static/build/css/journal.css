@@ -473,9 +473,9 @@ footer {
     content: ", "; /* Comma before units */
 }
 
-.units:not(.no-before):not(.optional-br)::before {
-    content: ",\A"; /* Line break where needed */
-    white-space: pre;
+.units:not(.no-before)::before {
+    content: ", ";
+    white-space: pre-line;
 }
 
 .units {
