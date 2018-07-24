@@ -10,7 +10,7 @@
 {% set_global_context "field_responsible" table_data|keyval:field_responsible_name|choose_val:index %}
 {% set_global_context "field_comment_responsible" table_data|keyval:field_comment_responsible_name|choose_val:index %}
 {% set_global_context "comment" table_data|keyval:field_comment_name|choose_val:index %}
-{#{% set_global_context "cell_id" journal_page|add:"|"|add:table_name|add:"|"|add:field_name|add:"|"|add:index %}#}
+{% set_global_context "cell_id" journal_page|add:"|"|add:table_name|add:"|"|add:field_name|add:"|"|add:index %}
 
 {% if validate %}
     {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
@@ -22,8 +22,8 @@
 <input class="resp" hidden name="{{ field_responsible_name }}" value="{{ field_responsible }}">
 
     <input class="form-control general-value {{ field_name }}_{{ index }}"
-           oninput="on_input_change(this);add_responsible(this, '{{ user.employee }}');$('#sync').hide();$('#async').show();"
-           onchange="add_message(this);reformat_on_change(this)"
+           oninput="Cell.onInput(this, '{{ user.employee }}')"
+           onchange="Cell.onChange(this)"
            resposible={{ field_responsible }}
            title="{% if field_responsible %}{% if val %}Заполнил: {{ field_responsible }}{% endif %}{% endif %}"
            value="{% firstof auto_val val %}"
@@ -32,12 +32,13 @@
            journal-page="{{ journal_page }}"
            name="{{ field_name }}"
            index="{{ index }}"
-    {#       id="{{ cell_id }}"#}       data-pagmode="{{ page_mode }}"
+           id="{{ cell_id }}"
+            data-pagmode="{{ page_mode }}"
             {% if page_mode == 'view' or page_mode == 'validate' %}
            readonly="readonly"
             {% endif %}
             {% if page_mode == 'validate' %}
-           onclick="showValidatePopup(this)"
+           onclick="PopUp.showValidatePopup(this)"
             {% else %}
            onclick="this.select()"
             {%endif %}
@@ -57,8 +58,8 @@
              placeholder="Комментарий..."
              rows="2"
              class="popup-comment-content-textarea"
-             oninput="addCommentNotification(this);add_responsible(this, '{{ user.employee }}');;$('#sync').hide();$('#async').show();"
-             onchange="add_comment(this);"
+             oninput="Cell.markCommented(this);Cell.addResponsible(this, '{{ user.employee }}');$('#sync').hide();$('#async').show();"
+             onchange="Comment.add(this)"
              table-name="{{ table_name }}"
              journal-page="{{ journal_page }}"
              index="{{ index }}"
@@ -78,5 +79,5 @@
 
 {% if page_mode == "view"  or page_mode == "validate" %}
     <i class="material-icons comment-notification"
-       onclick="showViewPopup(this)">mail</i>
+       onclick="PopUp.showViewPopup(this)">mail</i>
 {% endif %}

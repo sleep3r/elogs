@@ -21,6 +21,7 @@ from e_logs.common.all_journals_app.journals_descriptions.journals_info import j
 class JournalView(View):
     """ Common view for a journal. Inherit from this class when creating your own journal view """
 
+    @logged
     def get(self, request, plant, journal_name):
         print('journal_name = {}'.format(journal_name))
         err_logger.debug('JournalView: journal_name = {}'.format(journal_name))
@@ -33,21 +34,28 @@ class JournalView(View):
 
         templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, journal_name)
         tables_paths = []
+        err_logger.debug('JournalView.get(): before file walk')
         for (dirpath, dirnames, filenames) in walk(templates_dir):
-            tables_paths.extend(['tables/{}/{}/'.format(plant, journal_name) + f for f in filenames])
+            tables_paths.extend(
+                ['tables/{}/{}/'.format(plant, journal_name) + f for f in filenames if f.endswith(".html")]
+            )
+        err_logger.debug('JournalView.get(): after file walk')
         context.tables_paths = tables_paths
 
         template = loader.get_template('common.html')
-        return HttpResponse(template.render(context, request))
+        err_logger.debug('JournalView.get(): before render')
+        rendered_template = template.render(context, request)
+        err_logger.debug('JournalView.get(): before response')
+        return HttpResponse(rendered_template)
 
+    @logged
     def get_context(self, request, journal_name, page_type):
-        err_logger.debug(f'JournalView.get_context(): page_type: {page_type}')
         return get_common_context(journal_name, request, page_type)
 
 
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
-
+    @logged
     def get_context(self, request, journal_name, page_type):
         context = super().get_context(request, journal_name, page_type)
 
@@ -64,6 +72,7 @@ class ShihtaJournalView(JournalView):
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
 
+    @logged
     def get_context(self, request, journal_name, page_type):
         context = super().get_context(request, journal_name, page_type)
 

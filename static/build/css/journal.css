@@ -468,3 +468,16 @@ footer {
     font-size: 10px;
     line-height: 10px;
 }
+
+.units:not(.no-before)::before {
+    content: ", "; /* Comma before units */
+}
+
+.units:not(.no-before)::before {
+    content: ", ";
+    white-space: pre-line;
+}
+
+.units {
+    white-space: nowrap;
+}

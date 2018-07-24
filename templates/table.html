@@ -18,7 +18,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <form action="/common/change_table" method="post" autocomplete="off" oninput="on_form_change(this)"
+            <form action="/common/change_table" method="post" autocomplete="off" oninput="FormTable.on_form_change(this)"
                   class="{% block form_class %}{% endblock %} elog-table-form">
                 <input hidden name="table_name" value="{{ table_name }}">
                 <input hidden name="journal_page" value="{{ journal_page }}">
