@@ -18,6 +18,8 @@ from django.conf.global_settings import INTERNAL_IPS
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+INTERNAL_IPS = '127.0.0.1'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -282,3 +284,4 @@ LOGGING = {
         },
     }
 }
+
