@@ -94,7 +94,6 @@
     </script>
     <!-- Bootstrap -->
     <script src = "{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src = "{% static 'build/js/leaching_edit.js' %}"></script>
     <script src = "{% static 'v/vue/vue.js' %}"></script>
     <script src = "{% static 'v/vue/vue-resource.min.js' %}" ></script>
     <script src = "{% static 'v/moment/moment.min.js' %}"></script>
@@ -104,23 +103,5 @@
     <script src = "{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
     {% endblock %}
 
-    <script>
-    $( document ).ready(function() {
-        var element = $('.journal_title'), originalY = element.offset().top;
-
-        $(window).on('scroll', function (event) {
-            var scrollPos = $(window).scrollTop();
-            if (scrollPos > 0) {
-                element.addClass('sticky');
-                element.width(element.parent().width())
-            }
-            else {
-                element.removeClass('sticky');
-            }
-
-        });
-    });
-
-    </script>
 </body>
 </html>
