@@ -2,33 +2,6 @@
 "use strict";
 
 
-function shift_confirmation() {
-    let edit = $("input[name='edit']").attr("value");
-    if (edit === "True") {
-        let has_edited = $("input[name='has_edited']").attr("value");
-        if (!(has_edited === "True")) {
-            $.confirm({
-                title: 'Продолжить?',
-                content: 'Вы будете назначены отвественным за этот журнал',
-                autoClose: 'cancel|60000',
-                theme: 'supervan',
-                buttons: {
-                    confirm: {
-                        text: "Да",
-                        action: function() {$("form").trigger("input")}
-                    },
-                    cancel: {
-                        text: "Назад",
-                        action: function () {
-                            history.back();
-                        },
-                    }
-                }
-            });
-        }
-    }
-}
-
 
 
 /**
@@ -111,7 +84,7 @@ function onKeyDownAction(e) {
 
 
 $(document).ready(function () {
-    shift_confirmation();
+    Shift.confirm();
     Journal.onReady();
 });
 
