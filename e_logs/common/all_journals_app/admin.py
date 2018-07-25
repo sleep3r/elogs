@@ -9,8 +9,28 @@ class PlantAdmin(admin.ModelAdmin):
     list_display_links = ['name']
 
 
-admin.site.register(CellValue)
-admin.site.register(JournalPage)
+class JournalPageAdmin(admin.ModelAdmin):
+    model = JournalPage
+    search_fields = ['journal_name', 'equipment']
+    list_display = ['type', 'journal_name', 'plant', 'shift_order', 'shift_date', 'date', 'year', 'month', 'equipment', 'time', 'id']
+
+
+class CellValueAdmin(admin.ModelAdmin):
+    model = JournalPage
+    empty_value_display = 'None'
+    search_fields = ['table_name', 'field_name' ]
+    list_display_links = ['field_name']
+    list_display = ['plant_name','journal_name', 'table_name', 'field_name', 'index', 'value', 'id' ]
+    list_filter = ('journal_page', 'table_name')
+
+    def journal_name(self, obj):
+        return obj.journal_page.journal_name
+    def plant_name(self, obj):
+        return obj.journal_page.plant.name
+
+
+admin.site.register(CellValue, CellValueAdmin)
+admin.site.register(JournalPage, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Setting)
 
