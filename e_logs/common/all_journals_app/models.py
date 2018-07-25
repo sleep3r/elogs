@@ -60,14 +60,6 @@ class JournalPage(models.Model):
     def shift_is_active(self):
         return self.shift_start_time <= timezone.now() <= self.shift_end_time
 
-    def get_equipent(request):
-        try:
-            print(request)
-            obj = JournalPage.objects.filter(type='equipment').exclude(equipment__isnull=True)
-        except (ProgrammingError, OperationalError):
-            return
-        return obj.equipment.split(',')
-
     class Meta:
         # unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name', 'type']
         verbose_name = 'Журнал'
