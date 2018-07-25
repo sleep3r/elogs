@@ -5,6 +5,8 @@ from django.db import transaction
 from django.views import View
 from django.views.generic.list import ListView
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
@@ -16,7 +18,7 @@ from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged
 
 
-class MessageView(View):
+class MessageView(LoginRequiredMixin, View):
     @logged
     def getCell(self, request):
         journal_page = request.POST.get('journal_page', None)
@@ -121,7 +123,7 @@ class MessageView(View):
         return JsonResponse({"result": 1})
 
 
-class MessagesList(ListView):
+class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     paginate_by = 10
     context_object_name = 'messages'

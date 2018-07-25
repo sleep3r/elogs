@@ -103,28 +103,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'DjangoRelease',
-#         'HOST': '88.99.2.149',
-#         'PORT': '',
-#         'USER': 'InframineDeveloper',
-#         'PASSWORD': 'Singapore2017',
-#
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 13 for SQL Server',
-#         },
-#     },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'elogs',
+        'HOST': '127.0.0.1',
+        'PORT': '1433',
+        'USER': 'sa',
+        'PASSWORD': 'Singapore2017',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
+}
 
 
 # Password validation

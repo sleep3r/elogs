@@ -20,10 +20,10 @@ RUN /srv/docker/pyodbc_mssql_driver.sh
 
 RUN pip3 install -r /srv/requirements.txt
 
-COPY . /srv
-
 EXPOSE 80
 
 WORKDIR /srv
+
+COPY . /srv
 
 ENTRYPOINT ["/srv/docker/entrypoint.sh"]
