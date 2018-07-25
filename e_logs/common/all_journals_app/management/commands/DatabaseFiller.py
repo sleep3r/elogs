@@ -352,15 +352,29 @@ class DatabaseFiller:
 
 
     def fill_fractional_app(self, n):
-        cinder_base = [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
-        schieht_base = [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
         for i in range(n):
             time = timezone.now() - timedelta(hours=2 * i)
-            cinder = [c + random.uniform(0, 2) for c in cinder_base]
-            schieht = [s + random.uniform(0, 2) for s in schieht_base]
+            cinder_masses = [c + random.uniform(0, 2) for c in [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]]
+            schieht_masses = [s + random.uniform(0, 2) for s in [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]]
 
-            mp = MeasurementPair().add_weights(cinder, schieht, time, time - timedelta(minutes=30))
-            mp.save()
+            cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
+            schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
+
+            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = time, journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
+
+            for m_value in cinder_masses:
+                CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
+                                index=0, value=m_value, journal_page=measurement)
+            for m_value in cinder_sizes:
+                CellValue.objects.create(table_name="measurements", field_name='cinder_size',
+                                index=0, value=m_value, journal_page=measurement)
+            for m_value in schieht_masses:
+                CellValue.objects.create(table_name="measurements", field_name='schieht_mass',
+                                index=0, value=m_value, journal_page=measurement)
+            for m_value in schieht_sizes:
+                CellValue.objects.create(table_name="measurements", field_name='schieht_size',
+                                index=0, value=m_value, journal_page=measurement)
+           
 
 
     # def fill_equipement(self):
@@ -537,7 +551,7 @@ class DatabaseFiller:
             # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
 
             # for MS SQL server
-            #  DBCC CHECKIDENT(mytable, RESEED, 0)
+            cursor.execute(f'DBCC CHECKIDENT({table_name}, RESEED, 0)')
 
 
     def create_permissions_and_groups(self):

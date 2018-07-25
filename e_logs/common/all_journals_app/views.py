@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage
@@ -17,7 +19,7 @@ from e_logs.common.messages_app.services import messages
 from e_logs.common.all_journals_app.journals_descriptions.journals_info import journals_verbose_names
 
 
-class JournalView(View):
+class JournalView(LoginRequiredMixin, View):
     """ Common view for a journal. Inherit from this class when creating your own journal view """
 
     @logged
