@@ -546,11 +546,11 @@ class DatabaseFiller:
 
     def reset_increment_counter(self, table_name):
         print("reset increment counter")
-    #    with connection.cursor() as cursor:
-            # for sqlite
-            # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+        with connection.cursor() as cursor:
+        # for sqlite
+        # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
 
-            # for MS SQL server
+        # for MS SQL server
             cursor.execute(f'DBCC CHECKIDENT({table_name}, RESEED, 0)')
 
 
