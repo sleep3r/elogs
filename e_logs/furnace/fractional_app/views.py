@@ -4,16 +4,12 @@ from datetime import timedelta
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
 from django.views.generic import TemplateView
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.template import loader
 
-from e_logs.furnace.fractional_app.models import *
 from e_logs.common.all_journals_app.models import CellValue, JournalPage
 from e_logs.core.utils.deep_dict import deep_dict
-from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.webutils import process_json_view
 
 
@@ -30,13 +26,25 @@ class Index(TemplateView, LoginRequiredMixin):
 def add_measurement(request):
     if request.method == 'POST':
         req = json.loads(request.body)
-        print(req)
-        time = timezone.now()
-        mp = CellValue()
-        # omg nb schieht first
-        mp.add(req['schieht']['masses'], req['schieht']['min_sizes'],\
-            req['cinder']['masses'], req['cinder']['min_sizes'], time, time - timedelta(minutes=30))
-        mp.save()
+
+        if hasattr(req, 'id'):
+            measurement = req['id']
+        else:
+            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = timezone.now(), journal_name = "fractional_anal", plant_id=1).id
+
+        for m_value in req['cinder']['masses']:
+            CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
+                             index=0, value=m_value, journal_page_id=measurement)
+        for m_value in req['cinder']['min_sizes']:
+            CellValue.objects.create(table_name="measurements", field_name='cinder_size',
+                             index=0, value=m_value, journal_page_id=measurement)
+        for m_value in req['schieht']['masses']:
+            CellValue.objects.create(table_name="measurements", field_name='schieht_mass',
+                             index=0, value=m_value, journal_page_id=measurement)
+        for m_value in req['schieht']['min_sizes']:
+            CellValue.objects.create(table_name="measurements", field_name='schieht_size',
+                             index=0, value=m_value, journal_page_id=measurement)
+
         return HttpResponse(status=201)
     return HttpResponse(status=405)
 
@@ -45,24 +53,24 @@ def add_measurement(request):
 def granularity_object(request):
     res = deep_dict()
 
-    for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True)[:2]:
-        res['data'][o.id+1234]['cinder']['time'] = (o.cinder.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
-        res['data'][o.id+1234]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
+    for measurement in JournalPage.objects.filter(type="measurement")[:2]:
+        res['data'][measurement.id+100]['cinder']['time'] = (measurement.time + timedelta(days=700)).timestamp()
+        res['data'][measurement.id+100]['cinder']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
+        res['data'][measurement.id+100]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
 
-        res['data'][o.id+1234]['schieht']['time'] = (o.schieht.user_time + timedelta(days=700)).timestamp()
-        res['data'][o.id+1234]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
-        res['data'][o.id+1234]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
+        res['data'][measurement.id+100]['schieht']['time'] = (measurement.time + timedelta(days=700)).timestamp()
+        res['data'][measurement.id+100]['schieht']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
+        res['data'][measurement.id+100]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+    
+    for measurement in JournalPage.objects.filter(type="measurement"):
+        res['data'][measurement.id]['cinder']['time'] = measurement.time.timestamp()
+        res['data'][measurement.id]['cinder']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
+        res['data'][measurement.id]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
 
-    for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True):
-        res['data'][o.id]['cinder']['time'] = o.cinder.user_time.timestamp()
-        res['data'][o.id]['cinder']['masses'] = [round(float(w.mass), 2) for w in o.cinder.weights.all()]
-        res['data'][o.id]['cinder']['min_sizes'] = [round(float(w.min_size), 2) for w in o.cinder.weights.all()]
-
-        res['data'][o.id]['schieht']['time'] = o.schieht.user_time.timestamp()
-        res['data'][o.id]['schieht']['masses'] = [round(float(w.mass), 2) for w in o.schieht.weights.all()]
-        res['data'][o.id]['schieht']['min_sizes'] = [round(float(w.min_size), 2) for w in o.schieht.weights.all()]
-
+        res['data'][measurement.id]['schieht']['time'] = measurement.time.timestamp()
+        res['data'][measurement.id]['schieht']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
+        res['data'][measurement.id]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+    
     return res
 
 
@@ -82,14 +90,14 @@ def granularity_graphs(request):
     cinders = []
     schieht = []
 
-    for o in MeasurementPair.objects.select_related('schieht', 'cinder').filter(is_active=True):
-        masses = [w.mass for w in o.cinder.weights.all()]
-        min_sizes = [w.min_size for w in o.cinder.weights.all()]
-        cinders.append([o.cinder.user_time.timestamp(), get_mean(masses, min_sizes)])
+    for measurement in JournalPage.objects.filter(type="measurement"):
+        masses = [float(m.value) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
+        min_sizes = [float(m.value) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
+        cinders.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])
 
-        masses = [w.mass for w in o.schieht.weights.all()]
-        min_sizes = [w.min_size for w in o.schieht.weights.all()]
-        schieht.append([o.schieht.user_time.timestamp(), get_mean(masses, min_sizes)])
+        masses = [float(m.value) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
+        min_sizes = [float(m.value) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+        schieht.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])
 
     res = deep_dict()
     res['data']['cinder'] = cinders

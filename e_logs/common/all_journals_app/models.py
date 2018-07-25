@@ -43,6 +43,7 @@ class JournalPage(models.Model):
     year = models.IntegerField(blank=True, null=True, verbose_name='Год')
     month = models.IntegerField(blank=True, null=True, verbose_name='Месяц')
     equipment = models.CharField(max_length=256, null=True, verbose_name='Оборудование')
+    time = models.DateTimeField(verbose_name='Время', null=True, blank=True)
 
     @property
     def shift_start_time(self):
