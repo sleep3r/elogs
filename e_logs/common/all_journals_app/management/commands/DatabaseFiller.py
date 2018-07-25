@@ -531,9 +531,10 @@ class DatabaseFiller:
                 attribute(journal_page=journal_page)
 
     def reset_increment_counter(self, table_name):
-        with connection.cursor() as cursor:
+        print("reset increment counter")
+    #    with connection.cursor() as cursor:
             # for sqlite
-            cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+            # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
 
             # for MS SQL server
             #  DBCC CHECKIDENT(mytable, RESEED, 0)
