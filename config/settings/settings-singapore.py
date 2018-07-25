@@ -74,25 +74,12 @@ INSTALLED_APPS = [
     'e_logs.common.login_app.apps.LoginApp',
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
+    'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
-    'e_logs.leaching.express_analysis_app.apps.LeachingExpressAnalysisAppConfig',
+     # TODO: DELETE THIS APP !!!!!!!!!
     'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
-    'e_logs.furnace.repair_app.apps.FurnaceRepairAppConfig',
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
-    'e_logs.furnace.concentrate_report_app.apps.FurnaceConcentrateReportAppConfig',
-    'e_logs.furnace.loading_shihta_app.apps.FurnaceLoadingShihtaAppConfig',
-    'e_logs.furnace.metals_compute_app.apps.FurnaceMetalsComputeAppConfig',
-    'e_logs.furnace.replaceable_technological_tasks_app.apps.FurnaceReplaceableTechnologicalTasksAppConfig',
-    'e_logs.furnace.changed_fraction_app.apps.FurnaceChangedFractionAppConfig',
-    'e_logs.furnace.reports_furnace_area_app.apps.FurnaceReportsFurnaceAreaAppConfig',
-    'e_logs.furnace.buffering_app.apps.BufferingAppConfig',
-
-    'e_logs.electrolysis.technical_report_app4.apps.TechnicalReportApp4Config',
-    'e_logs.electrolysis.technical_report_app3.apps.TechnicalReportApp3Config',
-    'e_logs.electrolysis.technical_report_app12.apps.TechnicalReportApp12Config',
-    'e_logs.electrolysis.repair_report_app.apps.RepairReportAppConfig',
-    'e_logs.electrolysis.masters_raports_app.apps.ElectrolysisMastersRaportsAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -182,3 +169,109 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
+        }
+    },
+    'formatters': {
+        'main_formatter': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+        'color_formatter': {
+            '()': 'logs.formatters.ColorsFormatter',
+            'format': "[%(asctime)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'color_formatter',
+        },
+        'production_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_false'],
+        },
+        'debug_file_debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_debug.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_info.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_error.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'debug_file_calls': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug_calls.log',
+            'maxBytes': 1024 * 1024 * 2,  # 2 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'null': {
+            "class": 'logging.NullHandler',
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console', 'debug_file_error'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'py.warnings': {
+            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+        },
+        '': {
+            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
+            'level': "DEBUG",
+        },
+        'django': {
+            'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
+        },
+        'CALL': {
+            'handlers': ['debug_file_calls'],
+        },
+        'STDOUT': {
+            'handlers': ['console'],
+        },
+        'STDERR': {
+            'handlers': ['console'],
+        },
+    }
+}

@@ -26,4 +26,6 @@ WORKDIR /srv
 
 COPY . /srv
 
+ENV DJANGO_SETTINGS_MODULE config.settings.settings-singapore
+
 ENTRYPOINT ["/srv/docker/entrypoint.sh"]
