@@ -36,7 +36,7 @@ class JournalPage(models.Model):
     journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
 
     # for shift type
-    plant = models.ForeignKey('Plant', on_delete=models.SET_NULL, null=True, verbose_name='Цех')
+    plant = models.ForeignKey('Plant', on_delete=models.CASCADE, null=True, verbose_name='Цех', unique=False)
     shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
     shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
     date = models.DateField(blank=True, null=True, verbose_name='Дата')
@@ -69,7 +69,7 @@ class JournalPage(models.Model):
         return obj.equipment.split(',')
 
     class Meta:
-        unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name']
+        # unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name', 'type']
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
 

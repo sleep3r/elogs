@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.template import loader
 
-from e_logs.common.all_journals_app.models import CellValue, JournalPage
+from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.webutils import process_json_view
 
@@ -30,7 +30,7 @@ def add_measurement(request):
         if hasattr(req, 'id'):
             measurement = req['id']
         else:
-            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = timezone.now(), journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace")).id
+            measurement = JournalPage.objects.create(type="measurement", time = timezone.now(), journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace")).id
 
         for m_value in req['cinder']['masses']:
             CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
