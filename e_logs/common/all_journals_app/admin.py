@@ -21,7 +21,8 @@ class CellValueAdmin(admin.ModelAdmin):
     search_fields = ['table_name', 'field_name' ]
     list_display_links = ['field_name']
     list_display = ['plant_name','journal_name', 'table_name', 'field_name', 'index', 'value', 'id' ]
-    list_filter = ('journal_page', 'table_name')
+    # list_select_related = ('journal_page')
+    # list_filter = ('journal_name', 'table_name', 'plant_name')
 
     def journal_name(self, obj):
         return obj.journal_page.journal_name
@@ -29,10 +30,19 @@ class CellValueAdmin(admin.ModelAdmin):
         return obj.journal_page.plant.name
 
 
+class SettingAdmin(admin.ModelAdmin):
+    model = Setting
+    search_fields = ['name']
+    list_display = ['plant', 'journal', 'name','value', 'table', 'cell', 'id',]
+    list_display_links = ['name']
+
+
+
+
 admin.site.register(CellValue, CellValueAdmin)
 admin.site.register(JournalPage, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
-admin.site.register(Setting)
+admin.site.register(Setting, SettingAdmin)
 
 
 
