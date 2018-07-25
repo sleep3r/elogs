@@ -12,6 +12,16 @@ class EmployeeInline(admin.StackedInline):
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
     inlines = (EmployeeInline, )
+    search_fields = ['username', 'first_name', 'last_name']
+    list_display = ['full_name','username', 'plant_name', 'position' ]
+    list_display_links = ['full_name']
+
+    def full_name(self, obj):
+        return obj.first_name + " " + obj.last_name
+    def plant_name(self, obj):
+        return obj.employee.plant
+    def position(self, obj):
+        return obj.employee.position
 
 
 # Re-register UserAdmin
