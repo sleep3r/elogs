@@ -1,5 +1,7 @@
 from e_logs.common.login_app.models import Employee
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
+
 
 APP = 'all_journals_app'
 VALIDATE_CELLS = APP + ".validate_cells"
@@ -13,12 +15,14 @@ class PageModeError(Exception):
         self.value = value
 
 
+@login_required
 def plant_permission(request):
     employee = Employee.objects.get(user=request.user)
     plant = request.path.split("/")[1]
     return employee.user.has_perm(PLANT_PERM.format(plant=plant))
 
 
+@login_required
 def page_mode_is_valid(request, page):
     employee = Employee.objects.get(user=request.user)
     page_mode = request.GET.get('page_mode')
@@ -33,6 +37,7 @@ def page_mode_is_valid(request, page):
         return False
 
 
+@login_required
 def check_mode_permissions(employee, page, page_mode):
     is_valid = False
     if page_mode == "validate":
@@ -47,10 +52,12 @@ def check_mode_permissions(employee, page, page_mode):
     return is_valid
 
 
+@login_required
 def has_edited(request, page):
     return page in list(request.user.employee.owned_journal_pages.all())
 
 
+@login_required
 def default_page_mode(request, page):
     employee = Employee.objects.get(user=request.user)
     if plant_permission(request):
@@ -67,6 +74,7 @@ def default_page_mode(request, page):
             raise PermissionDenied("У вас нет доступа к этому цеху.")
 
 
+@login_required
 def get_page_mode(request, page):
     if page_mode_is_valid(request, page):
         return request.GET.get('page_mode')

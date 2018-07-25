@@ -30,7 +30,7 @@ def add_measurement(request):
         if hasattr(req, 'id'):
             measurement = req['id']
         else:
-            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = timezone.now(), journal_name = "fractional_anal", plant_id=1).id
+            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = timezone.now(), journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace")).id
 
         for m_value in req['cinder']['masses']:
             CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
