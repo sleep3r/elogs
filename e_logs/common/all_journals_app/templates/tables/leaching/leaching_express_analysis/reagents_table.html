@@ -6,13 +6,16 @@
 
 {% block table %}
     <table class="table table-bordered elog-journal-table">
+        <thead>
             <tr>
-                <td></td>
+                <th></th>
                 <th>{% trans "Доставлено" %}</th>
                 <th>{% trans "Принято" %}</th>
                 <th>{% trans "Расход" %}</th>
                 <th>{% trans "Сдано" %}</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <th>{% trans "Соль Шлиппе" %}{% trans "<i class='units'>кг</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_salt" index=0 %}</td>
@@ -66,8 +69,6 @@
                 <td>{% include "value.html" with field_name="outcome_Fe_shave" index=0 %}</td>
                 <td>{% include "value.html" with field_name="passed_Fe_shave" index=0 %}</td>
             </tr>
-        </tbody>
-        <tbody>
             <tr>
                 <th>{% trans "Состояние ограждений:" %}</th>
                 <td colspan="4">{% include "value.html" with field_name="state_fances" index=0 %}</td>

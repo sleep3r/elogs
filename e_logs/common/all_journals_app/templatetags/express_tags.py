@@ -9,6 +9,8 @@ from django.utils.html import mark_safe
 
 from e_logs.common.all_journals_app.templatetags.for_or_create_node import ForOrCreateNode
 from e_logs.core.utils.deep_dict import deep_dict
+from loggers import err_logger
+from webutils import logged
 
 register = template.Library()
 
@@ -56,10 +58,11 @@ def table_keyval(d, key):
 def choose_val(field_info, index):
     return field_info[index] if index in field_info else ""
 
-
+@logged
 @register.filter
 def stack(a, b):
-    return a + b
+    return str(a) + str(b)
+
 
 @register.filter
 def index(sequence, position):
