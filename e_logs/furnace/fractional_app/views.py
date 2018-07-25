@@ -13,7 +13,7 @@ from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.webutils import process_json_view
 
 
-class Index(TemplateView, LoginRequiredMixin):
+class Index(LoginRequiredMixin, TemplateView):
     template_name = 'furnace-index.html'
 
     def get_context_data(self, **kwargs):
