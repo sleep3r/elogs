@@ -9,26 +9,26 @@
         <thead>
             <tr>
                 <th rowspan="4">{% trans "Время" %}</th>
-                <th colspan="6" >{% trans "Сгуститель" %} 10</th>
-                <th colspan="6" >{% trans "Сгуститель" %} 11</th>
-                <th colspan="6" >{% trans "Сгуститель" %} 12</th>
+                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 10</th>
+                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 11</th>
+                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 12</th>
             </tr>
             <tr>
-                <th colspan="4" >{% trans "ВС" %} 10{% trans "сг." %}</th>
-                <th colspan="2" >{% trans "НС" %} 11{% trans "сг." %}</th>
-                <th colspan="4" >{% trans "ВС" %} 12{% trans "сг." %}</th>
-                <th colspan="2">{% trans "НС" %} 10{% trans "сг." %}</th>
-                <th colspan="4">{% trans "ВС" %} 11{% trans "сг." %}</th>
-                <th colspan="2">{% trans "НС" %} 12{% trans "сг." %}</th>
+                <th colspan="4" class="th-common">{% trans "ВС" %} 10{% trans "сг." %}</th>
+                <th colspan="2" class="th-common">{% trans "НС" %} 11{% trans "сг." %}</th>
+                <th colspan="4" class="th-common">{% trans "ВС" %} 12{% trans "сг." %}</th>
+                <th colspan="2" class="th-common">{% trans "НС" %} 10{% trans "сг." %}</th>
+                <th colspan="4" class="th-common">{% trans "ВС" %} 11{% trans "сг." %}</th>
+                <th colspan="2" class="th-common">{% trans "НС" %} 12{% trans "сг." %}</th>
             </tr>
             <tr>
               {% for _ in 3|times %}
-                <th>pH</th>
-                <th>Cu<i class='units'>мг/л</i></th>
-                <th>Fe<i class='units'>мг/л</i></th>
-                <th>Ж:Т</th>
-                <th>pH</th>
-                <th>Ж:Т</th>
+                <th class="th-number">pH</th>
+                <th class="th-number">Cu<i class='units'>мг/л</i></th>
+                <th class="th-number">Fe<i class='units'>мг/л</i></th>
+                <th class="th-number">Ж:Т</th>
+                <th class="th-number">pH</th>
+                <th class="th-number">Ж:Т</th>
               {% endfor %}
             </tr>
         </thead>

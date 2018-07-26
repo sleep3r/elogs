@@ -46,11 +46,15 @@ table.elog-journal-table td, table.elog-journal-table th { /* td and th */
     text-align: right;
 }
 
+.elog-journal-table th.th-common {
+    text-align: center !important;
+}
+
 .elog-journal-table th.time,
 .elog-journal-table th.text,
 .elog-journal-table th.datalist
 {
-
+    text-align: left;
 }
 
 .non-wrapping-table {
