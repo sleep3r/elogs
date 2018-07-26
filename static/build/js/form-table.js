@@ -48,7 +48,7 @@ class Lines {
 
     clone_last_line(form) {
         const tables = $(form).find("table:not(.table-insided)");
-        for (var i=0; i<tables.get().length; i++) {
+        for (let i=0; i<tables.get().length; i++) {
             let table = $(tables.get()[i]);
             const last_line = table.find(".indexed-line:last");
             if (!this.line_is_empty(last_line)) {
@@ -65,7 +65,7 @@ class Lines {
     clear_empty_lines(form) {
         const tables = $(form).find("table:not(.table-insided)");
         let context = this;
-        for (var i=0; i<tables.get().length; i++) {
+        for (let i=0; i<tables.get().length; i++) {
             let table = $(tables.get()[i]);
             let last_line = null;
 

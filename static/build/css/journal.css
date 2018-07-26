@@ -1,12 +1,16 @@
-td { text-align: center; }
+/*my_temp_custom*/
+
+
+.my_main_container {
+    overflow-x: hidden;
+}
+
+
+
+/* End of custom */
 
 tr.mini td {
    font-size: 10px;
-}
-
-th {
-    text-align: center;
-    color: #73879C;
 }
 
 .tablewrapper h4 {
@@ -26,6 +30,7 @@ th {
 .columncontainer table tr:first-child > * {
   border-top: none;
 }
+
 .columncontainer table tr > * {
   border-top: none;
   width: 25%;
@@ -156,52 +161,6 @@ td {
   100% {background-color: initial;}
 }
 
-th.rotate {
-  white-space: nowrap;
-}
-
-th.rotate > div {
-  transform:
-    translate(5px, 5px)
-    rotate(270deg);
-  width: 1px;
-}
-
-th.rotate > div > span {
-  padding: 5px 0;
-  text-align: left;
-}
-
-.densers-header {
-  height: 150px;
-}
-.header-vsns {
-  height: 190px;
-}
-
-
-.removeleftborder.removeleftborder {
-  border-left: none !important;
-}
-
-.removetopborder.removetopborder {
-  border-top: none !important;
-}
-
-.removerightborder.removerightborder {
-  border-right: none !important;
-}
-
-.removebottomborder.removebottomborder {
-  border-bottom: none !important;
-}
-
-.insidetable {
-  margin: 0;
-  border: none;
-}
-
-
 .journaltablewrapper td {
     padding: 0 !important; /* to have inputs inside cells*/
     position: relative;
@@ -219,7 +178,7 @@ th.rotate > div > span {
 
 .journaltablewrapper .form-control[readonly] {
     background-color: transparent !important;
-    background: white;
+    /*background: white;*/
 }
 
 .journaltablewrapper .form-control[readonly]:focus {
@@ -230,6 +189,8 @@ th.rotate > div > span {
     background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
 }
 
+/* ------------------ Classes for electrolysis --------------------- */
+
 .row_of_tables {
     display: flex;
     margin-bottom: 20px;
@@ -237,75 +198,6 @@ th.rotate > div > span {
 
 .row_of_tables table {
     margin: 3px;
-}
-
-.journaltablewrapper .table_header_input{
-    width: 100%;
-    display: flex;
-}
-
-input[readonly] {
-    background-color: transparent !important;
-    background: white;
-}
-
-
-  /* .popup-comment {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-  } */
-
-.table .extreme {
-    left: 0 !important;
-}
-
-  /* The actual popup */
-.table .popup-comment-content {
-    visibility: hidden;
-    background-color: #24A48A;
-    text-align: center;
-    border-radius: 2px;
-    padding: 1px;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    margin-bottom: 10px;
-    margin-left: -80px;
- }
-
-  /* Popup arrow */
-.table .popup-comment-content::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: #24A48A transparent transparent transparent;
-}
-
-
-.popup-comment-content > textarea {
-    resize: none;
-    line-height: 18px;
-    border: none;
-    margin: 1px;
-}
-
-.popup-comment-content > textarea:focus {
-    outline: none;
-}
-  /* Toggle this class - hide and show the popup */
-.table .show {
-    visibility: visible;
-    /* -webkit-animation: fadeIn 0s;
-    animation: fadeIn 0s; */
 }
 
 
@@ -333,25 +225,6 @@ input[readonly] {
     margin-top: 57px;
 } */
 
-.comment-close-button {
-    height: 10px;
-    width: 10px;
-    font-size: 10px;
-    line-height: 10px;
-    position: absolute;
-    right: 2px;
-    top: 2px;
-    padding: 0;
-    margin: 0;
-    min-height: 0;
-    min-width: 0;
-    border: none;
-}
-
-.comment-close-button:hover {
-    cursor: pointer;
-}
-
 .comment-notification {
     visibility: hidden;
     position: absolute;
@@ -377,38 +250,7 @@ input[readonly] {
     line-height: 55px;
 }
 
-.table-insided {
-    margin-bottom: 0 !important;
-    width: 100%;
-}
-
-.table-comment-button {
-    cursor: pointer;
-}
-
-/* Indicator on comments button, overrides bootstrap */
-.table-comment-button .badge {
-    color: #ffffff;
-    background-color: #5A738E;
-}
-
-.table-comment-button:hover {
-    text-decoration: underline
-}
-
-.table-comment-button:active {
-    color: #29BA9C;
-}
-
-.elog-journal-table tr th, .general-value {
-    /*important because it's really important and to override bootstrap*/
-    padding-left: 3px !important;
-    padding-right: 2px !important;
-}
-
-.popup-comment-content textarea::placeholder, .general-value::placeholder {
-    color: #BBBBBB;
-}
+/* ---------------------------------- Developer feedback ------------------------------- */
 
 footer {
     font-size: 16px;
@@ -430,54 +272,12 @@ footer {
     display: inline;
 }
 
-#message-modal-alert {
+#message-modal-alert { /* Message for developers */
     display: none;
 }
 
-#shift_field {
+/* Field to choose shift */
+
+#shift_field { /* Shift page */
     width: 20em;
-}
-
-
-.input-check-popup {
-    visibility: hidden;
-    width: 160px;
-    background-color: #73879C;
-    color: #ffffff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-}
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.input-check-popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
-}
-
-.commentAuthor {
-    text-align: left;
-    color: white;
-    padding: 2px 0px 2px 5px;
-    font-size: 10px;
-    line-height: 10px;
-}
-
-.units:not(.no-before)::before {
-    content: ", "; /* Comma before units */
-}
-
-.units:not(.no-before)::before {
-    content: ", ";
-    white-space: pre-line;
-}
-
-.units {
-    white-space: nowrap;
 }

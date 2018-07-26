@@ -3,19 +3,19 @@
 {% block title %}Разгружено/остаток{% endblock %}
 
 {% block table %}
-<table class="table table-bordered elog-table">
-    <thead>
+<table class="table table-bordered elog-journal-table">
+    <thead  class="thead-dark">
         <tr>
-            <th> Склад </th>
-            <th> Поступление <br> контейнеров<i class='units'>шт</i> </th>
-            <th> Отгружено <br> порожних<i class='units'>шт</i> </th>
-            <th> Разгружено <br> контейнеров<i class='units'>шт</i> </th>
-            <th> Остаток <br> пустых <br> контейнеров<i class='units'>шт</i> </th>
-            <th> Остаток <br> полных <br> контейнеров<i class='units'>шт</i> </th>
-            <th> Остаток <br> бракованых <br> контейнеров<i class='units'>шт</i></th>
-            <th> Остаток <br> скоб<i class='units'>шт</i></th>
-            <th> Количество <br> поддонов<i class='units'>шт</i> </th>
-            <th> Количество <br> скоб<i class='units'>шт</i> </th>
+            <th scope="col"> Склад </th>
+            <th scope="col" class="th-number"> Поступление <br> контейнеров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Отгружено <br> порожних<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Разгружено <br> контейнеров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Остаток <br> пустых <br> контейнеров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Остаток <br> полных <br> контейнеров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Остаток <br> бракованых <br> контейнеров<i class='units'>шт</i></th>
+            <th scope="col" class="th-number"> Остаток <br> скоб<i class='units'>шт</i></th>
+            <th scope="col" class="th-number"> Количество <br> поддонов<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Количество <br> скоб<i class='units'>шт</i> </th>
         </tr>
     </thead>
 
@@ -33,7 +33,7 @@
     </tr>
 
     <tr>
-        <th>2</th>
+        <th scope="row">2</th>
         <td>{% include "value.html" with field_name="containers_reciept2" index=0 %}</td>
         <td>{% include "value.html" with field_name="shipped_empty_num2" index=0 %}</td>
         <td>{% include "value.html" with field_name="poured_containers_num2" index=0 %}</td>
@@ -46,7 +46,7 @@
     </tr>
 
     <tr>
-        <th>Итого</th>
+        <th scope="row">Итого</th>
         <td>{% include "value.html" with field_name="containers_reciept_total" index=0 %}</td>
         <td>{% include "value.html" with field_name="shipped_empty_num_total" index=0 %}</td>
         <td>{% include "value.html" with field_name="poured_containers_num_total" index=0 %}</td>

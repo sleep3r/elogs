@@ -1,4 +1,5 @@
 from datetime import time, date, datetime, timedelta
+from pyodbc import ProgrammingError, OperationalError
 
 from django.db import models
 from django.utils import timezone

@@ -1,9 +1,6 @@
 /*jshint esversion: 6 */
 "use strict";
 
-
-
-
 /**
  * @dependecies Journal
  * @param e
@@ -17,16 +14,17 @@ function onKeyDownAction(e) {
         if (input.type === 'number') {
             const popup = input.parentElement.getElementsByClassName('input-check-popup')[0];
             // If number or ',' or '.' was pressed
-            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === '188' || e.keyCode === '190') {
+            console.log('key pressed:', e.keyCode);
+            if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 188 || e.keyCode === 190) {
                 console.log('number was pressed in number field');
                 popup.classList.remove('show')
             } else {
-                if (e.keyCode !== '8' &&
-                    e.keyCode !== '46' &&
-                    e.keyCode !== '37' &&
-                    e.keyCode !== '38' &&
-                    e.keyCode !== '39' &&
-                    e.keyCode !== '40') {
+                if (e.keyCode !== 8 &&
+                    e.keyCode !== 46 &&
+                    e.keyCode !== 37 &&
+                    e.keyCode !== 38 &&
+                    e.keyCode !== 39 &&
+                    e.keyCode !== 40) {
                     popup.classList.add('show');
                     setTimeout(function () {
                         popup.classList.remove('show');
@@ -37,7 +35,7 @@ function onKeyDownAction(e) {
                     popup.classList.remove('show');
                 }
                 // backspace and delete
-                if (e.keyCode !== '8' && e.keyCode !== '46') {
+                if (e.keyCode !== 8 && e.keyCode !== 46) {
                     e.preventDefault();
                 }
             }
@@ -51,7 +49,7 @@ function onKeyDownAction(e) {
     }
     e = e || window.event;
 
-    if (e.keyCode === '38') { // up arrow
+    if (e.keyCode === 38) { // up arrow
         let idx = selectedElement.cellIndex;
         let nextrow = selectedElement.parentElement.previousElementSibling;
         if (nextrow != null) {
@@ -60,7 +58,7 @@ function onKeyDownAction(e) {
                 Journal.focusTo(sibling);
             }
         }
-    } else if (e.keyCode === '40') { // down arrow
+    } else if (e.keyCode === 40) { // down arrow
         let idx = selectedElement.cellIndex;
         let nextrow = selectedElement.parentElement.nextElementSibling;
         if (nextrow != null) {
@@ -69,12 +67,12 @@ function onKeyDownAction(e) {
                 Journal.focusTo(sibling);
             }
         }
-    } else if (e.keyCode === '37') { // left arrow
+    } else if (e.keyCode === 37) { // left arrow
         let sibling = selectedElement.previousElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);
         }
-    } else if (e.keyCode === '39') { // right arrow
+    } else if (e.keyCode === 39) { // right arrow
         let sibling = selectedElement.nextElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);

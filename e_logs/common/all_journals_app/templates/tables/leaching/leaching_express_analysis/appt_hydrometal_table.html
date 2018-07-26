@@ -8,8 +8,8 @@
     <table class="table table-bordered elog-journal-table">
         <thead>
                 <tr>
-                    <th colspan="4">{% trans "1 Манн" %}</th>
-                    <th colspan="5">{% trans "4 Манн" %}</th>
+                    <th colspan="4" class="th-common">{% trans "1 Манн" %}</th>
+                    <th colspan="5" class="th-common">{% trans "4 Манн" %}</th>
                 </tr>
                 <tr>
                     <th>pH</th>
@@ -18,7 +18,7 @@
                     <th>{% trans "Fe Общее" %}{% trans "<i class='units'>мг/л</i>" %}</th>
                     <th>pH</th>
                     <th>{% trans "Медь" %}{% trans "<i class='units'>мг/л</i>" %}</th>
-                    <th>Fe{% trans "<i class='units no-before'>мг/л</i>" %}</th>
+                    <th>Fe{% trans "<i class='units'>мг/л</i>" %}</th>
                     <th>{% trans "Сурьма" %}{% trans ",<br>мг/л" %}</th>
                     <th>{% trans "Отстои" %}</th>
                 </tr>
@@ -42,7 +42,7 @@
          <tr>
                 <th colspan="1">{% trans "Ситовой огарка" %}{% trans "<i class='units'>мм</i>" %}</th>
                 <td colspan="5">
-                    <table class="table insidetable customborders table-insided">
+                    <table class="table insidetable insidetable customborders">
                         <tr>
                             <td>{% include "value.html" with field_name="sit_cinder1" index=0 %}</td>
                             <td>{% include "value.html" with field_name="sit_cinder2" index=0 %}</td>

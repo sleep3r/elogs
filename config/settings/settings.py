@@ -184,7 +184,6 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -288,5 +287,9 @@ LOGGING = {
         'STDERR': {
             'handlers': ['console'],
         },
+        'django.db.backends': {
+            'handlers': ['debug_file_debug'],
+        }
     }
 }
+

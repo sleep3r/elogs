@@ -1,0 +1,79 @@
+.elog-table-container { /* table container for scrolls ans other */
+    /*overflow-x: auto;*/
+}
+
+table.elog-journal-table { /*the table itself*/
+    font-weight: normal;
+    font-style: normal;
+    border-collapse: collapse;
+    table-layout: auto !important;
+    /*table-layout: fixed;*/
+    width: 100%;
+}
+
+.elog-journal-table tr:nth-child(even){background-color: #F5F5F5;} /* Even trs */
+
+table.elog-journal-table td, table.elog-journal-table th { /* td and th */
+    border: 1px solid #EAEAEA !important;
+    vertical-align: bottom;
+}
+
+.elog-journal-table th { /* th */
+    font-family: 'RobotoCondensedRegular', sans-serif;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 3px !important;
+    padding-right: 4px !important;
+
+    text-align: left;
+    background-color: #666666;
+    color: white;
+
+     /* Words are broken randomly if no other choice */
+    /*word-break: break-word;*/
+    overflow: hidden; /* TODO: seems to need min-width */
+    /*white-space: nowrap;*/
+    text-overflow: ellipsis;
+    hyphens: auto;
+}
+
+.elog-journal-table td {
+    /*font-family: 'RobotoCondensedLight', sans-serif;*/
+    padding: 0;
+}
+
+.elog-journal-table th.th-number {
+    text-align: right;
+}
+
+.elog-journal-table th.th-common {
+    text-align: center !important;
+}
+
+.elog-journal-table th.time,
+.elog-journal-table th.text,
+.elog-journal-table th.datalist
+{
+    text-align: left;
+}
+
+.non-wrapping-table {
+    border-collapse: collapse;
+    border-top: none;
+}
+
+/*----------------------------- Units tags ------------------------------------------*/
+
+
+.units:not(.no-before)::before {
+    content: ", "; /* Comma before units */
+}
+
+.units:not(.no-before)::before {
+    content: ", ";
+    white-space: pre-line;
+}
+
+.units {
+    white-space: nowrap;
+}
