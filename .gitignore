@@ -52,6 +52,7 @@ docs/_build/
 
 # PyBuilder
 target/
+logs/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -86,3 +87,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#fucking staticfiles
+staticfiles/
+
+#fucking logs
+logs/

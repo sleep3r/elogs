@@ -3907,7 +3907,3 @@ ul.notifications {
     outline: 3px solid green;
     outline-style: outset;
 }
-
-.non-wrapping-table td input {
-    border: 1px solid #ddd !important;
-}

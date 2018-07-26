@@ -18,7 +18,7 @@
             <div class="tab-pane fade {% if month == cur_month %}active in{% endif %}" id={{ month|add:"_table" }}>
                 {% for p_f in plan_or_fact %}
                     <div style="width: 50%; float:{% if p_f == 'plan' %}left{% else %}right{% endif %}">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered elog-journal-table">
                             <thead>
                                 <tr>
                                     <th> Конц. смт {% if p_f == 'plan' %} (по плану) {% else %} (по факту) {% endif %}</th>

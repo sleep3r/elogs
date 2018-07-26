@@ -1,0 +1,16 @@
+.general-value {
+    /*important because it's really important and to override bootstrap*/
+    padding-left: 3px !important;
+    padding-right: 2px !important;
+
+    font-family: 'RobotoCondensedLight', sans-serif;
+}
+
+input[readonly].general-value {
+    background-color: transparent !important;
+    /*background: white;*/
+}
+
+input[type="number"].general-value {
+    text-align: right;
+}

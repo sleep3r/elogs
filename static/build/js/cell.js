@@ -60,6 +60,7 @@ class Cell {
         if (input.type === "number") {
             input.value = +(input.value*1.0).toFixed(2);
         }
+        // $(input.closest('table')).alignColumn([1, 2, 3, 4, 5], {center: '.'})
     }
 
     static markCommented(textarea) {
@@ -73,5 +74,8 @@ class Cell {
         }
     }
 
+    static resize_cell(input) {
+        input.style.width = (input.value.length + 1) + 'ch';
+    }
 }
 
