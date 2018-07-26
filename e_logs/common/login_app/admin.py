@@ -18,13 +18,23 @@ class UserAdmin(BaseUserAdmin):
 
     def full_name(self, obj):
         return obj.first_name + " " + obj.last_name
+
     def plant_name(self, obj):
         return obj.employee.plant
+
     def position(self, obj):
         return obj.employee.position
+
+
+class EmployeeAdmin(admin.ModelAdmin):
+    model = Employee
+    search_fields = ['name']
+    list_display = ['name', 'position', 'plant', 'csrf', 'id']
+    list_filter = ('position', 'plant')
+    list_display_links = ['name']
 
 
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
-admin.site.register(Employee)
+admin.site.register(Employee, EmployeeAdmin)
