@@ -12,7 +12,9 @@ class PlantAdmin(admin.ModelAdmin):
 class JournalPageAdmin(admin.ModelAdmin):
     model = JournalPage
     search_fields = ['journal_name', 'equipment']
-    list_display = ['type', 'journal_name', 'plant', 'shift_order', 'shift_date', 'date', 'year', 'month', 'equipment', 'time', 'id']
+    list_display = ['type', 'journal_name', 'plant_name', 'shift_order', 'shift_date', 'date', 'year', 'month', 'equipment', 'time', 'id']
+    def plant_name(self, obj):
+        return obj.plant.name
 
 
 class CellValueAdmin(admin.ModelAdmin):
