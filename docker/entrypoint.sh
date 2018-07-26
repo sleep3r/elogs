@@ -1,5 +1,6 @@
 #!/bin/bash
 #python3.6 manage.py makemigrations
+python3.6 makemigrations --merge
 python3.6 manage.py migrate        # Apply database migrations
 #python3 manage.py collectstatic --clear --noinput # clearstatic files
 #python3 manage.py collectstatic --noinput  # collect static files
