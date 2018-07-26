@@ -1,9 +1,12 @@
 import inspect
 import random
+import json
+
 from datetime import timedelta
 from inspect import ismethod
 from itertools import product
 from random import randint
+from os import walk
 
 from django.db.models import Model
 from django.contrib.auth.models import User, Group, Permission
@@ -18,6 +21,8 @@ from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 from django.db import connection
 from e_logs.common.login_app.models import Employee
+from e_logs.core.models import Setting
+
 
 
 class DatabaseFiller:
@@ -647,6 +652,36 @@ class DatabaseFiller:
         Setting(name="test", value="Aleksey", table="toble").save()
 
 
+        #creating table lists for each journal
+        tables_lists = { 'furnace': {'concentrate_report_journal': [],
+                                   'reports_furnace_area': [],
+                                   'report_income_outcome_schieht': [],
+                                   'metals_compute':[] ,
+                                   'technological_tasks': [],
+                                   'furnace_repair': [],
+                                   'furnace_changed_fraction': []},
+
+                        'leaching': {'leaching_express_analysis': [],
+                                     'leaching_repair_quipment': [],},
+
+                        'electrolysis': {'electrolysis_repair_report_tables': [],
+                                        'masters_raports': [],
+                                        'electrolysis_technical_report_12_degree': [],
+                                        'electrolysis_technical_report_3_degree': [],
+                                        'electrolysis_technical_report_4_degree': [] } 
+                                                                                        }                                                                                        
+        for plant in tables_lists:
+            for journal in tables_lists[plant]:
+                path = f'e_logs/common/all_journals_app/templates/tables/{plant}/{journal}'
+                for (dirpath, dirnames, filenames) in walk(path):
+                    tables_lists[plant][journal].extend(filenames)
+                    break
+
+        for plant in tables_lists:
+            for journal, tables in tables_lists[plant]:
+                Setting.objects.create(name = "tables_list", value = json.dumps(tables), journal = journal)
+        
+        
     def clean_database(self):
         exception_models = [User, Model]
         db_models = []

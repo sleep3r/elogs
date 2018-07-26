@@ -1,6 +1,6 @@
 from django.contrib import admin
 from e_logs.common.all_journals_app.models import *
-
+from e_logs.core.models import Setting
 
 
 class PlantAdmin(admin.ModelAdmin):
