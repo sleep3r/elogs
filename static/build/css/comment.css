@@ -78,3 +78,23 @@
 .popup-comment-content textarea::placeholder {
     color: #BBBBBB;
 }
+
+.table-comment-button {
+    cursor: pointer;
+}
+
+/* ------------------------------ Comment button ------------------------------------ */
+
+/* Indicator on comments button, overrides bootstrap */
+.table-comment-button .badge {
+    color: #ffffff;
+    background-color: #5A738E;
+}
+
+.table-comment-button:hover {
+    text-decoration: underline
+}
+
+.table-comment-button:active {
+    color: #29BA9C;
+}

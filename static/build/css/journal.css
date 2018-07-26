@@ -189,6 +189,8 @@ td {
     background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
 }
 
+/* ------------------ Classes for electrolysis --------------------- */
+
 .row_of_tables {
     display: flex;
     margin-bottom: 20px;
@@ -198,25 +200,6 @@ td {
     margin: 3px;
 }
 
-.journaltablewrapper .table_header_input{
-    width: 100%;
-    display: flex;
-}
-
-
-  /* .popup-comment {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-  } */
-
-.table .extreme {
-    left: 0 !important;
-}
 
 .journal_name {
     line-height: 55px;
@@ -267,28 +250,7 @@ td {
     line-height: 55px;
 }
 
-.table-insided {
-    margin-bottom: 0 !important;
-    width: 100%;
-}
-
-.table-comment-button {
-    cursor: pointer;
-}
-
-/* Indicator on comments button, overrides bootstrap */
-.table-comment-button .badge {
-    color: #ffffff;
-    background-color: #5A738E;
-}
-
-.table-comment-button:hover {
-    text-decoration: underline
-}
-
-.table-comment-button:active {
-    color: #29BA9C;
-}
+/* ---------------------------------- Developer feedback ------------------------------- */
 
 footer {
     font-size: 16px;
