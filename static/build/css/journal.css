@@ -290,11 +290,6 @@ td {
     color: #29BA9C;
 }
 
-
-.popup-comment-content textarea::placeholder, .general-value::placeholder {
-    color: #BBBBBB;
-}
-
 footer {
     font-size: 16px;
 }
@@ -315,42 +310,12 @@ footer {
     display: inline;
 }
 
-#message-modal-alert {
+#message-modal-alert { /* Message for developers */
     display: none;
 }
 
-#shift_field {
+/* Field to choose shift */
+
+#shift_field { /* Shift page */
     width: 20em;
 }
-
-
-.input-check-popup {
-    visibility: hidden;
-    width: 160px;
-    background-color: #73879C;
-    color: #ffffff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-}
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.input-check-popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
-}
-
-.commentAuthor {
-    text-align: left;
-    color: white;
-    padding: 2px 0px 2px 5px;
-    font-size: 10px;
-    line-height: 10px;
-}
-

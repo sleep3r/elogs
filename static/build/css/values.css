@@ -14,3 +14,25 @@ input[readonly].general-value {
 input[type="number"].general-value {
     text-align: right;
 }
+
+.general-value::placeholder { /* placeholder style */
+    color: #BBBBBB;
+    font-style: italic;
+}
+
+/* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
+
+.input-check-popup {
+    visibility: hidden;
+    width: 160px;
+    background-color: #73879C;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}

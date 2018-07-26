@@ -59,3 +59,22 @@
     /* -webkit-animation: fadeIn 0s;
     animation: fadeIn 0s; */
 }
+
+.commentAuthor {
+    text-align: left;
+    color: white;
+    padding: 2px 0px 2px 5px;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.input-check-popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+.popup-comment-content textarea::placeholder {
+    color: #BBBBBB;
+}
