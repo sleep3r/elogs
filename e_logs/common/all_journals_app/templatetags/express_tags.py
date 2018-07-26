@@ -9,8 +9,8 @@ from django.utils.html import mark_safe
 
 from e_logs.common.all_journals_app.templatetags.for_or_create_node import ForOrCreateNode
 from e_logs.core.utils.deep_dict import deep_dict
-from loggers import err_logger
-from webutils import logged
+from e_logs.core.utils.loggers import err_logger
+from e_logs.core.utils.webutils import logged
 
 register = template.Library()
 
