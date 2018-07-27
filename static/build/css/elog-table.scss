@@ -1,0 +1,87 @@
+$tr-even-background: #F5F5F5;
+$table-border-color: #EAEAEA;
+$th-background: #666666;
+$badge-bg-color: #5A738E;
+$comment-active-col: #29BA9C;
+
+table.elog-journal-table { // the table itself
+    table-layout: auto !important; // test fixed layout
+    width: 100%;
+    height: 100% !important;
+
+    font: {
+        family: 'RobotoCondensed', sans-serif;
+        weight: normal;
+        style: normal;
+    }
+
+    border: {
+        collapse: collapse !important;
+    }
+
+    tr:nth-child(even) {
+        background-color: $tr-even-background;
+    }
+
+    td, th {
+        border: 1px solid $table-border-color !important;
+        vertical-align: bottom;
+    }
+
+    th {
+        padding: 6px 4px 12px 3px !important;
+        font-family: 'RobotoCondensedRegular', sans-serif;
+        background-color: $th-background;
+        color: white;
+        overflow: hidden; // TODO: seems to need min-width
+        text-overflow: ellipsis;
+        hyphens: auto;
+    }
+
+    .th-number {
+        text-align: right !important;
+    }
+
+
+    .th-common {
+        text-align: center !important;
+    }
+
+    td {
+        padding: 0 !important; /* to have inputs inside cells*/
+        position: relative;
+    }
+
+    // ------------------------- UNITS SHIT ------------------------
+    .units {
+        white-space: nowrap;
+    }
+
+    .units:not(.no-before)::before {
+        content: ", "; // Comma before units
+        white-space: pre-line;
+    }
+
+    // -------------------------- COMMENTS BUTTON --------------------
+
+    /* Indicator on comments button, overrides bootstrap */
+    .table-comment-button {
+        .badge {
+            color: white;
+            background-color: $badge-bg-color;
+        }
+
+        :hover {
+            text-decoration: underline
+        }
+
+        :active {
+            color: $comment-active-col;
+        }
+    }
+}
+
+.non-wrapping-table {
+    border-collapse: collapse;
+    border-top: none;
+}
