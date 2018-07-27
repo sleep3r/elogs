@@ -16,6 +16,23 @@ class Cell {
     }
 
     //private
+    static saveCell(input) {
+        $.ajax({
+            url: "/common/messages/create/critical_value/",
+            type: 'POST',
+            data: {
+                'check': true, 'field_name': input.name, 'field_value': input.value,
+                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
+                'index': $(input).attr('index')
+            },
+            success: function (json) {
+                if (json && json.result) {
+                    // console.log(json.result)
+                }
+            }
+        });
+    }
+
     static addResponsible(input, user) {
         $(input).siblings(".resp").attr("value", user);
     }

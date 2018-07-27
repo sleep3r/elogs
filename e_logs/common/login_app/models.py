@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from e_logs.common.all_journals_app.models import CellValue, JournalPage
+from e_logs.common.all_journals_app.models import Cell, JournalPage
 
 from e_logs.core.utils.settings import CSRF_LENGTH
 

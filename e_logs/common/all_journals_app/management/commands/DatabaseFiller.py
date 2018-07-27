@@ -368,16 +368,16 @@ class DatabaseFiller:
             measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = time, journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
             for m_value in cinder_masses:
-                CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
+                Cell.objects.create(table_name="measurements", field_name='cinder_mass',
                                 index=0, value=m_value, journal_page=measurement)
             for m_value in cinder_sizes:
-                CellValue.objects.create(table_name="measurements", field_name='cinder_size',
+                Cell.objects.create(table_name="measurements", field_name='cinder_size',
                                 index=0, value=m_value, journal_page=measurement)
             for m_value in schieht_masses:
-                CellValue.objects.create(table_name="measurements", field_name='schieht_mass',
+                Cell.objects.create(table_name="measurements", field_name='schieht_mass',
                                 index=0, value=m_value, journal_page=measurement)
             for m_value in schieht_sizes:
-                CellValue.objects.create(table_name="measurements", field_name='schieht_size',
+                Cell.objects.create(table_name="measurements", field_name='schieht_size',
                                 index=0, value=m_value, journal_page=measurement)
            
 
@@ -409,7 +409,7 @@ class DatabaseFiller:
                 if type(value) is not str:
                     value = str(value)
                 index = i
-                CellValue(
+                Cell(
                     journal_page=journal_page,
                     table_name=table_name,
                     field_name=field_name + index_marker_in_field_name,
@@ -564,7 +564,7 @@ class DatabaseFiller:
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
-        content_type = ContentType.objects.get_for_model(CellValue)
+        content_type = ContentType.objects.get_for_model(Cell)
         modify_leaching = Permission(
             name="Modify Leaching Plant",
             codename="modify_leaching",
@@ -713,7 +713,7 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
-        db_models.extend([Setting, Employee, JournalPage, CellValue, Plant, Group, Permission])
+        db_models.extend([Setting, Employee, JournalPage, Cell, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             u.delete()

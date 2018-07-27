@@ -25,7 +25,7 @@
     <input class="form-control general-value {{ field_name }}_{{ index }}"
            oninput="Cell.onInput(this, '{{ user.employee }}')"
            onchange="Cell.onChange(this)"
-           resposible={{ field_responsible }}
+           resposible="{{ field_responsible }}"
            title="{% if field_responsible %}{% if val %}Заполнил: {{ field_responsible }}{% endif %}{% endif %}"
            value="{% firstof auto_val val %}"
            data-info="{{ info }}"

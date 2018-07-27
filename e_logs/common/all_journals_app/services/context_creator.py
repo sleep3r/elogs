@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
+from e_logs.common.all_journals_app.models import Cell, JournalPage, Plant
 from e_logs.common.all_journals_app.fields_descriptions import fields_info
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.login_app.models import Employee
@@ -18,7 +18,7 @@ from .page_modes import get_page_mode, plant_permission, PageModeError, has_edit
 def get_full_data(page):
     res = deep_dict()
 
-    for val in CellValue.objects.filter(journal_page=page):
+    for val in Cell.objects.filter(journal_page=page):
         if val.index is not None:
             res[val.table_name][val.field_name][val.index] = val.value
             res['id'][val.table_name][val.field_name][val.index] = val.id

@@ -12,7 +12,7 @@ class PlantAdmin(admin.ModelAdmin):
 class JournalPageAdmin(admin.ModelAdmin):
     model = JournalPage
     search_fields = ['journal_name', 'equipment']
-    list_display = ['type', 'journal_name', 'plant_name', 'shift_order', 'shift_date', 'date', 'year', 'month', 'equipment', 'time', 'id']
+    list_display = ['type', 'journal_name', 'plant_name', 'shift_order', 'shift_date', 'id']
     def plant_name(self, obj):
         return obj.plant.name
 
@@ -41,7 +41,7 @@ class SettingAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(CellValue, CellValueAdmin)
+admin.site.register(Cell, CellValueAdmin)
 admin.site.register(JournalPage, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Setting, SettingAdmin)

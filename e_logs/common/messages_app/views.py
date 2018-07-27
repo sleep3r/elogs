@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
-from e_logs.common.all_journals_app.models import CellValue, JournalPage
+from e_logs.common.all_journals_app.models import Cell, JournalPage
 from e_logs.common.messages_app.services import messages
 
 from e_logs.core.utils.deep_dict import deep_dict
@@ -25,7 +25,7 @@ class MessageView(LoginRequiredMixin, View):
         table_name = request.POST.get('table_name', None)
         field_name = request.POST.get('field_name', None)
         row_index = request.POST.get('index', None)
-        cell = messages.get_or_none(CellValue, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
+        cell = messages.get_or_none(Cell, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
         return cell
 
     @staticmethod

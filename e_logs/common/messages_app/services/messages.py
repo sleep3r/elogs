@@ -1,6 +1,6 @@
 from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
-from e_logs.common.all_journals_app.models import CellValue
+from e_logs.common.all_journals_app.models import Cell
 
 def get_addressees(all=False, positions=None, ids=None, plant=None):
     '''Отдает список адресатов'''

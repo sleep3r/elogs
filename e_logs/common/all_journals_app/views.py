@@ -12,14 +12,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from e_logs.common.all_journals_app.models import CellValue, JournalPage
+from e_logs.common.all_journals_app.models import Cell, JournalPage
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import err_logger
 from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
-
-from e_logs.common.all_journals_app.journals_descriptions.journals_info import journals_verbose_names
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -122,13 +120,13 @@ def change_table(request):
     employee = request.user.employee
     page.employee_set.add(employee)
 
-    CellValue.objects.filter(table_name=tn, journal_page=page).delete()
+    Cell.objects.filter(table_name=tn, journal_page=page).delete()
 
     for field_name in request.POST:
         values = request.POST.getlist(field_name)
         with transaction.atomic():
             for i, val in enumerate(values):
-                CellValue(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
+                Cell(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
 
     return {"status": 1}
 
