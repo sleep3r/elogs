@@ -7,25 +7,28 @@ RUN apt-get install -y git
 RUN apt-get install -y vim
 RUN apt-get install -y nginx
 RUN apt-get install -y curl
+RUN apt-get install -y npm
 
 RUN mkdir /srv/media /srv/static /srv/logs
+
+EXPOSE 80
 
 VOLUME ["/srv/media/", "/srv/logs/"]
 
 COPY ./docker/pyodbc_mssql_driver.sh /srv/docker/
-COPY ./requirements.txt /srv
-
 # installs ubuntu odbc drivers and pip django odbc packets
 RUN /srv/docker/pyodbc_mssql_driver.sh
 
+COPY ./requirements.txt /srv
 RUN pip3 install -r /srv/requirements.txt
-
-EXPOSE 80
 
 WORKDIR /srv
 
-COPY . /srv
+COPY ./package.json /srv
+RUN npm i
 
+COPY . /srv
+RUN ./node_modules/.bin/webpack
 ENV DJANGO_SETTINGS_MODULE config.settings.settings-singapore
 
 ENTRYPOINT ["/srv/docker/entrypoint.sh"]
