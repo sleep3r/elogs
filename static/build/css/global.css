@@ -1,8 +1,7 @@
 @charset "UTF-8";
-/* The actual popup */
 .table .popup-comment-content {
   visibility: hidden;
-  background-color: #24A48A;
+  background-color: #9FBF47;
   text-align: center;
   border-radius: 2px;
   padding: 1px;
@@ -44,7 +43,7 @@
   left: 50%;
   margin-left: -5px;
   border: 10px solid transparent;
-  border-top-color: #24A48A;
+  border-top-color: #9FBF47;
 }
 
 .popup-comment-content > textarea {
@@ -64,7 +63,7 @@
 .commentAuthor {
   text-align: left;
   color: white;
-  padding: 2px 0px 2px 5px;
+  padding: 2px 0 2px 5px;
   font-size: 10px;
   line-height: 10px;
 }
@@ -130,13 +129,13 @@ table.elog-journal-table .units:not(.no-before)::before {
 }
 table.elog-journal-table .table-comment-button .badge {
   color: white;
-  background-color: #5A738E;
+  background-color: #548CB7;
 }
 table.elog-journal-table .table-comment-button :hover {
   text-decoration: underline;
 }
 table.elog-journal-table .table-comment-button :active {
-  color: #29BA9C;
+  color: #9FBF47;
 }
 
 .non-wrapping-table {
@@ -214,110 +213,6 @@ table.insidetable {
   border: none;
 }
 
-/*my_temp_custom*/
-.my_main_container {
-  overflow-x: hidden;
-}
-
-/* End of custom */
-tr.mini td {
-  font-size: 10px;
-}
-
-.tablewrapper h4 {
-  display: block;
-}
-
-.smallwrapper {
-  display: flex;
-  margin-bottom: 4px;
-}
-
-.smallwrapper:last-child {
-  display: flex;
-  margin-bottom: 0;
-}
-
-.columncontainer table tr:first-child > * {
-  border-top: none;
-}
-
-.columncontainer table tr > * {
-  border-top: none;
-  width: 25%;
-  text-align: left;
-}
-
-.columncontainer {
-  width: 100%;
-  height: 100%;
-}
-
-.uneditablewrapper {
-  display: inline-block;
-  position: relative;
-  top: 0;
-}
-
-/*.form-reagents__fence-state { width: 600px !important; }*/
-.shift_info tbody th {
-  text-align: right;
-}
-
-/*td { text-align: center; }*/
-tr.mini th {
-  vertical-align: middle !important;
-}
-
-.tablewrapper {
-  display: inline-flex;
-  flex: 1;
-  margin: 4px;
-}
-
-.pagewrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.editintable {
-  float: right;
-}
-
-.x_title .clearfix {
-  float: left;
-}
-
-.tablewrapper table {
-  margin: 0;
-}
-
-.wrappercell {
-  padding: 0 !important;
-}
-
-.textareainside {
-  box-sizing: border-box;
-  width: 100% !important;
-}
-
-.tablewrapper .navbar-right {
-  margin: 0;
-  min-width: 10px;
-}
-
-.x_panel {
-  margin: 0;
-  padding: 5px !important;
-  height: 100%;
-}
-
-.x_title {
-  height: 40px;
-  padding: 0;
-  min-width: 150px;
-}
-
 /* ------------------ Classes for electrolysis --------------------- */
 .row_of_tables {
   display: flex;
@@ -351,6 +246,22 @@ tr.mini th {
 #shift_field {
   /* Shift page */
   width: 20em;
+}
+
+.page-type-selector {
+  float: left;
+  display: inline-flex;
+}
+
+.choose-page-type-lablel {
+  line-height: 34px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.shift-mode-buttons {
+  float: right;
+  display: inline-flex;
 }
 
 /* ------------------- Developer feedback ------------------------- */
@@ -455,7 +366,7 @@ input[type=number].general-value {
   height: 100%;
   min-height: 30px;
   word-break: break-word;
-  background: linear-gradient(-45deg, #26B99A55 0%, transparent 10px, transparent 100%);
+  background: linear-gradient(-45deg, #9FBF47 0%, transparent 10px, transparent 100%);
 }
 .journaltablewrapper .form-control [readonly] {
   background: white;
@@ -469,7 +380,7 @@ input[type=number].general-value {
 }
 
 .journaltablewrapper .form-control:focus {
-  background: linear-gradient(-45deg, #ffa812 0%, transparent 10px, transparent 100%);
+  background: linear-gradient(-45deg, #FF734C 0%, transparent 10px, transparent 100%);
 }
 
 input[type=number]::-webkit-inner-spin-button,

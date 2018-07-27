@@ -1,120 +1,3 @@
-/*my_temp_custom*/
-
-
-.my_main_container {
-    overflow-x: hidden;
-}
-
-
-
-/* End of custom */
-
-tr.mini td {
-   font-size: 10px;
-}
-
-.tablewrapper h4 {
-  display: block;
-}
-
-.smallwrapper {
-  display: flex;
-  margin-bottom: 4px;
-}
-
-.smallwrapper:last-child {
-  display: flex;
-  margin-bottom: 0;
-}
-
-.columncontainer table tr:first-child > * {
-  border-top: none;
-}
-
-.columncontainer table tr > * {
-  border-top: none;
-  width: 25%;
-  text-align: left;
-}
-
-.smallwrapper .x_panel {
-}
-
-.columncontainer {
-  width: 100%;
-  height: 100%;
-}
-
-.uneditablewrapper {
-  display: inline-block;
-  position: relative;
-  top: 0;
-}
-
-/*.form-reagents__fence-state { width: 600px !important; }*/
-
-.shift_info tbody th { text-align: right; }
-
-/*td { text-align: center; }*/
-tr.mini th { vertical-align: middle !important; }
-
-.tablewrapper {
-  display: inline-flex;
-  flex: 1;
-  margin: 4px;
-}
-.pagewrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.editintable {
-  float: right;
-}
-
-.x_title .clearfix {
-  float: left;
-}
-
-.tablewrapper table {
-  margin: 0;
-}
-
-.wrappercell {
-    padding: 0 !important;
-}
-
-.textareainside {
-    box-sizing: border-box;
-    width: 100% !important;
-}
-
-.tablewrapper .navbar-right {
-  margin: 0;
-  min-width: 10px;
-}
-
-.x_panel {
-  margin: 0;
-  padding: 5px !important;
-  height: 100%;
-}
-
-.x_title {
-  height: 40px;
-  padding: 0;
-  min-width: 150px;
-}
-
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 /* ------------------ Classes for electrolysis --------------------- */
 
 .row_of_tables {
@@ -148,6 +31,25 @@ tr.mini th { vertical-align: middle !important; }
 
 #shift_field { /* Shift page */
     width: 20em;
+}
+
+.page-type-selector {
+    float: left;
+    display: inline-flex;
+}
+
+.choose-page-type-lablel {
+    line-height: 34px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.shift-mode-buttons {
+    float: right; display: inline-flex;
+}
+
+.elog-btn {
+    //background-color: ;
 }
 
 /* ------------------- Developer feedback ------------------------- */

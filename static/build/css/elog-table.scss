@@ -1,8 +1,4 @@
-$tr-even-background: #F5F5F5;
-$table-border-color: #EAEAEA;
-$th-background: #666666;
-$badge-bg-color: #5A738E;
-$comment-active-col: #29BA9C;
+@import "colors";
 
 table.elog-journal-table { // the table itself
     table-layout: auto !important; // test fixed layout
@@ -24,14 +20,14 @@ table.elog-journal-table { // the table itself
     }
 
     td, th {
-        border: 1px solid $table-border-color !important;
+        border: 1px solid $table-borders !important;
         vertical-align: bottom;
     }
 
     th {
         padding: 6px 4px 12px 3px !important;
         font-family: 'RobotoCondensedRegular', sans-serif;
-        background-color: $th-background;
+        background-color: $base_gray;
         color: white;
         overflow: hidden; // TODO: seems to need min-width
         text-overflow: ellipsis;
@@ -68,7 +64,7 @@ table.elog-journal-table { // the table itself
     .table-comment-button {
         .badge {
             color: white;
-            background-color: $badge-bg-color;
+            background-color: $base-blue;
         }
 
         :hover {
@@ -76,7 +72,7 @@ table.elog-journal-table { // the table itself
         }
 
         :active {
-            color: $comment-active-col;
+            color: $accent-green;
         }
     }
 }

@@ -44,13 +44,13 @@ table.elog-journal-table .units:not(.no-before)::before {
 }
 table.elog-journal-table .table-comment-button .badge {
   color: white;
-  background-color: #5A738E;
+  background-color: #548CB7;
 }
 table.elog-journal-table .table-comment-button :hover {
   text-decoration: underline;
 }
 table.elog-journal-table .table-comment-button :active {
-  color: #29BA9C;
+  color: #9FBF47;
 }
 
 .non-wrapping-table {

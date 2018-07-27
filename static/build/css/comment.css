@@ -1,7 +1,6 @@
-/* The actual popup */
 .table .popup-comment-content {
   visibility: hidden;
-  background-color: #24A48A;
+  background-color: #9FBF47;
   text-align: center;
   border-radius: 2px;
   padding: 1px;
@@ -43,7 +42,7 @@
   left: 50%;
   margin-left: -5px;
   border: 10px solid transparent;
-  border-top-color: #24A48A;
+  border-top-color: #9FBF47;
 }
 
 .popup-comment-content > textarea {
@@ -63,7 +62,7 @@
 .commentAuthor {
   text-align: left;
   color: white;
-  padding: 2px 0px 2px 5px;
+  padding: 2px 0 2px 5px;
   font-size: 10px;
   line-height: 10px;
 }
