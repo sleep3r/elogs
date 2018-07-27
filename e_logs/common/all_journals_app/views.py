@@ -19,8 +19,6 @@ from e_logs.core.utils.loggers import err_logger
 from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
 
-from e_logs.common.all_journals_app.journals_descriptions.journals_info import journals_verbose_names
-
 
 class JournalView(LoginRequiredMixin, View):
     """ Common view for a journal. Inherit from this class when creating your own journal view """
