@@ -120,13 +120,11 @@ def change_table(request):
     employee = request.user.employee
     page.employee_set.add(employee)
 
-    Cell.objects.filter(table_name=tn, journal_page=page).delete()
-
     for field_name in request.POST:
         values = request.POST.getlist(field_name)
         with transaction.atomic():
-            for i, val in enumerate(values):
-                Cell(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
+            for index, value in enumerate(values):
+                Cell.objects.update_or_create(journal_page=page, value=value, index=index, field_name=field_name, table_name=tn)
 
     return {"status": 1}
 
