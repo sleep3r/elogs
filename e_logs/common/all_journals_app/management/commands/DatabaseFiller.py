@@ -678,10 +678,10 @@ class DatabaseFiller:
                     break
 
         for plant in tables_lists:
-            for journal, tables in tables_lists[plant]:
+            for journal, tables in tables_lists[plant].items():
                 Setting.objects.create(name = "tables_list", value = json.dumps(tables), journal = journal)
         
-        
+
     def clean_database(self):
         exception_models = [User, Model]
         db_models = []
