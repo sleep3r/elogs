@@ -4,7 +4,7 @@ import json
 from datetime import date, datetime
 
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
@@ -112,21 +112,21 @@ class MetalsJournalView(JournalView):
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
-    tn = request.POST['table_name']
-    jp = request.POST['journal_page']
+    # tn = request.POST['table_name']
+    # jp = request.POST['journal_page']
 
-    page = JournalPage.objects.get(id=int(jp))
+    # page = JournalPage.objects.get(id=int(jp))
 
-    employee = request.user.employee
-    page.employee_set.add(employee)
+    # employee = request.user.employee
+    # page.employee_set.add(employee)
 
-    Cell.objects.filter(table_name=tn, journal_page=page).delete()
+    # Cell.objects.filter(table_name=tn, journal_page=page).delete()
 
-    for field_name in request.POST:
-        values = request.POST.getlist(field_name)
-        with transaction.atomic():
-            for i, val in enumerate(values):
-                Cell(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
+    # for field_name in request.POST:
+    #     values = request.POST.getlist(field_name)
+    #     with transaction.atomic():
+    #         for i, val in enumerate(values):
+    #             Cell(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
 
     return {"status": 1}
 
@@ -146,3 +146,20 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
+
+
+@csrf_exempt
+@logged
+def save_cell(request):
+    cell = dict(zip(('journal_page_id', 'table_name', 'field_name', 'index'),
+                     request.POST['id'].split("|")))
+    val = request.POST['value']
+    
+    Cell.objects.update_or_create(**cell ,defaults = {"value":val}, responsible = request.user.employee)
+
+    page = JournalPage.objects.get(id=int(cell['journal_page_id']))
+
+    employee = request.user.employee
+    page.employee_set.add(employee)
+
+    return JsonResponse({"status": 1})

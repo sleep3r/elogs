@@ -7,27 +7,24 @@ class Cell {
     static onInput(input, employee) {
         this.on_input_change(input);
         this.addResponsible(input, employee);
+        this.saveCell(input);
         $('#sync').hide();$('#async').show();
     }
 
     static onChange(input) {
-        Journal.addMessage(input);
-        Cell.reformat_on_change(input);
+        // Journal.addMessage(input);
+        // Cell.reformat_on_change(input);
     }
 
     //private
     static saveCell(input) {
         $.ajax({
-            url: "/common/messages/create/critical_value/",
+            url: "/common/save_cell/",
             type: 'POST',
-            data: {
-                'check': true, 'field_name': input.name, 'field_value': input.value,
-                'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                'index': $(input).attr('index')
-            },
+            data: {'check': true, 'id': input.id, 'value': input.value,},
             success: function (json) {
-                if (json && json.result) {
-                    // console.log(json.result)
+                if (json && json.status) {
+                    console.log("Yep, SAVED!");
                 }
             }
         });
