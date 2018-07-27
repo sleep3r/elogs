@@ -17,6 +17,7 @@ from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import err_logger
 from e_logs.common.messages_app.services import messages
+from e_logs.core.models import Setting
 
 from e_logs.common.all_journals_app.journals_descriptions.journals_info import journals_verbose_names
 
@@ -33,7 +34,7 @@ class JournalView(LoginRequiredMixin, View):
         page_type = page.type if page else 'shift'
         err_logger.debug(f'JournalView: page_type: {page_type}')
         context = self.get_context(request=request, journal_name=journal_name, page_type=page_type)
-        context.journal_title = journals_verbose_names[journal_name]
+        context.journal_title = Setting.objects.get(name='verbose_name', journal=journal_name).value
 
         templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, journal_name)
         tables_paths = []
