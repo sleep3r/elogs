@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from .DatabaseFiller import DatabaseFiller
-from e_logs.common.all_journals_app.models import Setting, get_setting_value
+from e_logs.core.models import Setting
 
 
 # from leaching.express_anal_app.tables import command_to_process

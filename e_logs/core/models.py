@@ -2,7 +2,7 @@ from django.db import models
 
 class Setting(models.Model):
     name = models.CharField(max_length=128, verbose_name='Название')
-    value = models.CharField(max_length=512, verbose_name='Значение')
+    value = models.CharField(max_length=2048, verbose_name='Значение')
     plant = models.CharField(max_length=128, verbose_name='Цех', blank=True, null=True)
     journal = models.CharField(max_length=128, verbose_name='Журнал', blank=True, null=True)
     table = models.CharField(max_length=128, verbose_name='Таблица', blank=True, null=True)

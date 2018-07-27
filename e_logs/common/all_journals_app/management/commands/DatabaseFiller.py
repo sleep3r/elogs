@@ -674,7 +674,7 @@ class DatabaseFiller:
             for journal in tables_lists[plant]:
                 path = f'e_logs/common/all_journals_app/templates/tables/{plant}/{journal}'
                 for (dirpath, dirnames, filenames) in walk(path):
-                    tables_lists[plant][journal].extend(filenames)
+                    tables_lists[plant][journal].extend(['tables/{}/{}/'.format(plant, journal) + f for f in filenames if f.endswith(".html")])
                     break
 
         for plant in tables_lists:
