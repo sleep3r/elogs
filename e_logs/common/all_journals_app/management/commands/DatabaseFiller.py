@@ -365,7 +365,7 @@ class DatabaseFiller:
             cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
             schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
 
-            measurement = JournalPage.objects.create(type="measurement", journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
+            measurement = Shift.objects.create(type="measurement", name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
             for m_value in cinder_masses:
                 Cell.objects.create(table_name="measurements", field_name='cinder_mass',
@@ -533,9 +533,9 @@ class DatabaseFiller:
             e.save()
 
     def fill_journal_pages(self):
-        JournalPage(
+        Shift(
             type="shift",
-            journal_name="concentrate_report_journal",
+            name="concentrate_report_journal",
             plant=Plant.objects.get(name="furnace")).save()
 
     def fill_plants(self):
@@ -713,7 +713,7 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
-        db_models.extend([Setting, Employee, JournalPage, Cell, Plant, Group, Permission])
+        db_models.extend([Setting, Employee, Shift, Cell, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             u.delete()

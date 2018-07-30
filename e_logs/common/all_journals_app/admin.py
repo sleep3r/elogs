@@ -10,24 +10,24 @@ class PlantAdmin(admin.ModelAdmin):
 
 
 class JournalPageAdmin(admin.ModelAdmin):
-    model = JournalPage
-    search_fields = ['journal_name', 'equipment']
-    list_display = ['type', 'journal_name', 'plant_name', 'shift_order', 'shift_date', 'id']
+    model = Shift
+    search_fields = ['name', 'equipment']
+    list_display = ['type', 'name', 'plant_name', 'shift_order', 'shift_date', 'id']
     def plant_name(self, obj):
         return obj.plant.name
 
 
 class CellValueAdmin(admin.ModelAdmin):
-    model = JournalPage
+    model = Cell
     empty_value_display = 'None'
     search_fields = ['table_name', 'field_name' ]
     list_display_links = ['field_name']
-    list_display = ['plant_name','journal_name', 'table_name', 'field_name', 'index', 'value', 'id' ]
+    list_display = ['group', 'table_name', 'field_name', 'index', 'value', 'id' ]
     # list_select_related = ('journal_page')
     # list_filter = ('journal_name', 'table_name', 'plant_name')
 
     def journal_name(self, obj):
-        return obj.journal_page.journal_name
+        return obj.journal_page.group
     def plant_name(self, obj):
         return obj.journal_page.plant.name
 
@@ -42,7 +42,7 @@ class SettingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Cell, CellValueAdmin)
-admin.site.register(JournalPage, JournalPageAdmin)
+admin.site.register(Shift, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Setting, SettingAdmin)
 

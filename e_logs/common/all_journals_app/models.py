@@ -30,15 +30,42 @@ class Plant(models.Model):
         verbose_name = 'Цех'
         verbose_name_plural = 'Цеха'
 
+class Cell(models.Model):
+    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=True)
 
-class JournalPage(models.Model):
+    table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
+    field_name = models.CharField(max_length=128, verbose_name='Название поля')
+    index = models.IntegerField(default=None, verbose_name='Номер строчки')
+    value = models.CharField(max_length=1024, verbose_name='Значение поля', null=True, blank=True)
+
+    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
+    comment = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', null=True)
+
+    @staticmethod
+    def get(cell):
+        return get_or_none(Cell, **cell)
+    
+    class Meta:
+        verbose_name = 'Запись'
+        verbose_name_plural = 'Записи'
+
+
+class CellGroup(models.Model):
+    name = models.CharField(max_length=1024, verbose_name='Значение поля')
+
     type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
                                                      ('equipment', 'Оборудование'),
+                                                     ('measurement', 'Измерение'),
                                                      ('month', 'Месяц'),
                                                      ('year', 'Год')), verbose_name='Тип')
-    journal_name = models.CharField(max_length=256, verbose_name='Название журнала')
-    # for shift type
-    plant = models.ForeignKey('Plant', on_delete=models.CASCADE, null=True, verbose_name='Цех', unique=False)
+    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE, null=True, verbose_name='Цех')
+
+
+class Measurement(CellGroup):
+    time = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала смены')
+
+
+class Shift(CellGroup):    
     shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
     shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
     
@@ -61,26 +88,3 @@ class JournalPage(models.Model):
         # unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name', 'type']
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
-
-
-class Cell(models.Model):
-    journal_page = models.ForeignKey(JournalPage, on_delete=models.CASCADE)
-    table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
-    field_name = models.CharField(max_length=128, verbose_name='Название поля')
-    index = models.IntegerField(default=None, verbose_name='Номер строчки')
-    value = models.CharField(max_length=1024, verbose_name='Значение поля', null=True, blank=True, )
-    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
-    comment = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', null=True)
-
-    def __str__(self):
-        return "journal_page: " + str(self.journal_page) + " table_name: " \
-               + str(self.table_name) + " field_name: " + str(self.field_name) + \
-               " index: " + str(self.index) + " value: " + str(self.value)
-    
-    @staticmethod
-    def get(cell):
-        return get_or_none(Cell, **cell)
-    
-    class Meta:
-        verbose_name = 'Запись'
-        verbose_name_plural = 'Записи'

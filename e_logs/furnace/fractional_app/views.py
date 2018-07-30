@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.template import loader
 
-from e_logs.common.all_journals_app.models import Cell, JournalPage, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Plant
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.webutils import process_json_view
 

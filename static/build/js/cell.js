@@ -21,7 +21,7 @@ class Cell {
             'cell': {
                 'field_name': input.name,
                 'table_name': $(input).attr('table-name'),
-                'journal_page_id': $(input).attr('journal-page'),
+                'group_id': $(input).attr('journal-page'),
                 'index': $(input).attr('index')
             },
 
@@ -52,7 +52,7 @@ class Cell {
                     'cell': {
                         'field_name': input.name,
                         'table_name': $(input).attr('table-name'), 
-                        'journal_page_id': $(input).attr('journal-page'),
+                        'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     },
 
@@ -75,7 +75,7 @@ class Cell {
                     'cell': {
                         'field_name': input.name,
                         'table_name': $(input).attr('table-name'), 
-                        'journal_page_id': $(input).attr('journal-page'),
+                        'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     }
                 });
@@ -134,11 +134,12 @@ class Cell {
 
 
     static getLink(input) {
-        let plant = location.pathname.split('/')[1]
-        let journal_name = location.pathname.split('/')[2]
-        console.log(`/${plant}/${journal_name}?page_mode=view&highlight=${input.attr("id")}#${input.attr("id")}`);
-        
-        return `/${plant}/${journal_name}?page_mode=view&highlight=${input.attr("id")}#${input.attr("id")}`
+        let plant = location.pathname.split('/')[1];
+        let journal_name = location.pathname.split('/')[2];
+        let result = `/${plant}/${journal_name}?page_mode=view&highlight=${$(input).attr("id")}#${$(input).attr("id")}`;
+        console.log(result);
+
+        return result;
     }
 
     static reformat_on_change(input) {

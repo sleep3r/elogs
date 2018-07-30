@@ -95,7 +95,7 @@ class Comment {
                 'cell': {
                     'field_name': textarea.name.replace('_comment', ''),
                     'table_name': $(textarea).attr('table-name'),
-                    'journal_page_id': $(textarea).attr('journal-page'),
+                    'group_id': $(textarea).attr('journal-page'),
                     'index': $(textarea).attr('index')
                 },
 

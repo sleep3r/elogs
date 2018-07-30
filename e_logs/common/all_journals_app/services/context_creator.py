@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from e_logs.common.all_journals_app.models import Cell, JournalPage, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Plant
 from e_logs.common.all_journals_app.fields_descriptions import fields_info
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.login_app.models import Employee
@@ -18,7 +18,7 @@ from .page_modes import get_page_mode, plant_permission, PageModeError, has_edit
 def get_full_data(page):
     res = deep_dict()
 
-    for val in Cell.objects.filter(journal_page=page):
+    for val in Cell.objects.filter(group=page):
         if val.index is not None:
             res[val.table_name][val.field_name][val.index] = val.value
             res['id'][val.table_name][val.field_name][val.index] = val.id
@@ -34,21 +34,21 @@ def get_fields_info():
     return fields_info_desc
 
 
-def get_page_list(journal_name, request, page_type):
+def get_page_list(name, request, page_type):
     # Тут надо все даты выдернуть и вот это вот все
     today = timezone.now().date()
     return [today - timedelta(days=1*i) for i in range(30)]
 
 
 @logged
-def get_common_context(journal_name, request, page_type="shift"):
+def get_common_context(name, request, page_type="shift"):
     res = deep_dict()
 
     res.page_type = page_type
     res.page_id = request.GET.get('id', None)
     plant_name = request.path.split("/")[1]
     plant = Plant.objects.get(name=plant_name)
-    page = get_page(journal_name, page_type, plant, res)
+    page = get_page(name, page_type, plant, res)
 
     # Adding permissions
     res.page_mode = get_page_mode(request, page)
@@ -62,24 +62,24 @@ def get_common_context(journal_name, request, page_type="shift"):
 
     res.unfilled_cell = ""
     res.unfilled_table = deep_dict()
-    res.journal_name = page.journal_name
+    res.journal_name = page.name
     res.journal_page = page.id
 
     return res
 
 
 @logged
-def get_page(journal_name, page_type, plant, res):
+def get_page(name, page_type, plant, res):
     if res.page_id:
-        page = JournalPage.objects.get(id=res.page_id)
+        page = Shift.objects.get(id=res.page_id)
     elif page_type == 'shift':
-        page = get_shift_page(journal_name, plant, page_type)
+        page = get_shift_page(name, plant, page_type)
 
         res.shift_is_active_or_no_shifts = page.shift_is_active
         res.shift_order = page.shift_order
         res.shift_date = page.shift_date
     elif page_type == 'equipment' or page_type == 'year':
-        page = get_other_page(journal_name, plant, page_type)
+        page = get_other_page(name, plant, page_type)
 
         res.shift_is_active_or_no_shifts = True
     else:
@@ -88,10 +88,10 @@ def get_page(journal_name, page_type, plant, res):
     return page
 
 
-def get_other_page(journal_name, plant, page_type):
-    err_logger.debug('Getting other page: ' + str((journal_name, plant.name, page_type)))
-    page = JournalPage.objects.get_or_create(
-        journal_name=journal_name,
+def get_other_page(name, plant, page_type):
+    err_logger.debug('Getting other page: ' + str((name, plant.name, page_type)))
+    page = Shift.objects.get_or_create(
+        name=name,
         plant=plant,
         type=page_type
     )[0]
@@ -99,12 +99,12 @@ def get_other_page(journal_name, plant, page_type):
 
 
 @logged
-def get_shift_page(journal_name, plant, page_type):
-    err_logger.debug('Getting shift_paged page: ' + str((journal_name, plant.name, page_type)))
+def get_shift_page(name, plant, page_type):
+    err_logger.debug('Getting shift_paged page: ' + str((name, plant.name, page_type)))
     page = None
     for shift_order in range(1, plant.number_of_shifts + 1):
-        page = JournalPage.objects.get_or_create(
-            journal_name=journal_name,
+        page = Shift.objects.get_or_create(
+            name=name,
             shift_date=date.today(),
             shift_order=shift_order,
             type=page_type,
@@ -112,5 +112,5 @@ def get_shift_page(journal_name, plant, page_type):
         )[0]
         if page.shift_is_active:
             break
-    default_logger.debug('Ended shift_paged page: ' + str((journal_name, plant.name, page_type)))
+    default_logger.debug('Ended shift_paged page: ' + str((name, plant.name, page_type)))
     return page

@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-from e_logs.common.all_journals_app.models import Cell, JournalPage
+from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import err_logger
@@ -24,22 +24,22 @@ class JournalView(LoginRequiredMixin, View):
     """ Common view for a journal. Inherit from this class when creating your own journal view """
 
     @logged
-    def get(self, request, plant, journal_name):
-        print('journal_name = {}'.format(journal_name))
-        err_logger.debug('JournalView: journal_name = {}'.format(journal_name))
+    def get(self, request, plant, name):
+        print('journal_name = {}'.format(name))
+        err_logger.debug('JournalView: name = {}'.format(name))
 
-        page = JournalPage.objects.filter(journal_name=journal_name).first()
+        page = Shift.objects.filter(name=name).first()
         page_type = page.type if page else 'shift'
         err_logger.debug(f'JournalView: page_type: {page_type}')
-        context = self.get_context(request=request, journal_name=journal_name, page_type=page_type)
-        context.journal_title = Setting.objects.get(name='verbose_name', journal=journal_name).value
+        context = self.get_context(request=request, name=name, page_type=page_type)
+        context.journal_title = Setting.objects.get(name='verbose_name', journal=name).value
 
-        templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, journal_name)
+        templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, name)
         tables_paths = []
         err_logger.debug('JournalView.get(): before file walk')
         for (dirpath, dirnames, filenames) in walk(templates_dir):
             tables_paths.extend(
-                ['tables/{}/{}/'.format(plant, journal_name) + f for f in filenames if f.endswith(".html")]
+                ['tables/{}/{}/'.format(plant, name) + f for f in filenames if f.endswith(".html")]
             )
         err_logger.debug('JournalView.get(): after file walk')
         context.tables_paths = tables_paths
@@ -48,18 +48,19 @@ class JournalView(LoginRequiredMixin, View):
         err_logger.debug('JournalView.get(): before render')
         rendered_template = template.render(context, request)
         err_logger.debug('JournalView.get(): before response')
+        
         return HttpResponse(rendered_template)
 
     @logged
-    def get_context(self, request, journal_name, page_type):
-        return get_common_context(journal_name, request, page_type)
+    def get_context(self, request, name, page_type):
+        return get_common_context(name, request, page_type)
 
 
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
     @logged
-    def get_context(self, request, journal_name, page_type):
-        context = super().get_context(request, journal_name, page_type)
+    def get_context(self, request, name, page_type):
+        context = super().get_context(request, name, page_type)
 
         context.months = dict(zip(
             ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -75,8 +76,8 @@ class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
 
     @logged
-    def get_context(self, request, journal_name, page_type):
-        context = super().get_context(request, journal_name, page_type)
+    def get_context(self, request, name, page_type):
+        context = super().get_context(request, name, page_type)
 
         context.sgok_table.columns = [
             "ЗГОК, ВМТ",
@@ -156,7 +157,7 @@ def save_cell(request):
     
     Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
     
-    page = JournalPage.objects.get(id=int(cell['journal_page_id']))
+    page = Shift.objects.get(id=int(cell['group_id']))
     employee = request.user.employee
     page.employee_set.add(employee)
 
