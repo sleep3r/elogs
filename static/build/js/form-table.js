@@ -55,6 +55,7 @@ class Lines {
                 let new_last_line = last_line.clone();
                 new_last_line.find("input").val("");
                 new_last_line.find("textarea").val("");
+                new_last_line.find("input").attr('index', last_line.find("input").attr('index')*1 + 1);
                 new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
                 table.append(new_last_line);
             }

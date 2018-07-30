@@ -6,6 +6,9 @@ from django.views import View
 from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 
 from e_logs.common.login_app.models import Employee
@@ -15,50 +18,11 @@ from e_logs.common.messages_app.services import messages
 
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged
+from e_logs.core.utils.webutils import model_to_dict, logged, filter_or_none
 
 
 class MessageView(LoginRequiredMixin, View):
-    @logged
-    def getCell(self, request):
-        journal_page = request.POST.get('journal_page', None)
-        table_name = request.POST.get('table_name', None)
-        field_name = request.POST.get('field_name', None)
-        row_index = request.POST.get('index', None)
-        cell = messages.get_or_none(Cell, journal_page = journal_page, table_name = table_name, index = row_index, field_name = field_name)
-        return cell
-
-    @staticmethod
-    @logged
-    def getLinkToJournal(cell):
-        j_page = cell.journal_page
-        journal_name = j_page.journal_name
-        plant_name = j_page.plant.name
-        field_name = cell.field_name.replace("_comment", "")
-        return f'/{plant_name}/{journal_name}?page_mode=edit&highlight={field_name}_{cell.index}#table_id_{cell.table_name}">{field_name}'
-
-    @logged
-    def create(self, request, type, cell, text, addressee, link):
-        new_msg = Message(
-                  sendee = request.user.employee,
-                  addressee=addressee,
-                  type=type,
-                  text=text,
-                  cell_field_name=cell.field_name,
-                  cell_table_name=cell.table_name,
-                  row_index=cell.index,
-                  cell_journal_page=cell.journal_page_id,
-                  cell_link = link)
-        new_msg.save()
-
-    @logged
-    def update(self, cell, type):
-        msgs = messages.filter_or_none(cell, type, addressee=None)
-        if msgs:
-            for m in msgs:
-                m.is_read = True
-                m.save()
-
+    
     @logged
     def get(self, request):
         res = deep_dict()
@@ -68,64 +32,20 @@ class MessageView(LoginRequiredMixin, View):
         return res
 
     @logged
-    def post(self, request, crud, type=None):
-        cell = self.getCell(request)
-        if crud == 'create':
-
-            if type == 'critical_value':
-                value = request.POST.get('field_value', None)
-                if value:
-                    m_link = self.getLinkToJournal(cell)
-                    for emp in messages.get_addressees(all=True):
-                        msg = messages.filter_or_none(cell, type, emp)
-                        if msg:
-                            with transaction.atomic():
-                                for m in msg:
-                                    m.text = value
-                                    m.save()
-                        else:
-                            self.create(request,type, cell, value, emp, m_link)
-                else:
-                    self.update(cell, type)
-
-
-            if type == 'comment':
-                comment_text = request.POST.get('comment_text', None)
-                if comment_text:
-                    m_link = self.getLinkToJournal(cell)
-                    for emp in messages.get_addressees(all=True):
-                        msg = messages.filter_or_none(cell, type, emp)
-                        if msg:
-                            with transaction.atomic():
-                                for m in msg:
-                                    m.text = comment_text
-                                    m.save()
-                        else:
-                            self.create(request, type, cell, comment_text, emp, m_link)
-                else:
-                    self.update(cell, type)
-
-
-        if crud == 'read':
-            msg_id = json.loads(request.POST.get('ids[]')) or 0
-            msg = Message.objects.get(id=int(msg_id))
-            if msg.addressee == request.user.employee:
-                msg.is_read = True
-                msg.save()
-            else:
-                raise AccessError(
-                    message="Попытка отметить чужое сообщение как прочитанное")
-
-
-        if crud == 'update':
-            self.update(cell, type)
+    def post(self, request):
+        msg_id = json.loads(request.POST.get('ids[]')) or 0
+        msg = Message.objects.get(id=int(msg_id))
+        if msg.addressee == request.user.employee:
+            msg.is_read = True
+            msg.save()
+        else:
+            raise AccessError(
+                message="Попытка отметить чужое сообщение как прочитанное")
 
         return JsonResponse({"result": 1})
 
-
 class MessagesList(LoginRequiredMixin, ListView):
     model = Message
-    paginate_by = 10
     context_object_name = 'messages'
     template_name = 'messages_list.html'
 
@@ -137,3 +57,46 @@ class MessagesList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@csrf_exempt
+@login_required
+@logged
+def add_critical(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+            cell = Cell.get(json.loads(request.body)['cell'])
+            if cell:
+                message = json.loads(request.body)['message']
+                message['sendee'] = request.user.employee
+                Message.add(cell, message, all=True)
+    return JsonResponse({'status':1})
+
+
+@csrf_exempt
+@login_required
+@logged
+def update(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+            cell = Cell.get(json.loads(request.body)['cell'])
+            if cell:
+                Message.update(cell)
+    return JsonResponse({'status': 1})
+
+
+@csrf_exempt
+@login_required
+@logged
+def add_comment(request):
+    if request.is_ajax():
+        if request.method == 'POST':
+            cell = json.loads(request.body)['cell']
+            message = json.loads(request.body)['message']
+            message['sendee'] = request.user.employee
+
+            Cell.objects.update_or_create(**cell ,defaults = {"responsible":request.user.employee, "comment":message['text']})
+            cell = Cell.get(json.loads(request.body)['cell'])
+            Message.add(cell, message, all=True)
+    
+    return JsonResponse({"status": 1})

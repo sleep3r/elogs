@@ -5,6 +5,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.timezone import make_aware
 
+from e_logs.core.utils.webutils import get_or_none
+
 
 class Plant(models.Model):
     NUMBER_OF_SHIFTS = {
@@ -74,7 +76,11 @@ class Cell(models.Model):
         return "journal_page: " + str(self.journal_page) + " table_name: " \
                + str(self.table_name) + " field_name: " + str(self.field_name) + \
                " index: " + str(self.index) + " value: " + str(self.value)
-
+    
+    @staticmethod
+    def get(cell):
+        return get_or_none(Cell, **cell)
+    
     class Meta:
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'

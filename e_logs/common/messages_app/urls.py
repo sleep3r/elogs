@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required
 from e_logs.common.messages_app import views
 
 urlpatterns = [
-    path('<str:crud>/<str:type>/', process_json_view(auth_required=False)(views.MessageView.as_view()), name='messages'),
     path('get/', process_json_view(auth_required=False)(views.MessageView.as_view()), name='messages_get'),
-    path('read/', process_json_view(auth_required=False)(views.MessageView.as_view()), {'crud': 'read'}, name='messages_read'),
-    path('list/', login_required(views.MessagesList.as_view()), name='messages_list'),
+    path('read/', process_json_view(auth_required=False)(views.MessageView.as_view()), name='messages_read'),
+    path('list/', views.MessagesList.as_view(), name='messages_list'),
+    path('add_critical/', views.add_critical),
+    path('add_comment/', views.add_comment),
+    path('update/', views.update),
 
 ]

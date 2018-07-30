@@ -151,14 +151,12 @@ def permission_denied(request, exception, template_name='errors/403.html'):
 @csrf_exempt
 @logged
 def save_cell(request):
-    cell = dict(zip(('journal_page_id', 'table_name', 'field_name', 'index'),
-                     request.POST['id'].split("|")))
-    val = request.POST['value']
+    cell = json.loads(request.body)['cell']
+    value = json.loads(request.body)['value']
     
-    Cell.objects.update_or_create(**cell ,defaults = {"value":val}, responsible = request.user.employee)
-
+    Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
+    
     page = JournalPage.objects.get(id=int(cell['journal_page_id']))
-
     employee = request.user.employee
     page.employee_set.add(employee)
 
