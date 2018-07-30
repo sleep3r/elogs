@@ -68,6 +68,15 @@ class Cell {
         this.markCommented(input);
     }
 
+
+    static getLink(input) {
+        let plant = location.pathname.split('/')[1]
+        let journal_name = location.pathname.split('/')[2]
+        console.log(`/${plant}/${journal_name}?page_mode=view&highlight=${input.attr("id")}#${input.attr("id")}`);
+        
+        return `/${plant}/${journal_name}?page_mode=view&highlight=${input.attr("id")}#${input.attr("id")}`
+    }
+
     static reformat_on_change(input) {
         if (input.value === "")
             return;
