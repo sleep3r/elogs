@@ -32,11 +32,16 @@
             vertical-align: bottom !important;
         }
 
+        thead {
+            th {
+                background-color: $base_gray;
+                color: white;
+            }
+        }
+
         th {
             padding: 12px 4px 12px 3px !important;
             font-family: 'RobotoCondensedRegular', sans-serif;
-            background-color: $base_gray;
-            color: white;
             overflow: hidden; // TODO: seems to need min-width
             text-overflow: ellipsis;
             hyphens: auto;

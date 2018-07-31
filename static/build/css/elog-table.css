@@ -18,11 +18,13 @@
   border: 1px solid #EAEAEA !important;
   vertical-align: bottom !important;
 }
+.journaltablewrapper table.elog-journal-table thead th {
+  background-color: #666666;
+  color: white;
+}
 .journaltablewrapper table.elog-journal-table th {
   padding: 12px 4px 12px 3px !important;
   font-family: "RobotoCondensedRegular", sans-serif;
-  background-color: #666666;
-  color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   hyphens: auto;
