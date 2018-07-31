@@ -83,7 +83,10 @@
   cursor: pointer;
 }
 
-table.elog-journal-table {
+.journaltablewrapper h2.table-title {
+  font-family: Roboto, sans-serif;
+}
+.journaltablewrapper table.elog-journal-table {
   table-layout: auto !important;
   width: 100%;
   height: 100% !important;
@@ -93,15 +96,15 @@ table.elog-journal-table {
   border-collapse: collapse !important;
   /* Indicator on comments button, overrides bootstrap */
 }
-table.elog-journal-table tr:nth-child(even) {
+.journaltablewrapper table.elog-journal-table tr:nth-child(even) {
   background-color: #F5F5F5;
 }
-table.elog-journal-table td, table.elog-journal-table th {
+.journaltablewrapper table.elog-journal-table td, .journaltablewrapper table.elog-journal-table th {
   border: 1px solid #EAEAEA !important;
-  vertical-align: bottom;
+  vertical-align: bottom !important;
 }
-table.elog-journal-table th {
-  padding: 6px 4px 12px 3px !important;
+.journaltablewrapper table.elog-journal-table th {
+  padding: 12px 4px 12px 3px !important;
   font-family: "RobotoCondensedRegular", sans-serif;
   background-color: #666666;
   color: white;
@@ -109,36 +112,35 @@ table.elog-journal-table th {
   text-overflow: ellipsis;
   hyphens: auto;
 }
-table.elog-journal-table .th-number {
+.journaltablewrapper table.elog-journal-table .th-number {
   text-align: right !important;
 }
-table.elog-journal-table .th-common {
+.journaltablewrapper table.elog-journal-table .th-common {
   text-align: center !important;
 }
-table.elog-journal-table td {
+.journaltablewrapper table.elog-journal-table td {
   padding: 0 !important;
   /* to have inputs inside cells*/
   position: relative;
 }
-table.elog-journal-table .units {
+.journaltablewrapper table.elog-journal-table .units {
   white-space: nowrap;
 }
-table.elog-journal-table .units:not(.no-before)::before {
+.journaltablewrapper table.elog-journal-table .units:not(.no-before)::before {
   content: ", ";
   white-space: pre-line;
 }
-table.elog-journal-table .table-comment-button .badge {
+.journaltablewrapper table.elog-journal-table .table-comment-button .badge {
   color: white;
   background-color: #548CB7;
 }
-table.elog-journal-table .table-comment-button :hover {
+.journaltablewrapper table.elog-journal-table .table-comment-button :hover {
   text-decoration: underline;
 }
-table.elog-journal-table .table-comment-button :active {
+.journaltablewrapper table.elog-journal-table .table-comment-button :active {
   color: #9FBF47;
 }
-
-.non-wrapping-table {
+.journaltablewrapper .non-wrapping-table {
   border-collapse: collapse;
   border-top: none;
 }

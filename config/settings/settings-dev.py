@@ -71,6 +71,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webpack_loader',
     'debug_toolbar',
+    'django_extensions',
+    'migraph',
+    'nplusone.ext.django',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -87,6 +90,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'nplusone.ext.django.NPlusOneMiddleware',
+    'querycount.middleware.QueryCountMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -97,7 +102,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'e_logs.core.middleware.ExceptionMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-
+    'querycount.middleware.QueryCountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -105,16 +110,32 @@ ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+HTML_MINIFY = True
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'elogs',
+        'HOST': '127.0.0.1',
+        'PORT': '1433',
+        'USER': 'sa',
+        'PASSWORD': 'Singapore2017',
 
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
+}
 
 # DATABASES = {
 #     'default': {
@@ -261,6 +282,11 @@ LOGGING = {
         'django.request': {
             'handlers': ['console', 'debug_file_error'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'werkzeug': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'py.warnings': {
