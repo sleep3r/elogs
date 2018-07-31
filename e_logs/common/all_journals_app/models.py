@@ -30,6 +30,7 @@ class Plant(models.Model):
         verbose_name = 'Цех'
         verbose_name_plural = 'Цеха'
 
+
 class Cell(models.Model):
     group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=True)
 
@@ -46,6 +47,7 @@ class Cell(models.Model):
         return get_or_none(Cell, **cell)
     
     class Meta:
+        unique_together = ['table_name', 'field_name', 'index', 'group']
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
@@ -85,6 +87,5 @@ class Shift(CellGroup):
         return self.shift_start_time <= timezone.now() <= self.shift_end_time
 
     class Meta:
-        # unique_together = ['plant', 'shift_order', 'shift_date', 'journal_name', 'type']
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'

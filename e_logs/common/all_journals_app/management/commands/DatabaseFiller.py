@@ -367,18 +367,18 @@ class DatabaseFiller:
 
             measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
-            for m_value in cinder_masses:
+            for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=0, value=m_value, group=measurement)
-            for m_value in cinder_sizes:
+                                index=i, value=m_value, group=measurement)
+            for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=0, value=m_value, group=measurement)
-            for m_value in schieht_masses:
+                                index=i, value=m_value, group=measurement)
+            for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=0, value=m_value, group=measurement)
-            for m_value in schieht_sizes:
+                                index=i, value=m_value, group=measurement)
+            for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=0, value=m_value, group=measurement)
+                                index=i, value=m_value, group=measurement)
            
 
 
