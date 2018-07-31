@@ -17,7 +17,7 @@ from e_logs.furnace.fractional_app.models import *
 from e_logs.furnace.fractional_app import models as famodels
 from e_logs.common.all_journals_app import models as comodels
 from e_logs.common.all_journals_app.models import *
-from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
+from e_logs.common.all_journals_app.management.commands.fields_info_desc_filler import fill_fields_info_desc
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 from django.db import connection
@@ -708,7 +708,8 @@ class DatabaseFiller:
             Setting.objects.create(name='verbose_name', value=verbose_name, journal=journal_name)
 
 
-        # fields descriptions
+        print('Adding fields info settings...')
+        fill_fields_info_desc()
 
 
 

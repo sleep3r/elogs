@@ -7,7 +7,6 @@ from django.contrib.auth import views, authenticate, login, logout
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
-from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import deep_dict
