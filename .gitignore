@@ -33,7 +33,7 @@ coverage.xml
 *.pot
 
 # Django stuff:
-!logs/formatters.py
+!e_logs/core/utils/formatters.py
 logs/*
 *.log
 *.log.*

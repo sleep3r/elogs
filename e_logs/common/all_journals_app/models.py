@@ -30,6 +30,7 @@ class Plant(models.Model):
         verbose_name = 'Цех'
         verbose_name_plural = 'Цеха'
 
+
 class Cell(models.Model):
     group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=True)
 
