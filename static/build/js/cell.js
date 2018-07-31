@@ -34,7 +34,6 @@ class Cell {
             data: forSend,
             success: function (json) {
                 if (json && json.status) {
-                    console.log("Yep, SAVED!");
                 }
             }
         });
@@ -137,7 +136,6 @@ class Cell {
         let plant = location.pathname.split('/')[1];
         let journal_name = location.pathname.split('/')[2];
         let result = `/${plant}/${journal_name}?page_mode=view&highlight=${$(input).attr("id")}#${$(input).attr("id")}`;
-        console.log(result);
 
         return result;
     }
