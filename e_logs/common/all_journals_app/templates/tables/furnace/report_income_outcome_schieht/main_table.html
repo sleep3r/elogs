@@ -50,7 +50,8 @@
     function getRedirectLink() {
         let date = $("#selected_month").val();
         let mode = $('input[name=mode]:checked').attr('id');
-        
+        console.log(date);
+        console.info(mode);
         return "/furnace/report_income_outcome_schieht?month=" + date + "&mode=" + mode;
     }
 
