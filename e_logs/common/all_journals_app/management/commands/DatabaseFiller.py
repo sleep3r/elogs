@@ -365,20 +365,20 @@ class DatabaseFiller:
             cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
             schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
 
-            measurement = Shift.objects.create(type="measurement", name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
+            measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
             for m_value in cinder_masses:
                 Cell.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=0, value=m_value, journal_page=measurement)
+                                index=0, value=m_value, group=measurement)
             for m_value in cinder_sizes:
                 Cell.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=0, value=m_value, journal_page=measurement)
+                                index=0, value=m_value, group=measurement)
             for m_value in schieht_masses:
                 Cell.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=0, value=m_value, journal_page=measurement)
+                                index=0, value=m_value, group=measurement)
             for m_value in schieht_sizes:
                 Cell.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=0, value=m_value, journal_page=measurement)
+                                index=0, value=m_value, group=measurement)
            
 
 
@@ -713,7 +713,7 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
-        db_models.extend([Setting, Employee, Shift, Cell, Plant, Group, Permission])
+        db_models.extend([Setting, Employee, CellGroup, Cell, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             u.delete()
