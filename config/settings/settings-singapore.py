@@ -187,7 +187,7 @@ LOGGING = {
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
         'color_formatter': {
-            '()': 'logs.formatters.ColorsFormatter',
+            '()': 'e_logs.core.utils.formatters.ColorsFormatter',
             'format': "[%(asctime)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
