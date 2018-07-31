@@ -148,3 +148,18 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
+
+
+@csrf_exempt
+@logged
+def save_cell(request):
+    cell = json.loads(request.body)['cell']
+    value = json.loads(request.body)['value']
+
+    Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
+
+    page = Shift.objects.get(id=int(cell['group_id']))
+    employee = request.user.employee
+    page.employee_set.add(employee)
+
+    return JsonResponse({"status": 1})
