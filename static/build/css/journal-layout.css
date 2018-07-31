@@ -1,0 +1,79 @@
+@charset "UTF-8";
+/* ------------------ Classes for electrolysis --------------------- */
+.row_of_tables {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.row_of_tables table {
+  margin: 3px;
+}
+
+/* --------------------- Page topnav classes ------------------------ */
+.journal_title {
+  transition: width 1s ease-out, position 1s ease-out, left 0.2s linear;
+}
+
+.sticky {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: -webkit-fill-available;
+  transition: left 5s ease-in;
+}
+
+.journal_namepull-left {
+  /* Контейнер, который тащит имя журнала вправо */
+  float: left;
+  font-weight: bold;
+  line-height: 55px;
+}
+
+#shift_field {
+  /* Shift page */
+  width: 20em;
+}
+
+.page-type-selector {
+  float: left;
+  display: inline-flex;
+}
+
+.choose-page-type-lablel {
+  line-height: 34px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.shift-mode-buttons {
+  float: right;
+  display: inline-flex;
+}
+
+/* ------------------- Developer feedback ------------------------- */
+footer {
+  font-size: 16px;
+}
+
+.dev-message-button {
+  cursor: pointer;
+}
+
+.dev-message-button:hover {
+  text-decoration: underline;
+}
+
+.medium-icon {
+  font-size: 18px;
+}
+
+.modal-title {
+  display: inline;
+}
+
+#message-modal-alert {
+  /* Message for developers */
+  display: none;
+}
+
+/*# sourceMappingURL=journal-layout.css.map */

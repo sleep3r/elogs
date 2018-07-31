@@ -11,7 +11,6 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
@@ -48,7 +47,7 @@ class JournalView(LoginRequiredMixin, View):
         err_logger.debug('JournalView.get(): before render')
         rendered_template = template.render(context, request)
         err_logger.debug('JournalView.get(): before response')
-        
+
         return HttpResponse(rendered_template)
 
     @logged
@@ -77,6 +76,7 @@ class MetalsJournalView(JournalView):
 
     @logged
     def get_context(self, request, name, page_type):
+        from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
         context = super().get_context(request, name, page_type)
 
         context.sgok_table.columns = [
@@ -136,6 +136,7 @@ def change_table(request):
 @process_json_view(auth_required=False)
 @logged
 def get_fields_descriptions(request):
+    from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
     return fields_info_desc
 
 
@@ -147,18 +148,3 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
-
-
-@csrf_exempt
-@logged
-def save_cell(request):
-    cell = json.loads(request.body)['cell']
-    value = json.loads(request.body)['value']
-    
-    Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
-    
-    page = Shift.objects.get(id=int(cell['group_id']))
-    employee = request.user.employee
-    page.employee_set.add(employee)
-
-    return JsonResponse({"status": 1})

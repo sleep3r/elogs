@@ -22,7 +22,7 @@ class StdLogger(object):
 
     def write(self, buf):
         for line in buf.rstrip().splitlines():
-            self.logger.log(self.log_level, line.rstrip())
+            self.logger.log(self.log_level, line.rstrip())  # somehow this line leads to stakowerflow
 
     def flush(self):
         pass

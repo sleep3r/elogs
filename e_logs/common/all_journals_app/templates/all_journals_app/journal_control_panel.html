@@ -1,8 +1,8 @@
 <div class="table">
     <div>
         {% if page_type == 'shift' %}
-            <div class="shift-date-selector" style="float: left;display: inline-flex;">
-                <span style="line-height: 34px;margin-right: 10px;font-weight: bold;">Выберите страницу:</span>
+            <div class="page-type-selector shift-date-selector">
+                <span class="choose-page-type-lablel">Выберите страницу:</span>
                 <input value="{{ shift_date }}, {{ shift_order }}-ая смена"
                        type="text"
                        placeholder="Выберите дату и время"
@@ -11,22 +11,21 @@
                        data-toggle="modal"
                        data-target="#myModal"
                        id="shift_field">
-                </input>
             </div>
         {% endif %}
-        <div class="shift-mode-buttons" style="float: right;display: inline-flex;">
+        <div class="shift-mode-buttons">
             {% if superuser %}
 
                 <a href="{{ request.path }}?page_mode=view&{% if page_id %}id={{ page_id }}{% endif %}"
-                   class="btn btn-default {% if page_mode == 'view' %} disabled {% endif %}">
+                   class="btn btn-default elog-btn {% if page_mode == 'view' %} disabled {% endif %}">
                     Просмотр
                 </a>
                 <a href="{{ request.path }}?page_mode=edit&{% if page_id %}id={{ page_id }}{% endif %}"
-                   class="btn btn-default {% if page_mode == 'edit' %} disabled {% endif %}">
+                   class="btn btn-default elog-btn {% if page_mode == 'edit' %} disabled {% endif %}">
                     Редактирование
                 </a>
                 <a href="{{ request.path }}?page_mode=validate&{% if page_id %}id={{ page_id }}{% endif %}"
-                   class="btn btn-default {% if page_mode == 'validate' %} disabled {% endif %}">
+                   class="btn btn-default elog-btn {% if page_mode == 'validate' %} disabled {% endif %}">
                     Валидация
                 </a>
 

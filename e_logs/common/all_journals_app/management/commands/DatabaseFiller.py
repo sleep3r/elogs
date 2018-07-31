@@ -17,12 +17,12 @@ from e_logs.furnace.fractional_app.models import *
 from e_logs.furnace.fractional_app import models as famodels
 from e_logs.common.all_journals_app import models as comodels
 from e_logs.common.all_journals_app.models import *
+from e_logs.common.all_journals_app.management.commands.fields_info_desc_filler import fill_fields_info_desc
 from e_logs.core.utils.webutils import parse, translate
 from django.utils.translation import gettext as _
 from django.db import connection
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-
 
 
 class DatabaseFiller:
@@ -665,7 +665,7 @@ class DatabaseFiller:
                                      'leaching_repair_quipment': [],},
 
                         'electrolysis': {'electrolysis_repair_report_tables': [],
-                                        'masters_raports': [],
+                                        'masters_report': [],
                                         'electrolysis_technical_report_12_degree': [],
                                         'electrolysis_technical_report_3_degree': [],
                                         'electrolysis_technical_report_4_degree': [] } 
@@ -681,6 +681,8 @@ class DatabaseFiller:
             for journal, tables in tables_lists[plant].items():
                 Setting.objects.create(name = "tables_list", value = json.dumps(tables), journal = journal)
 
+
+
         journals_verbose_names = {
                                     'buff_journal': 'Журнал для проверки',
                                     'furnace_changed_fraction': 'Рабочий журнал изменения фракции',
@@ -692,7 +694,7 @@ class DatabaseFiller:
                                     'metals_compute': 'Рассчёт металлов',
                                     'fractional': 'Ситовой анализ огарка и шихты',
 
-                                    'masters_raports': 'Журнал рапортов мастеров смен',
+                                    'masters_report': 'Журнал рапортов мастеров смен',
                                     'electrolysis_technical_report_3_degree': 'Технологический журнал электролиза 3-й серии',
                                     'electrolysis_technical_report_4_degree': 'Технологический журнал электролиза 4-й серии',
                                     'electrolysis_technical_report_12_degree': 'Технологические журналы электролиза 1-й и 2-й серии',
@@ -704,6 +706,13 @@ class DatabaseFiller:
                                 }
         for journal_name, verbose_name in journals_verbose_names.items():
             Setting.objects.create(name='verbose_name', value=verbose_name, journal=journal_name)
+
+
+        print('Adding fields info settings...')
+        fill_fields_info_desc()
+
+
+
 
 
     def clean_database(self):

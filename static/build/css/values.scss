@@ -1,0 +1,105 @@
+@import "colors";
+
+.general-value {
+    /*important because it's really important and to override bootstrap*/
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+
+    font-family: 'RobotoCondensedLight', sans-serif;
+}
+
+input[readonly].general-value {
+    background-color: transparent !important;
+    /*background: white;*/
+}
+
+input[type="number"].general-value {
+    text-align: right !important;
+}
+
+.general-value::placeholder { /* placeholder style */
+    color: $placeholder-color;
+    font-style: italic;
+}
+
+/* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
+
+.input-check-popup {
+    visibility: hidden;
+    width: 160px;
+    background-color: #73879C;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* ------------------------ HIGHLIGHT FOR CELLS AT LINK CLICK ---------------------- */
+
+.highlight {
+    animation-name: changeColors;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+}
+
+@keyframes changeColors {
+  0% {background-color: orange;}
+  100% {background-color: initial;}
+}
+
+/* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
+
+.comment-notification {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ffd800;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.comment-notification:hover {
+    opacity: 1;
+}
+
+/* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
+
+.journaltablewrapper .form-control {
+    border: none;
+    min-width: 0;
+    line-height: 1.42857143 !important;
+    height: 100%;
+    min-height: 30px;
+    word-break: break-word;
+    background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
+    
+    [readonly] {
+        background: white;
+    }
+}
+
+/*.journaltablewrapper .form-control[readonly] {*/
+    /*background: white;*/
+/*}*/
+
+.journaltablewrapper .form-control[readonly]:focus {
+    background: white;
+}
+
+.journaltablewrapper .form-control:focus{
+    background: linear-gradient(-45deg, $accent-orange 0%, transparent 10px, transparent 100%);
+}
+
+// --------------------------------------- DELETING ARROWS --------------------------------------
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
