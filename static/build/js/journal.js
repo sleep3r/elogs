@@ -66,6 +66,8 @@ class Journal {
             return lines.line_is_empty($(line));
         }).remove();
 
+        lines.clone_last_line($("form"));
+
         if (validate === "True") {
             $('.indexed-line').removeClass('indexed-line')
         }
@@ -84,72 +86,33 @@ class Journal {
             Journal.send_all_forms();
         }, false);
     }
-
-    static addMessage(msg) {
-
-        let debounce = _.debounce((input) => {
-                const json = input.dataset.info.replace(/'/g, '"');
-                const info = JSON.parse(json);
-
-                if (input.type === "number" && (input.value * 1 < info.min_normal || input.value * 1 > info.max_normal)) {
-                    $.ajax({
-                        url: "/common/messages/create/critical_value/",
-                        type: 'POST',
-                        data: {
-                            'check': true, 'field_name': input.name, 'field_value': input.value,
-                            'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                            'index': $(input).attr('index')
-                        },
-                        success: function (json) {
-                            if (json && json.result) {
-                                // console.log(json.result)
-                            }
-                        }
-                    });
-                } else {
-                    $.ajax({
-                        url: "/common/messages/update/critical_value/",
-                        type: 'POST',
-                        data: {
-                            'check': true, 'field_name': input.name,
-                            'table_name': $(input).attr('table-name'), 'journal_page': $(input).attr('journal-page'),
-                            'index': $(input).attr('index')
-                        },
-                        success: function (json) {
-                            if (json && json.result) {
-                                // console.log(json.result)
-                            }
-                        }
-                    });
-                }
-            },
-            300);
-
-        debounce(msg)
-    }
-
 }
-
-
 class Comment {
 
-    static add(input) {
+    static add(textarea) {
         _.debounce((textarea) => {
-            $.ajax({
-                url: "/common/messages/create/comment/",
-                type: 'POST',
-                data: {
-                    'check': true, 'field_name': $(textarea).attr('name'), 'comment_text': $(textarea).val(),
-                    'table_name': $(textarea).attr('table-name'), 'journal_page': $(textarea).attr('journal-page'),
+            let forSend = JSON.stringify({
+                'cell': {
+                    'field_name': textarea.name.replace('_comment', ''),
+                    'table_name': $(textarea).attr('table-name'),
+                    'group_id': $(textarea).attr('journal-page'),
                     'index': $(textarea).attr('index')
                 },
+
+                'message': { 'text': $(textarea).val(), 'link': Cell.getLink($(textarea).parent().siblings("input")), 'type': 'comment' }
+            });
+            $.ajax({
+                url: "/common/messages/add_comment/",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: forSend,
                 success: function (json) {
                     if (json && json.result) {
                         // console.log(json.result)
                     }
                 }
             });
-        }, 300)(input);
+        }, 300)(textarea);
     }
 
     static collapse(element) {

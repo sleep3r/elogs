@@ -365,20 +365,20 @@ class DatabaseFiller:
             cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
             schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
 
-            measurement = JournalPage.objects.create(type="measurement", date=timezone.now().today(), time = time, journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
+            measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
             for m_value in cinder_masses:
-                CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=0, value=m_value, journal_page=measurement)
+                Cell.objects.create(table_name="measurements", field_name='cinder_mass',
+                                index=0, value=m_value, group=measurement)
             for m_value in cinder_sizes:
-                CellValue.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=0, value=m_value, journal_page=measurement)
+                Cell.objects.create(table_name="measurements", field_name='cinder_size',
+                                index=0, value=m_value, group=measurement)
             for m_value in schieht_masses:
-                CellValue.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=0, value=m_value, journal_page=measurement)
+                Cell.objects.create(table_name="measurements", field_name='schieht_mass',
+                                index=0, value=m_value, group=measurement)
             for m_value in schieht_sizes:
-                CellValue.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=0, value=m_value, journal_page=measurement)
+                Cell.objects.create(table_name="measurements", field_name='schieht_size',
+                                index=0, value=m_value, group=measurement)
            
 
 
@@ -409,7 +409,7 @@ class DatabaseFiller:
                 if type(value) is not str:
                     value = str(value)
                 index = i
-                CellValue(
+                Cell(
                     journal_page=journal_page,
                     table_name=table_name,
                     field_name=field_name + index_marker_in_field_name,
@@ -533,9 +533,9 @@ class DatabaseFiller:
             e.save()
 
     def fill_journal_pages(self):
-        JournalPage(
+        Shift(
             type="shift",
-            journal_name="concentrate_report_journal",
+            name="concentrate_report_journal",
             plant=Plant.objects.get(name="furnace")).save()
 
     def fill_plants(self):
@@ -564,7 +564,7 @@ class DatabaseFiller:
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
-        content_type = ContentType.objects.get_for_model(CellValue)
+        content_type = ContentType.objects.get_for_model(Cell)
         modify_leaching = Permission(
             name="Modify Leaching Plant",
             codename="modify_leaching",
@@ -722,7 +722,7 @@ class DatabaseFiller:
             if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
-        db_models.extend([Setting, Employee, JournalPage, CellValue, Plant, Group, Permission])
+        db_models.extend([Setting, Employee, CellGroup, Cell, Plant, Group, Permission])
 
         for u in User.objects.all():  # delete user
             u.delete()

@@ -74,12 +74,12 @@ def split(value, arg):
     return value.split(arg)
 
 
-@register.filter('default_for_responsible')
-def default_for_responsible(responsible):
-    if responsible is None or responsible == {}:
+@register.filter('default')
+def default(value):
+    if value is None or value == {}:
         return ""
     else:
-        return responsible
+        return value
 
 
 @register.simple_tag(takes_context=True)

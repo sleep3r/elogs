@@ -1,6 +1,6 @@
 from django.db import ProgrammingError, OperationalError
 
-from e_logs.common.all_journals_app.models import JournalPage
+from e_logs.common.all_journals_app.models import Shift
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 

@@ -7,11 +7,10 @@
 {% set_global_context "field_comment_responsible_name" field_comment_name|add:"_responsible" %}
 {% set_global_context "id" full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 {% set_global_context "field_responsible_name" field_name|add:"_responsible" %}
-{% set_global_context "field_responsible" table_data|keyval:field_responsible_name|choose_val:index %}
+{% set_global_context "field_responsible" full_data|table_keyval:"responsible"|table_keyval:table_name|keyval:field_name|keyval:index %}
 {% set_global_context "field_comment_responsible" table_data|keyval:field_comment_responsible_name|choose_val:index %}
-{% set_global_context "comment" table_data|keyval:field_comment_name|choose_val:index %}
-{#{% set_global_context "cell_id" journal_page|stack:"|"|stack:table_name|stack:"|"|stack:field_name|stack:"|"|stack:index %}#}
-{% set_global_context "cell_id" table_name|stack:"|"|stack:field_name|stack:"|"|stack:index %}
+{% set_global_context "comment" full_data|table_keyval:"comment"|table_keyval:table_name|keyval:field_name|keyval:index|default %}
+{% set_global_context "cell_id" journal_page|stack:"-"|stack:table_name|stack:"-"|stack:field_name|stack:"-"|stack:index %}
 
 {% if validate %}
     {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
@@ -20,12 +19,10 @@
 {% endif %}
 -->
 
-<input class="resp" hidden name="{{ field_responsible_name }}" value="{{ field_responsible }}">
-
     <input class="form-control general-value {{ field_name }}_{{ index }}"
-           oninput="Cell.onInput(this, '{{ user.employee }}')"
+           oninput="Cell.onInput(this)"
            onchange="Cell.onChange(this)"
-           resposible={{ field_responsible }}
+           resposible="{{ field_responsible }}"
            title="{% if field_responsible %}{% if val %}Заполнил: {{ field_responsible }}{% endif %}{% endif %}"
            value="{% firstof auto_val val %}"
            data-info="{{ info }}"
@@ -34,6 +31,7 @@
            name="{{ field_name }}"
            index="{{ index }}"
            id="{{ cell_id }}"
+           db-id = "{{id}}"
             data-pagmode="{{ page_mode }}"
             {% if page_mode == 'view' or page_mode == 'validate' %}
            readonly="readonly"
@@ -54,17 +52,17 @@
 <span class="popup-comment-content">
    <div class="comment-close-button"
         onclick="PopUp.hideAll()">&#10006;</div>
-   <input class="resp" hidden name="{{ field_comment_responsible_name }}" value="{{ field_comment_responsible }}">
    <textarea name="{{ field_comment_name }}"
              placeholder="Комментарий..."
              rows="2"
              class="popup-comment-content-textarea"
-             oninput="Cell.markCommented(this);Cell.addResponsible(this, '{{ user.employee }}');$('#sync').hide();$('#async').show();"
+             oninput="Cell.markCommented(this);$('#sync').hide();$('#async').show();"
              onchange="Comment.add(this)"
              table-name="{{ table_name }}"
              journal-page="{{ journal_page }}"
              index="{{ index }}"
              cols="50"
+             id="{{ cell_id }}-comment"
            {% if page_mode == 'view' %}
              readonly="readonly"
            {% endif %}

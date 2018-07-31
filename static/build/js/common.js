@@ -103,10 +103,10 @@ function GetURLParameter(paramName) {
 }
 
 $(document).ready(function () {
-    let field_name = GetURLParameter("highlight");
-    if (field_name.length > 0) {
+    let cell_id = GetURLParameter("highlight");
+    if (cell_id.length > 0) {
         setTimeout(() => {
-            $("table ." + field_name + "").addClass("highlight");
+            $("table #" + cell_id + "").addClass("highlight");
         }, 1000);
     }
 });

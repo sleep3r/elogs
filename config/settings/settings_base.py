@@ -143,48 +143,48 @@ LOGGING = {
         },
         'production_file': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/main.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_false'],
+            'when': 'midnight',
         },
         'debug_file_debug': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/main_debug_debug.log',
-            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
+            'when': 'midnight',
         },
         'debug_file_info': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/main_debug_info.log',
-            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
+            'when': 'midnight',
         },
         'debug_file_error': {
             'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/main_debug_error.log',
-            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
+            'when': 'midnight',
         },
         'debug_file_calls': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': 'logs/main_debug_calls.log',
-            'maxBytes': 1024 * 1024 * 2,  # 2 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
+            'when': 'midnight',
         },
         'null': {
             "class": 'logging.NullHandler',
@@ -200,11 +200,11 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],

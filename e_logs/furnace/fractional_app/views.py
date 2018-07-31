@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.template import loader
 
-from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Plant, Measurement
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.webutils import process_json_view
 
@@ -30,20 +30,20 @@ def add_measurement(request):
         if hasattr(req, 'id'):
             measurement = req['id']
         else:
-            measurement = JournalPage.objects.create(type="measurement", time = timezone.now(), journal_name = "fractional_anal", plant=Plant.objects.get(name="furnace")).id
+            measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace")).id
 
         for m_value in req['cinder']['masses']:
-            CellValue.objects.create(table_name="measurements", field_name='cinder_mass',
-                             index=0, value=m_value, journal_page_id=measurement)
+            Cell.objects.create(table_name="measurements", field_name='cinder_mass',
+                             index=0, value=m_value, group_id=measurement)
         for m_value in req['cinder']['min_sizes']:
-            CellValue.objects.create(table_name="measurements", field_name='cinder_size',
-                             index=0, value=m_value, journal_page_id=measurement)
+            Cell.objects.create(table_name="measurements", field_name='cinder_size',
+                             index=0, value=m_value, group_id=measurement)
         for m_value in req['schieht']['masses']:
-            CellValue.objects.create(table_name="measurements", field_name='schieht_mass',
-                             index=0, value=m_value, journal_page_id=measurement)
+            Cell.objects.create(table_name="measurements", field_name='schieht_mass',
+                             index=0, value=m_value, group_id=measurement)
         for m_value in req['schieht']['min_sizes']:
-            CellValue.objects.create(table_name="measurements", field_name='schieht_size',
-                             index=0, value=m_value, journal_page_id=measurement)
+            Cell.objects.create(table_name="measurements", field_name='schieht_size',
+                             index=0, value=m_value, group_id=measurement)
 
         return HttpResponse(status=201)
     return HttpResponse(status=405)
@@ -53,23 +53,23 @@ def add_measurement(request):
 def granularity_object(request):
     res = deep_dict()
 
-    for measurement in JournalPage.objects.filter(type="measurement")[:2]:
+    for measurement in Measurement.objects.filter(type="measurement")[:2]:
         res['data'][measurement.id+100]['cinder']['time'] = (measurement.time + timedelta(days=700)).timestamp()
-        res['data'][measurement.id+100]['cinder']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
-        res['data'][measurement.id+100]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
+        res['data'][measurement.id+100]['cinder']['masses'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="cinder_mass", group = measurement)]
+        res['data'][measurement.id+100]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="cinder_size", group = measurement)]
 
         res['data'][measurement.id+100]['schieht']['time'] = (measurement.time + timedelta(days=700)).timestamp()
-        res['data'][measurement.id+100]['schieht']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
-        res['data'][measurement.id+100]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+        res['data'][measurement.id+100]['schieht']['masses'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="schieht_mass", group = measurement)]
+        res['data'][measurement.id+100]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="schieht_size", group = measurement)]
     
-    for measurement in JournalPage.objects.filter(type="measurement"):
+    for measurement in Measurement.objects.filter(type="measurement"):
         res['data'][measurement.id]['cinder']['time'] = measurement.time.timestamp()
-        res['data'][measurement.id]['cinder']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
-        res['data'][measurement.id]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
+        res['data'][measurement.id]['cinder']['masses'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="cinder_mass", group = measurement)]
+        res['data'][measurement.id]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="cinder_size", group = measurement)]
 
         res['data'][measurement.id]['schieht']['time'] = measurement.time.timestamp()
-        res['data'][measurement.id]['schieht']['masses'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
-        res['data'][measurement.id]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+        res['data'][measurement.id]['schieht']['masses'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="schieht_mass", group = measurement)]
+        res['data'][measurement.id]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in Cell.objects.filter(field_name="schieht_size", group = measurement)]
     
     return res
 
@@ -90,13 +90,13 @@ def granularity_graphs(request):
     cinders = []
     schieht = []
 
-    for measurement in JournalPage.objects.filter(type="measurement"):
-        masses = [float(m.value) for m in CellValue.objects.filter(field_name="cinder_mass", journal_page = measurement)]
-        min_sizes = [float(m.value) for m in CellValue.objects.filter(field_name="cinder_size", journal_page = measurement)]
+    for measurement in Measurement.objects.filter(type="measurement"):
+        masses = [float(m.value) for m in Cell.objects.filter(field_name="cinder_mass", group = measurement)]
+        min_sizes = [float(m.value) for m in Cell.objects.filter(field_name="cinder_size", group = measurement)]
         cinders.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])
 
-        masses = [float(m.value) for m in CellValue.objects.filter(field_name="schieht_mass", journal_page = measurement)]
-        min_sizes = [float(m.value) for m in CellValue.objects.filter(field_name="schieht_size", journal_page = measurement)]
+        masses = [float(m.value) for m in Cell.objects.filter(field_name="schieht_mass", group = measurement)]
+        min_sizes = [float(m.value) for m in Cell.objects.filter(field_name="schieht_size", group = measurement)]
         schieht.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])
 
     res = deep_dict()
