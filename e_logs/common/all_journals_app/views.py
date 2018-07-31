@@ -11,7 +11,6 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
@@ -76,6 +75,7 @@ class MetalsJournalView(JournalView):
 
     @logged
     def get_context(self, request, journal_name, page_type):
+        from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
         context = super().get_context(request, journal_name, page_type)
 
         context.sgok_table.columns = [
@@ -135,6 +135,7 @@ def change_table(request):
 @process_json_view(auth_required=False)
 @logged
 def get_fields_descriptions(request):
+    from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
     return fields_info_desc
 
 

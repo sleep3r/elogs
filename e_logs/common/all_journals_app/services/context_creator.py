@@ -5,9 +5,7 @@ from pprint import pprint
 from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 
-from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.all_journals_app.models import CellValue, JournalPage, Plant
-from e_logs.common.all_journals_app.fields_descriptions import fields_info
 from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.loggers import err_logger, default_logger
@@ -29,6 +27,7 @@ def get_full_data(page):
 
 
 def get_fields_info():
+    from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
     return fields_info_desc
 
 
