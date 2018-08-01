@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "RobotoCondensedBold";
+  src: url("/static/fonts/RobotoCondensedBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "RobotoCondensedBoldItalic";
+  src: url("/static/fonts/RobotoCondensedBoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: "RobotoCondensedItalic";
+  src: url("/static/fonts/RobotoCondensedItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "RobotoCondensedLight";
+  src: url("/static/fonts/RobotoCondensedLight.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "RobotoCondensedLightItalic";
+  src: url("/static/fonts/RobotoCondensedLightItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "RobotoCondensedRegular";
+  src: url("/static/fonts/RobotoCondensedRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* The following rules are deprecated. */
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedBoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedLight.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedLightItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/static/fonts/RobotoCondensedRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*# sourceMappingURL=font-typefaces.css.map */

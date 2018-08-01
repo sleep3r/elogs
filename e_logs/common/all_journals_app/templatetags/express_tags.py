@@ -122,6 +122,12 @@ def times(number):
     return range(number)
 
 
+@register.filter
+def pdb(element):
+    import pdb; pdb.set_trace()
+    return element
+
+
 @register.tag('for_or_create')
 def do_for_or_create(parser, token):
     bits = token.split_contents()

@@ -11,6 +11,7 @@ INSTALLED_APPS += ['debug_toolbar',
                    'nplusone.ext.django', ]
 
 MIDDLEWARE = [
+                 'djdev_panel.middleware.DebugMiddleware',
                  'nplusone.ext.django.NPlusOneMiddleware',
                  'querycount.middleware.QueryCountMiddleware'
              ] + MIDDLEWARE + \
