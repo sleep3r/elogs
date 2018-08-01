@@ -32,7 +32,7 @@ class Plant(models.Model):
 
 
 class Cell(models.Model):
-    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=True)
+    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=False)
 
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
     field_name = models.CharField(max_length=128, verbose_name='Название поля')
@@ -60,7 +60,7 @@ class CellGroup(models.Model):
                                                      ('measurement', 'Измерение'),
                                                      ('month', 'Месяц'),
                                                      ('year', 'Год')), verbose_name='Тип')
-    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE, null=True, verbose_name='Цех')
+    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE, null=False, verbose_name='Цех')
 
 
 class Measurement(CellGroup):

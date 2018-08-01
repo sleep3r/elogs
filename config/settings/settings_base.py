@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 
 from django.conf.global_settings import INTERNAL_IPS
@@ -137,8 +138,8 @@ LOGGING = {
     'handlers': {
         'console': {
             'level': 'DEBUG',
-            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
             'formatter': 'color_formatter',
         },
         'production_file': {
