@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
-from e_logs.core.utils.loggers import err_logger
+from e_logs.core.utils.loggers import stdout_logger
 from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
 
@@ -25,28 +25,28 @@ class JournalView(LoginRequiredMixin, View):
     @logged
     def get(self, request, plant, name):
         print('journal_name = {}'.format(name))
-        err_logger.debug('JournalView: name = {}'.format(name))
+        stdout_logger.debug('JournalView: name = {}'.format(name))
 
         page = Shift.objects.filter(name=name).first()
         page_type = page.type if page else 'shift'
-        err_logger.debug(f'JournalView: page_type: {page_type}')
+        stdout_logger.debug(f'JournalView: page_type: {page_type}')
         context = self.get_context(request=request, name=name, page_type=page_type)
         context.journal_title = Setting.objects.get(name='verbose_name', journal=name).value
 
         templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, name)
         tables_paths = []
-        err_logger.debug('JournalView.get(): before file walk')
+        stdout_logger.debug('JournalView.get(): before file walk')
         for (dirpath, dirnames, filenames) in walk(templates_dir):
             tables_paths.extend(
                 ['tables/{}/{}/'.format(plant, name) + f for f in filenames if f.endswith(".html")]
             )
-        err_logger.debug('JournalView.get(): after file walk')
+        stdout_logger.debug('JournalView.get(): after file walk')
         context.tables_paths = tables_paths
 
         template = loader.get_template('common.html')
-        err_logger.debug('JournalView.get(): before render')
+        stdout_logger.debug('JournalView.get(): before render')
         rendered_template = template.render(context, request)
-        err_logger.debug('JournalView.get(): before response')
+        stdout_logger.debug('JournalView.get(): before response')
 
         return HttpResponse(rendered_template)
 

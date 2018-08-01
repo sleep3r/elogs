@@ -139,7 +139,6 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
             'formatter': 'color_formatter',
         },
         'production_file': {
@@ -206,6 +205,13 @@ LOGGING = {
         },
         'django': {
             'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.db': {
+            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'level': 'INFO',
+            'propagate': False,
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
@@ -218,6 +224,7 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug'],
+            'level': 'INFO',
         }
     }
 }
