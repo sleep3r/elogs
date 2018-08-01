@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from e_logs.core.utils.webutils import process_json_view
+from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.common.all_journals_app.models import Shift, Plant
 
 
@@ -15,12 +15,13 @@ def shift_event(request, journal_page, is_owned):
     }
 
 
+@logged
 @process_json_view(auth_required=False)
 def get_shifts(request, plant, name):
     result = []
     plant = Plant.objects.get(name=plant)
     employee = request.user.employee
-    recent_pages = Shift.objects.filter(plant=plant,
+    recent_pages = Shift.objects.prefetch_related('employee_set').filter(plant=plant,
                                               name=name,
                                               shift_date__gte=date.today() - timedelta(days=30))
 

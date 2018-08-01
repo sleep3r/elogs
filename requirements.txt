@@ -8,6 +8,8 @@ gunicorn==19.9.0
 django-debug-toolbar==1.9.1
 django-querycount==0.7.0
 django-migrations-graph==0.1.1
+Werkzeug==0.14.1
 nplusone==1.0.0
+watchdog==0.8.3
 
 

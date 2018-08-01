@@ -72,7 +72,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'e_logs.core.middleware.ExceptionMiddleware',
-
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -213,6 +212,11 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
             'propagate': False,
+        },
+        'werkzeug': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
