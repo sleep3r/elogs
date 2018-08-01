@@ -201,9 +201,9 @@ def logged(func):
         import os
         import sys
         logger = logging.getLogger('CALL')
-        logger.debug(f'Вызов {func.__name__} в {func.__module__}, строка {func.__code__.co_firstlineno}')
+        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)
-        logger.debug(f'Выход из {func.__name__} в {func.__module__}, строка {func.__code__.co_firstlineno}')
+        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         return func_res
     return w
 
