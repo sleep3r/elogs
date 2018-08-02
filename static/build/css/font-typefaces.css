@@ -71,5 +71,11 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/static/fonts/material.woff2") format("woff2");
+}
 
 /*# sourceMappingURL=font-typefaces.css.map */

@@ -1,7 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-var BundleTracker = require('webpack-bundle-tracker');
-var Cleaner = require('webpack-cleanup-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const BundleTracker = require('webpack-bundle-tracker');
+const Cleaner = require('webpack-cleanup-plugin');
 
 module.exports = {
   mode: 'development',
@@ -59,7 +59,6 @@ module.exports = {
     hot: true,
     clientLogLevel: 'warning',
     historyApiFallback: true,
-    hot: true,
     headers: { "Access-Control-Allow-Origin": "*" },
     host: '127.0.0.1',
     port: '8001',
@@ -69,4 +68,4 @@ module.exports = {
     },
     publicPath: "/static/webpack_bundles"
   }
-}
+};
