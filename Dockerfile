@@ -29,6 +29,6 @@ RUN npm i
 
 COPY . /srv
 RUN ./node_modules/.bin/webpack
-ENV DJANGO_SETTINGS_MODULE config.settings.settings-singapore
+ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 
 ENTRYPOINT ["/srv/docker/entrypoint.sh"]
