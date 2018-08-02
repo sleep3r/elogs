@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from e_logs.common.all_journals_app.models import Cell, Shift
-from e_logs.core.utils.webutils import process_json_view, logged
+from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import stdout_logger
 from e_logs.common.messages_app.services import messages
@@ -42,7 +42,7 @@ class JournalView(LoginRequiredMixin, View):
             )
         stdout_logger.debug('JournalView.get(): after file walk')
         context.tables_paths = tables_paths
-
+        
         template = loader.get_template('common.html')
         stdout_logger.debug('JournalView.get(): before render')
         rendered_template = template.render(context, request)
@@ -156,10 +156,14 @@ def save_cell(request):
     cell = json.loads(request.body)['cell']
     value = json.loads(request.body)['value']
 
-    Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
+    if value == '': 
+        d_cell = get_or_none(Cell,**cell)
+        if d_cell:
+            d_cell.delete()
+    else:
+        Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
 
     page = Shift.objects.get(id=int(cell['group_id']))
-    employee = request.user.employee
-    page.employee_set.add(employee)
+    page.employee_set.add(request.user.employee)
 
     return JsonResponse({"status": 1})
