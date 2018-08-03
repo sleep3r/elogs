@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Flex example</title>
+    <base href="./">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+  <body>
+    <div class="elogs-container"> 
+      <div class="header">
+        <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
+        <div class="header__title">Журнал раппортов по работе с клиентами</div>
+        <div class="header__user"> <i class="fas fa-envelope"></i><i class="fas fa-bell"></i><span>Гаврилов Алексей</span><i class="fas fa-user-circle"> </i></div>
+      </div>
+      <div class="main-container">
+        <div class="column-left">
+          <div class="menu__panel">
+            <div class="menu__title">АНАЛИТИКА ЗАВОДА</div><i class="menu__toggle fas fa-bars"></i>
+          </div>
+          <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
+          <ul class="left-menu"> 
+            <li class="left-menu__item"> <a href="#">Журнал 1<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 2<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 3<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 4<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 5<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 6<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+            <li class="left-menu__item"> <a href="#">Журнал 7<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+          </ul>
+          <div class="colors-samples">
+            <div title="bg" class="color--bg">   </div>
+            <div title="Уровень меню 1" class="color--menu1"></div>
+            <div title="Уровень меню 2" class="color--menu2"></div>
+            <div title="Выделенный пункт меню " class="color--menu-current"></div>
+            <div title="main" class="color--main"></div>
+            <div title="Акцент 1" class="color--ac1"></div>
+            <div title="Акцент 2" class="color--ac2"></div>
+            <div title="Акцент 3" class="color--ac3"></div>
+          </div>
+        </div>
+        <div class="column-content"> 
+          <div class="journal-page">
+            <div class="journal__panel">
+              <div class="date-selector">
+                <label>Выберите дату и смену</label>
+                <input type="text" placeholder="22 июля 2018, 2-ая">
+              </div>
+              <div class="mode-buttons"> 
+                <button class="btn">Просмотр</button>
+                <button class="btn">Редактирование</button>
+                <button class="btn">Валидация</button>
+              </div>
+            </div>
+            <div class="journal-tables">
+              <div class="journal-table">
+                <div class="table__title">Ответственные по складу</div>
+                <table class="table table-31337">
+                  <tr>
+                    <th>Параметры</th>
+                    <th>Несоответсвия</th>
+                    <th>Принятые меры</th>
+                    <th>Время замеров</th>
+                  </tr>
+                  <tr>
+                    <th>Zn</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Sb</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Pb</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>St</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>t</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>VIU</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>t2</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Cd</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Sn</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                </table>
+                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+              </div>
+              <div class="journal-table">
+                <div class="table__title">Длинная таблица</div>
+                <table class="table table-31337">
+                  <tr>
+                    <th>Условия</th>
+                    <th>Оборудование</th>
+                    <th>Тепмпература</th>
+                    <th>Время замеров</th>
+                  </tr>
+                  <tr>
+                    <th>Al</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Sa</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Ps</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Sn</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>t1</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Vismut</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Ar</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Au</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Ag</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Si</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Li</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Mg</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                  <tr>
+                    <th>Mg</th>
+                    <td class="string-cell">Lorem ipsum dolor sit amet.</td>
+                    <td class="number-cell">1</td>
+                    <td class="number-cell">2</td>
+                  </tr>
+                </table>
+                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+              </div>
+              <div class="journal-table">
+                <div class="table__title">Длинная таблица</div>
+                <table class="table table-long">
+                  <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td> 
+                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                    </td>
+                    <td> 
+                      <input value="1" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="2" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="3" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td> 
+                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                    </td>
+                    <td> 
+                      <input value="1" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="2" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="3" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td> 
+                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                    </td>
+                    <td> 
+                      <input value="1" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="2" class="number-cell">
+                    </td>
+                    <td> 
+                      <input value="3" class="number-cell">
+                    </td>
+                  </tr>
+                </table>
+                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

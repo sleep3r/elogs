@@ -1,0 +1,29 @@
+mixin tbl(rows, columns)
+  table.table.journal-table
+    - for (var r=0; r < rows; r++) {
+        tr.row
+          - for (var c=0; c < columns; c++) {
+          td= c
+          - }
+    - }  
+    
+mixin table__comment
+  .table__comment
+    a(href="#") Комментарий 
+    i.fas.fa-envelope.ico-comment
+    
+mixin table_simple(tableName, columns, rows)
+  .journal-table
+    .table__title= tableName 
+    table.table.table-31337
+      tr
+        each columnName in columns
+          th= columnName
+      each rowName in rows
+        tr
+          th= rowName
+          td.string-cell Lorem ipsum dolor sit amet.
+          td.number-cell 1
+          td.number-cell 2
+    +table__comment
+    

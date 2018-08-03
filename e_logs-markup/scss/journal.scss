@@ -1,0 +1,42 @@
+.journal__panel {
+  margin-top: 20px;
+}
+
+.date-selector {
+  height: 40px;
+  label {
+    position: relative;
+    color: $color-text;
+    font-size: 14px;
+  }
+  input {
+    height: 24px;
+    border: 2px solid $color-text;
+    font-size: 14px;
+    text-align: center;
+  }
+  label, input {
+    position: relative;
+    top: -16px;
+    display: block;
+    width: 200px;
+  }
+}
+
+.mode-buttons {
+  margin-left: 20px;
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: $color-main;
+  color: white;
+  margin: 0 5px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 1px 2px $color-text;
+}
+
+.btn:hover {
+  background-color: $color-text;
+}
