@@ -5,8 +5,15 @@ var app = new Vue({
         answer: {}
     },
     created: function () {
-        plant = location.pathname.split('/')[1]
-        journal_name = location.pathname.split('/')[2]
+        let plant = location.pathname.split('/')[1];
+        let journal_name = location.pathname.split('/')[2];
+
+        if (!plant || !journal_name) {
+            plant = 'furnace';
+            journal_name = 'fractional';
+        }
+
+
         this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
             .then(response => {
                 this.answer = response.data;
@@ -14,7 +21,7 @@ var app = new Vue({
             })
             .catch(e => {
                 console.log(e)
-            })
+            });
 
         // calendar
         function init_calendar(shift_events) {
