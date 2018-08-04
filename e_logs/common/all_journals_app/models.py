@@ -45,7 +45,7 @@ class Cell(models.Model):
     @staticmethod
     def get(cell):
         return get_or_none(Cell, **cell)
-    
+
     class Meta:
         unique_together = ['table_name', 'field_name', 'index', 'group']
         verbose_name = 'Запись'
@@ -67,10 +67,10 @@ class Measurement(CellGroup):
     time = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала смены')
 
 
-class Shift(CellGroup):    
+class Shift(CellGroup):
     shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
     shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
-    
+
     @property
     def shift_start_time(self):
         shift_hour = (8 + (self.shift_order - 1) * (24 // self.plant.number_of_shifts)) % 24
