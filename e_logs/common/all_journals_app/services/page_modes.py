@@ -45,9 +45,9 @@ def check_mode_permissions(employee, page, page_mode):
     if page_mode == "validate":
         is_valid = employee.user.has_perm(VALIDATE_CELLS)
     if page_mode == "edit":
-        if page.type == "shift":
+        if page.journal.type == "shift":
             is_valid = page.is_active and employee.user.has_perm(EDIT_CELLS)
-        if page.type == "equipment":
+        if page.journal.type == "equipment":
             is_valid = employee.user.has_perm(EDIT_CELLS)
     if page_mode == "view":
         is_valid = employee.user.has_perm(VIEW_CELLS)
