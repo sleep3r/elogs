@@ -13,7 +13,9 @@ contain_zn_table_desc = contain_zn.clear_empty().get_dict()
 
 
 fs = deep_dict()
-fields_p = ["pb", "cu", "cd","fe1", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2", "fe2", "S", "As", "Sb", "S_sulf"]
+fields_p = ["pb", "cu", "cd", "fe1", "SiO2", "Zn_furn",
+            "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2",
+            "fe2", "S", "As", "Sb", "S_sulf"]
 
 for field_name in fields_p:
     fs[field_name] = percent_default
@@ -83,8 +85,8 @@ zgok_columns = [
 "отклонение"]
 
 zgok_fields = ["zgok", "art-iy", "ust-tal", "karagayls", "verh-ber", "belousovka", "Jezkent",
-               "er-tay", "NShirokinskiy", "lesosib", "altyn-topkan", "itogo_vmt", "itogo_smt", "vydano_ogarka", "poteri",
-               "ogarka_peredano", "ceh", "Lenta", "poterya", "lenta_itogo"]
+               "er-tay", "NShirokinskiy", "lesosib", "altyn-topkan", "itogo_vmt", "itogo_smt",
+               "vydano_ogarka", "poteri", "ogarka_peredano", "ceh", "Lenta", "poterya", "lenta_itogo"]
 
 
 for field_name in zgok_fields:

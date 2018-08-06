@@ -131,7 +131,8 @@ LOGGING = {
         },
         'color_formatter': {
             '()': 'e_logs.core.utils.formatters.ColorsFormatter',
-            'format': "[%(asctime)s] %(message)s",
+            # 'format': "[%(asctime)s] %(message)s",
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
     },
@@ -144,45 +145,45 @@ LOGGING = {
         'production_file': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/main.log',
+            'filename': 'logs/main/main.log',
             'backupCount': 7,
-            'formatter': 'main_formatter',
+            'formatter': 'color_formatter',
             'filters': ['require_debug_false'],
             'when': 'midnight',
         },
         'debug_file_debug': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/main_debug_debug.log',
+            'filename': 'logs/main_debug_debug/main_debug_debug.log',
             'backupCount': 7,
-            'formatter': 'main_formatter',
+            'formatter': 'color_formatter',
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
         'debug_file_info': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/main_debug_info.log',
+            'filename': 'logs/main_debug_info/main_debug_info.log',
             'backupCount': 7,
-            'formatter': 'main_formatter',
+            'formatter': 'color_formatter',
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
         'debug_file_error': {
             'level': 'ERROR',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/main_debug_error.log',
+            'filename': 'logs/main_debug_error/main_debug_error.log',
             'backupCount': 7,
-            'formatter': 'main_formatter',
+            'formatter': 'color_formatter',
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
         'debug_file_calls': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logs/main_debug_calls.log',
+            'filename': 'logs/main_debug_calls/main_debug_calls.log',
             'backupCount': 7,
-            'formatter': 'main_formatter',
+            'formatter': 'color_formatter',
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
@@ -204,7 +205,7 @@ LOGGING = {
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['console','debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
             'propagate': True,
         },
@@ -212,6 +213,10 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
             'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['debug_file_debug', 'console'],
+            'level': 'INFO',
         },
         'werkzeug': {
             'handlers': ['console'],
@@ -227,10 +232,6 @@ LOGGING = {
         'STDERR': {
             'handlers': ['console'],
         },
-        'django.db.backends': {
-            'handlers': ['debug_file_debug'],
-            'level': 'INFO',
-        }
     }
 }
 

@@ -12,24 +12,14 @@
     {% endblock %}
 
     {% block css %}
-        <!-- Fonts -->
-        <link rel="stylesheet" media="screen" href="{% static '/fonts/roboto-condensed.css' %}" type="text/css"/>
-
-        <!-- Bootstrap -->
-        <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-
-        <!-- Font Awesome -->
-        <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-
-        <!-- Google Material Icons -->
-        <link rel="stylesheet" href="{% static '/v/fonts/icons.css' %}">
-
-        <!-- css all in one -->
-        <link href="{% static '/build/css/global.css' %}" rel="stylesheet">
-
+        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static '/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">
+
+        <!-- css all in one -->
+        <link href="{% static '/build/css/global.css' %}" rel="stylesheet">
 
     {% endblock %}
     {% block extracss %}

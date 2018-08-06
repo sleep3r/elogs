@@ -1,0 +1,90 @@
+.menu__panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.menu__title {
+  width: 150px;
+  display: block;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: $color-text;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  text-shadow: 2px 2px #CCCCCC;
+}
+
+.menu__toggle {
+  display: block;
+  line-height: 24px;
+}
+
+.menu__logo {
+  color: $color-text;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.left-menu {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.left-menu__item {
+  min-height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #CCCCCC;
+
+  span.fa {
+    float: right;
+    font-size: 10px;
+    line-height: 38px;
+    margin-right: 20px;
+  }
+}
+
+.left-menu__item::after {
+  border: 4px solid blue;
+}
+
+.left-menu__item:hover {
+  background-color: white;
+  border-right: 4px solid $color-ac3;
+}
+
+.left-menu__item a {
+    padding-left: 10px;
+    color: $color-text;
+    text-decoration: none;
+}
+
+.left-menu__item:hover a{
+    color: $color-text;
+    text-decoration: none;
+}
+
+.left-menu__item:hover a .arrow-left {
+  position: relative;
+  left: 181px;
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 10px solid $color-ac3;
+}
+
+.arrow-right {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-left: 60px solid green;
+}

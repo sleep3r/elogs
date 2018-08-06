@@ -82,6 +82,16 @@ def default(value):
         return value
 
 
+@register.filter('longest_field')
+def formatter(table):
+    try:
+        longest = max(map(max, [field.keys() for field in table.values()]))
+        longest = range(longest + 1)
+    except ValueError:
+        longest = None
+    return longest
+
+
 @register.simple_tag(takes_context=True)
 def set_global_context(context, key, value):
     """

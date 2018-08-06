@@ -1,0 +1,32 @@
+
++table_simple(
+  "Ответственные по складу",
+  ["Параметры", "Несоответсвия", "Принятые меры", "Время замеров"],
+  ["Zn", "Sb", "Pb", "St", "t", "VIU" ,"t2", "Cd", "Sn"]
+)
+
++table_simple(
+  "Длинная таблица",
+  ["Условия", "Оборудование", "Тепмпература", "Время замеров"],
+  ["Al", "Sa", "Ps", "Sn", "t1", "Vismut" ,"Ar", "Au", "Ag", "Si", "Li", "Mg", "Mg"]
+)
+
+
+.journal-table
+  .table__title Длинная таблица
+  table.table.table-long
+    tr
+      each columnName in ["1","2","3","4","5"]
+        th= columnName
+    each rowName in ["1","2","3"]
+      tr
+        th= rowName
+        td 
+          input.string-cell(value="Lorem ipsum dolor sit amet.")
+        td 
+          input.number-cell(value="1") 
+        td 
+          input.number-cell(value="2")
+        td 
+          input.number-cell(value="3")
+  +table__comment
