@@ -7,8 +7,12 @@ options = webdriver.ChromeOptions()
 options.add_argument('headless')
 options.add_argument('--log-level=3')
 
+host = "http://88.99.2.149:"
+port = "4242"
+url = host + port
+
 # browser = Browser("chrome")
-browser.visit("http://88.99.2.149:1337/furnace/concentrate_report_journal")
+browser.visit(f"{url}/furnace/concentrate_report_journal")
 if browser.is_element_present_by_id("loginform", 2):
     browser.fill("username", "inframine")
     browser.fill("password", "Singapore2017")
@@ -30,7 +34,7 @@ name_field.click()
 
 if browser.is_element_present_by_id('5505-big_table-wagon_num-0-comment'):
     print("zbs")
-    val_comment_field = browser.find_by_id('5505-big_table-wagon_num-0-comment')
+    val_comment_field = browser.find_by_css('#table_id_big_table > div.x_content > form > table > tbody > tr > td:nth-child(1) > span > textarea')
     val_comment_field.fill("WTF???")
 else:
     print("fuck u")

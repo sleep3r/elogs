@@ -16,8 +16,11 @@ if browser.is_element_present_by_id("loginform", 2):
     browser.fill("username", "inframine")
     browser.fill("password", "Singapore2017")
     browser.find_by_css("input.btn").click()
+
+
 #ОБЖИГ
 #Журнал рапортов о проделанной работе по складам концентратов
+
 
 if browser.is_element_present_by_id("table_id_big_table", 2):
     browser.driver.save_screenshot("screens/screenshot_all_ok_1.png")
@@ -258,7 +261,7 @@ else:
 #ВЫЩЕЛАЧИВАНИЕ
 #Журнал экспресс-анализа
 
-browser.visit(f"{url}/leaching/leaching_express_analysis")
+browser.visit(f"{url}/leaching/journal")
 if browser.is_element_present_by_id("table_id_neutral_thickeners_table", 2):
     browser.driver.save_screenshot("screens/screenshot_all_ok_32.png")
     print("All OK")
@@ -373,7 +376,7 @@ else:
 
 #Журнал по ремонту оборудования ЦВЦО
 
-browser.visit(f"{url}/leaching/leaching_repair_quipment")
+browser.visit(f"{url}/leaching/repair")
 if browser.is_element_present_by_id("table_id_repair_table", 2):
     browser.driver.save_screenshot("screens/screenshot_all_ok_48.png")
     print("All OK")

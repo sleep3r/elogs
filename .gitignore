@@ -91,4 +91,13 @@ venv.bak/
 #fucking staticfiles
 staticfiles/
 
+<<<<<<< Updated upstream
 #fucking logs
+=======
+#fucking logs
+logs/
+
+#tests
+
+e_logs_tests/screens/*
+>>>>>>> Stashed changes

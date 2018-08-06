@@ -11,7 +11,7 @@ def screen():
 
 # Режим редактирования
 def pick_edit_mode():
-    browser.find_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > div.shift-mode-buttons > a:nth-child(2)").first.click()
+    browser.find_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > a:nth-child(4)").first.click()
 
 
 def edit_mode_confirm():
@@ -23,19 +23,19 @@ def edit_mode_confirm():
 
 # Режим валидации
 def pick_val_mode():
-    if browser.is_element_present_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > div.shift-mode-buttons > a:nth-child(3)"):
-        browser.find_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > div.shift-mode-buttons > a:nth-child(3)").first.click()
+    if browser.is_element_present_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > a:nth-child(5)"):
+        browser.find_by_css("body > div.container.body > div > div.right_col > div.content > div.table > div > a:nth-child(5)").first.click()
     else:
         print("No reasons dude, you're already in")
 
 
 # Комментарии к таблице
 def comment_table_button():
-    browser.find_by_css('#table_id_big_table > div.x_content > form > div:nth-child(4) > span').first.click()
+    browser.find_by_css('#table_id_big_table > div.x_content > form > div > span').first.click()
 
 
 def comment_table_field_fill():
-    comment_field = browser.find_by_css('#table_id_big_table > div.x_content > form > div:nth-child(4) > div > textarea')
+    comment_field = browser.find_by_css('#table_id_big_table > div.x_content > form > div > div > textarea')
     comment_field.fill('Еблан, ты уволен!')
 
 
