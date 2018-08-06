@@ -44,7 +44,7 @@ def check_mode_permissions(employee, page, page_mode):
         is_valid = employee.user.has_perm(VALIDATE_CELLS)
     if page_mode == "edit":
         if page.type == "shift":
-            is_valid = page.shift_is_active and employee.user.has_perm(EDIT_CELLS)
+            is_valid = page.is_active and employee.user.has_perm(EDIT_CELLS)
         if page.type == "equipment":
             is_valid = employee.user.has_perm(EDIT_CELLS)
     if page_mode == "view":
@@ -54,7 +54,7 @@ def check_mode_permissions(employee, page, page_mode):
 
 @login_required
 def has_edited(request, page):
-    return page in list(request.user.employee.owned_journal_pages.all())
+    return page in list(request.user.employee.owned_shifts.all())
 
 
 @login_required

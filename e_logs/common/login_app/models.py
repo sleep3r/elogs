@@ -19,7 +19,7 @@ class Employee(models.Model):
                                                                                     ('electrolysis', 'Электролиз'),
                                                                                     ))
     csrf = models.CharField(max_length=CSRF_LENGTH, default=' ')
-    owned_journal_pages = models.ManyToManyField(Shift, blank=True)
+    owned_shifts = models.ManyToManyField(Shift, blank=True)
 
     def __str__(self):
         return f'{self.name}'

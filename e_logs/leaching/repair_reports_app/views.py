@@ -12,12 +12,12 @@ from e_logs.core.utils.webutils import logged
 @logged
 @login_required
 def index(request):
-    context = get_common_context(name="leaching_repair_quipment", request=request)
+    context = get_common_context(name="leaching_repair_equipment", request=request)
     context.journal_title = "Журнал ремонта"
     template = loader.get_template('common.html')
 
-    left_table = deep_dict()
-    left_table.name = "repair_reports/repair_table.html"
+    left = deep_dict()
+    left.name = "repair_reports/repair_table.html"
 
-    context.tables = [left_table]
+    context.tables = [left]
     return HttpResponse(template.render(context, request))

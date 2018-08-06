@@ -11,73 +11,118 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from e_logs.common.all_journals_app.models import Cell, Shift
+from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
+    Equipment, Field, Table, Journal, Plant
 from e_logs.core.utils.webutils import process_json_view, logged
-from e_logs.common.all_journals_app.services.context_creator import get_common_context
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
+    plant_permission, PageModeError, has_edited
 from e_logs.core.utils.loggers import stdout_logger
 from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
 
 
 class JournalView(LoginRequiredMixin, View):
-    """ Common view for a journal. Inherit from this class when creating your own journal view """
-
+    """
+    Common view for a journal.
+    Inherit from this class when creating your own journal view.
+    """
     @logged
-    def get(self, request, plant, name):
-        print('journal_name = {}'.format(name))
-        stdout_logger.debug('JournalView: name = {}'.format(name))
-
-        page = Shift.objects.filter(name=name).first()
-        page_type = page.type if page else 'shift'
-        stdout_logger.debug(f'JournalView: page_type: {page_type}')
-        context = self.get_context(request=request, name=name, page_type=page_type)
-        context.journal_title = Setting.objects.get(name='verbose_name', journal=name).value
-
-        templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant, name)
-        tables_paths = []
-        stdout_logger.debug('JournalView.get(): before file walk')
-        for (dirpath, dirnames, filenames) in walk(templates_dir):
-            tables_paths.extend(
-                ['tables/{}/{}/'.format(plant, name) + f for f in filenames if f.endswith(".html")]
-            )
-        stdout_logger.debug('JournalView.get(): after file walk')
-        context.tables_paths = tables_paths
-
+    def get(self, request, plant_name, journal_name):
+        plant = Plant.objects.get(name=plant_name)
+        journal = Journal.objects.get(plant=plant, name=journal_name)
+        context = self.get_context(request, plant, journal)
         template = loader.get_template('common.html')
-        stdout_logger.debug('JournalView.get(): before render')
-        rendered_template = template.render(context, request)
-        stdout_logger.debug('JournalView.get(): before response')
+        return HttpResponse(template.render(context, request))
 
-        return HttpResponse(rendered_template)
+    def get_context(self, request, plant, journal):
+        context = deep_dict()
+        context.page_type = journal.type
 
-    @logged
-    def get_context(self, request, name, page_type):
-        return get_common_context(name, request, page_type)
+        if journal.type == 'shift':
+            page_id = request.GET.get('id', None)
+            if page_id:
+                shift = Shift.objects.get(id=page_id)
+            else:
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                # create shifts for today and return current shift
+                for shift_order in range(1, number_of_shifts + 1):
+                    shift = Shift.objects.get_or_create(
+                        journal=journal,
+                        order=shift_order,
+                        date=date.today()
+                    )[0]
+                    if shift.is_active:
+                        break
+            context.shift_is_active_or_no_shifts = shift.is_active
+            context.shift_order = shift.order
+            context.shift_date = shift.date
+            page = shift
+
+        if journal.type == 'equipment':
+            equipment = Equipment.objects.get_or_create(
+                journal=journal
+            )[0]
+            page = equipment
+
+        # Adding permissions
+        # TODO: refactor permissions?
+        context.page_mode = get_page_mode(request, page)
+        context.has_edited = has_edited(request, page)
+        context.has_plant_perm = plant_permission(request)
+        context.superuser = request.user.is_superuser
+        page.save()
+
+        context.tables_paths = json.loads(
+            Setting.objects.get(
+                name='tables_list',
+                journal=journal
+            ).value
+        )
+
+        context.full_data = get_full_data(page)
+        context.fields_info = get_fields_descriptions(request)
+
+        context.unfilled_cell = ""
+        context.unfilled_table = deep_dict()
+        context.journal_name = page.name
+        context.journal_page = page.id
+        return context
 
 
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
     @logged
-    def get_context(self, request, name, page_type):
-        context = super().get_context(request, name, page_type)
+    def get_context(self, request, journal_name, page_type):
+        context = super().get_context(request, journal_name, page_type)
 
-        context.months = dict(zip(
-            ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-        ))
+        context.months = {
+            'January': 'Январь',
+            'February': 'Февраль',
+            'March': 'Март',
+            'April': 'Апрель',
+            'May': 'Май',
+            'June': 'Июнь',
+            'July': 'Июль',
+            'August': 'Август',
+            'September': 'Сентябрь',
+            'October': 'Октябрь',
+            'November': 'Ноябрь',
+            'December': 'Декабрь'
+        }
         context.plan_or_fact = ['plan', 'fact']
         context.date_year = datetime.now().year
         context.cur_month = list(context.months.keys())[date.today().month-1]
         return context
 
 
+# TODO: Move to common journal scheme
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
-
     @logged
-    def get_context(self, request, name, page_type):
+    def get_context(self, request, journal_name, page_type):
         from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-        context = super().get_context(request, name, page_type)
+        context = super().get_context(request, journal_name, page_type)
 
         context.sgok_table.columns = [
             "ЗГОК, ВМТ",
@@ -132,6 +177,21 @@ def change_table(request):
     return {"status": 1}
 
 
+def get_full_data(page):
+    res = deep_dict()
+
+    for val in Cell.objects.filter(group=page):
+        if val.index is not None:
+            res[val.field.table.name][val.field.name][val.index] = val.value
+            res['id'][val.field.table.name][val.field.name][val.index] = val.id
+            res['comment'][val.field.table.name][val.field.name][val.index] = val.comment
+            res['responsible'][val.field.table.name][val.field.name][val.index] = val.responsible
+        else:
+            raise ValueError()
+
+    return res
+
+
 @csrf_exempt
 @process_json_view(auth_required=False)
 @logged
@@ -153,13 +213,36 @@ def permission_denied(request, exception, template_name='errors/403.html'):
 @csrf_exempt
 @logged
 def save_cell(request):
-    cell = json.loads(request.body)['cell']
+    cell_info = json.loads(request.body)['cell']
+    field_name = cell_info['field_name']
+    table_name = cell_info['table_name']
+    group_id = cell_info['group_id']
+    index = cell_info['index']
+    responsible = request.user.employee
     value = json.loads(request.body)['value']
 
-    Cell.objects.update_or_create(**cell ,defaults = {"value":value, "responsible":request.user.employee})
+    group = CellGroup.objects.get(id=group_id)
+    journal = group.journal
+    field = Field.objects.get(
+        table=Table.objects.get(
+            journal=journal,
+            name=table_name
+        ),
+        name=field_name
+    )
 
-    page = Shift.objects.get(id=int(cell['group_id']))
-    employee = request.user.employee
-    page.employee_set.add(employee)
+    Cell.objects.update_or_create(
+        group=group,
+        field=field,
+        index=index,
+        defaults={
+            "value": value,
+            "responsible": responsible
+        }
+    )
+
+    if journal.type == 'shift':
+        shift = Shift.objects.get(id=int(cell_info['group_id']))
+        shift.employee_set.add(request.user.employee)
 
     return JsonResponse({"status": 1})

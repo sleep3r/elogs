@@ -13,7 +13,7 @@ contain_zn_table_desc = contain_zn.clear_empty().get_dict()
 
 
 fs = deep_dict()
-fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2", "Fe", "S", "As", "Sb", "S_sulf"]
+fields_p = ["pb", "cu", "cd","fe1", "SiO2", "Zn_furn", "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2", "fe2", "S", "As", "Sb", "S_sulf"]
 
 for field_name in fields_p:
     fs[field_name] = percent_default
@@ -155,5 +155,3 @@ concentrat.date_conc = date_default
 concentrat.gold = numeric_default
 concentrat.silver = numeric_default
 concentrat_table_desc = concentrat.clear_empty().get_dict()
-
-

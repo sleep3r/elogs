@@ -4,16 +4,12 @@ from pyodbc import ProgrammingError, OperationalError
 from django.db import models
 from django.utils import timezone
 from django.utils.timezone import make_aware
+from django.contrib.contenttypes.fields import GenericRelation
 
 from e_logs.core.utils.webutils import get_or_none
 
 
 class Plant(models.Model):
-    NUMBER_OF_SHIFTS = {
-        'leaching': 2,
-        'furnace': 3,
-        'electrolysis': 4
-    }
     name = models.CharField(null=True,
                             blank=True,
                             default='leaching',
@@ -21,71 +17,146 @@ class Plant(models.Model):
                             choices=(('leaching', 'Выщелачивание'),
                                      ('furnace', 'Обжиг'),
                                      ('electrolysis', 'Электролиз')))
-
-    @property
-    def number_of_shifts(self):
-        return Plant.NUMBER_OF_SHIFTS[self.name]
+    settings = GenericRelation('core.Setting', related_query_name='plant')
 
     class Meta:
         verbose_name = 'Цех'
         verbose_name_plural = 'Цеха'
 
 
-class Cell(models.Model):
-    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=False)
+class Journal(models.Model):
+    """Abstract journal entity."""
 
-    table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
-    field_name = models.CharField(max_length=128, verbose_name='Название поля')
-    index = models.IntegerField(default=None, verbose_name='Номер строчки')
-    value = models.CharField(max_length=1024, verbose_name='Значение поля', null=True, blank=True)
-
-    responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
-    comment = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', null=True)
-
-    @staticmethod
-    def get(cell):
-        return get_or_none(Cell, **cell)
-    
-    class Meta:
-        unique_together = ['table_name', 'field_name', 'index', 'group']
-        verbose_name = 'Запись'
-        verbose_name_plural = 'Записи'
-
-
-class CellGroup(models.Model):
-    name = models.CharField(max_length=1024, verbose_name='Значение поля')
-
-    type = models.CharField(max_length=128, choices=(('shift', 'Смена'),
-                                                     ('equipment', 'Оборудование'),
-                                                     ('measurement', 'Измерение'),
-                                                     ('month', 'Месяц'),
-                                                     ('year', 'Год')), verbose_name='Тип')
-    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE, null=False, verbose_name='Цех')
-
-
-class Measurement(CellGroup):
-    time = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала смены')
-
-
-class Shift(CellGroup):    
-    shift_order = models.IntegerField(blank=True, null=True, verbose_name='Номер смены')
-    shift_date = models.DateField(blank=True, null=True, verbose_name='Дата начала смены')
-    
-    @property
-    def shift_start_time(self):
-        shift_hour = (8 + (self.shift_order - 1) * (24 // self.plant.number_of_shifts)) % 24
-        shift_time = time(hour=shift_hour)
-        return make_aware(datetime.combine(self.shift_date, shift_time))
-
-    @property
-    def shift_end_time(self):
-        shift_length = timedelta(hours=24 // self.plant.number_of_shifts)
-        return self.shift_start_time + shift_length
-
-    @property
-    def shift_is_active(self):
-        return self.shift_start_time <= timezone.now() <= self.shift_end_time
+    name = models.CharField(max_length=128, verbose_name='Название журнала')
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    type = models.CharField(
+        max_length=128,
+        choices=(
+            ('shift', 'Смена'),
+            ('equipment', 'Оборудование'),
+            ('measurement', 'Измерение'),
+            ('month', 'Месяц'),
+            ('year', 'Год')
+        ),
+        default='shift',
+        verbose_name='Тип'
+    )
+    settings = GenericRelation('core.Setting', related_query_name='journal')
 
     class Meta:
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
+
+
+class Table(models.Model):
+    """Abstract table entity."""
+
+    name = models.CharField(max_length=128, verbose_name='Название таблицы')
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    settings = GenericRelation('core.Setting', related_query_name='table')
+
+    class Meta:
+        verbose_name = 'Таблица'
+        verbose_name_plural = 'Таблицы'
+
+
+class Field(models.Model):
+    """Abstract field entity."""
+
+    name = models.CharField(max_length=128, verbose_name='Название поля')
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    settings = GenericRelation('core.Setting', related_query_name='field')
+
+    class Meta:
+        verbose_name = 'Поле'
+        verbose_name_plural = 'Поля'
+
+
+class CellGroup(models.Model):
+    name = models.CharField(
+        max_length=1024,
+        verbose_name='Название группы ячеек',
+        null=True
+    )
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+
+
+class Measurement(CellGroup):
+    time = models.DateTimeField(
+        blank=True,
+        null=True,
+        verbose_name='Дата начала смены'
+    )
+
+
+class Shift(CellGroup):
+    order = models.IntegerField(verbose_name='Номер смены')
+    date = models.DateField(verbose_name='Дата начала смены')
+
+    @property
+    def start_time(self):
+        number_of_shifts = Shift.get_number_of_shifts(self.journal)
+        shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
+        shift_time = time(hour=shift_hour)
+        return make_aware(datetime.combine(self.date, shift_time))
+
+    @property
+    def end_time(self):
+        number_of_shifts = Shift.get_number_of_shifts(self.journal)
+        shift_length = timedelta(
+            hours=24 // number_of_shifts
+        )
+        return self.start_time + shift_length
+
+    @property
+    def is_active(self):
+        return self.start_time <= timezone.now() <= self.end_time
+
+    @staticmethod
+    def get_number_of_shifts(object):
+        # avoiding import loop
+        from e_logs.core.models import Setting
+        return int(Setting.get_value(
+            name='number_of_shifts',
+            object=object
+        ))
+
+    class Meta:
+        verbose_name = 'Журнал'
+        verbose_name_plural = 'Журналы'
+
+
+class Equipment(CellGroup):
+    pass
+
+
+class Cell(models.Model):
+    """Specific cell in some table."""
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE)
+    field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    index = models.IntegerField(default=None, verbose_name='Номер строчки')
+    value = models.CharField(
+        max_length=1024,
+        verbose_name='Значение поля',
+        blank=True,
+        null=True
+    )
+    responsible = models.ForeignKey(
+        'login_app.Employee',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    comment = models.CharField(
+        max_length=1024,
+        verbose_name='Комментарий к ячейке',
+        null=True
+    )
+
+    @staticmethod
+    def get(cell):
+        return get_or_none(Cell, **cell)
+
+    class Meta:
+        unique_together = ['field', 'index', 'group']
+        verbose_name = 'Запись'
+        verbose_name_plural = 'Записи'

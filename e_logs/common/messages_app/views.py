@@ -22,7 +22,7 @@ from e_logs.core.utils.webutils import model_to_dict, logged, filter_or_none
 
 
 class MessageView(LoginRequiredMixin, View):
-    
+
     @logged
     def get(self, request):
         res = deep_dict()
@@ -77,11 +77,11 @@ def add_critical(request):
 @login_required
 @logged
 def update(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            cell = Cell.get(json.loads(request.body)['cell'])
-            if cell:
-                Message.update(cell)
+    # if request.is_ajax():
+    #     if request.method == 'POST':
+    #         cell = Cell.get(json.loads(request.body)['cell'])
+    #         if cell:
+    #             Message.update(cell)
     return JsonResponse({'status': 1})
 
 
@@ -98,5 +98,5 @@ def add_comment(request):
             Cell.objects.update_or_create(**cell ,defaults = {"responsible":request.user.employee, "comment":message['text']})
             cell = Cell.get(json.loads(request.body)['cell'])
             Message.add(cell, message, all=True)
-    
+
     return JsonResponse({"status": 1})

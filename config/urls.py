@@ -32,10 +32,10 @@ urlpatterns = [
     path('common/messages/', include('e_logs.common.messages_app.urls')),
     re_path('^feedback/', include('e_logs.common.feedback_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
-    re_path(r'^(?P<plant>furnace)/(?P<name>metals_compute)$', MetalsJournalView.as_view()),
-    re_path(r'^(?P<plant>furnace)/(?P<name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
-    re_path(r'^(?P<plant>[\w]+)/(?P<name>[\w]+)$', JournalView.as_view()),
-    re_path(r'^(?P<plant>[\w]+)/(?P<name>[\w]+)/get_shifts/$', shifts.get_shifts),
+    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>metals_compute)$', MetalsJournalView.as_view()),
+    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
+    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
+    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', shifts.get_shifts),
 
 ]
 
