@@ -1,0 +1,29 @@
+mixin menuLink(url, name)
+  a.menu-item__link(href=url, data-url=url)= name
+mixin submenu(parent)
+  - if (typeof(parent.childs) !== 'undefined'){
+    if (parent.childs.length > 0)
+      ul.sub-menu
+        each subItem in parent.childs
+          li.menu__item
+            +menuLink("http://ya.ru", subItem.name)
+          if subItem.childs
+            +submenu(subItem)  
+  -}
+ul.menu
+  each item in menu.items 
+    if item.active
+      li.menu__item.open 
+        a.menu-item__link(href="#") 
+          i.menu-item__icon.fa.fa-book
+          span.menu-item__title=item.name
+          b.arrow.fa.fa-angle-down
+        +submenu(item)
+      
+    else
+      li.menu__item  
+        a.menu-item__link(href="#")
+          i.menu-item__icon.fa.fa-book
+          span.menu-item__title=item.name
+          b.arrow.fa.fa-angle-down
+        +submenu(item)

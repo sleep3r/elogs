@@ -28,6 +28,7 @@ body {
 .column-left {
   // padding-left: 10px;
   min-width: $width-left-menu;
+  width: $width-left-menu;
   margin: 0;
   align-self: flex-start;
 }
