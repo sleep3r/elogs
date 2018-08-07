@@ -1,15 +1,17 @@
 {% load express_tags %} {# Loading our tags #}
 
 <!--
-{% set_global_context "val" table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
-{% set_global_context "info" fields_info|keyval:table_name|keyval:field_name %}
+{% set_global_context "info" table_fields_descriptions|keyval:field_name %}
 {% set_global_context "field_comment_name" field_name|add:"_comment" %}
 {% set_global_context "field_comment_responsible_name" field_comment_name|add:"_responsible" %}
-{% set_global_context "id" full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}
 {% set_global_context "field_responsible_name" field_name|add:"_responsible" %}
-{% set_global_context "field_responsible" full_data|table_keyval:"responsible"|table_keyval:table_name|keyval:field_name|keyval:index %}
-{% set_global_context "field_comment_responsible" table_data|keyval:field_comment_responsible_name|choose_val:index %}
-{% set_global_context "comment" full_data|table_keyval:"comment"|table_keyval:table_name|keyval:field_name|keyval:index|default %}
+{% set_global_context "field_comment_responsible" table_cells_data|keyval:field_comment_responsible_name|keyval:index %}
+
+{% set_global_context "val" table_cells_data|keyval:field_name|keyval:index|keyval:"value" %}
+{% set_global_context "id" table_cells_data|keyval:field_name|keyval:index|keyval:"id" %}
+{% set_global_context "comment" table_cells_data|keyval:field_name|keyval:index|keyval:"comment" %}
+{% set_global_context "field_responsible" table_cells_data|keyval:field_name|keyval:index|keyval:"responsible" %}
+
 {% set_global_context "cell_id" journal_page|stack:"-"|stack:table_name|stack:"-"|stack:field_name|stack:"-"|stack:index %}
 
 {% if validate %}
@@ -45,7 +47,7 @@
 
 <!--
 {{ field_comment_name }}
-{{ table_data|keyval:field_comment_name }}
+{{ table_cells_data|keyval:field_comment_name }}
 {{ comment }}
 -->
 

@@ -6,13 +6,13 @@ class Cell {
     // public
     static onInput(input) {
         this.on_input_change(input);
-        this.saveCell(input);       
+        this.saveCell(input);
         $('#sync').hide();$('#async').show();
     }
 
     static onChange(input) {
         this.reformat_on_change(input);
-        this.addMessage(input); 
+        this.addMessage(input);
     }
 
     //private
@@ -42,7 +42,7 @@ class Cell {
     static addMessage(msg) {
         let debounce = _.debounce((input) => {
             console.log("addMessage from debounce", input);
-            
+
             const json = input.dataset.info.replace(/'/g, '"');
             const info = JSON.parse(json);
 
@@ -50,7 +50,7 @@ class Cell {
                 let forSend = JSON.stringify({
                     'cell': {
                         'field_name': input.name,
-                        'table_name': $(input).attr('table-name'), 
+                        'table_name': $(input).attr('table-name'),
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     },
@@ -73,12 +73,12 @@ class Cell {
                 let forSend = JSON.stringify({
                     'cell': {
                         'field_name': input.name,
-                        'table_name': $(input).attr('table-name'), 
+                        'table_name': $(input).attr('table-name'),
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     }
                 });
-                
+
                 $.ajax({
                     url: "/common/messages/update/",
                     type: 'POST',
@@ -164,4 +164,3 @@ class Cell {
         input.style.width = (input.value.length + 1) + 'ch';
     }
 }
-

@@ -10,9 +10,7 @@ from e_logs.core.utils.webutils import get_or_none
 
 
 class Plant(models.Model):
-    name = models.CharField(null=True,
-                            blank=True,
-                            default='leaching',
+    name = models.CharField(default='leaching',
                             max_length=128,
                             choices=(('leaching', 'Выщелачивание'),
                                      ('furnace', 'Обжиг'),
@@ -76,7 +74,7 @@ class CellGroup(models.Model):
     name = models.CharField(
         max_length=1024,
         verbose_name='Название группы ячеек',
-        null=True
+        default=''
     )
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
@@ -132,7 +130,7 @@ class Equipment(CellGroup):
 
 class Cell(models.Model):
     """Specific cell in some table."""
-    
+
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE)
     field = models.ForeignKey(Field, on_delete=models.CASCADE)
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
@@ -140,7 +138,7 @@ class Cell(models.Model):
         max_length=1024,
         verbose_name='Значение поля',
         blank=True,
-        null=True
+        default=''
     )
     responsible = models.ForeignKey(
         'login_app.Employee',
@@ -150,7 +148,7 @@ class Cell(models.Model):
     comment = models.CharField(
         max_length=1024,
         verbose_name='Комментарий к ячейке',
-        null=True
+        default=''
     )
 
     @staticmethod

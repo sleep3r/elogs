@@ -59,109 +59,6 @@ class DatabaseFiller:
                                 index=i, value=m_value, group=measurement)
 
 
-
-    # def fill_equipement(self):
-    #     eq_list = [
-    #         'Агитатор «Манн» №1',
-    #         'Агитатор «Манн» №2',
-    #         'Агитатор «Манн» №3',
-    #         'Сгуститель №1',
-    #         'Сгуститель №2',
-    #         'Сгуститель №3',
-    #         'Питатель ленточный В – 500 мм',
-    #         'Элеватор ЦГ-400 №1',
-    #         'Элеватор ЦГ-400 №2',
-    #         'Транспортер ленточный В – 650 мм',
-    #     ]
-
-    #     for e in eq_list:
-    #         Equipment(name=e).save()
-
-    # def fill_table_from_journal_page(self, journal_page, table_name, data, do_index=True):
-    #     for field_name, values in data.items():
-    #         if type(values) is not list:
-    #             values = [values]
-    #
-    #         for i, value in enumerate(values):
-    #             index_marker_in_field_name = ""
-    #             if type(value) is not str:
-    #                 value = str(value)
-    #             index = i
-    #             Cell(
-    #                 journal_page=journal_page,
-    #                 table_name=table_name,
-    #                 field_name=field_name + index_marker_in_field_name,
-    #                 value=value,
-    #                 index=index
-    #             ).save()
-    #
-    # def fill_upper_fields_table_jp(self, journal_page):
-    #     table_name = "upper_fields"
-    #     data = {
-    #         "master": "Лупа",
-    #         "senior_crane_operator": "Пупа",
-    #         "storage": "12-1",
-    #         "crane_operator": "Кто-то",
-    #         "sling_operator": "Стив Джобс",
-    #         "date": "10.12.12",
-    #         "shift": "1-200-800"
-    #     }
-    #     self.fill_table_from_journal_page(journal_page, table_name, data)
-    #
-    # def fill_lower_fields_table_jp(self, journal_page):
-    #     table_name = "lower_fields"
-    #     data = {
-    #         "notes": "Nice work!",
-    #     }
-    #     self.fill_table_from_journal_page(journal_page, table_name, data)
-    #
-    # def fill_big_table_jp(self, journal_page):
-    #     table_name = "big_table"
-    #     n = 10
-    #     data = {
-    #         "wagon_num": [1234] * n,
-    #         "conc_num": ["ЗГОК"] * n,
-    #         "supply_time": ["11:00"] * n,
-    #         "dispatch_time": ["12:00"] * n,
-    #         "downtime": ["12:00"] * n,
-    #         "recieved_conc": [3] * n,
-    #         "recieved_beds": [3] * n,
-    #         "recieved_stops": [3] * n,
-    #         "recieved_braces": [3] * n,
-    #         "passed_with_shift": ["Что-нибудь"] * n
-    #     }
-    #
-    #     self.fill_table_from_journal_page(journal_page, table_name, data, do_index=True)
-    #
-    # def fill_small_table_jp(self, journal_page):
-    #     table_name = "small_table"
-    #     n = 10
-    #     min, max = 10, 100
-    #     data = {
-    #         "storage": [1, 2],
-    #         "containers_reciept": [randint(min, max), randint(min, max)],
-    #         "shipped_empty_num": [randint(min, max), randint(min, max)],
-    #         "poured_containers_num": [randint(min, max), randint(min, max)],
-    #         "residue_empty_containers1": [randint(min, max), randint(min, max)],
-    #         "residue_empty_containers2": [randint(min, max), randint(min, max)],
-    #         "residue_defective_containers": [randint(min, max), randint(min, max)],
-    #         "residue_braces": [randint(min, max), randint(min, max)],
-    #         "residue_beds": [randint(min, max), randint(min, max)],
-    #         "residue_stops": [randint(min, max), randint(min, max)]
-    #     }
-    #
-    #     self.fill_table_from_journal_page(journal_page, table_name, data)
-    #
-    #     new_data = dict()
-    #     for key in data.keys():
-    #         new_data[key + "_total"] = sum(data[key])
-    #     new_data["storage_total"] = "Итого"
-    #
-    #     self.fill_table_from_journal_page(journal_page, table_name, new_data)
-
-
-
-    # --------------------------------------------------------------------------------------------
     def fill_employees(self):
         kz_names = ['Абдулкафар', 'Асмет', 'Жолдас', 'Кобжан', 'Суйинбай']
         kz_l_names = ['Ахметов', 'Омаров', 'Оспанов', 'Сулейменов', 'Искаков']
@@ -338,11 +235,6 @@ class DatabaseFiller:
         """Call after fill_tables"""
         fill_fields()
 
-    def fill_journalpages_data(self, journal_page):
-        for name in dir(self):
-            attribute = getattr(self, name)
-            if ismethod(attribute) and name.startswith('fill_') and name.endswith('_table_jp'):
-                attribute(journal_page=journal_page)
 
     def reset_increment_counter(self, table_name):
         print("reset increment counter")

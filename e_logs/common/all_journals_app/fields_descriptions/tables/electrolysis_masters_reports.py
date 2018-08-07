@@ -106,6 +106,7 @@ zt.zn3 = numeric_default
 zt.zn4 = numeric_default
 zt.zn5 = numeric_default
 zt.zn6 = numeric_default
+zt.zn6 = numeric_default
 zt.zn8 = numeric_default
 zt.zn9 = numeric_default
 zt.zn10 = numeric_default

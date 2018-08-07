@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for_or_create _ in table_data|longest_field %}
+        {% for_or_create _ in table_cells_data|longest_field %}
         <tr class="indexed-line">
             {% with index=forloop.counter0  %}
                 {% for field_name in avg_month_table.fields %}

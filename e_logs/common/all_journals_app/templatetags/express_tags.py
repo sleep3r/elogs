@@ -40,10 +40,10 @@ def format_date(value):
 
 @register.filter
 def keyval(d, key):
-    res = deep_dict(d).clear_empty()[key]
-    if isinstance(res, deep_dict):  # this if is only for proper serialization
-        return res.get_dict()
-    return res
+    if isinstance(d, dict):
+        return d.get(key)
+    else:
+        return ''
 
 
 @register.filter

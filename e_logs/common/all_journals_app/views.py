@@ -66,7 +66,6 @@ class JournalView(LoginRequiredMixin, View):
             page = equipment
 
         # Adding permissions
-        # TODO: refactor permissions?
         context.page_mode = get_page_mode(request, page)
         print('page_mode='+str(context.page_mode))
         context.has_edited = has_edited(request, page)
@@ -81,8 +80,8 @@ class JournalView(LoginRequiredMixin, View):
             ).value
         )
 
-        context.full_data = get_full_data(page)
-        context.fields_info = get_fields_descriptions(request, journal)
+        context.journal_cells_data = get_cells_data(page)
+        context.journal_fields_descriptions = get_fields_descriptions(request, journal)
 
         context.unfilled_cell = ""
         context.unfilled_table = deep_dict()
@@ -178,31 +177,34 @@ def change_table(request):
     return {"status": 1}
 
 
-def get_full_data(page):
-    res = deep_dict()
+def get_cells_data(page):
+    return {
+        table.name: {
+            cell.field.name: {
+                cell.index: {
+                    'value': cell.value,
+                    'id': cell.id,
+                    'comment': cell.comment,
+                    'responsible': cell.responsible.name
+                }
+            }
+            for cell in Cell.objects.filter(group=page, field__table=table)
+        }
+        for table in Table.objects.filter(journal=page.journal)
+    }
 
-    for val in Cell.objects.filter(group=page):
-        if val.index is not None:
-            res[val.field.table.name][val.field.name][val.index] = val.value
-            res['id'][val.field.table.name][val.field.name][val.index] = val.id
-            res['comment'][val.field.table.name][val.field.name][val.index] = val.comment
-            res['responsible'][val.field.table.name][val.field.name][val.index] = val.responsible
-        else:
-            raise ValueError()
-
-    return res
 
 @csrf_exempt
 @logged
 def get_fields_descriptions(request, journal):
     return {
         table.name: {
-                field.name: Setting.objects.get(
-                                name='field_description',
-                                field=field
-                            ).value
-                for field in Field.objects.filter(table=table)
-                }
+            field.name: Setting.objects.get(
+                            name='field_description',
+                            field=field
+                        ).value
+            for field in Field.objects.filter(table=table)
+        }
         for table in Table.objects.filter(journal=journal)
     }
 

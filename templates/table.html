@@ -1,7 +1,7 @@
 {% load express_tags %}
 
-{% set_global_context 'table_data' full_data|table_keyval:table_name %}
-{% set_global_context 'table_info' fields_info|keyval:journal_name|keyval:table_name %}
+{% set_global_context 'table_cells_data' journal_cells_data|keyval:table_name %}
+{% set_global_context 'table_fields_descriptions' journal_fields_descriptions|keyval:table_name %}
 
 
 <div class="journaltablewrapper">
@@ -31,7 +31,7 @@
 
                 {% block additional_lower %}{% endblock %}
 
-                {% include "table_comment.html" with comment=table_data|keyval:"comment"|choose_val:0 %}
+                {% include "table_comment.html" with comment=table_cells_data|keyval:"comment"|keyval:0 %}
             </form>
 
             {% block js %}{% endblock %}
