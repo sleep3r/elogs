@@ -68,6 +68,7 @@ class JournalView(LoginRequiredMixin, View):
         # Adding permissions
         # TODO: refactor permissions?
         context.page_mode = get_page_mode(request, page)
+        print('page_mode='+str(context.page_mode))
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser
@@ -81,7 +82,7 @@ class JournalView(LoginRequiredMixin, View):
         )
 
         context.full_data = get_full_data(page)
-        context.fields_info = get_fields_descriptions(request)
+        context.fields_info = get_fields_descriptions(request, journal)
 
         context.unfilled_cell = ""
         context.unfilled_table = deep_dict()
@@ -191,13 +192,19 @@ def get_full_data(page):
 
     return res
 
-
 @csrf_exempt
-@process_json_view(auth_required=False)
 @logged
-def get_fields_descriptions(request):
-    from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-    return fields_info_desc
+def get_fields_descriptions(request, journal):
+    return {
+        table.name: {
+                field.name: Setting.objects.get(
+                                name='field_description',
+                                field=field
+                            ).value
+                for field in Field.objects.filter(table=table)
+                }
+        for table in Table.objects.filter(journal=journal)
+    }
 
 
 @logged

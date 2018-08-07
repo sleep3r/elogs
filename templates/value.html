@@ -2,7 +2,7 @@
 
 <!--
 {% set_global_context "val" table_data|keyval:field_name|choose_val:index %} {# Setting val variable#}
-{% set_global_context "info" fields_info|keyval:journal_name|keyval:table_name|keyval:field_name %}
+{% set_global_context "info" fields_info|keyval:table_name|keyval:field_name %}
 {% set_global_context "field_comment_name" field_name|add:"_comment" %}
 {% set_global_context "field_comment_responsible_name" field_comment_name|add:"_responsible" %}
 {% set_global_context "id" full_data|table_keyval:"id"|table_keyval:table_name|keyval:field_name|keyval:index %}

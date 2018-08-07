@@ -103,10 +103,10 @@ fields_info_desc = deep_dict()
 # bf.column3 = numeric_default
 
 
-for journal in Journal.objects.all():
-    for table in Table.objects.filter(journal=journal):
-        for field in Field.objects.filter(table=table):
-            settings = Setting.objects.filter(name='field_descriptions', field=field)
-            for setting in settings:
-                description = ast.literal_eval(setting.value)
-                fields_info_desc[journal.name][table.name][field.name] = description
+# for journal in Journal.objects.all():
+#     for table in Table.objects.filter(journal=journal):
+#         for field in Field.objects.filter(table=table):
+#             settings = Setting.objects.filter(name='field_descriptions', field=field)
+#             for setting in settings:
+#                 description = ast.literal_eval(setting.value)
+#                 fields_info_desc[journal.name][table.name][field.name] = description
