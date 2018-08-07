@@ -369,16 +369,16 @@ class DatabaseFiller:
 
             for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=i, value=m_value, group=measurement)
+                                index=i, value=round(float(m_value), 2), group=measurement)
             for i, m_value in enumerate(cinder_sizes):
                 Cell.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=i, value=m_value, group=measurement)
+                                index=i, value=round(float(m_value), 2), group=measurement)
             for i, m_value in enumerate(schieht_masses):
                 Cell.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=i, value=m_value, group=measurement)
+                                index=i, value=round(float(m_value), 2), group=measurement)
             for i, m_value in enumerate(schieht_sizes):
                 Cell.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=i, value=m_value, group=measurement)
+                                index=i, value=round(float(m_value), 2), group=measurement)
            
 
 
