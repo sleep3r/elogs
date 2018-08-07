@@ -48,8 +48,12 @@ input[type="number"].general-value {
 }
 
 @keyframes changeColors {
-  0% {background-color: orange;}
-  100% {background-color: initial;}
+    0% {
+        background-color: orange;
+    }
+    100% {
+        background-color: initial;
+    }
 }
 
 /* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
@@ -78,28 +82,30 @@ input[type="number"].general-value {
     min-height: 30px;
     word-break: break-word;
     background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
-    
+
     [readonly] {
         background: white;
     }
 }
 
 /*.journaltablewrapper .form-control[readonly] {*/
-    /*background: white;*/
+/*background: white;*/
 /*}*/
 
 .journaltablewrapper .form-control[readonly]:focus {
     background: white;
 }
 
-.journaltablewrapper .form-control:focus{
+.journaltablewrapper .form-control:focus {
     background: linear-gradient(-45deg, $accent-orange 0%, transparent 10px, transparent 100%);
 }
 
 // --------------------------------------- DELETING ARROWS --------------------------------------
 
+input::-webkit-calendar-picker-indicator,
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
 }

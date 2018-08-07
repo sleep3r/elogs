@@ -173,7 +173,6 @@
   font-weight: normal;
   font-style: normal;
   border-collapse: collapse !important;
-  /* Indicator on comments button, overrides bootstrap */
 }
 .journaltablewrapper table.elog-journal-table tr:nth-child(even) {
   background-color: #F5F5F5;
@@ -466,8 +465,10 @@ input[type=number].general-value {
   background: linear-gradient(-45deg, #FF734C 0%, transparent 10px, transparent 100%);
 }
 
+input::-webkit-calendar-picker-indicator,
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
+  display: none;
   -webkit-appearance: none;
   margin: 0;
 }
