@@ -215,7 +215,7 @@ LOGGING = {
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['debug_file_debug'],
+            'handlers': ['debug_file_debug', 'console'],
             'level': 'INFO',
         },
         'werkzeug': {

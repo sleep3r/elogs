@@ -34,9 +34,9 @@ coverage.xml
 
 # Django stuff:
 !e_logs/core/utils/formatters.py
-logs/*
-*.log
-*.log.*
+#logs/*
+#*.log
+#*.log.*
 local_settings.py
 db.sqlite3
 
@@ -52,7 +52,7 @@ docs/_build/
 
 # PyBuilder
 target/
-logs/
+# logs/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -91,5 +91,13 @@ venv.bak/
 #fucking staticfiles
 staticfiles/
 
+<<<<<<< Updated upstream
+#fucking logs
+=======
 #fucking logs
 logs/
+
+#tests
+
+e_logs_tests/screens/*
+>>>>>>> Stashed changes

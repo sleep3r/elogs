@@ -63,13 +63,12 @@ class MessagesList(LoginRequiredMixin, ListView):
 @login_required
 @logged
 def add_critical(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            cell = Cell.get(json.loads(request.body)['cell'])
-            if cell:
-                message = json.loads(request.body)['message']
-                message['sendee'] = request.user.employee
-                Message.add(cell, message, all=True)
+    if request.is_ajax() and request.method == 'POST':
+        cell = Cell.get(json.loads(request.body)['cell'])
+        if cell:
+            message = json.loads(request.body)['message']
+            message['sendee'] = request.user.employee
+            Message.add(cell, message, all=True)
     return JsonResponse({'status':1})
 
 
@@ -77,11 +76,10 @@ def add_critical(request):
 @login_required
 @logged
 def update(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            cell = Cell.get(json.loads(request.body)['cell'])
-            if cell:
-                Message.update(cell)
+    if request.is_ajax() and request.method == 'POST':
+        cell = Cell.get(json.loads(request.body)['cell'])
+        if cell:
+            Message.update(cell)
     return JsonResponse({'status': 1})
 
 
@@ -89,14 +87,14 @@ def update(request):
 @login_required
 @logged
 def add_comment(request):
-    if request.is_ajax():
-        if request.method == 'POST':
-            cell = json.loads(request.body)['cell']
-            message = json.loads(request.body)['message']
-            message['sendee'] = request.user.employee
+    if request.is_ajax() and request.method == 'POST':
+        cell = json.loads(request.body)['cell']
+        message = json.loads(request.body)['message']
+        message['sendee'] = request.user.employee
 
-            Cell.objects.update_or_create(**cell ,defaults = {"responsible":request.user.employee, "comment":message['text']})
-            cell = Cell.get(json.loads(request.body)['cell'])
-            Message.add(cell, message, all=True)
+        Cell.objects.update_or_create(**cell,
+                                      defaults = {"responsible":request.user.employee, "comment":message['text']})
+        cell = Cell.get(json.loads(request.body)['cell'])
+        Message.add(cell, message, all=True)
     
     return JsonResponse({"status": 1})

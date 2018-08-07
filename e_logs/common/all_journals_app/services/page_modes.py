@@ -26,15 +26,17 @@ def plant_permission(request):
 def page_mode_is_valid(request, page):
     employee = Employee.objects.get(user=request.user)
     page_mode = request.GET.get('page_mode')
-    if page_mode:
-        if request.user.is_superuser:
-            return True
-        if plant_permission(request):
-            return check_mode_permissions(employee, page, page_mode)
-        else:
-            return page_mode == "view"
-    else:
+    if not page_mode:
         return False
+
+    is_valid = request.user.is_superuser
+    if plant_permission(request):
+        has_perm =  check_mode_permissions(employee, page, page_mode)
+    else:
+        has_perm = page_mode == "view"
+
+    return has_perm or is_valid
+
 
 
 @login_required
