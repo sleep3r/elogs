@@ -1,6 +1,7 @@
 import inspect
 import random
 import json
+import csv
 
 from datetime import timedelta
 from inspect import ismethod
@@ -27,6 +28,9 @@ from django.db import connection
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 
+from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.usersutils import add_user, get_groups
+from e_logs.core.utils.webutils import translate
 
 class DatabaseFiller:
     """
@@ -59,53 +63,47 @@ class DatabaseFiller:
                                 index=i, value=m_value, group=measurement)
 
 
+    def groupsFromCSV(self):
+        user_groups = deep_dict()
+        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            for row in users_info:
+                info = row[0].split(",")
+                position_en = translate(info[1].lower()).replace("-", "_") if len(info) > 1 else ''
+                if position_en.find("mastera_smenyi") > 0:
+                    position_en = "i.o.mastera_smenyi"
+                user_groups[position_en] = info[1].lower()
+        return user_groups
+
     def fill_employees(self):
-        kz_names = ['Абдулкафар', 'Асмет', 'Жолдас', 'Кобжан', 'Суйинбай']
-        kz_l_names = ['Ахметов', 'Омаров', 'Оспанов', 'Сулейменов', 'Искаков']
-        ru_names = ['Иван', 'Петр', 'Александр', 'Алексей', 'Сергей', 'Василий']
-        ru_l_names = ['Иванов', 'Петров', 'Сидоров', 'Пупкин']
+        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            # user_groups = self.groupsFromCSV()
+            # add_groups(user_groups)
 
-        for f, l in product(kz_names, kz_l_names):
-            e = Employee()
-            e.name = f + ' ' + l
-            e.position = 'laborant'
-            e.plant = 'electrolysis'
-            lname = translate(e.name).replace(' ', '_')
-            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
-            e.save()
-        for f, l in product(ru_names, ru_l_names):
-            e = Employee()
-            e.name = f + ' ' + l
-            e.position = 'master'
-            e.plant = 'furnace'
-            lname = translate(e.name).replace(' ', '_')
-            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
-            e.save()
-        for f, l in product(kz_names, ru_l_names):
-            e = Employee()
-            e.name = f + ' ' + l
-            e.position = 'boss'
-            e.plant = 'furnace'
-            lname = translate(e.name).replace(' ', '_')
-            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
-            e.save()
-        for f, l in product(ru_names, kz_l_names):
-            e = Employee()
-            e.name = f + ' ' + l
-            e.position = 'boss'
-            e.plant = 'electrolysis'
-            lname = translate(e.name).replace(' ', '_')
-            e.user = User.objects.create_user(lname, lname + '@kazzink.kz', lname)
-            e.save()
-        for e in Employee.objects.all():
-            if e.position == "boss":
-                e.user.groups.add(Group.objects.get(name="Boss"))
-            else:
-                e.user.groups.add(Group.objects.get(name="Laborant"))
+            for row in users_info:
+                info = row[0].split(",")
+                user_fio = info[0]
+                plant = info[-1]
+                position = info[3]
+                user_ru = user_fio.split()
+                user_en = translate(user_fio).split("-")
+                groups = get_groups(position, plant)
+                user = {
+                    'ru': {
+                        'last_name': user_ru[0],
+                        'first_name': user_ru[1] if len(user_ru) > 1 else '',
+                        'second_name': user_ru[2] if len(user_ru) > 2 else '',
+                    },
+                    'en': {
+                        'last_name': user_en[0],
+                        'first_name': user_en[1][0] if len(user_en) > 1 and len(user_en[1]) > 0 else '',
+                        'second_name': user_en[2][0] if len(user_en) > 2 and len(user_en[2]) > 0 else ''
+                    },
+                    'groups': groups
+                }
+                add_user(user)
 
-            e.user.groups.add(Group.objects.get(name=e.plant.title()))
-            e.user.user_permissions.add(Permission.objects.get(codename="view_cells"))
-            e.save()
 
     def fill_plants(self):
         Plant.objects.bulk_create([
@@ -237,7 +235,7 @@ class DatabaseFiller:
 
 
     def reset_increment_counter(self, table_name):
-        print("reset increment counter")
+        print("Resetting increment counter...")
         with connection.cursor() as cursor:
         # for sqlite
         # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
@@ -329,7 +327,7 @@ class DatabaseFiller:
         electrolysis.save()
 
     def create_tables_lists(self):
-        print('Creating table lists for each journal')
+        print('Adding table lists for each journal')
         fill_tables_lists()
 
     # TODO: create the same for tables?

@@ -1,18 +1,12 @@
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
+
 from .DatabaseFiller import DatabaseFiller
 from e_logs.core.models import Setting
 
 
-# from leaching.express_anal_app.tables import command_to_process
 
 
-# def command_to_process():
-#     df = DatabaseFiller()
-#     df.recreate_database()
-#
-#     # df.clean_database()
-#     # a = get_densers_table()
-#     # pprint(a)
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
@@ -70,8 +64,8 @@ class Command(BaseCommand):
             df.create_fields_descriptions()
             df.create_number_of_shifts()
 
-            # print("Adding Employees...")
-            # df.fill_employees()
+            print("Adding Employees...")
+            df.fill_employees()
 
             if frac_num:
                 print("Filling fractional app...")
