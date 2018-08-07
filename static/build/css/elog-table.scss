@@ -51,7 +51,7 @@
             text-align: right !important;
         }
 
-        .th-common {
+        .th-common { // class for th common for several columns
             text-align: center !important;
         }
 
@@ -72,7 +72,7 @@
 
         // -------------------------- COMMENTS BUTTON --------------------
 
-        /* Indicator on comments button, overrides bootstrap */
+        // Indicator on comments button, overrides bootstrap
         .table-comment-button {
             .badge {
                 color: white;
