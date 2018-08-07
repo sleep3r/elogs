@@ -1,0 +1,41 @@
+@import "colors.scss";
+
+$width-left-menu : 230px;
+
+/*layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.elogs-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  height: 50px;
+  flex-direction: row;
+  background-color: $color-header;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.column-left {
+  // padding-left: 10px;
+  min-width: $width-left-menu;
+  width: $width-left-menu;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.column-content {
+  padding-left: 10px;
+  width: 100%;
+}
