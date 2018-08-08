@@ -384,13 +384,3 @@ class DatabaseFiller:
 
         for t in db_models:
             t.objects.all().delete()
-
-    # def create_demo_database(self, n):
-    #     self.create_permissions_and_groups()
-    #     self.fill_plants()
-    #     self.fill_employees()
-    #     self.fill_fractional_app(n)
-    #
-    # def recreate_database(self, *args, **kwargs):
-    #     self.clean_database()
-    #     self.create_demo_databas()

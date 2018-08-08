@@ -240,20 +240,15 @@ def save_cell(request):
         name=field_name
     )
 
-    if value == '':
-        d_cell = get_or_none(Cell,**cell)
-        if d_cell:
-            d_cell.delete()
-    else:
-        Cell.objects.update_or_create(
-            group=group,
-            field=field,
-            index=index,
-            defaults={
-                "value": value,
-                "responsible": responsible
-            }
-        )
+    Cell.objects.update_or_create(
+        group=group,
+        field=field,
+        index=index,
+        defaults={
+            "value": value,
+            "responsible": responsible
+        }
+    )
 
     if journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['group_id']))

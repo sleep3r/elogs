@@ -1,3 +1,13 @@
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
 class Cell {
     constructor() {
 
@@ -97,12 +107,19 @@ class Cell {
         debounce(msg)
     }
 
+
+
     static on_input_change(input) {
         const json = input.dataset.info.replace(/'/g, '"');
-        const info = JSON.parse(json);
+        // if field description exists
+        if (IsJsonString(json)) {
+          var info = JSON.parse(json)
 
+        }else{
+          // default field description
+          var info = {'type': 'text'}
+        }
         input.type = info.type;
-
 
         if (input.type === "number") {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {

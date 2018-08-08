@@ -46,18 +46,6 @@ def keyval(d, key):
         return ''
 
 
-@register.filter
-def table_keyval(d, key):
-    res = deep_dict(d).clear_empty()[key]
-    if isinstance(res, deep_dict):  # this if is only for proper serialization
-        return res.get_dict()
-    return res
-
-
-@register.filter
-def choose_val(field_info, index):
-    return field_info[index] if index in field_info else ""
-
 @logged
 @register.filter
 def stack(a, b):

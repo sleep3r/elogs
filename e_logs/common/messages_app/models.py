@@ -15,7 +15,7 @@ class Message(models.Model):
 
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=100, verbose_name='Тип сообщения',
-                            null=True, choices=(('critical_value', 'Критическое значение'),
+                            default='', choices=(('critical_value', 'Критическое значение'),
                                                 ('comment', 'Замечание')))
     text = models.TextField(verbose_name='Текст сообщения')
 
