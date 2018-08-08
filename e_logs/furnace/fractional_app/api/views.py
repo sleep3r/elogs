@@ -39,14 +39,17 @@ class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Measurement.objects.only('id', 'time')
 
-    def get(self, request, id):
+    def get_queryset(self, id):
         obj = MeasurementAPI.get_queryset(qs=self.queryset.filter(id=id))
         if len(obj) != 0:
-            serializer = self.get_serializer(data=obj[0])
-            serializer.is_valid(raise_exception=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response({"detail":"Not found."}, status=status.HTTP_404_NOT_FOUND)
+            instance = obj[0]
+            return instance
+
+    def get(self, request, id):
+        instance = MeasurementRUD.get_queryset(self, id=id)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
     def put(self, request, id, *args, **kwargs):
         partial = kwargs.pop('partial', False)
