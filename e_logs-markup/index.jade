@@ -1,4 +1,4 @@
-- var menu = {items:[ {name: "Обжиг", active: false, childs:[ {name: "Обжиговый цех", childs:[ {name: "Журнал баланса"}, {name: "Журнал метллов"}, {name: "Журнал оборудования"}, {name: "Журнал ремонтов"},{name: "Журнал раппортов мастеров смен"} ]} ]}, {name: "Выщелачивание", childs:[ {name: "Цех Выщелачивания", childs:[ {name: "Журнал 1"}, {name: "Журнал 2"} ]} ]}, {name: "Электролиз", childs:[ {name: "Цех Электролиза", childs:[ {name: "Журнал раппортов по ремонту оборудования"} ]} ]}, ] }; 
+- var menu = {items:[ {name: "Обжиг", active: true, childs:[ {name: "Обжиговый цех", childs:[ {name: "Журнал баланса"}, {name: "Журнал метллов"}, {name: "Журнал оборудования"}, {name: "Журнал ремонтов"},{name: "Журнал раппортов мастеров смен"} ]} ]}, {name: "Выщелачивание", childs:[ {name: "Цех Выщелачивания", childs:[ {name: "Журнал 1"}, {name: "Журнал 2"} ]} ]}, {name: "Электролиз", childs:[ {name: "Цех Электролиза", childs:[ {name: "Журнал раппортов по ремонту оборудования"} ]} ]}, ] };
 include ./tables.jade
 doctype html
 html(lang='ru')
@@ -6,8 +6,9 @@ html(lang='ru')
     meta(charset='utf-8')
     title ELogs markup Universal page
     base(href='./')
-    link(rel='stylesheet', href='css/index.css')
+    link(rel='stylesheet', href='../static/build/css/index.css')
     link(rel='stylesheet', href='css/font-icons/all.css')
+    script(src="js/header.js")
     script(src="js/menu.js")
   body
     .elogs-container  
@@ -28,6 +29,12 @@ html(lang='ru')
               include ./journal__panel.jade
             .journal-tables
               include ./table_examples.jade
+          footer
+            button.btn.dev-message-button
+              span Оставить отзыв разработчикам
+              i.fab.fa-optin-monster
+
+
     
     
               

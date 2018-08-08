@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title>ELogs markup Universal page</title>
     <base href="./">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../static/build/css/index.css">
     <link rel="stylesheet" href="css/font-icons/all.css">
+    <script src="js/header.js"></script>
     <script src="js/menu.js"></script>
   </head>
   <body>
@@ -13,7 +14,15 @@
       <div class="header">
         <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
         <div class="header__title">Журнал раппортов по работе с клиентами</div>
-        <div class="header__user"> <i class="fas fa-envelope"></i><i class="fas fa-bell"></i><span>Гаврилов Алексей</span><i class="fas fa-user-circle"> </i></div>
+        <div class="header__user"> <i class="fas fa-envelope"></i><i class="fas fa-bell"></i><span>Гаврилов Алексей</span><i class="fas fa-user-circle"></i>
+          <div class="user-menu">
+            <ul class="menu">
+              <li class="user-menu__item"><a href="#"><i class="fas fa-cogs"></i><span class="caption">Найтроки</span></a></li>
+              <li class="user-menu__item"><a href="#"><i class="fas fa-user-edit"></i><span class="caption">Оставить отзыв разработчикам</span></a></li>
+              <li class="user-menu__item"><a href="?logout"><i class="fas fa-sign-out-alt"></i><span class="caption">Выйти из системы</span></a></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="main-container">
         <div class="column-left">
@@ -22,7 +31,7 @@
           </div>
           <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
           <ul class="menu">
-            <li class="menu__item"> <a href="#" class="menu-item__link"><i class="menu-item__icon fa fa-book"></i><span class="menu-item__title">Обжиг</span><b class="arrow fa fa-angle-down"></b></a>
+            <li class="menu__item open"> <a href="#" class="menu-item__link"> <i class="menu-item__icon fa fa-book"></i><span class="menu-item__title">Обжиг</span><b class="arrow fa fa-angle-down"></b></a>
                         <ul class="sub-menu">
                           <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Обжиговый цех</a>
                           </li>
@@ -304,6 +313,9 @@
               </div>
             </div>
           </div>
+          <footer>
+            <button class="btn dev-message-button"><span>Оставить отзыв разработчикам</span><i class="fab fa-optin-monster"></i></button>
+          </footer>
         </div>
       </div>
     </div>
