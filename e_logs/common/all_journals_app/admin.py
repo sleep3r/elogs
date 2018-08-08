@@ -13,6 +13,7 @@ class JournalPageAdmin(admin.ModelAdmin):
     model = Shift
     search_fields = ['name', 'equipment']
     list_display = ['type', 'name', 'plant_name', 'shift_order', 'shift_date', 'id']
+
     def plant_name(self, obj):
         return obj.plant.name
 
