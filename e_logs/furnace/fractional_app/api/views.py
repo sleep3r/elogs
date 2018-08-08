@@ -1,3 +1,5 @@
+from django.core.cache import cache
+
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -53,12 +55,14 @@ class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
 
     def put(self, request, id, *args, **kwargs):
         partial = kwargs.pop('partial', False)
-        instance = Measurement.objects.get(id=id)
-        serializer = self.get_serializer(data=request.data, partial=partial)
+        instance = self.queryset.get(id=id)
+        cache.delete(f'measurement_{id}')
+        serializer = self.get_serializer(instance =request.data, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.update(instance, serializer.data)
 
         return Response(serializer.data)
+
 
 class MeasurementGraphs(CustomRendererView, generics.GenericAPIView):
     serializer_class = MeasurementGraphsSerializer
