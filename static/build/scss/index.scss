@@ -5,9 +5,8 @@
 //@import "inside-table";
 //@import "journal-layout";
 //@import "values";
-//@import "notifications";
-//@import "custom";
 
+//@import "custom";
 
 @import "../css/font-icons/all.css";
 @import "colors.scss";
@@ -16,47 +15,14 @@
 @import "tables.scss";
 @import "misc.scss";
 @import "journal.scss";
+@import "values";
+@import "notifications";
+//@import "custom.scss";
+@import "header";
+@import "modals";
+@import "footer";
 
 
-/*content */
-.header {
-  color: white;
-  vertical-align: middle;
-}
-
-.header > div {
-  line-height: 50px;
-  margin-right: 20px;
-}
-
-.header__logo {
-  padding-left: 20px;
-}
-
-.header__title {
-  margin-left: $width-left-menu - 50;
-}
-
-.header__user {
-  margin-left: auto;
-}
-
-.header__user > i,span {
-  margin-right: 10px;
-}
-
-.main-container {
-  background-color: $color-bg1;
-}
-
-.column-left {
-  background-color: $color-bg1;
-  padding-left: 0;
-}
-
-.column-content {
-  background-color: $color-content;
-}
 
 /*layout tables */
 .journal-page {

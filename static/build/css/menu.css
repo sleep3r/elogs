@@ -70,11 +70,6 @@
   margin-bottom: 0;
 }
 
-.menu > li:hover {
-  background-color: #f8f8f8;
-  cursor: pointer;
-}
-
 .menu li a {
   color: #6d6d6d;
 }
@@ -99,9 +94,18 @@
   border-left: 1px dotted #2c3e50;
 }
 
-.sub-menu > .menu__item:hover {
+.menu > li.menu__item:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.sub-menu > .menu__item:not(.parent):hover {
   background-color: #F5F7FA;
   border-right: 3px solid #2c3e50;
+}
+
+.sub-menu > .menu__item.parent:hover > a {
+  font-weight: bold;
 }
 
 .sub-menu > .menu__item::before {

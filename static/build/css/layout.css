@@ -36,4 +36,17 @@ body {
   width: 100%;
 }
 
+.main-container {
+  background-color: #EAEAEA;
+}
+
+.column-left {
+  background-color: #EAEAEA;
+  padding-left: 0;
+}
+
+.column-content {
+  background-color: white;
+}
+
 /*# sourceMappingURL=layout.css.map */

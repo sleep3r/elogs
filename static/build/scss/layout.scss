@@ -1,6 +1,5 @@
-@import "colors.scss";
+@import "variables";
 
-$width-left-menu : 230px;
 
 /*layout */
 body {
@@ -38,4 +37,17 @@ body {
 .column-content {
   padding-left: 10px;
   width: 100%;
+}
+
+.main-container {
+  background-color: $color-bg1;
+}
+
+.column-left {
+  background-color: $color-bg1;
+  padding-left: 0;
+}
+
+.column-content {
+  background-color: $color-content;
 }
