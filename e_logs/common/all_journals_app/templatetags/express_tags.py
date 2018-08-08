@@ -15,7 +15,7 @@ from e_logs.core.utils.webutils import logged
 register = template.Library()
 
 
-class UnfilledCell():
+class UnfilledCell:
     def __str__(self):
         return ""
 

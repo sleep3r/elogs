@@ -12,7 +12,7 @@ class SemanticError(Exception):
             return json.dumps({"error": "error", "message": self.my_args['message']})
         else:
             print(self.my_args)
-            return '{"error":"fatal"}'
+            return '{"error": "fatal"}'
 
 
 class AccessError(Exception):
@@ -26,4 +26,4 @@ class AccessError(Exception):
             return json.dumps({"error": "error", "message": self.my_args['message']})
         else:
             print(self.my_args)
-            return '{"error":"fatal"}'
+            return '{"error": "fatal"}'

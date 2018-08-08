@@ -32,15 +32,16 @@ from e_logs.core.utils.deep_dict import deep_dict
 from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
 
+
 class DatabaseFiller:
     """
     All fill methods names and only they should be like 'fill_*_table'.
     Filling methods will be called in a random order
     """
 
-    def fill_fractional_app(self, n):
+    @staticmethod
+    def fill_fractional_app(n):
         for i in range(n):
-            time = timezone.now() - timedelta(hours=2 * i)
             cinder_masses = [
                 c + random.uniform(0, 2)
                 for c in [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
@@ -51,11 +52,11 @@ class DatabaseFiller:
             ]
             cinder_sizes = [
                 c + random.uniform(0, 2)
-                for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]
+                for c in [0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0]
             ]
             schieht_sizes = [
                 s + random.uniform(0, 2)
-                for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]
+                for s in [0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0]
             ]
 
             journal = Journal.objects.get(name="fractional")
@@ -68,51 +69,51 @@ class DatabaseFiller:
                 journal=journal,
                 name='measurements'
             )[0]
-            for i, m_value in enumerate(cinder_masses):
+            for j, m_value in enumerate(cinder_masses):
                 Cell.objects.create(
                     field=Field.objects.get_or_create(
                         name='cinder_mass',
                         table=table
                     )[0],
-                    index=i,
+                    index=j,
                     value=m_value,
                     group=measurement
                 )
-            for i, m_value in enumerate(cinder_sizes):
+            for j, m_value in enumerate(cinder_sizes):
                 Cell.objects.create(
                     field=Field.objects.get_or_create(
                         name='cinder_size',
                         table=table
                     )[0],
-                    index=i,
+                    index=j,
                     value=m_value,
                     group=measurement
                 )
-            for i, m_value in enumerate(schieht_masses):
+            for j, m_value in enumerate(schieht_masses):
                 Cell.objects.create(
                     field=Field.objects.get_or_create(
                         name='schieht_mass',
                         table=table
                     )[0],
-                    index=i,
+                    index=j,
                     value=m_value,
                     group=measurement
                 )
-            for i, m_value in enumerate(schieht_sizes):
+            for j, m_value in enumerate(schieht_sizes):
                 Cell.objects.create(
                     field=Field.objects.get_or_create(
                         name='schieht_size',
                         table=table
                     )[0],
-                    index=i,
+                    index=j,
                     value=m_value,
                     group=measurement
                 )
 
-
-    def groupsFromCSV(self):
+    @staticmethod
+    def groups_from_csv():
         user_groups = deep_dict()
-        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             for row in users_info:
                 info = row[0].split(",")
@@ -122,8 +123,9 @@ class DatabaseFiller:
                 user_groups[position_en] = info[1].lower()
         return user_groups
 
-    def fill_employees(self):
-        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+    @staticmethod
+    def fill_employees():
+        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             # user_groups = self.groupsFromCSV()
             # add_groups(user_groups)
@@ -151,8 +153,8 @@ class DatabaseFiller:
                 }
                 add_user(user)
 
-
-    def fill_plants(self):
+    @staticmethod
+    def fill_plants():
         Plant.objects.bulk_create([
             Plant(
                 name="furnace"
@@ -165,9 +167,8 @@ class DatabaseFiller:
             ),
         ])
 
-
-    def create_number_of_shifts(self):
-
+    @staticmethod
+    def create_number_of_shifts():
         Setting(
             name='number_of_shifts',
             scope=Plant.objects.get(name='furnace'),
@@ -198,8 +199,8 @@ class DatabaseFiller:
             value='3'
         ).save()
 
-
-    def fill_journals(self):
+    @staticmethod
+    def fill_journals():
         """Call after fill_plants"""
 
         furnace_plant = Plant.objects.get(name='furnace')
@@ -272,25 +273,28 @@ class DatabaseFiller:
             ),
         ])
 
-    def fill_tables(self):
+    @staticmethod
+    def fill_tables():
         """Call after fill_journals"""
         fill_tables()
 
-    def fill_fields(self):
+    @staticmethod
+    def fill_fields():
         """Call after fill_tables"""
         fill_fields()
 
-
-    def reset_increment_counter(self, table_name):
+    @staticmethod
+    def reset_increment_counter(table_name):
         print("Resetting increment counter...")
         with connection.cursor() as cursor:
-        # for sqlite
-        # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+            # for sqlite
+            # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
 
-        # for MS SQL server
+            # for MS SQL server
             cursor.execute(f'DBCC CHECKIDENT({table_name}, RESEED, 0)')
 
-    def create_permissions_and_groups(self):
+    @staticmethod
+    def create_permissions_and_groups():
         superuser = User.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
@@ -308,7 +312,7 @@ class DatabaseFiller:
             content_type=content_type
         )
         modify_furnace.save()
-        modify_electrolysis= Permission(
+        modify_electrolysis = Permission(
             name="Modify Electrolysis Plant",
             codename="modify_electrolysis",
             content_type=content_type
@@ -373,12 +377,14 @@ class DatabaseFiller:
         electrolysis.permissions.set([modify_electrolysis])
         electrolysis.save()
 
-    def create_tables_lists(self):
+    @staticmethod
+    def create_tables_lists():
         print('Adding table lists for each journal')
         fill_tables_lists()
 
     # TODO: create the same for tables?
-    def create_journals_verbose_names(self):
+    @staticmethod
+    def create_journals_verbose_names():
         journals_verbose_names = {
             'furnace': {
                 'furnace_changed_fraction': 'Рабочий журнал изменения фракции',
@@ -403,7 +409,7 @@ class DatabaseFiller:
             }
         }
         for plant_name in journals_verbose_names:
-            for journal_name, verbose_name in journals_verbose_names[plant].items():
+            for journal_name, verbose_name in journals_verbose_names[plant_name].items():
                 Setting.objects.create(
                     name='verbose_name',
                     value=verbose_name,
@@ -413,11 +419,13 @@ class DatabaseFiller:
                     )
                 )
 
-    def create_fields_descriptions(self):
+    @staticmethod
+    def create_fields_descriptions():
         print('Adding fields info settings...')
         fill_fields_descriptions()
 
-    def clean_database(self):
+    @staticmethod
+    def clean_database():
         exception_models = [User, Model]
         db_models = []
         for name, obj in inspect.getmembers(famodels):

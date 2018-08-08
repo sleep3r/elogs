@@ -68,7 +68,7 @@
     <script src = "{% static 'build/js/messages/jquery.waypoints.min.js' %}"></script>
     <script src = "{% static 'build/js/messages/infinite.min.js' %}"></script>
     <script>
-        var infinite = new Waypoint.Infinite({
+        let infinite = new Waypoint.Infinite({
             element: $('.notifs')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();

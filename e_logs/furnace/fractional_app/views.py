@@ -114,7 +114,9 @@ def granularity_graphs(request):
     schieht_sizes = list(Cell.objects.filter(field_name="schieht_size"))
 
     for measurement in Measurement.objects.prefetch_related('cell_set').filter(type="measurement"):
-        process = lambda x: seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
+        def process(x):
+            return seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
+
         masses = process(cinder_masses)
         min_sizes = process(cinder_sizes)
         cinders.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])

@@ -16,13 +16,16 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['full_name','username', 'plant_name', 'position' ]
     list_display_links = ['full_name']
 
-    def full_name(self, obj):
+    @staticmethod
+    def full_name(obj):
         return obj.first_name + " " + obj.last_name
 
-    def plant_name(self, obj):
+    @staticmethod
+    def plant_name(obj):
         return obj.employee.plant
 
-    def position(self, obj):
+    @staticmethod
+    def position(obj):
         return obj.employee.position
 
 

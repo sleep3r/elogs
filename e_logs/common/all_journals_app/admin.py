@@ -13,7 +13,9 @@ class JournalPageAdmin(admin.ModelAdmin):
     model = Shift
     search_fields = ['name', 'equipment']
     list_display = ['name', 'plant_name', 'order', 'date', 'id']
-    def plant_name(self, obj):
+
+    @staticmethod
+    def plant_name(obj):
         return obj.plant.name
 
 
@@ -26,9 +28,12 @@ class CellValueAdmin(admin.ModelAdmin):
     # list_select_related = ('journal_page')
     # list_filter = ('journal_name', 'table_name', 'plant_name')
 
-    def journal_name(self, obj):
+    @staticmethod
+    def journal_name(obj):
         return obj.journal_page.group
-    def plant_name(self, obj):
+
+    @staticmethod
+    def plant_name(obj):
         return obj.journal_page.plant.name
 
 

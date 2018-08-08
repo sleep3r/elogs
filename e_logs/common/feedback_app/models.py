@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Feedback(models.Model):
     theme = models.CharField(max_length=200, verbose_name='Тема')
     text = models.CharField(max_length=1000, verbose_name='Сообщение')

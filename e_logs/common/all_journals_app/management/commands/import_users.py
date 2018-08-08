@@ -12,13 +12,15 @@ from django.contrib.auth.models import Group
 class Command(BaseCommand):
     help = 'Adding users from csv file'
 
-    def addUserToGroup(self, user, group_name):
+    @staticmethod
+    def add_user_to_group(user, group_name):
         group = Group.objects.get(name=f'{group_name}')
         user.groups.add(group)
 
-    def groupsFromCSV(self):
+    @staticmethod
+    def groups_from_csv():
         user_groups = deep_dict()
-        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             for row in users_info:
                 info = row[0].split(",")
@@ -30,7 +32,7 @@ class Command(BaseCommand):
         return user_groups
 
     def handle(self, *args, **options):
-        with open('names.csv', encoding='utf-8', newline='') as csvfile:
+        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             # user_groups = self.groupsFromCSV()
             # add_groups(user_groups)

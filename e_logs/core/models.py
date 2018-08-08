@@ -26,7 +26,7 @@ class Setting(models.Model):
         unique_together = (('name', 'content_type', 'object_id'),)
 
     @staticmethod
-    def get_value(name, object=None):
+    def get_value(name, obj=None):
         """Returns setting value for object.
 
         If object is not field/table/journal/plant,
@@ -42,12 +42,12 @@ class Setting(models.Model):
         found_setting = None
         for (scope, attr) in scopes_attrs:
             # get parent object if it exists
-            if hasattr(object, attr):
-                object = getattr(object, attr)
-            if type(object) == scope:
+            if hasattr(obj, attr):
+                obj = getattr(obj, attr)
+            if type(obj) == scope:
                 found_setting = Setting.objects.filter(**{
                                     'name': name,
-                                    attr: object
+                                    attr: obj
                                 }).first()
             if found_setting:
                 return found_setting.value

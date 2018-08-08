@@ -1,5 +1,4 @@
 from datetime import time, date, datetime, timedelta
-from pyodbc import ProgrammingError, OperationalError
 
 from django.db import models
 from django.utils import timezone
@@ -116,7 +115,7 @@ class Shift(CellGroup):
         from e_logs.core.models import Setting
         return int(Setting.get_value(
             name='number_of_shifts',
-            object=object
+            obj=object
         ))
 
     class Meta:

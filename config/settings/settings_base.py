@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
     # TODO: DELETE THIS APP !!!!!!!!!
-    'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
+    # 'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
@@ -71,7 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'e_logs.core.middleware.ExceptionMiddleware',
+    # 'e_logs.core.middleware.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

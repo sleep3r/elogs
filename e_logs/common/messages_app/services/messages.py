@@ -2,8 +2,9 @@ from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
 from e_logs.common.all_journals_app.models import Cell
 
+
 def get_addressees(all=False, positions=None, ids=None, plant=None):
-    '''Отдает список адресатов'''
+    """Отдает список адресатов"""
     res = []
     if all:
         return Employee.objects.only('user')
@@ -19,30 +20,23 @@ def get_addressees(all=False, positions=None, ids=None, plant=None):
     return res
 
 
-def filter_or_none(cell, type, addressee):
+def filter_or_none(cell, msg_type, addressee):
     try:
         if addressee:
             return Message.objects.filter(addressee=addressee,
-                                          type=type,
+                                          type=msg_type,
                                           cell_field_name=cell.field_name,
                                           cell_table_name=cell.table_name,
                                           row_index=cell.index,
                                           cell_journal_page=cell.journal_page_id,
                                           is_read=False)
         else:
-            return Message.objects.filter(type=type,
+            return Message.objects.filter(type=msg_type,
                                           cell_field_name=cell.field_name,
                                           cell_table_name=cell.table_name,
                                           row_index=cell.index,
                                           cell_journal_page=cell.journal_page_id,
                                           is_read=False)
     except Message.DoesNotExist:
-        return None
-
-
-def get_or_none(model, *args, **kwargs):
-    try:
-        return model.objects.get(*args, **kwargs)
-    except model.DoesNotExist:
         return None
 

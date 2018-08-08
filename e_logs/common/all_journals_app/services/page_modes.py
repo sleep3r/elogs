@@ -31,7 +31,7 @@ def page_mode_is_valid(request, page):
 
     is_valid = request.user.is_superuser
     if plant_permission(request):
-        has_perm =  check_mode_permissions(employee, page, page_mode)
+        has_perm = check_mode_permissions(employee, page, page_mode)
     else:
         has_perm = page_mode == "view"
 
