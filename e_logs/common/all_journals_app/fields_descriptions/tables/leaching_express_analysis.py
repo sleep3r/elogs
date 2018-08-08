@@ -1,8 +1,8 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
 
-shift_info = deep_dict()
+shift_info = DeepDict()
 shift_info.this_master = text_default
 shift_info.next_master = text_default
 shift_info.out_sol_t = ton_default
@@ -24,7 +24,7 @@ shift_info.in_poor_cd = m3_default
 shift_info_table_desc = shift_info.clear_empty().get_dict()
 
 
-vsns = deep_dict()
+vsns = DeepDict()
 vsns.time = time_default
 vsns.vsns_cobalt = mgl_default
 vsns.vsns_Sb = mgl_default
@@ -55,7 +55,7 @@ vsns.master = text_default
 vsns_table_desc = vsns.clear_empty().get_dict()
 
 
-thickeners = deep_dict()
+thickeners = DeepDict()
 thickeners.time = time_default
 thickeners.vs10_pH = ph_default
 thickeners.vs10_Cu = mgl_default
@@ -79,7 +79,7 @@ thickeners.ns12_liquid_solid = numeric_default
 thickeners_table_desc = thickeners.clear_empty().get_dict()
 
 
-zinc_pulp = deep_dict()
+zinc_pulp = DeepDict()
 zinc_pulp.zn_pulp_liquid_solid = numeric_default
 zinc_pulp.zn_pulp_pH = ph_default
 zinc_pulp.zn_pulp_temperature = temperature_default
@@ -100,7 +100,7 @@ zinc_pulp.active_PAV = mhour_default
 zinc_pulp.high_Fe = numeric_default
 zinc_pulp_desc = zinc_pulp.clear_empty().get_dict()
 
-aph = deep_dict()
+aph = DeepDict()
 aph.mann1_pH = ph_default
 aph.mann1_acid = gl_default
 aph.mann1_Fe2 = mgl_default
@@ -122,7 +122,7 @@ aph.fe_shave = mgl_default
 aph_table_desc = aph.clear_empty().get_dict()
 
 
-agt = deep_dict()
+agt = DeepDict()
 agt.a1314_Cd_before1 = mgl_default
 agt.a1314_Cu_before1 = mgl_default
 agt.a1314_Co_before1 = mgl_default
@@ -186,7 +186,7 @@ agt.journal_comment = text_default
 agitator_table_desc = agt.clear_empty().get_dict()
 
 
-rt = deep_dict()
+rt = DeepDict()
 rt.delivery_salt = kg_default
 rt.delivery_Zn_dust = numeric_default
 rt.delivery_Mn_ore = tn_default
@@ -214,7 +214,7 @@ rt.state_fances = text_default
 reagents_table_desc = rt.clear_empty().get_dict()
 
 
-tanks_availability = deep_dict()
+tanks_availability = DeepDict()
 db_names = [
 'prev_measurements_waste_tank_1-2seria', 'current_measurements_waste_tank_1-2seria', 'divergence_waste_tank_1-2seria',
 'prev_measurements_manns_1-9', 'current_measurements_manns_1-9', 'divergence_manns_1-9',
@@ -233,7 +233,7 @@ for name in db_names:
 tanks_availability_desc = tanks_availability.clear_empty().get_dict()
 
 
-neutral_thickeners = deep_dict()
+neutral_thickeners = DeepDict()
 sediment = ["sediment"+str(i+1) for i in range(8)] + ["sediment13"]
 liquid_solid = ["liquid_solid"+str(i+1) for i in range(8)] + ["liquid_solid13"]
 for name in sediment:
@@ -243,25 +243,25 @@ for name in liquid_solid:
 neutral_thickeners_desc = neutral_thickeners.clear_empty().get_dict()
 
 
-self_protection = deep_dict()
+self_protection = DeepDict()
 self_protection.visiting_time = time_default
 self_protection.visiting = text_default
 self_protection.notation = text_default
 self_protection_desc = self_protection.clear_empty().get_dict()
-cn = deep_dict()
+cn = DeepDict()
 cn.shift_total = numeric_default
 cn.day_total = numeric_default
 cn.in_process = numeric_default
 cinder_table_desc = cn.clear_empty().get_dict()
 
 
-schieht = deep_dict()
+schieht = DeepDict()
 schieht.value = numeric_default
 schieht.name = text_default
 schieht_table_desc = schieht.clear_empty().get_dict()
 
 
-tanks_for_finished_products = deep_dict()
+tanks_for_finished_products = DeepDict()
 num_names = ["VT_tank", "specific_weight_tank", "norm_tank", "fact_tank"]
 mgl_names = ["Cd_tank", "Cu_tank", "Co_tank", "Sb_tank", "Fe_tank"]
 text_names = ["correction_tank", "master_tank"]
@@ -277,7 +277,7 @@ for tank in '345':
 tanks_for_finished_products_desc = tanks_for_finished_products.clear_empty().get_dict()
 
 
-loads = deep_dict()
+loads = DeepDict()
 loads.time7 = amper_default
 loads.time12 = amper_default
 loads.counter = amper_default
@@ -288,7 +288,7 @@ loads.bunkers_oc = amper_default
 loads.description = text_default
 loads_table_desc = loads.clear_empty().get_dict()
 
-sample = deep_dict()
+sample = DeepDict()
 sample.time = time_default
 sample.Cd = numeric_default
 sample.Cu = numeric_default
@@ -297,7 +297,7 @@ sample.VIU2 = numeric_default
 sample.VIU3 = numeric_default
 sample_table_desc = sample.clear_empty().get_dict()
 
-neutral = deep_dict()
+neutral = DeepDict()
 neutral.neutral_solution = numeric_default
 neutral.leach1 = numeric_default
 neutral.leach2 = numeric_default

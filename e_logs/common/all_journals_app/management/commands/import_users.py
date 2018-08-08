@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 import csv
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
 
@@ -17,7 +17,7 @@ class Command(BaseCommand):
         user.groups.add(group)
 
     def groupsFromCSV(self):
-        user_groups = deep_dict()
+        user_groups = DeepDict()
         with open('names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             for row in users_info:

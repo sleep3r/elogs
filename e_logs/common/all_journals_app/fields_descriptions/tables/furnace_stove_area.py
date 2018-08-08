@@ -1,7 +1,7 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
-p1t1 = deep_dict()
+p1t1 = DeepDict()
 p1t1.number = number_default
 p1t1.rate = m3hour_default
 p1t1.elasticity = kgsm2_default
@@ -17,7 +17,7 @@ p1t1.smoke = text_default
 fa_main_table_desc = p1t1.clear_empty().get_dict()
 
 
-ut = deep_dict()
+ut = DeepDict()
 ut.ks1 = number_default   # № печи
 ut.val1 = tm2_day_default  # значение
 ut.ks2 = number_default   # № печи
@@ -26,7 +26,7 @@ ut.ks3 = number_default   # № печи
 ut.val3 = tm2_day_default  # значение
 udel_table_desc = ut.clear_empty().get_dict()
 
-p1t3 = deep_dict()
+p1t3 = DeepDict()
 p1t3.gmc4_1 = m_default
 p1t3.gmc4_2 = m_default
 p1t3.gmc1_1 = m_default
@@ -52,14 +52,14 @@ p1t3.separators = number_default
 
 page1_table3_desc = p1t3.clear_empty().get_dict()
 
-fences = deep_dict()
+fences = DeepDict()
 fences.results = text_default
 fences.term = date_default
 fences.mark = text_default
 page1_fences_desc = fences.clear_empty().get_dict()
 
 
-ef = deep_dict()
+ef = DeepDict()
 ef.M_s1_t_in = temperature_default
 ef.M_s2_t_in = temperature_default
 ef.G_s1_t_in = temperature_default
@@ -98,7 +98,7 @@ ef.vak2 = text_default
 electro_filters_desc = ef.clear_empty().get_dict()
 
 
-wc = deep_dict()
+wc = DeepDict()
 wc.shihta = numeric_default
 wc.on_station = numeric_default
 wc.unload = numeric_default
@@ -121,14 +121,14 @@ wc.moisture = percent_default
 wh_concentrates_desc = wc.clear_empty().get_dict()
 
 
-am = deep_dict()
+am = DeepDict()
 am.conc_o2 = percent_default
 am.time_start = time_default
 am.cnt_in_process = number_default
 air_machines_desc = am.clear_empty().get_dict()
 
 
-p2t1 = deep_dict()
+p2t1 = DeepDict()
 p2t1.time = time_default
 p2t1.collector = mm_vod_st_default
 p2t1.concentration = percent_default
@@ -137,7 +137,7 @@ p2t1.conformity = text_default
 page2_table1_desc = p2t1.clear_empty().get_dict()
 
 
-p2t2 = deep_dict()
+p2t2 = DeepDict()
 p2t2.time = time_default
 p2t2.place = numeric_default
 p2t2.S_cinder = percent_default
@@ -147,7 +147,7 @@ p2t2.event = text_default
 page2_table2_desc = p2t2.clear_empty().get_dict()
 
 
-p2t3 = deep_dict()
+p2t3 = DeepDict()
 p2t3.time = time_default
 p2t3.character = text_default
 p2t3.correction = text_default
@@ -156,14 +156,14 @@ p2t3.ks_comment = text_default
 page2_table3_desc = p2t3.clear_empty().get_dict()
 
 
-p2t4 = deep_dict()
+p2t4 = DeepDict()
 p2t4.time = time_default
 p2t4.comments = text_default
 p2t4.mark = text_default
 page2_table4_desc = p2t4.clear_empty().get_dict()
 
 
-p2t5 = deep_dict()
+p2t5 = DeepDict()
 p2t5.material = text_default
 p2t5.note = text_default
 p2t5.aspiration = text_default

@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.messages_app.models import Message
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie, logged
 

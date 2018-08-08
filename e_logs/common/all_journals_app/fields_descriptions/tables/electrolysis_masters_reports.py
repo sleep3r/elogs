@@ -1,7 +1,7 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
-lt = deep_dict()
+lt = DeepDict()
 
 lt.time1 = text_default
 lt.time2 = text_default
@@ -19,9 +19,9 @@ lt.passed_sing = text_default
 
 last_table_desc = lt.clear_empty().get_dict()
 
-s1 = deep_dict()
-s3 = deep_dict()
-s4 = deep_dict()
+s1 = DeepDict()
+s3 = DeepDict()
+s4 = DeepDict()
 
 s1.h2so4_fact = numeric_default
 s1.zn_fact = numeric_default
@@ -70,7 +70,7 @@ s1.V6_otr = m3_default
 s1.VII = m3_default
 
 
-pt = deep_dict()
+pt = DeepDict()
 pt.percent_Pb = percent_default
 pt.percent_Cu = percent_default
 pt.percent_Fe = percent_default
@@ -79,7 +79,7 @@ pt.percent_Al = percent_default
 pt.percent_Zn = percent_default
 
 
-a1 = deep_dict()
+a1 = DeepDict()
 a1.col1 = numeric_default
 a1.col2 = numeric_default
 a1.col3 = numeric_default
@@ -88,7 +88,7 @@ a1.col5 = numeric_default
 a1.col6 = numeric_default
 a1.desc = text_default
 
-a2 = deep_dict()
+a2 = DeepDict()
 a2.col1 = numeric_default
 a2.col2 = numeric_default
 a2.col3 = numeric_default
@@ -99,7 +99,7 @@ a2.desc = text_default
 a2.dust = text_default
 a2.bunkers = text_default
 
-zt = deep_dict()
+zt = DeepDict()
 zt.zn1 = numeric_default
 zt.zn2 = numeric_default
 zt.zn3 = numeric_default

@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 
 from e_logs.common.all_journals_app.models import Cell, Shift, Plant
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.loggers import err_logger, default_logger
 from e_logs.core.utils.webutils import logged
@@ -14,7 +14,7 @@ from .page_modes import get_page_mode, plant_permission, PageModeError, has_edit
 
 
 def get_full_data(page):
-    res = deep_dict()
+    res = DeepDict()
 
     for val in Cell.objects.filter(group=page):
         if val.index is not None:
@@ -41,7 +41,7 @@ def get_page_list(name, request, page_type):
 
 @logged
 def get_common_context(name, request, page_type="shift"):
-    res = deep_dict()
+    res = DeepDict()
 
     res.page_type = page_type
     res.page_id = request.GET.get('id', None)
@@ -60,7 +60,7 @@ def get_common_context(name, request, page_type="shift"):
     res.fields_info = get_fields_info()
 
     res.unfilled_cell = ""
-    res.unfilled_table = deep_dict()
+    res.unfilled_table = DeepDict()
     res.journal_name = page.name
     res.journal_page = page.id
 

@@ -1,8 +1,8 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
 
-rt = deep_dict()
+rt = DeepDict()
 rt.position_number = number_default  # № позиции по титульному списку СУД
 rt.pp = number_default  # № п/п
 rt.department = text_default  # Подразделение
