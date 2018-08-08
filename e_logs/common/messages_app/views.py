@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 from e_logs.common.login_app.models import Employee
 from e_logs.common.messages_app.models import Message
 from e_logs.common.all_journals_app.models import Cell, Shift
-from e_logs.common.messages_app.services import messages
 
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError

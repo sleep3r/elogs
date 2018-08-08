@@ -15,7 +15,6 @@ from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
 from e_logs.common.all_journals_app.services.context_creator import get_common_context
 from e_logs.core.utils.loggers import stdout_logger
-from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
 
 

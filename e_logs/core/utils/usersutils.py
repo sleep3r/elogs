@@ -4,8 +4,8 @@ from e_logs.common.login_app.models import Employee
 
 def add_user(user_dict):
     user_name = (user_dict['en']['last_name']
-                + "-" + user_dict['en']['first_name']
-                + "-" + user_dict['en']['second_name']).strip('-')
+                 + "-" + user_dict['en']['first_name']
+                 + "-" + user_dict['en']['second_name']).strip('-')
 
     if User.objects.filter(username=user_name).exists():
         print(f'user `{user_name}` already exists')
