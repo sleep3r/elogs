@@ -64,24 +64,6 @@
 
 {% include "modals/pick_shift.html" %}
 {% block footer %}
-
-    <script language="JavaScript">
-        $(document).ready(function () {
-            var element = $('.journal_title'), originalY = element.offset().top;
-
-            $(window).on('scroll', function (event) {
-                var scrollPos = $(window).scrollTop();
-                if (scrollPos > 0) {
-                    element.addClass('sticky');
-                }
-                else {
-                    element.removeClass('sticky');
-                }
-
-            });
-        });
-
-    </script>
     <!-- Bootstrap -->
     <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'v/vue/vue.js' %}"></script>
@@ -91,6 +73,7 @@
     <script src="{% static 'build/js/datepicker.js' %}"></script>
     <script src="{% static 'build/js/shift.js' %}"></script>
     <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
+    <script src = "{% static 'build/js/header.js' %}"></script>
     <script src = "{% static 'build/js/menu.js' %}"></script>
 {% endblock %}
 

@@ -473,6 +473,12 @@ input[type=number]::-webkit-outer-spin-button {
   margin-right: 10px;
 }
 
+.header.sticky {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
 footer {
   padding: 10px;
   display: flex;

@@ -25,3 +25,9 @@
 .header__user > i,span {
   margin-right: 10px;
 }
+
+.header.sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
