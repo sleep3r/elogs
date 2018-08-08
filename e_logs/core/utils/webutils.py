@@ -198,8 +198,6 @@ def set_cookie(response, key, value, days_expire = 7):
 def logged(func):
     @wraps(func)
     def w(*args, **kwargs):
-        import os
-        import sys
         logger = logging.getLogger('CALL')
         logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)
