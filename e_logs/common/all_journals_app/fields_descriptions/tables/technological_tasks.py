@@ -1,8 +1,8 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
 
-ts = deep_dict()
+ts = DeepDict()
 ts.date_create = date_default
 ts.comments = text_default
 ts.caption = dict(type="datalist", min_normal=10, max_normal=20000, options=["ЗГОК", "Арт-ий",

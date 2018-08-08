@@ -8,7 +8,7 @@ from django.template.defaulttags import ForNode
 from django.utils.html import mark_safe
 
 from e_logs.common.all_journals_app.templatetags.for_or_create_node import ForOrCreateNode
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.loggers import err_logger
 from e_logs.core.utils.webutils import logged
 
@@ -44,7 +44,6 @@ def keyval(d, key):
         return d.get(key)
     else:
         return ''
-
 
 @logged
 @register.filter

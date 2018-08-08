@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from django.template import loader
 from e_logs.common.all_journals_app.models import Shift
 # from e_logs.common.all_journals_app.services.context_creator import get_common_context
@@ -16,7 +16,7 @@ from e_logs.core.utils.webutils import logged
 #     context.journal_title = "Журнал ремонта"
 #     template = loader.get_template('common.html')
 #
-#     left = deep_dict()
+#     left = DeepDict()
 #     left.name = "repair_reports/repair_table.html"
 #
 #     context.tables = [left]

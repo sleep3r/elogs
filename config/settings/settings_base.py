@@ -241,4 +241,11 @@ CACHES = {
     }
 }
 
+FEEDBACK_TG_BOT = {
+    "token": "484527904:AAHVkzp5hHuxWVfR0tYkIFPV-sgQkXQKqAQ",
+    "channel": "-1001169474805",
+    "channel_name": "@zxcvbnmasdfghjqwertyui",
+    "url": "http://185.93.3.123:8080",
+}
+
 

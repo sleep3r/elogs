@@ -28,7 +28,7 @@ from django.db import connection
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
 
@@ -112,8 +112,8 @@ class DatabaseFiller:
 
     @staticmethod
     def groups_from_csv():
-        user_groups = deep_dict()
-        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
+        user_groups = DeepDict()
+        with open('resources/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             for row in users_info:
                 info = row[0].split(",")
@@ -125,7 +125,7 @@ class DatabaseFiller:
 
     @staticmethod
     def fill_employees():
-        with open('resoueces/data/names.csv', encoding='utf-8', newline='') as csvfile:
+        with open('resources/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             # user_groups = self.groupsFromCSV()
             # add_groups(user_groups)

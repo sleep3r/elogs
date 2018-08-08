@@ -29,6 +29,72 @@ class StrJSONEncoder(JSONEncoder):
         return str(o)
 
 
+def handle_exceptions(view):
+    def wrapper(request, **kwargs):
+        try:
+            response = view(request, **kwargs)
+        except SemanticError as e:
+            response = HttpResponse(str(e))
+        except AccessError as e:
+            response = HttpResponse(str(e))
+        except Exception as e:
+            print(e)
+            print_exc()
+            response = {"error": "fatal"}
+
+        return response
+
+    return wrapper
+
+
+def handle_response_types(view):
+    def wrapper(request, **kwargs):
+        response = view(request, **kwargs)
+
+        if not isinstance(response, (HttpResponse, JsonResponse)):
+            if isinstance(response, dict):
+                response["__t"] = time.time()
+            if type(response) is dict:
+                response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
+            else:
+                response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
+                                        json_dumps_params={'indent': 4})
+
+        return response
+
+    return wrapper
+
+
+def handle_response_headers(view):
+    def wrapper(request, **kwargs):
+        response = view(request, **kwargs)
+
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response["Access-Control-Allow-Credentials"] = "true"
+
+        return response
+
+    return wrapper
+
+
+def check_auth(view):
+    def wrapper(request, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
+        if request.method == 'POST':
+            received_token = request.POST.get('token', None)
+        else:
+            received_token = request.GET.get('token', None)
+        if received_token != request.user.employee.csrf:
+            return HttpResponse(str(SemanticError(message='Сессия истекла. Обновите страницу.')))
+
+        response = view(request, **kwargs)
+        return response
+
+    return wrapper
+
+
 def process_json_view(auth_required=True):
     """
     This is view function annotation. It'll try to handle error, encode things in json, set all required headers
@@ -38,44 +104,18 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
-        def w(request, **kwargs):
+        @csrf_exempt
+        @handle_response_headers
+        @handle_response_types
+        @handle_exceptions
+        @transaction.atomic
+        def wrapper(request, **kwargs):
             if auth_required:
-                if not request.user.is_authenticated:
-                    return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
-                if request.method == 'POST':
-                    received_token = request.POST.get('token', None)
-                else:
-                    received_token = request.GET.get('token', None)
-                if received_token != request.user.employee.csrf:
-                    return HttpResponse(str(SemanticError(message='Сессия истекла. Обновите страницу.')))
-            try:
-                with transaction.atomic():
-                    response = view(request, **kwargs)
-            except SemanticError as e:
-                response = HttpResponse(str(e))
-            except AccessError as e:
-                response = HttpResponse(str(e))
-            except Exception as e:
-                print(e)
-                print_exc()
-                response = {"error": "fatal"}
+                return check_auth(view(request, **kwargs))
+            else:
+                return view(request, **kwargs)
 
-            if not isinstance(response, (HttpResponse, JsonResponse)):
-                if isinstance(response, dict):
-                    response["__t"] = time.time()
-                if type(response) is dict:
-                    response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
-                else:
-                    response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
-                                            json_dumps_params={'indent': 4})
-
-            response["Access-Control-Allow-Origin"] = "*"
-            response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-            response["Access-Control-Allow-Credentials"] = "true"
-
-            return response
-
-        return csrf_exempt(w)
+        return wrapper
 
     return real_decorator
 

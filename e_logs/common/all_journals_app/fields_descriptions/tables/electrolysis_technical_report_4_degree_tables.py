@@ -1,10 +1,10 @@
 from datetime import time
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 # -----------------Left Table-----------------
-lt = deep_dict()
+lt = DeepDict()
 
 rows_names_for_db = [
     "zn",
@@ -63,7 +63,7 @@ for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
 left_table_desc = lt.clear_empty().get_dict()
 
 # -----------------Right Table-----------------#
-rt = deep_dict()
+rt = DeepDict()
 
 rt.h2so4 = text_default
 rt.zn = gl_default

@@ -14,11 +14,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
     Equipment, Field, Table, Journal, Plant
 from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
     plant_permission, PageModeError, has_edited
 from e_logs.core.utils.loggers import stdout_logger
-from e_logs.common.messages_app.services import messages
 from e_logs.core.models import Setting
 
 
@@ -36,7 +35,7 @@ class JournalView(LoginRequiredMixin, View):
         return HttpResponse(template.render(context, request))
 
     def get_context(self, request, plant, journal):
-        context = deep_dict()
+        context = DeepDict()
         context.page_type = journal.type
 
         if journal.type == 'shift':
@@ -84,7 +83,7 @@ class JournalView(LoginRequiredMixin, View):
         context.journal_fields_descriptions = get_fields_descriptions(request, journal)
 
         context.unfilled_cell = ""
-        context.unfilled_table = deep_dict()
+        context.unfilled_table = DeepDict()
         context.journal_name = page.name
         context.journal_page = page.id
         return context

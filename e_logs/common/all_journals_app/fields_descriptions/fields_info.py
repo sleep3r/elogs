@@ -18,9 +18,9 @@ from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Field, Table, Journal
 
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
-fields_info_desc = deep_dict()
+fields_info_desc = DeepDict()
 
 fields_info_desc.leaching_express_analysis.vsns= vsns_table_desc
 fields_info_desc.leaching_express_analysis.thickeners= thickeners_table_desc
@@ -97,7 +97,7 @@ fields_info_desc.reports_furnace_area.self_protection= page2_table4_desc
 fields_info_desc.reports_furnace_area.worth= page2_table5_desc
 
 
-bf = deep_dict()
+bf = DeepDict()
 bf.column1 = numeric_default
 bf.column2 = numeric_default
 bf.column3 = numeric_default

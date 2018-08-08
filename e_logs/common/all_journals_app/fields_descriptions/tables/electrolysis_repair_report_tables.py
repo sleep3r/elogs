@@ -1,8 +1,8 @@
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 
-mt = deep_dict()
+mt = DeepDict()
 
 mt.date1 = date_default
 mt.node_name = text_default

@@ -1,8 +1,8 @@
 import json
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
-ut = deep_dict()
+ut = DeepDict()
 # ------Upper Table--------
 ut.master = employee_default
 ut.senior_crane_operator = employee_default
@@ -14,7 +14,7 @@ ut.sling_operator = employee_default
 ut.date = dict(type="date", min_normal=10, max_normal=1000)
 ut.shift = dict(type="text", min_normal=10, max_normal=1000, units='№')
 
-bt = deep_dict()
+bt = DeepDict()
 
 # -------Big Table-------------
 bt.wagon_num = dict(type="number", min_normal=10, max_normal=1000, units='№')
@@ -40,7 +40,7 @@ bt.recieved_beds = dict(type="number", min_normal=10, max_normal=1000, units='ш
 bt.recieved_stops = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 bt.recieved_braces = dict(type="number", min_normal=10, max_normal=1000, units='шт')
 
-st = deep_dict()
+st = DeepDict()
 # --------Small Table------------
 
 field_names = [
@@ -67,7 +67,7 @@ for index in range(1, 4):
         st[field_name + str(index)] = field_info
 
 # ---------lower table----------
-lt = deep_dict()
+lt = DeepDict()
 
 lt.notes = dict(type="text", min_normal=0, max_normal=100)
 
