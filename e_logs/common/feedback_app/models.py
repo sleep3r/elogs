@@ -1,3 +1,5 @@
+import textwrap
+
 from django.db import models
 
 from config.settings.settings_base import FEEDBACK_TG_BOT
@@ -5,16 +7,17 @@ from .services.telegram_bot import TelegramBot
 
 
 class Feedback(models.Model):
-    MESSAGE = \
-'''
-<b>Пользователь</b>: {usr}
-<b>Почта</b>: {email}
-<b>Цех</b>: {plant}
-<b>Журнал</b>: {journal}
-<b>Тема</b>: {theme}
-<b>Cообщение</b>:
-{text}
-'''
+    MESSAGE = textwrap.dedent(
+        """
+        <b>Пользователь</b>: {usr}
+        <b>Почта</b>: {email}
+        <b>Цех</b>: {plant}
+        <b>Журнал</b>: {journal}
+        <b>Тема</b>: {theme}
+        <b>Cообщение</b>:
+        {text}
+        """
+    )
 
     bot = TelegramBot(channel=FEEDBACK_TG_BOT["channel"],
                       token=FEEDBACK_TG_BOT["token"],
