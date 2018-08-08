@@ -19,7 +19,7 @@
 {% endif %}
 -->
 
-    <input class="form-control general-value {{ field_name }}_{{ index }}"
+    <input class="number-cell form-control general-value {{ field_name }}_{{ index }}"
            oninput="Cell.onInput(this)"
            onchange="Cell.onChange(this)"
            resposible="{{ field_responsible }}"
@@ -49,28 +49,28 @@
 {{ comment }}
 -->
 
-<span class="popup-comment-content">
-   <div class="comment-close-button"
-        onclick="PopUp.hideAll()">&#10006;</div>
-   <textarea name="{{ field_comment_name }}"
-             placeholder="Комментарий..."
-             rows="2"
-             class="popup-comment-content-textarea"
-             oninput="Cell.markCommented(this);$('#sync').hide();$('#async').show();"
-             onchange="Comment.add(this)"
-             table-name="{{ table_name }}"
-             journal-page="{{ journal_page }}"
-             index="{{ index }}"
-             cols="50"
-             id="{{ cell_id }}-comment"
-           {% if page_mode == 'view' %}
-             readonly="readonly"
-           {% endif %}
-   >{{ comment }}</textarea>
-   {% if field_comment_responsible %}
-   <div class="commentAuthor">Автор: {{ field_comment_responsible }}</div>
-   {% endif %}
-</span>
+{#<span class="popup-comment-content">#}
+{#   <div class="comment-close-button"#}
+{#        onclick="PopUp.hideAll()">&#10006;</div>#}
+{#   <textarea name="{{ field_comment_name }}"#}
+{#             placeholder="Комментарий..."#}
+{#             rows="2"#}
+{#             class="popup-comment-content-textarea"#}
+{#             oninput="Cell.markCommented(this);$('#sync').hide();$('#async').show();"#}
+{#             onchange="Comment.add(this)"#}
+{#             table-name="{{ table_name }}"#}
+{#             journal-page="{{ journal_page }}"#}
+{#             index="{{ index }}"#}
+{#             cols="50"#}
+{#             id="{{ cell_id }}-comment"#}
+{#           {% if page_mode == 'view' %}#}
+{#             readonly="readonly"#}
+{#           {% endif %}#}
+{#   >{{ comment }}</textarea>#}
+{#   {% if field_comment_responsible %}#}
+{#   <div class="commentAuthor">Автор: {{ field_comment_responsible }}</div>#}
+{#   {% endif %}#}
+{#</span>#}
 
 
 <span class="input-check-popup">Это числовое поле</span>

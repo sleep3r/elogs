@@ -1,38 +1,80 @@
 {% load i18n %}
-<br/>
-<h3>{% trans "Аналитика завода" %}</h3>
-<ul class="nav side-menu">
-    <li><a><i class="fa fa-sitemap"></i>{% trans "Список цехов" %}<span class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu">
-            <li><a>{% trans "Обжиг" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/furnace/fractional">{% trans "Ситовой анализ огарка и шихты" %}</a></li>
-                    <li class="sub_menu"><a href="/furnace/concentrate_report_journal">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a></li>
-                    <li><a>{% trans "Журнал рапортов ОЦ" %}</a>
-                    <ul class="nav child_menu">
-                        <li><a href="/leaching/reports_furnace_area">{% trans "Журнал рапортов ОЦ" %}</a>
-                        <li class="sub_menu"><a href="/furnace/report_income_outcome_schieht">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a></li>
-                        <li class="sub_menu"><a href="/furnace/metals_compute">{% trans "Рассчёт металлов" %}</a></li>
-                    </ul>
-                    <li class="sub_menu"><a href="/furnace/technological_tasks">{% trans "Журнал сменных производственных, тех. заданий" %}</a></li>
-                    <li class="sub_menu"><a href="/furnace/furnace_repair">{% trans "Журнал по ремонту" %}</a></li>
-                    <li class="sub_menu"><a href="/furnace/furnace_changed_fraction">{% trans "Рабочий журнал изменения фракции" %}</a></li>
+<div class="menu__panel">
+    <div class="menu__title">Список цехов</div>
+    <i class="menu__toggle fas fa-bars"></i>
+</div>
+<div class="menu__logo"><i class="fas fa-sitemap"></i></div>
+<ul class="menu">
+    <li class="menu__item open">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Обжиг" %}</span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="sub-menu">
+            <li class="menu__item">
+                <a href="" data-url="/furnace/fractional" class="menu-item__link">{% trans "Ситовой анализ огарка и шихты" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/furnace/concentrate_report_journal" class="menu-item__link">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a>
+            </li>
+            <li class="menu__item parent">
+                <a href="" data-url="/leaching/reports_furnace_area" class="menu-item__link">{% trans "Журнал рапортов ОЦ" %}</a>
+                <ul class="sub-menu">
+                    <li class="menu__item">
+                        <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="" data-url="/furnace/metals_compute" class="menu-item__link">{% trans "Рассчёт металлов" %}</a>
+                    </li>
                 </ul>
             </li>
-            <li><a>{% trans "Выщелачивание" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/leaching/leaching_express_analysis">{% trans "Журнал экспресс анализа" %}</a></li>
-                    <li class="sub_menu"><a href="/leaching/leaching_repair_quipment">{% trans "Журнал по ремонту оборудования" %}</a></li>
-                </ul>
+            <li class="menu__item">
+                <a href="" data-url="/furnace/technological_tasks" class="menu-item__link">{% trans "Журнал сменных производственных, тех. заданий" %}</a>
             </li>
-            <li><a>{% trans "Электролиз" %}<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/electrolysis/electrolysis_repair_report_tables">{% trans "Журнал по ремонту оборудования" %}</a></li>
-                    <li class="sub_menu"><a href="/electrolysis/masters_report">{% trans "Журнaл рапортов мастеров смен" %}</a></li>
-                    <li class="sub_menu"><a href="/electrolysis/electrolysis_technical_report_12_degree">{% trans "Технологические журналы электролиза 1-й и 2-й серии" %}</a></li>
-                    <li class="sub_menu"><a href="/electrolysis/electrolysis_technical_report_3_degree">{% trans "Технологический журнал электролиза 3-й серии" %}</a></li>
-                    <li class="sub_menu"><a href="/electrolysis/electrolysis_technical_report_4_degree">{% trans "Технологический журнал электролиза 4-й серии" %}</a></li>
-                </ul>
+            <li class="menu__item">
+                <a href="" data-url="/furnace/furnace_repair" class="menu-item__link">{% trans "Журнал по ремонту" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/furnace/furnace_changed_fraction" class="menu-item__link">{% trans "Рабочий журнал изменения фракции" %}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu__item">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Выщелачивание" %}</span>
+            <b class="arrow fa fa-angle-down"></b></a>
+        <ul class="sub-menu">
+            <li class="menu__item">
+                <a href="" data-url="/leaching/leaching_express_analysis" class="menu-item__link">{% trans "Журнал экспресс анализа" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/leaching/leaching_repair_quipment" class="menu-item__link">{% trans "Журнал по ремонту оборудования" %}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu__item">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Электролиз" %}</span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="sub-menu">
+            <li class="menu__item">
+                <a href="" data-url="/electrolysis/electrolysis_repair_report_tables" class="menu-item__link">{% trans "Журнал по ремонту оборудования" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/electrolysis/masters_report" class="menu-item__link">{% trans "Журнaл рапортов мастеров смен" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/electrolysis/electrolysis_technical_report_12_degree" class="menu-item__link">{% trans "Технологические журналы электролиза 1-й и 2-й серии" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/electrolysis/electrolysis_technical_report_3_degree" class="menu-item__link">{% trans "Технологический журнал электролиза 3-й серии" %}</a>
+            </li>
+            <li class="menu__item">
+                <a href="" data-url="/electrolysis/electrolysis_technical_report_4_degree" class="menu-item__link">{% trans "Технологический журнал электролиза 4-й серии" %}</a>
             </li>
         </ul>
     </li>
