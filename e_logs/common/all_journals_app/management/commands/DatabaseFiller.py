@@ -41,26 +41,73 @@ class DatabaseFiller:
     def fill_fractional_app(self, n):
         for i in range(n):
             time = timezone.now() - timedelta(hours=2 * i)
-            cinder_masses = [c + random.uniform(0, 2) for c in [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]]
-            schieht_masses = [s + random.uniform(0, 2) for s in [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]]
+            cinder_masses = [
+                c + random.uniform(0, 2)
+                for c in [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
+            ]
+            schieht_masses = [
+                s + random.uniform(0, 2)
+                for s in [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
+            ]
+            cinder_sizes = [
+                c + random.uniform(0, 2)
+                for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]
+            ]
+            schieht_sizes = [
+                s + random.uniform(0, 2)
+                for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]
+            ]
 
-            cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
-            schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
-
-            measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
-
+            journal = Journal.objects.get(name="fractional")
+            measurement = Measurement.objects.create(
+                time = timezone.now(),
+                name = "fractional_anal",
+                journal=journal
+            )
+            table = Table.objects.get_or_create(
+                journal=journal,
+                name='measurements'
+            )[0]
             for i, m_value in enumerate(cinder_masses):
-                Cell.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=i, value=m_value, group=measurement)
+                Cell.objects.create(
+                    field=Field.objects.get_or_create(
+                        name='cinder_mass',
+                        table=table
+                    )[0],
+                    index=i,
+                    value=m_value,
+                    group=measurement
+                )
             for i, m_value in enumerate(cinder_sizes):
-                Cell.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=i, value=m_value, group=measurement)
+                Cell.objects.create(
+                    field=Field.objects.get_or_create(
+                        name='cinder_size',
+                        table=table
+                    )[0],
+                    index=i,
+                    value=m_value,
+                    group=measurement
+                )
             for i, m_value in enumerate(schieht_masses):
-                Cell.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=i, value=m_value, group=measurement)
+                Cell.objects.create(
+                    field=Field.objects.get_or_create(
+                        name='schieht_mass',
+                        table=table
+                    )[0],
+                    index=i,
+                    value=m_value,
+                    group=measurement
+                )
             for i, m_value in enumerate(schieht_sizes):
-                Cell.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=i, value=m_value, group=measurement)
+                Cell.objects.create(
+                    field=Field.objects.get_or_create(
+                        name='schieht_size',
+                        table=table
+                    )[0],
+                    index=i,
+                    value=m_value,
+                    group=measurement
+                )
 
 
     def groupsFromCSV(self):
