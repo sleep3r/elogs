@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'webpack_loader',
     'django_extensions',
 
@@ -203,7 +204,7 @@ LOGGING = {
         'django': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.db': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
@@ -245,3 +246,13 @@ FEEDBACK_TG_BOT = {
 }
 
 CSRF_LENGTH = 32
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        ),
+    'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAdminUser',
+        ),
+}

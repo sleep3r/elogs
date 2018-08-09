@@ -21,8 +21,6 @@ from e_logs.core.utils.errors import SemanticError, AccessError
 def logged(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        import os
-        import sys
         logger = logging.getLogger('CALL')
         logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)

@@ -130,7 +130,7 @@ class Equipment(CellGroup):
 class Cell(models.Model):
     """Specific cell in some table."""
 
-    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
     field = models.ForeignKey(Field, on_delete=models.CASCADE)
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(

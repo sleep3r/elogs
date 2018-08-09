@@ -36,6 +36,7 @@ urlpatterns = [
     re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', shifts.get_shifts),
+    re_path(r'^api/analysis/', include('e_logs.furnace.fractional_app.api.urls')),
 
 ]
 
