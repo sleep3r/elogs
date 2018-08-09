@@ -12,7 +12,7 @@ class PlantAdmin(admin.ModelAdmin):
 class JournalPageAdmin(admin.ModelAdmin):
     model = Shift
     search_fields = ['name', 'equipment']
-    list_display = ['name', 'plant_name', 'order', 'date', 'id']
+    list_display = ['plant_name', 'order', 'date', 'id']
 
     @staticmethod
     def plant_name(obj):

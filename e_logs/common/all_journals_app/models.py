@@ -2,6 +2,7 @@ from datetime import time, date, datetime, timedelta
 
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 from django.contrib.contenttypes.fields import GenericRelation
 
@@ -70,11 +71,6 @@ class Field(models.Model):
 
 
 class CellGroup(models.Model):
-    name = models.CharField(
-        max_length=1024,
-        verbose_name='Название группы ячеек',
-        default=''
-    )
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
 
@@ -90,7 +86,7 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
-    @property
+    @cached_property
     def start_time(self):
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
@@ -124,7 +120,11 @@ class Shift(CellGroup):
 
 
 class Equipment(CellGroup):
-    pass
+    name = models.CharField(
+        max_length=1024,
+        verbose_name='Название оборудования',
+        default=''
+    )
 
 
 class Cell(models.Model):

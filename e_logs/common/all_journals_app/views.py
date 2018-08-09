@@ -84,7 +84,7 @@ class JournalView(LoginRequiredMixin, View):
 
         context.unfilled_cell = ""
         context.unfilled_table = DeepDict()
-        context.journal_name = page.name
+        context.journal_name = journal.name
         context.journal_page = page.id
         return context
 
@@ -198,10 +198,10 @@ def get_cells_data(page):
 def get_fields_descriptions(request, journal):
     return {
         table.name: {
-            field.name: Setting.objects.get(
+            field.name: Setting.get_value(
                             name='field_description',
-                            field=field
-                        ).value
+                            obj=field
+                        )
             for field in Field.objects.filter(table=table)
         }
         for table in Table.objects.filter(journal=journal)
