@@ -47,5 +47,20 @@ class MeasurementSerializer(serializers.Serializer):
                                 index=i, value=round(float(m_value), 2), group=measurement)
 
 class MeasurementGraphsSerializer(serializers.Serializer):
-    cinder    = serializers.ListField(child=serializers.ListField(child=serializers.FloatField()))
-    schieht   = serializers.ListField(child=serializers.ListField(child=serializers.FloatField()))
+    cinder   = serializers.ListField(child=serializers.ListField(child=serializers.FloatField()))
+    schieht  = serializers.ListField(child=serializers.ListField(child=serializers.FloatField()))
+
+
+#Some funnyn't serializers frac_anal_app modelserializing
+
+# class HuySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Cell
+#         fields = ('field_name', 'value')
+#
+# class PidorSerializer(serializers.ModelSerializer):
+#     data = HuySerializer(many=True, read_only=True)
+#
+#     class Meta:
+#         model = Measurement
+#         fields = ('id', 'time', 'data')

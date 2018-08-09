@@ -32,7 +32,7 @@ class Plant(models.Model):
 
 
 class Cell(models.Model):
-    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=False)
+    group = models.ForeignKey('all_journals_app.CellGroup', on_delete=models.CASCADE, null=False, related_name='data')
 
     table_name = models.CharField(max_length=128, verbose_name='Название таблицы')
     field_name = models.CharField(max_length=128, verbose_name='Название поля')

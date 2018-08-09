@@ -365,7 +365,7 @@ class DatabaseFiller:
             cinder_sizes = [c + random.uniform(0, 2) for c in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
             schieht_sizes = [s + random.uniform(0, 2) for s in [0.0,2.0,5.0,10.0,20.0,25.0,33.0,44.0,50.0]]
 
-            measurement = Measurement.objects.create(type="measurement", time = timezone.now(), name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
+            measurement = Measurement.objects.create(type="measurement", time = time, name = "fractional_anal", plant=Plant.objects.get(name="furnace"))
 
             for i, m_value in enumerate(cinder_masses):
                 Cell.objects.create(table_name="measurements", field_name='cinder_mass',
