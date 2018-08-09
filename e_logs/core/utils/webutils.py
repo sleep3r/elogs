@@ -17,8 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
 
-# view accepts HttpRequest
-# view returns dict or defaultdict
+
 def logged(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -119,6 +118,7 @@ def process_json_view(auth_required=True):
         @handle_exceptions
         @transaction.atomic
         def wrapper(request, **kwargs):
+            # @login_required
             if auth_required:
                 return check_auth(view(request, **kwargs))
             else:
@@ -244,19 +244,6 @@ def set_cookie(response, key, value, days_expire=7):
     response.set_cookie(key, value, max_age=max_age, expires=expires,
                         domain=SESSION_COOKIE_DOMAIN,
                         secure=SESSION_COOKIE_SECURE or None)
-
-
-def logged(func):
-    @wraps(func)
-    def w(*args, **kwargs):
-        import os
-        import sys
-        logger = logging.getLogger('CALL')
-        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        func_res = func(*args, **kwargs)
-        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        return func_res
-    return w
 
 
 def get_or_none(model, *args, **kwargs):

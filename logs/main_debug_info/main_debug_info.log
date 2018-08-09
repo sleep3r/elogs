@@ -18974,3 +18974,45 @@ AttributeError: 'JournalView' object has no attribute 'META'
 [09/Aug/2018 15:45:28] INFO [werkzeug:88]  * Restarting with fsevents reloader
 [09/Aug/2018 15:45:29] WARNING [werkzeug:88]  * Debugger is active!
 [09/Aug/2018 15:45:29] INFO [werkzeug:88]  * Debugger PIN: 165-901-972
+[09/Aug/2018 16:44:23] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/utils/webutils.py', reloading
+[09/Aug/2018 16:44:25] INFO [werkzeug:88]  * Restarting with fsevents reloader
+[09/Aug/2018 16:44:27] WARNING [werkzeug:88]  * Debugger is active!
+[09/Aug/2018 16:44:27] INFO [werkzeug:88]  * Debugger PIN: 165-901-972
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__pycache__/demo_db.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__pycache__/DatabaseFiller.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__pycache__/__init__.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__pycache__/import_users.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/__pycache__/__init__.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/__init__.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/__init__.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/fields_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/fields_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/import_users.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/import_users.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__pycache__/fields_info_desc_filler.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/__pycache__/fields_info_desc_filler.cpython-36.pyc', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/fields_descriptions_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/fields_descriptions_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/tables_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/tables_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/__init__.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/__init__.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/DatabaseFiller.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/DatabaseFiller.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/tables_lists_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/tables_lists_filler.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/common/all_journals_app/management/commands/demo_db.py', reloading
+[09/Aug/2018 16:49:09] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/e_logs/core/management/commands/demo_db.py', reloading
+[09/Aug/2018 16:49:10] INFO [werkzeug:88]  * Restarting with fsevents reloader
+[09/Aug/2018 16:49:12] WARNING [werkzeug:88]  * Debugger is active!
+[09/Aug/2018 16:49:12] INFO [werkzeug:88]  * Debugger PIN: 165-901-972
+[09/Aug/2018 16:54:12] INFO [werkzeug:88]  * Detected change in '/Users/dimitrius/py_features/e-logs/config/settings/settings_base.py', reloading
+[09/Aug/2018 16:54:13] INFO [werkzeug:88]  * Restarting with fsevents reloader
+[09/Aug/2018 16:56:43] INFO [werkzeug:88]  * Running on https://127.0.0.1:8000/ (Press CTRL+C to quit)
+[09/Aug/2018 16:56:43] INFO [werkzeug:88]  * Restarting with fsevents reloader
+[09/Aug/2018 16:56:44] WARNING [werkzeug:88]  * Debugger is active!
+[09/Aug/2018 16:56:44] INFO [werkzeug:88]  * Debugger PIN: 165-901-972
+[09/Aug/2018 16:58:31] INFO [werkzeug:88]  * Running on https://127.0.0.1:8000/ (Press CTRL+C to quit)
+[09/Aug/2018 16:58:31] INFO [werkzeug:88]  * Restarting with fsevents reloader
+[09/Aug/2018 16:58:32] WARNING [werkzeug:88]  * Debugger is active!
+[09/Aug/2018 16:58:32] INFO [werkzeug:88]  * Debugger PIN: 165-901-972

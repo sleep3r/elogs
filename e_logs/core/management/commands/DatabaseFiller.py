@@ -7,10 +7,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import connection
 from django.db.models import Model
 
-from e_logs.common.all_journals_app.management.commands.fields_descriptions_filler import fill_fields_descriptions
-from e_logs.common.all_journals_app.management.commands.fields_filler import fill_fields
-from e_logs.common.all_journals_app.management.commands.tables_filler import fill_tables
-from e_logs.common.all_journals_app.management.commands.tables_lists_filler import fill_tables_lists
+from e_logs.core.management.commands.fields_descriptions_filler import fill_fields_descriptions
+from e_logs.core.management.commands.fields_filler import fill_fields
+from e_logs.core.management.commands.tables_filler import fill_tables
+from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
 from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting

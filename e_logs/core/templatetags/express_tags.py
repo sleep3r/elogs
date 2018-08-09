@@ -5,7 +5,7 @@ from django.template import TemplateSyntaxError
 from django.template.base import FILTER_SEPARATOR
 from django.utils.html import mark_safe
 
-from e_logs.common.all_journals_app.templatetags.for_or_create_node import ForOrCreateNode
+from templatetags import ForOrCreateNode
 from e_logs.core.utils.webutils import logged
 
 register = template.Library()

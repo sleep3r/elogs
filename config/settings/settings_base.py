@@ -1,5 +1,3 @@
-import os
-import sys
 from pathlib import Path
 
 from django.conf.global_settings import INTERNAL_IPS
@@ -20,7 +18,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'e_logs.common.all_journals_app.templatetags.express_tags',
+                'express_tags': 'e_logs.common.core.templatetags.express_tags',
             }
         },
     },
@@ -60,7 +58,6 @@ INSTALLED_APPS = [
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
@@ -75,7 +72,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 ROOT_URLCONF = 'config.urls'
-
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -201,7 +197,7 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
@@ -249,5 +245,3 @@ FEEDBACK_TG_BOT = {
 }
 
 CSRF_LENGTH = 32
-
-
