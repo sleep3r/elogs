@@ -1,5 +1,5 @@
 import json
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
@@ -29,6 +29,7 @@ class JournalView(LoginRequiredMixin, View):
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
 
+    @logged
     def get_context(self, request, plant, journal):
         context = DeepDict()
         context.page_type = journal.type
@@ -249,3 +250,42 @@ def save_cell(request):
         shift.employee_set.add(request.user.employee)
 
     return JsonResponse({"status": 1})
+
+
+@logged
+@process_json_view(auth_required=False)
+def get_shifts(request, plant_name, journal_name,
+               from_date=date.today()-timedelta(days=30),
+               to_date=date.today()):
+    """Creates shifts for speficied period of time"""
+    def daterange(start_date, end_date):
+        for n in range(int((end_date - start_date).days)):
+            yield start_date + timedelta(n)
+
+    def shift_event(request, shift, is_owned):
+        return {
+            'title': '{} смена'.format(shift.order),
+            'start': shift.start_time,
+            'url': '?id={}'.format(shift.id),
+            'title:': 'Some title',
+            'color': '#169F85' if is_owned else '#2A3F54'
+        }
+
+    result = []
+    plant = Plant.objects.get(name=plant_name)
+    journal = Journal.objects.get(plant=plant, name=journal_name)
+    employee = request.user.employee
+    if journal.type == 'shift':
+        number_of_shifts = Shift.get_number_of_shifts(journal)
+        for shift_date in daterange(from_date, to_date):
+            for shift_order in range(1, number_of_shifts+1):
+                shift = Shift.objects.get_or_create(
+                    journal=journal,
+                    order=shift_order,
+                    date=shift_date
+                )[0]
+                is_owned = employee in shift.employee_set.all()
+                result.append(shift_event(request, shift, is_owned))
+        return result
+    else:
+        raise TypeError('Attempt to get shifts for non-shift journal')

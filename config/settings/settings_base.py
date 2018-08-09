@@ -18,7 +18,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'e_logs.common.core.templatetags.express_tags',
+                'express_tags': 'e_logs.core.templatetags.express_tags',
             }
         },
     },

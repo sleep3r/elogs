@@ -10,11 +10,6 @@ VIEW_CELLS = APP + ".view_cells"
 PLANT_PERM = APP + ".modify_{plant}"
 
 
-class PageModeError(Exception):
-    def __init__(self, value):
-        self.value = value
-
-
 @login_required
 def plant_permission(request):
     employee = Employee.objects.get(user=request.user)
@@ -36,7 +31,6 @@ def page_mode_is_valid(request, page):
         has_perm = page_mode == "view"
 
     return has_perm or is_valid
-
 
 
 @login_required
