@@ -1,23 +1,18 @@
-import ast
-
+import e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_12_degree_tables as t12
+import e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_3_degree_tables as t3
 from e_logs.common.all_journals_app.fields_descriptions.tables.change_fraction import change_fraction_table_desc
 from e_logs.common.all_journals_app.fields_descriptions.tables.conc_raports_tables import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_masters_reports import *
+from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_repair_report_tables import *
+from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.furnace_repair import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.furnace_stove_area import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.input_output_report import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.leaching_express_analysis import *
-from e_logs.common.all_journals_app.fields_descriptions.tables.leaching_repair_equipment import leaching_repair_table_desc
+from e_logs.common.all_journals_app.fields_descriptions.tables.leaching_repair_equipment import \
+    leaching_repair_table_desc
 from e_logs.common.all_journals_app.fields_descriptions.tables.metals_compute import *
-from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_4_degree_tables import *
 from e_logs.common.all_journals_app.fields_descriptions.tables.technological_tasks import *
-import e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_3_degree_tables as t3
-import e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_technical_report_12_degree_tables as t12
-from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_repair_report_tables import *
-from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.models import Field, Table, Journal
-
-
 from e_logs.core.utils.deep_dict import DeepDict
 
 fields_info_desc = DeepDict()

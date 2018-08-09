@@ -1,24 +1,19 @@
-from os import walk
 import json
+from datetime import date, datetime, timedelta
 
-from datetime import date, datetime
-
-from django.db import transaction
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
-from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
     Equipment, Field, Table, Journal, Plant
-from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
-from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
-    plant_permission, PageModeError, has_edited
-from e_logs.core.utils.loggers import stdout_logger
+    plant_permission, has_edited
 from e_logs.core.models import Setting
+from e_logs.core.utils.deep_dict import DeepDict
+from e_logs.core.utils.webutils import process_json_view, logged
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -26,6 +21,7 @@ class JournalView(LoginRequiredMixin, View):
     Common view for a journal.
     Inherit from this class when creating your own journal view.
     """
+
     @logged
     def get(self, request, plant_name, journal_name):
         plant = Plant.objects.get(name=plant_name)
@@ -34,6 +30,7 @@ class JournalView(LoginRequiredMixin, View):
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
 
+    @logged
     def get_context(self, request, plant, journal):
         context = DeepDict()
         context.page_type = journal.type
@@ -66,7 +63,7 @@ class JournalView(LoginRequiredMixin, View):
 
         # Adding permissions
         context.page_mode = get_page_mode(request, page)
-        print('page_mode='+str(context.page_mode))
+        print('page_mode=' + str(context.page_mode))
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser
@@ -91,6 +88,7 @@ class JournalView(LoginRequiredMixin, View):
 
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
+
     @logged
     def get_context(self, request, journal_name, page_type):
         context = super().get_context(request, journal_name, page_type)
@@ -111,13 +109,14 @@ class ShihtaJournalView(JournalView):
         }
         context.plan_or_fact = ['plan', 'fact']
         context.date_year = datetime.now().year
-        context.cur_month = list(context.months.keys())[date.today().month-1]
+        context.cur_month = list(context.months.keys())[date.today().month - 1]
         return context
 
 
 # TODO: Move to common journal scheme
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
+
     @logged
     def get_context(self, request, journal_name, page_type):
         from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
@@ -254,3 +253,43 @@ def save_cell(request):
         shift.employee_set.add(request.user.employee)
 
     return JsonResponse({"status": 1})
+
+
+@logged
+@process_json_view(auth_required=False)
+def get_shifts(request, plant_name, journal_name,
+               from_date=date.today() - timedelta(days=30),
+               to_date=date.today()):
+    """Creates shifts for speficied period of time"""
+
+    def daterange(start_date, end_date):
+        for n in range(int((end_date - start_date).days)):
+            yield start_date + timedelta(n)
+
+    def shift_event(request, shift, is_owned):
+        return {
+            'title': '{} смена'.format(shift.order),
+            'start': shift.start_time,
+            'url': '?id={}'.format(shift.id),
+            'title:': 'Some title',
+            'color': '#169F85' if is_owned else '#2A3F54'
+        }
+
+    result = []
+    plant = Plant.objects.get(name=plant_name)
+    journal = Journal.objects.get(plant=plant, name=journal_name)
+    employee = request.user.employee
+    if journal.type == 'shift':
+        number_of_shifts = Shift.get_number_of_shifts(journal)
+        for shift_date in daterange(from_date, to_date):
+            for shift_order in range(1, number_of_shifts + 1):
+                shift = Shift.objects.get_or_create(
+                    journal=journal,
+                    order=shift_order,
+                    date=shift_date
+                )[0]
+                is_owned = employee in shift.employee_set.all()
+                result.append(shift_event(request, shift, is_owned))
+        return result
+    else:
+        raise TypeError('Attempt to get shifts for non-shift journal')

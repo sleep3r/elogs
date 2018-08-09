@@ -1,10 +1,10 @@
-from datetime import time, date, datetime, timedelta
+from datetime import time, datetime, timedelta
 
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
-from django.contrib.contenttypes.fields import GenericRelation
 
 from e_logs.core.utils.webutils import get_or_none
 

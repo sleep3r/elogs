@@ -1,5 +1,3 @@
-import os
-import sys
 from pathlib import Path
 
 from django.conf.global_settings import INTERNAL_IPS
@@ -20,7 +18,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'e_logs.common.all_journals_app.templatetags.express_tags',
+                'express_tags': 'e_logs.core.templatetags.express_tags',
             }
         },
     },
@@ -56,14 +54,15 @@ INSTALLED_APPS = [
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
-    # TODO: DELETE THIS APP !!!!!!!!!
-    # 'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
-
+    # TODO: DELETE THIS APP?
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
+    # GZipMiddleware can be a vulnerability!
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,11 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'e_logs.core.middleware.ExceptionMiddleware',
 ]
-
 ROOT_URLCONF = 'config.urls'
-
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -201,7 +197,7 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
@@ -248,4 +244,4 @@ FEEDBACK_TG_BOT = {
     "url": "http://185.93.3.123:8080",
 }
 
-
+CSRF_LENGTH = 32

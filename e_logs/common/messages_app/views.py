@@ -1,23 +1,17 @@
 import json
 
-from django.http import JsonResponse
-from django.db import transaction
-from django.views import View
-from django.views.generic.list import ListView
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.list import ListView
 
-
-
-from e_logs.common.login_app.models import Employee
+from e_logs.common.all_journals_app.models import Cell
 from e_logs.common.messages_app.models import Message
-from e_logs.common.all_journals_app.models import Cell, Shift
-
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged, filter_or_none
+from e_logs.core.utils.webutils import model_to_dict, logged
 
 
 class MessageView(LoginRequiredMixin, View):
@@ -42,6 +36,7 @@ class MessageView(LoginRequiredMixin, View):
                 message="Попытка отметить чужое сообщение как прочитанное")
 
         return JsonResponse({"result": 1})
+
 
 class MessagesList(LoginRequiredMixin, ListView):
     model = Message
@@ -68,7 +63,7 @@ def add_critical(request):
             message = json.loads(request.body)['message']
             message['sendee'] = request.user.employee
             Message.add(cell, message, all=True)
-    return JsonResponse({'status':1})
+    return JsonResponse({'status': 1})
 
 
 @csrf_exempt
@@ -92,7 +87,7 @@ def add_comment(request):
         message['sendee'] = request.user.employee
 
         Cell.objects.update_or_create(**cell,
-                                      defaults = {"responsible":request.user.employee, "comment":message['text']})
+                                      defaults={"responsible": request.user.employee, "comment": message['text']})
         cell = Cell.get(json.loads(request.body)['cell'])
         Message.add(cell, message, all=True)
 

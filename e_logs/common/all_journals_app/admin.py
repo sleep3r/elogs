@@ -5,7 +5,7 @@ from e_logs.core.models import Setting
 
 class PlantAdmin(admin.ModelAdmin):
     model = Plant
-    list_display = ['id','name']
+    list_display = ['id', 'name']
     list_display_links = ['name']
 
 
@@ -22,9 +22,10 @@ class JournalPageAdmin(admin.ModelAdmin):
 class CellValueAdmin(admin.ModelAdmin):
     model = Cell
     empty_value_display = 'None'
-    search_fields = ['table', 'field' ]
+    search_fields = ['table', 'field']
     list_display_links = ['field']
-    list_display = ['group', 'field', 'index', 'value', 'id' ]
+    list_display = ['group', 'field', 'index', 'value', 'id']
+
     # list_select_related = ('journal_page')
     # list_filter = ('journal_name', 'table_name', 'plant_name')
 
@@ -40,19 +41,14 @@ class CellValueAdmin(admin.ModelAdmin):
 class SettingAdmin(admin.ModelAdmin):
     model = Setting
     search_fields = ['name']
-    list_display = ['scope', 'name','value', 'id',]
+    list_display = ['scope', 'name', 'value', 'id', ]
     list_display_links = ['name']
-
-
 
 
 admin.site.register(Cell, CellValueAdmin)
 admin.site.register(Shift, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Setting, SettingAdmin)
-
-
-
 
 # class DenserAnalAdmin(admin.ModelAdmin):
 #     model = DenserAnal

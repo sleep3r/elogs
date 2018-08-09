@@ -1,27 +1,34 @@
 import datetime
-import json
+import logging
 import secrets
 import string
 import time
-import logging
-
-from collections import defaultdict
+from functools import wraps
 from json import JSONEncoder
 from traceback import print_exc
-from functools import wraps
 
+from dateutil.parser import parse as parse_date
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from dateutil.parser import parse as parse_date
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
+from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
 
-# view accepts HttpRequest
-# view returns dict or defaultdict
-from e_logs.core.utils.settings import webURL, CSRF_LENGTH
+
+def logged(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        import os
+        import sys
+        logger = logging.getLogger('CALL')
+        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        func_res = func(*args, **kwargs)
+        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        return func_res
+    return wrapper
 
 
 class StrJSONEncoder(JSONEncoder):
@@ -104,12 +111,14 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
+        @logged
         @csrf_exempt
         @handle_response_headers
         @handle_response_types
         @handle_exceptions
         @transaction.atomic
         def wrapper(request, **kwargs):
+            # TODO: use @login_required?
             if auth_required:
                 return check_auth(view(request, **kwargs))
             else:
@@ -235,20 +244,6 @@ def set_cookie(response, key, value, days_expire=7):
     response.set_cookie(key, value, max_age=max_age, expires=expires,
                         domain=SESSION_COOKIE_DOMAIN,
                         secure=SESSION_COOKIE_SECURE or None)
-
-
-def logged(func):
-    @wraps(func)
-    def w(*args, **kwargs):
-        import os
-        import sys
-        logger = logging.getLogger('CALL')
-        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        func_res = func(*args, **kwargs)
-        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        return func_res
-
-    return w
 
 
 def get_or_none(model, *args, **kwargs):
