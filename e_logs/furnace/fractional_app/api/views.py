@@ -18,7 +18,7 @@ class MeasurementAPI(CustomRendererView, generics.ListAPIView):
     def get_queryset(qs=Measurement.objects.only('id', 'time').all().order_by('-time')):
         list = [
         {'id': m.id,
-         'time': m.time,
+         'time': m.time.timestamp(),
          'cinder_masses':[float(c.value) for c in Cell.objects.only('value').filter(field_name='cinder_mass', group=m)],
          'schieht_masses':[float(c.value) for c in Cell.objects.only('value').filter(field_name='schieht_mass', group=m)],
          'cinder_sizes':[float(c.value) for c in Cell.objects.only('value').filter(field_name='cinder_size', group=m)],

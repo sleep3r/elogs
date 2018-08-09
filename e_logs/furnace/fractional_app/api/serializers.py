@@ -8,7 +8,7 @@ from e_logs.core.api import cached
 
 class MeasurementSerializer(serializers.Serializer):
     id              = serializers.IntegerField(read_only=True)
-    time            = serializers.DateTimeField(default=timezone.now())
+    time            = serializers.FloatField(default=timezone.now().timestamp())
     cinder_masses   = serializers.ListField(child=serializers.FloatField(), min_length=1)
     schieht_masses  = serializers.ListField(child=serializers.FloatField(), min_length=1)
     cinder_sizes    = serializers.ListField(child=serializers.FloatField(), min_length=1)
