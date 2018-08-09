@@ -60,8 +60,12 @@ INSTALLED_APPS = [
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
+    # GZipMiddleware can be a vulnerability!
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,7 +74,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'config.urls'
 
 
@@ -244,5 +247,7 @@ FEEDBACK_TG_BOT = {
     "channel_name": "@zxcvbnmasdfghjqwertyui",
     "url": "http://185.93.3.123:8080",
 }
+
+CSRF_LENGTH = 32
 
 

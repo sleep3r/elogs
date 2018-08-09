@@ -14,10 +14,22 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
+from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
+
 # view accepts HttpRequest
 # view returns dict or defaultdict
-from e_logs.core.utils.settings import CSRF_LENGTH
+def logged(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        import os
+        import sys
+        logger = logging.getLogger('CALL')
+        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        func_res = func(*args, **kwargs)
+        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        return func_res
+    return wrapper
 
 
 class StrJSONEncoder(JSONEncoder):
@@ -100,6 +112,7 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
+        @logged
         @csrf_exempt
         @handle_response_headers
         @handle_response_types
@@ -236,12 +249,13 @@ def set_cookie(response, key, value, days_expire=7):
 def logged(func):
     @wraps(func)
     def w(*args, **kwargs):
+        import os
+        import sys
         logger = logging.getLogger('CALL')
         logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)
         logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         return func_res
-
     return w
 
 

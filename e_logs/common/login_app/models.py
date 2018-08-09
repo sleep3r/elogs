@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
-from e_logs.common.all_journals_app.models import Cell, Shift
 
-from e_logs.core.utils.settings import CSRF_LENGTH
+from config.settings.settings_base import CSRF_LENGTH
+from e_logs.common.all_journals_app.models import Cell, Shift
 
 
 class Employee(models.Model):
