@@ -116,7 +116,7 @@ def process_json_view(auth_required=True):
         @handle_exceptions
         @transaction.atomic
         def wrapper(request, **kwargs):
-            # @login_required
+            # TODO: use @login_required?
             if auth_required:
                 return check_auth(view(request, **kwargs))
             else:
