@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from .DatabaseFiller import DatabaseFiller
+from .database_filler import DatabaseFiller
 
 
 class Command(BaseCommand):

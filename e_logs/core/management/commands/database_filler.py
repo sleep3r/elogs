@@ -11,13 +11,13 @@ from e_logs.core.management.commands.fields_descriptions_filler import fill_fiel
 from e_logs.core.management.commands.fields_filler import fill_fields
 from e_logs.core.management.commands.tables_filler import fill_tables
 from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
+from e_logs.core.management.commands.db_utils import add_user
 from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
-from management.commands.db_utils import add_user
 
 
 class DatabaseFiller:
