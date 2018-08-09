@@ -1,23 +1,17 @@
 import json
 
-from django.http import JsonResponse
-from django.db import transaction
-from django.views import View
-from django.views.generic.list import ListView
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.list import ListView
 
-
-
-from e_logs.common.login_app.models import Employee
+from e_logs.common.all_journals_app.models import Cell
 from e_logs.common.messages_app.models import Message
-from e_logs.common.all_journals_app.models import Cell, Shift
-
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged, filter_or_none
+from e_logs.core.utils.webutils import model_to_dict, logged
 
 
 class MessageView(LoginRequiredMixin, View):

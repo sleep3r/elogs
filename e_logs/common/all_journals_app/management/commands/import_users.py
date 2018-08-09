@@ -1,12 +1,11 @@
-from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User, Group
 import csv
+
+from django.contrib.auth.models import Group
+from django.core.management.base import BaseCommand
 
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
-
-from django.contrib.auth.models import Group
 
 
 class Command(BaseCommand):

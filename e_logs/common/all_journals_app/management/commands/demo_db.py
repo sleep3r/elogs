@@ -1,11 +1,6 @@
-from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 
 from .DatabaseFiller import DatabaseFiller
-from e_logs.core.models import Setting
-
-
-
 
 
 class Command(BaseCommand):

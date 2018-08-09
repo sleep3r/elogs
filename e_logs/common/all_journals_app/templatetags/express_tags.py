@@ -1,15 +1,11 @@
 import re
-from pprint import pprint
 
 from django import template
 from django.template import TemplateSyntaxError
 from django.template.base import FILTER_SEPARATOR
-from django.template.defaulttags import ForNode
 from django.utils.html import mark_safe
 
 from e_logs.common.all_journals_app.templatetags.for_or_create_node import ForOrCreateNode
-from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.loggers import err_logger
 from e_logs.core.utils.webutils import logged
 
 register = template.Library()

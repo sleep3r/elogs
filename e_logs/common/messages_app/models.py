@@ -1,11 +1,8 @@
-from datetime import datetime
-
 from django.contrib.auth.models import User
-from django.utils import timezone
 from django.db import models
-from e_logs.common.login_app.models import Employee
+from django.utils import timezone
 
-from e_logs.core.utils.settings import CSRF_LENGTH
+from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import filter_or_none
 
 

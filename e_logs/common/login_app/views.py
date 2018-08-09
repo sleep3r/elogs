@@ -1,17 +1,9 @@
-import json
-
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth import views, authenticate, login, logout
+from django.shortcuts import redirect
 from django.template import loader
-from django.views.decorators.csrf import csrf_exempt
 
-from e_logs.common.messages_app.models import Message
-
-from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import process_json_view, generate_csrf, model_to_dict, set_cookie, logged
+from e_logs.core.utils.webutils import process_json_view, logged
 
 
 @process_json_view(auth_required=False)

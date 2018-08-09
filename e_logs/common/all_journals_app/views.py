@@ -1,24 +1,19 @@
-from os import walk
 import json
-
 from datetime import date, datetime
 
-from django.db import transaction
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
-from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
     Equipment, Field, Table, Journal, Plant
-from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
-from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
-    plant_permission, PageModeError, has_edited
-from e_logs.core.utils.loggers import stdout_logger
+    plant_permission, has_edited
 from e_logs.core.models import Setting
+from e_logs.core.utils.deep_dict import DeepDict
+from e_logs.core.utils.webutils import process_json_view, logged
 
 
 class JournalView(LoginRequiredMixin, View):

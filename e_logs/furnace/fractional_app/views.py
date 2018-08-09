@@ -1,15 +1,14 @@
 import json
 from datetime import timedelta
 
-from django.utils import timezone
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.template import loader
+from django.utils import timezone
+from django.views.generic import TemplateView
 from functional import seq
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Plant, Measurement
+from e_logs.common.all_journals_app.models import Cell, Plant, Measurement
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view
 

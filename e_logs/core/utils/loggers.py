@@ -1,4 +1,3 @@
-import faulthandler
 import logging
 
 err_logger = logging.getLogger('STDERR')

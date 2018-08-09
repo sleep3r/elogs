@@ -1,36 +1,23 @@
+import csv
 import inspect
 import random
-import json
-import csv
 
-from datetime import timedelta
-from inspect import ismethod
-from itertools import product
-from random import randint
-from os import walk
-
-from django.db.models import Model
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from django.utils import timezone
+from django.db import connection
+from django.db.models import Model
 
-from e_logs.furnace.fractional_app.models import *
-from e_logs.furnace.fractional_app import models as famodels
-from e_logs.common.all_journals_app import models as comodels
-from e_logs.common.all_journals_app.models import *
 from e_logs.common.all_journals_app.management.commands.fields_descriptions_filler import fill_fields_descriptions
+from e_logs.common.all_journals_app.management.commands.fields_filler import fill_fields
 from e_logs.common.all_journals_app.management.commands.tables_filler import fill_tables
 from e_logs.common.all_journals_app.management.commands.tables_lists_filler import fill_tables_lists
-from e_logs.common.all_journals_app.management.commands.fields_filler import fill_fields
-from e_logs.core.utils.webutils import parse, translate
-from django.utils.translation import gettext as _
-from django.db import connection
+from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
+from e_logs.furnace.fractional_app import models as famodels
 
 
 class DatabaseFiller:
