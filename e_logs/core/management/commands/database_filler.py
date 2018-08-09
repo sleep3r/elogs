@@ -15,9 +15,9 @@ from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.usersutils import add_user, get_groups
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
+from management.commands.db_utils import add_user
 
 
 class DatabaseFiller:
@@ -28,74 +28,37 @@ class DatabaseFiller:
 
     @staticmethod
     def fill_fractional_app(n):
+        def randomize_array(a):
+            return [c + random.uniform(0, 2) for c in a]
+
         for i in range(n):
-            cinder_masses = [
-                c + random.uniform(0, 2)
-                for c in [1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5]
-            ]
-            schieht_masses = [
-                s + random.uniform(0, 2)
-                for s in [1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5]
-            ]
-            cinder_sizes = [
-                c + random.uniform(0, 2)
-                for c in [0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0]
-            ]
-            schieht_sizes = [
-                s + random.uniform(0, 2)
-                for s in [0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0]
-            ]
+            cinder_masses = randomize_array([1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5])
+            schieht_masses = randomize_array([1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5])
+            cinder_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
+            schieht_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
 
             journal = Journal.objects.get(name="fractional")
             measurement = Measurement.objects.create(
-                time = timezone.now(),
-                name = "fractional_anal",
+                time=timezone.now(),
+                name="fractional_anal",
                 journal=journal
             )
             table = Table.objects.get_or_create(
                 journal=journal,
                 name='measurements'
             )[0]
-            for j, m_value in enumerate(cinder_masses):
-                Cell.objects.create(
-                    field=Field.objects.get_or_create(
-                        name='cinder_mass',
-                        table=table
-                    )[0],
-                    index=j,
-                    value=m_value,
-                    group=measurement
-                )
-            for j, m_value in enumerate(cinder_sizes):
-                Cell.objects.create(
-                    field=Field.objects.get_or_create(
-                        name='cinder_size',
-                        table=table
-                    )[0],
-                    index=j,
-                    value=m_value,
-                    group=measurement
-                )
-            for j, m_value in enumerate(schieht_masses):
-                Cell.objects.create(
-                    field=Field.objects.get_or_create(
-                        name='schieht_mass',
-                        table=table
-                    )[0],
-                    index=j,
-                    value=m_value,
-                    group=measurement
-                )
-            for j, m_value in enumerate(schieht_sizes):
-                Cell.objects.create(
-                    field=Field.objects.get_or_create(
-                        name='schieht_size',
-                        table=table
-                    )[0],
-                    index=j,
-                    value=m_value,
-                    group=measurement
-                )
+            for arr, name in [(cinder_masses, 'cinder_mass'), (cinder_sizes, 'cinder_size'),
+                              (schieht_masses, 'schieht_mass'), (schieht_sizes, 'schieht_size')]:
+                for j, m_value in enumerate(arr):
+                    Cell.objects.create(
+                        field=Field.objects.get_or_create(
+                            name=name,
+                            table=table
+                        )[0],
+                        index=j,
+                        value=m_value,
+                        group=measurement
+                    )
 
     @staticmethod
     def groups_from_csv():
@@ -112,6 +75,20 @@ class DatabaseFiller:
 
     @staticmethod
     def fill_employees():
+        def get_groups(position, plant):
+            groups = []
+            if position == " просмотра\"":
+                groups.append("Laborant")
+            else:
+                groups.append("Boss")
+            if plant == "ОЦ":
+                groups.append("Furnace")
+            elif plant == "ЦВЦО":
+                groups.append("Leaching")
+            else:
+                groups.append("Electrolysis")
+            return groups
+
         with open('resources/data/names.csv', encoding='utf-8', newline='') as csvfile:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
             # user_groups = self.groupsFromCSV()

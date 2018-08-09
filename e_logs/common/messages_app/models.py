@@ -13,7 +13,7 @@ class Message(models.Model):
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=100, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
-                                                ('comment', 'Замечание')))
+                                                 ('comment', 'Замечание')))
     text = models.TextField(verbose_name='Текст сообщения')
 
     sendee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
@@ -25,6 +25,10 @@ class Message(models.Model):
 
     @staticmethod
     def add(cell, message, all=False, positions=None, ids=None, plant=None):
+        if not all and positions is None and ids is None and plant is None:
+            raise ValueError
+
+        recipients = []
         if ids:
             recipients = list()
             for id in ids:

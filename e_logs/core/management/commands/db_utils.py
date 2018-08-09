@@ -30,18 +30,3 @@ def add_user(user_dict):
 
         user.save()
         return user.id
-
-
-def get_groups(position, plant):
-    groups = []
-    if position == " просмотра\"":
-        groups.append("Laborant")
-    else:
-        groups.append("Boss")
-    if plant == "ОЦ":
-        groups.append("Furnace")
-    elif plant == "ЦВЦО":
-        groups.append("Leaching")
-    else:
-        groups.append("Electrolysis")
-    return groups

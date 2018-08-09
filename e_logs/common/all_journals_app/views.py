@@ -21,6 +21,7 @@ class JournalView(LoginRequiredMixin, View):
     Common view for a journal.
     Inherit from this class when creating your own journal view.
     """
+
     @logged
     def get(self, request, plant_name, journal_name):
         plant = Plant.objects.get(name=plant_name)
@@ -62,7 +63,7 @@ class JournalView(LoginRequiredMixin, View):
 
         # Adding permissions
         context.page_mode = get_page_mode(request, page)
-        print('page_mode='+str(context.page_mode))
+        print('page_mode=' + str(context.page_mode))
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser
@@ -87,6 +88,7 @@ class JournalView(LoginRequiredMixin, View):
 
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
+
     @logged
     def get_context(self, request, journal_name, page_type):
         context = super().get_context(request, journal_name, page_type)
@@ -107,13 +109,14 @@ class ShihtaJournalView(JournalView):
         }
         context.plan_or_fact = ['plan', 'fact']
         context.date_year = datetime.now().year
-        context.cur_month = list(context.months.keys())[date.today().month-1]
+        context.cur_month = list(context.months.keys())[date.today().month - 1]
         return context
 
 
 # TODO: Move to common journal scheme
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
+
     @logged
     def get_context(self, request, journal_name, page_type):
         from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
@@ -195,9 +198,9 @@ def get_fields_descriptions(request, journal):
     return {
         table.name: {
             field.name: Setting.objects.get(
-                            name='field_description',
-                            field=field
-                        ).value
+                name='field_description',
+                field=field
+            ).value
             for field in Field.objects.filter(table=table)
         }
         for table in Table.objects.filter(journal=journal)
@@ -255,9 +258,10 @@ def save_cell(request):
 @logged
 @process_json_view(auth_required=False)
 def get_shifts(request, plant_name, journal_name,
-               from_date=date.today()-timedelta(days=30),
+               from_date=date.today() - timedelta(days=30),
                to_date=date.today()):
     """Creates shifts for speficied period of time"""
+
     def daterange(start_date, end_date):
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
@@ -278,7 +282,7 @@ def get_shifts(request, plant_name, journal_name,
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
         for shift_date in daterange(from_date, to_date):
-            for shift_order in range(1, number_of_shifts+1):
+            for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.objects.get_or_create(
                     journal=journal,
                     order=shift_order,
