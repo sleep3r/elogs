@@ -10,13 +10,7 @@ print('from e_logs.common.all_journals_app.models import Plant, Journal, Table, 
 print('')
 print('')
 print('def fill_fields_descriptions():')
-
-#print("""    Setting.objects.bulk_create([""")
-
-print()
-
 print("""    Setting.objects.bulk_create([""")
-
 for plant in Plant.objects.all():
     # print(plant.name)
     for journal in Journal.objects.filter(plant=plant):
