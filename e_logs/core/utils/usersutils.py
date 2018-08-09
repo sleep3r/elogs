@@ -45,27 +45,3 @@ def get_groups(position, plant):
     else:
         groups.append("Electrolysis")
     return groups
-
-
-def add_groups(user_groups):
-    for key, group_name in user_groups.items():
-        if Group.objects.filter(name=group_name).exists():
-            print(f'Group `{group_name}` already exists')
-        else:
-            print(f'{key}->{group_name}')
-            group_name = user_groups[key]
-            group = Group.objects.create(name=group_name)
-            group.save()
-    print("Groups added")
-
-
-def set_permissions_for_groups():
-    print("Set permissions for groups")
-
-
-def add_employee():
-    print("Add employee")
-    # emplyee = Employee()
-    # emplyee.user = user
-    # emplyee.position =
-    # user.id

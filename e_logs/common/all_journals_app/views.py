@@ -9,7 +9,7 @@ from django.template import loader, TemplateDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.views.decorators.gzip import gzip_page
 
 from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
