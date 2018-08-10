@@ -117,9 +117,14 @@ var app = new Vue({
 class Shift {
 
     static showCalendar() {
-        $("#modal_shift").off('shown.bs.modal').on('shown.bs.modal', () => {
-            $('#shift_calendar').fullCalendar('render');
-        });
+        let modal = document.querySelector("#modal_shift");
+        modal.style.display = 'block';
+        $('#shift_calendar').fullCalendar('render');
+    }
+
+    static close() {
+        let modalWindow = document.getElementById("modal_shift");
+        modalWindow.style.display = "none";
     }
 
     static confirm() {
