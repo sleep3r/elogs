@@ -107,7 +107,7 @@ def get_table_name(table_link):
 
 @register.filter('formatter')
 def formatter(string, obj):
-    return string.format(object)
+    return string.format(obj)
 
 
 @register.filter(name='times')
