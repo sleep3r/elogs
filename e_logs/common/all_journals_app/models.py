@@ -11,11 +11,11 @@ from e_logs.core.utils.webutils import get_or_none
 
 
 class Plant(models.Model):
-    name     = models.CharField(default='leaching',
-                                max_length=128,
-                                choices=(('leaching', 'Выщелачивание'),
-                                         ('furnace', 'Обжиг'),
-                                         ('electrolysis', 'Электролиз')))
+    name = models.CharField(default='leaching',
+                            max_length=128,
+                            choices=(('leaching', 'Выщелачивание'),
+                                     ('furnace', 'Обжиг'),
+                                     ('electrolysis', 'Электролиз')))
     settings = GenericRelation('core.Setting', related_query_name='plant')
 
     class Meta:
@@ -26,19 +26,19 @@ class Plant(models.Model):
 class Journal(models.Model):
     """Abstract journal entity."""
 
-    name  = models.CharField(max_length=128, verbose_name='Название журнала')
+    name = models.CharField(max_length=128, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
-    type  = models.CharField(max_length=128,
-                             choices=(
-                                 ('shift', 'Смена'),
-                                 ('equipment', 'Оборудование'),
-                                 ('measurement', 'Измерение'),
-                                 ('month', 'Месяц'),
-                                 ('year', 'Год')
-                             ),
-                             default='shift',
-                             verbose_name='Тип'
-                             )
+    type = models.CharField(max_length=128,
+                            choices=(
+                                ('shift', 'Смена'),
+                                ('equipment', 'Оборудование'),
+                                ('measurement', 'Измерение'),
+                                ('month', 'Месяц'),
+                                ('year', 'Год')
+                            ),
+                            default='shift',
+                            verbose_name='Тип'
+                            )
     settings = GenericRelation('core.Setting', related_query_name='journal')
 
     class Meta:
@@ -49,8 +49,8 @@ class Journal(models.Model):
 class Table(models.Model):
     """Abstract table entity."""
 
-    name     = models.CharField(max_length=128, verbose_name='Название таблицы')
-    journal  = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    name = models.CharField(max_length=128, verbose_name='Название таблицы')
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
     settings = GenericRelation('core.Setting', related_query_name='table')
 
     class Meta:
@@ -61,8 +61,8 @@ class Table(models.Model):
 class Field(models.Model):
     """Abstract field entity."""
 
-    name     = models.CharField(max_length=128, verbose_name='Название поля')
-    table    = models.ForeignKey(Table, on_delete=models.CASCADE)
+    name = models.CharField(max_length=128, verbose_name='Название поля')
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
     settings = GenericRelation('core.Setting', related_query_name='field')
 
     class Meta:
@@ -80,7 +80,7 @@ class Measurement(CellGroup):
 
 class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
-    date  = models.DateField(verbose_name='Дата начала смены')
+    date = models.DateField(verbose_name='Дата начала смены')
 
     @cached_property
     def start_time(self):
@@ -121,12 +121,12 @@ class Equipment(CellGroup):
 class Cell(models.Model):
     """Specific cell in some table."""
 
-    group       = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
-    field       = models.ForeignKey(Field, on_delete=models.CASCADE)
-    index       = models.IntegerField(default=None, verbose_name='Номер строчки')
-    value       = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
+    field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    index = models.IntegerField(default=None, verbose_name='Номер строчки')
+    value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
     responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
-    comment     = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', default='')
+    comment = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', default='')
 
     @property
     def name(self):
