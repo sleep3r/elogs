@@ -111,6 +111,8 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
+LOGOUT_URL = '/auth/logout'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
