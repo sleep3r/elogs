@@ -1,3 +1,5 @@
+@import "../css/font-icons/all.css";
+/** Colors */
 /** Colors */
 /*layout */
 body {
@@ -36,6 +38,20 @@ body {
   width: 100%;
 }
 
+.main-container {
+  background-color: #EAEAEA;
+}
+
+.column-left {
+  background-color: #EAEAEA;
+  padding-left: 0;
+}
+
+.column-content {
+  background-color: white;
+}
+
+/** Colors */
 .menu__panel {
   display: flex;
   flex-direction: row;
@@ -107,11 +123,6 @@ body {
   margin-bottom: 0;
 }
 
-.menu > li:hover {
-  background-color: #f8f8f8;
-  cursor: pointer;
-}
-
 .menu li a {
   color: #6d6d6d;
 }
@@ -136,9 +147,18 @@ body {
   border-left: 1px dotted #2c3e50;
 }
 
-.sub-menu > .menu__item:hover {
+.menu > li.menu__item:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.sub-menu > .menu__item:not(.parent):hover {
   background-color: #F5F7FA;
   border-right: 3px solid #2c3e50;
+}
+
+.sub-menu > .menu__item.parent:hover > a {
+  font-weight: bold;
 }
 
 .sub-menu > .menu__item::before {
@@ -174,10 +194,16 @@ body {
   font-style: italic !important;
   min-width: 30px;
   margin-right: 2px;
-  vertical-align: sub;
   text-align: center;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 14px;
+}
+
+/** Colors */
+input[hidden] {
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 /** Table Comment */
@@ -190,6 +216,10 @@ body {
   margin-bottom: 10px;
   padding-left: 10px;
   background-color: #EAEAEA;
+}
+
+.table__comment {
+  margin-bottom: 40px;
 }
 
 .table__comment a {
@@ -205,6 +235,15 @@ body {
   box-shadow: 2px 2px #8EAE37;
 }
 
+.comment__text {
+  margin-top: 10px;
+}
+.comment__text textarea {
+  width: 100vh;
+  padding: 5px;
+  border: 1px solid #9FBF47;
+}
+
 .ico-comment {
   color: white;
   padding: 5px;
@@ -216,7 +255,7 @@ body {
 .table {
   padding: 5px;
   border: 2px solid gray;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   table-layout: fixed;
 }
 
@@ -259,52 +298,11 @@ input[class$=-cell]:focus {
   overflow: hidden;
 }
 
-.colors-samples {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 200px;
+#MessageToDevelopersModal {
+  display: none;
 }
 
-[class^=color--] {
-  width: 40px;
-  height: 40px;
-  border: 1px dotted #cccccc;
-}
-
-.color--bg {
-  background-color: #666666;
-}
-
-.color--main {
-  background-color: #548CB7;
-}
-
-.color--menu1 {
-  background-color: #EAEAEA;
-}
-
-.color--menu2 {
-  background-color: #F5F5F5;
-}
-
-.color--menu-current {
-  background-color: #FFFFFF;
-}
-
-.color--ac1 {
-  background-color: #FFF652;
-}
-
-.color--ac2 {
-  background-color: #9FBF47;
-}
-
-.color--ac3 {
-  background-color: #FF734C;
-}
-
+/** Colors */
 .journal__panel {
   margin-top: 20px;
 }
@@ -348,7 +346,191 @@ input[class$=-cell]:focus {
   background-color: #656565;
 }
 
-/*content */
+/** Colors */
+.general-value {
+  /*important because it's really important and to override bootstrap*/
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  font-family: "RobotoCondensedLight", sans-serif;
+}
+
+input[readonly].general-value {
+  background-color: transparent !important;
+  /*background: white;*/
+}
+
+input[type=number].general-value {
+  text-align: right !important;
+}
+
+.general-value::placeholder {
+  /* placeholder style */
+  color: #BBBBBB;
+  font-style: italic;
+}
+
+/* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
+.input-check-popup {
+  visibility: hidden;
+  width: 160px;
+  background-color: #73879C;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* ------------------------ HIGHLIGHT FOR CELLS AT LINK CLICK ---------------------- */
+.highlight {
+  animation-name: changeColors;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+}
+
+@keyframes changeColors {
+  0% {
+    background-color: orange;
+  }
+  100% {
+    background-color: initial;
+  }
+}
+/* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
+.comment-notification {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #ffd800;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.comment-notification:hover {
+  opacity: 1;
+}
+
+/* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
+.form-control {
+  border: none;
+  min-width: 0;
+  line-height: 1.42857143 !important;
+  height: 100%;
+  min-height: 30px;
+  word-break: break-word;
+  background: linear-gradient(-45deg, #9FBF47 0%, transparent 10px, transparent 100%);
+}
+.form-control [readonly] {
+  background: white;
+}
+
+/*.journaltablewrapper .form-control[readonly] {*/
+/*background: white;*/
+/*}*/
+.journaltablewrapper .form-control[readonly]:focus {
+  background: white;
+}
+
+.journaltablewrapper .form-control:focus {
+  background: linear-gradient(-45deg, #FF734C 0%, transparent 10px, transparent 100%);
+}
+
+input::-webkit-calendar-picker-indicator,
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.material-icons {
+  font-family: "Material Icons", sans serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+/** Colors */
+h2.table-title {
+  font-family: Roboto, sans-serif;
+}
+
+table.elog-journal-table {
+  table-layout: auto !important;
+  width: 100%;
+  height: 100% !important;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  border-collapse: collapse !important;
+}
+table.elog-journal-table tr:nth-child(even) {
+  background-color: #F5F5F5;
+}
+table.elog-journal-table td, table.elog-journal-table th {
+  border: 1px solid #EAEAEA !important;
+  vertical-align: bottom !important;
+}
+table.elog-journal-table thead th {
+  background-color: #666666;
+  color: white;
+}
+table.elog-journal-table th {
+  padding: 12px 4px 12px 3px !important;
+  font-family: "RobotoCondensedRegular", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  hyphens: auto;
+}
+table.elog-journal-table .th-number {
+  text-align: right !important;
+}
+table.elog-journal-table .th-common {
+  text-align: center !important;
+}
+table.elog-journal-table td {
+  padding: 0 !important;
+  /* to have inputs inside cells*/
+  position: relative;
+}
+table.elog-journal-table .units {
+  white-space: nowrap;
+}
+table.elog-journal-table .units:not(.no-before)::before {
+  content: ", ";
+  white-space: pre-line;
+}
+table.elog-journal-table .table-comment-button .badge {
+  color: white;
+  background-color: #548CB7;
+}
+table.elog-journal-table .table-comment-button :hover {
+  text-decoration: underline;
+}
+table.elog-journal-table .table-comment-button :active {
+  color: #9FBF47;
+}
+
+.non-wrapping-table {
+  border-collapse: collapse;
+  border-top: none;
+}
+
+/** Colors */
 .header {
   color: white;
   vertical-align: middle;
@@ -375,17 +557,252 @@ input[class$=-cell]:focus {
   margin-right: 10px;
 }
 
-.main-container {
-  background-color: #EAEAEA;
+.header.sticky {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }
 
-.column-left {
-  background-color: #EAEAEA;
-  padding-left: 0;
+/** Colors */
+.hidden {
+  visibility: collapse;
 }
 
-.column-content {
-  background-color: white;
+.shown {
+  visibility: visible;
+}
+
+.visible {
+  visibility: visible !important;
+}
+
+.user-name {
+  cursor: pointer;
+}
+
+.user-menu {
+  top: 50px;
+  right: 0;
+  width: 274px;
+  visibility: collapse;
+  position: absolute;
+  background-color: #e5e5e5;
+  margin: 0;
+  padding: 0;
+}
+.user-menu .menu {
+  margin: 0;
+}
+.user-menu .user-menu__item {
+  display: block;
+  position: relative;
+  line-height: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #2c3e50;
+  color: #6d6d6d;
+  background-color: #e5e5e5;
+}
+.user-menu .user-menu__item .caption {
+  margin-left: 10px;
+}
+.user-menu .user-menu__item:hover {
+  background-color: #f5f5f5;
+}
+
+.user-menu::after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid #0000;
+  border-right: 8px solid #0000;
+  border-bottom: 17px solid #e5e5e5;
+  right: 30%;
+  bottom: 100%;
+}
+
+.daterangepicker .ranges li {
+  color: #73879C;
+}
+
+.daterangepicker .ranges li.active,
+.daterangepicker .ranges li:hover {
+  background: #536A7F;
+  border: 1px solid #536A7F;
+  color: #fff;
+}
+
+.daterangepicker .input-mini {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  box-shadow: none !important;
+}
+
+.daterangepicker .input-mini.active {
+  border: 1px solid #ccc;
+}
+
+.daterangepicker select.monthselect,
+.daterangepicker select.yearselect,
+.daterangepicker select.hourselect,
+.daterangepicker select.minuteselect,
+.daterangepicker select.secondselect,
+.daterangepicker select.ampmselect {
+  font-size: 12px;
+  padding: 1px;
+  height: auto;
+  margin: 0;
+  cursor: default;
+  height: 30px;
+  border: 1px solid #ADB2B5;
+  line-height: 30px;
+  border-radius: 0px !important;
+}
+
+.daterangepicker select.monthselect {
+  margin-right: 2%;
+}
+
+.daterangepicker td.in-range {
+  background: #E4E7EA;
+  color: #73879C;
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: #536A7F;
+  color: #fff;
+}
+
+.daterangepicker th.available:hover {
+  background: #eee;
+  color: #34495E;
+}
+
+.daterangepicker:before,
+.daterangepicker:after {
+  content: none;
+}
+
+.daterangepicker .calendar.single {
+  margin: 0 0 4px 0;
+}
+
+.daterangepicker .calendar.single .calendar-table {
+  width: 224px;
+  padding: 0 0 4px 0 !important;
+}
+
+.daterangepicker .calendar.single .calendar-table thead tr:first-child th {
+  padding: 8px 5px;
+}
+
+.daterangepicker .calendar.single .calendar-table thead th {
+  border-radius: 0;
+}
+
+.daterangepicker.picker_1 {
+  color: #fff;
+  background: #34495E;
+}
+
+.daterangepicker.picker_1 .calendar-table {
+  background: #34495E;
+}
+
+.daterangepicker.picker_1 .calendar-table thead tr {
+  background: #213345;
+}
+
+.daterangepicker.picker_1 .calendar-table thead tr:first-child {
+  background: #1ABB9C;
+}
+
+.daterangepicker.picker_1 .calendar-table td.off {
+  background: #34495E;
+  color: #999;
+}
+
+.daterangepicker.picker_1 .calendar-table td.available:hover {
+  color: #34495E;
+}
+
+.daterangepicker.picker_2 .calendar-table thead tr {
+  color: #1ABB9C;
+}
+
+.daterangepicker.picker_2 .calendar-table thead tr:first-child {
+  color: #73879C;
+}
+
+.daterangepicker.picker_3 .calendar-table thead tr:first-child {
+  color: #fff;
+  background: #1ABB9C;
+}
+
+.daterangepicker.picker_4 .calendar-table thead tr:first-child {
+  color: #fff;
+  background: #34495E;
+}
+
+.daterangepicker.picker_4 .calendar-table td,
+.daterangepicker.picker_4 .calendar-table td.off {
+  background: #ECF0F1;
+  border: 1px solid #fff;
+  border-radius: 0;
+}
+
+.daterangepicker.picker_4 .calendar-table td.active {
+  background: #34495E;
+}
+
+.calendar-exibit .show-calendar {
+  float: none;
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.calendar-exibit .show-calendar .calendar {
+  margin: 0 0 4px 0;
+}
+
+.calendar-exibit .show-calendar.picker_1 {
+  background: #34495E;
+}
+
+.calendar-exibit .calendar-table {
+  padding: 0 0 4px 0;
+}
+
+footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.dev-message-button i.fab {
+  font-size: 16px;
+}
+
+.slide-up, .slide-down {
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.3s ease-in-out;
+  -moz-transition: max-height 0.3s ease-in-out;
+  -o-transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.slide-up {
+  max-height: 0;
+}
+
+.slide-down {
+  max-height: 100vh;
 }
 
 /*layout tables */

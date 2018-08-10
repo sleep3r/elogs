@@ -1,6 +1,4 @@
-@import "variables";
-
-
+/** Colors */
 /*layout */
 body {
   margin: 0;
@@ -18,7 +16,7 @@ body {
   display: flex;
   height: 50px;
   flex-direction: row;
-  background-color: $color-header;
+  background-color: #548CB7;
 }
 
 .main-container {
@@ -27,9 +25,8 @@ body {
 }
 
 .column-left {
-  // padding-left: 10px;
-  min-width: $width-left-menu;
-  width: $width-left-menu;
+  min-width: 230px;
+  width: 230px;
   margin: 0;
   align-self: flex-start;
 }
@@ -40,14 +37,16 @@ body {
 }
 
 .main-container {
-  background-color: $color-bg1;
+  background-color: #EAEAEA;
 }
 
 .column-left {
-  background-color: $color-bg1;
+  background-color: #EAEAEA;
   padding-left: 0;
 }
 
 .column-content {
-  background-color: $color-content;
+  background-color: white;
 }
+
+/*# sourceMappingURL=layout.css.map */

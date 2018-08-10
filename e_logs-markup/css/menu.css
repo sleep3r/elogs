@@ -1,5 +1,4 @@
-@import "colors.scss";
-
+/** Colors */
 .menu__panel {
   display: flex;
   flex-direction: row;
@@ -14,7 +13,7 @@
   line-height: 24px;
   font-weight: bold;
   text-align: center;
-  color: $color-text;
+  color: #656565;
   letter-spacing: 0.5px;
   vertical-align: middle;
   text-transform: uppercase;
@@ -27,29 +26,29 @@
 }
 
 .menu__logo {
-  color: $color-text;
+  color: #656565;
   text-align: center;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
 }
+
 .menu {
   list-style: none;
-  background-color: $color-normal;
+  background-color: #e5e5e5;
   padding: 0;
   border: 1px dotted #cccccc;
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
+}
+.menu a {
+  color: white;
+  text-decoration: none;
 }
 
 .menu > .menu__item {
   display: block;
   position: relative;
   padding: 10px 0 10px 0;
-  border-bottom: 1px solid $color-border;
-  color: $color-menu-text;
+  border-bottom: 1px solid #2c3e50;
+  color: #6d6d6d;
 }
 
 .menu > .menu__item.open {
@@ -57,7 +56,7 @@
 }
 
 .menu .sub-menu {
-  background-color: $color-level2;
+  background-color: #e0e0e0;
   position: relative;
   list-style: none;
   padding-left: 10px;
@@ -71,22 +70,20 @@
   margin-bottom: 0;
 }
 
-
-
 .menu li a {
-  color: $color-menu-text;
+  color: #6d6d6d;
 }
 
 .menu .sub-menu {
   display: none;
 }
 
-.menu li.open .sub-menu{
+.menu li.open .sub-menu {
   display: block;
 }
 
 .menu li.open {
-  background-color: $color-active;
+  background-color: #f8f8f8;
 }
 
 .sub-menu > li {
@@ -94,17 +91,17 @@
 }
 
 .sub-menu > .menu__item {
-  border-left: 1px dotted $color-border;
+  border-left: 1px dotted #2c3e50;
 }
 
 .menu > li.menu__item:hover {
-  background-color: $color-active;
+  background-color: #f8f8f8;
   cursor: pointer;
 }
 
 .sub-menu > .menu__item:not(.parent):hover {
   background-color: #F5F7FA;
-  border-right: 3px solid $color-border;
+  border-right: 3px solid #2c3e50;
 }
 
 .sub-menu > .menu__item.parent:hover > a {
@@ -147,3 +144,5 @@
   text-align: center;
   font-size: 14px;
 }
+
+/*# sourceMappingURL=menu.css.map */

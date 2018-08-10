@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>ELogs markup Universal page</title>
     <base href="./">
-    <link rel="stylesheet" href="../static/build/css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/font-icons/all.css">
     <script src="js/header.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/toggle.js"></script>
   </head>
   <body>
     <div class="elogs-container"> 
@@ -161,7 +162,11 @@
                     <td class="number-cell">2</td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
               <div class="journal-table">
                 <div class="table__title">Длинная таблица</div>
@@ -251,7 +256,11 @@
                     <td class="number-cell">2</td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
               <div class="journal-table">
                 <div class="table__title">Длинная таблица</div>
@@ -309,7 +318,11 @@
                     </td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
