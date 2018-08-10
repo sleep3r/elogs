@@ -2,32 +2,76 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <title>Flex example</title>
+    <title>ELogs markup Universal page</title>
     <base href="./">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/font-icons/all.css">
+    <script src="js/header.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/toggle.js"></script>
   </head>
   <body>
     <div class="elogs-container"> 
       <div class="header">
         <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
         <div class="header__title">Журнал раппортов по работе с клиентами</div>
-        <div class="header__user"> <i class="fas fa-envelope"></i><i class="fas fa-bell"></i><span>Гаврилов Алексей</span><i class="fas fa-user-circle"> </i></div>
+        <div class="header__user"> <i class="fas fa-envelope"></i><i class="fas fa-bell"></i><span>Гаврилов Алексей</span><i class="fas fa-user-circle"></i>
+          <div class="user-menu">
+            <ul class="menu">
+              <li class="user-menu__item"><a href="#"><i class="fas fa-cogs"></i><span class="caption">Найтроки</span></a></li>
+              <li class="user-menu__item"><a href="#"><i class="fas fa-user-edit"></i><span class="caption">Оставить отзыв разработчикам</span></a></li>
+              <li class="user-menu__item"><a href="?logout"><i class="fas fa-sign-out-alt"></i><span class="caption">Выйти из системы</span></a></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="main-container">
         <div class="column-left">
           <div class="menu__panel">
-            <div class="menu__title">АНАЛИТИКА ЗАВОДА</div><i class="menu__toggle fas fa-bars"></i>
+            <div class="menu__title">Список цехов</div><i class="menu__toggle fas fa-bars"></i>
           </div>
           <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
-          <ul class="left-menu"> 
-            <li class="left-menu__item"> <a href="#">Журнал 1<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 2<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 3<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 4<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 5<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 6<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
-            <li class="left-menu__item"> <a href="#">Журнал 7<span class="fa fa-chevron-down"></span><span class="arrow-left"></span></a></li>
+          <ul class="menu">
+            <li class="menu__item open"> <a href="#" class="menu-item__link"> <i class="menu-item__icon fa fa-book"></i><span class="menu-item__title">Обжиг</span><b class="arrow fa fa-angle-down"></b></a>
+                        <ul class="sub-menu">
+                          <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Обжиговый цех</a>
+                          </li>
+                                    <ul class="sub-menu">
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал баланса</a>
+                                      </li>
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал метллов</a>
+                                      </li>
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал оборудования</a>
+                                      </li>
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал ремонтов</a>
+                                      </li>
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал раппортов мастеров смен</a>
+                                      </li>
+                                    </ul>
+                        </ul>
+            </li>
+            <li class="menu__item"> <a href="#" class="menu-item__link"><i class="menu-item__icon fa fa-book"></i><span class="menu-item__title">Выщелачивание</span><b class="arrow fa fa-angle-down"></b></a>
+                        <ul class="sub-menu">
+                          <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Цех Выщелачивания</a>
+                          </li>
+                                    <ul class="sub-menu">
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал 1</a>
+                                      </li>
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал 2</a>
+                                      </li>
+                                    </ul>
+                        </ul>
+            </li>
+            <li class="menu__item"> <a href="#" class="menu-item__link"><i class="menu-item__icon fa fa-book"></i><span class="menu-item__title">Электролиз</span><b class="arrow fa fa-angle-down"></b></a>
+                        <ul class="sub-menu">
+                          <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Цех Электролиза</a>
+                          </li>
+                                    <ul class="sub-menu">
+                                      <li class="menu__item"><a href="http://ya.ru" data-url="http://ya.ru" class="menu-item__link">Журнал раппортов по ремонту оборудования</a>
+                                      </li>
+                                    </ul>
+                        </ul>
+            </li>
           </ul>
           <div class="colors-samples">
             <div title="bg" class="color--bg">   </div>
@@ -118,7 +162,11 @@
                     <td class="number-cell">2</td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
               <div class="journal-table">
                 <div class="table__title">Длинная таблица</div>
@@ -208,7 +256,11 @@
                     <td class="number-cell">2</td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
               <div class="journal-table">
                 <div class="table__title">Длинная таблица</div>
@@ -266,10 +318,17 @@
                     </td>
                   </tr>
                 </table>
-                <div class="table__comment"><a href="#">Комментарий </a><i class="fas fa-envelope ico-comment"></i></div>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <footer>
+            <button class="btn dev-message-button"><span>Оставить отзыв разработчикам</span><i class="fab fa-optin-monster"></i></button>
+          </footer>
         </div>
       </div>
     </div>

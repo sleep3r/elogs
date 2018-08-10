@@ -110,7 +110,8 @@ class Comment {
     }
 
     static collapse(element) {
-        let container = $(element).next();
+
+        let container = $(element).parent().find(".comment__text");
         container.collapse('toggle');
     }
 

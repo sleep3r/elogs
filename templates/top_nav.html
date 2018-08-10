@@ -1,36 +1,50 @@
 {% load i18n %}
 {% load staticfiles %}
+<div class="header">
+    <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
+    <div class="header__title">
+        <span class="journal_title">{{ journal_title }}</span>
+        <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
+        <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:limegreen"> Синхронизировано</i>
+    </div>
+    <div class="header__user">
+        <i class="fas fa-envelope"></i>
+        <i class="fas fa-bell"></i>
+        <span class="user-name">{{ user.employee }}</span>
+        <i class="fas fa-user-circle"></i>
+        <div class="user-menu">
+            <ul class="menu">
+              <li class="user-menu__item">
+                  <a href="#">
+                      <i class="fas fa-cogs"></i>
+                      <span class="caption">Найтроки</span>
+                  </a>
+              </li>
+              <li class="user-menu__item">
+                  <a href="/common/messages/list/">
+                    <i class="fa fa-envelope" ></i>
+                    <span class="caption">Список сообщений </span>
+                  </a>
+              </li>
+              <li class="user-menu__item">
+                  <a href="javascript:;" data-toggle="modal" data-target="#MessageToDevelopersModal">
+                      <i class="fas fa-user-edit"></i><span
+                      class="caption">Оставить отзыв разработчикам</span>
+                  </a>
+              </li>
 
-<div class="top_nav journal_title">
-  <div class="nav_menu">
-    <nav>
-      <div class="nav toggle">
-        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-      </div>
-        <div class="journal_namepull-left" >{{ journal_title }} 
-          <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
-          <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:limegreen"> Синхронизировано</i>
+              <li class="user-menu__item">
+                  <a href="/auth/logout">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <span class="caption">Выйти из системы</span>
+                  </a>
+              </li>
+            </ul>
+          </div>
+        <div class="user-notifications">
+            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                {% include "notification-list.html" with notifications=notifications %}
+            </ul>
         </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="display: inline-block">
-            <span class="badge badge-danger" id="notifications_count"></span>
-            <img src = "{% static 'images/no-avatar.png' %}">{{ user.employee }}
-            <span class=" fa fa-angle-down"></span>
-          </a>
-          <ul class="dropdown-menu dropdown-usermenu pull-right">
-            {% include "notification-list.html" with notifications=notifications %}
-          </ul>
-        </li>
-        <li>
-          <a href="/common/messages/list/">
-            <i class="fa fa-envelope" aria-hidden="true" style="font-size:135%;color:dimgray"></i>
-          </a>
-        </li>
-        <li>
-            <a href="/auth/logout" aria-expanded="false" style="display: inline-block"><i class="glyphicon glyphicon-log-out large"></i> Выйти из системы</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+    </div>
 </div>

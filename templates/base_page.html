@@ -13,15 +13,14 @@
 
     {% block css %}
         <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
         <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">
 
         <!-- css all in one -->
-        <link href="{% static '/build/css/global.css' %}" rel="stylesheet">
-
+        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">
     {% endblock %}
+
     {% block extracss %}
     {% endblock %}
     <!-- jQuery -->
@@ -33,64 +32,33 @@
     <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>
     <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>
 
-    <!-- Temp www todo: delete! -->
-{#    <link rel="stylesheet" media="screen" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css"/>#}
-{#    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>#}
-
 </head>
 <body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        {% block left-column %}
-            <div class="col-md-3 left_col">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-cubes"></i> <span>E-Logs</span></a>
-                    </div>
-                    <div class="clearfix"></div>
-                    {% block sidebarmenu %}
-                        <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <div class="menu_section">
-                                {% include "menu.html" %}
-                            </div>
-                        </div>
-                        <!-- /sidebar menu -->
-                    {% endblock %}
-                </div>
-            </div>
-        {% endblock %}
-
-        <div class="right_col" role="main">
-            {% block top-nav %}
-                {% include "top_nav.html" %}
-            {% endblock %}
-            {% block content %}
-            {% endblock %}
+<div class="elogs-container">
+    {% block top-nav %}
+        {% include "top_nav.html" %}
+    {% endblock %}
+    <div class="main-container">
+        <div class="column-left">
+            {% include "menu.html" %}
         </div>
-    </div>
+        <div class="column-content">
+          <div class="journal-page">
+            {% include "journal__panel.html" %}
+            <!-- -->
+            <div class="journal-tables">
+              {% block content %}
+              {% endblock %}
+            </div>
+          </div>
+          {% include "footer.html" %}
+        </div>
+      </div>
 </div>
+
+
 {% include "modals/pick_shift.html" %}
 {% block footer %}
-    {% include "footer.html" %}
-    <script language="JavaScript">
-
-        $(document).ready(function () {
-            var element = $('.journal_title'), originalY = element.offset().top;
-
-            $(window).on('scroll', function (event) {
-                var scrollPos = $(window).scrollTop();
-                if (scrollPos > 0) {
-                    element.addClass('sticky');
-                }
-                else {
-                    element.removeClass('sticky');
-                }
-
-            });
-        });
-
-    </script>
     <!-- Bootstrap -->
     <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'v/vue/vue.js' %}"></script>
@@ -98,8 +66,13 @@
     <script src="{% static 'v/moment/moment.min.js' %}"></script>
     <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
     <script src="{% static 'build/js/datepicker.js' %}"></script>
+    <script src="{% static 'build/js/datepicker-init.js' %}"></script>
     <script src="{% static 'build/js/shift.js' %}"></script>
     <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
+    <script src = "{% static 'build/js/header.js' %}"></script>
+    <script src = "{% static 'build/js/user-menu.js' %}"></script>
+    <script src = "{% static 'build/js/menu.js' %}"></script>
+    <script src = "{% static 'build/js/journal-panel.js' %}"></script>
 {% endblock %}
 
 </body>
