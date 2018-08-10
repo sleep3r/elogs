@@ -12,17 +12,21 @@ table.elog-journal-table {
   font-style: normal;
   border-collapse: collapse !important;
 }
+
 table.elog-journal-table tr:nth-child(even) {
   background-color: #F5F5F5;
 }
+
 table.elog-journal-table td, table.elog-journal-table th {
   border: 1px solid #EAEAEA !important;
   vertical-align: bottom !important;
 }
+
 table.elog-journal-table thead th {
   background-color: #666666;
   color: white;
 }
+
 table.elog-journal-table th {
   padding: 12px 4px 12px 3px !important;
   font-family: "RobotoCondensedRegular", sans-serif;
@@ -33,29 +37,36 @@ table.elog-journal-table th {
 table.elog-journal-table .th-number {
   text-align: right !important;
 }
+
 table.elog-journal-table .th-common {
   text-align: center !important;
 }
+
 table.elog-journal-table td {
   padding: 0 !important;
   /* to have inputs inside cells*/
   position: relative;
 }
+
 table.elog-journal-table .units {
   white-space: nowrap;
 }
+
 table.elog-journal-table .units:not(.no-before)::before {
   content: ", ";
   white-space: pre-line;
 }
+
 table.elog-journal-table .table-comment-button .badge {
   color: white;
   background-color: #548CB7;
 }
-table.elog-journal-table .table-comment-button :hover {
+
+table.elog-journal-table .table-comment-button:hover {
   text-decoration: underline;
 }
-table.elog-journal-table .table-comment-button :active {
+
+table.elog-journal-table .table-comment-button:active {
   color: #9FBF47;
 }
 
