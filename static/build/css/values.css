@@ -91,6 +91,10 @@ input[type=number].general-value {
   background: linear-gradient(-45deg, #FF734C 0%, transparent 10px, transparent 100%);
 }
 
+.active-comment {
+  background: radial-gradient(white 80%, #9FBF47);
+}
+
 input::-webkit-calendar-picker-indicator,
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

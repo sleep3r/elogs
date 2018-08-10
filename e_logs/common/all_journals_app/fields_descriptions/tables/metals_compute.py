@@ -13,9 +13,9 @@ contain_zn_table_desc = contain_zn.clear_empty().get_dict()
 
 
 fs = DeepDict()
-fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn",
+fields_p = ["pb", "cu", "cd", "fe1", "SiO2", "Zn_furn",
             "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2",
-            "Fe", "S", "As", "Sb", "S_sulf"]
+            "fe2", "S", "As", "Sb", "S_sulf"]
 
 for field_name in fields_p:
     fs[field_name] = percent_default
@@ -42,11 +42,11 @@ sns.caption = dict(type="datalist", options=[
 sns['cmt'] = smt_default
 
 
-sns_fields_p = ["znp","Pb_", "Cu_", "Cd_"]
+sns_fields_p = ["znp", "Pb_", "Cu_", "Cd_"]
 for field_name in sns_fields_p:
     sns[field_name] = percent_default
 
-sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd",]
+sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd"]
 for field_name in sns_fields_m:
     sns[field_name] = ton_default
 
@@ -157,5 +157,3 @@ concentrat.date_conc = date_default
 concentrat.gold = numeric_default
 concentrat.silver = numeric_default
 concentrat_table_desc = concentrat.clear_empty().get_dict()
-
-

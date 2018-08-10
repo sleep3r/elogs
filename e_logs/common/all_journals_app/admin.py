@@ -5,50 +5,50 @@ from e_logs.core.models import Setting
 
 class PlantAdmin(admin.ModelAdmin):
     model = Plant
-    list_display = ['id','name']
+    list_display = ['id', 'name']
     list_display_links = ['name']
 
 
 class JournalPageAdmin(admin.ModelAdmin):
     model = Shift
     search_fields = ['name', 'equipment']
-    list_display = ['type', 'name', 'plant_name', 'shift_order', 'shift_date', 'id']
+    list_display = ['plant_name', 'order', 'date', 'id']
 
-    def plant_name(self, obj):
+    @staticmethod
+    def plant_name(obj):
         return obj.plant.name
 
 
 class CellValueAdmin(admin.ModelAdmin):
     model = Cell
     empty_value_display = 'None'
-    search_fields = ['table_name', 'field_name' ]
-    list_display_links = ['field_name']
-    list_display = ['group', 'table_name', 'field_name', 'index', 'value', 'id' ]
+    search_fields = ['table', 'field']
+    list_display_links = ['field']
+    list_display = ['group', 'field', 'index', 'value', 'id']
+
     # list_select_related = ('journal_page')
     # list_filter = ('journal_name', 'table_name', 'plant_name')
 
-    def journal_name(self, obj):
+    @staticmethod
+    def journal_name(obj):
         return obj.journal_page.group
-    def plant_name(self, obj):
+
+    @staticmethod
+    def plant_name(obj):
         return obj.journal_page.plant.name
 
 
 class SettingAdmin(admin.ModelAdmin):
     model = Setting
     search_fields = ['name']
-    list_display = ['plant', 'journal', 'name','value', 'table', 'cell', 'id',]
+    list_display = ['scope', 'name', 'value', 'id', ]
     list_display_links = ['name']
-
-
 
 
 admin.site.register(Cell, CellValueAdmin)
 admin.site.register(Shift, JournalPageAdmin)
 admin.site.register(Plant, PlantAdmin)
 admin.site.register(Setting, SettingAdmin)
-
-
-
 
 # class DenserAnalAdmin(admin.ModelAdmin):
 #     model = DenserAnal

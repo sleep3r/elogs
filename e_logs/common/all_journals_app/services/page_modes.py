@@ -10,11 +10,6 @@ VIEW_CELLS = APP + ".view_cells"
 PLANT_PERM = APP + ".modify_{plant}"
 
 
-class PageModeError(Exception):
-    def __init__(self, value):
-        self.value = value
-
-
 @login_required
 def plant_permission(request):
     employee = Employee.objects.get(user=request.user)
@@ -31,12 +26,11 @@ def page_mode_is_valid(request, page):
 
     is_valid = request.user.is_superuser
     if plant_permission(request):
-        has_perm =  check_mode_permissions(employee, page, page_mode)
+        has_perm = check_mode_permissions(employee, page, page_mode)
     else:
         has_perm = page_mode == "view"
 
     return has_perm or is_valid
-
 
 
 @login_required
@@ -45,9 +39,9 @@ def check_mode_permissions(employee, page, page_mode):
     if page_mode == "validate":
         is_valid = employee.user.has_perm(VALIDATE_CELLS)
     if page_mode == "edit":
-        if page.type == "shift":
-            is_valid = page.shift_is_active and employee.user.has_perm(EDIT_CELLS)
-        if page.type == "equipment":
+        if page.journal.type == "shift":
+            is_valid = page.is_active and employee.user.has_perm(EDIT_CELLS)
+        if page.journal.type == "equipment":
             is_valid = employee.user.has_perm(EDIT_CELLS)
     if page_mode == "view":
         is_valid = employee.user.has_perm(VIEW_CELLS)
@@ -56,7 +50,7 @@ def check_mode_permissions(employee, page, page_mode):
 
 @login_required
 def has_edited(request, page):
-    return page in list(request.user.employee.owned_journal_pages.all())
+    return page in list(request.user.employee.owned_shifts.all())
 
 
 @login_required

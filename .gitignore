@@ -48,7 +48,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+dev/docs/_build/
 
 # PyBuilder
 target/
@@ -99,5 +99,12 @@ logs/
 
 #tests
 
+desktop.ini
+
 e_logs_tests/screens/*
 >>>>>>> Stashed changes
+logs
+logs/main_debug_calls
+logs/main_debug_debug
+logs/main_debug_error
+logs/main_debug_info

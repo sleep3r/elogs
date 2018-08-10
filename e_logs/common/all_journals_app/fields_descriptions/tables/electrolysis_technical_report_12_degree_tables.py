@@ -1,7 +1,7 @@
-import json
-from e_logs.core.utils.deep_dict import DeepDict
 from datetime import time
+
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
+from e_logs.core.utils.deep_dict import DeepDict
 
 # -----------------Left Table-----------------
 lt = DeepDict()

@@ -1,0 +1,371 @@
+import csv
+import inspect
+import random
+
+from django.contrib.auth.models import User, Group, Permission
+from django.contrib.contenttypes.models import ContentType
+from django.db import connection
+from django.db.models import Model
+
+from e_logs.core.management.commands.fields_descriptions_filler import fill_fields_descriptions
+from e_logs.core.management.commands.fields_filler import fill_fields
+from e_logs.core.management.commands.tables_filler import fill_tables
+from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
+from e_logs.common.all_journals_app.models import *
+from e_logs.common.login_app.models import Employee
+from e_logs.core.models import Setting
+from e_logs.core.utils.deep_dict import DeepDict
+from e_logs.core.utils.webutils import translate
+from e_logs.furnace.fractional_app import models as famodels
+from e_logs.core.utils.loggers import stdout_logger, err_logger
+
+
+class DatabaseFiller:
+
+    @staticmethod
+    def fill_fractional_app(n):
+        def randomize_array(a):
+            return [c + random.uniform(0, 2) for c in a]
+
+        for i in range(n):
+            cinder_masses = randomize_array([1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5])
+            schieht_masses = randomize_array([1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5])
+            cinder_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
+            schieht_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
+
+            journal = Journal.objects.get(name="fractional")
+            measurement = Measurement.objects.create(time=timezone.now(), journal=journal)
+            table = Table.objects.get_or_create(journal=journal, name='measurements')[0]
+
+            arr_name_pairs = [(cinder_masses, 'cinder_mass'), (cinder_sizes, 'cinder_size'),
+                              (schieht_masses, 'schieht_mass'), (schieht_sizes, 'schieht_size')]
+
+            for arr, name in arr_name_pairs:
+                for j, m_value in enumerate(arr):
+                    field = Field.objects.get_or_create(name=name, table=table)[0]
+                    Cell.objects.create(field=field, index=j, value=round(m_value, 2),
+                                        group=measurement)
+
+    @staticmethod
+    def groups_from_csv():
+        user_groups = DeepDict()
+        with open('resources/data/names.csv', encoding='utf-8', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            for row in users_info:
+                info = row[0].split(",")
+                position_en = translate(info[1].lower()).replace("-", "_") if len(info) > 1 else ''
+                if position_en.find("mastera_smenyi") > 0:
+                    position_en = "i.o.mastera_smenyi"
+                user_groups[position_en] = info[1].lower()
+        return user_groups
+
+    @staticmethod
+    def fill_employees():
+        def get_groups(position, plant):
+            groups = []
+            if position == " просмотра\"":
+                groups.append("Laborant")
+            else:
+                groups.append("Boss")
+            if plant == "ОЦ":
+                groups.append("Furnace")
+            elif plant == "ЦВЦО":
+                groups.append("Leaching")
+            else:
+                groups.append("Electrolysis")
+            return groups
+
+        with open('resources/data/names.csv', encoding='utf-8', newline='') as csvfile:
+            users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
+            # user_groups = self.groupsFromCSV()
+            # add_groups(user_groups)
+
+            for row in users_info:
+                info = row[0].split(",")
+                user_fio = info[0]
+                plant = info[-1]
+                position = info[3]
+                user_ru = user_fio.split()
+                user_en = translate(user_fio).split("-")
+                groups = get_groups(position, plant)
+                user = {
+                    'ru': {
+                        'last_name': user_ru[0],
+                        'first_name': user_ru[1] if len(user_ru) > 1 else '',
+                        'second_name': user_ru[2] if len(user_ru) > 2 else '',
+                    },
+                    'en': {
+                        'last_name': user_en[0],
+                        'first_name': user_en[1][0] if len(user_en) > 1 and len(
+                            user_en[1]) > 0 else '',
+                        'second_name': user_en[2][0] if len(user_en) > 2 and len(
+                            user_en[2]) > 0 else ''
+                    },
+                    'groups': groups
+                }
+                DatabaseFiller.add_user(user)
+
+    @staticmethod
+    def fill_plants():
+        plant_names = ['furnace', 'electrolysis', 'leaching']
+        Plant.objects.bulk_create([Plant(name=n) for n in plant_names])
+
+    @staticmethod
+    def create_number_of_shifts():
+        Setting(
+            name='number_of_shifts',
+            scope=Plant.objects.get(name='furnace'),
+            value='2'
+        ).save()
+
+        Setting(
+            name='number_of_shifts',
+            scope=Plant.objects.get(name='leaching'),
+            value='3'
+        ).save()
+
+        Setting(
+            name='number_of_shifts',
+            scope=Plant.objects.get(name='electrolysis'),
+            value='4'
+        ).save()
+
+        # overriding number of shifts for furnace plant
+        Setting(
+            name='number_of_shifts',
+            scope=Journal.objects.get(
+                plant=Plant.objects.get(
+                    name='furnace'
+                ),
+                name='reports_furnace_area'
+            ),
+            value='3'
+        ).save()
+
+    @staticmethod
+    def add_user(user_dict):
+        user_name = (user_dict['en']['last_name']
+                     + "-" + user_dict['en']['first_name']
+                     + "-" + user_dict['en']['second_name']).strip('-')
+
+        if User.objects.filter(username=user_name).exists():
+            err_logger.warning(f'user `{user_name}` already exists')
+            return 0
+        else:
+            user = User.objects.create_user(user_name, password='qwerty')
+            user.first_name = user_dict['ru']['first_name']
+            user.last_name = user_dict['ru']['last_name']
+            user.is_superuser = False
+            user.is_staff = True
+            for group in user_dict["groups"]:
+                user.groups.add(Group.objects.get(name=group))
+            user.user_permissions.add(Permission.objects.get(codename="view_cells"))
+
+            e = Employee()
+            e.name = user.first_name + ' ' + user.last_name
+            e.position = user_dict["groups"][0].lower()
+            e.plant = user_dict["groups"][1].lower()
+            e.user = user
+
+            e.save()
+
+            user.save()
+            return user.id
+
+    @staticmethod
+    def fill_journals():
+        """Call after fill_plants"""
+
+        furnace_plant = Plant.objects.get(name='furnace')
+        leaching_plant = Plant.objects.get(name='leaching')
+        electrolysis_plant = Plant.objects.get(name='electrolysis')
+
+        furnace_journals = ['furnace_changed_fraction', 'concentrate_report', 'technological_tasks',
+                            'reports_furnace_area', 'furnace_repair',
+                            'report_income_outcome_schieht', 'metals_compute', 'fractional']
+        electrolysis_journals = ['masters_report', 'electrolysis_technical_report_3_degree',
+                                 'electrolysis_technical_report_4_degree',
+                                 'electrolysis_technical_report_12_degree',
+                                 'electrolysis_repair_report_tables']
+        leaching_journals = ['leaching_repair_equipment', 'leaching_express_analysis']
+
+        plant_journal_pairs = [(furnace_plant, furnace_journals),
+                               (electrolysis_plant, electrolysis_journals),
+                               (leaching_plant, leaching_journals)]
+
+        journals = []
+        for plant, journal_names in plant_journal_pairs:
+            for name in journal_names:
+                journal = Journal(name=name,
+                                  plant=plant)
+                journals.append(journal)
+
+        Journal.objects.bulk_create(journals)
+
+    @staticmethod
+    def fill_tables():
+        """Call after fill_journals"""
+        fill_tables()
+
+    @staticmethod
+    def fill_fields():
+        """Call after fill_tables"""
+        fill_fields()
+
+    @staticmethod
+    def reset_increment_counter(table_name):
+        stdout_logger.info("Resetting increment counter...")
+        with connection.cursor() as cursor:
+            # for sqlite
+            # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
+
+            # for MS SQL server
+            cursor.execute(f'DBCC CHECKIDENT({table_name}, RESEED, 0)')
+
+    @staticmethod
+    def create_permissions_and_groups():
+        superuser = User.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
+        superuser.save()
+        Employee(name="inframine", position="admin", user=superuser).save()
+
+        content_type = ContentType.objects.get_for_model(Cell)
+        modify_leaching = Permission(
+            name="Modify Leaching Plant",
+            codename="modify_leaching",
+            content_type=content_type
+        )
+        modify_leaching.save()
+        modify_furnace = Permission(
+            name="Modify Furnace Plant",
+            codename="modify_furnace",
+            content_type=content_type
+        )
+        modify_furnace.save()
+        modify_electrolysis = Permission(
+            name="Modify Electrolysis Plant",
+            codename="modify_electrolysis",
+            content_type=content_type
+        )
+        modify_electrolysis.save()
+
+        # Cell permissions
+        validate_cells = Permission(
+            name="Validate Cells",
+            codename="validate_cells",
+            content_type=content_type
+        )
+        validate_cells.save()
+
+        edit_cells = Permission(
+            name="Edit Cells",
+            codename="edit_cells",
+            content_type=content_type
+        )
+        edit_cells.save()
+
+        view_cells = Permission(
+            name="View Cells",
+            codename="view_cells",
+            content_type=content_type
+        )
+        view_cells.save()
+
+        # Groups
+        laborants = Group(
+            name="Laborant",
+        )
+        laborants.save()
+        laborants.permissions.set([edit_cells])
+        laborants.save()
+
+        boss = Group(
+            name="Boss",
+        )
+        boss.save()
+        boss.permissions.set([validate_cells])
+        boss.save()
+
+        leaching = Group(
+            name="Leaching",
+        )
+        leaching.save()
+        leaching.permissions.set([modify_leaching])
+        leaching.save()
+
+        furnace = Group(
+            name="Furnace",
+        )
+        furnace.save()
+        furnace.permissions.set([modify_furnace])
+        furnace.save()
+
+        electrolysis = Group(
+            name="Electrolysis",
+        )
+        electrolysis.save()
+        electrolysis.permissions.set([modify_electrolysis])
+        electrolysis.save()
+
+    @staticmethod
+    def create_tables_lists():
+        stdout_logger.info('Adding table lists for each journal...')
+        fill_tables_lists()
+
+    # TODO: create the same for tables?
+    @staticmethod
+    def create_journals_verbose_names():
+        journals_verbose_names = {
+            'furnace': {
+                'furnace_changed_fraction': 'Рабочий журнал изменения фракции',
+                'concentrate_report': 'Журнал рапортов о проделанной работе по складам концентратов',
+                'technological_tasks': 'Журнал сменных производственных, тех. заданий',
+                'reports_furnace_area': 'Журнал печного участка',
+                'furnace_repair': 'Журнал по ремонту',
+                'report_income_outcome_schieht': 'Поступление, расходы и остатки Zn концентратов',
+                'metals_compute': 'Рассчёт металлов',
+                'fractional': 'Ситовой анализ огарка и шихты',
+            },
+            'electrolysis': {
+                'masters_report': 'Журнал рапортов мастеров смен',
+                'electrolysis_technical_report_3_degree': 'Технологический журнал электролиза 3-й серии',
+                'electrolysis_technical_report_4_degree': 'Технологический журнал электролиза 4-й серии',
+                'electrolysis_technical_report_12_degree': 'Технологические журналы электролиза 1-й и 2-й серии',
+                'electrolysis_repair_report_tables': 'Журнал по ремонту оборудования',
+            },
+            'leaching': {
+                'leaching_repair_equipment': 'Журнал ремонта',
+                'leaching_express_analysis': 'Журнал экспресс анализа',
+            }
+        }
+        for plant_name in journals_verbose_names:
+            for journal_name, verbose_name in journals_verbose_names[plant_name].items():
+                Setting.objects.create(
+                    name='verbose_name',
+                    value=verbose_name,
+                    scope=Journal.objects.get(
+                        plant=Plant.objects.get(name=plant_name),
+                        name=journal_name
+                    )
+                )
+
+    @staticmethod
+    def create_fields_descriptions():
+        stdout_logger.info('Adding fields info settings...')
+        fill_fields_descriptions()
+
+    @staticmethod
+    def clean_database():
+        exception_models = [User, Model]
+        db_models = []
+        for name, obj in inspect.getmembers(famodels):
+            if inspect.isclass(obj) and issubclass(obj,
+                                                   models.Model) and obj not in exception_models:
+                db_models.append(obj)
+
+        db_models.extend([Setting, Employee, CellGroup, Cell, Plant, Group, Permission])
+
+        for u in User.objects.all():  # delete user
+            u.delete()
+
+        for t in db_models:
+            t.objects.all().delete()

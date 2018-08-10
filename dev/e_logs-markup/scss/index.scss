@@ -1,0 +1,79 @@
+@import "colors";
+@import "layout";
+@import "menu";
+@import "tables";
+@import "misc";
+@import "journal";
+
+
+/*content */
+.header {
+  color: white;
+  vertical-align: middle;
+}
+
+.header > div {
+  line-height: 50px;
+  margin-right: 20px;
+}
+
+.header__logo {
+  padding-left: 20px;
+}
+
+.header__title {
+  margin-left: $width-left-menu - 50;
+}
+
+.header__user {
+  margin-left: auto;
+}
+
+.header__user > i,span {
+  margin-right: 10px;
+}
+
+.main-container {
+  background-color: $color-bg1;
+}
+
+.column-left {
+  background-color: $color-bg1;
+  padding-left: 0;
+}
+
+.column-content {
+  background-color: $color-content;
+}
+
+/*layout tables */
+.journal-page {
+  display: flex;
+  align-content: stretch;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.journal__panel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.journal-tables {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.triangle {
+  display: block;
+  width: 0;
+  height: 0;
+  border-right:10px solid blue;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
