@@ -228,83 +228,26 @@ class DatabaseFiller:
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
+        perm_names = ["Modify Leaching Plant", "Modify Furnace Plant", "Modify Electrolysis Plant",
+                      "Validate Cells", "Edit Cells", "View Cells"]
+        perm_codenames = ["modify_leaching", "modify_furnace", "modify_electrolysis",
+                          "validate_cells", "edit_cells", "view_cells"]
+        group_perms = {"Laborant": "edit_cells", "Boss": "validate_cells",
+                       "Leaching": "modify_leaching", "Furnace": "modify_furnace",
+                       "Electrolysis": "modify_electrolysis"}
+
         content_type = ContentType.objects.get_for_model(Cell)
-        modify_leaching = Permission(
-            name="Modify Leaching Plant",
-            codename="modify_leaching",
-            content_type=content_type
-        )
-        modify_leaching.save()
-        modify_furnace = Permission(
-            name="Modify Furnace Plant",
-            codename="modify_furnace",
-            content_type=content_type
-        )
-        modify_furnace.save()
-        modify_electrolysis = Permission(
-            name="Modify Electrolysis Plant",
-            codename="modify_electrolysis",
-            content_type=content_type
-        )
-        modify_electrolysis.save()
 
-        # Cell permissions
-        validate_cells = Permission(
-            name="Validate Cells",
-            codename="validate_cells",
-            content_type=content_type
-        )
-        validate_cells.save()
+        for n, cn in zip(perm_names, perm_codenames):
+            perm = Permission(name=n, codename=cn, content_type=content_type)
+            perm.save()
 
-        edit_cells = Permission(
-            name="Edit Cells",
-            codename="edit_cells",
-            content_type=content_type
-        )
-        edit_cells.save()
-
-        view_cells = Permission(
-            name="View Cells",
-            codename="view_cells",
-            content_type=content_type
-        )
-        view_cells.save()
-
-        # Groups
-        laborants = Group(
-            name="Laborant",
-        )
-        laborants.save()
-        laborants.permissions.set([edit_cells])
-        laborants.save()
-
-        boss = Group(
-            name="Boss",
-        )
-        boss.save()
-        boss.permissions.set([validate_cells])
-        boss.save()
-
-        leaching = Group(
-            name="Leaching",
-        )
-        leaching.save()
-        leaching.permissions.set([modify_leaching])
-        leaching.save()
-
-        furnace = Group(
-            name="Furnace",
-        )
-        furnace.save()
-        furnace.permissions.set([modify_furnace])
-        furnace.save()
-
-        electrolysis = Group(
-            name="Electrolysis",
-        )
-        electrolysis.save()
-        electrolysis.permissions.set([modify_electrolysis])
-        electrolysis.save()
+        for group_name, perm in group_perms.items():
+            gr = Group(name=group_name)
+            gr.save()
+            perm = Permission.objects.get(codename=perm)
+            gr.permissions.set([perm])
+            gr.save()
 
     @staticmethod
     def create_tables_lists():

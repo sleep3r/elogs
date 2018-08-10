@@ -71,7 +71,7 @@ def formatter(table):
     try:
         longest = max(map(max, [field.keys() for field in table.values()]))
         longest = range(longest + 1)
-    except ValueError:
+    except:
         longest = None
     return longest
 

@@ -11,6 +11,7 @@ from e_logs.common.all_journals_app.models import Cell, Measurement
 
 
 class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
+    '''Список измерений с возможностью добавления нового'''
     serializer_class = MeasurementSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -42,6 +43,7 @@ class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
 
 
 class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
+    '''Действия над каждым отдельным измерением'''
     lookup_field = 'id'
     serializer_class = MeasurementSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -83,6 +85,7 @@ class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
 
 
 class MeasurementGraphs(CustomRendererView, generics.GenericAPIView):
+    '''Данные для графиков фракционного анализа'''
     serializer_class = MeasurementGraphsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
