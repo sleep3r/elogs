@@ -11,10 +11,14 @@ def fill_tables():
     technological_tasks_journal = Journal.objects.get(name='technological_tasks')
     furnace_repair_journal = Journal.objects.get(name='furnace_repair')
     furnace_changed_fraction_journal = Journal.objects.get(name='furnace_changed_fraction')
-    electrolysis_technical_report_4_degree_journal = Journal.objects.get(name='electrolysis_technical_report_4_degree')
-    electrolysis_technical_report_3_degree_journal = Journal.objects.get(name='electrolysis_technical_report_3_degree')
-    electrolysis_technical_report_12_degree_journal = Journal.objects.get(name='electrolysis_technical_report_12_degree')
-    electrolysis_repair_report_tables_journal = Journal.objects.get(name='electrolysis_repair_report_tables')
+    electrolysis_technical_report_4_degree_journal =\
+        Journal.objects.get(name='electrolysis_technical_report_4_degree')
+    electrolysis_technical_report_3_degree_journal =\
+        Journal.objects.get(name='electrolysis_technical_report_3_degree')
+    electrolysis_technical_report_12_degree_journal =\
+        Journal.objects.get(name='electrolysis_technical_report_12_degree')
+    electrolysis_repair_report_tables_journal =\
+        Journal.objects.get(name='electrolysis_repair_report_tables')
     masters_report_journal = Journal.objects.get(name='masters_report')
     reports_furnace_area_journal = Journal.objects.get(name='reports_furnace_area')
 

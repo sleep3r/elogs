@@ -11,21 +11,16 @@ from e_logs.core.management.commands.fields_descriptions_filler import fill_fiel
 from e_logs.core.management.commands.fields_filler import fill_fields
 from e_logs.core.management.commands.tables_filler import fill_tables
 from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
-from e_logs.core.management.commands.db_utils import add_user
 from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
-from e_logs.core.utils.loggers import stdout_logger
+from e_logs.core.utils.loggers import stdout_logger, err_logger
 
 
 class DatabaseFiller:
-    """
-    All fill methods names and only they should be like 'fill_*_table'.
-    Filling methods will be called in a random order
-    """
 
     @staticmethod
     def fill_fractional_app(n):
@@ -39,26 +34,17 @@ class DatabaseFiller:
             schieht_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
 
             journal = Journal.objects.get(name="fractional")
-            measurement = Measurement.objects.create(
-                time=timezone.now(),
-                journal=journal
-            )
-            table = Table.objects.get_or_create(
-                journal=journal,
-                name='measurements'
-            )[0]
-            for arr, name in [(cinder_masses, 'cinder_mass'), (cinder_sizes, 'cinder_size'),
-                              (schieht_masses, 'schieht_mass'), (schieht_sizes, 'schieht_size')]:
+            measurement = Measurement.objects.create(time=timezone.now(), journal=journal)
+            table = Table.objects.get_or_create(journal=journal, name='measurements')[0]
+
+            arr_name_pairs = [(cinder_masses, 'cinder_mass'), (cinder_sizes, 'cinder_size'),
+                              (schieht_masses, 'schieht_mass'), (schieht_sizes, 'schieht_size')]
+
+            for arr, name in arr_name_pairs:
                 for j, m_value in enumerate(arr):
-                    Cell.objects.create(
-                        field=Field.objects.get_or_create(
-                            name=name,
-                            table=table
-                        )[0],
-                        index=j,
-                        value=round(m_value, 2),
-                        group=measurement
-                    )
+                    field = Field.objects.get_or_create(name=name, table=table)[0]
+                    Cell.objects.create(field=field, index=j, value=round(m_value, 2),
+                                        group=measurement)
 
     @staticmethod
     def groups_from_csv():
@@ -110,26 +96,19 @@ class DatabaseFiller:
                     },
                     'en': {
                         'last_name': user_en[0],
-                        'first_name': user_en[1][0] if len(user_en) > 1 and len(user_en[1]) > 0 else '',
-                        'second_name': user_en[2][0] if len(user_en) > 2 and len(user_en[2]) > 0 else ''
+                        'first_name': user_en[1][0] if len(user_en) > 1 and len(
+                            user_en[1]) > 0 else '',
+                        'second_name': user_en[2][0] if len(user_en) > 2 and len(
+                            user_en[2]) > 0 else ''
                     },
                     'groups': groups
                 }
-                add_user(user)
+                DatabaseFiller.add_user(user)
 
     @staticmethod
     def fill_plants():
-        Plant.objects.bulk_create([
-            Plant(
-                name="furnace"
-            ),
-            Plant(
-                name="electrolysis"
-            ),
-            Plant(
-                name="leaching"
-            ),
-        ])
+        plant_names = ['furnace', 'electrolysis', 'leaching']
+        Plant.objects.bulk_create([Plant(name=n) for n in plant_names])
 
     @staticmethod
     def create_number_of_shifts():
@@ -164,6 +143,36 @@ class DatabaseFiller:
         ).save()
 
     @staticmethod
+    def add_user(user_dict):
+        user_name = (user_dict['en']['last_name']
+                     + "-" + user_dict['en']['first_name']
+                     + "-" + user_dict['en']['second_name']).strip('-')
+
+        if User.objects.filter(username=user_name).exists():
+            err_logger.warning(f'user `{user_name}` already exists')
+            return 0
+        else:
+            user = User.objects.create_user(user_name, password='qwerty')
+            user.first_name = user_dict['ru']['first_name']
+            user.last_name = user_dict['ru']['last_name']
+            user.is_superuser = False
+            user.is_staff = True
+            for group in user_dict["groups"]:
+                user.groups.add(Group.objects.get(name=group))
+            user.user_permissions.add(Permission.objects.get(codename="view_cells"))
+
+            e = Employee()
+            e.name = user.first_name + ' ' + user.last_name
+            e.position = user_dict["groups"][0].lower()
+            e.plant = user_dict["groups"][1].lower()
+            e.user = user
+
+            e.save()
+
+            user.save()
+            return user.id
+
+    @staticmethod
     def fill_journals():
         """Call after fill_plants"""
 
@@ -171,71 +180,27 @@ class DatabaseFiller:
         leaching_plant = Plant.objects.get(name='leaching')
         electrolysis_plant = Plant.objects.get(name='electrolysis')
 
-        Journal.objects.bulk_create([
-            Journal(
-                name='furnace_changed_fraction',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='concentrate_report',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='technological_tasks',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='reports_furnace_area',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='furnace_repair',
-                plant=furnace_plant,
-                type='equipment'
-            ),
-            Journal(
-                name='report_income_outcome_schieht',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='metals_compute',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='fractional',
-                plant=furnace_plant
-            ),
-            Journal(
-                name='masters_report',
-                plant=electrolysis_plant
-            ),
-            Journal(
-                name='electrolysis_technical_report_3_degree',
-                plant=electrolysis_plant
-            ),
-            Journal(
-                name='electrolysis_technical_report_4_degree',
-                plant=electrolysis_plant
-            ),
-            Journal(
-                name='electrolysis_technical_report_12_degree',
-                plant=electrolysis_plant
-            ),
-            Journal(
-                name='electrolysis_repair_report_tables',
-                plant=electrolysis_plant,
-                type='equipment'
-            ),
-            Journal(
-                name='leaching_repair_equipment',
-                plant=leaching_plant,
-                type='equipment'
-            ),
-            Journal(
-                name='leaching_express_analysis',
-                plant=leaching_plant
-            ),
-        ])
+        furnace_journals = ['furnace_changed_fraction', 'concentrate_report', 'technological_tasks',
+                            'reports_furnace_area', 'furnace_repair',
+                            'report_income_outcome_schieht', 'metals_compute', 'fractional']
+        electrolysis_journals = ['masters_report', 'electrolysis_technical_report_3_degree',
+                                 'electrolysis_technical_report_4_degree',
+                                 'electrolysis_technical_report_12_degree',
+                                 'electrolysis_repair_report_tables']
+        leaching_journals = ['leaching_repair_equipment', 'leaching_express_analysis']
+
+        plant_journal_pairs = [(furnace_plant, furnace_journals),
+                               (electrolysis_plant, electrolysis_journals),
+                               (leaching_plant, leaching_journals)]
+
+        journals = []
+        for plant, journal_names in plant_journal_pairs:
+            for name in journal_names:
+                journal = Journal(name=name,
+                                  plant=plant)
+                journals.append(journal)
+
+        Journal.objects.bulk_create(journals)
 
     @staticmethod
     def fill_tables():
@@ -393,7 +358,8 @@ class DatabaseFiller:
         exception_models = [User, Model]
         db_models = []
         for name, obj in inspect.getmembers(famodels):
-            if inspect.isclass(obj) and issubclass(obj, models.Model) and obj not in exception_models:
+            if inspect.isclass(obj) and issubclass(obj,
+                                                   models.Model) and obj not in exception_models:
                 db_models.append(obj)
 
         db_models.extend([Setting, Employee, CellGroup, Cell, Plant, Group, Permission])
