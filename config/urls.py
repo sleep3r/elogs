@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path, re_path
+from rest_framework_swagger.views import get_swagger_view
+
 
 from config.settings import settings
 from e_logs.furnace.fractional_app import views
 from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, get_shifts
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
+schema_view = get_swagger_view(title='E-LOGS API')
+
 
 urlpatterns = [
     path('', views.Index.as_view()),
@@ -36,6 +40,7 @@ urlpatterns = [
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', get_shifts),
     re_path(r'^api/analysis/', include('e_logs.furnace.fractional_app.api.urls')),
+    url(r'^api$', schema_view)
 
 ]
 

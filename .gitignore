@@ -104,7 +104,7 @@ desktop.ini
 e_logs_tests/screens/*
 >>>>>>> Stashed changes
 logs
-logs/main_debug_calls
-logs/main_debug_debug
-logs/main_debug_error
-logs/main_debug_info
+logs/main_debug_calls/*
+logs/main_debug_debug/*
+logs/main_debug_error/*
+logs/main_debug_info/*
