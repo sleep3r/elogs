@@ -1,5 +1,12 @@
 @import "colors.scss";
 
+input[hidden] {
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
 /** Table Comment */
 
 .journal-table {
@@ -14,6 +21,10 @@
   margin-bottom: 10px;
   padding-left: 10px;
   background-color: $color-bg1;
+}
+
+.table__comment {
+  margin-bottom: 40px;
 }
 
 .table__comment a {
@@ -31,6 +42,14 @@
   }
 }
 
+.comment__text {
+  margin-top: 10px;
+  textarea {
+    width: 100vh;
+    border: 1px solid $color-ac2;
+  }
+}
+
 .ico-comment {
   color: white;
   padding: 5px;
@@ -42,7 +61,7 @@
 .table {
   padding: 5px;
   border: 2px solid gray;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   table-layout: fixed;
 }
 
