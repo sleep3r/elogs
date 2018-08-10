@@ -68,7 +68,7 @@ input[type=number].general-value {
 }
 
 /* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
-.journaltablewrapper .form-control {
+.form-control {
   border: none;
   min-width: 0;
   line-height: 1.42857143 !important;
@@ -77,7 +77,7 @@ input[type=number].general-value {
   word-break: break-word;
   background: linear-gradient(-45deg, #9FBF47 0%, transparent 10px, transparent 100%);
 }
-.journaltablewrapper .form-control [readonly] {
+.form-control [readonly] {
   background: white;
 }
 

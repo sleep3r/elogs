@@ -1,4 +1,11 @@
 /** Colors */
+input[hidden] {
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
 /** Table Comment */
 .journal-table {
   margin-bottom: 20px;
@@ -9,6 +16,10 @@
   margin-bottom: 10px;
   padding-left: 10px;
   background-color: #EAEAEA;
+}
+
+.table__comment {
+  margin-bottom: 40px;
 }
 
 .table__comment a {
@@ -24,6 +35,14 @@
   box-shadow: 2px 2px #8EAE37;
 }
 
+.comment__text {
+  margin-top: 10px;
+}
+.comment__text textarea {
+  width: 100vh;
+  border: 1px solid #9FBF47;
+}
+
 .ico-comment {
   color: white;
   padding: 5px;
@@ -35,7 +54,7 @@
 .table {
   padding: 5px;
   border: 2px solid gray;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   table-layout: fixed;
 }
 
