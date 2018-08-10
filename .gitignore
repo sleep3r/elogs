@@ -91,20 +91,24 @@ venv.bak/
 #fucking staticfiles
 staticfiles/
 
-<<<<<<< Updated upstream
+# sass + css
+*.*.map
+*.map
+
 #fucking logs
-=======
-#fucking logs
-logs/
-
-#tests
-
-desktop.ini
-
-e_logs_tests/screens/*
->>>>>>> Stashed changes
-logs
+logs/main/
+logs/main_debug_calls/
+logs/main_debug_debug/
+logs/main_debug_error/
+logs/main_debug_info/
+*.log
 logs/main_debug_calls/*
 logs/main_debug_debug/*
 logs/main_debug_error/*
 logs/main_debug_info/*
+
+
+#tests
+desktop.ini
+
+e_logs_tests/screens/*

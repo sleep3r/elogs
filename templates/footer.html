@@ -1,13 +1,9 @@
 {% load i18n %}
 <footer>
-    <div class="dev-message-button pull-right" data-toggle="modal" data-target="#MessageToDevelopersModal">
-    Оставить отзыв разработчикам
-    <i class="material-icons medium-icon">rate_review</i>
-    </div>
-  <!-- <div class="pull-right">
-    Inframine corporation
-  </div> -->
-  <div class="clearfix"></div>
+    <button class="btn" data-toggle="modal" data-target="#MessageToDevelopersModal">
+        <span>Оставить отзыв разработчикам</span>
+        <i class="fab fa-optin-monster"></i>
+    </button>
 </footer>
 
 {% include "message_modal.html" %}

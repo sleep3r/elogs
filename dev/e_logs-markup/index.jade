@@ -1,32 +1,27 @@
-- var items = ['Журнал 1', 'Журнал 2', 'Журнал 3', 'Журнал 4', 'Журнал 5', 'Журнал 6', 'Журнал 7'];
+- var menu = {items:[ {name: "Обжиг", active: true, childs:[ {name: "Обжиговый цех", childs:[ {name: "Журнал баланса"}, {name: "Журнал метллов"}, {name: "Журнал оборудования"}, {name: "Журнал ремонтов"},{name: "Журнал раппортов мастеров смен"} ]} ]}, {name: "Выщелачивание", childs:[ {name: "Цех Выщелачивания", childs:[ {name: "Журнал 1"}, {name: "Журнал 2"} ]} ]}, {name: "Электролиз", childs:[ {name: "Цех Электролиза", childs:[ {name: "Журнал раппортов по ремонту оборудования"} ]} ]}, ] };
 include ./tables.jade
 doctype html
 html(lang='ru')
   head
     meta(charset='utf-8')
-    title Flex example
+    title ELogs markup Universal page
     base(href='./')
-    //- link(rel='stylesheet', href='outlines.css')
-    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.2.0/css/all.css')
     link(rel='stylesheet', href='css/index.css')
+    link(rel='stylesheet', href='css/font-icons/all.css')
+    script(src="js/header.js")
+    script(src="js/menu.js")
+    script(src="js/toggle.js")
   body
     .elogs-container  
       include ./jade_components/header.jade
       .main-container
         .column-left
           .menu__panel
-            .menu__title АНАЛИТИКА ЗАВОДА
+            .menu__title Список цехов
             i.menu__toggle.fas.fa-bars
           .menu__logo
             i.fas.fa-sitemap
-          ul.left-menu 
-            each itemName in items
-              li.left-menu__item 
-                a(href="#") #{itemName}
-                  span.fa.fa-chevron-down
-                  span.arrow-left
-                  
-          
+          include ./jade_components/menu.jade
           include ./jade_components/colors-samples.jade
           
         .column-content  
@@ -35,6 +30,14 @@ html(lang='ru')
               include ./journal__panel.jade
             .journal-tables
               include ./table_examples.jade
+          footer
+            button.btn.dev-message-button
+              span Оставить отзыв разработчикам
+              i.fab.fa-optin-monster
+
+
+    
+    
               
 
               
