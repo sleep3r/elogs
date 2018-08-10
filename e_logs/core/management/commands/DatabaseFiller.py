@@ -63,7 +63,7 @@ class DatabaseFiller:
                         table=table
                     )[0],
                     index=j,
-                    value=m_value,
+                    value=round(m_value, 2),
                     group=measurement
                 )
             for j, m_value in enumerate(cinder_sizes):
@@ -73,7 +73,7 @@ class DatabaseFiller:
                         table=table
                     )[0],
                     index=j,
-                    value=m_value,
+                    value=round(m_value, 2),
                     group=measurement
                 )
             for j, m_value in enumerate(schieht_masses):
@@ -83,7 +83,7 @@ class DatabaseFiller:
                         table=table
                     )[0],
                     index=j,
-                    value=m_value,
+                    value=round(m_value, 2),
                     group=measurement
                 )
             for j, m_value in enumerate(schieht_sizes):
@@ -93,7 +93,7 @@ class DatabaseFiller:
                         table=table
                     )[0],
                     index=j,
-                    value=m_value,
+                    value=round(m_value, 2),
                     group=measurement
                 )
 

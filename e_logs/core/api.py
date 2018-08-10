@@ -24,10 +24,19 @@ def cached(cache_key):
         @wraps(f)
         def w(*args, **kwargs):
             logger = logging.getLogger(__name__)
-            try:
-                data_id = args[1].id
-            except:
-                data_id = args[1]['id']
+
+            instance = args[1]
+
+            if not isinstance(instance, dict):
+                if hasattr(instance, 'id'):
+                    data_id = instance.id
+                else:
+                    return f(*args, **kwargs)
+            else:
+                if 'id' in instance:
+                    data_id = instance['id']
+                else:
+                    return f(*args, **kwargs)
 
             data = cache.get(f'{cache_key}_{data_id}')
             if data is not None:
