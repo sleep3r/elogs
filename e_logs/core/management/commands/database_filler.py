@@ -242,7 +242,7 @@ class DatabaseFiller:
             perm = Permission(name=n, codename=cn, content_type=content_type)
             perm.save()
 
-        for group_name, perm in group_perms:
+        for group_name, perm in group_perms.items():
             gr = Group(name=group_name)
             gr.save()
             perm = Permission.objects.get(codename=perm)
