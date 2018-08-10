@@ -14,7 +14,7 @@ from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged
-from loggers import default_logger
+from e_logs.core.utils.loggers import default_logger
 
 
 class JournalView(LoginRequiredMixin, View):

@@ -71,7 +71,6 @@ class Field(models.Model):
 
 
 class CellGroup(models.Model):
-    name    = models.CharField(max_length=1024, verbose_name='Название группы ячеек', default='')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
 

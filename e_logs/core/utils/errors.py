@@ -1,6 +1,6 @@
 import json
 
-from loggers import default_logger
+from e_logs.core.utils.loggers import default_logger
 
 
 class SemanticError(Exception):

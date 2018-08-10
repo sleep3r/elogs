@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
-from loggers import err_logger
+from e_logs.core.utils.loggers import err_logger
 
 
 def logged(func):

@@ -18,7 +18,7 @@ from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
-from loggers import stdout_logger
+from e_logs.core.utils.loggers import stdout_logger
 
 
 class DatabaseFiller:

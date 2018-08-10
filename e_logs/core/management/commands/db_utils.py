@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group, Permission
 from e_logs.common.login_app.models import Employee
-from loggers import err_logger
+from e_logs.core.utils.loggers import err_logger
 
 
 def add_user(user_dict):

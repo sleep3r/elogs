@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from loggers import stdout_logger
+from e_logs.core.utils.loggers import stdout_logger
 from .database_filler import DatabaseFiller
 
 
