@@ -44,7 +44,7 @@ def handle_exceptions(view):
         except AccessError as e:
             response = HttpResponse(str(e))
         except Exception as e:
-            err_logger.log(e)
+            err_logger.error(e)
             print_exc()
             response = {"error": "fatal"}
 
