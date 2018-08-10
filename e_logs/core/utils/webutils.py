@@ -18,16 +18,95 @@ from django.views.decorators.csrf import csrf_exempt
 from dateutil.parser import parse as parse_date
 from django.utils import timezone
 
+from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
 
 # view accepts HttpRequest
 # view returns dict or defaultdict
-from e_logs.core.utils.settings import webURL, CSRF_LENGTH
+
+
+def logged(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        import os
+        import sys
+        logger = logging.getLogger('CALL')
+        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        func_res = func(*args, **kwargs)
+        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        return func_res
+    return wrapper
 
 
 class StrJSONEncoder(JSONEncoder):
     def default(self, o):
         return str(o)
+
+
+def handle_exceptions(view):
+    def wrapper(request, **kwargs):
+        try:
+            response = view(request, **kwargs)
+        except SemanticError as e:
+            response = HttpResponse(str(e))
+        except AccessError as e:
+            response = HttpResponse(str(e))
+        except Exception as e:
+            print(e)
+            print_exc()
+            response = {"error": "fatal"}
+
+        return response
+
+    return wrapper
+
+
+def handle_response_types(view):
+    def wrapper(request, **kwargs):
+        response = view(request, **kwargs)
+
+        if not isinstance(response, (HttpResponse, JsonResponse)):
+            if isinstance(response, dict):
+                response["__t"] = time.time()
+            if type(response) is dict:
+                response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
+            else:
+                response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
+                                        json_dumps_params={'indent': 4})
+
+        return response
+
+    return wrapper
+
+
+def handle_response_headers(view):
+    def wrapper(request, **kwargs):
+        response = view(request, **kwargs)
+
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response["Access-Control-Allow-Credentials"] = "true"
+
+        return response
+
+    return wrapper
+
+
+def check_auth(view):
+    def wrapper(request, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
+        if request.method == 'POST':
+            received_token = request.POST.get('token', None)
+        else:
+            received_token = request.GET.get('token', None)
+        if received_token != request.user.employee.csrf:
+            return HttpResponse(str(SemanticError(message='Сессия истекла. Обновите страницу.')))
+
+        response = view(request, **kwargs)
+        return response
+
+    return wrapper
 
 
 def process_json_view(auth_required=True):
@@ -39,44 +118,19 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
-        def w(request, **kwargs):
+        @logged
+        @csrf_exempt
+        @handle_response_headers
+        @handle_response_types
+        @handle_exceptions
+        @transaction.atomic
+        def wrapper(request, **kwargs):
             if auth_required:
-                if not request.user.is_authenticated:
-                    return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
-                if request.method == 'POST':
-                    received_token = request.POST.get('token', None)
-                else:
-                    received_token = request.GET.get('token', None)
-                if received_token != request.user.employee.csrf:
-                    return HttpResponse(str(SemanticError(message='Сессия истекла. Обновите страницу.')))
-            try:
-                with transaction.atomic():
-                    response = view(request, **kwargs)
-            except SemanticError as e:
-                response = HttpResponse(str(e))
-            except AccessError as e:
-                response = HttpResponse(str(e))
-            except Exception as e:
-                print(e)
-                print_exc()
-                response = {"error": "fatal"}
+                return check_auth(view(request, **kwargs))
+            else:
+                return view(request, **kwargs)
 
-            if not isinstance(response, (HttpResponse, JsonResponse)):
-                if isinstance(response, dict):
-                    response["__t"] = time.time()
-                if type(response) is dict:
-                    response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
-                else:
-                    response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
-                                            json_dumps_params={'indent': 4})
-
-            response["Access-Control-Allow-Origin"] = "*"
-            response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-            response["Access-Control-Allow-Credentials"] = "true"
-
-            return response
-
-        return csrf_exempt(w)
+        return wrapper
 
     return real_decorator
 
@@ -196,19 +250,6 @@ def set_cookie(response, key, value, days_expire = 7):
   response.set_cookie(key, value, max_age=max_age, expires=expires,
                       domain=SESSION_COOKIE_DOMAIN,
                       secure=SESSION_COOKIE_SECURE or None)
-
-
-def logged(func):
-    @wraps(func)
-    def w(*args, **kwargs):
-        import os
-        import sys
-        logger = logging.getLogger('CALL')
-        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        func_res = func(*args, **kwargs)
-        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
-        return func_res
-    return w
 
 
 def get_or_none(model, *args, **kwargs):

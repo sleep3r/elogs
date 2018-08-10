@@ -4,8 +4,8 @@ from e_logs.common.login_app.models import Employee
 
 def add_user(user_dict):
     user_name = (user_dict['en']['last_name']
-                + "-" + user_dict['en']['first_name']
-                + "-" + user_dict['en']['second_name']).strip('-')
+                 + "-" + user_dict['en']['first_name']
+                 + "-" + user_dict['en']['second_name']).strip('-')
 
     if User.objects.filter(username=user_name).exists():
         print(f'user `{user_name}` already exists')
@@ -45,27 +45,3 @@ def get_groups(position, plant):
     else:
         groups.append("Electrolysis")
     return groups
-
-
-def add_groups(user_groups):
-    for key, group_name in user_groups.items():
-        if Group.objects.filter(name=group_name).exists():
-            print(f'Group `{group_name}` already exists')
-        else:
-            print(f'{key}->{group_name}')
-            group_name = user_groups[key]
-            group = Group.objects.create(name=group_name)
-            group.save()
-    print("Groups added")
-
-
-def set_permissions_for_groups():
-    print("Set permissions for groups")
-
-
-def add_employee():
-    print("Add employee")
-    # emplyee = Employee()
-    # emplyee.user = user
-    # emplyee.position =
-    # user.id

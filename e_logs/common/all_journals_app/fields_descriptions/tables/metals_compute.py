@@ -1,8 +1,8 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
 
-contain_zn = deep_dict()
+contain_zn = DeepDict()
 contain_zn.Zn_con = ton_default
 contain_zn.Pb_con = ton_default
 contain_zn.Cu_con = ton_default
@@ -12,7 +12,7 @@ contain_zn.Ag_con = gt_default
 contain_zn_table_desc = contain_zn.clear_empty().get_dict()
 
 
-fs = deep_dict()
+fs = DeepDict()
 fields_p = ["pb", "cu", "cd","fe", "SiO2", "Zn_furn",
             "Pb2", "Pb3", "Pb4", "Pb5", "Cu2", "Cd2",
             "Fe", "S", "As", "Sb", "S_sulf"]
@@ -26,7 +26,7 @@ fs['zn_end'] = ton_default
 
 metals_main_desc = fs.clear_empty().get_dict()
 
-sns = deep_dict()
+sns = DeepDict()
 sns.caption = dict(type="datalist", options=[
     "ЗГОК",
     "Арт-ий",
@@ -59,7 +59,7 @@ sns_table_desc = sns.clear_empty().get_dict()
 
 
 
-zgok = deep_dict()
+zgok = DeepDict()
 
 zgok_columns = [
 "ЗГОК",
@@ -97,7 +97,7 @@ zgok['deviation'] = text_default
 sgok_table_desc = zgok.clear_empty().get_dict()
 
 
-gof = deep_dict()
+gof = DeepDict()
 gof_fields_smt = ["cmt", "cmt2", "cmt3", "cmt4", "cmt5", "cmt6", "cmt7", "cmt8"]
 gof_fields_ton = ["zinc", "zinc2", "zinc3", "zinc4", "zinc5", "zinc6", "zinc7", "zinc8"]
 
@@ -115,7 +115,7 @@ gof.discrepancy_date = date_default
 gof_table_desc = gof.clear_empty().get_dict()
 
 
-avg_month = deep_dict()
+avg_month = DeepDict()
 avg_month_fields = [
     "moisture",
     "issued",
@@ -145,14 +145,14 @@ for field in avg_month_fields:
 avg_month_table_desc = avg_month.clear_empty().get_dict()
 
 
-cinder = deep_dict()
+cinder = DeepDict()
 cinder.date_cinder = date_default
 cinder.gold = numeric_default
 cinder.silver = numeric_default
 cinder_conc_table_desc = cinder.clear_empty().get_dict()
 
 
-concentrat = deep_dict()
+concentrat = DeepDict()
 concentrat.date_conc = date_default
 concentrat.gold = numeric_default
 concentrat.silver = numeric_default

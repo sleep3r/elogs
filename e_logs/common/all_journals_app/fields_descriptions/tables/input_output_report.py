@@ -1,8 +1,8 @@
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 # ------year plan schieht--------
-yps = deep_dict()
+yps = DeepDict()
 yps.concentrate = dict(type="datalist", options=["ЗГОК",
                                                  "Арт-ий",
                                                  "Усть-ТАЛ",
@@ -39,11 +39,11 @@ yps.vmt = vmt_default
 yps.norm = dict(type='number', min_normal=10, max_normal=1000)
 year_plan_schieht_desc = yps.clear_empty().get_dict()
 
-bt = deep_dict()
+bt = DeepDict()
 
 # ------ Loading Schieht Table --------
 
-main_table = deep_dict()
+main_table = DeepDict()
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
           'December']
 
@@ -55,12 +55,12 @@ for month in months:
 main_table_desc = main_table.clear_empty().get_dict()
 
 # ----- Supply of zinc concentrates table ----
-supply_zinc = deep_dict()
+supply_zinc = DeepDict()
 supply_zinc.concentrate = smt_default
 supply_zinc.zn = dict(type="number", min_normal=10, max_normal=10000)
 supply_zinc_desc = supply_zinc.clear_empty().get_dict()
 
-summary = deep_dict()
+summary = DeepDict()
 summary.nzp_concentrate = dict(type="number", min_normal=5, max_normal=20000)
 summary.nzp_zn = dict(type="number", min_normal=5, max_normal=20000)
 summary.sklad_concentrate = dict(type="number", min_normal=5, max_normal=20000)

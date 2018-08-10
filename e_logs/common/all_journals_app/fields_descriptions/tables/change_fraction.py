@@ -1,8 +1,8 @@
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
 
-cft = deep_dict()
+cft = DeepDict()
 cft.date_start = date_default
 cft.shift_number = number_default
 cft.massa_fur = dict(type="number", units='г')

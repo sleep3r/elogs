@@ -1,10 +1,10 @@
 import json
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from datetime import time
 from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 
 # -----------------Left Table-----------------
-lt = deep_dict()
+lt = DeepDict()
 
 rows_names_for_db = [
     "zn",
@@ -83,7 +83,7 @@ lt.series42 = text_default
 lt.pumps_summ = text_default
 
 # -----------------Right Table-----------------#
-rt = deep_dict()
+rt = DeepDict()
 
 rt.h2so4 = text_default
 rt.zn = gl_default

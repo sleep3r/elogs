@@ -106,3 +106,4 @@ logs/main_debug_info/
 
 e_logs_tests/screens/*
 
+*.log

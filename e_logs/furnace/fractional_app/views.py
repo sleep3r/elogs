@@ -10,7 +10,7 @@ from django.template import loader
 from functional import seq
 
 from e_logs.common.all_journals_app.models import Cell, Shift, Plant, Measurement
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view
 
 
@@ -53,7 +53,7 @@ def add_measurement(request):
 
 @process_json_view(auth_required=False)
 def granularity_object(request):
-    res = deep_dict()
+    res = DeepDict()
 
     for measurement in Measurement.objects.filter(type="measurement")[:2]:
         res['data'][measurement.id + 100]['cinder']['time'] = (measurement.time + timedelta(days=700)).timestamp()
@@ -123,7 +123,7 @@ def granularity_graphs(request):
         min_sizes = process(schieht_sizes)
         schieht.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])
 
-    res = deep_dict()
+    res = DeepDict()
     res['data']['cinder'] = cinders
     res['data']['schieht'] = schieht
 

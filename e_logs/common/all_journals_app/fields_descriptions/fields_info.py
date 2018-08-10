@@ -17,9 +17,9 @@ from e_logs.common.all_journals_app.fields_descriptions.tables.electrolysis_repa
 from e_logs.core.models import Setting
 
 
-from e_logs.core.utils.deep_dict import deep_dict
+from e_logs.core.utils.deep_dict import DeepDict
 
-fields_info_desc = deep_dict()
+fields_info_desc = DeepDict()
 
 # fields_info_desc.leaching_express_analysis.vsns_table = vsns_table_desc
 # fields_info_desc.leaching_express_analysis.thickeners_table = thickeners_table_desc
