@@ -1,6 +1,6 @@
 //@import 'font-typefaces.scss';
 //@import 'comment';
-//@import 'elog-table';
+
 //@import "fractional";
 //@import "inside-table";
 //@import "journal-layout";
@@ -16,7 +16,7 @@
 @import "journal.scss";
 @import "values";
 @import "notifications";
-//@import "custom.scss";
+@import 'elog-table';
 @import "header";
 @import "user-menu";
 @import "calendar.scss";
