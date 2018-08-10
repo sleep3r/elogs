@@ -1,4 +1,5 @@
 from datetime import time, datetime, timedelta
+from typing import Any
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -149,6 +150,15 @@ class Cell(models.Model):
         verbose_name='Комментарий к ячейке',
         default=''
     )
+
+    @property
+    def name(self):
+        return self.field.name
+
+    @name.setter
+    def name(self, value):
+        self.field.name = value
+        self.field.save()
 
     @staticmethod
     def get(cell):
