@@ -19,22 +19,21 @@ rows_names_for_db = [
 ]
 
 rows_names_for_view = [
-        "Zn в отр., г/л",
-        "Смеси, г/л",
-        "H₂SO₄ отр., г/л",
-        "Удельный вес хол-го раствора, г/см³",
-        "Удельный вес отр-го раствора, г/см³",
-        "Температура смеси, ᵒC",
-        "Температура в ваннах, ᵒC",
-        "Температура 1, ᵒC",
-        "Температура 2, ᵒC",
+    "Zn в отр., г/л",
+    "Смеси, г/л",
+    "H₂SO₄ отр., г/л",
+    "Удельный вес хол-го раствора, г/см³",
+    "Удельный вес отр-го раствора, г/см³",
+    "Температура смеси, ᵒC",
+    "Температура в ваннах, ᵒC",
+    "Температура 1, ᵒC",
+    "Температура 2, ᵒC",
 ]
 
 lt.row_names = [{"db": db, "view": view} for db, view in
-             zip(rows_names_for_db, rows_names_for_view)]
+                zip(rows_names_for_db, rows_names_for_view)]
 
-
-field_infos_for_rows = [gl_default]*3 + [gsm3_default]*2+[temperature_default]*4
+field_infos_for_rows = [gl_default] * 3 + [gsm3_default] * 2 + [temperature_default] * 4
 
 lt.times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
@@ -50,13 +49,10 @@ for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
         field_name = row_name + last
         lt[field_name] = text_default
 
-
-
 left_table_desc = lt.clear_empty().get_dict()
 
 # -----------------Right Table-----------------
 rt = DeepDict()
-
 
 rt.h2so4 = text_default
 rt.zn = gl_default
@@ -82,7 +78,6 @@ rt.bt1 = percent_default
 rt.weight1_1 = gsm3_default
 rt.weight2_1 = gsm3_default
 
-
 # --------part2----------
 
 rt.pumpnum1 = number_default
@@ -103,6 +98,5 @@ rt.shampoopumpnum2 = number_default
 rt.shampoopumpnum3 = number_default
 rt.reason1 = text_default
 rt.reason2 = text_default
-
 
 right_table_desc = rt.clear_empty().get_dict()

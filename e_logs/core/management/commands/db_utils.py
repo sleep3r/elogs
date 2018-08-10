@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group, Permission
 from e_logs.common.login_app.models import Employee
+from loggers import err_logger
 
 
 def add_user(user_dict):
@@ -8,7 +9,7 @@ def add_user(user_dict):
                  + "-" + user_dict['en']['second_name']).strip('-')
 
     if User.objects.filter(username=user_name).exists():
-        print(f'user `{user_name}` already exists')
+        err_logger.warning(f'user `{user_name}` already exists')
         return 0
     else:
         user = User.objects.create_user(user_name, password='qwerty')

@@ -62,7 +62,7 @@ def add_critical(request):
         if cell:
             message = json.loads(request.body)['message']
             message['sendee'] = request.user.employee
-            Message.add(cell, message, all=True)
+            Message.add(cell, message, all_users=True)
     return JsonResponse({'status': 1})
 
 
@@ -89,6 +89,6 @@ def add_comment(request):
         Cell.objects.update_or_create(**cell,
                                       defaults={"responsible": request.user.employee, "comment": message['text']})
         cell = Cell.get(json.loads(request.body)['cell'])
-        Message.add(cell, message, all=True)
+        Message.add(cell, message, all_users=True)
 
     return JsonResponse({"status": 1})

@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 
+from loggers import stdout_logger
 from .database_filler import DatabaseFiller
 
 
@@ -36,34 +37,34 @@ class Command(BaseCommand):
         df.reset_increment_counter('auth_group')
         frac_num = options["frac"]
         if options["clean"] or options["recreate"]:
-            print("Cleaning db")
+            stdout_logger.info("Cleaning db")
             df.clean_database()
 
         if options["create"] or options["recreate"]:
-            print("Creating db")
+            stdout_logger.info("Creating db")
 
-            print("Adding permissions...")
+            stdout_logger.info("Adding permissions...")
             df.create_permissions_and_groups()
 
-            print("Adding plants...")
+            stdout_logger.info("Adding plants...")
             df.fill_plants()
-            print("Adding journals...")
+            stdout_logger.info("Adding journals...")
             df.fill_journals()
-            print("Adding tables...")
+            stdout_logger.info("Adding tables...")
             df.fill_tables()
-            print("Adding fields...")
+            stdout_logger.info("Adding fields...")
             df.fill_fields()
 
-            print("Adding settings...")
+            stdout_logger.info("Adding settings...")
             df.create_tables_lists()
             df.create_fields_descriptions()
             df.create_number_of_shifts()
 
-            print("Adding Employees...")
+            stdout_logger.info("Adding Employees...")
             df.fill_employees()
 
             if frac_num:
-                print("Filling fractional app...")
+                stdout_logger.info("Filling fractional app...")
                 df.fill_fractional_app(frac_num)
 
-        print("Done!")
+            stdout_logger.info("Done!")

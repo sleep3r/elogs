@@ -1,10 +1,6 @@
-import csv
-
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 
-from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import translate
 from management.commands.database_filler import DatabaseFiller
 
 

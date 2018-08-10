@@ -18,6 +18,7 @@ from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
+from loggers import stdout_logger
 
 
 class DatabaseFiller:
@@ -40,7 +41,6 @@ class DatabaseFiller:
             journal = Journal.objects.get(name="fractional")
             measurement = Measurement.objects.create(
                 time=timezone.now(),
-                name="fractional_anal",
                 journal=journal
             )
             table = Table.objects.get_or_create(
@@ -249,7 +249,7 @@ class DatabaseFiller:
 
     @staticmethod
     def reset_increment_counter(table_name):
-        print("Resetting increment counter...")
+        stdout_logger.info("Resetting increment counter...")
         with connection.cursor() as cursor:
             # for sqlite
             # cursor.execute(f"UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='{table_name}'")
@@ -343,7 +343,7 @@ class DatabaseFiller:
 
     @staticmethod
     def create_tables_lists():
-        print('Adding table lists for each journal')
+        stdout_logger.info('Adding table lists for each journal...')
         fill_tables_lists()
 
     # TODO: create the same for tables?
@@ -385,7 +385,7 @@ class DatabaseFiller:
 
     @staticmethod
     def create_fields_descriptions():
-        print('Adding fields info settings...')
+        stdout_logger.info('Adding fields info settings...')
         fill_fields_descriptions()
 
     @staticmethod

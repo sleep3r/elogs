@@ -14,6 +14,7 @@ from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged
+from loggers import default_logger
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -30,40 +31,54 @@ class JournalView(LoginRequiredMixin, View):
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
 
+    @staticmethod
     @logged
-    def get_context(self, request, plant, journal):
+    def get_shift(journal, pid=None):
+        shift = None
+
+        if pid:
+            shift = Shift.objects.get(id=pid)
+        else:
+            number_of_shifts = Shift.get_number_of_shifts(journal)
+            assert number_of_shifts > 0, "<= 0 number of shifts"
+
+            # create shifts for today and return current shift
+            for shift_order in range(1, number_of_shifts + 1):
+                shift = Shift.objects.get_or_create(
+                    journal=journal,
+                    order=shift_order,
+                    date=date.today()
+                )[0]
+                if shift.is_active:
+                    break
+
+        return shift
+
+    @staticmethod
+    @logged
+    def get_context(request, plant, journal):
         context = DeepDict()
         context.page_type = journal.type
 
         if journal.type == 'shift':
             page_id = request.GET.get('id', None)
-            if page_id:
-                shift = Shift.objects.get(id=page_id)
-            else:
-                number_of_shifts = Shift.get_number_of_shifts(journal)
-                # create shifts for today and return current shift
-                for shift_order in range(1, number_of_shifts + 1):
-                    shift = Shift.objects.get_or_create(
-                        journal=journal,
-                        order=shift_order,
-                        date=date.today()
-                    )[0]
-                    if shift.is_active:
-                        break
-            context.shift_is_active_or_no_shifts = shift.is_active
-            context.shift_order = shift.order
-            context.shift_date = shift.date
-            page = shift
+            page = JournalView.get_shift(journal, pid=page_id)
 
-        if journal.type == 'equipment':
+            context.shift_is_active_or_no_shifts = page.is_active
+            context.shift_order = page.order
+            context.shift_date = page.date
+
+        elif journal.type == 'equipment':
             equipment = Equipment.objects.get_or_create(
                 journal=journal
             )[0]
             page = equipment
+        else:
+            raise NotImplementedError()
 
         # Adding permissions
+        default_logger.info('page_mode=' + str(context.page_mode))
         context.page_mode = get_page_mode(request, page)
-        print('page_mode=' + str(context.page_mode))
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser

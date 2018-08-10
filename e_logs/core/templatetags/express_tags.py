@@ -41,6 +41,7 @@ def keyval(d, key):
     else:
         return ''
 
+
 @logged
 @register.filter
 def stack(a, b):
@@ -117,7 +118,8 @@ def times(number):
 
 @register.filter
 def pdb(element):
-    import pdb; pdb.set_trace()
+    import pdb
+    pdb.set_trace()
     return element
 
 

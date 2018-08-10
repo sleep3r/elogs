@@ -1,5 +1,4 @@
 from django.urls import path
-from django.urls import path
 
 from e_logs.common.messages_app import views
 from e_logs.core.utils.webutils import process_json_view
