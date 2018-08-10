@@ -59,17 +59,17 @@ def granularity_object(request):
         branch = res['data'][measurement.id + future][staff]
         branch['time'] = (measurement.time + timedelta(days=700)).timestamp()
         branch['masses'] = [round(float(m.value), 2) for m in
-                            Cell.objects.filter(field_name=staff + "_mass",
+                            Cell.objects.filter(field__name=staff + "_mass",
                                                 group=measurement)]
         branch['min_sizes'] = [round(float(m.value), 2) for m in
-                               Cell.objects.filter(field_name=staff + "_size",
+                               Cell.objects.filter(field__name=staff + "_size",
                                                    group=measurement)]
 
-    for measurement in Measurement.objects.filter(type="measurement")[:2]:
+    for measurement in Measurement.objects.all()[:2]:
         set_data('cinder', future=100)
         set_data('schieht', future=100)
 
-    for measurement in Measurement.objects.filter(type="measurement"):
+    for measurement in Measurement.objects.all():
         set_data('cinder', future=0)
         set_data('schieht', future=0)
 
@@ -92,12 +92,12 @@ def granularity_graphs(request):
     cinders = []
     schieht = []
 
-    cinder_masses = list(Cell.objects.filter(field_name="cinder_mass"))
-    cinder_sizes = list(Cell.objects.filter(field_name="cinder_size"))
-    schieht_masses = list(Cell.objects.filter(field_name="schieht_mass"))
-    schieht_sizes = list(Cell.objects.filter(field_name="schieht_size"))
+    cinder_masses = list(Cell.objects.filter(field__name="cinder_mass"))
+    cinder_sizes = list(Cell.objects.filter(field__name="cinder_size"))
+    schieht_masses = list(Cell.objects.filter(field__name="schieht_mass"))
+    schieht_sizes = list(Cell.objects.filter(field__name="schieht_size"))
 
-    for measurement in Measurement.objects.prefetch_related('cell_set').filter(type="measurement"):
+    for measurement in Measurement.objects.all():
         def process(x):
             return seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
 
