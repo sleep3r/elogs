@@ -1,7 +1,8 @@
 from datetime import time, datetime, timedelta
 from typing import Any
 
-from django.contrib.contenttypes.fields import GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -17,6 +18,7 @@ class Plant(models.Model):
                                      ('furnace', 'Обжиг'),
                                      ('electrolysis', 'Электролиз')))
     settings = GenericRelation('core.Setting', related_query_name='plant')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='plant')
 
     class Meta:
         verbose_name = 'Цех'
@@ -40,6 +42,7 @@ class Journal(models.Model):
                             verbose_name='Тип'
                             )
     settings = GenericRelation('core.Setting', related_query_name='journal')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='journal')
 
     class Meta:
         verbose_name = 'Журнал'
@@ -52,6 +55,7 @@ class Table(models.Model):
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
     settings = GenericRelation('core.Setting', related_query_name='table')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='table')
 
     class Meta:
         verbose_name = 'Таблица'
@@ -64,6 +68,7 @@ class Field(models.Model):
     name = models.CharField(max_length=128, verbose_name='Название поля')
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     settings = GenericRelation('core.Setting', related_query_name='field')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='field')
 
     class Meta:
         verbose_name = 'Поле'
@@ -126,7 +131,7 @@ class Cell(models.Model):
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
     responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
-    comment = models.CharField(max_length=1024, verbose_name='Комментарий к ячейке', default='')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='cell')
 
     @property
     def name(self):
@@ -145,3 +150,13 @@ class Cell(models.Model):
         unique_together = ['field', 'index', 'group']
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
+
+
+class Comment(models.Model):
+    text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
+    employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
+    created = models.DateTimeField(default=timezone.now)
+
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    object_id = models.PositiveIntegerField(null=True)
+    target = GenericForeignKey('content_type', 'object_id')
