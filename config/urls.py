@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path, re_path
+from rest_framework_swagger.views import get_swagger_view
+
 
 from config.settings import settings
 from e_logs.furnace.fractional_app import views
-from e_logs.common.all_journals_app.services import shifts
-from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView
+from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, get_shifts
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
+schema_view = get_swagger_view(title='E-LOGS API')
+
 
 urlpatterns = [
     path('', views.Index.as_view()),
@@ -32,10 +35,12 @@ urlpatterns = [
     path('common/messages/', include('e_logs.common.messages_app.urls')),
     re_path('^feedback/', include('e_logs.common.feedback_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
-    re_path(r'^(?P<plant>furnace)/(?P<name>metals_compute)$', MetalsJournalView.as_view()),
-    re_path(r'^(?P<plant>furnace)/(?P<name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
-    re_path(r'^(?P<plant>[\w]+)/(?P<name>[\w]+)$', JournalView.as_view()),
-    re_path(r'^(?P<plant>[\w]+)/(?P<name>[\w]+)/get_shifts/$', shifts.get_shifts),
+    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>metals_compute)$', MetalsJournalView.as_view()),
+    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
+    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
+    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', get_shifts),
+    re_path(r'^api/analysis/', include('e_logs.furnace.fractional_app.api.urls')),
+    url(r'^api$', schema_view)
 
 ]
 

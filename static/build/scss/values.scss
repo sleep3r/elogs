@@ -100,6 +100,10 @@ input[type="number"].general-value {
     background: linear-gradient(-45deg, $accent-orange 0%, transparent 10px, transparent 100%);
 }
 
+.active-comment {
+    background: radial-gradient(white 80%, $accent-green)
+}
+
 // --------------------------------------- DELETING ARROWS --------------------------------------
 
 input::-webkit-calendar-picker-indicator,

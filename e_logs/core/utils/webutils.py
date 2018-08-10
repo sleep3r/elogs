@@ -1,35 +1,27 @@
 import datetime
-import json
+import logging
 import secrets
 import string
 import time
-import logging
-
-from collections import defaultdict
+from functools import wraps
 from json import JSONEncoder
 from traceback import print_exc
-from functools import wraps
 
-
+from dateutil.parser import parse as parse_date
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from dateutil.parser import parse as parse_date
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
-
-# view accepts HttpRequest
-# view returns dict or defaultdict
+from e_logs.core.utils.loggers import err_logger
 
 
 def logged(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        import os
-        import sys
         logger = logging.getLogger('CALL')
         logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)
@@ -52,7 +44,7 @@ def handle_exceptions(view):
         except AccessError as e:
             response = HttpResponse(str(e))
         except Exception as e:
-            print(e)
+            err_logger.error(e)
             print_exc()
             response = {"error": "fatal"}
 
@@ -125,6 +117,7 @@ def process_json_view(auth_required=True):
         @handle_exceptions
         @transaction.atomic
         def wrapper(request, **kwargs):
+            # TODO: use @login_required?
             if auth_required:
                 return check_auth(view(request, **kwargs))
             else:
@@ -147,7 +140,7 @@ def translate(name):
     # Заменяем пробелы и преобразуем строку к нижнему регистру
     name = name.replace(' ', '-').lower()
     transtable = (
-        ## Большие буквы
+        # Большие буквы
         (u"Щ", u"Sch"),
         (u"Щ", u"SCH"),
         # two-symbol
@@ -240,16 +233,16 @@ def model_to_dict(model):
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
 
 
-def set_cookie(response, key, value, days_expire = 7):
-  if days_expire is None:
-    max_age = 365 * 24 * 60 * 60  #one year
-  else:
-    max_age = days_expire * 24 * 60 * 60
-  expires = datetime.datetime.strftime(datetime.datetime.utcnow() +
-                                       datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
-  response.set_cookie(key, value, max_age=max_age, expires=expires,
-                      domain=SESSION_COOKIE_DOMAIN,
-                      secure=SESSION_COOKIE_SECURE or None)
+def set_cookie(response, key, value, days_expire=7):
+    if days_expire is None:
+        max_age = 365 * 24 * 60 * 60  # one year
+    else:
+        max_age = days_expire * 24 * 60 * 60
+    expires = datetime.datetime.strftime(datetime.datetime.utcnow() +
+                                         datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
+    response.set_cookie(key, value, max_age=max_age, expires=expires,
+                        domain=SESSION_COOKIE_DOMAIN,
+                        secure=SESSION_COOKIE_SECURE or None)
 
 
 def get_or_none(model, *args, **kwargs):

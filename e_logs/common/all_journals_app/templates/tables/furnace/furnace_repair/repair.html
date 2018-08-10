@@ -1,0 +1,40 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Ремонты по Обжиговому цеху{% endblock %}
+
+{% block table %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№ позиции <br> по титульному <br> списку СУД</th>
+                    <th>№ п/п</th>
+                    <th>Подразделение</th>
+                    <th>Наименование <br> объекта</th>
+                    <th>№ инв</th>
+                    <th>Группа <br> значимости</th>
+                    <th>рабоч центр</th>
+                    <th>№ налоговой <br> группы</th>
+                    <th>Описание <br> работ</th>
+                    <th>Исполнитель</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for_or_create _ in table_cells_data|longest_field %}
+                <tr class="indexed-line">
+                    <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+                    <td>{% include "value.html" with field_name="position_number" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="pp" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="department" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="name_of_object" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="inv_number" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="group" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="work_center" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="tax_group" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="description" index=forloop.counter0 %}</td>
+                    <td>{% include "value.html" with field_name="executor" index=forloop.counter0 %}</td>
+                </tr>
+            {% endfor_or_create %}
+            </tbody>
+        </table>
+{% endblock %}

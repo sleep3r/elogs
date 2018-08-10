@@ -1,5 +1,3 @@
-import os
-import sys
 from pathlib import Path
 
 from django.conf.global_settings import INTERNAL_IPS
@@ -20,7 +18,7 @@ TEMPLATES = [
             ],
 
             'libraries': {
-                'express_tags': 'e_logs.common.all_journals_app.templatetags.express_tags',
+                'express_tags': 'e_logs.core.templatetags.express_tags',
             }
         },
     },
@@ -46,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
     'webpack_loader',
     'django_extensions',
 
@@ -56,12 +56,9 @@ INSTALLED_APPS = [
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
-    # TODO: DELETE THIS APP !!!!!!!!!
-    'e_logs.leaching.repair_reports_app.apps.LeachingRepairReportsAppConfig',
-
+    # TODO: DELETE THIS APP?
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,10 +72,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'e_logs.core.middleware.ExceptionMiddleware',
 ]
 ROOT_URLCONF = 'config.urls'
-
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -204,13 +199,13 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug','debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.db': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
@@ -253,4 +248,12 @@ FEEDBACK_TG_BOT = {
 
 CSRF_LENGTH = 32
 
-
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        ),
+    'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAdminUser',
+        ),
+}

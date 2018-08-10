@@ -37,6 +37,7 @@ class Journal {
 
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
+            console.log('adding on_input_change', input);
             Cell.on_input_change(input);
         });
 
@@ -48,14 +49,6 @@ class Journal {
         String.prototype.trim = function () {
             return this.replace(/^\s*/, "").replace(/\s*$/, "");
         };
-
-        $.ajax({ // Adding getting fields_info from server and saving in to local storage
-            type: 'GET',
-            url: '/common/fields_info/',
-            dataType: "json",
-        }).done((res) => {
-            window.localStorage.setItem("fields_info", res)
-        });
 
         $('[readonly]').focus(function () { // delete cursor for readonly fields
             $('[readonly]').blur();
@@ -73,6 +66,7 @@ class Journal {
         }
         document.addEventListener('mouseup', PopUp.hideOnMouseUp);
         if (view === "True" || validate === "True") {
+            console.log('ads');
             document.querySelectorAll(".popup-comment-content > textarea").forEach(Cell.markCommented)
         }
 

@@ -1,15 +1,14 @@
 import json
 from datetime import timedelta
 
-from django.utils import timezone
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.template import loader
+from django.utils import timezone
+from django.views.generic import TemplateView
 from functional import seq
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Plant, Measurement
+from e_logs.common.all_journals_app.models import Cell, Plant, Measurement
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view
 
@@ -55,39 +54,24 @@ def add_measurement(request):
 def granularity_object(request):
     res = DeepDict()
 
-    for measurement in Measurement.objects.filter(type="measurement")[:2]:
-        res['data'][measurement.id + 100]['cinder']['time'] = (measurement.time + timedelta(days=700)).timestamp()
-        res['data'][measurement.id + 100]['cinder']['masses'] = [round(float(m.value), 2) for m in
-                                                                 Cell.objects.filter(field_name="cinder_mass",
-                                                                                     group=measurement)]
-        res['data'][measurement.id + 100]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in
-                                                                    Cell.objects.filter(field_name="cinder_size",
-                                                                                        group=measurement)]
+    def set_data(staff, future):
+        nonlocal res
+        branch = res['data'][measurement.id + future][staff]
+        branch['time'] = (measurement.time + timedelta(days=700)).timestamp()
+        branch['masses'] = [round(float(m.value), 2) for m in
+                            Cell.objects.filter(field__name=staff + "_mass",
+                                                group=measurement)]
+        branch['min_sizes'] = [round(float(m.value), 2) for m in
+                               Cell.objects.filter(field__name=staff + "_size",
+                                                   group=measurement)]
 
-        res['data'][measurement.id + 100]['schieht']['time'] = (measurement.time + timedelta(days=700)).timestamp()
-        res['data'][measurement.id + 100]['schieht']['masses'] = [round(float(m.value), 2) for m in
-                                                                  Cell.objects.filter(field_name="schieht_mass",
-                                                                                      group=measurement)]
-        res['data'][measurement.id + 100]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in
-                                                                     Cell.objects.filter(field_name="schieht_size",
-                                                                                         group=measurement)]
+    for measurement in Measurement.objects.all()[:2]:
+        set_data('cinder', future=100)
+        set_data('schieht', future=100)
 
-    for measurement in Measurement.objects.filter(type="measurement"):
-        res['data'][measurement.id]['cinder']['time'] = measurement.time.timestamp()
-        res['data'][measurement.id]['cinder']['masses'] = [round(float(m.value), 2) for m in
-                                                           Cell.objects.filter(field_name="cinder_mass",
-                                                                               group=measurement)]
-        res['data'][measurement.id]['cinder']['min_sizes'] = [round(float(m.value), 2) for m in
-                                                              Cell.objects.filter(field_name="cinder_size",
-                                                                                  group=measurement)]
-
-        res['data'][measurement.id]['schieht']['time'] = measurement.time.timestamp()
-        res['data'][measurement.id]['schieht']['masses'] = [round(float(m.value), 2) for m in
-                                                            Cell.objects.filter(field_name="schieht_mass",
-                                                                                group=measurement)]
-        res['data'][measurement.id]['schieht']['min_sizes'] = [round(float(m.value), 2) for m in
-                                                               Cell.objects.filter(field_name="schieht_size",
-                                                                                   group=measurement)]
+    for measurement in Measurement.objects.all():
+        set_data('cinder', future=0)
+        set_data('schieht', future=0)
 
     return res
 
@@ -108,13 +92,15 @@ def granularity_graphs(request):
     cinders = []
     schieht = []
 
-    cinder_masses = list(Cell.objects.filter(field_name="cinder_mass"))
-    cinder_sizes = list(Cell.objects.filter(field_name="cinder_size"))
-    schieht_masses = list(Cell.objects.filter(field_name="schieht_mass"))
-    schieht_sizes = list(Cell.objects.filter(field_name="schieht_size"))
+    cinder_masses = list(Cell.objects.filter(field__name="cinder_mass"))
+    cinder_sizes = list(Cell.objects.filter(field__name="cinder_size"))
+    schieht_masses = list(Cell.objects.filter(field__name="schieht_mass"))
+    schieht_sizes = list(Cell.objects.filter(field__name="schieht_size"))
 
-    for measurement in Measurement.objects.prefetch_related('cell_set').filter(type="measurement"):
-        process = lambda x: seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
+    for measurement in Measurement.objects.all():
+        def process(x):
+            return seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
+
         masses = process(cinder_masses)
         min_sizes = process(cinder_sizes)
         cinders.append([measurement.time.timestamp(), get_mean(masses, min_sizes)])

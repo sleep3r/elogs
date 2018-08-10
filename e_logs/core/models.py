@@ -1,55 +1,62 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
+from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
+from e_logs.common.login_app.models import Employee
+
 
 class Setting(models.Model):
+    """
+    Arbitrary setting for Field/Journal/Table/Plant,
+    or any model related to them
+    """
     name = models.CharField(max_length=128, verbose_name='Название')
     value = models.CharField(max_length=2048, verbose_name='Значение')
-    plant = models.CharField(max_length=128, verbose_name='Цех', blank=True, null=True)
-    journal = models.CharField(max_length=128, verbose_name='Журнал', blank=True, null=True)
-    table = models.CharField(max_length=128, verbose_name='Таблица', blank=True, null=True)
-    cell = models.CharField(max_length=128, verbose_name='Ячейка', blank=True, null=True)
+    employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
+
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    object_id = models.PositiveIntegerField(null=True)
+    scope = GenericForeignKey('content_type', 'object_id')
+
+    # equivalent to unique_together = [name, employee, scope], but this works
+    class Meta:
+        unique_together = (('name', 'employee', 'content_type', 'object_id'),)
 
     @staticmethod
-    def get_setting_value(name, plant=None, journal=None, table=None, cell=None):
-        settings = Setting.objects.filter(name=name)
-        if cell is not None:
-            cell_settings = settings.filter(cell=cell)
-            if cell_settings.count() > 0:
-                return cell_settings[0].value
+    def get_value(name, obj=None, employee=None):
+        """
+        Returns setting value for object.
 
-        if table is None and journal is None and plant is None:
-            tables = Setting.objects.exclude(table__isnull=True).filter(name=name)
-            if tables.count() > 0:
-                table = tables[0].table
-            else:
-                table = None
-
-        if table is not None:
-            table_settings = settings.filter(table=table)
-            if table_settings.count() > 0:
-                return table_settings[0].value
-
-        if journal is None and plant is None:
-            journals = Setting.objects.exclude(journal__isnull=True).filter(name=name)
-            if journals.count() > 0:
-                journal = journals[0].journal
-            else:
-                journal = None
-
-        if journal is not None:
-            journal_settings = settings.filter(journal=journal)
-            if journal_settings.count() > 0:
-                return journal_settings[0].value
-
-        if plant is None:
-            plants = Setting.objects.exclude(plant__isnull=True).filter(name=name)
-            if plants.count() > 0:
-                plant = plants[0].plant
-            else:
-                plant = None
-
-        if plant is not None:
-            plant_settings = settings.filter(plant=plant)
-            if plant_settings.count() > 0:
-                return plant_settings[0].value
-
-        raise ValueError("No setting for such scope")
+        If object is not field/table/journal/plant,
+        get related field/table/journal/plant first
+        and than return most close setting.
+        """
+        scopes_attrs = (
+            (Field, 'field'),
+            (Table, 'table'),
+            (Journal, 'journal'),
+            (Plant, 'plant'),
+        )
+        found_setting = None
+        for (scope, attr) in scopes_attrs:
+            # get parent object if it exists
+            if hasattr(obj, attr):
+                obj = getattr(obj, attr)
+            if type(obj) == scope:
+                found_setting = Setting.objects.filter(**{
+                                    'name': name,
+                                    'employee': employee,
+                                    attr: obj
+                                }).first()
+            if found_setting:
+                return found_setting.value
+        # if no employee specific setting was found,
+        # search for global setting
+        if not found_setting and employee:
+            return Setting.get_value(name, obj)
+        raise ValueError("No such setting")
