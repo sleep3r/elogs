@@ -6,7 +6,7 @@ from django.template.base import FILTER_SEPARATOR
 from django.utils.html import mark_safe
 
 from e_logs.core.utils.webutils import logged
-from for_or_create_node import ForOrCreateNode
+from .for_or_create_node import ForOrCreateNode
 
 register = template.Library()
 
@@ -40,6 +40,7 @@ def keyval(d, key):
         return d.get(key)
     else:
         return ''
+
 
 @logged
 @register.filter
@@ -107,7 +108,7 @@ def get_table_name(table_link):
 
 @register.filter('formatter')
 def formatter(string, obj):
-    return string.format(object)
+    return string.format(obj)
 
 
 @register.filter(name='times')
@@ -117,7 +118,8 @@ def times(number):
 
 @register.filter
 def pdb(element):
-    import pdb; pdb.set_trace()
+    import pdb
+    pdb.set_trace()
     return element
 
 

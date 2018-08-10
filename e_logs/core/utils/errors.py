@@ -1,5 +1,7 @@
 import json
 
+from loggers import default_logger
+
 
 class SemanticError(Exception):
     def __init__(self, **kwargs):
@@ -11,7 +13,7 @@ class SemanticError(Exception):
         elif self.my_args.get('message') is not None:
             return json.dumps({"error": "error", "message": self.my_args['message']})
         else:
-            print(self.my_args)
+            default_logger.error(self.my_args)
             return '{"error": "fatal"}'
 
 
@@ -25,5 +27,5 @@ class AccessError(Exception):
         elif self.my_args.get('message') is not None:
             return json.dumps({"error": "error", "message": self.my_args['message']})
         else:
-            print(self.my_args)
+            default_logger.error(self.my_args)
             return '{"error": "fatal"}'

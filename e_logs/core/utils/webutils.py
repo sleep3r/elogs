@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from config.settings.settings_base import CSRF_LENGTH
 from e_logs.core.utils.errors import SemanticError, AccessError
+from loggers import err_logger
 
 
 def logged(func):
@@ -43,7 +44,7 @@ def handle_exceptions(view):
         except AccessError as e:
             response = HttpResponse(str(e))
         except Exception as e:
-            print(e)
+            err_logger.log(e)
             print_exc()
             response = {"error": "fatal"}
 
@@ -139,7 +140,7 @@ def translate(name):
     # Заменяем пробелы и преобразуем строку к нижнему регистру
     name = name.replace(' ', '-').lower()
     transtable = (
-        ## Большие буквы
+        # Большие буквы
         (u"Щ", u"Sch"),
         (u"Щ", u"SCH"),
         # two-symbol

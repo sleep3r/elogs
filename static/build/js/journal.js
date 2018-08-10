@@ -50,14 +50,6 @@ class Journal {
             return this.replace(/^\s*/, "").replace(/\s*$/, "");
         };
 
-        $.ajax({ // Adding getting fields_info from server and saving in to local storage
-            type: 'GET',
-            url: '/common/fields_info/',
-            dataType: "json",
-        }).done((res) => {
-            window.localStorage.setItem("fields_info", res)
-        });
-
         $('[readonly]').focus(function () { // delete cursor for readonly fields
             $('[readonly]').blur();
         });

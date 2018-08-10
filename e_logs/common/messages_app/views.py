@@ -37,6 +37,7 @@ class MessageView(LoginRequiredMixin, View):
 
         return JsonResponse({"result": 1})
 
+
 class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     context_object_name = 'messages'
@@ -61,8 +62,8 @@ def add_critical(request):
         if cell:
             message = json.loads(request.body)['message']
             message['sendee'] = request.user.employee
-            Message.add(cell, message, all=True)
-    return JsonResponse({'status':1})
+            Message.add(cell, message, all_users=True)
+    return JsonResponse({'status': 1})
 
 
 @csrf_exempt
@@ -86,8 +87,8 @@ def add_comment(request):
         message['sendee'] = request.user.employee
 
         Cell.objects.update_or_create(**cell,
-                                      defaults = {"responsible":request.user.employee, "comment":message['text']})
+                                      defaults={"responsible": request.user.employee, "comment": message['text']})
         cell = Cell.get(json.loads(request.body)['cell'])
-        Message.add(cell, message, all=True)
+        Message.add(cell, message, all_users=True)
 
     return JsonResponse({"status": 1})

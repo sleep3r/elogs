@@ -15,9 +15,9 @@ class Employee(models.Model):
                                                                      ('boss', 'Начальник цеха'),
                                                                      ))
     plant = models.CharField(max_length=128, verbose_name='Цех', null=True, choices=(('furnace', 'Обжиг'),
-                                                                                    ('leaching', 'Выщелачивание'),
-                                                                                    ('electrolysis', 'Электролиз'),
-                                                                                    ))
+                                                                                     ('leaching', 'Выщелачивание'),
+                                                                                     ('electrolysis', 'Электролиз'),
+                                                                                     ))
     csrf = models.CharField(max_length=CSRF_LENGTH, default=' ')
     owned_shifts = models.ManyToManyField(Shift, blank=True)
 

@@ -42,11 +42,11 @@ sns.caption = dict(type="datalist", options=[
 sns['cmt'] = smt_default
 
 
-sns_fields_p = ["znp","Pb_", "Cu_", "Cd_"]
+sns_fields_p = ["znp", "Pb_", "Cu_", "Cd_"]
 for field_name in sns_fields_p:
     sns[field_name] = percent_default
 
-sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd",]
+sns_fields_m = ["SodZn", "SodPb", "SodCu", "SodCd"]
 for field_name in sns_fields_m:
     sns[field_name] = ton_default
 

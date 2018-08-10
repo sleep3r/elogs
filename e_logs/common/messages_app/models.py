@@ -13,7 +13,7 @@ class Message(models.Model):
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=100, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
-                                                ('comment', 'Замечание')))
+                                                 ('comment', 'Замечание')))
     text = models.TextField(verbose_name='Текст сообщения')
 
     sendee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
@@ -24,16 +24,20 @@ class Message(models.Model):
     link = models.URLField(max_length=128, verbose_name='Ссылка на ячейку', default="#")
 
     @staticmethod
-    def add(cell, message, all=False, positions=None, ids=None, plant=None):
-        if ids:
+    def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
+        if not all_users and positions is None and uids is None and plant is None:
+            raise ValueError
+
+        recipients = []
+        if uids:
             recipients = list()
-            for id in ids:
-                recipients.extend(Employee.objects.filter(id=id))
+            for uid in uids:
+                recipients.extend(Employee.objects.filter(id=uid))
         if positions:
             recipients = list()
             for p in positions:
                 recipients.extend(Employee.objects.filter(plant=plant, position=p))
-        if all:
+        if all_users:
             recipients = list()
             recipients.extend(Employee.objects.all())
 
@@ -56,19 +60,19 @@ class Message(models.Model):
         verbose_name_plural = 'Сообщения'
 
     @staticmethod
-    def get_addressees(all=False, positions=None, ids=None, plant=None):
+    def get_addressees(all_users=False, positions=None, eids=None, plant=None):
         """Отдает список адресатов"""
 
         res = []
-        if all:
+        if all_users:
             return Employee.objects.only('user')
         if positions:
             for p in positions:
                 emp = Employee.objects.filter(plant=plant, position=p)
                 res.extend(emp)
-        if ids:
-            for id in ids:
-                emp = Employee.objects.get(id=id)
+        if eids:
+            for eid in eids:
+                emp = Employee.objects.get(id=eid)
                 res.append(emp)
 
         return res
