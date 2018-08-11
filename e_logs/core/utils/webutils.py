@@ -23,10 +23,13 @@ def logged(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         logger = logging.getLogger('CALL')
-        logger.debug(f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        logger.debug(
+            f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         func_res = func(*args, **kwargs)
-        logger.debug(f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+        logger.debug(
+            f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
         return func_res
+
     return wrapper
 
 
@@ -61,7 +64,8 @@ def handle_response_types(view):
             if isinstance(response, dict):
                 response["__t"] = time.time()
             if type(response) is dict:
-                response = JsonResponse(response, encoder=StrJSONEncoder, json_dumps_params={'indent': 4})
+                response = JsonResponse(response, encoder=StrJSONEncoder,
+                                        json_dumps_params={'indent': 4})
             else:
                 response = JsonResponse(response, safe=False, encoder=StrJSONEncoder,
                                         json_dumps_params={'indent': 4})
@@ -239,7 +243,8 @@ def set_cookie(response, key, value, days_expire=7):
     else:
         max_age = days_expire * 24 * 60 * 60
     expires = datetime.datetime.strftime(datetime.datetime.utcnow() +
-                                         datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
+                                         datetime.timedelta(seconds=max_age),
+                                         "%a, %d-%b-%Y %H:%M:%S GMT")
     response.set_cookie(key, value, max_age=max_age, expires=expires,
                         domain=SESSION_COOKIE_DOMAIN,
                         secure=SESSION_COOKIE_SECURE or None)

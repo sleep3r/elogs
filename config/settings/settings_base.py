@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'django_filters',
     'webpack_loader',
     'django_extensions',
 
@@ -111,6 +112,8 @@ LANGUAGES = (
 APPEND_SLASH = True
 
 LOGIN_URL = '/auth/login_page'
+LOGOUT_URL = '/auth/logout'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -255,5 +258,8 @@ REST_FRAMEWORK = {
         ),
     'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAdminUser',
+        ),
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
         ),
 }

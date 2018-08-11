@@ -1,0 +1,59 @@
+//@import 'font-typefaces.scss';
+//@import 'comment';
+
+//@import "fractional";
+//@import "inside-table";
+//@import "journal-layout";
+//@import "values";
+//@import "custom";
+
+@import "../css/font-icons/all.css";
+@import "colors.scss";
+@import "layout.scss";
+@import "menu.scss";
+@import "tables.scss";
+@import "misc.scss";
+@import "journal.scss";
+@import "values";
+@import "notifications";
+@import 'elog-table';
+@import "header";
+@import "user-menu";
+@import "calendar.scss";
+@import "modals";
+@import "footer";
+@import "fractional";
+@import "slide";
+
+
+/*layout tables */
+.journal-page {
+  display: flex;
+  align-content: stretch;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.journal__panel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.journal-tables {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.triangle {
+  display: block;
+  width: 0;
+  height: 0;
+  border-right:10px solid blue;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}

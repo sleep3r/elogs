@@ -11,9 +11,9 @@ class EmployeeInline(admin.StackedInline):
 
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
-    inlines = (EmployeeInline, )
+    inlines = (EmployeeInline,)
     search_fields = ['username', 'first_name', 'last_name']
-    list_display = ['full_name','username', 'plant_name', 'position' ]
+    list_display = ['full_name', 'username', 'plant_name', 'position']
     list_display_links = ['full_name']
 
     @staticmethod

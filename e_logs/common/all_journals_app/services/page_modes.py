@@ -54,7 +54,7 @@ def has_edited(request, page):
 
 
 @login_required
-def default_page_mode(request, page):
+def default_page_mode(request):
     employee = Employee.objects.get(user=request.user)
     if plant_permission(request):
         if employee.user.has_perm(VALIDATE_CELLS):
@@ -75,4 +75,4 @@ def get_page_mode(request, page):
     if page_mode_is_valid(request, page):
         return request.GET.get('page_mode')
     else:
-        return default_page_mode(request, page)
+        return default_page_mode(request)

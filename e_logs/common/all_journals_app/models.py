@@ -1,8 +1,7 @@
 from datetime import time, datetime, timedelta
-from typing import Any
 
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -13,6 +12,7 @@ from e_logs.core.utils.webutils import get_or_none
 
 class Plant(models.Model):
     name = models.CharField(default='leaching',
+                            verbose_name='Название цеха',
                             max_length=128,
                             choices=(('leaching', 'Выщелачивание'),
                                      ('furnace', 'Обжиг'),
@@ -29,7 +29,7 @@ class Journal(models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название журнала')
-    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
                                 ('shift', 'Смена'),
@@ -53,7 +53,7 @@ class Table(models.Model):
     """Abstract table entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
-    journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='tables')
     settings = GenericRelation('core.Setting', related_query_name='table')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table')
 
@@ -66,7 +66,7 @@ class Field(models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название поля')
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='field')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='field')
 
@@ -105,10 +105,10 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
-    def get_number_of_shifts(object):
+    def get_number_of_shifts(obj):
         # avoiding import loop
         from e_logs.core.models import Setting
-        return int(Setting.get_value(name='number_of_shifts', obj=object))
+        return int(Setting.get_value(name='number_of_shifts', obj=obj))
 
     class Meta:
         verbose_name = 'Журнал'
@@ -127,7 +127,7 @@ class Cell(models.Model):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
-    field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name='cells')
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
     responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)

@@ -1,0 +1,16 @@
+
+.slide-up, .slide-down {
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.3s ease-in-out;
+  -moz-transition: max-height 0.3s ease-in-out;
+  -o-transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.slide-up {
+  max-height: 0;
+}
+
+.slide-down {
+  max-height: 100vh;
+}

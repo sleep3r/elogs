@@ -43,6 +43,8 @@ class Command(BaseCommand):
         if options["create"] or options["recreate"]:
             stdout_logger.info("Creating db")
 
+            stdout_logger.info("Creating superuser...")
+            df.create_superuser()
             stdout_logger.info("Adding permissions...")
             df.create_permissions_and_groups()
 

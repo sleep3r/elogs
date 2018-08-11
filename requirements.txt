@@ -1,7 +1,8 @@
 django-pyodbc-azure
-Django==2.0.6
+Django==2.06
 PyFunctional==1.1.3
 djangorestframework==3.8.2
+django-rest-swagger==2.2.0
 python-dateutil==2.7.3
 django-webpack-loader==0.6.0
 telepot==12.7
@@ -15,3 +16,4 @@ watchdog==0.8.3
 django-developer-panel==0.1.2
 django-extensions==2.1.0
 ipdb==0.11
+django-filter==2.0.0

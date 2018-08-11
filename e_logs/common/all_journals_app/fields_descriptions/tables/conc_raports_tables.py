@@ -75,4 +75,4 @@ small_table_desc = st.clear_empty().get_dict()
 upper_table_desc = ut.clear_empty().get_dict()
 lower_table_desc = lt.clear_empty().get_dict()
 
-# --------------------------------------- small table -----------------------------------------------------
+# --------------------------------------- small table -------------------------------------------

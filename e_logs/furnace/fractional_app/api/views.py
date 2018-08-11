@@ -1,31 +1,35 @@
 from django.core.cache import cache
-
-from rest_framework import generics, mixins, status
-from rest_framework.response import Response
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
-
-from e_logs.core.api import CustomRendererView
-from e_logs.furnace.fractional_app.api.serializers import MeasurementSerializer, MeasurementGraphsSerializer
 from e_logs.common.all_journals_app.models import Cell, Measurement
+from e_logs.core.api import CustomRendererView
+from e_logs.furnace.fractional_app.api.serializers import MeasurementSerializer, \
+    MeasurementGraphsSerializer
 
 
 class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
+    """Список измерений"""
     serializer_class = MeasurementSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     @staticmethod
     def get_queryset(qs=Measurement.objects.only('id', 'time').all().order_by('-time')):
-        list = [
-        {'id': m.id,
-         'time': m.time,
-         'cinder_masses':[float(c.value) for c in Cell.objects.only('value').filter(field__name='cinder_mass', group=m)],
-         'schieht_masses':[float(c.value) for c in Cell.objects.only('value').filter(field__name='schieht_mass', group=m)],
-         'cinder_sizes':[float(c.value) for c in Cell.objects.only('value').filter(field__name='cinder_size', group=m)],
-         'schieht_sizes':[float(c.value) for c in Cell.objects.only('value').filter(field__name='schieht_size', group=m)],
-        } for m in qs]
+        api_list = [
+            {'id': m.id,
+             'time': m.time,
+             'cinder_masses': [float(c.value) for c in Cell.objects.only('value')
+                 .filter(field__name='cinder_mass', group=m)],
+             'schieht_masses': [float(c.value) for c in Cell.objects.only('value')
+                 .filter(field__name='schieht_mass', group=m)],
+             'cinder_sizes': [float(c.value) for c in Cell.objects.only('value')
+                 .filter(field__name='cinder_size', group=m)],
+             'schieht_sizes': [float(c.value) for c in Cell.objects.only('value')
+                 .filter(field__name='schieht_size', group=m)],
+             } for m in qs]
 
-        return list
+        return api_list
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -42,6 +46,7 @@ class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
 
 
 class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
+    """Отдельное измерение"""
     lookup_field = 'id'
     serializer_class = MeasurementSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -63,12 +68,11 @@ class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
 
-
     def put(self, request, id, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.queryset.get(id=id)
         cache.delete(f'measurement_{id}')
-        serializer = self.get_serializer(instance =request.data, data=request.data, partial=partial)
+        serializer = self.get_serializer(instance=request.data, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         serializer.update(instance, serializer.data)
 
@@ -83,9 +87,9 @@ class MeasurementRUD(CustomRendererView, generics.DestroyAPIView):
 
 
 class MeasurementGraphs(CustomRendererView, generics.GenericAPIView):
+    """Данные для графиков фракционного анализа"""
     serializer_class = MeasurementGraphsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-
 
     def get_queryset(self):
         def get_mean(masses, sizes):
@@ -104,12 +108,16 @@ class MeasurementGraphs(CustomRendererView, generics.GenericAPIView):
         schieht = []
 
         for measurement in Measurement.objects.only('id', 'time').all().order_by('-time'):
-            masses = [float(m.value) for m in Cell.objects.filter(field__name="cinder_mass", group=measurement)]
-            min_sizes = [float(m.value) for m in Cell.objects.filter(field__name="cinder_size", group=measurement)]
+            masses = [float(m.value) for m in
+                      Cell.objects.filter(field__name="cinder_mass", group=measurement)]
+            min_sizes = [float(m.value) for m in
+                         Cell.objects.filter(field__name="cinder_size", group=measurement)]
             cinders.append([measurement.time, get_mean(masses, min_sizes)])
 
-            masses = [float(m.value) for m in Cell.objects.filter(field__name="schieht_mass", group=measurement)]
-            min_sizes = [float(m.value) for m in Cell.objects.filter(field__name="schieht_size", group=measurement)]
+            masses = [float(m.value) for m in
+                      Cell.objects.filter(field__name="schieht_mass", group=measurement)]
+            min_sizes = [float(m.value) for m in
+                         Cell.objects.filter(field__name="schieht_size", group=measurement)]
             schieht.append([measurement.time, get_mean(masses, min_sizes)])
 
         res = dict()

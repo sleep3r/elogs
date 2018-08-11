@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path, re_path
+from django.contrib.auth.decorators import user_passes_test
+
 from rest_framework_swagger.views import get_swagger_view
 
 
@@ -39,8 +41,13 @@ urlpatterns = [
     re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
     re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', get_shifts),
-    re_path(r'^api/analysis/', include('e_logs.furnace.fractional_app.api.urls')),
-    url(r'^api$', schema_view)
+
+    url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
+    re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
+    re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
+
+
+
 
 ]
 
