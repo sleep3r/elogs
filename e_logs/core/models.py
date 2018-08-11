@@ -27,6 +27,14 @@ class Setting(models.Model):
     class Meta:
         unique_together = (('name', 'employee', 'content_type', 'object_id'),)
 
+
+    scopes_attrs = (
+        (Field, 'field'),
+        (Table, 'table'),
+        (Journal, 'journal'),
+        (Plant, 'plant'),
+    )
+
     @staticmethod
     def get_value(name, obj=None, employee=None):
         """
@@ -36,23 +44,16 @@ class Setting(models.Model):
         get related field/table/journal/plant first
         and than return most close setting.
         """
-        scopes_attrs = (
-            (Field, 'field'),
-            (Table, 'table'),
-            (Journal, 'journal'),
-            (Plant, 'plant'),
-        )
         found_setting = None
-        for (scope, attr) in scopes_attrs:
-            # get parent object if it exists
-            if hasattr(obj, attr):
+        for (scope, attr) in Setting.scopes_attrs:
+            if hasattr(obj, attr): # get parent object if it exists
                 obj = getattr(obj, attr)
             if type(obj) == scope:
                 found_setting = Setting.objects.filter(**{
-                                    'name': name,
-                                    'employee': employee,
-                                    attr: obj
-                                }).first()
+                    'name': name,
+                    'employee': employee,
+                    attr: obj
+                }).first()
             if found_setting:
                 return found_setting.value
         # if no employee specific setting was found,
@@ -60,3 +61,13 @@ class Setting(models.Model):
         if not found_setting and employee:
             return Setting.get_value(name, obj)
         raise ValueError("No such setting")
+
+    @staticmethod
+    def set_value(name, value, scope=None, employee=None):
+        Setting(name=name, value=value, scope=scope, employee=employee).save()
+
+    def __getitem__(self, name):
+        return Setting.get_value(name)
+
+    def __setitem__(self, name, value):
+        Setting.set_value(name, value)
