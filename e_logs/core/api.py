@@ -15,14 +15,15 @@ class CustomRendererView:
         renderers = super().renderer_classes
 
         if not self.request.user.is_staff:
-            renderers = [JSONRenderer,]
+            renderers = [JSONRenderer]
 
         return renderers
+
 
 def cached(cache_key):
     def real_decorator(f):
         @wraps(f)
-        def w(*args, **kwargs):
+        def wrapper(*args, **kwargs):
             logger = logging.getLogger(__name__)
 
             instance = args[1]
@@ -47,5 +48,7 @@ def cached(cache_key):
                 data = f(*args, **kwargs)
                 cache.set(f'{cache_key}_{data_id}', data, 120)
                 return data
-        return w
+
+        return wrapper
+
     return real_decorator

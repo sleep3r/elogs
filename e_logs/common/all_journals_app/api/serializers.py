@@ -4,7 +4,6 @@ from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, F
 from e_logs.core.api import cached
 
 
-
 class CellSerializer(serializers.ModelSerializer):
 
     @cached('cell')

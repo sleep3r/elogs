@@ -16,7 +16,7 @@ class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
 
     @staticmethod
     def get_queryset(qs=Measurement.objects.only('id', 'time').all().order_by('-time')):
-        list = [
+        api_list = [
             {'id': m.id,
              'time': m.time,
              'cinder_masses': [float(c.value) for c in Cell.objects.only('value')
@@ -29,7 +29,7 @@ class MeasurementAPI(CustomRendererView, generics.GenericAPIView):
                  .filter(field__name='schieht_size', group=m)],
              } for m in qs]
 
-        return list
+        return api_list
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)

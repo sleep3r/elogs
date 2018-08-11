@@ -1,6 +1,5 @@
 import csv
 import inspect
-import pdb
 import random
 
 from django.contrib.auth.models import User, Group, Permission
@@ -14,7 +13,6 @@ from e_logs.core.management.commands.fields_filler import fill_fields
 from e_logs.core.management.commands.tables_filler import fill_tables
 from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
 from e_logs.core.models import Setting
-from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.loggers import stdout_logger, err_logger
 from e_logs.core.utils.webutils import translate
 from e_logs.furnace.fractional_app import models as famodels
@@ -222,7 +220,8 @@ class DatabaseFiller:
         journals_verbose_names = {
             'furnace': {
                 'furnace_changed_fraction': 'Рабочий журнал изменения фракции',
-                'concentrate_report': 'Журнал рапортов о проделанной работе по складам концентратов',
+                'concentrate_report': 'Журнал рапортов о проделанной работе по'
+                                      ' складам концентратов',
                 'technological_tasks': 'Журнал сменных производственных, тех. заданий',
                 'reports_furnace_area': 'Журнал печного участка',
                 'furnace_repair': 'Журнал по ремонту',

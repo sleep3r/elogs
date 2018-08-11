@@ -27,7 +27,6 @@ class Setting(models.Model):
     class Meta:
         unique_together = (('name', 'employee', 'content_type', 'object_id'),)
 
-
     scopes_attrs = (
         (Field, 'field'),
         (Table, 'table'),
@@ -46,7 +45,7 @@ class Setting(models.Model):
         """
         found_setting = None
         for (scope, attr) in Setting.scopes_attrs:
-            if hasattr(obj, attr): # get parent object if it exists
+            if hasattr(obj, attr):  # get parent object if it exists
                 obj = getattr(obj, attr)
             if type(obj) == scope:
                 found_setting = Setting.objects.filter(**{

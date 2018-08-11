@@ -105,10 +105,10 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
-    def get_number_of_shifts(object):
+    def get_number_of_shifts(obj):
         # avoiding import loop
         from e_logs.core.models import Setting
-        return int(Setting.get_value(name='number_of_shifts', obj=object))
+        return int(Setting.get_value(name='number_of_shifts', obj=obj))
 
     class Meta:
         verbose_name = 'Журнал'
