@@ -86,7 +86,7 @@ class Comment {
     static add(textarea) {
         _.debounce((textarea) => {
             let forSend = JSON.stringify({
-                'cell': {
+                'cell_location': {
                     'field_name': textarea.name.replace('_comment', ''),
                     'table_name': $(textarea).attr('table-name'),
                     'group_id': $(textarea).attr('journal-page'),

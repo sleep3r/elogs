@@ -8,7 +8,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
-    Equipment, Field, Table, Journal, Plant
+    Equipment, Field, Table, Journal, Plant, Comment
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
     plant_permission, has_edited
 from e_logs.core.models import Setting
@@ -197,8 +197,10 @@ def get_cells_data(page):
                 cell.index: {
                     'value': cell.value,
                     'id': cell.id,
-                    'comment': cell.comment,
-                    'responsible': cell.responsible.name
+                    'comment': ''.join(map(lambda a: a.text if a else '',
+                                            Comment.objects.filter(cell=cell)
+                                            )),
+                    'responsible': cell.responsible.name if cell.responsible else ''
                 }
             }
             for cell in Cell.objects.filter(group=page, field__table=table)
@@ -232,36 +234,26 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         template.render(request=request, context={'exception': str(exception)}))
 
 
-@csrf_exempt
-@logged
-def save_cell(request):
-    cell_info = json.loads(request.body)['cell']
-    field_name = cell_info['field_name']
-    table_name = cell_info['table_name']
-    group_id = cell_info['group_id']
-    index = cell_info['index']
-    responsible = request.user.employee
-    value = json.loads(request.body)['value']
-
+def get_or_create_cell(group_id, table_name, field_name, index):
     group = CellGroup.objects.get(id=group_id)
-    journal = group.journal
     field = Field.objects.get(
         table=Table.objects.get(
-            journal=journal,
+            journal=group.journal,
             name=table_name
         ),
         name=field_name
     )
+    return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
 
-    Cell.objects.update_or_create(
-        group=group,
-        field=field,
-        index=index,
-        defaults={
-            "value": value,
-            "responsible": responsible
-        }
-    )
+
+@csrf_exempt
+@logged
+def save_cell(request):
+    cell_info = json.loads(request.body)
+    cell = get_or_create_cell(**cell_info['cell_location'])
+    cell.responsible = request.user.employee
+    cell.value = cell_info['value']
+    cell.save()
 
     if journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['group_id']))
