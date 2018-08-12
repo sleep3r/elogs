@@ -9,7 +9,6 @@ from django.views.generic.list import ListView
 
 from e_logs.common.all_journals_app.models import Cell, Comment
 from e_logs.common.messages_app.models import Message
-from e_logs.common.all_journals_app.views import get_or_create_cell
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged
@@ -88,10 +87,10 @@ def add_comment(request):
         employee = request.user.employee
         message['sendee'] = employee
 
-        cell = get_or_create_cell(**cell_location)
+        cell = Cell.get_or_create_cell(**cell_location)
         cell.save()
 
-        Comment.objects.create(target=cell, text=message['text'], employee=employee)
+        Comment.reobjects.create(target=cell, text=message['text'], employee=employee)
 
         Message.add(cell, message, all_users=True)
 

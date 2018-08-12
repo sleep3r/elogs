@@ -107,17 +107,16 @@ class MeasurementGraphs(CustomRendererView, generics.GenericAPIView):
         cinders = []
         schieht = []
 
+        def get_cells(name, group):
+            return Cell.objects.select_related('field').filter(field__name=name, group=group)
+
         for measurement in Measurement.objects.only('id', 'time').all().order_by('-time'):
-            masses = [float(m.value) for m in
-                      Cell.objects.filter(field__name="cinder_mass", group=measurement)]
-            min_sizes = [float(m.value) for m in
-                         Cell.objects.filter(field__name="cinder_size", group=measurement)]
+            masses = [float(m.value) for m in get_cells("cinder_mass", measurement)]
+            min_sizes = [float(m.value) for m in get_cells("cinder_size", measurement)]
             cinders.append([measurement.time, get_mean(masses, min_sizes)])
 
-            masses = [float(m.value) for m in
-                      Cell.objects.filter(field__name="schieht_mass", group=measurement)]
-            min_sizes = [float(m.value) for m in
-                         Cell.objects.filter(field__name="schieht_size", group=measurement)]
+            masses = [float(m.value) for m in get_cells("schieht_mass", measurement)]
+            min_sizes = [float(m.value) for m in get_cells("schieht_size", measurement)]
             schieht.append([measurement.time, get_mean(masses, min_sizes)])
 
         res = dict()

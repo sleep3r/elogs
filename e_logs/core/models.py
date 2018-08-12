@@ -31,9 +31,14 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     object_id = models.PositiveIntegerField(null=True)
     scope = GenericForeignKey('content_type', 'object_id')
 
-    # equivalent to unique_together = [name, employee, scope], but this works
     class Meta:
+        # equivalent to unique_together = [name, employee, scope], but this works
         unique_together = (('name', 'employee', 'content_type', 'object_id'),)
+        indexes = [
+            models.Index(fields=['name', 'employee']),
+            models.Index(fields=['name']),
+            models.Index(fields=['name', 'content_type', 'object_id']),
+        ]
 
     scopes_attrs = (
         (Field, 'field'),

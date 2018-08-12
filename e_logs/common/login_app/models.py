@@ -30,3 +30,8 @@ class Employee(StrAsDictMixin, models.Model):
     class Meta:
         verbose_name = 'Рабочий'
         verbose_name_plural = 'Рабочие'
+        indexes = [
+            models.Index(fields=['plant', 'position']),
+            models.Index(fields=['plant']),
+            models.Index(fields=['position']),
+        ]

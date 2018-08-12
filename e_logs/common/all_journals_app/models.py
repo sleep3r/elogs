@@ -57,6 +57,10 @@ class Table(StrAsDictMixin, models.Model):
     settings = GenericRelation('core.Setting', related_query_name='table')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table')
 
+    @cached_property
+    def plant(self):
+        return self.journal.plant
+
     class Meta:
         verbose_name = 'Таблица'
         verbose_name_plural = 'Таблицы'
@@ -70,9 +74,21 @@ class Field(StrAsDictMixin, models.Model):
     settings = GenericRelation('core.Setting', related_query_name='field')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='field')
 
+    @cached_property
+    def plant(self):
+        return self.table.journal.plant
+    
+    @cached_property
+    def journal(self):
+        return self.table.journal
+
     class Meta:
         verbose_name = 'Поле'
         verbose_name_plural = 'Поля'
+
+        indexes = [
+            models.Index(fields=['name']),
+        ]
 
 
 class CellGroup(StrAsDictMixin, models.Model):
@@ -94,7 +110,7 @@ class Shift(CellGroup):
         shift_time = time(hour=shift_hour)
         return make_aware(datetime.combine(self.date, shift_time))
 
-    @property
+    @cached_property
     def end_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_length = timedelta(hours=24 // number_of_shifts)
@@ -129,26 +145,28 @@ class Cell(StrAsDictMixin, models.Model):
     responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
     comments = GenericRelation('all_journals_app.Comment', related_query_name='cell')
 
-    @property
+    @cached_property
     def journal(self) -> Journal:
         return self.field.table.journal
 
-    @property
+    @cached_property
     def table(self) -> Table:
         return self.field.table
 
-    @property
+    @cached_property
     def name(self) -> str:
         return self.field.name
-
-    @name.setter
-    def name(self, value: str):
-        self.field.name = value
-        self.field.save()
 
     @staticmethod
     def get(cell: dict):
         return get_or_none(Cell, **cell)
+
+    @staticmethod
+    def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
+        group = CellGroup.objects.get(id=group_id)
+        field = Field.objects.get(table__journal=group.journal, table__name=table_name,
+                                  name=field_name)
+        return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
         unique_together = ['field', 'index', 'group']

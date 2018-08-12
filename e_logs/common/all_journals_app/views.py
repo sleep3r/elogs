@@ -45,11 +45,9 @@ class JournalView(LoginRequiredMixin, View):
 
             # create shifts for today and return current shift
             for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(
-                    journal=journal,
-                    order=shift_order,
-                    date=date.today()
-                )[0]
+                shift = Shift.objects.get_or_create(journal=journal,
+                                                    order=shift_order,
+                                                    date=date.today())[0]
                 if shift.is_active:
                     break
 
@@ -70,12 +68,12 @@ class JournalView(LoginRequiredMixin, View):
             context.shift_date = page.date
 
         elif journal.type == 'equipment':
-            equipment = Equipment.objects.get_or_create(
-                journal=journal
-            )[0]
+            equipment = Equipment.objects.get_or_create(journal=journal)[0]
             page = equipment
         else:
             raise NotImplementedError()
+
+        page.save()
 
         # Adding permissions
         default_logger.info('page_mode=' + str(context.page_mode))
@@ -83,14 +81,8 @@ class JournalView(LoginRequiredMixin, View):
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser
-        page.save()
 
-        context.tables_paths = json.loads(
-            Setting.objects.get(
-                name='tables_list',
-                journal=journal
-            ).value
-        )
+        context.tables_paths = json.loads(Setting.get_value(name='tables_list', obj=journal))
 
         context.journal_cells_data = get_cells_data(page)
         context.journal_fields_descriptions = get_fields_descriptions(request, journal)
@@ -172,6 +164,11 @@ class MetalsJournalView(JournalView):
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
+    """
+    Recreate the whole table from dict
+    :param request:
+    :return:
+    """
     # tn = request.POST['table_name']
     # jp = request.POST['journal_page']
 
@@ -199,12 +196,12 @@ def get_cells_data(page: CellGroup) -> dict:
                     'value': cell.value,
                     'id': cell.id,
                     'comment': ''.join(map(lambda a: a.text if a else '',
-                                            Comment.objects.filter(cell=cell)
-                                            )),
+                                           Comment.objects.filter(cell=cell)
+                                           )),
                     'responsible': cell.responsible.name if cell.responsible else ''
                 }
             }
-            for cell in Cell.objects.filter(group=page, field__table=table)
+            for cell in Cell.objects.select_related('field').filter(group=page, field__table=table)
         }
         for table in Table.objects.filter(journal=page.journal)
     }
@@ -216,9 +213,9 @@ def get_fields_descriptions(request, journal: Journal) -> dict:
     return {
         table.name: {
             field.name: Setting.get_value(
-                            name='field_description',
-                            obj=field
-                        )
+                name='field_description',
+                obj=field
+            )
             for field in Field.objects.filter(table=table)
         }
         for table in Table.objects.filter(journal=journal)
@@ -235,17 +232,11 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
-def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> Cell:
-    group = CellGroup.objects.get(id=group_id)
-    field = Field.objects.get(table__journal=group.journal, table__name=table_name, name=field_name)
-    return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
-
-
 @process_json_view
 @logged
 def save_cell(request):
     cell_info = json.loads(request.body)
-    cell = get_or_create_cell(**cell_info['cell_location'])
+    cell = Cell.get_or_create_cell(**cell_info['cell_location'])
     cell.responsible = request.user.employee
     cell.value = cell_info['value']
     cell.save()

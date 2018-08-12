@@ -58,6 +58,11 @@ class Message(StrAsDictMixin, models.Model):
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
+        indexes = [
+            models.Index(fields=['is_read', 'addressee']),
+            models.Index(fields=['addressee']),
+            models.Index(fields=['created']),
+        ]
 
     @staticmethod
     def get_addressees(all_users=False, positions=None, eids=None, plant=None):
