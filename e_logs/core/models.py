@@ -7,6 +7,7 @@ from django.db.models.base import ModelBase
 
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
+from e_logs.core.utils.webutils import StrAsDictMixin
 
 
 class SettingsMeta(ModelBase):
@@ -17,7 +18,7 @@ class SettingsMeta(ModelBase):
         Setting.set_value(name, value)
 
 
-class Setting(models.Model, metaclass=SettingsMeta):
+class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     """
     Arbitrary setting for Field/Journal/Table/Plant,
     or any model related to them
@@ -69,7 +70,6 @@ class Setting(models.Model, metaclass=SettingsMeta):
             except:  # if haven't found, we'll search father
                 pass
 
-
         # if no employee specific setting was found,
         # search for global setting
         if not found_setting and employee:
@@ -79,11 +79,3 @@ class Setting(models.Model, metaclass=SettingsMeta):
     @staticmethod
     def set_value(name: str, value: str, scope=None, employee: Employee = None) -> None:
         Setting(name=name, value=value, scope=scope, employee=employee).save()
-
-    @staticmethod
-    def __getitem__(name: str) -> str:
-        return Setting.get_value(name)
-
-    @staticmethod
-    def __setitem__(name: str, value: str) -> None:
-        Setting.set_value(name, value)

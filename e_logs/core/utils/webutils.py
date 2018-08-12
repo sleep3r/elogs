@@ -5,6 +5,7 @@ import string
 import time
 from functools import wraps
 from json import JSONEncoder
+from pprint import pformat
 from traceback import print_exc
 from typing import Optional
 
@@ -264,3 +265,29 @@ def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
         return model.objects.filter(*args, **kwargs)
     except model.DoesNotExist:
         return None
+
+
+def model_to_representation(model):
+    def is_printable(field):
+        excluded_types = ['ManyToManyField', 'ForeignKey']
+        if not hasattr(field, 'get_internal_type'):
+            return False
+        if field.get_internal_type() in excluded_types:
+            return False
+        return True
+
+    def name_or_none(model, field):
+        try:
+            # return field.name, field.get_internal_type()
+            return getattr(model, field.name)
+        except:
+            return None
+
+    return {f.name: name_or_none(model, f) for f in
+            model._meta.get_fields(include_parents=False)
+            if is_printable(f)}
+
+
+class StrAsDictMixin:
+    def __str__(self: Model):
+        return format(model_to_representation(self))

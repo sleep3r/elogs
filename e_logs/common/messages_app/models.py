@@ -3,10 +3,10 @@ from django.db import models
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import filter_or_none
+from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin
 
 
-class Message(models.Model):
+class Message(StrAsDictMixin, models.Model):
     is_read = models.BooleanField(default=False, verbose_name='Прочитано')
     created = models.DateTimeField(default=timezone.now, blank=True)
 

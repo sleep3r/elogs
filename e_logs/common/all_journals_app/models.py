@@ -7,10 +7,10 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 
-from e_logs.core.utils.webutils import get_or_none
+from e_logs.core.utils.webutils import get_or_none, StrAsDictMixin
 
 
-class Plant(models.Model):
+class Plant(StrAsDictMixin, models.Model):
     name = models.CharField(default='leaching',
                             verbose_name='Название цеха',
                             max_length=128,
@@ -25,7 +25,7 @@ class Plant(models.Model):
         verbose_name_plural = 'Цеха'
 
 
-class Journal(models.Model):
+class Journal(StrAsDictMixin, models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название журнала')
@@ -49,7 +49,7 @@ class Journal(models.Model):
         verbose_name_plural = 'Журналы'
 
 
-class Table(models.Model):
+class Table(StrAsDictMixin, models.Model):
     """Abstract table entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
@@ -62,7 +62,7 @@ class Table(models.Model):
         verbose_name_plural = 'Таблицы'
 
 
-class Field(models.Model):
+class Field(StrAsDictMixin, models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название поля')
@@ -75,7 +75,7 @@ class Field(models.Model):
         verbose_name_plural = 'Поля'
 
 
-class CellGroup(models.Model):
+class CellGroup(StrAsDictMixin, models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
 
@@ -119,7 +119,7 @@ class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(models.Model):
+class Cell(StrAsDictMixin, models.Model):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
@@ -156,7 +156,7 @@ class Cell(models.Model):
         verbose_name_plural = 'Записи'
 
 
-class Comment(models.Model):
+class Comment(StrAsDictMixin, models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)
