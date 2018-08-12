@@ -2,7 +2,8 @@ import json
 from datetime import date, datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -24,7 +25,7 @@ class JournalView(LoginRequiredMixin, View):
     """
 
     @logged
-    def get(self, request, plant_name, journal_name):
+    def get(self, request, plant_name: str, journal_name: str):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         context = self.get_context(request, plant, journal)
@@ -33,7 +34,7 @@ class JournalView(LoginRequiredMixin, View):
 
     @staticmethod
     @logged
-    def get_shift(journal, pid=None):
+    def get_shift(journal, pid=None) -> Shift:
         shift = None
 
         if pid:
@@ -56,7 +57,7 @@ class JournalView(LoginRequiredMixin, View):
 
     @staticmethod
     @logged
-    def get_context(request, plant, journal):
+    def get_context(request, plant, journal) -> DeepDict:
         context = DeepDict()
         context.page_type = journal.type
 
@@ -133,7 +134,7 @@ class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
 
     @logged
-    def get_context(self, request, journal_name, page_type):
+    def get_context(self, request, journal_name, page_type) -> DeepDict:
         from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
         context = super().get_context(request, journal_name, page_type)
 
@@ -190,7 +191,7 @@ def change_table(request):
     return {"status": 1}
 
 
-def get_cells_data(page):
+def get_cells_data(page: CellGroup) -> dict:
     return {
         table.name: {
             cell.field.name: {
@@ -211,7 +212,7 @@ def get_cells_data(page):
 
 @csrf_exempt
 @logged
-def get_fields_descriptions(request, journal):
+def get_fields_descriptions(request, journal: Journal) -> dict:
     return {
         table.name: {
             field.name: Setting.get_value(
@@ -225,7 +226,7 @@ def get_fields_descriptions(request, journal):
 
 
 @logged
-def permission_denied(request, exception, template_name='errors/403.html'):
+def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
     try:
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:
@@ -234,19 +235,13 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         template.render(request=request, context={'exception': str(exception)}))
 
 
-def get_or_create_cell(group_id, table_name, field_name, index):
+def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> Cell:
     group = CellGroup.objects.get(id=group_id)
-    field = Field.objects.get(
-        table=Table.objects.get(
-            journal=group.journal,
-            name=table_name
-        ),
-        name=field_name
-    )
+    field = Field.objects.get(table__journal=group.journal, table__name=table_name, name=field_name)
     return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
 
 
-@csrf_exempt
+@process_json_view
 @logged
 def save_cell(request):
     cell_info = json.loads(request.body)
@@ -255,17 +250,17 @@ def save_cell(request):
     cell.value = cell_info['value']
     cell.save()
 
-    if journal.type == 'shift':
+    if cell.journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['group_id']))
         shift.employee_set.add(request.user.employee)
 
-    return JsonResponse({"status": 1})
+    return {"status": 1}
 
 
-@logged
 @process_json_view(auth_required=False)
-def get_shifts(request, plant_name, journal_name,
-               from_date=date.today() - timedelta(days=30),
+@logged
+def get_shifts(request, plant_name: str, journal_name: str,
+               from_date=date.today() - timedelta(days=30),  # TODO: make aware
                to_date=date.today()):
     """Creates shifts for speficied period of time"""
 

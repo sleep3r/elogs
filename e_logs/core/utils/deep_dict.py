@@ -13,7 +13,7 @@ class DeepDict(defaultdict):
     def __setattr__(self, key, value):
         self[key] = value
 
-    def from_dict(self, d):
+    def from_dict(self, d: dict):
         for k, v in d.items():
             self[k] = DeepDict()
             if not type(v) == dict:

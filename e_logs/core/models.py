@@ -15,11 +15,7 @@ class Setting(models.Model):
     value = models.CharField(max_length=2048, verbose_name='Значение')
     employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
 
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE,
-        null=True
-    )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(null=True)
     scope = GenericForeignKey('content_type', 'object_id')
 
@@ -35,7 +31,7 @@ class Setting(models.Model):
     )
 
     @staticmethod
-    def get_value(name, obj=None, employee=None):
+    def get_value(name: str, obj=None, employee=None) -> str:
         """
         Returns setting value for object.
 
@@ -55,6 +51,7 @@ class Setting(models.Model):
                 }).first()
             if found_setting:
                 return found_setting.value
+
         # if no employee specific setting was found,
         # search for global setting
         if not found_setting and employee:
@@ -62,11 +59,11 @@ class Setting(models.Model):
         raise ValueError("No such setting")
 
     @staticmethod
-    def set_value(name, value, scope=None, employee=None):
+    def set_value(name: str, value: str, scope=None, employee: Employee = None) -> None:
         Setting(name=name, value=value, scope=scope, employee=employee).save()
 
-    def __getitem__(self, name):
+    def __getitem__(self, name: str) -> str:
         return Setting.get_value(name)
 
-    def __setitem__(self, name, value):
+    def __setitem__(self, name: str, value: str) -> None:
         Setting.set_value(name, value)

@@ -1,6 +1,7 @@
 import csv
 import inspect
 import random
+from typing import List, Optional
 
 from django.contrib.auth.models import User, Group, Permission
 from django.db import connection
@@ -20,8 +21,8 @@ from e_logs.furnace.fractional_app import models as famodels
 
 class DatabaseFiller:
     @staticmethod
-    def fill_fractional_app(n):
-        def randomize_array(a):
+    def fill_fractional_app(n: int):
+        def randomize_array(a) -> List[float]:
             return [c + random.uniform(0, 2) for c in a]
 
         for i in range(n):
@@ -44,7 +45,7 @@ class DatabaseFiller:
                                         group=measurement)
 
     @staticmethod
-    def _get_groups(position, plant):
+    def _get_groups(position: str, plant: str) -> List[str]:
         groups = []
         if position == " просмотра\"":
             groups.append("Laborant")
@@ -103,17 +104,17 @@ class DatabaseFiller:
 
         # overriding number of shifts for furnace plant
         reports_furn = Journal.objects.get(plant__name='furnace', name='reports_furnace_area')
-        Setting.set_value('number_of_shifts', 3, reports_furn)
+        Setting.set_value('number_of_shifts', '3', reports_furn)
 
     @staticmethod
-    def add_user(user_dict):
+    def add_user(user_dict: dict) -> Optional[User]:
         user_name = (user_dict['en']['last_name']
                      + "-" + user_dict['en']['first_name']
                      + "-" + user_dict['en']['second_name']).strip('-')
 
         if User.objects.filter(username=user_name).exists():
             err_logger.warning(f'user `{user_name}` already exists')
-            return 0
+            return None
         else:
             user = User.objects.create_user(user_name, password='qwerty')
             user.first_name = user_dict['ru']['first_name']
@@ -133,7 +134,7 @@ class DatabaseFiller:
             e.save()
 
             user.save()
-            return user.id
+            return user
 
     @staticmethod
     def fill_journals():
