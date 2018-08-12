@@ -258,6 +258,10 @@ class DatabaseFiller:
         fill_fields_descriptions()
 
     @staticmethod
+    def load_settings():
+        Setting["unfilled_cell"] = ""
+
+    @staticmethod
     def clean_database():
         """
         Deletes all database models

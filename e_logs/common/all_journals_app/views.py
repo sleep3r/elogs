@@ -95,7 +95,7 @@ class JournalView(LoginRequiredMixin, View):
         context.journal_cells_data = get_cells_data(page)
         context.journal_fields_descriptions = get_fields_descriptions(request, journal)
 
-        context.unfilled_cell = ""
+        context.unfilled_cell = Setting["unfilled_cell"]
         context.unfilled_table = DeepDict()
         context.journal_name = journal.name
         context.journal_page = page.id

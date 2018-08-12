@@ -1,12 +1,23 @@
+from typing import Optional
+
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.base import ModelBase
 
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
 
 
-class Setting(models.Model):
+class SettingsMeta(ModelBase):
+    def __getitem__(self, name: str) -> str:
+        return Setting.get_value(name)
+
+    def __setitem__(self, name: str, value: str) -> None:
+        Setting.set_value(name, value)
+
+
+class Setting(models.Model, metaclass=SettingsMeta):
     """
     Arbitrary setting for Field/Journal/Table/Plant,
     or any model related to them
@@ -31,7 +42,7 @@ class Setting(models.Model):
     )
 
     @staticmethod
-    def get_value(name: str, obj=None, employee=None) -> str:
+    def get_value(name: str, obj=None, employee: Optional[Employee] = None) -> str:
         """
         Returns setting value for object.
 
@@ -51,6 +62,13 @@ class Setting(models.Model):
                 }).first()
             if found_setting:
                 return found_setting.value
+        else:  # case of global setting
+            try:
+                found_setting = Setting.objects.get(name=name, employee=employee)
+                return found_setting.value
+            except:  # if haven't found, we'll search father
+                pass
+
 
         # if no employee specific setting was found,
         # search for global setting
@@ -62,8 +80,10 @@ class Setting(models.Model):
     def set_value(name: str, value: str, scope=None, employee: Employee = None) -> None:
         Setting(name=name, value=value, scope=scope, employee=employee).save()
 
-    def __getitem__(self, name: str) -> str:
+    @staticmethod
+    def __getitem__(name: str) -> str:
         return Setting.get_value(name)
 
-    def __setitem__(self, name: str, value: str) -> None:
+    @staticmethod
+    def __setitem__(name: str, value: str) -> None:
         Setting.set_value(name, value)
