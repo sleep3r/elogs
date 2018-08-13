@@ -28,13 +28,12 @@ class Cell {
     //private
     static saveCell(input) {
         let forSend = JSON.stringify({
-            'cell': {
+            'cell_location': {
                 'field_name': input.name,
                 'table_name': $(input).attr('table-name'),
                 'group_id': $(input).attr('journal-page'),
                 'index': $(input).attr('index')
             },
-
             'value': input.value,
         });
         $.ajax({

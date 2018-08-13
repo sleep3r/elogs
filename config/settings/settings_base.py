@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'django_filters',
     'webpack_loader',
     'django_extensions',
 
@@ -56,7 +57,6 @@ INSTALLED_APPS = [
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
-    # TODO: DELETE THIS APP?
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
@@ -258,4 +258,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAdminUser',
         ),
+    'DEFAULT_FILTER_BACKENDS': (
+            'django_filters.rest_framework.DjangoFilterBackend',
+        ),
 }
+
+CONN_MAX_AGE = 60*20  # save database connections for 30 minutes

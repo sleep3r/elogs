@@ -6,6 +6,6 @@ from .models import Cell
 
 
 @receiver(pre_save, sender=Cell)
-def check_cell_integrity(sender, instance, **kwargs):
+def check_cell_integrity(sender, instance: Cell, **kwargs):
     if not instance.group.journal == instance.field.table.journal:
-         raise IntegrityError("Can't save cell related to different journals")
+        raise IntegrityError("Can't save cell related to different journals")

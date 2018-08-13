@@ -43,7 +43,8 @@ rows_names_for_view = [
 lt.row_names = [{"db": db, "view": view} for db, view in
                 zip(rows_names_for_db, rows_names_for_view)]
 
-field_infos_for_rows = [gl_default] * 3 + [gsm3_default] * 2 + [temperature_default] * 3 + [pa_default] * 2 + [
+field_infos_for_rows = [gl_default] * 3 + [gsm3_default] * 2 + [temperature_default] * 3 +\
+                       [pa_default] * 2 + [
     dict(type="number", units="Рh")] + [temperature_default] * 3
 
 lt.times = [

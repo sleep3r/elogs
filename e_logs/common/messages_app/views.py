@@ -7,7 +7,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list import ListView
 
-from e_logs.common.all_journals_app.models import Cell
+from e_logs.common.all_journals_app.models import Cell, Comment
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
@@ -82,13 +82,16 @@ def update(request):
 @logged
 def add_comment(request):
     if request.is_ajax() and request.method == 'POST':
-        cell = json.loads(request.body)['cell']
+        cell_location = json.loads(request.body)['cell_location']
         message = json.loads(request.body)['message']
-        message['sendee'] = request.user.employee
+        employee = request.user.employee
+        message['sendee'] = employee
 
-        Cell.objects.update_or_create(**cell,
-                                      defaults={"responsible": request.user.employee, "comment": message['text']})
-        cell = Cell.get(json.loads(request.body)['cell'])
+        cell = Cell.get_or_create_cell(**cell_location)
+        cell.save()
+
+        Comment.reobjects.create(target=cell, text=message['text'], employee=employee)
+
         Message.add(cell, message, all_users=True)
 
     return JsonResponse({"status": 1})

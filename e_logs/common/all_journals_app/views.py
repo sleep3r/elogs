@@ -2,13 +2,14 @@ import json
 from datetime import date, datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.core.handlers.wsgi import WSGIRequest
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
-    Equipment, Field, Table, Journal, Plant
+    Equipment, Field, Table, Journal, Plant, Comment
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
     plant_permission, has_edited
 from e_logs.core.models import Setting
@@ -24,7 +25,7 @@ class JournalView(LoginRequiredMixin, View):
     """
 
     @logged
-    def get(self, request, plant_name, journal_name):
+    def get(self, request, plant_name: str, journal_name: str):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         context = self.get_context(request, plant, journal)
@@ -33,7 +34,7 @@ class JournalView(LoginRequiredMixin, View):
 
     @staticmethod
     @logged
-    def get_shift(journal, pid=None):
+    def get_shift(journal, pid=None) -> Shift:
         shift = None
 
         if pid:
@@ -44,11 +45,9 @@ class JournalView(LoginRequiredMixin, View):
 
             # create shifts for today and return current shift
             for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(
-                    journal=journal,
-                    order=shift_order,
-                    date=date.today()
-                )[0]
+                shift = Shift.objects.get_or_create(journal=journal,
+                                                    order=shift_order,
+                                                    date=date.today())[0]
                 if shift.is_active:
                     break
 
@@ -56,7 +55,7 @@ class JournalView(LoginRequiredMixin, View):
 
     @staticmethod
     @logged
-    def get_context(request, plant, journal):
+    def get_context(request, plant, journal) -> DeepDict:
         context = DeepDict()
         context.page_type = journal.type
 
@@ -69,12 +68,12 @@ class JournalView(LoginRequiredMixin, View):
             context.shift_date = page.date
 
         elif journal.type == 'equipment':
-            equipment = Equipment.objects.get_or_create(
-                journal=journal
-            )[0]
+            equipment = Equipment.objects.get_or_create(journal=journal)[0]
             page = equipment
         else:
             raise NotImplementedError()
+
+        page.save()
 
         # Adding permissions
         default_logger.info('page_mode=' + str(context.page_mode))
@@ -82,19 +81,13 @@ class JournalView(LoginRequiredMixin, View):
         context.has_edited = has_edited(request, page)
         context.has_plant_perm = plant_permission(request)
         context.superuser = request.user.is_superuser
-        page.save()
 
-        context.tables_paths = json.loads(
-            Setting.objects.get(
-                name='tables_list',
-                journal=journal
-            ).value
-        )
+        context.tables_paths = json.loads(Setting.get_value(name='tables_list', obj=journal))
 
         context.journal_cells_data = get_cells_data(page)
         context.journal_fields_descriptions = get_fields_descriptions(request, journal)
 
-        context.unfilled_cell = ""
+        context.unfilled_cell = Setting["unfilled_cell"]
         context.unfilled_table = DeepDict()
         context.journal_name = journal.name
         context.journal_page = page.id
@@ -133,7 +126,7 @@ class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
 
     @logged
-    def get_context(self, request, journal_name, page_type):
+    def get_context(self, request, journal_name, page_type) -> DeepDict:
         from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
         context = super().get_context(request, journal_name, page_type)
 
@@ -171,6 +164,11 @@ class MetalsJournalView(JournalView):
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
+    """
+    Recreate the whole table from dict
+    :param request:
+    :return:
+    """
     # tn = request.POST['table_name']
     # jp = request.POST['journal_page']
 
@@ -190,18 +188,20 @@ def change_table(request):
     return {"status": 1}
 
 
-def get_cells_data(page):
+def get_cells_data(page: CellGroup) -> dict:
     return {
         table.name: {
             cell.field.name: {
                 cell.index: {
                     'value': cell.value,
                     'id': cell.id,
-                    'comment': cell.comment,
-                    'responsible': cell.responsible.name
+                    'comment': ''.join(map(lambda a: a.text if a else '',
+                                           Comment.objects.filter(cell=cell)
+                                           )),
+                    'responsible': cell.responsible.name if cell.responsible else ''
                 }
             }
-            for cell in Cell.objects.filter(group=page, field__table=table)
+            for cell in Cell.objects.select_related('field').filter(group=page, field__table=table)
         }
         for table in Table.objects.filter(journal=page.journal)
     }
@@ -209,13 +209,13 @@ def get_cells_data(page):
 
 @csrf_exempt
 @logged
-def get_fields_descriptions(request, journal):
+def get_fields_descriptions(request, journal: Journal) -> dict:
     return {
         table.name: {
             field.name: Setting.get_value(
-                            name='field_description',
-                            obj=field
-                        )
+                name='field_description',
+                obj=field
+            )
             for field in Field.objects.filter(table=table)
         }
         for table in Table.objects.filter(journal=journal)
@@ -223,7 +223,7 @@ def get_fields_descriptions(request, journal):
 
 
 @logged
-def permission_denied(request, exception, template_name='errors/403.html'):
+def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
     try:
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:
@@ -232,48 +232,26 @@ def permission_denied(request, exception, template_name='errors/403.html'):
         template.render(request=request, context={'exception': str(exception)}))
 
 
-@csrf_exempt
+@process_json_view
 @logged
 def save_cell(request):
-    cell_info = json.loads(request.body)['cell']
-    field_name = cell_info['field_name']
-    table_name = cell_info['table_name']
-    group_id = cell_info['group_id']
-    index = cell_info['index']
-    responsible = request.user.employee
-    value = json.loads(request.body)['value']
+    cell_info = json.loads(request.body)
+    cell = Cell.get_or_create_cell(**cell_info['cell_location'])
+    cell.responsible = request.user.employee
+    cell.value = cell_info['value']
+    cell.save()
 
-    group = CellGroup.objects.get(id=group_id)
-    journal = group.journal
-    field = Field.objects.get(
-        table=Table.objects.get(
-            journal=journal,
-            name=table_name
-        ),
-        name=field_name
-    )
-
-    Cell.objects.update_or_create(
-        group=group,
-        field=field,
-        index=index,
-        defaults={
-            "value": value,
-            "responsible": responsible
-        }
-    )
-
-    if journal.type == 'shift':
+    if cell.journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['group_id']))
         shift.employee_set.add(request.user.employee)
 
-    return JsonResponse({"status": 1})
+    return {"status": 1}
 
 
-@logged
 @process_json_view(auth_required=False)
-def get_shifts(request, plant_name, journal_name,
-               from_date=date.today() - timedelta(days=30),
+@logged
+def get_shifts(request, plant_name: str, journal_name: str,
+               from_date=date.today() - timedelta(days=30),  # TODO: make aware
                to_date=date.today()):
     """Creates shifts for speficied period of time"""
 

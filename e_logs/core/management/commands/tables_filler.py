@@ -2,22 +2,22 @@ from e_logs.common.all_journals_app.models import Journal, Table
 
 
 def fill_tables():
-    
     leaching_express_analysis_journal = Journal.objects.get(name='leaching_express_analysis')
     leaching_repair_equipment_journal = Journal.objects.get(name='leaching_repair_equipment')
     concentrate_report_journal = Journal.objects.get(name='concentrate_report')
-    report_income_outcome_schieht_journal = Journal.objects.get(name='report_income_outcome_schieht')
+    report_income_outcome_schieht_journal = Journal.objects.get(
+        name='report_income_outcome_schieht')
     metals_compute_journal = Journal.objects.get(name='metals_compute')
     technological_tasks_journal = Journal.objects.get(name='technological_tasks')
     furnace_repair_journal = Journal.objects.get(name='furnace_repair')
     furnace_changed_fraction_journal = Journal.objects.get(name='furnace_changed_fraction')
-    electrolysis_technical_report_4_degree_journal =\
+    electrolysis_technical_report_4_degree_journal = \
         Journal.objects.get(name='electrolysis_technical_report_4_degree')
-    electrolysis_technical_report_3_degree_journal =\
+    electrolysis_technical_report_3_degree_journal = \
         Journal.objects.get(name='electrolysis_technical_report_3_degree')
-    electrolysis_technical_report_12_degree_journal =\
+    electrolysis_technical_report_12_degree_journal = \
         Journal.objects.get(name='electrolysis_technical_report_12_degree')
-    electrolysis_repair_report_tables_journal =\
+    electrolysis_repair_report_tables_journal = \
         Journal.objects.get(name='electrolysis_repair_report_tables')
     masters_report_journal = Journal.objects.get(name='masters_report')
     reports_furnace_area_journal = Journal.objects.get(name='reports_furnace_area')

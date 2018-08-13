@@ -43,6 +43,8 @@ class Command(BaseCommand):
         if options["create"] or options["recreate"]:
             stdout_logger.info("Creating db")
 
+            stdout_logger.info("Creating superuser...")
+            df.create_superuser()
             stdout_logger.info("Adding permissions...")
             df.create_permissions_and_groups()
 
@@ -56,6 +58,7 @@ class Command(BaseCommand):
             df.fill_fields()
 
             stdout_logger.info("Adding settings...")
+            df.load_settings()
             df.create_tables_lists()
             df.create_fields_descriptions()
             df.create_number_of_shifts()
