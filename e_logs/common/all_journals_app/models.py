@@ -77,7 +77,7 @@ class Field(StrAsDictMixin, models.Model):
     @cached_property
     def plant(self):
         return self.table.journal.plant
-    
+
     @cached_property
     def journal(self):
         return self.table.journal
@@ -103,13 +103,8 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
-<<<<<<< HEAD
     @property
-    def start_time(self):
-=======
-    @cached_property
     def start_time(self) -> timezone.datetime:
->>>>>>> 9f9d09ff8093cf6bbabe8c1757086df05c0b6cb1
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
