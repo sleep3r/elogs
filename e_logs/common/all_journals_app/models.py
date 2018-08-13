@@ -87,7 +87,7 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
-    @cached_property
+    @property
     def start_time(self):
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
@@ -116,11 +116,7 @@ class Shift(CellGroup):
 
 
 class Equipment(CellGroup):
-    name = models.CharField(
-        max_length=1024,
-        verbose_name='Название оборудования',
-        default=''
-    )
+    name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
 class Cell(models.Model):

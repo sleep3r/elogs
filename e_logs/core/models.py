@@ -6,6 +6,10 @@ from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
 
 
+from datetime import datetime, timedelta
+import functools
+
+
 class Setting(models.Model):
     """
     Arbitrary setting for Field/Journal/Table/Plant,
@@ -15,11 +19,7 @@ class Setting(models.Model):
     value = models.CharField(max_length=2048, verbose_name='Значение')
     employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
 
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE,
-        null=True
-    )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(null=True)
     scope = GenericForeignKey('content_type', 'object_id')
 
