@@ -14,11 +14,19 @@ class SettingsMeta(ModelBase):
     def __getitem__(self, name: str) -> str:
         return Setting.get_value(name)
 
+<<<<<<< HEAD
+from datetime import datetime, timedelta
+import functools
+
+
+class Setting(models.Model):
+=======
     def __setitem__(self, name: str, value: str) -> None:
         Setting.set_value(name, value)
 
 
 class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
+>>>>>>> 9f9d09ff8093cf6bbabe8c1757086df05c0b6cb1
     """
     Arbitrary setting for Field/Journal/Table/Plant,
     or any model related to them

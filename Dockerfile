@@ -28,6 +28,12 @@ COPY ./package.json /srv
 RUN npm i
 
 COPY . /srv
+RUN mkdir /srv/e-logs/logs
+RUN mkdir /srv/e-logs/logs/main
+RUN mkdir /srv/e-logs/logs/main_debug_calls
+RUN mkdir /srv/e-logs/logs/main_debug_debug
+RUN mkdir /srv/e-logs/logs/main_debug_error
+RUN mkdir /srv/e-logs/logs/main_debug_info
 RUN ./node_modules/.bin/webpack
 ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 

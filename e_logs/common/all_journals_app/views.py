@@ -272,6 +272,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
     plant = Plant.objects.get(name=plant_name)
     journal = Journal.objects.get(plant=plant, name=journal_name)
     employee = request.user.employee
+    owned_shifts = employee.owned_shifts.all()
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
         for shift_date in daterange(from_date, to_date):
@@ -281,7 +282,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
                     order=shift_order,
                     date=shift_date
                 )[0]
-                is_owned = employee in shift.employee_set.all()
+                is_owned =  shift in owned_shifts
                 result.append(shift_event(request, shift, is_owned))
         return result
     else:
