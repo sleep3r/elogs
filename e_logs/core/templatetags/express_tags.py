@@ -11,11 +11,6 @@ from .for_or_create_node import ForOrCreateNode
 register = template.Library()
 
 
-class UnfilledCell:
-    def __str__(self):
-        return ""
-
-
 # descriptions for admin
 @register.simple_tag()
 def model_desc(obj):
@@ -29,13 +24,8 @@ def addclass(value):
     return value.as_widget(attrs={'class': 'form-control'})
 
 
-@register.filter(name='formatDate')
-def format_date(value):
-    return value
-
-
 @register.filter
-def keyval(d, key):
+def keyval(d: dict, key: str):
     if isinstance(d, dict):
         return d.get(key)
     else:

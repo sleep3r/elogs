@@ -59,11 +59,11 @@ def granularity_object(request):
         branch = res['data'][measurement.id + future][staff]
         branch['time'] = (measurement.time + timedelta(days=700)).timestamp()
         branch['masses'] = [round(float(m.value), 2) for m in
-                            Cell.objects.filter(field__name=staff + "_mass",
-                                                group=measurement)]
+                            Cell.objects.select_related('field')
+                                .filter(field__name=staff + "_mass", group=measurement)]
         branch['min_sizes'] = [round(float(m.value), 2) for m in
-                               Cell.objects.filter(field__name=staff + "_size",
-                                                   group=measurement)]
+                               Cell.objects.select_related('field')
+                                   .filter(field__name=staff + "_size", group=measurement)]
 
     for measurement in Measurement.objects.all()[:2]:
         set_data('cinder', future=100)

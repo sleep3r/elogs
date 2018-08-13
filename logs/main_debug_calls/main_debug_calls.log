@@ -1,4 +1,0 @@
-[11/Aug/2018 11:59:42] DEBUG [CALL:26] Call wrapper in e_logs.core.utils.webutils, line 53
-[11/Aug/2018 11:59:42] DEBUG [CALL:28] Exiting wrapper in e_logs.core.utils.webutils, line 53
-[11/Aug/2018 11:59:42] DEBUG [CALL:26] Call login_page in e_logs.common.login_app.views, line 31
-[11/Aug/2018 11:59:42] DEBUG [CALL:28] Exiting login_page in e_logs.common.login_app.views, line 31

@@ -5,11 +5,14 @@ import string
 import time
 from functools import wraps
 from json import JSONEncoder
+from pprint import pformat
 from traceback import print_exc
+from typing import Optional
 
 from dateutil.parser import parse as parse_date
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
+from django.db.models import Model, QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -132,15 +135,15 @@ def process_json_view(auth_required=True):
     return real_decorator
 
 
-def generate_csrf():
+def generate_csrf() -> str:
     return ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(CSRF_LENGTH))
 
 
-def parse(s):
+def parse(s: str) -> timezone.datetime:
     return timezone.make_aware(parse_date(s))
 
 
-def translate(name):
+def translate(name: str) -> str:
     # Заменяем пробелы и преобразуем строку к нижнему регистру
     name = name.replace(' ', '-').lower()
     transtable = (
@@ -233,11 +236,11 @@ def translate(name):
     return name
 
 
-def model_to_dict(model):
+def model_to_dict(model: Model) -> dict:
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
 
 
-def set_cookie(response, key, value, days_expire=7):
+def set_cookie(response, key: str, value: str, days_expire=7):
     if days_expire is None:
         max_age = 365 * 24 * 60 * 60  # one year
     else:
@@ -250,15 +253,41 @@ def set_cookie(response, key, value, days_expire=7):
                         secure=SESSION_COOKIE_SECURE or None)
 
 
-def get_or_none(model, *args, **kwargs):
+def get_or_none(model, *args, **kwargs) -> Optional[Model]:
     try:
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         return None
 
 
-def filter_or_none(model, *args, **kwargs):
+def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     try:
         return model.objects.filter(*args, **kwargs)
     except model.DoesNotExist:
         return None
+
+
+def model_to_representation(model):
+    def is_printable(field):
+        excluded_types = ['ManyToManyField', 'ForeignKey']
+        if not hasattr(field, 'get_internal_type'):
+            return False
+        if field.get_internal_type() in excluded_types:
+            return False
+        return True
+
+    def name_or_none(model, field):
+        try:
+            # return field.name, field.get_internal_type()
+            return getattr(model, field.name)
+        except:
+            return None
+
+    return {f.name: name_or_none(model, f) for f in
+            model._meta.get_fields(include_parents=False)
+            if is_printable(f)}
+
+
+class StrAsDictMixin:
+    def __str__(self: Model):
+        return format(model_to_representation(self))

@@ -58,6 +58,7 @@ class Command(BaseCommand):
             df.fill_fields()
 
             stdout_logger.info("Adding settings...")
+            df.load_settings()
             df.create_tables_lists()
             df.create_fields_descriptions()
             df.create_number_of_shifts()

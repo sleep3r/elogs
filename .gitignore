@@ -95,7 +95,7 @@ staticfiles/
 *.*.map
 *.map
 
-#fucking logs
+# logs
 logs/main/
 logs/main_debug_calls/
 logs/main_debug_debug/
@@ -106,7 +106,6 @@ logs/main_debug_calls/*
 logs/main_debug_debug/*
 logs/main_debug_error/*
 logs/main_debug_info/*
-
 
 #tests
 desktop.ini

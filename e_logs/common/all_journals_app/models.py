@@ -7,10 +7,10 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 
-from e_logs.core.utils.webutils import get_or_none
+from e_logs.core.utils.webutils import get_or_none, StrAsDictMixin
 
 
-class Plant(models.Model):
+class Plant(StrAsDictMixin, models.Model):
     name = models.CharField(default='leaching',
                             verbose_name='Название цеха',
                             max_length=128,
@@ -25,7 +25,7 @@ class Plant(models.Model):
         verbose_name_plural = 'Цеха'
 
 
-class Journal(models.Model):
+class Journal(StrAsDictMixin, models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название журнала')
@@ -49,7 +49,7 @@ class Journal(models.Model):
         verbose_name_plural = 'Журналы'
 
 
-class Table(models.Model):
+class Table(StrAsDictMixin, models.Model):
     """Abstract table entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
@@ -57,12 +57,16 @@ class Table(models.Model):
     settings = GenericRelation('core.Setting', related_query_name='table')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table')
 
+    @cached_property
+    def plant(self):
+        return self.journal.plant
+
     class Meta:
         verbose_name = 'Таблица'
         verbose_name_plural = 'Таблицы'
 
 
-class Field(models.Model):
+class Field(StrAsDictMixin, models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название поля')
@@ -70,12 +74,24 @@ class Field(models.Model):
     settings = GenericRelation('core.Setting', related_query_name='field')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='field')
 
+    @cached_property
+    def plant(self):
+        return self.table.journal.plant
+    
+    @cached_property
+    def journal(self):
+        return self.table.journal
+
     class Meta:
         verbose_name = 'Поле'
         verbose_name_plural = 'Поля'
 
+        indexes = [
+            models.Index(fields=['name']),
+        ]
 
-class CellGroup(models.Model):
+
+class CellGroup(StrAsDictMixin, models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
 
@@ -87,21 +103,26 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
+<<<<<<< HEAD
     @property
     def start_time(self):
+=======
+    @cached_property
+    def start_time(self) -> timezone.datetime:
+>>>>>>> 9f9d09ff8093cf6bbabe8c1757086df05c0b6cb1
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
         return make_aware(datetime.combine(self.date, shift_time))
 
-    @property
-    def end_time(self):
+    @cached_property
+    def end_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_length = timedelta(hours=24 // number_of_shifts)
         return self.start_time + shift_length
 
     @property
-    def is_active(self):
+    def is_active(self) -> bool:
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
@@ -119,7 +140,7 @@ class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(models.Model):
+class Cell(StrAsDictMixin, models.Model):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
@@ -129,18 +150,28 @@ class Cell(models.Model):
     responsible = models.ForeignKey('login_app.Employee', on_delete=models.SET_NULL, null=True)
     comments = GenericRelation('all_journals_app.Comment', related_query_name='cell')
 
-    @property
-    def name(self):
+    @cached_property
+    def journal(self) -> Journal:
+        return self.field.table.journal
+
+    @cached_property
+    def table(self) -> Table:
+        return self.field.table
+
+    @cached_property
+    def name(self) -> str:
         return self.field.name
 
-    @name.setter
-    def name(self, value):
-        self.field.name = value
-        self.field.save()
+    @staticmethod
+    def get(cell: dict):
+        return get_or_none(Cell, **cell)
 
     @staticmethod
-    def get(cell):
-        return get_or_none(Cell, **cell)
+    def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
+        group = CellGroup.objects.get(id=group_id)
+        field = Field.objects.get(table__journal=group.journal, table__name=table_name,
+                                  name=field_name)
+        return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
         unique_together = ['field', 'index', 'group']
@@ -148,7 +179,7 @@ class Cell(models.Model):
         verbose_name_plural = 'Записи'
 
 
-class Comment(models.Model):
+class Comment(StrAsDictMixin, models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)

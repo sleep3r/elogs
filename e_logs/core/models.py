@@ -1,16 +1,32 @@
+from typing import Optional
+
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.base import ModelBase
 
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
+from e_logs.core.utils.webutils import StrAsDictMixin
 
 
+class SettingsMeta(ModelBase):
+    def __getitem__(self, name: str) -> str:
+        return Setting.get_value(name)
+
+<<<<<<< HEAD
 from datetime import datetime, timedelta
 import functools
 
 
 class Setting(models.Model):
+=======
+    def __setitem__(self, name: str, value: str) -> None:
+        Setting.set_value(name, value)
+
+
+class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
+>>>>>>> 9f9d09ff8093cf6bbabe8c1757086df05c0b6cb1
     """
     Arbitrary setting for Field/Journal/Table/Plant,
     or any model related to them
@@ -23,9 +39,14 @@ class Setting(models.Model):
     object_id = models.PositiveIntegerField(null=True)
     scope = GenericForeignKey('content_type', 'object_id')
 
-    # equivalent to unique_together = [name, employee, scope], but this works
     class Meta:
+        # equivalent to unique_together = [name, employee, scope], but this works
         unique_together = (('name', 'employee', 'content_type', 'object_id'),)
+        indexes = [
+            models.Index(fields=['name', 'employee']),
+            models.Index(fields=['name']),
+            models.Index(fields=['name', 'content_type', 'object_id']),
+        ]
 
     scopes_attrs = (
         (Field, 'field'),
@@ -35,7 +56,7 @@ class Setting(models.Model):
     )
 
     @staticmethod
-    def get_value(name, obj=None, employee=None):
+    def get_value(name: str, obj=None, employee: Optional[Employee] = None) -> str:
         """
         Returns setting value for object.
 
@@ -55,6 +76,13 @@ class Setting(models.Model):
                 }).first()
             if found_setting:
                 return found_setting.value
+        else:  # case of global setting
+            try:
+                found_setting = Setting.objects.get(name=name, employee=employee)
+                return found_setting.value
+            except:  # if haven't found, we'll search father
+                pass
+
         # if no employee specific setting was found,
         # search for global setting
         if not found_setting and employee:
@@ -62,11 +90,5 @@ class Setting(models.Model):
         raise ValueError("No such setting")
 
     @staticmethod
-    def set_value(name, value, scope=None, employee=None):
+    def set_value(name: str, value: str, scope=None, employee: Employee = None) -> None:
         Setting(name=name, value=value, scope=scope, employee=employee).save()
-
-    def __getitem__(self, name):
-        return Setting.get_value(name)
-
-    def __setitem__(self, name, value):
-        Setting.set_value(name, value)

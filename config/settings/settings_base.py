@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
-    # TODO: DELETE THIS APP?
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 ]
 
@@ -263,3 +262,5 @@ REST_FRAMEWORK = {
             'django_filters.rest_framework.DjangoFilterBackend',
         ),
 }
+
+CONN_MAX_AGE = 60*20  # save database connections for 30 minutes

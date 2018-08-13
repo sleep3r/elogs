@@ -3,10 +3,11 @@ import textwrap
 from django.db import models
 
 from config.settings.settings_base import FEEDBACK_TG_BOT
+from e_logs.core.utils.webutils import StrAsDictMixin
 from .services.telegram_bot import TelegramBot
 
 
-class Feedback(models.Model):
+class Feedback(StrAsDictMixin, models.Model):
     MESSAGE = textwrap.dedent(
         """
         <b>Пользователь</b>: {usr}
