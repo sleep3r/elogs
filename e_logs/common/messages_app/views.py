@@ -20,7 +20,7 @@ class MessageView(LoginRequiredMixin, View):
     def get(self, request):
         res = DeepDict()
         res['messages'] = {}
-        for m in Message.objects.filter(is_read=False, addressee=self.request.user.employee):
+        for m in self.request.user.employee.unread_messages():
             res['messages'][m.id] = model_to_dict(m)
         return res
 
@@ -53,12 +53,21 @@ class MessagesList(LoginRequiredMixin, ListView):
         return context
 
 
+def get_cell_from_dict(cell_dict: dict) -> Cell:
+    field_name = cell_dict['field_name']
+    table_name = cell_dict['table_name']
+    group_id = cell_dict['group_id']
+    index = cell_dict['index']
+
+    return Cell.get_by_addr(field_name, table_name, group_id, index)
+
+
 @csrf_exempt
 @login_required
 @logged
 def add_critical(request):
     if request.is_ajax() and request.method == 'POST':
-        cell = Cell.get(json.loads(request.body)['cell'])
+        cell = get_cell_from_dict(json.loads(request.body)['cell'])
         if cell:
             message = json.loads(request.body)['message']
             message['sendee'] = request.user.employee
@@ -71,7 +80,7 @@ def add_critical(request):
 @logged
 def update(request):
     if request.is_ajax() and request.method == 'POST':
-        cell = Cell.get(json.loads(request.body)['cell'])
+        cell = get_cell_from_dict(json.loads(request.body)['cell'])
         if cell:
             Message.update(cell)
     return JsonResponse({'status': 1})
@@ -90,7 +99,7 @@ def add_comment(request):
         cell = Cell.get_or_create_cell(**cell_location)
         cell.save()
 
-        Comment.reobjects.create(target=cell, text=message['text'], employee=employee)
+        Comment.objects.create(target=cell, text=message['text'], employee=employee)
 
         Message.add(cell, message, all_users=True)
 

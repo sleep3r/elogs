@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 
-from e_logs.core.utils.webutils import get_or_none, StrAsDictMixin
+from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error
 
 
 class Plant(StrAsDictMixin, models.Model):
@@ -61,6 +61,10 @@ class Table(StrAsDictMixin, models.Model):
     def plant(self):
         return self.journal.plant
 
+    def cells(self, page):
+        return Cell.objects.select_related('field', 'field__table') \
+            .filter(group=page, field__table=self)
+
     class Meta:
         verbose_name = 'Таблица'
         verbose_name_plural = 'Таблицы'
@@ -93,6 +97,9 @@ class Field(StrAsDictMixin, models.Model):
 
 class CellGroup(StrAsDictMixin, models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+
+    def tables(self):
+        return self.journal.tables.all()
 
 
 class Measurement(CellGroup):
@@ -158,8 +165,13 @@ class Cell(StrAsDictMixin, models.Model):
         return self.field.name
 
     @staticmethod
-    def get(cell: dict):
-        return get_or_none(Cell, **cell)
+    @none_if_error
+    def get_by_addr(field_name, table_name, group_id, index):
+        # fixme: not sure if we need this manager
+        manager = Cell.objects.select_related('field', 'field__table')
+        res = manager.get(field__name=field_name, field__table__name=table_name,
+                          group_id=group_id, index=index)
+        return res
 
     @staticmethod
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":

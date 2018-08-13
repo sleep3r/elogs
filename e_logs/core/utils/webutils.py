@@ -27,7 +27,8 @@ def logged(func):
     def wrapper(*args, **kwargs):
         logger = logging.getLogger('CALL')
         logger.debug(
-            f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+            f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}\n'
+            f'With arguments {args} {kwargs}')
         func_res = func(*args, **kwargs)
         logger.debug(
             f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
@@ -42,13 +43,16 @@ class StrJSONEncoder(JSONEncoder):
 
 
 def handle_exceptions(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         try:
             response = view(request, **kwargs)
         except SemanticError as e:
             response = HttpResponse(str(e))
+            err_logger.error('Processed SemanticError')
         except AccessError as e:
             response = HttpResponse(str(e))
+            err_logger.error('Processed AccessError')
         except Exception as e:
             err_logger.error(e)
             print_exc()
@@ -60,6 +64,7 @@ def handle_exceptions(view):
 
 
 def handle_response_types(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         response = view(request, **kwargs)
 
@@ -79,6 +84,7 @@ def handle_response_types(view):
 
 
 def handle_response_headers(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         response = view(request, **kwargs)
 
@@ -92,6 +98,7 @@ def handle_response_headers(view):
 
 
 def check_auth(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
@@ -117,6 +124,7 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
+        @wraps(view)
         @logged
         @csrf_exempt
         @handle_response_headers
@@ -253,11 +261,15 @@ def set_cookie(response, key: str, value: str, days_expire=7):
                         secure=SESSION_COOKIE_SECURE or None)
 
 
-def get_or_none(model, *args, **kwargs) -> Optional[Model]:
-    try:
-        return model.objects.get(*args, **kwargs)
-    except model.DoesNotExist:
-        return None
+def none_if_error(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except:
+            return None
+
+    return wrapper
 
 
 def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
@@ -290,4 +302,4 @@ def model_to_representation(model):
 
 class StrAsDictMixin:
     def __str__(self: Model):
-        return format(model_to_representation(self))
+        return str(self.__class__.__name__) + format(model_to_representation(self))

@@ -8,6 +8,7 @@ from django.template import loader, TemplateDoesNotExist
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
+from e_logs.common.all_journals_app.services.context_creator import get_context
 from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
     Equipment, Field, Table, Journal, Plant, Comment
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
@@ -56,42 +57,7 @@ class JournalView(LoginRequiredMixin, View):
     @staticmethod
     @logged
     def get_context(request, plant, journal) -> DeepDict:
-        context = DeepDict()
-        context.page_type = journal.type
-
-        if journal.type == 'shift':
-            page_id = request.GET.get('id', None)
-            page = JournalView.get_shift(journal, pid=page_id)
-
-            context.shift_is_active_or_no_shifts = page.is_active
-            context.shift_order = page.order
-            context.shift_date = page.date
-
-        elif journal.type == 'equipment':
-            equipment = Equipment.objects.get_or_create(journal=journal)[0]
-            page = equipment
-        else:
-            raise NotImplementedError()
-
-        page.save()
-
-        # Adding permissions
-        default_logger.info('page_mode=' + str(context.page_mode))
-        context.page_mode = get_page_mode(request, page)
-        context.has_edited = has_edited(request, page)
-        context.has_plant_perm = plant_permission(request)
-        context.superuser = request.user.is_superuser
-
-        context.tables_paths = json.loads(Setting.get_value(name='tables_list', obj=journal))
-
-        context.journal_cells_data = get_cells_data(page)
-        context.journal_fields_descriptions = get_fields_descriptions(request, journal)
-
-        context.unfilled_cell = Setting["unfilled_cell"]
-        context.unfilled_table = DeepDict()
-        context.journal_name = journal.name
-        context.journal_page = page.id
-        return context
+        return get_context(request, plant, journal)
 
 
 class ShihtaJournalView(JournalView):
@@ -160,7 +126,6 @@ class MetalsJournalView(JournalView):
         return context
 
 
-@csrf_exempt
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
@@ -188,42 +153,9 @@ def change_table(request):
     return {"status": 1}
 
 
-def get_cells_data(page: CellGroup) -> dict:
-    return {
-        table.name: {
-            cell.field.name: {
-                cell.index: {
-                    'value': cell.value,
-                    'id': cell.id,
-                    'comment': ''.join(map(lambda a: a.text if a else '',
-                                           Comment.objects.filter(cell=cell)
-                                           )),
-                    'responsible': cell.responsible.name if cell.responsible else ''
-                }
-            }
-            for cell in Cell.objects.select_related('field').filter(group=page, field__table=table)
-        }
-        for table in Table.objects.filter(journal=page.journal)
-    }
-
-
-@csrf_exempt
-@logged
-def get_fields_descriptions(request, journal: Journal) -> dict:
-    return {
-        table.name: {
-            field.name: Setting.get_value(
-                name='field_description',
-                obj=field
-            )
-            for field in Field.objects.filter(table=table)
-        }
-        for table in Table.objects.filter(journal=journal)
-    }
-
-
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
+    """ View for action with denied permission """
     try:
         template = loader.get_template(template_name)
     except TemplateDoesNotExist:
@@ -232,6 +164,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
+@csrf_exempt
 @process_json_view
 @logged
 def save_cell(request):
