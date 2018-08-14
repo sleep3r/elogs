@@ -431,11 +431,11 @@ input[hidden] {
 
 .table {
   padding: 0;
-  border: 2px solid gray;
+  border-spacing: 1px;
+  border: 1px solid gray;
   margin-bottom: 5px;
   table-layout: fixed;
 }
-
 .table th {
   color: white;
   font-size: 12px;
@@ -443,7 +443,6 @@ input[hidden] {
   padding: 5px;
   background-color: #666666;
 }
-
 .table td {
   padding: 0;
 }
@@ -718,6 +717,21 @@ input[type=number].general-value {
 }
 
 /* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
+.input-check-popup {
+  visibility: hidden;
+  width: 160px;
+  background-color: #73879C;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
 /* ------------------------ HIGHLIGHT FOR CELLS AT LINK CLICK ---------------------- */
 .highlight {
   animation-name: changeColors;
@@ -735,11 +749,10 @@ input[type=number].general-value {
 }
 /* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
 .comment-notification {
-  visibility: hidden;
   position: absolute;
-  top: 0;
-  right: 0;
-  color: #ffd800;
+  top: 5px;
+  left: 5px;
+  color: #252525;
   opacity: 0.5;
   cursor: pointer;
 }
@@ -1051,6 +1064,7 @@ footer {
 
 .popper .content {
   margin: 0;
+  width: 100%;
   height: 100%;
   border: none;
 }
@@ -1061,7 +1075,6 @@ footer {
   background: white;
   color: black;
   border: 1px solid #2c3e50;
-  width: 150px;
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   text-align: center;

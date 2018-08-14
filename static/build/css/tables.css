@@ -10,11 +10,11 @@ input[hidden] {
 
 .table {
   padding: 0;
-  border: 2px solid gray;
+  border-spacing: 1px;
+  border: 1px solid gray;
   margin-bottom: 5px;
   table-layout: fixed;
 }
-
 .table th {
   color: white;
   font-size: 12px;
@@ -22,7 +22,6 @@ input[hidden] {
   padding: 5px;
   background-color: #666666;
 }
-
 .table td {
   padding: 0;
 }
