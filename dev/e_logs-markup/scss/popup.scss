@@ -4,6 +4,7 @@
 @import "colors";
 
 $color-popup: white;
+$color-popup-arrow: black;
 
 
 .popper {
@@ -50,10 +51,10 @@ $color-popup: white;
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-    border-color: $color-popup;
+    border-color: $color-popup-arrow;
 }
 .style5 .tooltip .tooltip-arrow {
-    border-color: $color-popup;
+    border-color: $color-popup-arrow;
 }
 .popper[x-placement^="top"],
 .tooltip[x-placement^="top"] {

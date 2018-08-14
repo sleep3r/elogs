@@ -45,11 +45,11 @@
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-  border-color: white;
+  border-color: black;
 }
 
 .style5 .tooltip .tooltip-arrow {
-  border-color: white;
+  border-color: black;
 }
 
 .popper[x-placement^=top],

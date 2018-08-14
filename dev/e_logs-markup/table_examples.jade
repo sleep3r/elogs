@@ -1,3 +1,23 @@
+.journal-table
+  .table__title Длинная таблица
+  table.table.table-long
+    tr
+      each columnName in ["1","2","3","4","5"]
+        th= columnName
+    each rowName in ["1","2","3"]
+
+      tr
+        th= rowName
+        td
+          input.string-cell(value="Lorem ipsum dolor sit amet.", onfocus="onEdit(this)", id="cell-s" + rowName)
+        td
+          input.number-cell(value="1", onfocus="onEdit(this)", id="cell-n1" + rowName)
+        td
+          input.number-cell(value="2", onfocus="onEdit(this)", id="cell-n2" + rowName)
+        td
+          input.number-cell(value="3", onfocus="onEdit(this)", id="cell-n3" + rowName)
+  +table__comment
+
 
 +table_simple(
   "Ответственные по складу",
@@ -12,21 +32,4 @@
 )
 
 
-.journal-table
-  .table__title Длинная таблица
-  table.table.table-long
-    tr
-      each columnName in ["1","2","3","4","5"]
-        th= columnName
-    each rowName in ["1","2","3"]
-      tr
-        th= rowName
-        td 
-          input.string-cell(value="Lorem ipsum dolor sit amet.", onfocus="onEdit(this)", id="cell-s1")
-        td 
-          input.number-cell(value="1", onfocus="onEdit(this)", id="cell-n1")
-        td 
-          input.number-cell(value="2", onfocus="onEdit(this)", id="cell-n2")
-        td 
-          input.number-cell(value="3", onfocus="onEdit(this)", id="cell-n3")
-  +table__comment
+
