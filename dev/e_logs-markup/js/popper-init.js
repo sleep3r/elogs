@@ -8,6 +8,11 @@ function onEdit(item){
       arrow: {
         classNames: [ 'MY-popper-arrow' ]
       },
+      modifiers: {
+        flip: {
+            behavior: ['left', 'bottom', 'top']
+        },
+      },
       onCreate: function(item) {
         console.info("create popup");
         let content = item.instance.reference.value;

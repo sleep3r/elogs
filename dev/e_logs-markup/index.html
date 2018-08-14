@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>ELogs markup Universal page</title>
     <base href="./">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../../static/build/css/index.css">
     <link rel="stylesheet" href="css/font-icons/all.css">
     <script src="js/header.js"></script>
     <script src="js/menu.js"></script>
@@ -100,6 +100,68 @@
               </div>
             </div>
             <div class="journal-tables">
+              <div class="journal-table">
+                <div class="table__title">Длинная таблица</div>
+                <table class="table table-long">
+                  <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n11" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n21" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n31" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s2" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n12" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n22" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n32" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s3" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n13" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n23" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n33" class="number-cell">
+                    </td>
+                  </tr>
+                </table>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
+              </div>
               <div class="journal-table">
                 <div class="table__title">Ответственные по складу</div>
                 <table class="table table-31337">
@@ -256,68 +318,6 @@
                     <td class="string-cell">Lorem ipsum dolor sit amet.</td>
                     <td class="number-cell">1</td>
                     <td class="number-cell">2</td>
-                  </tr>
-                </table>
-                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
-                  <div class="comment__text slide-up">
-                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="journal-table">
-                <div class="table__title">Длинная таблица</div>
-                <table class="table table-long">
-                  <tr>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                  </tr>
-                  <tr>
-                    <th>1</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>2</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>3</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
-                    </td>
                   </tr>
                 </table>
                 <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
