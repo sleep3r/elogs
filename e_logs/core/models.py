@@ -103,7 +103,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
         # search for global setting
         if not found_setting and employee:
             return Setting.get_value(name, obj)
-        raise ValueError("No such setting")
+        # raise ValueError("No such setting")
 
     @staticmethod
     @logged
