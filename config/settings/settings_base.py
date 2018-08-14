@@ -266,4 +266,13 @@ REST_FRAMEWORK = {
         ),
 }
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
+
 CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
