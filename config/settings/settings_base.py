@@ -24,6 +24,10 @@ TEMPLATES = [
     },
 ]
 
+FIXTURE_DIRS = (
+    BASE_DIR / 'fixtures',
+)
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
