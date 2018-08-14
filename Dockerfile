@@ -9,7 +9,7 @@ RUN apt-get install -y nginx
 RUN apt-get install -y curl
 RUN apt-get install -y npm
 
-RUN mkdir /srv/media /srv/static /srv/logs
+RUN mkdir /srv/media /srv/static
 
 EXPOSE 80
 
