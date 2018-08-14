@@ -175,10 +175,10 @@ def save_cell(request):
     cell.save()
 
     if cell.journal.type == 'shift':
-        shift = Shift.objects.get(id=int(cell_info['group_id']))
+        shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
         shift.employee_set.add(request.user.employee)
 
-    return {"status": 1}
+    return JsonResponse({"status": 1})
 
 
 @process_json_view(auth_required=False)
