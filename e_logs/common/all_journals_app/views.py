@@ -35,27 +35,6 @@ class JournalView(LoginRequiredMixin, View):
 
     @staticmethod
     @logged
-    def get_shift(journal, pid=None) -> Shift:
-        shift = None
-
-        if pid:
-            shift = Shift.objects.get(id=pid)
-        else:
-            number_of_shifts = Shift.get_number_of_shifts(journal)
-            assert number_of_shifts > 0, "<= 0 number of shifts"
-
-            # create shifts for today and return current shift
-            for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(journal=journal,
-                                                    order=shift_order,
-                                                    date=date.today())[0]
-                if shift.is_active:
-                    break
-
-        return shift
-
-    @staticmethod
-    @logged
     def get_context(request, plant, journal) -> DeepDict:
         return get_context(request, plant, journal)
 
@@ -165,8 +144,8 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 
 
 @csrf_exempt
-@process_json_view
-@logged
+@process_json_view(auth_required=False)
+# @logged
 def save_cell(request):
     cell_info = json.loads(request.body)
     cell = Cell.get_or_create_cell(**cell_info['cell_location'])
@@ -178,7 +157,7 @@ def save_cell(request):
         shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
         shift.employee_set.add(request.user.employee)
 
-    return JsonResponse({"status": 1})
+    return {"status": 1}
 
 
 @process_json_view(auth_required=False)
