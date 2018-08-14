@@ -23,9 +23,9 @@ class SettingsMeta(ModelBase):
 
 class TargetedSetting:
     @logged
-    def __init__(self, employee: Optional[Employee] = None, obj=None, **kwargs):
+    def __init__(self, employee: Optional[Employee] = None, obj=None):
         self.obj = obj
-        self.kwargs = kwargs
+        # self.kwargs = kwargs
         self.employee = employee
 
     @logged
@@ -34,11 +34,11 @@ class TargetedSetting:
 
     @logged
     def __setitem__(self, name: str, value: str) -> None:
-        default_logger.debug(f'self.kwargs={self.kwargs}')
-        Setting.set_value(name=name, value=value, employee=self.employee, **self.kwargs)
+        default_logger.debug(f'self.kwargs=')
+        Setting.set_value(name=name, value=value, employee=self.employee, obj=self.obj)
 
     def __str__(self):
-        return f'TargetedSetting obj={self.obj} kwargs={self.kwargs} employee={self.employee}'
+        return f'TargetedSetting obj={self.obj} kwargs employee={self.employee}'
 
 
 class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
@@ -109,16 +109,18 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
 
     @staticmethod
     @logged
-    def set_value(name: str, value: str, employee: Employee = None, scope=None, **kwargs) -> None:
-        default_logger.debug(f'Set value: {kwargs}')
+    def set_value(name: str, value: str, employee: Employee = None, scope=None) -> None:
+        default_logger.debug(f'Set value:')
         try:
-            Setting(value=value, name=name, employee=employee, scope=scope).save()
+            Setting.objects.create(value=value, name=name, employee=employee,
+                                   object_id=scope.id, content_type=ContentType.objects.get_for_model(scope))
+            # Setting(value=value, name=name, employee=employee, scope=scope).save()
         except:
-            Setting.objects.update_or_create(defaults={'value': value}, name=name,
-                                             employee=employee, **kwargs)
+            Setting.objects.update_or_create(defaults={'value': value}, name=name, employee=employee,
+                                   object_id=scope.id, content_type=ContentType.objects.get_for_model(scope))
 
     @staticmethod
     @logged
-    def of(employee: Optional[Employee] = None, **kwargs) -> TargetedSetting:
-        default_logger.debug(f'of(kwargs={kwargs})')
-        return TargetedSetting(employee=employee, **kwargs)
+    def of(obj=None, employee: Optional[Employee] = None) -> TargetedSetting:
+        default_logger.debug(f'of(kwargs=')
+        return TargetedSetting(employee=employee, obj=obj)

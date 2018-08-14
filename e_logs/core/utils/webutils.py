@@ -124,7 +124,6 @@ def process_json_view(auth_required=True):
     """
 
     def real_decorator(view):
-        @wraps(view)
         @logged
         @csrf_exempt
         @handle_response_headers
@@ -139,6 +138,8 @@ def process_json_view(auth_required=True):
                 return view(request, **kwargs)
 
         return wrapper
+
+
 
     return real_decorator
 
