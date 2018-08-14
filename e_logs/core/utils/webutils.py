@@ -261,15 +261,22 @@ def set_cookie(response, key: str, value: str, days_expire=7):
                         secure=SESSION_COOKIE_SECURE or None)
 
 
-def none_if_error(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except:
-            return None
+def default_if_error(value):
+    def real_decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except:
+                return value
 
-    return wrapper
+        return wrapper
+
+    return real_decorator
+
+
+def none_if_error(func):
+    return default_if_error(None)(func)
 
 
 def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:

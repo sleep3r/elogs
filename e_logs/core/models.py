@@ -50,8 +50,10 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     value = models.CharField(max_length=2048, verbose_name='Значение')
     employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
-    object_id = models.PositiveIntegerField(null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     null=True, related_name='settings',
+                                     related_query_name='setting')
+    object_id = models.PositiveIntegerField(null=True, blank=True, db_index=True)
     scope = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
