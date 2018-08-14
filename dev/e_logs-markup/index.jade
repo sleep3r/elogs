@@ -11,6 +11,8 @@ html(lang='ru')
     script(src="js/header.js")
     script(src="js/menu.js")
     script(src="js/toggle.js")
+    script(src="js/vendors/popper.js")
+    script(src="js/popper-init.js")
   body
     .elogs-container  
       include ./jade_components/header.jade
@@ -35,10 +37,11 @@ html(lang='ru')
               span Оставить отзыв разработчикам
               i.fab.fa-optin-monster
 
-
+    include ./jade_components/popup.jade
     
     
               
 
               
-  
+
+

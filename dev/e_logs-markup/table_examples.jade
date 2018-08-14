@@ -22,11 +22,11 @@
       tr
         th= rowName
         td 
-          input.string-cell(value="Lorem ipsum dolor sit amet.")
+          input.string-cell(value="Lorem ipsum dolor sit amet.", onfocus="onEdit(this)", id="cell-s1")
         td 
-          input.number-cell(value="1") 
+          input.number-cell(value="1", onfocus="onEdit(this)", id="cell-n1")
         td 
-          input.number-cell(value="2")
+          input.number-cell(value="2", onfocus="onEdit(this)", id="cell-n2")
         td 
-          input.number-cell(value="3")
+          input.number-cell(value="3", onfocus="onEdit(this)", id="cell-n3")
   +table__comment

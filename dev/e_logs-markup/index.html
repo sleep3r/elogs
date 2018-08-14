@@ -9,6 +9,8 @@
     <script src="js/header.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/toggle.js"></script>
+    <script src="js/vendors/popper.js"></script>
+    <script src="js/popper-init.js"></script>
   </head>
   <body>
     <div class="elogs-container"> 
@@ -275,46 +277,46 @@
                   <tr>
                     <th>1</th>
                     <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
                     </td>
                     <td> 
-                      <input value="1" class="number-cell">
+                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
                     </td>
                     <td> 
-                      <input value="2" class="number-cell">
+                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
                     </td>
                     <td> 
-                      <input value="3" class="number-cell">
+                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
                     </td>
                   </tr>
                   <tr>
                     <th>2</th>
                     <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
                     </td>
                     <td> 
-                      <input value="1" class="number-cell">
+                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
                     </td>
                     <td> 
-                      <input value="2" class="number-cell">
+                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
                     </td>
                     <td> 
-                      <input value="3" class="number-cell">
+                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
                     </td>
                   </tr>
                   <tr>
                     <th>3</th>
                     <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
                     </td>
                     <td> 
-                      <input value="1" class="number-cell">
+                      <input value="1" onfocus="onEdit(this)" id="cell-n1" class="number-cell">
                     </td>
                     <td> 
-                      <input value="2" class="number-cell">
+                      <input value="2" onfocus="onEdit(this)" id="cell-n2" class="number-cell">
                     </td>
                     <td> 
-                      <input value="3" class="number-cell">
+                      <input value="3" onfocus="onEdit(this)" id="cell-n3" class="number-cell">
                     </td>
                   </tr>
                 </table>
@@ -331,6 +333,9 @@
           </footer>
         </div>
       </div>
+    </div>
+    <div class="popper"><span class="popper__arrow"></span>
+      <textarea class="content">...</textarea>
     </div>
   </body>
 </html>
