@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from django.conf.global_settings import INTERNAL_IPS
+from config.settings.services.cacheops import *
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'django_extensions',
+    'cacheops',
+    'django_pickling',
 
     'e_logs.core.apps.CoreConfig',
 
