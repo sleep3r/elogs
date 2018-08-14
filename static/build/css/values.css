@@ -1,4 +1,6 @@
-/** Colors */
+/*------------------------------------*\
+  # Colors
+\*------------------------------------*/
 .general-value {
   /*important because it's really important and to override bootstrap*/
   padding-left: 3px !important;
@@ -22,21 +24,6 @@ input[type=number].general-value {
 }
 
 /* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
-.input-check-popup {
-  visibility: hidden;
-  width: 160px;
-  background-color: #73879C;
-  color: #ffffff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
 /* ------------------------ HIGHLIGHT FOR CELLS AT LINK CLICK ---------------------- */
 .highlight {
   animation-name: changeColors;
@@ -67,7 +54,7 @@ input[type=number].general-value {
   opacity: 1;
 }
 
-/* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
+/* -------------------------- BACKGROUND COLOR SHIT --------------------------------- */
 .form-control {
   border: none;
   min-width: 0;
@@ -81,9 +68,6 @@ input[type=number].general-value {
   background: white;
 }
 
-/*.journaltablewrapper .form-control[readonly] {*/
-/*background: white;*/
-/*}*/
 .journaltablewrapper .form-control[readonly]:focus {
   background: white;
 }
