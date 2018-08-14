@@ -1,4 +1,5 @@
 from datetime import time, datetime, timedelta, date
+from functools import lru_cache
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -136,6 +137,7 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
+    @lru_cache(maxsize=1000)
     def get_number_of_shifts(obj):
         # avoiding import loop
         from e_logs.core.models import Setting
