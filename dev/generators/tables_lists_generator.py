@@ -16,7 +16,7 @@ print('def fill_tables_lists():\n')
 print('    Setting.objects.bulk_create([')
 
 for plant in Plant.objects.all():
-    for journal in Journal.objects.filter(plant=plant):
+    for journal in Journal.objects.filter(plant=plant).cache():
         templates_dir = 'e_logs/common/all_journals_app/templates/tables/{}/{}'.format(plant.name, journal.name)
         tables_paths = []
         for (dirpath, dirnames, filenames) in walk(templates_dir):

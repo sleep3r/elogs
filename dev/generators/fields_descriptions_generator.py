@@ -13,11 +13,11 @@ print('def fill_fields_descriptions():')
 print("""    Setting.objects.bulk_create([""")
 for plant in Plant.objects.all():
     # print(plant.name)
-    for journal in Journal.objects.filter(plant=plant):
+    for journal in Journal.objects.filter(plant=plant).cache():
         # print(journal.name)
-        for table in Table.objects.filter(journal=journal):
+        for table in Table.objects.filter(journal=journal).cache():
             # print(table.name)
-            for field in Field.objects.filter(table=table):
+            for field in Field.objects.filter(table=table).cache():
                 # print(field.name)
                 desc = str(fields_info_desc[journal.name][table.name][field.name])
                 # print(plant.name, journal.name, table.name, field.name)
