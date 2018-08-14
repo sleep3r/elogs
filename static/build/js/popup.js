@@ -2,25 +2,46 @@ class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
 
-    static showView(icon) {
-        let input = $(icon).siblings(".general-value")[0];
-        let comment = $(icon).siblings(PopUp.commentSelector())[0];
+    static showView(envelop) {
+        let isOpen = envelop.getAttribute("is-open");
+        console.log(isOpen);
+        if (isOpen === true ) {
+            envelop.setAttribute("is-open", false);
+        } else {
+            console.log(envelop);
 
-        $(input).css(
-            "background",
-            "radial-gradient(white 80%, #24A48A)"
-        );
-        $(comment).addClass("show");
+            let item = envelop.parentNode.querySelector(".general-value");
+            let reference = document.getElementById(item.id);
+            let popper = document.querySelector('.popper');
+            popper.style.display = "block";
+            let popup = new Popper(reference, popper, {
+            placement: 'top',
+              arrow: {
+                classNames: [ 'arrow' ]
+              },
+              modifiers: {
+                flip: {
+                    behavior: ['left', 'bottom', 'top']
+                },
+              },
+              onCreate: function(item) {
+                let content = item.instance.reference.value;
+                let popup = item.instance.popper;
+                let textarea = popup.querySelector(".content");
+                textarea.value = "Ваш комментарий " + content;
+              },
+
+            });
+
+            envelop.setAttribute("is-open", true);
+        }
+
     }
 
     static showValidate(input) {
         let comment = $(input).siblings(PopUp.commentSelector())[0];
         let comment_input = $(comment).children()[1];
 
-        $(input).css(
-            "background",
-            "radial-gradient(white 80%, #24A48A)"
-        );
         $(comment).addClass("show");
         $(comment_input).focus();
     }

@@ -10,16 +10,14 @@ $color-popup-arrow: black;
 .popper {
     padding: 0;
     width: 300px;
-
 }
-
 
 .popper .content {
     margin: 0;
+    width: 100%;
     height: 100%;
     border: none;
 }
-
 
 .popper,
 .tooltip {
@@ -27,7 +25,6 @@ $color-popup-arrow: black;
     background: white;
     color: black;
     border: 1px solid $color-border;
-    width: 150px;
     border-radius: 3px;
     box-shadow: 0 0 2px rgba(0,0,0,0.5);
     text-align: center;
