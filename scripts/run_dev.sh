@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 webpack
 pip3 install -r ./requirements.txt
 sqlcmd -S 127.0.0.1 -P 'Singapore2017' -U sa -Q 'DROP DATABASE elogs'
