@@ -7,9 +7,13 @@
 * elogs-container
 *   header
 *   main-container
-*
-*
-*
+*     column-left
+*       menu
+*     column-content
+*       journal-page
+*         journal-panel
+*         journal-tables
+*   footer
 */
 
 
@@ -104,5 +108,6 @@ body {
 @import "menu.scss";
 @import "journal.scss";
 @import "tables.scss";
-@import 'elog-table';
+@import "inside-table";
 @import "values";
+@import "footer";

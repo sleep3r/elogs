@@ -5,6 +5,7 @@
 * Layout....................Main sections for layout
 *   Header..................Header
 *   Menu....................Left menu.scss
+*   Footer..................footer.scss
 *
 * Journal...................Journal container styles
 * Tables....................Table styles
@@ -19,14 +20,9 @@
 @import "../css/font-icons/all.css";
 @import "colors.scss";
 @import "layout.scss";
-
-
 @import "notifications";
-
 @import "calendar.scss";
-@import "footer";
 @import "fractional";
 @import "feedback";
 @import "slide";
 @import "popup";
-
