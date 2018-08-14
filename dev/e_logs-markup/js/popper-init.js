@@ -3,7 +3,7 @@ function onEdit(item){
   let reference = document.getElementById(item.id);
   let popper = document.querySelector('.popper');
   popper.style.display = "block";
-  let anotherPopper = new Popper(reference, popper, {
+  let popup = new Popper(reference, popper, {
       placement: 'top',
       arrow: {
         classNames: [ 'MY-popper-arrow' ]
