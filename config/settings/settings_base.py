@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'django_extensions',
-    'cachalot',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -267,5 +266,3 @@ REST_FRAMEWORK = {
 }
 
 CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
-
-CACHALOT_ENABLED = True

@@ -109,15 +109,15 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
 
     @staticmethod
     @logged
-    def set_value(name: str, value: str, employee: Employee = None, scope=None) -> None:
+    def set_value(name: str, value: str, employee: Employee = None, obj=None) -> None:
         default_logger.debug(f'Set value:')
         try:
             Setting.objects.create(value=value, name=name, employee=employee,
-                                   object_id=scope.id, content_type=ContentType.objects.get_for_model(scope))
+                                   object_id=obj.id, content_type=ContentType.objects.get_for_model(obj))
             # Setting(value=value, name=name, employee=employee, scope=scope).save()
         except:
             Setting.objects.update_or_create(defaults={'value': value}, name=name, employee=employee,
-                                   object_id=scope.id, content_type=ContentType.objects.get_for_model(scope))
+                                             object_id=obj.id, content_type=ContentType.objects.get_for_model(obj))
 
     @staticmethod
     @logged
