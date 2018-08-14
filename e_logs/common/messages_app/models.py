@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import QuerySet
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
@@ -81,3 +82,7 @@ class Message(StrAsDictMixin, models.Model):
                 res.append(emp)
 
         return res
+
+    @staticmethod
+    def get_unread(employee) -> QuerySet:
+        return Message.objects.filter(is_read=False, addressee=employee)

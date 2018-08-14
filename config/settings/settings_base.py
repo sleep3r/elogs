@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'django_extensions',
+    'cachalot',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -237,7 +238,9 @@ LOGGING = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
     }
 }
 
@@ -264,3 +267,5 @@ REST_FRAMEWORK = {
 }
 
 CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
+
+CACHALOT_ENABLED = True

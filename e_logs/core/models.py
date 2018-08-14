@@ -7,15 +7,38 @@ from django.db.models.base import ModelBase
 
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import StrAsDictMixin
+from e_logs.core.utils.webutils import StrAsDictMixin, logged
+from e_logs.core.utils.loggers import default_logger
 
 
 class SettingsMeta(ModelBase):
+    @logged
     def __getitem__(self, name: str) -> str:
         return Setting.get_value(name)
 
+    @logged
     def __setitem__(self, name: str, value: str) -> None:
         Setting.set_value(name, value)
+
+
+class TargetedSetting:
+    @logged
+    def __init__(self, employee: Optional[Employee] = None, obj=None, **kwargs):
+        self.obj = obj
+        self.kwargs = kwargs
+        self.employee = employee
+
+    @logged
+    def __getitem__(self, name: str) -> str:
+        return Setting.get_value(name, obj=self.obj, employee=self.employee)
+
+    @logged
+    def __setitem__(self, name: str, value: str) -> None:
+        default_logger.debug(f'self.kwargs={self.kwargs}')
+        Setting.set_value(name=name, value=value, employee=self.employee, **self.kwargs)
+
+    def __str__(self):
+        return f'TargetedSetting obj={self.obj} kwargs={self.kwargs} employee={self.employee}'
 
 
 class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
@@ -48,6 +71,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     )
 
     @staticmethod
+    @logged
     def get_value(name: str, obj=None, employee: Optional[Employee] = None) -> str:
         """
         Returns setting value for object.
@@ -79,8 +103,20 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
         # search for global setting
         if not found_setting and employee:
             return Setting.get_value(name, obj)
-        raise ValueError("No such setting")
+        # raise ValueError("No such setting")
 
     @staticmethod
-    def set_value(name: str, value: str, scope=None, employee: Employee = None) -> None:
-        Setting(name=name, value=value, scope=scope, employee=employee).save()
+    @logged
+    def set_value(name: str, value: str, employee: Employee = None, scope=None, **kwargs) -> None:
+        default_logger.debug(f'Set value: {kwargs}')
+        try:
+            Setting(value=value, name=name, employee=employee, scope=scope).save()
+        except:
+            Setting.objects.update_or_create(defaults={'value': value}, name=name,
+                                             employee=employee, **kwargs)
+
+    @staticmethod
+    @logged
+    def of(employee: Optional[Employee] = None, **kwargs) -> TargetedSetting:
+        default_logger.debug(f'of(kwargs={kwargs})')
+        return TargetedSetting(employee=employee, **kwargs)
