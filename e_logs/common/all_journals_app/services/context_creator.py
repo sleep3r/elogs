@@ -85,7 +85,7 @@ def get_cells_data(page: CellGroup) -> dict:
 @logged
 def get_fields_descriptions(journal: Journal) -> dict:
     def field_descs(table):
-        return {field.name: Setting.of(scope=field)['field_description']
+        return {field.name: Setting.of(obj=field)['field_description']
                 for field in table.get_fields()}
 
     return {table.name: field_descs(table) for table in journal.tables.all()}

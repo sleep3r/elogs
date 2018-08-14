@@ -101,11 +101,11 @@ class DatabaseFiller:
 
         for pl, num in shift_numbers.items():
             plant = Plant.objects.get(name=pl)
-            Setting.of(scope=plant)['number_of_shifts'] = num
+            Setting.of(obj=plant)['number_of_shifts'] = num
 
         # overriding number of shifts for furnace plant
         reports_furn = Journal.objects.get(plant__name='furnace', name='reports_furnace_area')
-        Setting.of(scope=reports_furn)['number_of_shifts'] = '3'
+        Setting.of(obj=reports_furn)['number_of_shifts'] = '3'
 
     @staticmethod
     def add_user(user_dict: dict) -> Optional[User]:
