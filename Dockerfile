@@ -13,7 +13,7 @@ RUN mkdir /srv/media /srv/static
 
 EXPOSE 80
 
-VOLUME ["/srv/media/", "/srv/logs/"]
+VOLUME ["/srv/media/"]
 
 COPY ./docker/pyodbc_mssql_driver.sh /srv/docker/
 # installs ubuntu odbc drivers and pip django odbc packets
