@@ -1,5 +1,4 @@
 from datetime import time, datetime, timedelta, date
-from functools import lru_cache
 
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -67,8 +66,9 @@ class Table(StrAsDictMixin, models.Model):
         return self.journal.plant
 
     def cells(self, page):
-        return Cell.objects.select_related('field', 'field__table') \
+        cells = Cell.objects.select_related('field', 'field__table') \
             .filter(group=page, field__table=self)
+        return cells
 
     def get_fields(self):
         return self.fields.all()
@@ -137,11 +137,10 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
-    @lru_cache(maxsize=1000)
     def get_number_of_shifts(obj):
         # avoiding import loop
         from e_logs.core.models import Setting
-        return int(Setting.of(obj)['number_of_shifts'])
+        return Setting.of(obj)['number_of_shifts']
 
     class Meta:
         verbose_name = 'Журнал'
@@ -232,4 +231,3 @@ class Comment(StrAsDictMixin, models.Model):
     @default_if_error('')
     def get_text(self):
         return self.text
-

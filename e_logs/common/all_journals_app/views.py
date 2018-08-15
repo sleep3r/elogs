@@ -149,9 +149,13 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 def save_cell(request):
     cell_info = json.loads(request.body)
     cell = Cell.get_or_create_cell(**cell_info['cell_location'])
-    cell.responsible = request.user.employee
-    cell.value = cell_info['value']
-    cell.save()
+    value = cell_info['value']
+    if value != '':
+        cell.responsible = request.user.employee
+        cell.value = value
+        cell.save()
+    else:
+        cell.delete()
 
     if cell.journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))

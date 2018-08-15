@@ -97,7 +97,7 @@ class DatabaseFiller:
     @staticmethod
     @logged
     def create_number_of_shifts():
-        shift_numbers = {'furnace': '2', 'leaching': '3', 'electrolysis': '4'}
+        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 4}
 
         for pl, num in shift_numbers.items():
             plant = Plant.objects.get(name=pl)
@@ -105,7 +105,7 @@ class DatabaseFiller:
 
         # overriding number of shifts for furnace plant
         reports_furn = Journal.objects.get(plant__name='furnace', name='reports_furnace_area')
-        Setting.of(obj=reports_furn)['number_of_shifts'] = '3'
+        Setting.of(obj=reports_furn)['number_of_shifts'] = 3
 
     @staticmethod
     def add_user(user_dict: dict) -> Optional[User]:
@@ -258,9 +258,6 @@ class DatabaseFiller:
         stdout_logger.info('Adding fields info settings...')
         fill_fields_descriptions()
 
-    @staticmethod
-    def load_settings():
-        pass
 
     @staticmethod
     def clean_database():

@@ -5,6 +5,7 @@ from e_logs.common.all_journals_app.fields_descriptions.fields_classes import *
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field
 
 
+print('import pickle')
 print('from e_logs.core.models import Setting')
 print('from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field')
 print('')
@@ -21,5 +22,5 @@ for plant in Plant.objects.all():
                 # print(field.name)
                 desc = str(fields_info_desc[journal.name][table.name][field.name])
                 # print(plant.name, journal.name, table.name, field.name)
-                print("""        Setting(\n            name='field_description',\n            value="{}",\n            scope=Field.objects.get(\n                table=Table.objects.get(\n                    journal=Journal.objects.get(\n                        plant=Plant.objects.get(\n                            name='{}'\n                        ),\n                        name='{}'\n                    ),\n                    name='{}'\n                ),\n                name='{}'\n             )\n        ),""".format(desc, plant.name, journal.name, table.name, field.name))
+                print("""        Setting(\n            name='field_description',\n            value=pickle.dumps({}),\n            scope=Field.objects.get(\n                table=Table.objects.get(\n                    journal=Journal.objects.get(\n                        plant=Plant.objects.get(\n                            name='{}'\n                        ),\n                        name='{}'\n                    ),\n                    name='{}'\n                ),\n                name='{}'\n             )\n        ),""".format(desc, plant.name, journal.name, table.name, field.name))
 print('])')
