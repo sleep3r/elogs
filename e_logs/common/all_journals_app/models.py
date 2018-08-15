@@ -142,7 +142,7 @@ class Shift(CellGroup):
     def get_number_of_shifts(obj):
         # avoiding import loop
         from e_logs.core.models import Setting
-        return int(Setting.of(obj)['number_of_shifts'])
+        return Setting.of(obj)['number_of_shifts']
 
     class Meta:
         verbose_name = 'Журнал'
@@ -233,4 +233,3 @@ class Comment(StrAsDictMixin, models.Model):
     @default_if_error('')
     def get_text(self):
         return self.text
-

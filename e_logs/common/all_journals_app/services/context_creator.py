@@ -51,7 +51,7 @@ def add_page_info(context, journal, page):
 
 
 def get_tables_paths(journal):
-    return json.loads(Setting.of(journal)['tables_list'])
+    return Setting.of(journal)['tables_list']
 
 
 def add_permissions(context, page, request):
