@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'cacheops',
     'django_pickling',
+    'template_profiler_panel',
 
     'e_logs.core.apps.CoreConfig',
 
