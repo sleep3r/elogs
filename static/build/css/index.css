@@ -1542,6 +1542,9 @@ table.elog-journal-table .table-comment-button :active {
   padding-left: 3px !important;
   padding-right: 3px !important;
   border-radius: 0 !important;
+  border: none !important;
+  outline: none;
+  box-shadow: none;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 300;
   font-size: 14px;
