@@ -3,7 +3,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from e_logs.common.all_journals_app.models import Measurement, Cell, Table, Journal, Field
-from e_logs.core.api import cached
+from e_logs.core.api.utils import cached
 
 
 class MeasurementSerializer(serializers.Serializer):
@@ -14,9 +14,6 @@ class MeasurementSerializer(serializers.Serializer):
     cinder_sizes = serializers.ListField(child=serializers.FloatField(), min_length=1)
     schieht_sizes = serializers.ListField(child=serializers.FloatField(), min_length=1)
 
-    @cached('measurement')
-    def to_representation(self, instance):
-        return super().to_representation(instance)
 
     def create(self, validated_data):
         measurement = Measurement.objects.create(time=validated_data["time"],

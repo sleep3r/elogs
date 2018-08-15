@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load cacheops %}
+{% load cache %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,9 +9,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>
     {% block title %}
-        <title>Title</title>
+        <title>E-logs</title>
     {% endblock %}
 
     {% block css %}
@@ -43,20 +47,20 @@
             {% include "menu.html" %}
         </div>
         <div class="column-content">
-          <div class="journal-page">
-            {% include "journal__panel.html" %}
-            <!-- -->
-            <div class="journal-tables">
-              {% block content %}
-              {% endblock %}
+            <div class="journal-page">
+                {% include "journal__panel.html" %}
+                <!-- -->
+                <div class="journal-tables">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
-          </div>
-          {% include "footer.html" %}
+            {% include "footer.html" %}
         </div>
-      </div>
+    </div>
 </div>
 
-
+{% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
     <!-- Bootstrap -->
@@ -69,10 +73,11 @@
     <script src="{% static 'build/js/datepicker-init.js' %}"></script>
     <script src="{% static 'build/js/shift.js' %}"></script>
     <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
-    <script src = "{% static 'build/js/header.js' %}"></script>
-    <script src = "{% static 'build/js/user-menu.js' %}"></script>
-    <script src = "{% static 'build/js/menu.js' %}"></script>
-    <script src = "{% static 'build/js/journal-panel.js' %}"></script>
+    <script src="{% static 'build/js/header.js' %}"></script>
+    <script src="{% static 'build/js/user-menu.js' %}"></script>
+    <script src="{% static 'build/js/menu.js' %}"></script>
+    <script src="{% static 'build/js/journal-panel.js' %}"></script>
+    <script src="{% static 'vendors/popups/popper.js' %}"></script>
 {% endblock %}
 
 </body>

@@ -1,3 +1,6 @@
+/*------------------------------------*\
+  # Slide
+\*------------------------------------*/
 .slide-up, .slide-down {
   overflow-y: hidden;
   -webkit-transition: max-height 0.3s ease-in-out;

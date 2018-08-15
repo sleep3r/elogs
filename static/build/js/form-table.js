@@ -4,11 +4,41 @@ class FormTable {
 
     }
 
+    static onInput(input) {
+        $('#sync').hide();$('#async').show();
+        this.saveTableComment(input);
+    }
+
     static on_form_change(form) {
         let lines = new Lines();
         lines.clone_last_line(form);
         lines.clear_empty_lines(form);
         FormTable.send(form);
+    }
+
+    static saveTableComment(input) {
+        console.log("HUE");
+        let forSend = JSON.stringify({
+            "comment": {
+                "field_name": input.name,
+                "table_name": $(input).attr('table-name'),
+                "group_id": $(input).attr('journal-page'),
+                "index": 0,
+            },
+            "text": $(input).val(),
+        });
+        $.ajax({
+            url: "/common/save_table_comment/",
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: forSend,
+            success: function (json) {
+                if (json && json.status) {
+                    $("#async").hide();
+                    $("#sync").show();
+                }
+            }
+        });
     }
 
     static send(form) {

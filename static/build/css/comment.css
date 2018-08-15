@@ -1,0 +1,139 @@
+/*------------------------------------*\
+  # Comment
+\*------------------------------------*/
+/*------------------------------------*\
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
+\*------------------------------------*/
+/** Table Comment */
+.journal-table {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.table__title {
+  line-height: 40px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  background-color: #EAEAEA;
+}
+
+.table__comment {
+  margin-bottom: 40px;
+}
+
+.table__comment a {
+  color: #548CB7;
+  font-weight: lighter;
+  text-decoration: none;
+}
+
+.table__comment:hover a {
+  text-decoration: underline;
+}
+.table__comment:hover .ico-comment {
+  box-shadow: 2px 2px #8EAE37;
+}
+
+.comment__text {
+  margin-top: 10px;
+}
+.comment__text textarea {
+  width: 100vh;
+  border: 1px solid #9FBF47;
+}
+
+.ico-comment {
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #9FBF47;
+}
+
+.table .popup-comment-content {
+  visibility: hidden;
+  background-color: #9FBF47;
+  text-align: center;
+  border-radius: 2px;
+  padding: 1px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  margin-bottom: 10px;
+  margin-left: -80px;
+}
+
+.popup-comment-content > textarea:focus {
+  outline: none;
+}
+
+.comment-close-button {
+  height: 10px;
+  width: 10px;
+  font-size: 10px;
+  line-height: 10px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  min-width: 0;
+  border: none;
+}
+
+.comment-close-button:hover {
+  cursor: pointer;
+}
+
+/* Popup arrow */
+.table .popup-comment-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 10px solid transparent;
+  border-top-color: #9FBF47;
+}
+
+.popup-comment-content > textarea {
+  resize: none;
+  line-height: 18px;
+  border: none;
+  margin: 1px;
+}
+
+/* Toggle this class - hide and show the popup */
+.table .show {
+  visibility: visible;
+  /* -webkit-animation: fadeIn 0s;
+  animation: fadeIn 0s; */
+}
+
+.commentAuthor {
+  text-align: left;
+  color: white;
+  padding: 2px 0 2px 5px;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.input-check-popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.popup-comment-content textarea::placeholder {
+  color: #BBBBBB;
+}
+
+.table-comment-button {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=comment.css.map */

@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from e_logs.common.all_journals_app.models import Cell, Measurement
-from e_logs.core.api import CustomRendererView
+from e_logs.core.api.utils import CustomRendererView
 from e_logs.furnace.fractional_app.api.serializers import MeasurementSerializer, \
     MeasurementGraphsSerializer
 

@@ -1,13 +1,13 @@
+import pickle
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field
 
 
 def fill_fields_descriptions():
-
     Setting.objects.bulk_create([
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -23,7 +23,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -39,7 +39,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -55,7 +55,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -71,7 +71,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -87,7 +87,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -103,7 +103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -119,7 +119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}",
+            value=pickle.dumps({'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -135,7 +135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'time', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -151,7 +151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'time', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -167,7 +167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'time', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -183,7 +183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 1.5}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 1.5}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -199,7 +199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -215,7 +215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -231,7 +231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -247,7 +247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -263,7 +263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 0, 'max_normal': 100}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 0, 'max_normal': 100}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -279,7 +279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -295,7 +295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -311,7 +311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -327,7 +327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -343,7 +343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -359,7 +359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -375,7 +375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -391,7 +391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -407,7 +407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -423,7 +423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 0, 'max_normal': 100}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 0, 'max_normal': 100}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -439,7 +439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -455,7 +455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -471,7 +471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -487,7 +487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -503,7 +503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -519,7 +519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -535,7 +535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -551,7 +551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -567,7 +567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -583,7 +583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 0, 'max_normal': 100}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 0, 'max_normal': 100}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -599,7 +599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -615,7 +615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -631,7 +631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -647,7 +647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -663,7 +663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -679,7 +679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -695,7 +695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -711,7 +711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -727,7 +727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 0, 'max_normal': 100, 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -743,7 +743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'units': 'Фамилия И.О.'}",
+            value=pickle.dumps({'type': 'text', 'units': 'Фамилия И.О.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -759,7 +759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'units': 'Фамилия И.О.'}",
+            value=pickle.dumps({'type': 'text', 'units': 'Фамилия И.О.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -775,7 +775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -791,7 +791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'units': 'Фамилия И.О.'}",
+            value=pickle.dumps({'type': 'text', 'units': 'Фамилия И.О.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -807,7 +807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'units': 'Фамилия И.О.'}",
+            value=pickle.dumps({'type': 'text', 'units': 'Фамилия И.О.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -823,7 +823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'date', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -839,7 +839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 10, 'max_normal': 1000, 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -855,7 +855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'min_normal': 0, 'max_normal': 100}",
+            value=pickle.dumps({'type': 'text', 'min_normal': 0, 'max_normal': 100}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -871,7 +871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -887,7 +887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -903,7 +903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'min_normal': 10, 'max_normal': 20000, 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}",
+            value=pickle.dumps({'type': 'datalist', 'min_normal': 10, 'max_normal': 20000, 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -919,7 +919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -935,7 +935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text', 'units': 'Фамилия И.О.'}",
+            value=pickle.dumps({'type': 'text', 'units': 'Фамилия И.О.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -951,7 +951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -967,7 +967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³/час'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³/час'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -983,7 +983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кгс/м²'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кгс/м²'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -999,7 +999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³/час'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³/час'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1015,7 +1015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1031,7 +1031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1047,7 +1047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1063,7 +1063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1079,7 +1079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм.в.ст.'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм.в.ст.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1095,7 +1095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'options': ['-', 'Pб', 'Pт', 'Qп']}",
+            value=pickle.dumps({'type': 'datalist', 'options': ['-', 'Pб', 'Pт', 'Qп']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1111,7 +1111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кгс/м²'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кгс/м²'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1127,7 +1127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1143,7 +1143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1159,7 +1159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тм²/сут'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тм²/сут'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1175,7 +1175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1191,7 +1191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тм²/сут'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тм²/сут'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1207,7 +1207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1223,7 +1223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тм²/сут'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тм²/сут'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1239,7 +1239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1255,7 +1255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1271,7 +1271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1287,7 +1287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1303,7 +1303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1319,7 +1319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1335,7 +1335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1351,7 +1351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1367,7 +1367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1383,7 +1383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1399,7 +1399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1415,7 +1415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1431,7 +1431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1447,7 +1447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1463,7 +1463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1479,7 +1479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1495,7 +1495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1511,7 +1511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1527,7 +1527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1543,7 +1543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1559,7 +1559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1575,7 +1575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1591,7 +1591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1607,7 +1607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1623,7 +1623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1639,7 +1639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1655,7 +1655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1671,7 +1671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1687,7 +1687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1703,7 +1703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1719,7 +1719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1735,7 +1735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1751,7 +1751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1767,7 +1767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1783,7 +1783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1799,7 +1799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1815,7 +1815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1831,7 +1831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1847,7 +1847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1863,7 +1863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1879,7 +1879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1895,7 +1895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1911,7 +1911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1927,7 +1927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1943,7 +1943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1959,7 +1959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1975,7 +1975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -1991,7 +1991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2007,7 +2007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2023,7 +2023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2039,7 +2039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2055,7 +2055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2071,7 +2071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2087,7 +2087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2103,7 +2103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2119,7 +2119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2135,7 +2135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2151,7 +2151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2167,7 +2167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2183,7 +2183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2199,7 +2199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2215,7 +2215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2231,7 +2231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2247,7 +2247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2263,7 +2263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2279,7 +2279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2295,7 +2295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2311,7 +2311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2327,7 +2327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2343,7 +2343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2359,7 +2359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2375,7 +2375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'шт'}",
+            value=pickle.dumps({'type': 'number', 'units': 'шт'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2391,7 +2391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2407,7 +2407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2423,7 +2423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2439,7 +2439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2455,7 +2455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2471,7 +2471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2487,7 +2487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2503,7 +2503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2519,7 +2519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2535,7 +2535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм. вод. ст.'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм. вод. ст.'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2551,7 +2551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2567,7 +2567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2583,7 +2583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2599,7 +2599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2615,7 +2615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2631,7 +2631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2647,7 +2647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2663,7 +2663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2679,7 +2679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2695,7 +2695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2711,7 +2711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2727,7 +2727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2743,7 +2743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2759,7 +2759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2775,7 +2775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2791,7 +2791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2807,7 +2807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2823,7 +2823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2839,7 +2839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2855,7 +2855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2871,7 +2871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2887,7 +2887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2903,7 +2903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2919,7 +2919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2935,7 +2935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2951,7 +2951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2967,7 +2967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2983,7 +2983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -2999,7 +2999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3015,7 +3015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3031,7 +3031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3047,7 +3047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3063,7 +3063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3079,7 +3079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3095,7 +3095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3111,7 +3111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3127,7 +3127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3143,7 +3143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3159,7 +3159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3175,7 +3175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3191,7 +3191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3207,7 +3207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3223,7 +3223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3239,7 +3239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3255,7 +3255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3271,7 +3271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3287,7 +3287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3303,7 +3303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3319,7 +3319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3335,7 +3335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3351,7 +3351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3367,7 +3367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3383,7 +3383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3399,7 +3399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3415,7 +3415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3431,7 +3431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3447,7 +3447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3463,7 +3463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3479,7 +3479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3495,7 +3495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3511,7 +3511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3527,7 +3527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3543,7 +3543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3559,7 +3559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3575,7 +3575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3591,7 +3591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3607,7 +3607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3623,7 +3623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3639,7 +3639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3655,7 +3655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3671,7 +3671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3687,7 +3687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3703,7 +3703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3719,7 +3719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3735,7 +3735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3751,7 +3751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3767,7 +3767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3783,7 +3783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3799,7 +3799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3815,7 +3815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3831,7 +3831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3847,7 +3847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3863,7 +3863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3879,7 +3879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3895,7 +3895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3911,7 +3911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3927,7 +3927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3943,7 +3943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3959,7 +3959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3975,7 +3975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -3991,7 +3991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4007,7 +4007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4023,7 +4023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4039,7 +4039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4055,7 +4055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4071,7 +4071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4087,7 +4087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4103,7 +4103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4119,7 +4119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4135,7 +4135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4151,7 +4151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4167,7 +4167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4183,7 +4183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4199,7 +4199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4215,7 +4215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000, 'units': ''}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4231,7 +4231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4247,7 +4247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 10000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 10000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4263,7 +4263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}",
+            value=pickle.dumps({'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4279,7 +4279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4295,7 +4295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4311,7 +4311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4327,7 +4327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4343,7 +4343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4359,7 +4359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4375,7 +4375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4391,7 +4391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4407,7 +4407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4423,7 +4423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4439,7 +4439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4455,7 +4455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4471,7 +4471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4487,7 +4487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4503,7 +4503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4519,7 +4519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4535,7 +4535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4551,7 +4551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4567,7 +4567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4583,7 +4583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4599,7 +4599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4615,7 +4615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4631,7 +4631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4647,7 +4647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 10, 'max_normal': 1000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 10, 'max_normal': 1000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4663,7 +4663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 5, 'max_normal': 20000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 5, 'max_normal': 20000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4679,7 +4679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 5, 'max_normal': 20000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 5, 'max_normal': 20000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4695,7 +4695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 5, 'max_normal': 20000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 5, 'max_normal': 20000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4711,7 +4711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'min_normal': 5, 'max_normal': 20000}",
+            value=pickle.dumps({'type': 'number', 'min_normal': 5, 'max_normal': 20000}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4727,7 +4727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4743,7 +4743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4759,7 +4759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4775,7 +4775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4791,7 +4791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4807,7 +4807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4823,7 +4823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4839,7 +4839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4855,7 +4855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4871,7 +4871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4887,7 +4887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4903,7 +4903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4919,7 +4919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4935,7 +4935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4951,7 +4951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4967,7 +4967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4983,7 +4983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -4999,7 +4999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5015,7 +5015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5031,7 +5031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5047,7 +5047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5063,7 +5063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5079,7 +5079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}",
+            value=pickle.dumps({'type': 'datalist', 'options': ['ЗГОК', 'Арт-ий', 'Усть-ТАЛ', 'Карагайлы', 'Верх-Бер', 'Белоусовка', 'Жезкент', 'Н.Широкинский', 'Лесосиб', 'Алтын-Топкан']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5095,7 +5095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5111,7 +5111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5127,7 +5127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5143,7 +5143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5159,7 +5159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5175,7 +5175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5191,7 +5191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5207,7 +5207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5223,7 +5223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5239,7 +5239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5255,7 +5255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5271,7 +5271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5287,7 +5287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5303,7 +5303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5319,7 +5319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5335,7 +5335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5351,7 +5351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5367,7 +5367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5383,7 +5383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5399,7 +5399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5415,7 +5415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5431,7 +5431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5447,7 +5447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5463,7 +5463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5479,7 +5479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5495,7 +5495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5511,7 +5511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5527,7 +5527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5543,7 +5543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5559,7 +5559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5575,7 +5575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5591,7 +5591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5607,7 +5607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ВМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ВМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5623,7 +5623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5639,7 +5639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5655,7 +5655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5671,7 +5671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5687,7 +5687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5703,7 +5703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5719,7 +5719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5735,7 +5735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5751,7 +5751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5767,7 +5767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5783,7 +5783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5799,7 +5799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5815,7 +5815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5831,7 +5831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5847,7 +5847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'СМТ'}",
+            value=pickle.dumps({'type': 'number', 'units': 'СМТ'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5863,7 +5863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5879,7 +5879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5895,7 +5895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5911,7 +5911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5927,7 +5927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5943,7 +5943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5959,7 +5959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5975,7 +5975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -5991,7 +5991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6007,7 +6007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6023,7 +6023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6039,7 +6039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6055,7 +6055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6071,7 +6071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6087,7 +6087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6103,7 +6103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6119,7 +6119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6135,7 +6135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6151,7 +6151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6167,7 +6167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6183,7 +6183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6199,7 +6199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6215,7 +6215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6231,7 +6231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6247,7 +6247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6263,7 +6263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6279,7 +6279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6295,7 +6295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6311,7 +6311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6327,7 +6327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6343,7 +6343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6359,7 +6359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6375,7 +6375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6391,7 +6391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6407,7 +6407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6423,7 +6423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6439,7 +6439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6455,7 +6455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6471,7 +6471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6487,7 +6487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6503,7 +6503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6519,7 +6519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6535,7 +6535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6551,7 +6551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6567,7 +6567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6583,7 +6583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6599,7 +6599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6615,7 +6615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6631,7 +6631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6647,7 +6647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6663,7 +6663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6679,7 +6679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6695,7 +6695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6711,7 +6711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6727,7 +6727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6743,7 +6743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6759,7 +6759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6775,7 +6775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6791,7 +6791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6807,7 +6807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6823,7 +6823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6839,7 +6839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6855,7 +6855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6871,7 +6871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6887,7 +6887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6903,7 +6903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6919,7 +6919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6935,7 +6935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6951,7 +6951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6967,7 +6967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6983,7 +6983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -6999,7 +6999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7015,7 +7015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7031,7 +7031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7047,7 +7047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7063,7 +7063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7079,7 +7079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7095,7 +7095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7111,7 +7111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7127,7 +7127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7143,7 +7143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7159,7 +7159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7175,7 +7175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7191,7 +7191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7207,7 +7207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7223,7 +7223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7239,7 +7239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7255,7 +7255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7271,7 +7271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7287,7 +7287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7303,7 +7303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7319,7 +7319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7335,7 +7335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7351,7 +7351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7367,7 +7367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7383,7 +7383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7399,7 +7399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7415,7 +7415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7431,7 +7431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7447,7 +7447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7463,7 +7463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7479,7 +7479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7495,7 +7495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7511,7 +7511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7527,7 +7527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7543,7 +7543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7559,7 +7559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7575,7 +7575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7591,7 +7591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7607,7 +7607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7623,7 +7623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7639,7 +7639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7655,7 +7655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7671,7 +7671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7687,7 +7687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7703,7 +7703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7719,7 +7719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7735,7 +7735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7751,7 +7751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7767,7 +7767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7783,7 +7783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7799,7 +7799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7815,7 +7815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7831,7 +7831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7847,7 +7847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7863,7 +7863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7879,7 +7879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7895,7 +7895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7911,7 +7911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7927,7 +7927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7943,7 +7943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7959,7 +7959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7975,7 +7975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -7991,7 +7991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8007,7 +8007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8023,7 +8023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8039,7 +8039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8055,7 +8055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8071,7 +8071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8087,7 +8087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8103,7 +8103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8119,7 +8119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8135,7 +8135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8151,7 +8151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8167,7 +8167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8183,7 +8183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8199,7 +8199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8215,7 +8215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8231,7 +8231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8247,7 +8247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8263,7 +8263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8279,7 +8279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8295,7 +8295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8311,7 +8311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8327,7 +8327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8343,7 +8343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8359,7 +8359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8375,7 +8375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8391,7 +8391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8407,7 +8407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8423,7 +8423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8439,7 +8439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8455,7 +8455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8471,7 +8471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8487,7 +8487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8503,7 +8503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8519,7 +8519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8535,7 +8535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8551,7 +8551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8567,7 +8567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8583,7 +8583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8599,7 +8599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8615,7 +8615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8631,7 +8631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8647,7 +8647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8663,7 +8663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8679,7 +8679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8695,7 +8695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8711,7 +8711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8727,7 +8727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8743,7 +8743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8759,7 +8759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8775,7 +8775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8791,7 +8791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8807,7 +8807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8823,7 +8823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8839,7 +8839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8855,7 +8855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8871,7 +8871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8887,7 +8887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8903,7 +8903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8919,7 +8919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8935,7 +8935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8951,7 +8951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8967,7 +8967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8983,7 +8983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -8999,7 +8999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9015,7 +9015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9031,7 +9031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9047,7 +9047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9063,7 +9063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9079,7 +9079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9095,7 +9095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9111,7 +9111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9127,7 +9127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9143,7 +9143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9159,7 +9159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9175,7 +9175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9191,7 +9191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9207,7 +9207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9223,7 +9223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9239,7 +9239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9255,7 +9255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9271,7 +9271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9287,7 +9287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9303,7 +9303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9319,7 +9319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9335,7 +9335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9351,7 +9351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9367,7 +9367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9383,7 +9383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9399,7 +9399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9415,7 +9415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9431,7 +9431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9447,7 +9447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9463,7 +9463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9479,7 +9479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9495,7 +9495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9511,7 +9511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9527,7 +9527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9543,7 +9543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9559,7 +9559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="[{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mixh2so4', 'view': 'Смеси, г/л'}, {'db': 'solute1', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute2', 'view': 'Удельный вес хол-го раствора, г/см³'}, {'db': 'mixture_temp', 'view': 'Удельный вес отр-го раствора, г/см³'}, {'db': 'bath_temp', 'view': 'Температура смеси, ᵒC'}, {'db': 'temp1', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'temp2', 'view': 'Температура 1, ᵒC'}]",
+            value=pickle.dumps([{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mixh2so4', 'view': 'Смеси, г/л'}, {'db': 'solute1', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute2', 'view': 'Удельный вес хол-го раствора, г/см³'}, {'db': 'mixture_temp', 'view': 'Удельный вес отр-го раствора, г/см³'}, {'db': 'bath_temp', 'view': 'Температура смеси, ᵒC'}, {'db': 'temp1', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'temp2', 'view': 'Температура 1, ᵒC'}]),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9575,7 +9575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']",
+            value=pickle.dumps(['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9591,7 +9591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['inconsistencies', 'measures']",
+            value=pickle.dumps(['inconsistencies', 'measures']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9607,7 +9607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9623,7 +9623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9639,7 +9639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9655,7 +9655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9671,7 +9671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9687,7 +9687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9703,7 +9703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9719,7 +9719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9735,7 +9735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9751,7 +9751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9767,7 +9767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9783,7 +9783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9799,7 +9799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9815,7 +9815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9831,7 +9831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9847,7 +9847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9863,7 +9863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9879,7 +9879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9895,7 +9895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9911,7 +9911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9927,7 +9927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9943,7 +9943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9959,7 +9959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9975,7 +9975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -9991,7 +9991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10007,7 +10007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10023,7 +10023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10039,7 +10039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10055,7 +10055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10071,7 +10071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10087,7 +10087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10103,7 +10103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10119,7 +10119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10135,7 +10135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10151,7 +10151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10167,7 +10167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10183,7 +10183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10199,7 +10199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10215,7 +10215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10231,7 +10231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10247,7 +10247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10263,7 +10263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10279,7 +10279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10295,7 +10295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10311,7 +10311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10327,7 +10327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10343,7 +10343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10359,7 +10359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10375,7 +10375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10391,7 +10391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10407,7 +10407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10423,7 +10423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10439,7 +10439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10455,7 +10455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10471,7 +10471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10487,7 +10487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10503,7 +10503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10519,7 +10519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10535,7 +10535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10551,7 +10551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10567,7 +10567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10583,7 +10583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10599,7 +10599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10615,7 +10615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10631,7 +10631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10647,7 +10647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10663,7 +10663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10679,7 +10679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10695,7 +10695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10711,7 +10711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10727,7 +10727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10743,7 +10743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10759,7 +10759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10775,7 +10775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10791,7 +10791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10807,7 +10807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10823,7 +10823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10839,7 +10839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10855,7 +10855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10871,7 +10871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10887,7 +10887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10903,7 +10903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10919,7 +10919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10935,7 +10935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10951,7 +10951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10967,7 +10967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10983,7 +10983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -10999,7 +10999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11015,7 +11015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11031,7 +11031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11047,7 +11047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11063,7 +11063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11079,7 +11079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11095,7 +11095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11111,7 +11111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11127,7 +11127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11143,7 +11143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11159,7 +11159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11175,7 +11175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11191,7 +11191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11207,7 +11207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11223,7 +11223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11239,7 +11239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11255,7 +11255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11271,7 +11271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11287,7 +11287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11303,7 +11303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11319,7 +11319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11335,7 +11335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11351,7 +11351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11367,7 +11367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11383,7 +11383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11399,7 +11399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11415,7 +11415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11431,7 +11431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11447,7 +11447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11463,7 +11463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11479,7 +11479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11495,7 +11495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11511,7 +11511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11527,7 +11527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11543,7 +11543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11559,7 +11559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11575,7 +11575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11591,7 +11591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11607,7 +11607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11623,7 +11623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11639,7 +11639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11655,7 +11655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11671,7 +11671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11687,7 +11687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11703,7 +11703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11719,7 +11719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11735,7 +11735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11751,7 +11751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11767,7 +11767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11783,7 +11783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11799,7 +11799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11815,7 +11815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11831,7 +11831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11847,7 +11847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11863,7 +11863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11879,7 +11879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11895,7 +11895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11911,7 +11911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11927,7 +11927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11943,7 +11943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11959,7 +11959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11975,7 +11975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -11991,7 +11991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12007,7 +12007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12023,7 +12023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="[{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mix', 'view': 'Смеси, г/л'}, {'db': 'h2so4', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute1', 'view': 'Удельный вес хол-го раствора, г/см³'}, {'db': 'solute2', 'view': 'Удельный вес отр-го раствора, г/см³'}, {'db': 'mixture_temp', 'view': 'Температура смеси, ᵒC'}, {'db': 'bath_temp', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'h2o_temp', 'view': 'Температура H₂O, ᵒC'}, {'db': 'h2o_pressure', 'view': 'Давление H₂O, Па'}, {'db': 'gas_pressure', 'view': 'Давление пара, Па'}, {'db': 'wastewater', 'view': 'Сточные воды, Рh'}, {'db': 'point5_temp', 'view': 'Температура точки 5 ВИУ, ᵒC'}, {'db': 'point6_temp', 'view': 'Температура точки 6 ВИУ, ᵒC'}, {'db': 'point7_temp', 'view': 'Температура точки 7 ВИУ, ᵒC'}]",
+            value=pickle.dumps([{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mix', 'view': 'Смеси, г/л'}, {'db': 'h2so4', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute1', 'view': 'Удельный вес хол-го раствора, г/см³'}, {'db': 'solute2', 'view': 'Удельный вес отр-го раствора, г/см³'}, {'db': 'mixture_temp', 'view': 'Температура смеси, ᵒC'}, {'db': 'bath_temp', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'h2o_temp', 'view': 'Температура H₂O, ᵒC'}, {'db': 'h2o_pressure', 'view': 'Давление H₂O, Па'}, {'db': 'gas_pressure', 'view': 'Давление пара, Па'}, {'db': 'wastewater', 'view': 'Сточные воды, Рh'}, {'db': 'point5_temp', 'view': 'Температура точки 5 ВИУ, ᵒC'}, {'db': 'point6_temp', 'view': 'Температура точки 6 ВИУ, ᵒC'}, {'db': 'point7_temp', 'view': 'Температура точки 7 ВИУ, ᵒC'}]),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12039,7 +12039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']",
+            value=pickle.dumps(['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12055,7 +12055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['mismatches', 'measures']",
+            value=pickle.dumps(['mismatches', 'measures']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12071,7 +12071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12087,7 +12087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12103,7 +12103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12119,7 +12119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12135,7 +12135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12151,7 +12151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12167,7 +12167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12183,7 +12183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12199,7 +12199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12215,7 +12215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12231,7 +12231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12247,7 +12247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12263,7 +12263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12279,7 +12279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12295,7 +12295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12311,7 +12311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12327,7 +12327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12343,7 +12343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12359,7 +12359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12375,7 +12375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12391,7 +12391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12407,7 +12407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12423,7 +12423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12439,7 +12439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12455,7 +12455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12471,7 +12471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12487,7 +12487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12503,7 +12503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12519,7 +12519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12535,7 +12535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12551,7 +12551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12567,7 +12567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12583,7 +12583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12599,7 +12599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12615,7 +12615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12631,7 +12631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12647,7 +12647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12663,7 +12663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12679,7 +12679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12695,7 +12695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12711,7 +12711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12727,7 +12727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12743,7 +12743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12759,7 +12759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12775,7 +12775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12791,7 +12791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12807,7 +12807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12823,7 +12823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12839,7 +12839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12855,7 +12855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12871,7 +12871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12887,7 +12887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12903,7 +12903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12919,7 +12919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12935,7 +12935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12951,7 +12951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12967,7 +12967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12983,7 +12983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -12999,7 +12999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13015,7 +13015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13031,7 +13031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13047,7 +13047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13063,7 +13063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13079,7 +13079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13095,7 +13095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13111,7 +13111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13127,7 +13127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13143,7 +13143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13159,7 +13159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13175,7 +13175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13191,7 +13191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13207,7 +13207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13223,7 +13223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13239,7 +13239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13255,7 +13255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13271,7 +13271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13287,7 +13287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13303,7 +13303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13319,7 +13319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13335,7 +13335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13351,7 +13351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13367,7 +13367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13383,7 +13383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13399,7 +13399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13415,7 +13415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13431,7 +13431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13447,7 +13447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13463,7 +13463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13479,7 +13479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13495,7 +13495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13511,7 +13511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13527,7 +13527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13543,7 +13543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13559,7 +13559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13575,7 +13575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13591,7 +13591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13607,7 +13607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13623,7 +13623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13639,7 +13639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13655,7 +13655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13671,7 +13671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13687,7 +13687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13703,7 +13703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13719,7 +13719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13735,7 +13735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13751,7 +13751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13767,7 +13767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13783,7 +13783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13799,7 +13799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13815,7 +13815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13831,7 +13831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13847,7 +13847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13863,7 +13863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13879,7 +13879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13895,7 +13895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13911,7 +13911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13927,7 +13927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13943,7 +13943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13959,7 +13959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13975,7 +13975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -13991,7 +13991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14007,7 +14007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14023,7 +14023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14039,7 +14039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14055,7 +14055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14071,7 +14071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14087,7 +14087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14103,7 +14103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14119,7 +14119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14135,7 +14135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14151,7 +14151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14167,7 +14167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14183,7 +14183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14199,7 +14199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14215,7 +14215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14231,7 +14231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14247,7 +14247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14263,7 +14263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Па'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Па'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14279,7 +14279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14295,7 +14295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14311,7 +14311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14327,7 +14327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14343,7 +14343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14359,7 +14359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14375,7 +14375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14391,7 +14391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14407,7 +14407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14423,7 +14423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14439,7 +14439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14455,7 +14455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14471,7 +14471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14487,7 +14487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Рh'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Рh'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14503,7 +14503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14519,7 +14519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14535,7 +14535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14551,7 +14551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14567,7 +14567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14583,7 +14583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14599,7 +14599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14615,7 +14615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14631,7 +14631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14647,7 +14647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14663,7 +14663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14679,7 +14679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14695,7 +14695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14711,7 +14711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14727,7 +14727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14743,7 +14743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14759,7 +14759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14775,7 +14775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14791,7 +14791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14807,7 +14807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14823,7 +14823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14839,7 +14839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14855,7 +14855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14871,7 +14871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14887,7 +14887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14903,7 +14903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14919,7 +14919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14935,7 +14935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14951,7 +14951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14967,7 +14967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14983,7 +14983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -14999,7 +14999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15015,7 +15015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15031,7 +15031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15047,7 +15047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15063,7 +15063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15079,7 +15079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15095,7 +15095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15111,7 +15111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15127,7 +15127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15143,7 +15143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15159,7 +15159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15175,7 +15175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15191,7 +15191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15207,7 +15207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15223,7 +15223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15239,7 +15239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15255,7 +15255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15271,7 +15271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15287,7 +15287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15303,7 +15303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15319,7 +15319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15335,7 +15335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15351,7 +15351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15367,7 +15367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15383,7 +15383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15399,7 +15399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15415,7 +15415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15431,7 +15431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15447,7 +15447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15463,7 +15463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15479,7 +15479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15495,7 +15495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15511,7 +15511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15527,7 +15527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15543,7 +15543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15559,7 +15559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15575,7 +15575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15591,7 +15591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15607,7 +15607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15623,7 +15623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15639,7 +15639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15655,7 +15655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15671,7 +15671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15687,7 +15687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15703,7 +15703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15719,7 +15719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15735,7 +15735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15751,7 +15751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15767,7 +15767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15783,7 +15783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15799,7 +15799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15815,7 +15815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15831,7 +15831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15847,7 +15847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15863,7 +15863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15879,7 +15879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15895,7 +15895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15911,7 +15911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15927,7 +15927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15943,7 +15943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15959,7 +15959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15975,7 +15975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -15991,7 +15991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '№'}",
+            value=pickle.dumps({'type': 'number', 'units': '№'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16007,7 +16007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16023,7 +16023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="[{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mix', 'view': 'Смеси, г/л'}, {'db': 'h2so4', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute1', 'view': 'Температура смеси, ᵒC'}, {'db': 'solute2', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'mixture_temp', 'view': 'Температура нейтр. град., ᵒC'}, {'db': 'bath_temp', 'view': '1 серия, кА'}, {'db': 'temp1', 'view': '2 серия, кА'}]",
+            value=pickle.dumps([{'db': 'zn', 'view': 'Zn в отр., г/л'}, {'db': 'zn_mix', 'view': 'Смеси, г/л'}, {'db': 'h2so4', 'view': 'H₂SO₄ отр., г/л'}, {'db': 'solute1', 'view': 'Температура смеси, ᵒC'}, {'db': 'solute2', 'view': 'Температура в ваннах, ᵒC'}, {'db': 'mixture_temp', 'view': 'Температура нейтр. град., ᵒC'}, {'db': 'bath_temp', 'view': '1 серия, кА'}, {'db': 'temp1', 'view': '2 серия, кА'}]),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16039,7 +16039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']",
+            value=pickle.dumps(['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16055,7 +16055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="['inconsistencies', 'measures']",
+            value=pickle.dumps(['inconsistencies', 'measures']),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16071,7 +16071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16087,7 +16087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16103,7 +16103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16119,7 +16119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16135,7 +16135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16151,7 +16151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16167,7 +16167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16183,7 +16183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16199,7 +16199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16215,7 +16215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16231,7 +16231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16247,7 +16247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16263,7 +16263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16279,7 +16279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16295,7 +16295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16311,7 +16311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16327,7 +16327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16343,7 +16343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16359,7 +16359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16375,7 +16375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16391,7 +16391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16407,7 +16407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16423,7 +16423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16439,7 +16439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16455,7 +16455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16471,7 +16471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16487,7 +16487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16503,7 +16503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16519,7 +16519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16535,7 +16535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16551,7 +16551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16567,7 +16567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16583,7 +16583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16599,7 +16599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16615,7 +16615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16631,7 +16631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16647,7 +16647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16663,7 +16663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16679,7 +16679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16695,7 +16695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16711,7 +16711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16727,7 +16727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16743,7 +16743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16759,7 +16759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16775,7 +16775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16791,7 +16791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16807,7 +16807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16823,7 +16823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16839,7 +16839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16855,7 +16855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16871,7 +16871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16887,7 +16887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16903,7 +16903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16919,7 +16919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16935,7 +16935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16951,7 +16951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16967,7 +16967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16983,7 +16983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -16999,7 +16999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17015,7 +17015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17031,7 +17031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17047,7 +17047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17063,7 +17063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17079,7 +17079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17095,7 +17095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17111,7 +17111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17127,7 +17127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17143,7 +17143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17159,7 +17159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17175,7 +17175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17191,7 +17191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17207,7 +17207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17223,7 +17223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17239,7 +17239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17255,7 +17255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17271,7 +17271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17287,7 +17287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17303,7 +17303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17319,7 +17319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17335,7 +17335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17351,7 +17351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17367,7 +17367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17383,7 +17383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17399,7 +17399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17415,7 +17415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17431,7 +17431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17447,7 +17447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17463,7 +17463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17479,7 +17479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17495,7 +17495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17511,7 +17511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17527,7 +17527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17543,7 +17543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17559,7 +17559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17575,7 +17575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17591,7 +17591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17607,7 +17607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17623,7 +17623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17639,7 +17639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17655,7 +17655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17671,7 +17671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17687,7 +17687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17703,7 +17703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17719,7 +17719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17735,7 +17735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17751,7 +17751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17767,7 +17767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17783,7 +17783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17799,7 +17799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17815,7 +17815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кА'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кА'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17831,7 +17831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17847,7 +17847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17863,7 +17863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17879,7 +17879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17895,7 +17895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17911,7 +17911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17927,7 +17927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17943,7 +17943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17959,7 +17959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/т'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/т'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17975,7 +17975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -17991,7 +17991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18007,7 +18007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18023,7 +18023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18039,7 +18039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18055,7 +18055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18071,7 +18071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18087,7 +18087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18103,7 +18103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18119,7 +18119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18135,7 +18135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18151,7 +18151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18167,7 +18167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18183,7 +18183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18199,7 +18199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18215,7 +18215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18231,7 +18231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18247,7 +18247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18263,7 +18263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18279,7 +18279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18295,7 +18295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'datalist', 'options': ['Агитатор «Манн» №1', 'Агитатор «Манн» №2', 'Агитатор «Манн» №3', 'Сгуститель №1', 'Сгуститель №2', 'Сгуститель №3', 'Питатель ленточный В – 500 мм', 'Элеватор ЦГ-400 №1', 'Элеватор ЦГ-400 №2', 'Транспортер ленточный В – 650 мм']}",
+            value=pickle.dumps({'type': 'datalist', 'options': ['Агитатор «Манн» №1', 'Агитатор «Манн» №2', 'Агитатор «Манн» №3', 'Сгуститель №1', 'Сгуститель №2', 'Сгуститель №3', 'Питатель ленточный В – 500 мм', 'Элеватор ЦГ-400 №1', 'Элеватор ЦГ-400 №2', 'Транспортер ленточный В – 650 мм']}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18311,7 +18311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18327,7 +18327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18343,7 +18343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'date'}",
+            value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18359,7 +18359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18375,7 +18375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18391,7 +18391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18407,7 +18407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18423,7 +18423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18439,7 +18439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18455,7 +18455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18471,7 +18471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18487,7 +18487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18503,7 +18503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18519,7 +18519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18535,7 +18535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18551,7 +18551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18567,7 +18567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18583,7 +18583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18599,7 +18599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18615,7 +18615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18631,7 +18631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18647,7 +18647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18663,7 +18663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18679,7 +18679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18695,7 +18695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18711,7 +18711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18727,7 +18727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': '%'}",
+            value=pickle.dumps({'type': 'number', 'units': '%'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18743,7 +18743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/см³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/см³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18759,7 +18759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18775,7 +18775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18791,7 +18791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18807,7 +18807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18823,7 +18823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18839,7 +18839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18855,7 +18855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18871,7 +18871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18887,7 +18887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18903,7 +18903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18919,7 +18919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18935,7 +18935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18951,7 +18951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18967,7 +18967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18983,7 +18983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -18999,7 +18999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19015,7 +19015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19031,7 +19031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19047,7 +19047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19063,7 +19063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19079,7 +19079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19095,7 +19095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19111,7 +19111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19127,7 +19127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19143,7 +19143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19159,7 +19159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'ᵒC'}",
+            value=pickle.dumps({'type': 'number', 'units': 'ᵒC'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19175,7 +19175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19191,7 +19191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19207,7 +19207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19223,7 +19223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19239,7 +19239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19255,7 +19255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19271,7 +19271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19287,7 +19287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19303,7 +19303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19319,7 +19319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19335,7 +19335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19351,7 +19351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19367,7 +19367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19383,7 +19383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м/час'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м/час'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19399,7 +19399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19415,7 +19415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19431,7 +19431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'г/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'г/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19447,7 +19447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19463,7 +19463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19479,7 +19479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'pH'}",
+            value=pickle.dumps({'type': 'number', 'units': 'pH'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19495,7 +19495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19511,7 +19511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19527,7 +19527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19543,7 +19543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19559,7 +19559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19575,7 +19575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19591,7 +19591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19607,7 +19607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19623,7 +19623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19639,7 +19639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19655,7 +19655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19671,7 +19671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мм'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мм'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19687,7 +19687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19703,7 +19703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19719,7 +19719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19735,7 +19735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19751,7 +19751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19767,7 +19767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19783,7 +19783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19799,7 +19799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19815,7 +19815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19831,7 +19831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19847,7 +19847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19863,7 +19863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19879,7 +19879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19895,7 +19895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19911,7 +19911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19927,7 +19927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19943,7 +19943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19959,7 +19959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19975,7 +19975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -19991,7 +19991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20007,7 +20007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20023,7 +20023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20039,7 +20039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20055,7 +20055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20071,7 +20071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20087,7 +20087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20103,7 +20103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20119,7 +20119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20135,7 +20135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20151,7 +20151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20167,7 +20167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20183,7 +20183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20199,7 +20199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20215,7 +20215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20231,7 +20231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20247,7 +20247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20263,7 +20263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20279,7 +20279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20295,7 +20295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20311,7 +20311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20327,7 +20327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20343,7 +20343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20359,7 +20359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20375,7 +20375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20391,7 +20391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20407,7 +20407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20423,7 +20423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20439,7 +20439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20455,7 +20455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20471,7 +20471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20487,7 +20487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20503,7 +20503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20519,7 +20519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20535,7 +20535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20551,7 +20551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20567,7 +20567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20583,7 +20583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20599,7 +20599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20615,7 +20615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20631,7 +20631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20647,7 +20647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20663,7 +20663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20679,7 +20679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20695,7 +20695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20711,7 +20711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20727,7 +20727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20743,7 +20743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20759,7 +20759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20775,7 +20775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20791,7 +20791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20807,7 +20807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20823,7 +20823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20839,7 +20839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20855,7 +20855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20871,7 +20871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20887,7 +20887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20903,7 +20903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20919,7 +20919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20935,7 +20935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'кг'}",
+            value=pickle.dumps({'type': 'number', 'units': 'кг'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20951,7 +20951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20967,7 +20967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20983,7 +20983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -20999,7 +20999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21015,7 +21015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21031,7 +21031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21047,7 +21047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21063,7 +21063,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21079,7 +21079,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21095,7 +21095,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'см'}",
+            value=pickle.dumps({'type': 'number', 'units': 'см'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21111,7 +21111,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21127,7 +21127,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21143,7 +21143,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21159,7 +21159,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21175,7 +21175,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21191,7 +21191,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21207,7 +21207,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21223,7 +21223,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21239,7 +21239,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21255,7 +21255,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21271,7 +21271,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21287,7 +21287,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21303,7 +21303,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21319,7 +21319,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21335,7 +21335,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21351,7 +21351,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21367,7 +21367,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21383,7 +21383,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21399,7 +21399,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21415,7 +21415,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21431,7 +21431,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21447,7 +21447,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21463,7 +21463,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21479,7 +21479,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21495,7 +21495,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21511,7 +21511,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21527,7 +21527,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21543,7 +21543,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21559,7 +21559,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21575,7 +21575,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21591,7 +21591,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21607,7 +21607,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21623,7 +21623,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21639,7 +21639,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21655,7 +21655,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21671,7 +21671,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21687,7 +21687,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21703,7 +21703,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21719,7 +21719,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21735,7 +21735,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21751,7 +21751,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21767,7 +21767,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21783,7 +21783,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21799,7 +21799,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21815,7 +21815,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21831,7 +21831,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21847,7 +21847,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21863,7 +21863,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21879,7 +21879,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21895,7 +21895,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21911,7 +21911,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21927,7 +21927,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21943,7 +21943,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21959,7 +21959,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21975,7 +21975,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -21991,7 +21991,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22007,7 +22007,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22023,7 +22023,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22039,7 +22039,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22055,7 +22055,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22071,7 +22071,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22087,7 +22087,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22103,7 +22103,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22119,7 +22119,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22135,7 +22135,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22151,7 +22151,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22167,7 +22167,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22183,7 +22183,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22199,7 +22199,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22215,7 +22215,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22231,7 +22231,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22247,7 +22247,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'мг/л'}",
+            value=pickle.dumps({'type': 'number', 'units': 'мг/л'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22263,7 +22263,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22279,7 +22279,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22295,7 +22295,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22311,7 +22311,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22327,7 +22327,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22343,7 +22343,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22359,7 +22359,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22375,7 +22375,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22391,7 +22391,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22407,7 +22407,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22423,7 +22423,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22439,7 +22439,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22455,7 +22455,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'time'}",
+            value=pickle.dumps({'type': 'time'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22471,7 +22471,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22487,7 +22487,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22503,7 +22503,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22519,7 +22519,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22535,7 +22535,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22551,7 +22551,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22567,7 +22567,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22583,7 +22583,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22599,7 +22599,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22615,7 +22615,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22631,7 +22631,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'Ампер'}",
+            value=pickle.dumps({'type': 'number', 'units': 'Ампер'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22647,7 +22647,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22663,7 +22663,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22679,7 +22679,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22695,7 +22695,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22711,7 +22711,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22727,7 +22727,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22743,7 +22743,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22759,7 +22759,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22775,7 +22775,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22791,7 +22791,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22807,7 +22807,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22823,7 +22823,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'text'}",
+            value=pickle.dumps({'type': 'text'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22839,7 +22839,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22855,7 +22855,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22871,7 +22871,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22887,7 +22887,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22903,7 +22903,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'тонн'}",
+            value=pickle.dumps({'type': 'number', 'units': 'тонн'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22919,7 +22919,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22935,7 +22935,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22951,7 +22951,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22967,7 +22967,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22983,7 +22983,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -22999,7 +22999,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -23015,7 +23015,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number'}",
+            value=pickle.dumps({'type': 'number'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -23031,7 +23031,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(
@@ -23047,7 +23047,7 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value="{'type': 'number', 'units': 'м³'}",
+            value=pickle.dumps({'type': 'number', 'units': 'м³'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
                     journal=Journal.objects.get(

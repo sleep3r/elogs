@@ -15,7 +15,7 @@ from e_logs.core.management.commands.tables_filler import fill_tables
 from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
 from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger, err_logger
-from e_logs.core.utils.webutils import translate
+from e_logs.core.utils.webutils import translate, logged
 from e_logs.furnace.fractional_app import models as famodels
 
 
@@ -95,16 +95,17 @@ class DatabaseFiller:
         Plant.objects.bulk_create([Plant(name=n) for n in plant_names])
 
     @staticmethod
+    @logged
     def create_number_of_shifts():
-        shift_numbers = {'furnace': '2', 'leaching': '3', 'electrolysis': '4'}
+        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 4}
 
         for pl, num in shift_numbers.items():
             plant = Plant.objects.get(name=pl)
-            Setting.set_value('number_of_shifts', num, scope=plant)
+            Setting.of(obj=plant)['number_of_shifts'] = num
 
         # overriding number of shifts for furnace plant
         reports_furn = Journal.objects.get(plant__name='furnace', name='reports_furnace_area')
-        Setting.set_value('number_of_shifts', '3', reports_furn)
+        Setting.of(obj=reports_furn)['number_of_shifts'] = 3
 
     @staticmethod
     def add_user(user_dict: dict) -> Optional[User]:
@@ -257,9 +258,6 @@ class DatabaseFiller:
         stdout_logger.info('Adding fields info settings...')
         fill_fields_descriptions()
 
-    @staticmethod
-    def load_settings():
-        Setting["unfilled_cell"] = ""
 
     @staticmethod
     def clean_database():

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import QuerySet
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
@@ -11,7 +12,7 @@ class Message(StrAsDictMixin, models.Model):
     created = models.DateTimeField(default=timezone.now, blank=True)
 
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
-    type = models.CharField(max_length=100, verbose_name='Тип сообщения',
+    type = models.CharField(max_length=1024, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
                                                  ('comment', 'Замечание')))
     text = models.TextField(verbose_name='Текст сообщения')
@@ -21,7 +22,7 @@ class Message(StrAsDictMixin, models.Model):
     addressee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
                                   related_name='messages_adressee')
 
-    link = models.URLField(max_length=128, verbose_name='Ссылка на ячейку', default="#")
+    link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#")
 
     @staticmethod
     def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
@@ -32,14 +33,14 @@ class Message(StrAsDictMixin, models.Model):
         if uids:
             recipients = list()
             for uid in uids:
-                recipients.extend(Employee.objects.filter(id=uid))
+                recipients.extend(Employee.objects.cache().get(id=uid))
         if positions:
             recipients = list()
             for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p))
+                recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
         if all_users:
             recipients = list()
-            recipients.extend(Employee.objects.all())
+            recipients.extend(Employee.objects.all().cache())
 
         text = message['text']
         message.pop('text')
@@ -73,7 +74,7 @@ class Message(StrAsDictMixin, models.Model):
             return Employee.objects.only('user')
         if positions:
             for p in positions:
-                emp = Employee.objects.filter(plant=plant, position=p)
+                emp = Employee.objects.filter(plant=plant, position=p).cache()
                 res.extend(emp)
         if eids:
             for eid in eids:
@@ -81,3 +82,7 @@ class Message(StrAsDictMixin, models.Model):
                 res.append(emp)
 
         return res
+
+    @staticmethod
+    def get_unread(employee) -> QuerySet:
+        return Message.objects.filter(is_read=False, addressee=employee)

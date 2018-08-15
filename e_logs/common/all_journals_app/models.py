@@ -1,5 +1,6 @@
-from datetime import time, datetime, timedelta
+from datetime import time, datetime, timedelta, date
 
+from cacheops import cached_as, cached
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -7,7 +8,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 
-from e_logs.core.utils.webutils import get_or_none, StrAsDictMixin
+from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
+    max_cache
 
 
 class Plant(StrAsDictMixin, models.Model):
@@ -17,8 +19,9 @@ class Plant(StrAsDictMixin, models.Model):
                             choices=(('leaching', 'Выщелачивание'),
                                      ('furnace', 'Обжиг'),
                                      ('electrolysis', 'Электролиз')))
-    settings = GenericRelation('core.Setting', related_query_name='plant')
-    comments = GenericRelation('all_journals_app.Comment', related_query_name='plant')
+    settings = GenericRelation('core.Setting', related_query_name='plant', related_name='plants')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='plant',
+                               related_name='plants')
 
     class Meta:
         verbose_name = 'Цех'
@@ -41,8 +44,10 @@ class Journal(StrAsDictMixin, models.Model):
                             default='shift',
                             verbose_name='Тип'
                             )
-    settings = GenericRelation('core.Setting', related_query_name='journal')
-    comments = GenericRelation('all_journals_app.Comment', related_query_name='journal')
+    settings = GenericRelation('core.Setting', related_query_name='journal',
+                               related_name='journals')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='journal',
+                               related_name='journals')
 
     class Meta:
         verbose_name = 'Журнал'
@@ -54,12 +59,23 @@ class Table(StrAsDictMixin, models.Model):
 
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='tables')
-    settings = GenericRelation('core.Setting', related_query_name='table')
-    comments = GenericRelation('all_journals_app.Comment', related_query_name='table')
+    settings = GenericRelation('core.Setting', related_query_name='table', related_name='tables')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='table',
+                               related_name='tables')
 
     @cached_property
     def plant(self):
         return self.journal.plant
+
+    def cells(self, page):
+        def cached_cells(self, page):
+            qs = Cell.objects.select_related('field', 'field__table').cache() \
+                .filter(group=page, field__table=self)
+            return qs
+        return cached_cells(self, page)
+
+    def get_fields(self):
+        return self.fields.all()
 
     class Meta:
         verbose_name = 'Таблица'
@@ -71,12 +87,16 @@ class Field(StrAsDictMixin, models.Model):
 
     name = models.CharField(max_length=128, verbose_name='Название поля')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
-    settings = GenericRelation('core.Setting', related_query_name='field')
-    comments = GenericRelation('all_journals_app.Comment', related_query_name='field')
+    settings = GenericRelation('core.Setting', related_query_name='field', related_name='fields')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='field',
+                               related_name='fields')
 
     @cached_property
     def plant(self):
-        return self.table.journal.plant
+        @cached(Plant, Journal, Table, Field)
+        def cached_plant(self):
+            return self.table.journal.plant
+        return cached_plant()
 
     @cached_property
     def journal(self):
@@ -94,6 +114,13 @@ class Field(StrAsDictMixin, models.Model):
 class CellGroup(StrAsDictMixin, models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
+    def tables(self):
+        @cached(timeout=60*60*3)
+        def cached_tables(self):
+            return list(self.journal.tables.all())
+
+        return cached_tables(self)
+
 
 class Measurement(CellGroup):
     time = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала смены')
@@ -103,7 +130,11 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
-    @property
+    class Meta:
+        verbose_name = 'Смена'
+        verbose_name_plural = 'Смены'
+
+    @cached_property
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
@@ -121,14 +152,41 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
-    def get_number_of_shifts(obj):
-        # avoiding import loop
-        from e_logs.core.models import Setting
-        return int(Setting.get_value(name='number_of_shifts', obj=obj))
+    def get_number_of_shifts(obj) -> int:
+        from e_logs.core.models import Setting # avoiding import loo
 
-    class Meta:
-        verbose_name = 'Журнал'
-        verbose_name_plural = 'Журналы'
+        @cached_as(Setting.objects.filter(name='number_of_shifts'))
+        def cached_number_of_shifts(obj):
+            return Setting.of(obj)['number_of_shifts']
+
+        return cached_number_of_shifts(obj)
+
+    @staticmethod
+    # @cached(timeout=60*5)
+    def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
+        return Shift.objects.cache() \
+            .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
+
+    @staticmethod
+    @logged
+    def get_shift(journal, pid=None) -> 'Shift':
+        shift = None
+
+        if pid:
+            shift = Shift.objects.get(id=pid)
+        else:
+            number_of_shifts = Shift.get_number_of_shifts(journal)
+            assert number_of_shifts > 0, "<= 0 number of shifts"
+
+            # create shifts for today and return current shift
+            for shift_order in range(1, number_of_shifts + 1):
+                shift = Shift.objects.get_or_create(journal=journal,
+                                                    order=shift_order,
+                                                    date=date.today())[0]
+                if shift.is_active:
+                    break
+
+        return shift
 
 
 class Equipment(CellGroup):
@@ -146,32 +204,44 @@ class Cell(StrAsDictMixin, models.Model):
     comments = GenericRelation('all_journals_app.Comment', related_query_name='cell')
 
     @cached_property
+    @max_cache
     def journal(self) -> Journal:
         return self.field.table.journal
 
     @cached_property
+    @max_cache
     def table(self) -> Table:
         return self.field.table
 
     @cached_property
+    @max_cache
     def name(self) -> str:
         return self.field.name
 
     @staticmethod
-    def get(cell: dict):
-        return get_or_none(Cell, **cell)
+    @none_if_error
+    def get_by_addr(field_name, table_name, group_id, index):
+        # fixme: not sure if we need this manager
+        manager = Cell.objects.select_related('field', 'field__table').cache()
+        res = manager.get(field__name=field_name, field__table__name=table_name,
+                          group_id=group_id, index=index)
+        return res
 
     @staticmethod
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
-        group = CellGroup.objects.get(id=group_id)
-        field = Field.objects.get(table__journal=group.journal, table__name=table_name,
-                                  name=field_name)
-        return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
+        group = CellGroup.objects.cache().get(id=group_id)
+        field = Field.objects.cache().get_or_create(
+            table=Table.objects.get_or_create(name=table_name, journal=group.journal)[0],
+                                  name=field_name)[0]
+        return Cell.objects.cache().get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
         unique_together = ['field', 'index', 'group']
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
+
+    def get_comments_text(self):
+        return ''.join(c.get_text() for c in Comment.objects.filter(cell=self))
 
 
 class Comment(StrAsDictMixin, models.Model):
@@ -182,3 +252,7 @@ class Comment(StrAsDictMixin, models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
+
+    @default_if_error('')
+    def get_text(self):
+        return self.text

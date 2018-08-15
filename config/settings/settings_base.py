@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from django.conf.global_settings import INTERNAL_IPS
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 TEMPLATES = [
@@ -23,6 +21,10 @@ TEMPLATES = [
         },
     },
 ]
+
+FIXTURE_DIRS = (
+    BASE_DIR / 'fixtures',
+)
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
@@ -50,6 +52,9 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'django_extensions',
+    'cacheops',
+    'django_pickling',
+    'template_profiler_panel',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -190,6 +195,24 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
+        'printed_values': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/printed_values/printed_values.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
+        'db_log': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/db_log/db_log.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
         'null': {
             "class": 'logging.NullHandler',
         }
@@ -204,7 +227,8 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug',
+                         'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
@@ -213,9 +237,9 @@ LOGGING = {
             'propagate': False,
         },
         'django.db': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug', 'console'],
@@ -230,17 +254,11 @@ LOGGING = {
             'handlers': ['debug_file_calls'],
         },
         'STDOUT': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
         'STDERR': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
-    }
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
 
@@ -276,3 +294,85 @@ CHANNEL_LAYERS = {
 }
 
 CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
+
+# --------------------------------- CACHING STAFF ---------------------------------------
+
+MAX_CACHE_TIME = 60*60*5
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379?db=0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
+            "IGNORE_EXCEPTIONS": True,
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+        },
+        'TIMEOUT': MAX_CACHE_TIME,
+        "KEY_PREFIX": '',
+    }
+}
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
+
+
+CACHEOPS_REDIS = {
+    'host': 'localhost', # redis-server is on same machine
+    'port': 6379,        # default redis port
+    'db': 1,             # SELECT non-default redis database
+                         # using separate redis db or redis instance
+                         # is highly recommended
+
+    # 'socket_timeout': 3,
+}
+
+CACHEOPS_DEFAULTS = {
+    'timeout': 60*60,
+    # 'local_get': True,
+}
+
+CACHEOPS = {
+    # Automatically cache any User.objects.get() calls for 15 minutes
+    # This also includes .first() and .last() calls,
+    # as well as request.user or post.author access,
+    # where Post.author is a foreign key to auth.User
+    'auth.user': {'ops': 'get', 'timeout': 60*15},
+
+    # Automatically cache all gets and queryset fetches
+    # to other django.contrib.auth models for an hour
+    'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
+
+    # Cache all queries to Permission
+    # 'all' is an alias for {'get', 'fetch', 'count', 'aggregate', 'exists'}
+    'auth.permission': {'ops': 'all', 'timeout': 60*60},
+
+    # Enable manual caching on all other models with default timeout of an hour
+    # Use Post.objects.cache().get(...)
+    #  or Tags.objects.filter(...).order_by(...).cache()
+    # to cache particular ORM request.
+    # Invalidation is still automatic
+    # '*.*': {'timeout': 60*60},
+    '*.*': {'ops': 'all', 'timeout': 60*60},
+
+    'core.models.Setting': {'ops': 'all', 'timeout': 60*60},
+    'common.all_journals_app.models.Cell': {'ops': 'all', 'timeout': 60*60},
+    'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60*60},
+    # 'core.models.Setting': {'timeout': 60*60},
+    # 'core.models.Setting': {'timeout': 60*60},
+}
+
+# TODO: read https://redis.io/topics/sentinel
+# CACHEOPS_SENTINEL = {
+#     'locations': [('localhost', 26379)], # sentinel locations, required
+#     'service_name': 'mymaster',          # sentinel service name, required
+#     'socket_timeout': 0.1,               # connection timeout in seconds, optional
+#     'db': 0                              # redis database, default: 0
+# }

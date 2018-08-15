@@ -9,11 +9,11 @@ RUN apt-get install -y nginx
 RUN apt-get install -y curl
 RUN apt-get install -y npm
 
-RUN mkdir /srv/media /srv/static /srv/logs
+RUN mkdir /srv/media /srv/static
 
 EXPOSE 80
 
-VOLUME ["/srv/media/", "/srv/logs/"]
+VOLUME ["/srv/media/"]
 
 COPY ./docker/pyodbc_mssql_driver.sh /srv/docker/
 # installs ubuntu odbc drivers and pip django odbc packets
@@ -28,12 +28,15 @@ COPY ./package.json /srv
 RUN npm i
 
 COPY . /srv
-RUN mkdir /srv/e-logs/logs
-RUN mkdir /srv/e-logs/logs/main
-RUN mkdir /srv/e-logs/logs/main_debug_calls
-RUN mkdir /srv/e-logs/logs/main_debug_debug
-RUN mkdir /srv/e-logs/logs/main_debug_error
-RUN mkdir /srv/e-logs/logs/main_debug_info
+RUN mkdir /srv/logs
+RUN mkdir /srv/logs/main
+RUN mkdir /srv/logs/main_debug_calls
+RUN mkdir /srv/logs/main_debug_debug
+RUN mkdir /srv/logs/main_debug_error
+RUN mkdir /srv/logs/main_debug_info
+RUN mkdir /srv/logs/printed_values
+RUN mkdir /srv/logs/db_log
+
 RUN ./node_modules/.bin/webpack
 ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 

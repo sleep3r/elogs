@@ -112,19 +112,19 @@ class Cell {
         const json = input.dataset.info.replace(/'/g, '"');
         // if field description exists
         if (IsJsonString(json)) {
-          var info = JSON.parse(json)
+          var info = JSON.parse(json);
 
         }else{
           // default field description
-          var info = {'type': 'text'}
+          var info = {'type': 'text'};
         }
         input.type = info.type;
-
+        console.log(info);
         if (input.type === "number") {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
-                $(input).addClass('red').removeClass('black');
+                $(input).css('color', 'red');
             } else {
-                $(input).addClass('black').removeClass('red')
+                // $(input).css('color', 'black');
             }
         } else if (info.type === "datalist") {
             if ($(input).attr('data-pagmode') === "validate") {

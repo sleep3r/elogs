@@ -1,5 +1,6 @@
 import json
 
+from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
@@ -11,16 +12,15 @@ from e_logs.common.all_journals_app.models import Cell, Comment
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged
+from e_logs.core.utils.webutils import model_to_dict, logged, process_json_view
 
 
 class MessageView(LoginRequiredMixin, View):
-
     @logged
     def get(self, request):
         res = DeepDict()
         res['messages'] = {}
-        for m in Message.objects.filter(is_read=False, addressee=self.request.user.employee):
+        for m in self.request.user.employee.unread_messages():
             res['messages'][m.id] = model_to_dict(m)
         return res
 
@@ -38,14 +38,20 @@ class MessageView(LoginRequiredMixin, View):
         return JsonResponse({"result": 1})
 
 
+msg_view = MessageView.as_view()
+msg_view = process_json_view(auth_required=False)(msg_view)
+msg_view = cached_view_as(Message.objects.filter(is_read=False))(msg_view)
+
+
 class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     context_object_name = 'messages'
     template_name = 'messages_list.html'
+    paginate_by = 10
 
     @logged
     def get_queryset(self):
-        return self.model.objects.filter(addressee=self.request.user.employee)
+        return self.model.objects.filter(addressee=self.request.user.employee).order_by("-created")
 
     @logged
     def get_context_data(self, **kwargs):
@@ -53,12 +59,21 @@ class MessagesList(LoginRequiredMixin, ListView):
         return context
 
 
+def get_cell_from_dict(cell_dict: dict) -> Cell:
+    field_name = cell_dict['field_name']
+    table_name = cell_dict['table_name']
+    group_id = cell_dict['group_id']
+    index = cell_dict['index']
+
+    return Cell.get_by_addr(field_name, table_name, group_id, index)
+
+
 @csrf_exempt
 @login_required
 @logged
 def add_critical(request):
     if request.is_ajax() and request.method == 'POST':
-        cell = Cell.get(json.loads(request.body)['cell'])
+        cell = get_cell_from_dict(json.loads(request.body)['cell'])
         if cell:
             message = json.loads(request.body)['message']
             message['sendee'] = request.user.employee
@@ -71,7 +86,7 @@ def add_critical(request):
 @logged
 def update(request):
     if request.is_ajax() and request.method == 'POST':
-        cell = Cell.get(json.loads(request.body)['cell'])
+        cell = get_cell_from_dict(json.loads(request.body)['cell'])
         if cell:
             Message.update(cell)
     return JsonResponse({'status': 1})
@@ -90,7 +105,7 @@ def add_comment(request):
         cell = Cell.get_or_create_cell(**cell_location)
         cell.save()
 
-        Comment.reobjects.create(target=cell, text=message['text'], employee=employee)
+        Comment.objects.create(target=cell, text=message['text'], employee=employee)
 
         Message.add(cell, message, all_users=True)
 

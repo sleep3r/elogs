@@ -1,10 +1,18 @@
+{% load express_tags %} {# Loading our tags #}
+
+{% set_global_context "table_comment_responsible" table_cells_data|keyval:"comment"|keyval:0|keyval:"responsible" %}
 
 <div class="table__comment">
     <a href="javascript:;" onclick="Comment.collapse(this)" >Комментарий </a>
     <i class="fas fa-envelope ico-comment"></i>
     <div class="comment__text collapse ">
-        <textarea class="table-comment" name="comment" oninput="$('#sync').hide();$('#async').show();"
+        <textarea class="table-comment"
+                  name="comment"
+                  table-name="{{ table_name }}"
+                  journal-page="{{ journal_page }}"
+                  oninput="FormTable.onInput(this)"
                   placeholder="Комментарий..."
+                  title="{% if table_comment_responsible %} Заполнил: {{ table_comment_responsible }}{% endif %}"
                   {% if page_mode == 'view'  or page_mode == 'validate' %}
                     readonly="readonly"
                   {% endif %}

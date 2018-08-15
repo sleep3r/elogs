@@ -92,6 +92,7 @@ venv.bak/
 staticfiles/
 
 # sass + css
+.sass-cache
 *.*.map
 *.map
 

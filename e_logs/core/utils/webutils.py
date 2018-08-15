@@ -9,6 +9,7 @@ from pprint import pformat
 from traceback import print_exc
 from typing import Optional
 
+from cacheops import cached
 from dateutil.parser import parse as parse_date
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
@@ -17,7 +18,7 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from config.settings.settings_base import CSRF_LENGTH
+from config.settings.settings_base import CSRF_LENGTH, MAX_CACHE_TIME
 from e_logs.core.utils.errors import SemanticError, AccessError
 from e_logs.core.utils.loggers import err_logger
 
@@ -27,7 +28,8 @@ def logged(func):
     def wrapper(*args, **kwargs):
         logger = logging.getLogger('CALL')
         logger.debug(
-            f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
+            f'Call {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}\n'
+            f'With arguments {args} {kwargs}')
         func_res = func(*args, **kwargs)
         logger.debug(
             f'Exiting {func.__name__} in {func.__module__}, line {func.__code__.co_firstlineno}')
@@ -42,13 +44,16 @@ class StrJSONEncoder(JSONEncoder):
 
 
 def handle_exceptions(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         try:
             response = view(request, **kwargs)
         except SemanticError as e:
             response = HttpResponse(str(e))
+            err_logger.error('Processed SemanticError')
         except AccessError as e:
             response = HttpResponse(str(e))
+            err_logger.error('Processed AccessError')
         except Exception as e:
             err_logger.error(e)
             print_exc()
@@ -60,6 +65,7 @@ def handle_exceptions(view):
 
 
 def handle_response_types(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         response = view(request, **kwargs)
 
@@ -79,6 +85,7 @@ def handle_response_types(view):
 
 
 def handle_response_headers(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         response = view(request, **kwargs)
 
@@ -92,6 +99,7 @@ def handle_response_headers(view):
 
 
 def check_auth(view):
+    @wraps(view)
     def wrapper(request, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponse(str(SemanticError(message='Доступ запрещен. Войдите в систему.')))
@@ -131,6 +139,8 @@ def process_json_view(auth_required=True):
                 return view(request, **kwargs)
 
         return wrapper
+
+
 
     return real_decorator
 
@@ -236,6 +246,10 @@ def translate(name: str) -> str:
     return name
 
 
+def max_cache(func):
+    return cached(timeout=MAX_CACHE_TIME)(func)
+
+
 def model_to_dict(model: Model) -> dict:
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
 
@@ -253,11 +267,22 @@ def set_cookie(response, key: str, value: str, days_expire=7):
                         secure=SESSION_COOKIE_SECURE or None)
 
 
-def get_or_none(model, *args, **kwargs) -> Optional[Model]:
-    try:
-        return model.objects.get(*args, **kwargs)
-    except model.DoesNotExist:
-        return None
+def default_if_error(value):
+    def real_decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except:
+                return value
+
+        return wrapper
+
+    return real_decorator
+
+
+def none_if_error(func):
+    return default_if_error(None)(func)
 
 
 def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
@@ -267,7 +292,7 @@ def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
         return None
 
 
-def model_to_representation(model):
+def model_to_representation(model: Model):
     def is_printable(field):
         excluded_types = ['ManyToManyField', 'ForeignKey']
         if not hasattr(field, 'get_internal_type'):
@@ -290,4 +315,4 @@ def model_to_representation(model):
 
 class StrAsDictMixin:
     def __str__(self: Model):
-        return format(model_to_representation(self))
+        return str(self.__class__.__name__) + format(model_to_representation(self))
