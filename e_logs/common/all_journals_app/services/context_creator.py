@@ -78,6 +78,7 @@ def get_cells_data(page: CellGroup) -> dict:
 
     def table_desc(table):
         cells = table.cells(page)
+        default_logger.debug(f'cells: {cells}')
         desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
         return desc
 

@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 TEMPLATES = [
@@ -72,7 +71,9 @@ MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -266,16 +267,31 @@ CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
 
 # --------------------------------- CACHING STAFF ---------------------------------------
 
+MAX_CACHE_TIME = 60*60*5
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://127.0.0.1:6379?db=0",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
+            "IGNORE_EXCEPTIONS": True,
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
         },
-        "KEY_PREFIX": "example"
+        'TIMEOUT': MAX_CACHE_TIME,
+        "KEY_PREFIX": '',
     }
 }
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 
 CACHEOPS_REDIS = {

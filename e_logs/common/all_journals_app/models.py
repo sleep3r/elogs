@@ -1,5 +1,6 @@
 from datetime import time, datetime, timedelta, date
 
+from cacheops import cached_as, cached
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -7,7 +8,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 
-from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error
+from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
+    max_cache
 
 
 class Plant(StrAsDictMixin, models.Model):
@@ -66,9 +68,11 @@ class Table(StrAsDictMixin, models.Model):
         return self.journal.plant
 
     def cells(self, page):
-        cells = Cell.objects.select_related('field', 'field__table') \
-            .filter(group=page, field__table=self)
-        return cells
+        def cached_cells(self, page):
+            qs = Cell.objects.select_related('field', 'field__table').cache() \
+                .filter(group=page, field__table=self)
+            return qs
+        return cached_cells(self, page)
 
     def get_fields(self):
         return self.fields.all()
@@ -89,7 +93,10 @@ class Field(StrAsDictMixin, models.Model):
 
     @cached_property
     def plant(self):
-        return self.table.journal.plant
+        @cached(Plant, Journal, Table, Field)
+        def cached_plant(self):
+            return self.table.journal.plant
+        return cached_plant()
 
     @cached_property
     def journal(self):
@@ -108,7 +115,11 @@ class CellGroup(StrAsDictMixin, models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def tables(self):
-        return self.journal.tables.all()
+        @cached(timeout=60*60*3)
+        def cached_tables(self):
+            return list(self.journal.tables.all())
+
+        return cached_tables(self)
 
 
 class Measurement(CellGroup):
@@ -119,7 +130,11 @@ class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
 
-    @property
+    class Meta:
+        verbose_name = 'Смена'
+        verbose_name_plural = 'Смены'
+
+    @cached_property
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
@@ -137,14 +152,20 @@ class Shift(CellGroup):
         return self.start_time <= timezone.now() <= self.end_time
 
     @staticmethod
-    def get_number_of_shifts(obj):
-        # avoiding import loop
-        from e_logs.core.models import Setting
-        return Setting.of(obj)['number_of_shifts']
+    def get_number_of_shifts(obj) -> int:
+        from e_logs.core.models import Setting # avoiding import loo
 
-    class Meta:
-        verbose_name = 'Журнал'
-        verbose_name_plural = 'Журналы'
+        @cached_as(Setting.objects.filter(name='number_of_shifts'))
+        def cached_number_of_shifts(obj):
+            return Setting.of(obj)['number_of_shifts']
+
+        return cached_number_of_shifts(obj)
+
+    @staticmethod
+    @cached(timeout=60*5)
+    def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
+        return Shift.objects.cache() \
+            .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
 
     @staticmethod
     @logged
@@ -183,14 +204,17 @@ class Cell(StrAsDictMixin, models.Model):
     comments = GenericRelation('all_journals_app.Comment', related_query_name='cell')
 
     @cached_property
+    @max_cache
     def journal(self) -> Journal:
         return self.field.table.journal
 
     @cached_property
+    @max_cache
     def table(self) -> Table:
         return self.field.table
 
     @cached_property
+    @max_cache
     def name(self) -> str:
         return self.field.name
 
@@ -198,17 +222,18 @@ class Cell(StrAsDictMixin, models.Model):
     @none_if_error
     def get_by_addr(field_name, table_name, group_id, index):
         # fixme: not sure if we need this manager
-        manager = Cell.objects.select_related('field', 'field__table')
+        manager = Cell.objects.select_related('field', 'field__table').cache()
         res = manager.get(field__name=field_name, field__table__name=table_name,
                           group_id=group_id, index=index)
         return res
 
     @staticmethod
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
-        group = CellGroup.objects.get(id=group_id)
-        field = Field.objects.get_or_create(table=Table.objects.get_or_create(name=table_name, journal=group.journal)[0],
+        group = CellGroup.objects.cache().get(id=group_id)
+        field = Field.objects.cache().get_or_create(
+            table=Table.objects.get_or_create(name=table_name, journal=group.journal)[0],
                                   name=field_name)[0]
-        return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
+        return Cell.objects.cache().get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
         unique_together = ['field', 'index', 'group']
