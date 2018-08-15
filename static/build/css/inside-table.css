@@ -1,0 +1,23 @@
+.removeleftborder.removeleftborder {
+  border-left: none !important;
+}
+
+.removetopborder.removetopborder {
+  border-top: none !important;
+}
+
+.removerightborder.removerightborder {
+  border-right: none !important;
+}
+
+.removebottomborder.removebottomborder {
+  border-bottom: none !important;
+}
+
+.insidetable {
+  height: 100%;
+  margin: 0 !important;
+  border: none;
+}
+
+/*# sourceMappingURL=inside-table.css.map */

@@ -1,0 +1,53 @@
+/*------------------------------------*\
+  # JOURNAL
+\*------------------------------------*/
+/*------------------------------------*\
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
+\*------------------------------------*/
+.journal__panel {
+  margin-top: 20px;
+}
+
+.date-selector {
+  height: 40px;
+}
+.date-selector label {
+  position: relative;
+  color: #656565;
+  font-size: 14px;
+}
+.date-selector input {
+  height: 24px;
+  border: 2px solid #656565;
+  font-size: 14px;
+  text-align: center;
+}
+.date-selector label, .date-selector input {
+  position: relative;
+  top: -16px;
+  display: block;
+  width: 200px;
+}
+
+.mode-buttons {
+  margin-left: 20px;
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: #548CB7;
+  color: white;
+  margin: 0 5px;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 1px 2px #656565;
+}
+
+.btn:hover {
+  background-color: #656565;
+}
+
+/*# sourceMappingURL=journal.css.map */
