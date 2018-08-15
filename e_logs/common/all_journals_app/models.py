@@ -67,8 +67,9 @@ class Table(StrAsDictMixin, models.Model):
         return self.journal.plant
 
     def cells(self, page):
-        return Cell.objects.select_related('field', 'field__table') \
+        cells = Cell.objects.select_related('field', 'field__table') \
             .filter(group=page, field__table=self)
+        return cells
 
     def get_fields(self):
         return self.fields.all()

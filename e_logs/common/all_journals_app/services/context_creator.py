@@ -77,9 +77,13 @@ def get_cells_data(page: CellGroup) -> dict:
         }
 
     def table_desc(table):
-        return {cell.name: {cell.index: cell_desc(cell)} for cell in table.cells(page)}
+        cells = table.cells(page)
+        desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
+        return desc
 
-    return {table.name: table_desc(table) for table in page.tables()}
+    desc = {table.name: table_desc(table) for table in page.tables()}
+
+    return desc
 
 
 @logged
