@@ -3,7 +3,7 @@ import logging
 import secrets
 import string
 import time
-from functools import wraps, lru_cache
+from functools import wraps
 from json import JSONEncoder
 from pprint import pformat
 from traceback import print_exc
@@ -285,7 +285,7 @@ def none_if_error(func):
     return default_if_error(None)(func)
 
 
-def filter_or_none(model: Model, *args, **kwargs) -> Optional[QuerySet]:
+def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     try:
         return model.objects.filter(*args, **kwargs)
     except model.DoesNotExist:

@@ -162,7 +162,7 @@ class Shift(CellGroup):
         return cached_number_of_shifts(obj)
 
     @staticmethod
-    @cached(timeout=60*5)
+    # @cached(timeout=60*5)
     def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
         return Shift.objects.cache() \
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]

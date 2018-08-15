@@ -36,7 +36,8 @@ class JournalView(LoginRequiredMixin, View):
         return get_context(request, plant, journal)
 
 
-journal_view = cached_view_as(Cell)(JournalView.as_view())
+journal_view = JournalView.as_view()
+# journal_view = cached_view_as(Cell)(journal_view)
 
 
 class ShihtaJournalView(JournalView):

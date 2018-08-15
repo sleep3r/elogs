@@ -46,4 +46,6 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
 ]
 
+CACHEOPS_ENABLED = True
+
 faulthandler.enable()
