@@ -16,7 +16,6 @@
 
 {% block content %}
     <div class="content">
-        <br><br><br>
         <ul class="notifs">
             {% for message in messages reversed %}
                 <li class="notif">
@@ -36,7 +35,7 @@
                                     оставил к полю
                                 {% endif %}
 
-                                <a href="{{message.link}}">{{message.cell.field_name}}</a>
+                                <a href="{{message.link}}">{{message.cell.field.name}}</a>
                             </strong>
 
                             {% if message.type == 'critical_value' %}
@@ -69,11 +68,11 @@
     <script src = "{% static 'build/js/messages/infinite.min.js' %}"></script>
     <script>
         let infinite = new Waypoint.Infinite({
-            element: $('.notifs')[0],
+            element: $('.content')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();
             },
-            onAfterPageLoad: function ($items) {
+            onAfterPageLoad: function () {
                 $('.loading').hide();
             }
         });

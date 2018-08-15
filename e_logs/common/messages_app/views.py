@@ -47,6 +47,7 @@ class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     context_object_name = 'messages'
     template_name = 'messages_list.html'
+    paginate_by = 8
 
     @logged
     def get_queryset(self):
