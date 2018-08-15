@@ -35,7 +35,6 @@ class TargetedSetting:
 
     @logged
     def __setitem__(self, name: str, value: str) -> None:
-        err_logger.debug(f'self.kwargs=')
         Setting.set_value(name=name, value=value, employee=self.employee, obj=self.obj)
 
     def __str__(self):

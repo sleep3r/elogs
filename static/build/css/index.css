@@ -1541,6 +1541,7 @@ table.elog-journal-table .table-comment-button :active {
   /*important because it's really important and to override bootstrap*/
   padding-left: 3px !important;
   padding-right: 3px !important;
+  border-radius: 0 !important;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 300;
   font-size: 14px;
