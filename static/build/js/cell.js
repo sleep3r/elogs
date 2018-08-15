@@ -122,9 +122,9 @@ class Cell {
         console.log(info);
         if (input.type === "number") {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
-                $(input).addClass('red').removeClass('black');
+                $(input).css('color', 'red');
             } else {
-                $(input).addClass('black').removeClass('red')
+                // $(input).css('color', 'black');
             }
         } else if (info.type === "datalist") {
             if ($(input).attr('data-pagmode') === "validate") {
