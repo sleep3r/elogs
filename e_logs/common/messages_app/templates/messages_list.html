@@ -30,9 +30,9 @@
                                 <a href="#">{{message.sendee}}</a> 
                                 
                                 {% if message.type == 'critical_value' %}
-                                    ввел в поле
+                                    ввел некорректное значение в поле
                                 {% elif message.type == 'comment'%}
-                                    оставил к полю
+                                    оставил замечание к полю
                                 {% endif %}
 
                                 <a href="{{message.link}}">{{message.cell.field.name}}</a>

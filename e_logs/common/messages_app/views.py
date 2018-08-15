@@ -51,7 +51,7 @@ class MessagesList(LoginRequiredMixin, ListView):
 
     @logged
     def get_queryset(self):
-        return self.model.objects.filter(addressee=self.request.user.employee).order_by('-created')
+        return self.model.objects.filter(addressee=self.request.user.employee)
 
     @logged
     def get_context_data(self, **kwargs):
