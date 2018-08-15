@@ -71,9 +71,7 @@ MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -193,6 +191,24 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
+        'printed_values': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/printed_values/printed_values.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
+        'db_log': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/db_log/db_log.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
         'null': {
             "class": 'logging.NullHandler',
         }
@@ -207,7 +223,8 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug',
+                         'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
@@ -216,9 +233,9 @@ LOGGING = {
             'propagate': False,
         },
         'django.db': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug', 'console'],
@@ -233,10 +250,10 @@ LOGGING = {
             'handlers': ['debug_file_calls'],
         },
         'STDOUT': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
         'STDERR': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
     }
 }
