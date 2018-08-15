@@ -34,6 +34,9 @@ RUN mkdir /srv/logs/main_debug_calls
 RUN mkdir /srv/logs/main_debug_debug
 RUN mkdir /srv/logs/main_debug_error
 RUN mkdir /srv/logs/main_debug_info
+RUN mkdir /srv/logs/printed_values
+RUN mkdir /srv/logs/db_log
+
 RUN ./node_modules/.bin/webpack
 ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 
