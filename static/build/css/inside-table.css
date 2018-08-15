@@ -1,3 +1,6 @@
+/*
+ * Styles in this file concerns tables enclosed inside another tables
+ */
 .removeleftborder.removeleftborder {
   border-left: none !important;
 }

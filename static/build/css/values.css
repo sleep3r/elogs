@@ -12,9 +12,10 @@
   padding-left: 3px !important;
   padding-right: 3px !important;
   font-family: "RobotoCondensedLight", sans-serif;
+  font-size: 14px;
 }
 
-input[readonly].general-value {
+.general-value {
   background-color: transparent !important;
   /*background: white;*/
 }

@@ -100,11 +100,68 @@ body {
     background-color: $color-content;
 }
 
-@import "header";
+
+
+
+
+/*------------------------------------*\
+  # HEADER
+\*------------------------------------*/
+.header {
+    color: white;
+    vertical-align: middle;
+}
+
+.header > div {
+    line-height: 50px;
+    margin-right: 20px;
+}
+
+.header__logo {
+    padding-left: 20px;
+}
+
+.header__title {
+    margin-left: $width-left-menu - 50;
+}
+
+.header__user {
+    margin-left: auto;
+}
+
+.header__user > i, span {
+    margin-right: 10px;
+}
+
+.header.sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+
+
+
+
+/*------------------------------------*\
+  # FOOTER
+\*------------------------------------*/
+footer {
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.dev-message-button {
+    i.fab {
+        font-size: 16px;
+    }
+}
+
+
 @import "user-menu";
 @import "menu.scss";
 @import "journal.scss";
 @import "tables.scss";
 @import "inside-table";
 @import "values";
-@import "footer";

@@ -104,12 +104,6 @@ body {
 /*------------------------------------*\
   # HEADER
 \*------------------------------------*/
-/*------------------------------------*\
-  # Color variables
-\*------------------------------------*/
-/*------------------------------------*\
-  # Sizes
-\*------------------------------------*/
 .header {
   color: white;
   vertical-align: middle;
@@ -140,6 +134,19 @@ body {
   position: fixed;
   width: 100%;
   z-index: 100;
+}
+
+/*------------------------------------*\
+  # FOOTER
+\*------------------------------------*/
+footer {
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.dev-message-button i.fab {
+  font-size: 16px;
 }
 
 /*------------------------------------*\
@@ -438,13 +445,6 @@ input[hidden] {
   margin-bottom: 5px;
   table-layout: fixed;
 }
-.table th {
-  color: white;
-  font-size: 12px;
-  font-weight: normal;
-  padding: 5px;
-  background-color: #666666;
-}
 .table td {
   padding: 0;
 }
@@ -679,6 +679,9 @@ table.elog-journal-table .table-comment-button :active {
   cursor: pointer;
 }
 
+/*
+ * Styles in this file concerns tables enclosed inside another tables
+ */
 .removeleftborder.removeleftborder {
   border-left: none !important;
 }
@@ -715,9 +718,10 @@ table.elog-journal-table .table-comment-button :active {
   padding-left: 3px !important;
   padding-right: 3px !important;
   font-family: "RobotoCondensedLight", sans-serif;
+  font-size: 14px;
 }
 
-input[readonly].general-value {
+.general-value {
   background-color: transparent !important;
   /*background: white;*/
 }
@@ -813,19 +817,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 textarea {
   resize: none;
-}
-
-/*------------------------------------*\
-  # FOOTER
-\*------------------------------------*/
-footer {
-  padding: 10px;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.dev-message-button i.fab {
-  font-size: 16px;
 }
 
 /*# sourceMappingURL=layout.css.map */

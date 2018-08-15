@@ -17,14 +17,6 @@ input[hidden] {
     margin-bottom: 5px;
     table-layout: fixed;
 
-    th {
-        color: white;
-        font-size: 12px;
-        font-weight: normal;
-        padding: 5px;
-        background-color: $color-th;
-    }
-
     td {
         padding: 0;
     }
@@ -41,7 +33,7 @@ input[class$="-cell"] {
 }
 
 input[class$="-cell"]:focus {
-    outline: 2px solid $color-main;
+    outline: 2px solid $co§lor-main;
 }
 
 .number-cell {
