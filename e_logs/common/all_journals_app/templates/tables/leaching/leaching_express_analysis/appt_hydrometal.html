@@ -40,30 +40,29 @@
         </tbody>
         <tbody>
     </table>
+
     <table class="table table-bordered elog-journal-table">
         <tbody>
         <tr>
-            <th colspan="1">{% trans "Ситовой огарка" %}{% trans "<i class='units'>мм</i>" %}</th>
-            <td colspan="5">
-                <table class="table insidetable insidetable customborders">
-                    <tr>
-                        <td>{% include "value.html" with field_name="sit_cinder1" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="sit_cinder2" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="sit_cinder3" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="sit_cinder4" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="sit_cinder5" index=0 %}</td>
-                        <td>{% include "value.html" with field_name="sit_cinder6" index=0 %}</td>
-                    </tr>
-                </table>
-            </td>
-            <th colspan="2">{% trans "Ситовой средн." %}{% trans "<i class='units'>мм</i>" %}</th>
-            <td>{% include "value.html" with field_name="sit_cinder_avg" index=0 %}</td>
+            <th colspan="1">Ситовой огарка<i class='units'>мм</i></th>
+            <td>{% include "value.html" with field_name="sit_cinder1" index=0 %}</td>
+            <td>{% include "value.html" with field_name="sit_cinder2" index=0 %}</td>
+            <td>{% include "value.html" with field_name="sit_cinder3" index=0 %}</td>
+            <td>{% include "value.html" with field_name="sit_cinder4" index=0 %}</td>
+            <td>{% include "value.html" with field_name="sit_cinder5" index=0 %}</td>
+            <td>{% include "value.html" with field_name="sit_cinder6" index=0 %}</td>
         </tr>
         <tr>
-            <th colspan="2">{% trans "Общее Fe среднее" %}{% trans "<i class='units'>мм</i>" %}</th>
-            <td>{% include "value.html" with field_name="fe_avg" index=0 %}</td>
-            <th colspan="3">{% trans "Fe стружка Fe" %}{% trans "<i class='units'>мг/л</i>" %}</th>
-            <td>{% include "value.html" with field_name="fe_shave" index=0 %}</td>
+            <th colspan="1">Ситовой средн.<i class='units'>мм</i></th>
+            <td colspan="6">{% include "value.html" with field_name="sit_cinder_avg" index=0 %}</td>
+        </tr>
+        <tr>
+            <th colspan="1">{% trans "Общее Fe среднее" %}{% trans "<i class='units'>мм</i>" %}</th>
+            <td colspan="6">{% include "value.html" with field_name="fe_avg" index=0 %}</td>
+        </tr>
+        <tr>
+            <th colspan="1">{% trans "Fe стружка Fe" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+            <td colspan="6">{% include "value.html" with field_name="fe_shave" index=0 %}</td>
         </tr>
         </tbody>
     </table>

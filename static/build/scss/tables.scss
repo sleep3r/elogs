@@ -68,7 +68,7 @@ h2.table-title {
     }
 }
 
-table.elog-journal-table { // the table itself
+.elog-journal-table { // the table itself
     table-layout: auto !important; // test fixed layout
     width: 100%;
     height: 100% !important;
@@ -94,13 +94,13 @@ table.elog-journal-table { // the table itself
 
     thead {
         th {
+            padding: 12px 4px 12px 3px !important;
             background-color: $base_gray;
             color: white;
         }
     }
 
     th {
-        padding: 12px 4px 12px 3px !important;
         font: {
             family: 'Roboto Condensed', sans-serif;
             weight: 400;
@@ -116,6 +116,10 @@ table.elog-journal-table { // the table itself
 
     .th-common { // class for th common for several columns
         text-align: center !important;
+    }
+    
+    .th-mul-row {
+        vertical-align: middle !important;
     }
 
     td {
