@@ -112,11 +112,11 @@ class Cell {
         const json = input.dataset.info.replace(/'/g, '"');
         // if field description exists
         if (IsJsonString(json)) {
-          var info = JSON.parse(json)
+          var info = JSON.parse(json);
 
         }else{
           // default field description
-          var info = {'type': 'text'}
+          var info = {'type': 'text'};
         }
         input.type = info.type;
 
