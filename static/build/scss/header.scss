@@ -4,29 +4,29 @@
 @import "variables";
 
 .header {
-  color: white;
-  vertical-align: middle;
+    color: white;
+    vertical-align: middle;
 }
 
 .header > div {
-  line-height: 50px;
-  margin-right: 20px;
+    line-height: 50px;
+    margin-right: 20px;
 }
 
 .header__logo {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 .header__title {
-  margin-left: $width-left-menu - 50;
+    margin-left: $width-left-menu - 50;
 }
 
 .header__user {
-  margin-left: auto;
+    margin-left: auto;
 }
 
-.header__user > i,span {
-  margin-right: 10px;
+.header__user > i, span {
+    margin-right: 10px;
 }
 
 .header.sticky {
