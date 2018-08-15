@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-
-sass --watch ../static:../static
+cd ../static/build/scss
+sass index.scss:../css/index.css
+echo "styles compiled"
+cd -
