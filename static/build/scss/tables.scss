@@ -1,4 +1,7 @@
-@import "colors.scss";
+/*------------------------------------*\
+  # TABLES
+\*------------------------------------*/
+@import "variables";
 
 input[hidden] {
   font-size: 0;
@@ -28,7 +31,6 @@ input[hidden] {
   }
 
 }
-
 
 input[class$="-cell"] {
   border: none;
