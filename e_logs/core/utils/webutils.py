@@ -3,12 +3,13 @@ import logging
 import secrets
 import string
 import time
-from functools import wraps
+from functools import wraps, lru_cache
 from json import JSONEncoder
 from pprint import pformat
 from traceback import print_exc
 from typing import Optional
 
+from cacheops import cached
 from dateutil.parser import parse as parse_date
 from django.conf.global_settings import SESSION_COOKIE_DOMAIN, SESSION_COOKIE_SECURE
 from django.db import transaction
@@ -17,7 +18,7 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from config.settings.settings_base import CSRF_LENGTH
+from config.settings.settings_base import CSRF_LENGTH, MAX_CACHE_TIME
 from e_logs.core.utils.errors import SemanticError, AccessError
 from e_logs.core.utils.loggers import err_logger
 
@@ -245,6 +246,10 @@ def translate(name: str) -> str:
     return name
 
 
+def max_cache(func):
+    return cached(timeout=MAX_CACHE_TIME)(func)
+
+
 def model_to_dict(model: Model) -> dict:
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
 
@@ -280,14 +285,14 @@ def none_if_error(func):
     return default_if_error(None)(func)
 
 
-def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
+def filter_or_none(model: Model, *args, **kwargs) -> Optional[QuerySet]:
     try:
         return model.objects.filter(*args, **kwargs)
     except model.DoesNotExist:
         return None
 
 
-def model_to_representation(model):
+def model_to_representation(model: Model):
     def is_printable(field):
         excluded_types = ['ManyToManyField', 'ForeignKey']
         if not hasattr(field, 'get_internal_type'):

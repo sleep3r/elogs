@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load cacheops %}
+{% load cache %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,31 +9,34 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>
-    {% block title %}
-        <title>Title</title>
-    {% endblock %}
 
-    {% block css %}
-        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">
+    {% cache 60 css_block LANGUAGE_CODE %}
+        <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>
+        {% block title %}
+            <title>E-logs</title>
+        {% endblock %}
 
-        <!-- css all in one -->
-        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">
-    {% endblock %}
+        {% block css %}
+            <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+            <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
+            <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
+            <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">
 
-    {% block extracss %}
-    {% endblock %}
-    <!-- jQuery -->
-    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
-    <!-- underscore -->
-    <script src="{% static 'vendors/underscore/underscore-min.js' %}"></script>
-    <script src="{% static 'build/js/common.js' %}"></script>
-    <!-- jquery-confirm -->
-    <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>
-    <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>
+            <!-- css all in one -->
+            <link href="{% static '/build/css/index.css' %}" rel="stylesheet">
+        {% endblock %}
+
+        {% block extracss %}
+        {% endblock %}
+        <!-- jQuery -->
+        <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+        <!-- underscore -->
+        <script src="{% static 'vendors/underscore/underscore-min.js' %}"></script>
+        <script src="{% static 'build/js/common.js' %}"></script>
+        <!-- jquery-confirm -->
+        <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>
+        <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>
+    {% endcache %}
 
 </head>
 <body class="nav-md">
@@ -56,25 +62,28 @@
       </div>
 </div>
 
-{% include "popup.html" %}
-{% include "modals/pick_shift.html" %}
-{% block footer %}
-    <!-- Bootstrap -->
-    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'v/vue/vue.js' %}"></script>
-    <script src="{% static 'v/vue/vue-resource.min.js' %}"></script>
-    <script src="{% static 'v/moment/moment.min.js' %}"></script>
-    <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
-    <script src="{% static 'build/js/datepicker.js' %}"></script>
-    <script src="{% static 'build/js/datepicker-init.js' %}"></script>
-    <script src="{% static 'build/js/shift.js' %}"></script>
-    <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
-    <script src="{% static 'build/js/header.js' %}"></script>
-    <script src="{% static 'build/js/user-menu.js' %}"></script>
-    <script src="{% static 'build/js/menu.js' %}"></script>
-    <script src="{% static 'build/js/journal-panel.js' %}"></script>
-    <script src="{% static 'vendors/popups/popper.js' %}" ></script>
-{% endblock %}
+{% cache 60 scripts LANGUAGE_CODE %}
+
+    {% include "popup.html" %}
+    {% include "modals/pick_shift.html" %}
+    {% block footer %}
+        <!-- Bootstrap -->
+        <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'v/vue/vue.js' %}"></script>
+        <script src="{% static 'v/vue/vue-resource.min.js' %}"></script>
+        <script src="{% static 'v/moment/moment.min.js' %}"></script>
+        <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
+        <script src="{% static 'build/js/datepicker.js' %}"></script>
+        <script src="{% static 'build/js/datepicker-init.js' %}"></script>
+        <script src="{% static 'build/js/shift.js' %}"></script>
+        <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
+        <script src="{% static 'build/js/header.js' %}"></script>
+        <script src="{% static 'build/js/user-menu.js' %}"></script>
+        <script src="{% static 'build/js/menu.js' %}"></script>
+        <script src="{% static 'build/js/journal-panel.js' %}"></script>
+        <script src="{% static 'vendors/popups/popper.js' %}" ></script>
+    {% endblock %}
+{% endcache %}
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 import json
 
+from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
@@ -11,11 +12,10 @@ from e_logs.common.all_journals_app.models import Cell, Comment
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged
+from e_logs.core.utils.webutils import model_to_dict, logged, process_json_view
 
 
 class MessageView(LoginRequiredMixin, View):
-
     @logged
     def get(self, request):
         res = DeepDict()
@@ -36,6 +36,11 @@ class MessageView(LoginRequiredMixin, View):
                 message="Попытка отметить чужое сообщение как прочитанное")
 
         return JsonResponse({"result": 1})
+
+
+msg_view = MessageView.as_view()
+msg_view = process_json_view(auth_required=False)(msg_view)
+msg_view = cached_view_as(Message.objects.filter(is_read=False))(msg_view)
 
 
 class MessagesList(LoginRequiredMixin, ListView):

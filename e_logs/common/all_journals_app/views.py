@@ -1,6 +1,7 @@
 import json
 from datetime import date, datetime, timedelta
 
+from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
@@ -9,11 +10,8 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
-from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
-    Equipment, Field, Table, Journal, Plant, Comment
-from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
-    plant_permission, has_edited
-from e_logs.core.models import Setting
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant
+
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged
 from e_logs.core.utils.loggers import default_logger
@@ -37,6 +35,9 @@ class JournalView(LoginRequiredMixin, View):
     @logged
     def get_context(request, plant, journal) -> DeepDict:
         return get_context(request, plant, journal)
+
+
+journal_view = cached_view_as(Cell)(JournalView.as_view())
 
 
 class ShihtaJournalView(JournalView):
@@ -164,6 +165,7 @@ def save_cell(request):
     return {"status": 1}
 
 
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
@@ -171,7 +173,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
                to_date=date.today()):
     """Creates shifts for speficied period of time"""
 
-    def daterange(start_date, end_date):
+    def date_range(start_date, end_date):
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
 
@@ -189,16 +191,13 @@ def get_shifts(request, plant_name: str, journal_name: str,
     journal = Journal.objects.get(plant=plant, name=journal_name)
     employee = request.user.employee
     owned_shifts = employee.owned_shifts.all()
+
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
-        for shift_date in daterange(from_date, to_date):
+        for shift_date in date_range(from_date, to_date):
             for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(
-                    journal=journal,
-                    order=shift_order,
-                    date=shift_date
-                )[0]
-                is_owned =  shift in owned_shifts
+                shift = Shift.get_or_create(journal, shift_order, shift_date)
+                is_owned = shift in owned_shifts
                 result.append(shift_event(request, shift, is_owned))
         return result
     else:

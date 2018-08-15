@@ -33,14 +33,14 @@ class Message(StrAsDictMixin, models.Model):
         if uids:
             recipients = list()
             for uid in uids:
-                recipients.extend(Employee.objects.filter(id=uid).cache())
+                recipients.extend(Employee.objects.cache().get(id=uid))
         if positions:
             recipients = list()
             for p in positions:
                 recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
         if all_users:
             recipients = list()
-            recipients.extend(Employee.objects.all())
+            recipients.extend(Employee.objects.all().cache())
 
         text = message['text']
         message.pop('text')
