@@ -47,11 +47,11 @@ class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     context_object_name = 'messages'
     template_name = 'messages_list.html'
-    paginate_by = 8
+    paginate_by = 10
 
     @logged
     def get_queryset(self):
-        return self.model.objects.filter(addressee=self.request.user.employee)
+        return self.model.objects.filter(addressee=self.request.user.employee).order_by('-created')
 
     @logged
     def get_context_data(self, **kwargs):

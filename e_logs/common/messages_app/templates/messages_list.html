@@ -56,7 +56,7 @@
         <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
 
         {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">ЕЩЁ</a>
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
         {% endif %}
     </div>
 {% endblock %}
@@ -64,17 +64,18 @@
 {% block footer %}
     {{ block.super }}
     <script src = "{% static 'build/js/custom.js' %}"></script>
-    <script src = "{% static 'build/js/messages/jquery.waypoints.min.js' %}"></script>
-    <script src = "{% static 'build/js/messages/infinite.min.js' %}"></script>
+    <script src = "{% static 'vendors/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src = "{% static 'vendors/waypoints/shortcuts/infinite.min.js' %}"></script>
     <script>
         let infinite = new Waypoint.Infinite({
-            element: $('.content')[0],
+            element: $('.notifs')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();
             },
             onAfterPageLoad: function () {
                 $('.loading').hide();
-            }
+            },
+            items: ".notif",
         });
     </script>
 {% endblock %}
