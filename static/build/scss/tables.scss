@@ -22,13 +22,15 @@ input[hidden] {
     }
 }
 
+@import "font-faces";
+
 .table__title {
     line-height: 40px;
     margin-bottom: 10px;
     padding-left: 10px;
     background-color: $color-bg1;
     font: {
-        family: Roboto, sans-serif;
+        family: 'Roboto', sans-serif;
         size: 24px;
     };
 }
@@ -73,7 +75,7 @@ table.elog-journal-table { // the table itself
 
     font: {
         family: 'Roboto Condensed', sans-serif;
-        weight: normal;
+        weight: 300;
         style: normal;
     }
 
@@ -99,7 +101,10 @@ table.elog-journal-table { // the table itself
 
     th {
         padding: 12px 4px 12px 3px !important;
-        font-family: 'RobotoCondensedRegular', sans-serif;
+        font: {
+            family: 'Roboto Condensed', sans-serif;
+            weight: 400;
+        }
         overflow: hidden; // TODO: seems to need min-width
         text-overflow: ellipsis;
         hyphens: auto;
