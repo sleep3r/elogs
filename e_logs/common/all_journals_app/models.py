@@ -208,8 +208,8 @@ class Cell(StrAsDictMixin, models.Model):
     @staticmethod
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
         group = CellGroup.objects.get(id=group_id)
-        field = Field.objects.get(table__journal=group.journal, table__name=table_name,
-                                  name=field_name)
+        field = Field.objects.get_or_create(table=Table.objects.get_or_create(name=table_name, journal=group.journal)[0],
+                                  name=field_name)[0]
         return Cell.objects.get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
