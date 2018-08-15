@@ -33,11 +33,11 @@ class Message(StrAsDictMixin, models.Model):
         if uids:
             recipients = list()
             for uid in uids:
-                recipients.extend(Employee.objects.filter(id=uid))
+                recipients.extend(Employee.objects.filter(id=uid).cache())
         if positions:
             recipients = list()
             for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p))
+                recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
         if all_users:
             recipients = list()
             recipients.extend(Employee.objects.all())
@@ -74,7 +74,7 @@ class Message(StrAsDictMixin, models.Model):
             return Employee.objects.only('user')
         if positions:
             for p in positions:
-                emp = Employee.objects.filter(plant=plant, position=p)
+                emp = Employee.objects.filter(plant=plant, position=p).cache()
                 res.extend(emp)
         if eids:
             for eid in eids:

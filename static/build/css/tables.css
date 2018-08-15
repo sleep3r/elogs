@@ -1,4 +1,6 @@
-/** Colors */
+/*------------------------------------*\
+  # Colors
+\*------------------------------------*/
 input[hidden] {
   font-size: 0;
   padding: 0;
@@ -6,6 +8,119 @@ input[hidden] {
   border: 0;
 }
 
+.table {
+  padding: 0;
+  border-spacing: 1px;
+  border: 1px solid gray;
+  margin-bottom: 5px;
+  table-layout: fixed;
+}
+.table th {
+  color: white;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 5px;
+  background-color: #666666;
+}
+.table td {
+  padding: 0;
+}
+
+input[class$=-cell] {
+  border: none;
+  min-width: 0;
+  line-height: 1.42857143 !important;
+  height: 100%;
+  min-height: 30px;
+  word-break: break-word;
+}
+
+input[class$=-cell]:focus {
+  outline: 2px solid #548CB7;
+}
+
+.number-cell {
+  text-align: right;
+  font-size: 10px;
+  border-collapse: collapse;
+}
+
+.string-cell {
+  text-align: left;
+  font-size: 11px;
+  color: grey;
+  width: 200px;
+  overflow: hidden;
+}
+
+h2.table-title {
+  font-family: Roboto, sans-serif;
+}
+
+table.elog-journal-table {
+  table-layout: auto !important;
+  width: 100%;
+  height: 100% !important;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  border-collapse: collapse !important;
+}
+table.elog-journal-table tr:nth-child(even) {
+  background-color: #F5F5F5;
+}
+table.elog-journal-table td, table.elog-journal-table th {
+  border: 1px solid #EAEAEA !important;
+  vertical-align: bottom !important;
+}
+table.elog-journal-table thead th {
+  background-color: #666666;
+  color: white;
+}
+table.elog-journal-table th {
+  padding: 12px 4px 12px 3px !important;
+  font-family: "RobotoCondensedRegular", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  hyphens: auto;
+}
+table.elog-journal-table .th-number {
+  text-align: right !important;
+}
+table.elog-journal-table .th-common {
+  text-align: center !important;
+}
+table.elog-journal-table td {
+  padding: 0 !important;
+  /* to have inputs inside cells*/
+  position: relative;
+}
+table.elog-journal-table .units {
+  white-space: nowrap;
+}
+table.elog-journal-table .units:not(.no-before)::before {
+  content: ", ";
+  white-space: pre-line;
+}
+table.elog-journal-table .table-comment-button .badge {
+  color: white;
+  background-color: #548CB7;
+}
+table.elog-journal-table .table-comment-button :hover {
+  text-decoration: underline;
+}
+table.elog-journal-table .table-comment-button :active {
+  color: #9FBF47;
+}
+
+.non-wrapping-table {
+  border-collapse: collapse;
+  border-top: none;
+}
+
+/*------------------------------------*\
+  # Colors
+\*------------------------------------*/
 /** Table Comment */
 .journal-table {
   margin-bottom: 20px;
@@ -50,51 +165,88 @@ input[hidden] {
   background-color: #9FBF47;
 }
 
-/*table styles */
-.table {
-  padding: 5px;
-  border: 2px solid gray;
-  margin-bottom: 5px;
-  table-layout: fixed;
+.table .popup-comment-content {
+  visibility: hidden;
+  background-color: #9FBF47;
+  text-align: center;
+  border-radius: 2px;
+  padding: 1px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  margin-bottom: 10px;
+  margin-left: -80px;
 }
 
-.table th {
-  color: white;
-  font-size: 12px;
-  font-weight: normal;
-  padding: 5px;
-  background-color: #666666;
+.popup-comment-content > textarea:focus {
+  outline: none;
 }
 
-.table td {
-  padding: 0;
-}
-
-input[class$=-cell] {
-  border: none;
-  min-width: 0;
-  line-height: 1.42857143 !important;
-  height: 100%;
-  min-height: 30px;
-  word-break: break-word;
-}
-
-input[class$=-cell]:focus {
-  outline: 2px solid #548CB7;
-}
-
-.number-cell {
-  text-align: right;
+.comment-close-button {
+  height: 10px;
+  width: 10px;
   font-size: 10px;
-  border-collapse: collapse;
+  line-height: 10px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  min-width: 0;
+  border: none;
 }
 
-.string-cell {
+.comment-close-button:hover {
+  cursor: pointer;
+}
+
+/* Popup arrow */
+.table .popup-comment-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 10px solid transparent;
+  border-top-color: #9FBF47;
+}
+
+.popup-comment-content > textarea {
+  resize: none;
+  line-height: 18px;
+  border: none;
+  margin: 1px;
+}
+
+/* Toggle this class - hide and show the popup */
+.table .show {
+  visibility: visible;
+  /* -webkit-animation: fadeIn 0s;
+  animation: fadeIn 0s; */
+}
+
+.commentAuthor {
   text-align: left;
-  font-size: 11px;
-  color: grey;
-  width: 200px;
-  overflow: hidden;
+  color: white;
+  padding: 2px 0 2px 5px;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.input-check-popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.popup-comment-content textarea::placeholder {
+  color: #BBBBBB;
+}
+
+.table-comment-button {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=tables.css.map */

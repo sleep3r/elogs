@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <title>ELogs markup Universal page</title>
     <base href="./">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../../static/build/css/index.css">
     <link rel="stylesheet" href="css/font-icons/all.css">
     <script src="js/header.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/toggle.js"></script>
+    <script src="js/vendors/popper.js"></script>
+    <script src="js/popper-init.js"></script>
   </head>
   <body>
     <div class="elogs-container"> 
@@ -98,6 +100,68 @@
               </div>
             </div>
             <div class="journal-tables">
+              <div class="journal-table">
+                <div class="table__title">Длинная таблица</div>
+                <table class="table table-long">
+                  <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                  </tr>
+                  <tr>
+                    <th>1</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s1" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n11" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n21" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n31" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>2</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s2" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n12" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n22" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n32" class="number-cell">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>3</th>
+                    <td>
+                      <input value="Lorem ipsum dolor sit amet." onfocus="onEdit(this)" id="cell-s3" class="string-cell">
+                    </td>
+                    <td>
+                      <input value="1" onfocus="onEdit(this)" id="cell-n13" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="2" onfocus="onEdit(this)" id="cell-n23" class="number-cell">
+                    </td>
+                    <td>
+                      <input value="3" onfocus="onEdit(this)" id="cell-n33" class="number-cell">
+                    </td>
+                  </tr>
+                </table>
+                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
+                  <div class="comment__text slide-up">
+                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
+                  </div>
+                </div>
+              </div>
               <div class="journal-table">
                 <div class="table__title">Ответственные по складу</div>
                 <table class="table table-31337">
@@ -262,68 +326,6 @@
                   </div>
                 </div>
               </div>
-              <div class="journal-table">
-                <div class="table__title">Длинная таблица</div>
-                <table class="table table-long">
-                  <tr>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                  </tr>
-                  <tr>
-                    <th>1</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" class="number-cell">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>2</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" class="number-cell">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>3</th>
-                    <td> 
-                      <input value="Lorem ipsum dolor sit amet." class="string-cell">
-                    </td>
-                    <td> 
-                      <input value="1" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="2" class="number-cell">
-                    </td>
-                    <td> 
-                      <input value="3" class="number-cell">
-                    </td>
-                  </tr>
-                </table>
-                <div class="table__comment"><a href="javascript:;" onclick="Toggle.byClick('.comment__text','slide-down', this)">Комментарий</a><i class="fas fa-envelope ico-comment"></i>
-                  <div class="comment__text slide-up">
-                    <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam consequuntur dignissimos doloribus dolorum ex expedita numquam. Alias aperiam at corporis dicta dolor dolores, earum, provident recusandae repudiandae similique sit voluptas?</textarea>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <footer>
@@ -331,6 +333,9 @@
           </footer>
         </div>
       </div>
+    </div>
+    <div class="popper"><span class="popper__arrow"></span>
+      <textarea class="content">...</textarea>
     </div>
   </body>
 </html>

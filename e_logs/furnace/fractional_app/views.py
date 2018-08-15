@@ -35,16 +35,16 @@ def add_measurement(request):
 
         for m_value in req['cinder']['masses']:
             Cell.objects.create(table_name="measurements", field_name='cinder_mass',
-                                index=0, value=m_value, group_id=measurement)
+                                index=0, value=m_value, group_id=measurement).cache()
         for m_value in req['cinder']['min_sizes']:
             Cell.objects.create(table_name="measurements", field_name='cinder_size',
-                                index=0, value=m_value, group_id=measurement)
+                                index=0, value=m_value, group_id=measurement).cache()
         for m_value in req['schieht']['masses']:
             Cell.objects.create(table_name="measurements", field_name='schieht_mass',
-                                index=0, value=m_value, group_id=measurement)
+                                index=0, value=m_value, group_id=measurement).cache()
         for m_value in req['schieht']['min_sizes']:
             Cell.objects.create(table_name="measurements", field_name='schieht_size',
-                                index=0, value=m_value, group_id=measurement)
+                                index=0, value=m_value, group_id=measurement).cache()
 
         return HttpResponse(status=201)
     return HttpResponse(status=405)
@@ -60,10 +60,10 @@ def granularity_object(request):
         branch['time'] = (measurement.time + timedelta(days=700)).timestamp()
         branch['masses'] = [round(float(m.value), 2) for m in
                             Cell.objects.select_related('field')
-                                .filter(field__name=staff + "_mass", group=measurement)]
+                                .filter(field__name=staff + "_mass", group=measurement).cache()]
         branch['min_sizes'] = [round(float(m.value), 2) for m in
                                Cell.objects.select_related('field')
-                                   .filter(field__name=staff + "_size", group=measurement)]
+                                   .filter(field__name=staff + "_size", group=measurement).cache()]
 
     for measurement in Measurement.objects.all()[:2]:
         set_data('cinder', future=100)

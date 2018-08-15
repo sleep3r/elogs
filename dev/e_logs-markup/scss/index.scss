@@ -1,37 +1,23 @@
-<<<<<<< HEAD:e_logs-markup/scss/index.scss
-//@import 'font-typefaces.scss';
-//@import 'comment';
+/**
+*
+* CONTENTS
+* Config....................Common variables, colors
+* Layout....................Main sections for layout
+*   Header..................Header
+*   Header..................Header
+*
+*/
 
-//@import "fractional";
-//@import "inside-table";
-//@import "journal-layout";
-//@import "values";
-//@import "custom";
-
-@import "../css/font-icons/all.css";
-@import "colors.scss";
-@import "layout.scss";
-@import "menu.scss";
-@import "tables/tables";
-@import "misc.scss";
-@import "journal.scss";
-@import "values";
-@import "notifications";
-@import 'elog-table';
-@import "header";
-@import "user-menu";
-@import "calendar.scss";
-@import "modals";
-@import "footer";
-@import "slide";
-=======
 @import "colors";
 @import "layout";
+@import "header";
 @import "menu";
 @import "tables";
+@import "slide";
 @import "misc";
+@import "popup";
 @import "journal";
->>>>>>> develop:dev/e_logs-markup/scss/index.scss
+
 
 
 /*layout tables */

@@ -1,6 +1,4 @@
-/*------------------------------------*\
-  # Colors
-\*------------------------------------*/
+/** Colors */
 .general-value {
   /*important because it's really important and to override bootstrap*/
   padding-left: 3px !important;
@@ -56,10 +54,11 @@ input[type=number].general-value {
 }
 /* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
 .comment-notification {
+  visibility: hidden;
   position: absolute;
-  top: 5px;
-  left: 5px;
-  color: #252525;
+  top: 0;
+  right: 0;
+  color: #ffd800;
   opacity: 0.5;
   cursor: pointer;
 }
@@ -68,7 +67,7 @@ input[type=number].general-value {
   opacity: 1;
 }
 
-/* -------------------------- BACKGROUND COLOR SHIT --------------------------------- */
+/* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
 .form-control {
   border: none;
   min-width: 0;
@@ -82,16 +81,15 @@ input[type=number].general-value {
   background: white;
 }
 
+/*.journaltablewrapper .form-control[readonly] {*/
+/*background: white;*/
+/*}*/
 .journaltablewrapper .form-control[readonly]:focus {
   background: white;
 }
 
 .journaltablewrapper .form-control:focus {
   background: linear-gradient(-45deg, #FF734C 0%, transparent 10px, transparent 100%);
-}
-
-.active-comment {
-  background: radial-gradient(white 80%, #9FBF47);
 }
 
 input::-webkit-calendar-picker-indicator,

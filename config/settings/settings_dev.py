@@ -1,5 +1,4 @@
 import faulthandler
-import ipdb
 
 from .settings_base import *
 
@@ -46,8 +45,6 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
-    'cachalot.panels.CachalotPanel',
 ]
 
 faulthandler.enable()
-# ipdb.set_trace()

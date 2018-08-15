@@ -45,12 +45,6 @@
             {%endif %}
     />
 
-<!--
-{{ field_comment_name }}
-{{ table_cells_data|keyval:field_comment_name }}
-{{ comment }}
--->
-
 {#<span class="popup-comment-content">#}
 {#   <div class="comment-close-button"#}
 {#        onclick="PopUp.hideAll()">&#10006;</div>#}
@@ -73,12 +67,9 @@
 {#   <div class="commentAuthor">Автор: {{ field_comment_responsible }}</div>#}
 {#   {% endif %}#}
 {#</span>#}
-
-
-<span class="input-check-popup">Это числовое поле</span>
-
+{#<span class="input-check-popup">Это числовое поле</span>#}
 
 {% if page_mode == "view"  or page_mode == "validate" %}
-    <i class="material-icons comment-notification"
-       onclick="PopUp.showView(this)">mail</i>
+    <i class="far fa-envelope comment-notification"  style="display: block" onclick="PopUp.showView(this)"></i>
 {% endif %}
+

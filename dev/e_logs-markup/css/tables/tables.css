@@ -40,6 +40,7 @@ input[hidden] {
 }
 .comment__text textarea {
   width: 100vh;
+  padding: 5px;
   border: 1px solid #9FBF47;
 }
 

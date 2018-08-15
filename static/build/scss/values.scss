@@ -4,7 +4,6 @@
     /*important because it's really important and to override bootstrap*/
     padding-left: 3px !important;
     padding-right: 3px !important;
-
     font-family: 'RobotoCondensedLight', sans-serif;
 }
 
@@ -59,11 +58,11 @@ input[type="number"].general-value {
 /* ----------------------- COMMENT NOTIFICATIONS ------------------------------------ */
 
 .comment-notification {
-    visibility: hidden;
+    //visibility: hidden;
     position: absolute;
-    top: 0;
-    right: 0;
-    color: #ffd800;
+    top: 5px;
+    left: 5px;
+    color: #252525;
     opacity: 0.5;
     cursor: pointer;
 }
@@ -72,7 +71,7 @@ input[type="number"].general-value {
     opacity: 1;
 }
 
-/* -------------------------- BACKGROUNG COLOR SHIT --------------------------------- */
+/* -------------------------- BACKGROUND COLOR SHIT --------------------------------- */
 
 .form-control {
     border: none;
@@ -88,9 +87,6 @@ input[type="number"].general-value {
     }
 }
 
-/*.journaltablewrapper .form-control[readonly] {*/
-/*background: white;*/
-/*}*/
 
 .journaltablewrapper .form-control[readonly]:focus {
     background: white;
@@ -103,6 +99,8 @@ input[type="number"].general-value {
 .active-comment {
     background: radial-gradient(white 80%, $accent-green)
 }
+
+
 
 // --------------------------------------- DELETING ARROWS --------------------------------------
 

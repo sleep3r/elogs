@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from django.conf.global_settings import INTERNAL_IPS
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -53,6 +52,8 @@ INSTALLED_APPS = [
     'django_filters',
     'webpack_loader',
     'django_extensions',
+    'cacheops',
+    'django_pickling',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -239,14 +240,6 @@ LOGGING = {
     }
 }
 
-CACHES = {
-    'default': {
-        # 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
-
 FEEDBACK_TG_BOT = {
     "token": "484527904:AAHVkzp5hHuxWVfR0tYkIFPV-sgQkXQKqAQ",
     "channel": "-1001169474805",
@@ -270,3 +263,70 @@ REST_FRAMEWORK = {
 }
 
 CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
+
+# --------------------------------- CACHING STAFF ---------------------------------------
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
+
+
+CACHEOPS_REDIS = {
+    'host': 'localhost', # redis-server is on same machine
+    'port': 6379,        # default redis port
+    'db': 1,             # SELECT non-default redis database
+                         # using separate redis db or redis instance
+                         # is highly recommended
+
+    # 'socket_timeout': 3,
+}
+
+CACHEOPS_DEFAULTS = {
+    'timeout': 60*60,
+    # 'local_get': True,
+}
+
+CACHEOPS = {
+    # Automatically cache any User.objects.get() calls for 15 minutes
+    # This also includes .first() and .last() calls,
+    # as well as request.user or post.author access,
+    # where Post.author is a foreign key to auth.User
+    'auth.user': {'ops': 'get', 'timeout': 60*15},
+
+    # Automatically cache all gets and queryset fetches
+    # to other django.contrib.auth models for an hour
+    'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
+
+    # Cache all queries to Permission
+    # 'all' is an alias for {'get', 'fetch', 'count', 'aggregate', 'exists'}
+    'auth.permission': {'ops': 'all', 'timeout': 60*60},
+
+    # Enable manual caching on all other models with default timeout of an hour
+    # Use Post.objects.cache().get(...)
+    #  or Tags.objects.filter(...).order_by(...).cache()
+    # to cache particular ORM request.
+    # Invalidation is still automatic
+    # '*.*': {'timeout': 60*60},
+    '*.*': {'ops': 'all', 'timeout': 60*60},
+
+    'core.models.Setting': {'ops': 'all', 'timeout': 60*60},
+    'common.all_journals_app.models.Cell': {'ops': 'all', 'timeout': 60*60},
+    'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60*60},
+    # 'core.models.Setting': {'timeout': 60*60},
+    # 'core.models.Setting': {'timeout': 60*60},
+}
+
+# TODO: read https://redis.io/topics/sentinel
+# CACHEOPS_SENTINEL = {
+#     'locations': [('localhost', 26379)], # sentinel locations, required
+#     'service_name': 'mymaster',          # sentinel service name, required
+#     'socket_timeout': 0.1,               # connection timeout in seconds, optional
+#     'db': 0                              # redis database, default: 0
+# }
