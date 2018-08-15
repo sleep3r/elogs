@@ -105,6 +105,7 @@ class MetalsJournalView(JournalView):
         return context
 
 
+@csrf_exempt
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
@@ -143,6 +144,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
+
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
@@ -160,6 +162,23 @@ def save_cell(request):
     if cell.journal.type == 'shift':
         shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
         shift.employee_set.add(request.user.employee)
+
+    return {"status": 1}
+
+
+@csrf_exempt
+@process_json_view(auth_required=False)
+# @logged
+def save_table_comment(request):
+    comment_data = json.loads(request.body)
+    cell = Cell.get_or_create_cell(**comment_data['comment'])
+    text = comment_data['text']
+    if text:
+        cell.responsible = request.user.employee
+        cell.value = text
+        cell.save()
+    else:
+        cell.delete()
 
     return {"status": 1}
 

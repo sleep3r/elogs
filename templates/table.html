@@ -5,8 +5,10 @@
 
 <div class="journal-table" id="table_id_{{ table_name }}">
     <div class="table__title">{% block title %}{% endblock %}</div>
-    <form action="/common/change_table" method="post" autocomplete="off" oninput="FormTable.on_form_change(this)"
-                  class="{% block form_class %}{% endblock %} elog-table-form">
+    <form action="/common/change_table" method="post" autocomplete="off"
+          oninput="FormTable.on_form_change(this)"
+          class="{% block form_class %}{% endblock %} elog-table-form">
+
         <input hidden name="table_name" value="{{ table_name }}">
         <input hidden name="journal_page" value="{{ journal_page }}">
 
@@ -17,8 +19,8 @@
         </div>
 
         {% block additional_lower %}{% endblock %}
-        {% include "table_comment.html" with comment=table_cells_data|keyval:"comment"|keyval:0 %}
-            </form>
+        {% include "table_comment.html" with comment=table_cells_data|keyval:"comment"|keyval:0|keyval:"value" %}
+    </form>
 
     {% block js %}{% endblock %}
 </div>
