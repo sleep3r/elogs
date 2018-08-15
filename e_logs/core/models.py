@@ -1,3 +1,4 @@
+import pickle
 from typing import Optional
 
 from django.db import models
@@ -47,7 +48,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     or any model related to them
     """
     name = models.CharField(max_length=128, verbose_name='Название')
-    value = models.CharField(max_length=2048, verbose_name='Значение')
+    value = models.BinaryField(max_length=4096, verbose_name='Значение')
     employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
@@ -93,11 +94,11 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
                     attr: obj
                 }).first()
             if found_setting:
-                return found_setting.value
+                return pickle.loads(found_setting.value)
         else:  # case of global setting
             try:
                 found_setting = Setting.objects.get(name=name, employee=employee)
-                return found_setting.value
+                return pickle.loads(found_setting.value)
             except:  # if haven't found, we'll search father
                 pass
 
@@ -110,14 +111,14 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     @staticmethod
     @logged
     def set_value(name: str, value: str, employee: Employee = None, obj=None) -> None:
-        default_logger.debug(f'Set value:')
         try:
-            Setting.objects.create(value=value, name=name, employee=employee,
-                                   object_id=obj.id, content_type=ContentType.objects.get_for_model(obj))
-            # Setting(value=value, name=name, employee=employee, scope=scope).save()
+            Setting.objects.create(value=pickle.dumps(value), name=name,
+                                   employee=employee, object_id=obj.id,
+                                   content_type=ContentType.objects.get_for_model(obj))
         except:
-            Setting.objects.update_or_create(defaults={'value': value}, name=name, employee=employee,
-                                             object_id=obj.id, content_type=ContentType.objects.get_for_model(obj))
+            Setting.objects.update_or_create(defaults={'value': pickle.dumps(value)}, name=name,
+                                             employee=employee, object_id=obj.id,
+                                             content_type=ContentType.objects.get_for_model(obj))
 
     @staticmethod
     @logged
