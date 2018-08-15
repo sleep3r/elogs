@@ -20,7 +20,17 @@ input[hidden] {
     td {
         padding: 0;
     }
+}
 
+.table__title {
+    line-height: 40px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    background-color: $color-bg1;
+    font: {
+        family: Roboto, sans-serif;
+        size: 24px;
+    };
 }
 
 input[class$="-cell"] {
@@ -33,7 +43,7 @@ input[class$="-cell"] {
 }
 
 input[class$="-cell"]:focus {
-    outline: 2px solid $co§lor-main;
+    outline: 2px solid $color-main;
 }
 
 .number-cell {
@@ -62,7 +72,7 @@ table.elog-journal-table { // the table itself
     height: 100% !important;
 
     font: {
-        family: 'RobotoCondensed', sans-serif;
+        family: 'Roboto Condensed', sans-serif;
         weight: normal;
         style: normal;
     }

@@ -123,5 +123,4 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     @staticmethod
     @logged
     def of(obj=None, employee: Optional[Employee] = None) -> TargetedSetting:
-        err_logger.debug(f'of(kwargs=')
         return TargetedSetting(employee=employee, obj=obj)
