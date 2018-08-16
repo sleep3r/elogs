@@ -1,7 +1,6 @@
 /*------------------------------------*\
   # LAYOUT
 \*------------------------------------*/
-@import "variables";
 
 /**
 * elogs-container
@@ -15,6 +14,8 @@
 *         journal-tables
 *   footer
 */
+
+@import "variables";
 
 /*layout */
 body {

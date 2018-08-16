@@ -6,16 +6,12 @@
 {% block table %}
 <table class="table table-bordered elog-journal-table">
     <tr>
-        <th colspan="2"> Материально-технические ценности приняты на самохрану </th>
+        <th> Материально-технические ценности приняты на самохрану </th>
+        <td>{% include "value.html" with field_name="material" index=0 %}</td>
     </tr>
     <tr>
-        <td colspan="2">{% include "value.html" with field_name="material" index=0 %}</td>
-    </tr>
-    <tr>
-        <th colspan="2"> Замечания по работе оборудования </th>
-    </tr>
-    <tr>
-        <td colspan="2">{% include "value.html" with field_name="note" index=0 %}</td>
+        <th> Замечания по работе оборудования </th>
+        <td>{% include "value.html" with field_name="note" index=0 %}</td>
     </tr>
     <tr>
         <th> Аспирация и вентиляция </th>
