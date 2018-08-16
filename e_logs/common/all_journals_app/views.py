@@ -181,6 +181,10 @@ def save_table_comment(request):
     else:
         cell.delete()
 
+    if cell.journal.type == 'shift':
+        shift = Shift.objects.get(id=int(comment_data['comment']['group_id']))
+        shift.employee_set.add(request.user.employee)
+
     return {"status": 1}
 
 

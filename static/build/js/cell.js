@@ -151,7 +151,8 @@ class Cell {
     static getLink(input) {
         let plant = location.pathname.split('/')[1];
         let journal_name = location.pathname.split('/')[2];
-        let result = `/${plant}/${journal_name}?page_mode=view&highlight=${$(input).attr("id")}#${$(input).attr("id")}`;
+        let journal_id = location.search.split("?")[1].split("id=")[1]
+        let result = `/${plant}/${journal_name}?id=${journal_id}&page_mode=view&highlight=${$(input).attr("id")}#${$(input).attr("id")}`;
 
         return result;
     }
