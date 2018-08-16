@@ -85,6 +85,7 @@ class Lines {
                 let new_last_line = last_line.clone();
                 new_last_line.find("input").val("");
                 new_last_line.find("textarea").val("");
+                new_last_line.find("input").attr('title', "");
                 new_last_line.find("input").attr('index', last_line.find("input").attr('index')*1 + 1);
                 new_last_line.find("input").attr('id', last_line.find("input").attr('id').replace(/(-\d+)+$/g, function(match, number) {
                     return parseInt(number)-1}));
