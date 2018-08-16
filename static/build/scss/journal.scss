@@ -2,7 +2,7 @@
   # JOURNAL
 \*------------------------------------*/
 
-@import "colors.scss";
+@import "variables";
 
 .journal__panel {
     margin-top: 20px;
@@ -26,6 +26,10 @@
         top: -16px;
         display: block;
         width: 200px;
+    }
+
+    .date-selector__date {
+        color: $color-text;
     }
 }
 

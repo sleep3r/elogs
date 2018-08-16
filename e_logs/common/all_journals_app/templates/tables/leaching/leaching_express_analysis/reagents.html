@@ -8,10 +8,10 @@
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
-                <th></th>
+                <th>Реагент</th>
                 <th>{% trans "Доставлено" %}</th>
                 <th>{% trans "Принято" %}</th>
-                <th>{% trans "Расход" %}</th>
+                <th class="th-common">{% trans "Расход" %}</th>
                 <th>{% trans "Сдано" %}</th>
             </tr>
         </thead>
@@ -24,7 +24,7 @@
                 <td>{% include "value.html" with field_name="passed_salt" index=0 %}</td>
             </tr>
             <tr>
-                <th>{% trans "Zn пыль" %}{% trans "<i class='units'>кюбели</i>" %}</th>
+                <th class="th-mul-row">{% trans "Zn пыль" %}{% trans "<i class='units'>кюбели</i>" %}</th>
                 <td>{% include "value.html" with field_name="delivery_Zn_dust" index=0 %}</td>
                 <td>{% include "value.html" with field_name="income_Zn_dust" index=0 %}</td>
                 <td class="wrappercell">
@@ -32,17 +32,20 @@
                         <tr>
                             <th class="removeleftborder removetopborder">{% trans "1ст<i class='units'>т</i>" %}</th>
                             <td class="removetopborder">{% include "value.html" with field_name="outcome_Zn_1st" index=0 %}</td>
-                            <th class="removetopborder">Cd</th>
-                            <td class="removetopborder removerightborder">{% include "value.html" with field_name="income_Zn_dust" index=0 %}</td>
+                            <td rowspan="4" class="removetopborder removerightborder removebottomborder">
+                                {% include "value.html" with field_name="outcome_Zn_1st" index=0 %}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder">{% trans "2ст<i class='units'>т</i>" %}</th>
                             <td>{% include "value.html" with field_name="outcome_Zn_2st" index=0 %}</td>
-                            <td rowspan="2" colspan="2" class="removebottomborder">{% include "value.html" with field_name="income_Zn_Cd" index=0 %}</td>
                         </tr>
                         <tr>
                             <th class="removeleftborder removebottomborder">{% trans "3ст<i class='units'>т</i>" %}</th>
                             <td class="removebottomborder">{% include "value.html" with field_name="outcome_Zn_3st" index=0 %}</td>
+                        </tr>
+                        <tr>
+                            <th class="removebottomborder removeleftborder">Cd<i class='units'>т</i></th>
+                            <td class="removebottomborder">{% include "value.html" with field_name="income_Zn_dust" index=0 %}</td>
                         </tr>
                     </table>
                 </td>

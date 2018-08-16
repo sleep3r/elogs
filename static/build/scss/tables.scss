@@ -20,7 +20,19 @@ input[hidden] {
     td {
         padding: 0;
     }
+}
 
+@import "font-faces";
+
+.table__title {
+    line-height: 40px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    background-color: $color-bg1;
+    font: {
+        family: 'Roboto', sans-serif;
+        size: 24px;
+    };
 }
 
 input[class$="-cell"] {
@@ -33,7 +45,7 @@ input[class$="-cell"] {
 }
 
 input[class$="-cell"]:focus {
-    outline: 2px solid $co§lor-main;
+    outline: 2px solid $color-main;
 }
 
 .number-cell {
@@ -56,14 +68,14 @@ h2.table-title {
     }
 }
 
-table.elog-journal-table { // the table itself
+.elog-journal-table { // the table itself
     table-layout: auto !important; // test fixed layout
     width: 100%;
     height: 100% !important;
 
     font: {
-        family: 'RobotoCondensed', sans-serif;
-        weight: normal;
+        family: 'Roboto Condensed', sans-serif;
+        weight: 300;
         style: normal;
     }
 
@@ -82,14 +94,17 @@ table.elog-journal-table { // the table itself
 
     thead {
         th {
+            padding: 12px 4px 12px 3px !important;
             background-color: $base_gray;
             color: white;
         }
     }
 
     th {
-        padding: 12px 4px 12px 3px !important;
-        font-family: 'RobotoCondensedRegular', sans-serif;
+        font: {
+            family: 'Roboto Condensed', sans-serif;
+            weight: 400;
+        }
         overflow: hidden; // TODO: seems to need min-width
         text-overflow: ellipsis;
         hyphens: auto;
@@ -101,6 +116,10 @@ table.elog-journal-table { // the table itself
 
     .th-common { // class for th common for several columns
         text-align: center !important;
+    }
+    
+    .th-mul-row {
+        vertical-align: middle !important;
     }
 
     td {

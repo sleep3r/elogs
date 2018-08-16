@@ -1,6 +1,8 @@
 import json
 from datetime import date, datetime, timedelta
 
+from e_logs.core.utils.loggers import stdout_logger
+
 from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.handlers.wsgi import WSGIRequest
@@ -181,6 +183,10 @@ def save_table_comment(request):
     else:
         cell.delete()
 
+    if cell.journal.type == 'shift':
+        shift = Shift.objects.get(id=int(comment_data['comment']['group_id']))
+        shift.employee_set.add(request.user.employee)
+
     return {"status": 1}
 
 
@@ -213,7 +219,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
-        for shift_date in date_range(from_date, to_date):
+        for shift_date in date_range(from_date, to_date + timedelta(days=1)):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.get_or_create(journal, shift_order, shift_date)
                 is_owned = shift in owned_shifts
