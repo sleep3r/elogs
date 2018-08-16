@@ -19,6 +19,7 @@
 
 
 @import "../css/font-icons/all.css";
+@import "common.scss";
 @import "font-faces";
 @import "variables";
 @import "layout.scss";
@@ -26,5 +27,4 @@
 @import "calendar.scss";
 @import "fractional";
 @import "feedback";
-@import "slide";
 @import "popup";
