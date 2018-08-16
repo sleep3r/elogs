@@ -12,7 +12,8 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
-from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment
+from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged
@@ -152,42 +153,58 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 @process_json_view(auth_required=False)
 # @logged
 def save_cell(request):
-    cell_info = json.loads(request.body)
-    cell = Cell.get_or_create_cell(**cell_info['cell_location'])
-    value = cell_info['value']
-    if value != '':
-        cell.responsible = request.user.employee
-        cell.value = value
-        cell.save()
-    else:
-        cell.delete()
+    if request.method == 'POST':
+        cell_info = json.loads(request.body)
+        cell = Cell.get_or_create_cell(**cell_info['cell_location'])
+        value = cell_info['value']
+        if value != '':
+            cell.responsible = request.user.employee
+            cell.value = value
+            cell.save()
+        else:
+            cell.delete()
 
-    if cell.journal.type == 'shift':
-        shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
-        shift.employee_set.add(request.user.employee)
+        if cell.journal.type == 'shift':
+            shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
+            shift.employee_set.add(request.user.employee)
 
-    return {"status": 1}
+        return {"status": 1}
 
 
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
 def save_table_comment(request):
-    comment_data = json.loads(request.body)
-    cell = Cell.get_or_create_cell(**comment_data['comment'])
-    text = comment_data['text']
-    if text:
-        cell.responsible = request.user.employee
-        cell.value = text
-        cell.save()
-    else:
-        cell.delete()
+    if request.method == 'POST':
+        comment_data = json.loads(request.body)
+        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
+        text = comment_data['text']
+        if text:
+            cell.responsible = request.user.employee
+            cell.value = text
+            cell.save()
 
-    if cell.journal.type == 'shift':
-        shift = Shift.objects.get(id=int(comment_data['comment']['group_id']))
-        shift.employee_set.add(request.user.employee)
+        if cell.journal.type == 'shift':
+            shift = Shift.objects.get(id=int(comment_data['cell_location']['group_id']))
+            shift.employee_set.add(request.user.employee)
 
-    return {"status": 1}
+        return {"status": 1}
+
+@csrf_exempt
+@process_json_view(auth_required=False)
+# @logged
+def save_cell_comment(request):
+    if request.method == 'POST':
+        comment_data = json.loads(request.body)
+        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
+        comment = Comment.objects.get_or_create(target=cell)
+        text = comment_data['text']
+        if text:
+            comment.text = text
+            comment.employee = request.user.employee
+            comment.save()
+
+        return {"status": 1}
 
 
 @cached_as(Plant, Journal, Shift)

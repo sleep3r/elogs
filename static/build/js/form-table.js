@@ -17,9 +17,8 @@ class FormTable {
     }
 
     static saveTableComment(input) {
-        console.log("HUE");
         let forSend = JSON.stringify({
-            "comment": {
+            "cell_location": {
                 "field_name": input.name,
                 "table_name": $(input).attr('table-name'),
                 "group_id": $(input).attr('journal-page'),
