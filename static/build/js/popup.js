@@ -28,7 +28,8 @@ class PopUp {
                 let content = item.instance.reference.value;
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
-                textarea.value = "Ваш комментарий " + content;
+                textarea.setAttribute("placeholder", "Введите замечание...");
+                textarea.value = "";
               },
 
             });
