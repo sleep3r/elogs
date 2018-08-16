@@ -12,7 +12,7 @@ class Command(BaseCommand):
         for i in range(0, 30):
             msg = Message(is_read=False,
                           type='critical_value',
-                          text= f'Some text n {i}',
+                          text=f'Some text n {i}',
                           sendee=Employee.objects.get(name='inframine'),
                           addressee=Employee.objects.get(name='inframine')
                           )
