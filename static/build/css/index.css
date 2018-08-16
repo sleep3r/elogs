@@ -657,6 +657,7 @@ footer {
   background-color: #E5E5E5;
   margin: 0;
   padding: 0;
+  z-index: 2;
 }
 .user-menu .menu {
   margin: 0;
@@ -697,6 +698,7 @@ footer {
   right: 0;
   padding: 0;
   border: 1px solid #343434;
+  z-index: 1;
 }
 .user-notifications li {
   margin: 0;
