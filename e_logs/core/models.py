@@ -9,7 +9,6 @@ from django.db.models.base import ModelBase
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import StrAsDictMixin, logged
-from e_logs.core.utils.loggers import err_logger
 
 
 class SettingsMeta(ModelBase):
