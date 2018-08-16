@@ -14,6 +14,9 @@
     <link href="{% static '/vendors/bootstrap/dist/css/bootstrap-notifications.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block journal_panel %}
+{% endblock %}
+
 {% block content %}
     <div class="content">
         <ul class="notifs">
@@ -53,7 +56,9 @@
             {% endfor %}
         </ul>
 
-        <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
+        <div class="loading" style="display: none;text-align: center">
+            ЗАГРУЗКА...
+        </div>
 
         {% if page_obj.has_next %}
             <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
