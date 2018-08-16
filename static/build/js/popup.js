@@ -25,11 +25,12 @@ class PopUp {
                 },
               },
               onCreate: function(item) {
-                let content = item.instance.reference.value;
+                let commentText = item.instance.reference.getAttribute("comment");
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
+
                 textarea.setAttribute("placeholder", "Введите замечание...");
-                textarea.value = "";
+                textarea.value = commentText;
               },
 
             });
