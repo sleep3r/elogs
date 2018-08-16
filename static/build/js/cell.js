@@ -77,6 +77,7 @@ class Cell {
                         }
                     }
                 });
+                messages_socket.send(forSend);
             } else {
 
                 let forSend = JSON.stringify({

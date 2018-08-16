@@ -19,6 +19,9 @@ class MessageConsumer(AsyncConsumer):
             "type": "websocket.accept",
         })
 
+    @database_sync_to_async
+    def get_permission(self, user_id):
+        return Employee.objects.get(id=user_id).name
 
     async def websocket_receive(self, event):
         text = event.get('text', None)
@@ -32,8 +35,9 @@ class MessageConsumer(AsyncConsumer):
             await self.channel_layer.group_send(
                 "messages",
                 {
-                    "type": "message_all",
-                    "text": json.dumps(response)
+                    "type": "message.all",
+                    "text": f"{self.scope['user'].employee.name} "
+                            f"ввел неверное значение: {response['text']['text']}"
                 },
             )
     #кастомный метод отправки сообщения по группе "messages"
@@ -44,6 +48,11 @@ class MessageConsumer(AsyncConsumer):
         })
 
     async def websocket_disconnect(self, event):
+        await self.channel_layer.group_discard(
+            "messages",  # идентефикатор группы (не обязательно абсолютно уникальный)
+            self.channel_name,  # дефолтное значение
+        )
+
         await self.send({
             "type": "websocket.close",
         })
