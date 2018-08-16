@@ -240,8 +240,8 @@ class Cell(StrAsDictMixin, models.Model):
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
-    def get_comments_text(self):
-        return ''.join(c.get_text() for c in Comment.objects.filter(cell=self))
+    def get_comments_text(self, cell):
+        return ''.join(c.get_text() for c in Comment.objects.filter(cell=cell))
 
 
 class Comment(StrAsDictMixin, models.Model):
