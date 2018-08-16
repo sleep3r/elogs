@@ -829,7 +829,6 @@ body[class*=jconfirm-no-scroll-] {
   text-shadow: none;
   border: none;
   color: white;
-  padding: 10px;
   min-width: 100px;
 }
 .jconfirm.jconfirm-supervan.jconfirm-rtl .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c {

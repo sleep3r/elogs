@@ -826,6 +826,9 @@ footer {
   display: block;
   width: 200px;
 }
+.date-selector .date-selector__date {
+  color: #656565;
+}
 
 .mode-buttons {
   margin-left: 20px;
