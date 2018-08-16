@@ -1,17 +1,13 @@
 <template>
-  <div>
+  <ul class="user-notifications">
   <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
-            <div class="notification-icon">
-                <i v-if="item.type === 'comment' " class="material-icons" style="font-size:24px; color: #669900;" >announcement</i>
-                <i v-else-if="item.type === 'critical_value' " class="material-icons" style="font-size:24px; color: #FF0000;" >new_releases</i>
-            </div>
-            <div class="notification-text">
-                <p v-html="item.text"></p>
-            </div>
+            <i v-if="item.type === 'comment' " class="far fa-comment" style="font-size:14px; color: #669900;" ></i>
+            <i v-else-if="item.type === 'critical_value' " class="far fa-comment" style="font-size:14px; color: #FF0000;" ></i>
+            <span class="notification-text" v-html="item.text"></span>
         </a>
   </li>
-  </div>
+  </ul>
 </template>
 
 <script>

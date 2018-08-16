@@ -3,6 +3,10 @@
 \*------------------------------------*/
 @import "variables";
 
+.display {
+    display: block !important;
+}
+
 .hidden {
     visibility: collapse;
 }
@@ -62,4 +66,32 @@
     border-bottom: 17px solid #E5E5E5;
     right: 30%;
     bottom: 100%;
+}
+
+.user-notifications {
+    display: none;
+    list-style: none;
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 200px;
+    border: 1px solid #343434;
+
+    li {
+        margin: 0;
+        padding-left: 10px;
+        font-size: 12px;
+        height: 23px;
+        background-color: #e5e5e5;
+        border: 1px dotted #e5e5e5;
+    }
+
+    .notification-text {
+
+    }
+}
+
+.user-messages-badge {
+    cursor: pointer;
 }
