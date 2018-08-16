@@ -30,7 +30,7 @@ input[hidden] {
     padding-left: 10px;
     background-color: $color-bg1;
     font: {
-        family: 'Roboto', sans-serif;
+        family: $roboto-font;
         size: 24px;
     };
 }
@@ -160,5 +160,36 @@ h2.table-title {
     border-collapse: collapse;
     border-top: none;
 }
+
+
+
+
+
+/*------------------------------------*\
+  # INSIDE TABLES
+\*------------------------------------*/
+// classname applied twice for higher specificity and priority
+.removeleftborder.removeleftborder {
+    border-left: none !important;
+}
+
+.removetopborder.removetopborder {
+    border-top: none !important;
+}
+
+.removerightborder.removerightborder {
+    border-right: none !important;
+}
+
+.removebottomborder.removebottomborder {
+    border-bottom: none !important;
+}
+
+.insidetable {
+    height: 100%;
+    margin: 0 !important;
+    border: none;
+}
+
 
 @import "comment";

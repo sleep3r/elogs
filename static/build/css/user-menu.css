@@ -7,18 +7,9 @@
 /*------------------------------------*\
   # Sizes
 \*------------------------------------*/
-.hidden {
-  visibility: collapse;
-}
-
-.shown {
-  visibility: visible;
-}
-
-.visible {
-  visibility: visible !important;
-}
-
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
 .user-name {
   cursor: pointer;
 }
