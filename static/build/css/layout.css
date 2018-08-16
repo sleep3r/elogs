@@ -19,6 +19,9 @@
 /*------------------------------------*\
   # Sizes
 \*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
 /*layout */
 body {
   margin: 0;
@@ -158,6 +161,9 @@ footer {
 /*------------------------------------*\
   # Sizes
 \*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
 .display {
   display: block !important;
 }
@@ -226,11 +232,12 @@ footer {
   top: 0;
   right: 0;
   padding: 0;
-  width: 200px;
   border: 1px solid #343434;
 }
 .user-notifications li {
   margin: 0;
+  line-height: 25px;
+  color: #000;
   padding-left: 10px;
   font-size: 12px;
   height: 23px;
@@ -249,6 +256,9 @@ footer {
 \*------------------------------------*/
 /*------------------------------------*\
   # Sizes
+\*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
 \*------------------------------------*/
 .menu__panel {
   display: flex;
@@ -405,6 +415,9 @@ footer {
 /*------------------------------------*\
   # Sizes
 \*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
 .journal__panel {
   margin-top: 20px;
 }
@@ -459,6 +472,9 @@ footer {
 \*------------------------------------*/
 /*------------------------------------*\
   # Sizes
+\*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
 \*------------------------------------*/
 input[hidden] {
   font-size: 0;
@@ -982,6 +998,31 @@ h2.table-title {
 }
 
 /*------------------------------------*\
+  # INSIDE TABLES
+\*------------------------------------*/
+.removeleftborder.removeleftborder {
+  border-left: none !important;
+}
+
+.removetopborder.removetopborder {
+  border-top: none !important;
+}
+
+.removerightborder.removerightborder {
+  border-right: none !important;
+}
+
+.removebottomborder.removebottomborder {
+  border-bottom: none !important;
+}
+
+.insidetable {
+  height: 100%;
+  margin: 0 !important;
+  border: none;
+}
+
+/*------------------------------------*\
   # Comment
 \*------------------------------------*/
 /*------------------------------------*\
@@ -989,6 +1030,9 @@ h2.table-title {
 \*------------------------------------*/
 /*------------------------------------*\
   # Sizes
+\*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
 \*------------------------------------*/
 /** Table Comment */
 .journal-table {
@@ -1112,31 +1156,6 @@ h2.table-title {
   cursor: pointer;
 }
 
-/*
- * Styles in this file concerns tables enclosed inside another tables
- */
-.removeleftborder.removeleftborder {
-  border-left: none !important;
-}
-
-.removetopborder.removetopborder {
-  border-top: none !important;
-}
-
-.removerightborder.removerightborder {
-  border-right: none !important;
-}
-
-.removebottomborder.removebottomborder {
-  border-bottom: none !important;
-}
-
-.insidetable {
-  height: 100%;
-  margin: 0 !important;
-  border: none;
-}
-
 /*------------------------------------*\
   # Cell / Values
 \*------------------------------------*/
@@ -1145,6 +1164,9 @@ h2.table-title {
 \*------------------------------------*/
 /*------------------------------------*\
   # Sizes
+\*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
 \*------------------------------------*/
 .general-value {
   /*important because it's really important and to override bootstrap*/

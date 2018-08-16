@@ -7,6 +7,9 @@
 /*------------------------------------*\
   # Sizes
 \*------------------------------------*/
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
 .display {
   display: block !important;
 }
@@ -75,11 +78,12 @@
   top: 0;
   right: 0;
   padding: 0;
-  width: 200px;
   border: 1px solid #343434;
 }
 .user-notifications li {
   margin: 0;
+  line-height: 25px;
+  color: #000;
   padding-left: 10px;
   font-size: 12px;
   height: 23px;
