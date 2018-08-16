@@ -78,6 +78,25 @@
     <script src="{% static 'build/js/menu.js' %}"></script>
     <script src="{% static 'build/js/journal-panel.js' %}"></script>
     <script src="{% static 'vendors/popups/popper.js' %}"></script>
+    <script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
+    <script>
+        var endpoint = 'ws://' + window.location.host + '/messages/';
+        messages_socket = new ReconnectingWebSocket(endpoint);
+
+        messages_socket.onmessage = function (event) {
+            console.log("message", event);
+            alert(event.data);
+        };
+        messages_socket.onopen = function (event) {
+            console.log("connected", event);
+        };
+        messages_socket.onerror = function (event) {
+            console.log("error", event);
+        };
+        messages_socket.onclose = function (event) {
+            console.log("closed", event);
+        };
+    </script>
 {% endblock %}
 
 </body>
