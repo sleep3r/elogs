@@ -4,6 +4,17 @@ from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 
+from cacheops import cached_view_as
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+
+from e_logs.common.all_journals_app.models import Cell, Comment
+from e_logs.common.messages_app.models import Message
+from e_logs.core.utils.deep_dict import DeepDict
+from e_logs.core.utils.errors import AccessError
+from e_logs.core.utils.webutils import model_to_dict, logged
+
 from ..models import Message
 from e_logs.common.login_app.models import Employee
 
@@ -20,8 +31,12 @@ class MessageConsumer(AsyncConsumer):
         })
 
     @database_sync_to_async
-    def get_permission(self, user_id):
-        return Employee.objects.get(id=user_id).name
+    def get(self):
+        res = DeepDict()
+        res['messages'] = {}
+        for m in self.scope['user'].employee.unread_messages():
+            res['messages'][m.id] = model_to_dict(m)
+        return res
 
     async def websocket_receive(self, event):
         text = event.get('text', None)
