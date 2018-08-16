@@ -1,5 +1,8 @@
 <template>
   <ul class="user-notifications">
+  <li v-if="items[0]">
+      <span>Нет новых сообщений</span>
+  </li>
   <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
         <a href="javascript:;" onclick="return Notifications.open(event, this)">
             <i v-if="item.type === 'comment' " class="far fa-comment" style="font-size:14px; color: #669900;" ></i>
@@ -21,7 +24,6 @@ export default {
         errors: []
      }
   },
-
   created() {
     this.getMessages()
     this.timer = setInterval(this.getMessages, 9000)
@@ -38,7 +40,6 @@ export default {
                 this.errors.push(e)
             })
     }
-
   }
 }
 </script>
