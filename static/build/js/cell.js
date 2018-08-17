@@ -8,6 +8,8 @@
         return true;
     }
 
+const CELL_CLASS = "general-value";
+
 class Cell {
     constructor() {
 
@@ -51,18 +53,7 @@ class Cell {
 
     /**
      *
-     * @param commentInfo = {
-     *
-     *     'comment': '',
-     *     'author': '',
-     *
-     *     'cell_location': {
-     *         'field_name': '',
-     *         'table_name': '',
-     *         'group_id': journal-page,
-     *         'index': index
-     *     }
-     * }
+     * @param cell instance in DOM
      */
     static saveComment(cell) {
 

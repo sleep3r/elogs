@@ -1,3 +1,6 @@
+/**
+ * @depedency CELL_CLASS
+ */
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
@@ -5,12 +8,12 @@ class PopUp {
     static showView(envelop) {
         let isOpen = envelop.getAttribute("is-open");
         let cell = null;
+
         console.log(isOpen);
         if (isOpen === true ) {
             envelop.setAttribute("is-open", false);
         } else {
             console.log(envelop);
-
             let item = envelop.parentNode.querySelector(".general-value");
             let reference = document.getElementById(item.id);
             let popper = document.querySelector('.popper');
@@ -40,26 +43,30 @@ class PopUp {
 
             let closeButton = popper.querySelector(".close");
             closeButton.onclick = function() {
-                console.log("close cell-comment popup ");
                 popper.style.display = "none";
-                if (cell !== null) {
-                    Cell.saveComment(cell);
-                }
-                else {
-                    console.log("cell is null");
-                }
+                let mode = Journal.getMode();
+                if (mode == 'view') {
 
+                } else if (mode === 'validate' ) {
+                    if (cell !== null) {
+                        let textareaComment = popper.querySelector("textarea");
+                        cell.setAttribute("comment", textareaComment.value);
+                        Cell.saveComment(cell);
+                    } else {
+                        console.log("cell is null");
+                    }
+                }
             };
-
 
             envelop.setAttribute("is-open", true);
         }
 
     }
 
-    static showValidate(input) {
-        let comment = $(input).siblings(PopUp.commentSelector())[0];
-        let comment_input = $(comment).children()[1];
+    static showValidate(cell) {
+        this.show(cell);
+    }
+
     static show(cell) {
          let popper = document.querySelector('.popper');
             popper.style.display = "block";

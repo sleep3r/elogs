@@ -2,7 +2,7 @@
 "use strict";
 
 /**
- * @dependecies Journal
+ * @dependecies Journal, CELL_CLASS
  * @param e
  */
 var selectedElement = null;
@@ -41,6 +41,15 @@ function onKeyDownAction(e) {
             }
         }
         selectedElement = input.parentElement;
+    }
+
+
+
+    if (document.activeElement.className == CELL_CLASS) {
+        console.log("class exist");
+    } else {
+        console.log("class doesn't exist");
+        return;
     }
 
     // if 'span' is active(e.g page mode is 'validate')
