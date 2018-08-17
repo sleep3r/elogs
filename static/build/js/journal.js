@@ -42,7 +42,6 @@ class Journal {
 
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-            console.log('adding on_input_change', input);
             Cell.on_input_change(input);
         });
 

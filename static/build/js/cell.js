@@ -88,7 +88,6 @@ class Cell {
 
     static addMessage(msg) {
         let debounce = _.debounce((input) => {
-            console.log("addMessage from debounce", input);
 
             const json = input.dataset.info.replace(/'/g, '"');
             const info = JSON.parse(json);
@@ -157,7 +156,6 @@ class Cell {
           var info = {'type': 'text'};
         }
         input.type = info.type;
-        console.log(info);
         if (input.type === "number") {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
                 $(input).css('color', 'red');
