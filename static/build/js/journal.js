@@ -81,8 +81,11 @@ class Journal {
         }, false);
     }
 }
+
 class Comment {
 
+
+    // @deprecated
     static add(textarea) {
         _.debounce((textarea) => {
             let forSend = JSON.stringify({

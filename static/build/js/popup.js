@@ -4,6 +4,7 @@ class PopUp {
 
     static showView(envelop) {
         let isOpen = envelop.getAttribute("is-open");
+        let cell = null;
         console.log(isOpen);
         if (isOpen === true ) {
             envelop.setAttribute("is-open", false);
@@ -26,6 +27,8 @@ class PopUp {
               },
               onCreate: function(item) {
                 let commentText = item.instance.reference.getAttribute("comment");
+                console.log(item.instance.reference);
+                cell = item.instance.reference;
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
 
@@ -34,6 +37,20 @@ class PopUp {
               },
 
             });
+
+            let closeButton = popper.querySelector(".close");
+            closeButton.onclick = function() {
+                console.log("close cell-comment popup ");
+                popper.style.display = "none";
+                if (cell !== null) {
+                    Cell.saveComment(cell);
+                }
+                else {
+                    console.log("cell is null");
+                }
+
+            };
+
 
             envelop.setAttribute("is-open", true);
         }
