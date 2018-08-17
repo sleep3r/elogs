@@ -64,7 +64,11 @@ class Cell {
                         'index': $(input).attr('index')
                     },
 
-                    'message': { 'text': input.value, 'link': Cell.getLink(input), 'type': 'critical_value'}
+                    'message': {
+                        'text': input.value,
+                        'link': Cell.getLink(input),
+                        'type': 'critical_value'
+                    },
                 });
                 $.ajax({
                     url: "/common/messages/add_critical/",
