@@ -86,7 +86,14 @@
 
         messages_socket.onmessage = function (event) {
             console.log("message", event);
-            alert(event.data);
+            {#alert(event.data);#}
+
+            Notification.requestPermission(function (permission) {
+              if (permission === "granted") {
+                var notification = new Notification(event.data);
+              }
+            });
+
         };
         messages_socket.onopen = function (event) {
             console.log("connected", event);

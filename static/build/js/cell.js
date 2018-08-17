@@ -64,19 +64,20 @@ class Cell {
                         'index': $(input).attr('index')
                     },
 
-                    'message': { 'text': input.value, 'link': Cell.getLink(input), 'type': 'critical_value'}
+                    'message': { 'text': input.value, 'link': Cell.getLink(input), 'type': 'critical_value'},
+                    'crud': "add",
                 });
-                $.ajax({
-                    url: "/common/messages/add_critical/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/add_critical/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
                 messages_socket.send(forSend);
             } else {
 
@@ -86,20 +87,22 @@ class Cell {
                         'table_name': $(input).attr('table-name'),
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
-                    }
+                    },
+                    "crud":"update",
                 });
 
-                $.ajax({
-                    url: "/common/messages/update/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/update/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
+                messages_socket.send(forSend);
             }
         },
             300);
@@ -124,7 +127,7 @@ class Cell {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
                 $(input).css('color', 'red');
             } else {
-                // $(input).css('color', 'black');
+                $(input).css('color', 'black');
             }
         } else if (info.type === "datalist") {
             if ($(input).attr('data-pagmode') === "validate") {
