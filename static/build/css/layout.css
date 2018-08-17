@@ -459,11 +459,11 @@ footer {
   margin: 0 5px;
   height: 30px;
   cursor: pointer;
-  box-shadow: 1px 2px #656565;
 }
 
 .btn:hover {
-  background-color: #656565;
+  background-color: #386486;
+  color: white;
 }
 
 /*------------------------------------*\
