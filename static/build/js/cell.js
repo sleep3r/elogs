@@ -157,7 +157,7 @@ class Cell {
           var info = {'type': 'text'};
         }
         input.type = info.type;
-        console.log(info);
+        // console.log(info);
         if (input.type === "number") {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
                 $(input).css('color', 'red');
