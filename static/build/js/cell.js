@@ -162,7 +162,7 @@ class Cell {
             if ((input.value * 1 < info.min_normal || input.value * 1 > info.max_normal) && input.value != '') {
                 $(input).css('color', 'red');
             } else {
-                // $(input).css('color', 'black');
+                $(input).css('color', 'black');
             }
         } else if (info.type === "datalist") {
             if ($(input).attr('data-pagmode') === "validate") {
