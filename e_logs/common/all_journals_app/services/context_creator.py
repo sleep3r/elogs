@@ -72,7 +72,7 @@ def get_cells_data(page: CellGroup) -> dict:
         return {
             'value': cell.value,
             'id': cell.id,
-            'comment': cell.get_comments_text(),
+            'comment': cell.get_comments_text(cell),
             'responsible': get_responsible_name(cell)
         }
 

@@ -5,6 +5,7 @@
 <div class="table__comment">
     <a href="javascript:;" onclick="Comment.collapse(this)" >Комментарий </a>
     <i class="fas fa-envelope ico-comment"></i>
+    {% if comment %}<span class="badge">1</span>{% endif %}
     <div class="comment__text collapse ">
         <textarea class="table-comment"
                   name="comment"

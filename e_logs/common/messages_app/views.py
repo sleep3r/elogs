@@ -97,16 +97,17 @@ def update(request):
 @logged
 def add_comment(request):
     if request.is_ajax() and request.method == 'POST':
-        cell_location = json.loads(request.body)['cell_location']
-        message = json.loads(request.body)['message']
-        employee = request.user.employee
-        message['sendee'] = employee
+        comment_data = json.loads(request.body)
+        message = comment_data['message']
+        message['sendee'] = request.user.employee
+        text = message['text']
 
-        cell = Cell.get_or_create_cell(**cell_location)
-        cell.save()
+        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
+        if cell:
+            Comment.objects.update_or_create(target=cell,
+                                             defaults={'text': text,
+                                                       'employee': request.user.employee})
 
-        Comment.objects.create(target=cell, text=message['text'], employee=employee)
+            Message.add(cell, message, all_users=True)
 
-        Message.add(cell, message, all_users=True)
-
-    return JsonResponse({"status": 1})
+        return JsonResponse({"status": 1})
