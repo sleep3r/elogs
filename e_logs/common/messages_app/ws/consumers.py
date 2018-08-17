@@ -75,33 +75,8 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def add(self, cell, message, all_users=False, positions=None, uids=None, plant=None):
-        if not all_users and positions is None and uids is None and plant is None:
-            raise ValueError
-
-        recipients = []
-        if uids:
-            recipients = list()
-            for uid in uids:
-                recipients.extend(Employee.objects.cache().get(id=uid))
-        if positions:
-            recipients = list()
-            for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
-        if all_users:
-            recipients = list()
-            recipients.extend(Employee.objects.all().cache())
-
-        text = message['text']
-        message.pop('text')
-
-        for emp in recipients:
-            Message.objects.update_or_create(**message,
-                                             defaults={'text': text}, addressee=emp, cell=cell)
+         Message.add(cell, message, all_users, positions, uids, plant)
 
     @database_sync_to_async
     def update(self, cell):
-        messages = filter_or_none(Message, cell=cell)
-        if messages:
-            for message in messages:
-                message.is_read = True
-                message.save()
+        Message.update(cell)
