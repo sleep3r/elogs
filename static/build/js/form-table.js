@@ -86,8 +86,15 @@ class Lines {
                 new_last_line.find("textarea").val("");
                 new_last_line.find("input").attr('title', "");
                 new_last_line.find("input").attr('index', last_line.find("input").attr('index')*1 + 1);
-                new_last_line.find("input").attr('id', last_line.find("input").attr('id').replace(/(-\d+)+$/g, function(match, number) {
-                    return parseInt(number)-1}));
+                new_last_line.find("input.general-value").map((k,v)=> {
+                    v.id = v.id.replace(/(\d+)+$/g, (m,n)=>
+                         (n*1 + 1)
+                    );
+                    v.setAttribute("class", v.getAttribute("class").replace(/(\d+)+$/g, (m,n)=>
+                         (n*1 + 1)
+                    ));
+                    v.setAttribute("comment-id", v.id + "-comment");
+                });
                 new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
                 table.append(new_last_line);
             }

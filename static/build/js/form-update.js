@@ -56,6 +56,3 @@ $(document).ready(function () {
     Shift.confirm();
     Journal.onReady();
 });
-
-
-
