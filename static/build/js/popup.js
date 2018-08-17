@@ -60,9 +60,49 @@ class PopUp {
     static showValidate(input) {
         let comment = $(input).siblings(PopUp.commentSelector())[0];
         let comment_input = $(comment).children()[1];
+    static show(cell) {
+         let popper = document.querySelector('.popper');
+            popper.style.display = "block";
 
-        $(comment).addClass("show");
-        $(comment_input).focus();
+            let popup = new Popper(cell, popper, {
+            placement: 'top',
+              arrow: {
+                classNames: [ 'arrow' ]
+              },
+              modifiers: {
+                flip: {
+                    behavior: ['left', 'bottom', 'top']
+                },
+              },
+              onCreate: function(item) {
+                let commentText = item.instance.reference.getAttribute("comment");
+                console.log(item.instance.reference);
+                cell = item.instance.reference;
+                let popup = item.instance.popper;
+                let textarea = popup.querySelector(".content");
+
+                textarea.setAttribute("placeholder", "Введите замечание...");
+                textarea.value = commentText;
+              },
+
+            });
+
+            let closeButton = popper.querySelector(".close");
+            closeButton.onclick = function() {
+                popper.style.display = "none";
+                let mode = Journal.getMode();
+                if (mode == 'view') {
+
+                } else if (mode === 'validate' ) {
+                    if (cell !== null) {
+                        let textareaComment = popper.querySelector("textarea");
+                        cell.setAttribute("comment", textareaComment.value);
+                        Cell.saveComment(cell);
+                    } else {
+                        console.log("cell is null");
+                    }
+                }
+            };
     }
 
     static hideAll() {
