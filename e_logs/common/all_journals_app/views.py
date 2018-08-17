@@ -153,7 +153,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 @process_json_view(auth_required=False)
 # @logged
 def save_cell(request):
-    if request.method == 'POST':
+    if request.is_ajax() and request.method == 'POST':
         cell_info = json.loads(request.body)
         cell = Cell.get_or_create_cell(**cell_info['cell_location'])
         value = cell_info['value']
@@ -175,7 +175,7 @@ def save_cell(request):
 @process_json_view(auth_required=False)
 # @logged
 def save_table_comment(request):
-    if request.method == 'POST':
+    if request.is_ajax() and request.method == 'POST':
         comment_data = json.loads(request.body)
         cell = Cell.get_or_create_cell(**comment_data['cell_location'])
         text = comment_data['text']
@@ -187,22 +187,6 @@ def save_table_comment(request):
         if cell.journal.type == 'shift':
             shift = Shift.objects.get(id=int(comment_data['cell_location']['group_id']))
             shift.employee_set.add(request.user.employee)
-
-        return {"status": 1}
-
-@csrf_exempt
-@process_json_view(auth_required=False)
-# @logged
-def save_cell_comment(request):
-    if request.method == 'POST':
-        comment_data = json.loads(request.body)
-        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
-        comment = Comment.objects.get_or_create(target=cell)
-        text = comment_data['text']
-        if text:
-            comment.text = text
-            comment.employee = request.user.employee
-            comment.save()
 
         return {"status": 1}
 
