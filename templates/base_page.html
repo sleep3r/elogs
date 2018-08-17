@@ -90,7 +90,8 @@
 
             Notification.requestPermission(function (permission) {
               if (permission === "granted") {
-                var notification = new Notification(event.data);
+                data = JSON.parse(event.data)
+                var notification = new Notification(data['message']['sendee'] + " ввел критическое значение: " + data['message']['text']);
               }
             });
 

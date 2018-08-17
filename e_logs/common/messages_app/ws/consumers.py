@@ -40,11 +40,11 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
             if data['crud'] == 'add':
                 cell = await self.get_cell_from_dict(data['cell'])
                 if cell:
-                    message = data['message']
+                    message = data['message'].copy()
                     message['sendee'] = self.scope['user'].employee
                     await self.add(cell, message, all_users=True)
                     #отправляет данные в канал, метод отправки ("type") нужно указать свой
-                    message['sendee'] = self.scope['user'].employee.name
+                    data['message']['sendee'] = self.scope['user'].employee.name
                     await self.channel_layer.group_send(
                         "messages",
                         {
