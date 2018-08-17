@@ -3,7 +3,7 @@ import asyncio
 from django.contrib.auth import get_user_model
 from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
-
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -18,7 +18,7 @@ from e_logs.core.utils.webutils import model_to_dict, logged
 from ..models import Message
 from e_logs.common.login_app.models import Employee
 
-class MessageConsumer(AsyncConsumer):
+class MessageConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
         #задаем общую группу для рассыылки сообщений
         await self.channel_layer.group_add(
@@ -26,8 +26,10 @@ class MessageConsumer(AsyncConsumer):
             self.channel_name, #дефолтное значение
         )
         #ответ об успешном подключении к сокету
-        await self.send({
-            "type": "websocket.accept",
+        await self.accept()
+
+        await self.send_json({
+            "text": await self.get(),
         })
 
     @database_sync_to_async
@@ -68,9 +70,7 @@ class MessageConsumer(AsyncConsumer):
             self.channel_name,  # дефолтное значение
         )
 
-        await self.send({
-            "type": "websocket.close",
-        })
+        await self.close()
 
 
 #Пример кода на JS _________________________________________________________________________________
