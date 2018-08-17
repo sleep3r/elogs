@@ -6,14 +6,15 @@ class PopUp {
     static commentSelector() { return ".popup-comment-content"; }
 
     static showView(envelop) {
-        let isOpen = envelop.getAttribute("is-open");
+        // let isOpen = envelop.getAttribute("is-open");
         let cell = null;
+        let mode = Journal.getMode();
 
-        console.log(isOpen);
-        if (isOpen === true ) {
-            envelop.setAttribute("is-open", false);
-        } else {
-            console.log(envelop);
+        // console.log(isOpen);
+        // if (isOpen === true ) {
+        //     envelop.setAttribute("is-open", false);
+        // } else {
+        //     console.log(envelop);
             let item = envelop.parentNode.querySelector(".general-value");
             let reference = document.getElementById(item.id);
             let popper = document.querySelector('.popper');
@@ -29,14 +30,20 @@ class PopUp {
                 },
               },
               onCreate: function(item) {
-                let commentText = item.instance.reference.getAttribute("comment");
-                console.log(item.instance.reference);
-                cell = item.instance.reference;
-                let popup = item.instance.popper;
-                let textarea = popup.querySelector(".content");
+                  let commentText = item.instance.reference.getAttribute("comment");
+                  console.log(item.instance.reference);
+                  cell = item.instance.reference;
+                  let popup = item.instance.popper;
+                  let textarea = popup.querySelector(".content");
 
-                textarea.setAttribute("placeholder", "Введите замечание...");
-                textarea.value = commentText;
+                  textarea.setAttribute("placeholder", "Введите замечание...");
+                  if (mode === "view") {
+                      textarea.setAttribute("readonly", "yes");
+                  }
+                  textarea.value = commentText;
+
+
+
               },
 
             });
@@ -44,12 +51,12 @@ class PopUp {
             let closeButton = popper.querySelector(".close");
             closeButton.onclick = function() {
                 popper.style.display = "none";
-                let mode = Journal.getMode();
+
                 if (mode == 'view') {
 
                 } else if (mode === 'validate' ) {
                     if (cell !== null) {
-                        let textareaComment = popper.querySelector("textarea");
+                        let textareaComment = popper.querySelector(".content");
                         cell.setAttribute("comment", textareaComment.value);
                         Cell.saveComment(cell);
                     } else {
@@ -58,8 +65,8 @@ class PopUp {
                 }
             };
 
-            envelop.setAttribute("is-open", true);
-        }
+            // envelop.setAttribute("is-open", true);
+        // }
 
     }
 
