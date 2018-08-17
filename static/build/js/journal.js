@@ -4,6 +4,11 @@ class Journal {
         this.start = null;
     }
 
+    static getMode() {
+        let mode = document.querySelector(".journal-page").getAttribute("mode");
+        return mode;
+    }
+
     static focusTo(element) {
         let input = element.getElementsByClassName('form-control')[0];
         if (input) {
