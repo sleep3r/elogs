@@ -12,7 +12,8 @@ module.exports = {
     entry: {
         messages: './notifications/index',
         leaching: './leaching/index',
-        furnace: './furnace/index'
+        furnace: './furnace/index',
+        index: './js/index',
     },
     output: {
         path: path.resolve('./static/webpack_bundles'),

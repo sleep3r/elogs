@@ -1,5 +1,3 @@
-import './popup'
-
 class Journal {
 
     constructor() {
@@ -88,23 +86,19 @@ class Comment {
     static add(textarea) {
         _.debounce((textarea) => {
             let forSend = JSON.stringify({
-                "cell_location": {
-                    "field_name": $(textarea).parent().siblings("input").name,
-                    "table_name": $(textarea).parent().siblings("input").attr("table-name"),
-                    "group_id": $(textarea).parent().siblings("input").attr("journal-page"),
-                    "index": $(textarea).parent().siblings("input").attr("index")
+                'cell_location': {
+                    'field_name': textarea.name.replace('_comment', ''),
+                    'table_name': $(textarea).attr('table-name'),
+                    'group_id': $(textarea).attr('journal-page'),
+                    'index': $(textarea).attr('index')
                 },
 
-                "message": {
-                    "text": $(textarea).val(),
-                    "link": Cell.getLink($(textarea).parent().siblings("input")),
-                    "type": "comment",
-                },
+                'message': { 'text': $(textarea).val(), 'link': Cell.getLink($(textarea).parent().siblings("input")), 'type': 'comment' }
             });
             $.ajax({
                 url: "/common/messages/add_comment/",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
                 data: forSend,
                 success: function (json) {
                     if (json && json.result) {
