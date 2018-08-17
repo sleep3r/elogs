@@ -14,3 +14,5 @@ class Toggle {
         }
     }
 }
+
+export {Toggle}

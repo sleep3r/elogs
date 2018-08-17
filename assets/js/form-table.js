@@ -116,3 +116,5 @@ class Lines {
     }
 
 }
+
+export {Lines, FormTable}

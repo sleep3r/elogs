@@ -1,4 +1,7 @@
-import './popup'
+import {Cell} from "../../../assets/js/cell"
+import {Lines} from "../../../assets/js/form-table";
+import {onKeyDownAction} from "../../../assets/js/form-update"
+import {Comment} from "../../../assets/js/journal"
 
 class Journal {
 
@@ -83,6 +86,7 @@ class Journal {
         }, false);
     }
 }
+
 class Comment {
 
     static add(textarea) {

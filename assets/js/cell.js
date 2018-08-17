@@ -184,3 +184,6 @@ class Cell {
         input.style.width = (input.value.length + 1) + 'ch';
     }
 }
+
+
+export {IsJsonString, Cell};

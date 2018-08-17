@@ -40,3 +40,5 @@ class JournalPanel {
        return "";
    }
 }
+
+export {JournalPanel}

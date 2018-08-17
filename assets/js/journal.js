@@ -16,7 +16,7 @@ class Journal {
                 showValidatePopup(input)
             }
         }
-        selectedElement = element;
+        const selectedElement = element;
     }
 
     static send_all_forms() {
@@ -81,6 +81,7 @@ class Journal {
         }, false);
     }
 }
+
 class Comment {
 
     static add(textarea) {
@@ -120,3 +121,5 @@ class Comment {
     }
 
 }
+
+export {Comment, Journal}

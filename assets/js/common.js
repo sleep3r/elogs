@@ -110,3 +110,5 @@ $(document).ready(function () {
         }, 1000);
     }
 });
+
+export {Notifications, getCookie, GetURLParameter}

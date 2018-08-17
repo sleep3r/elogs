@@ -68,3 +68,5 @@ class PopUp {
 
 }
 
+export {PopUp}
+

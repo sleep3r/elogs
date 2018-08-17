@@ -1,4 +1,3 @@
-
 class FeedBack {
 
     static send() {
@@ -30,7 +29,9 @@ class FeedBack {
 
         }
         else {
-        $("#message-modal-alert").css("display", "block");
-    }
+            $("#message-modal-alert").css("display", "block");
+        }
     }
 }
+
+export {FeedBack}

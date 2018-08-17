@@ -1,5 +1,5 @@
-import './shift'
-import './journal'
+import { Shift } from './shift';
+// import './journal'
 
 /*jshint esversion: 6 */
 "use strict";
@@ -89,5 +89,7 @@ $(document).ready(function () {
     Journal.onReady();
 });
 
+
+export {onKeyDownAction};
 
 

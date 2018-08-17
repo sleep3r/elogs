@@ -153,5 +153,6 @@ class Shift {
             }
         }
     }
-
 }
+
+export { Shift, app };
