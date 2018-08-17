@@ -1,4 +1,4 @@
-import { Shift } from './shift';
+import { Shift } from "../../../assets/js/shift";
 // import './journal'
 
 /*jshint esversion: 6 */
