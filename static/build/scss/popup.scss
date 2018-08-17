@@ -17,6 +17,9 @@ $color-popup-arrow: black;
     width: 100%;
     height: 100%;
     border: none;
+    &:read-only {
+        background-color: #e5e5e5 !important;
+    }
 }
 
 .popper,

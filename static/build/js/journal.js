@@ -4,6 +4,11 @@ class Journal {
         this.start = null;
     }
 
+    static getMode() {
+        let mode = document.querySelector(".journal-page").getAttribute("mode");
+        return mode;
+    }
+
     static focusTo(element) {
         let input = element.getElementsByClassName('form-control')[0];
         if (input) {
@@ -37,7 +42,7 @@ class Journal {
 
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-            console.log('adding on_input_change', input);
+            // console.log('adding on_input_change', input);
             Cell.on_input_change(input);
         });
 
@@ -81,8 +86,11 @@ class Journal {
         }, false);
     }
 }
+
 class Comment {
 
+
+    // @deprecated
     static add(textarea) {
         _.debounce((textarea) => {
             let forSend = JSON.stringify({

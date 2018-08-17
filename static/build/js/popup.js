@@ -1,15 +1,20 @@
+/**
+ * @depedency CELL_CLASS
+ */
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
 
     static showView(envelop) {
-        let isOpen = envelop.getAttribute("is-open");
-        console.log(isOpen);
-        if (isOpen === true ) {
-            envelop.setAttribute("is-open", false);
-        } else {
-            console.log(envelop);
+        // let isOpen = envelop.getAttribute("is-open");
+        let cell = null;
+        let mode = Journal.getMode();
 
+        // console.log(isOpen);
+        // if (isOpen === true ) {
+        //     envelop.setAttribute("is-open", false);
+        // } else {
+        //     console.log(envelop);
             let item = envelop.parentNode.querySelector(".general-value");
             let reference = document.getElementById(item.id);
             let popper = document.querySelector('.popper');
@@ -25,7 +30,68 @@ class PopUp {
                 },
               },
               onCreate: function(item) {
+                  let commentText = item.instance.reference.getAttribute("comment");
+                  console.log(item.instance.reference);
+                  cell = item.instance.reference;
+                  let popup = item.instance.popper;
+                  let textarea = popup.querySelector(".content");
+
+                  textarea.setAttribute("placeholder", "Введите замечание...");
+                  if (mode === "view") {
+                      textarea.setAttribute("readonly", "yes");
+                  }
+                  textarea.value = commentText;
+
+
+
+              },
+
+            });
+
+            let closeButton = popper.querySelector(".close");
+            closeButton.onclick = function() {
+                popper.style.display = "none";
+
+                if (mode == 'view') {
+
+                } else if (mode === 'validate' ) {
+                    if (cell !== null) {
+                        let textareaComment = popper.querySelector(".content");
+                        cell.setAttribute("comment", textareaComment.value);
+                        Cell.saveComment(cell);
+                    } else {
+                        console.log("cell is null");
+                    }
+                }
+            };
+
+            // envelop.setAttribute("is-open", true);
+        // }
+
+    }
+
+    static showValidate(cell) {
+        this.show(cell);
+    }
+
+    static show(cell) {
+         let popper = document.querySelector('.popper');
+            popper.style.display = "block";
+
+            let popup = new Popper(cell, popper, {
+            placement: 'top',
+              arrow: {
+                classNames: [ 'arrow' ]
+              },
+              modifiers: {
+                flip: {
+                    behavior: ['left', 'bottom', 'top']
+                },
+              },
+              onCreate: function(item) {
                 let commentText = item.instance.reference.getAttribute("comment");
+                console.log(item.instance.reference);
+                cell = item.instance.reference;
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
 
@@ -35,17 +101,22 @@ class PopUp {
 
             });
 
-            envelop.setAttribute("is-open", true);
-        }
+            let closeButton = popper.querySelector(".close");
+            closeButton.onclick = function() {
+                popper.style.display = "none";
+                let mode = Journal.getMode();
+                if (mode == 'view') {
 
-    }
-
-    static showValidate(input) {
-        let comment = $(input).siblings(PopUp.commentSelector())[0];
-        let comment_input = $(comment).children()[1];
-
-        $(comment).addClass("show");
-        $(comment_input).focus();
+                } else if (mode === 'validate' ) {
+                    if (cell !== null) {
+                        let textareaComment = popper.querySelector("textarea");
+                        cell.setAttribute("comment", textareaComment.value);
+                        Cell.saveComment(cell);
+                    } else {
+                        console.log("cell is null");
+                    }
+                }
+            };
     }
 
     static hideAll() {
