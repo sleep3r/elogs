@@ -3,6 +3,7 @@ import json
 from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -104,7 +105,7 @@ def add_comment(request):
 
         cell = Cell.get_or_create_cell(**comment_data['cell_location'])
         if cell:
-            Comment.objects.update_or_create(target=cell,
+            Comment.objects.update_or_create(content_type=ContentType.objects.get_for_model(cell), object_id=cell.id,
                                              defaults={'text': text,
                                                        'employee': request.user.employee})
 

@@ -8,6 +8,8 @@
         return true;
     }
 
+const CELL_CLASS = "general-value";
+
 class Cell {
     constructor() {
 
@@ -48,9 +50,44 @@ class Cell {
         });
     }
 
+
+    /**
+     *
+     * @param cell instance in DOM
+     */
+    static saveComment(cell) {
+
+        _.debounce((cell) => {
+            console.info(cell);
+            let forSend = JSON.stringify({
+                'cell_location': {
+                    'field_name': cell.name,
+                    'table_name': cell.getAttribute('table-name'),
+                    'group_id': cell.getAttribute('journal-page'),
+                    'index': cell.getAttribute('index')
+                },
+                'message': {
+                    'text': cell.getAttribute('comment'),
+                    'link': Cell.getLink(cell),
+                    'type': 'comment'
+                }
+            });
+            $.ajax({
+                url: "/common/messages/add_comment/",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: forSend,
+                success: function (json) {
+                    if (json && json.result) {
+                         console.log(json.result)
+                    }
+                }
+            });
+        }, 300)(cell);
+    }
+
     static addMessage(msg) {
         let debounce = _.debounce((input) => {
-            console.log("addMessage from debounce", input);
 
             const json = input.dataset.info.replace(/'/g, '"');
             const info = JSON.parse(json);
@@ -63,9 +100,12 @@ class Cell {
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     },
-
-                    'message': { 'text': input.value, 'link': Cell.getLink(input), 'type': 'critical_value'},
                     'crud': "add",
+                    'message': {
+                        'text': input.value,
+                        'link': Cell.getLink(input),
+                        'type': 'critical_value'
+                    },
                 });
                 // $.ajax({
                 //     url: "/common/messages/add_critical/",
