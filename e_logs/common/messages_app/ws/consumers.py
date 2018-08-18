@@ -22,12 +22,20 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
             "messages", #идентефикатор группы (не обязательно абсолютно уникальный)
             self.channel_name, #дефолтное значение
         )
+        await self.channel_layer.group_add(
+            f"user_{self.scope['user'].employee.id}",  # идентефикатор группы (не обязательно абсолютно уникальный)
+            self.channel_name,  # дефолтное значение
+        )
         #ответ об успешном подключении к сокету
         await self.accept()
 
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
             "messages",  # идентефикатор группы (не обязательно абсолютно уникальный)
+            self.channel_name,  # дефолтное значение
+        )
+        await self.channel_layer.group_discard(
+            f"user_{self.scope['user'].employee.id}",  # идентефикатор группы (не обязательно абсолютно уникальный)
             self.channel_name,  # дефолтное значение
         )
 
@@ -43,23 +51,13 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
                     message = data['message'].copy()
                     message['sendee'] = self.scope['user'].employee
                     await self.add(cell, message, all_users=True)
-                    #отправляет данные в канал, метод отправки ("type") нужно указать свой
-                    data['message']['sendee'] = self.scope['user'].employee.name
-                    await self.channel_layer.group_send(
-                        "messages",
-                        {
-                            "type": "message.all",
-                            "text": json.dumps(data)
-
-                        },
-                    )
             elif data['crud'] == 'update':
                 cell = await self.get_cell_from_dict(data['cell'])
                 if cell:
                     await self.update(cell)
 
     #кастомный метод отправки сообщения по группе "messages"
-    async def message_all(self, event):
+    async def message_send(self, event):
         await self.send(
             event['text']
         )
