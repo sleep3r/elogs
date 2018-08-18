@@ -44,9 +44,9 @@
     margin: 0 5px;
     height: 30px;
     cursor: pointer;
-    box-shadow: 1px 2px $color-text;
 }
 
 .btn:hover {
-    background-color: $color-text;
+    background-color: darken($color-main, 15);
+    color: white;
 }
