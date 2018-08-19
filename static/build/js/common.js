@@ -1,5 +1,3 @@
-import {Cell} from './cell'
-
 let Notifications = {
     markAsRead_: function(ids) {
         jQuery.ajax({

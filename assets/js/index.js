@@ -1,3 +1,13 @@
+require('offline-plugin/runtime').install();
+
+import 'bootstrap'; // for usage directly on pages
+import 'fullcalendar';
+import 'jquery-confirm';
+// import 'font-awesome-webpack';
+
+require('../scss/index.scss');
+
+import './shift'
 import './cell'
 import './datepicker-init'
 import './feedback'

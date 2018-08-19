@@ -1,3 +1,51 @@
+import $ from 'jquery'
+import _ from 'underscore'
+
+import {Cell} from "../../assets/js/cell"
+import {Lines} from "../../assets/js/form-table";
+import {onKeyDownAction} from "../../assets/js/form-update"
+import {PopUp} from "../../assets/js/popup";
+
+class Comment {
+
+    static add(textarea) {
+        _.debounce((textarea) => {
+            let forSend = JSON.stringify({
+                'cell_location': {
+                    'field_name': textarea.name.replace('_comment', ''),
+                    'table_name': $(textarea).attr('table-name'),
+                    'group_id': $(texFtarea).attr('journal-page'),
+                    'index': $(textarea).attr('index')
+                },
+
+                'message': { 'text': $(textarea).val(), 'link': Cell.getLink($(textarea).parent().siblings("input")), 'type': 'comment' }
+            });
+            $.ajax({
+                url: "/common/messages/add_comment/",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: forSend,
+                success: function (json) {
+                    if (json && json.result) {
+                        // console.log(json.result)
+                    }
+                }
+            });
+        }, 300)(textarea);
+    }
+
+    static collapse(element) {
+
+        let container = $(element).parent().find(".comment__text");
+        container.collapse('toggle');
+    }
+
+    static focus(event) {
+        $(event.target).children(".table-comment").focus();
+    }
+
+}
+
 class Journal {
 
     constructor() {
@@ -37,7 +85,7 @@ class Journal {
 
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
-            console.log('adding on_input_change', input);
+            // console.log('adding on_input_change', input);
             Cell.on_input_change(input);
         });
 
@@ -80,46 +128,6 @@ class Journal {
             Journal.send_all_forms();
         }, false);
     }
-}
-
-class Comment {
-
-    static add(textarea) {
-        _.debounce((textarea) => {
-            let forSend = JSON.stringify({
-                'cell_location': {
-                    'field_name': textarea.name.replace('_comment', ''),
-                    'table_name': $(textarea).attr('table-name'),
-                    'group_id': $(textarea).attr('journal-page'),
-                    'index': $(textarea).attr('index')
-                },
-
-                'message': { 'text': $(textarea).val(), 'link': Cell.getLink($(textarea).parent().siblings("input")), 'type': 'comment' }
-            });
-            $.ajax({
-                url: "/common/messages/add_comment/",
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: forSend,
-                success: function (json) {
-                    if (json && json.result) {
-                        // console.log(json.result)
-                    }
-                }
-            });
-        }, 300)(textarea);
-    }
-
-    static collapse(element) {
-
-        let container = $(element).parent().find(".comment__text");
-        container.collapse('toggle');
-    }
-
-    static focus(event) {
-        $(event.target).children(".table-comment").focus();
-    }
-
 }
 
 export {Comment, Journal}

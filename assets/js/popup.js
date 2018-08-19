@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }

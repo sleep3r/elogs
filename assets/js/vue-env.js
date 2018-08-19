@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import moment from "moment";
 
 Vue.filter("formatNumber", function (value) {
     return numeral(value).format("00.00");

@@ -1,4 +1,3 @@
-
 class JournalPanel {
    static changeMode(mode){
       let id = this.getUrlParam("id");

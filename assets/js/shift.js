@@ -1,4 +1,9 @@
-var app = new Vue({
+import $ from 'jquery';
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
+
+let app = new Vue({
     delimiters: ['[[', ']]'],
     el: '#modal_shift',
     data: {
@@ -12,7 +17,6 @@ var app = new Vue({
             plant = 'furnace';
             journal_name = 'fractional';
         }
-
 
         this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
             .then(response => {

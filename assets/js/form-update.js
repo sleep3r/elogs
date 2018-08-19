@@ -1,4 +1,7 @@
-import { Shift } from "../../../assets/js/shift";
+import { Shift } from "../../assets/js/shift";
+import {Journal} from "./journal";
+
+import $ from 'jquery'
 // import './journal'
 
 /*jshint esversion: 6 */
@@ -8,7 +11,7 @@ import { Shift } from "../../../assets/js/shift";
  * @dependecies Journal
  * @param e
  */
-var selectedElement = null;
+let selectedElement = null;
 
 function onKeyDownAction(e) {
     // if 'input' is active(e.g page mode is 'edit')

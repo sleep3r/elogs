@@ -1,5 +1,3 @@
-import {Cell} from './cell'
-
 /*jshint esversion: 6 */
 "use strict";
 

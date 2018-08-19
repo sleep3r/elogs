@@ -1,6 +1,5 @@
-/**
- * @depedency CELL_CLASS
- */
+import Popper from "popper.js";
+
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }

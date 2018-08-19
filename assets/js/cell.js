@@ -1,4 +1,9 @@
+import $ from 'jquery'
+import _ from 'underscore'
 
+/**
+ * @return {boolean}
+ */
 function IsJsonString(str) {
     try {
         JSON.parse(str);
@@ -43,7 +48,7 @@ class Cell {
             contentType: 'application/json; charset=utf-8',
             data: forSend,
             success: function (json) {
-                if (json && json.status) {}
+                // if (json && json.status) {}
             }
         });
     }
@@ -114,12 +119,13 @@ class Cell {
     static on_input_change(input) {
         const json = input.dataset.info.replace(/'/g, '"');
         // if field description exists
+        let info = null;
         if (IsJsonString(json)) {
-            var info = JSON.parse(json);
+            info = JSON.parse(json);
 
         } else {
             // default field description
-            var info = {'type': 'text'};
+            info = {'type': 'text'};
         }
         input.type = info.type;
         console.log(info);
