@@ -11,7 +11,7 @@ class SettingsList(generics.ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Setting.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('name', 'journals__name')
+    filter_fields = ('name', )
 
 
 class SettingAPI(generics.RetrieveAPIView):

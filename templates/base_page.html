@@ -46,7 +46,7 @@
             {% include "menu.html" %}
         </div>
         <div class="column-content">
-            <div class="journal-page">
+            <div class="journal-page" mode="{{ page_mode }}">
                 {% block journal_panel %}
                     {% include "journal__panel.html" %}
                 {% endblock %}
