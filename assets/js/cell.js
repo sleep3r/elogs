@@ -50,8 +50,7 @@ class Cell {
             success: function (json) {
                 // if (json && json.status) {
                 }
-            }
-        });
+            });
     }
 
 
