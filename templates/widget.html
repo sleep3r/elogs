@@ -22,26 +22,18 @@
 
 {#{%  include "all_journals_app/journal_control_panel.html" %}#}
 
-<div id="vue-test">
 
-
-  ${plant_name}
-
-
-
-  <div v-for="table in tables" class="journal-table" v-bind:id="'table_id_' + table.name">
-      <div class="table__title">${ table.name }</div>
-          <div class="elog-table-container">
-          </div>
-  </div>
-
-
-
-  {% for table_path in tables_paths %}
-      {% get_table_name table_path as tn %}
-      {% include table_path with table_name=tn%}
-  {% endfor %}
-
+<div v-for="table in tables" class="journal-table" v-bind:id="'table_id_' + table.name">
+    <div class="table__title">${ table.name }</div>
+        <div class="elog-table-container">
+        </div>
 </div>
 
-<script src = "{% static 'build/js/vue-test.js' %}"></script>
+
+
+{% for table_path in tables_paths %}
+    {% get_table_name table_path as tn %}
+    {% include table_path with table_name=tn%}
+{% endfor %}
+
+<script src = "{% static 'build/js/vue-app.js' %}"></script>
