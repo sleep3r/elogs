@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 
+from cacheops import cached_as, cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
@@ -30,7 +31,8 @@ def add_measurement(request):
         if hasattr(req, 'id'):
             measurement = req['id']
         else:
-            measurement = Measurement.objects.create(type="measurement", time=timezone.now(), name="fractional_anal",
+            measurement = Measurement.objects.create(type="measurement", time=timezone.now(),
+                                                     name="fractional_anal",
                                                      plant=Plant.objects.get(name="furnace")).id
 
         for m_value in req['cinder']['masses']:
@@ -50,6 +52,7 @@ def add_measurement(request):
     return HttpResponse(status=405)
 
 
+@cached_view_as(Cell, Measurement)
 @process_json_view(auth_required=False)
 def granularity_object(request):
     res = DeepDict()
@@ -76,8 +79,15 @@ def granularity_object(request):
     return res
 
 
+@cached_view_as(Cell.objects.filter(field__name='cinder_mass'),
+                Cell.objects.filter(field__name='cinder_size'),
+                Cell.objects.filter(field__name='schieht_mass'),
+                Cell.objects.filter(field__name='schieht_size'))
 @process_json_view(auth_required=False)
 def granularity_graphs(request):
+    def get_cell(name):
+        return list(Cell.objects.filter(field__name=name).cache())
+
     def get_mean(masses, sizes):
         msum = sum(masses)
         if msum == 0:
@@ -92,14 +102,15 @@ def granularity_graphs(request):
     cinders = []
     schieht = []
 
-    cinder_masses = list(Cell.objects.filter(field__name="cinder_mass"))
-    cinder_sizes = list(Cell.objects.filter(field__name="cinder_size"))
-    schieht_masses = list(Cell.objects.filter(field__name="schieht_mass"))
-    schieht_sizes = list(Cell.objects.filter(field__name="schieht_size"))
+    cinder_masses = get_cell("cinder_mass")
+    cinder_sizes = get_cell("cinder_size")
+    schieht_masses = get_cell("schieht_mass")
+    schieht_sizes = get_cell("schieht_size")
 
     for measurement in Measurement.objects.all():
         def process(x):
-            return seq(x).where(lambda y: y.group == measurement).map(lambda z: float(z.value)).to_list()
+            return seq(x).where(lambda y: y.group == measurement).map(
+                lambda z: float(z.value)).to_list()
 
         masses = process(cinder_masses)
         min_sizes = process(cinder_sizes)

@@ -20,7 +20,7 @@ def fill_tables_lists():
                 name='concentrate_report'
             ),
             name='tables_list',
-            value=pickle.dumps(["tables/furnace/concentrate_report/small.html", "tables/furnace/concentrate_report/big.html", "tables/furnace/concentrate_report/lower_table.html(deleted)", "tables/furnace/concentrate_report/upper.html"])
+            value=pickle.dumps(["tables/furnace/concentrate_report/small.html", "tables/furnace/concentrate_report/big.html", "tables/furnace/concentrate_report/upper.html"])
         ),
         Setting(
             scope=Journal.objects.get(

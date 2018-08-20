@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 TEMPLATES = [
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'cacheops',
     'django_pickling',
+    'template_profiler_panel',
 
     'e_logs.core.apps.CoreConfig',
 
@@ -192,6 +192,24 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
+        'printed_values': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/printed_values/printed_values.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
+        'db_log': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': 'logs/db_log/db_log.log',
+            'backupCount': 7,
+            'formatter': 'color_formatter',
+            'filters': ['require_debug_true'],
+            'when': 'midnight',
+        },
         'null': {
             "class": 'logging.NullHandler',
         }
@@ -206,7 +224,8 @@ LOGGING = {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['production_file', 'debug_file_debug',
+                         'debug_file_info', 'debug_file_error'],
             'level': "DEBUG",
         },
         'django': {
@@ -215,9 +234,9 @@ LOGGING = {
             'propagate': False,
         },
         'django.db': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug', 'console'],
@@ -232,10 +251,10 @@ LOGGING = {
             'handlers': ['debug_file_calls'],
         },
         'STDOUT': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
         'STDERR': {
-            'handlers': ['console'],
+            'handlers': ['console', 'printed_values'],
         },
     }
 }
@@ -266,16 +285,31 @@ CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
 
 # --------------------------------- CACHING STAFF ---------------------------------------
 
+MAX_CACHE_TIME = 60*60*5
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://127.0.0.1:6379?db=0",
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
+            "IGNORE_EXCEPTIONS": True,
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
         },
-        "KEY_PREFIX": "example"
+        'TIMEOUT': MAX_CACHE_TIME,
+        "KEY_PREFIX": '',
     }
 }
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+DJANGO_REDIS_IGNORE_EXCEPTIONS = True
+DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 
 CACHEOPS_REDIS = {

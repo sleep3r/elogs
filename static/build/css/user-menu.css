@@ -1,5 +1,11 @@
 /*------------------------------------*\
-  # Colors
+  # User-menu
+\*------------------------------------*/
+/*------------------------------------*\
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
 \*------------------------------------*/
 .hidden {
   visibility: collapse;
@@ -23,7 +29,7 @@
   width: 274px;
   visibility: collapse;
   position: absolute;
-  background-color: #e5e5e5;
+  background-color: #E5E5E5;
   margin: 0;
   padding: 0;
 }
@@ -37,13 +43,13 @@
   padding: 10px;
   border-bottom: 1px solid #2c3e50;
   color: #6d6d6d;
-  background-color: #e5e5e5;
+  background-color: #E5E5E5;
 }
 .user-menu .user-menu__item .caption {
   margin-left: 10px;
 }
 .user-menu .user-menu__item:hover {
-  background-color: #f5f5f5;
+  background-color: #F5F5F5;
 }
 
 .user-menu::after {
@@ -53,7 +59,7 @@
   height: 0;
   border-left: 8px solid #0000;
   border-right: 8px solid #0000;
-  border-bottom: 17px solid #e5e5e5;
+  border-bottom: 17px solid #E5E5E5;
   right: 30%;
   bottom: 100%;
 }

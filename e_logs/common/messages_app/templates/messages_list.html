@@ -14,11 +14,13 @@
     <link href="{% static '/vendors/bootstrap/dist/css/bootstrap-notifications.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block journal_panel %}
+{% endblock %}
+
 {% block content %}
     <div class="content">
-        <br><br><br>
         <ul class="notifs">
-            {% for message in messages reversed %}
+            {% for message in messages %}
                 <li class="notif">
                     <div class="media">
                         <div class="media-left">
@@ -31,12 +33,12 @@
                                 <a href="#">{{message.sendee}}</a> 
                                 
                                 {% if message.type == 'critical_value' %}
-                                    ввел в поле
+                                    ввел некорректное значение в поле
                                 {% elif message.type == 'comment'%}
-                                    оставил к полю
+                                    оставил замечание к полю
                                 {% endif %}
 
-                                <a href="{{message.link}}">{{message.cell.field_name}}</a>
+                                <a href="{{message.link}}">{{message.cell.field.name}}</a>
                             </strong>
 
                             {% if message.type == 'critical_value' %}
@@ -54,10 +56,12 @@
             {% endfor %}
         </ul>
 
-        <div class="loading" style="display: none;">ЗАГРУЗКА...</div>
+        <div class="loading" style="display: none;text-align: center">
+            ЗАГРУЗКА...
+        </div>
 
         {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">ЕЩЁ</a>
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
         {% endif %}
     </div>
 {% endblock %}
@@ -65,17 +69,18 @@
 {% block footer %}
     {{ block.super }}
     <script src = "{% static 'build/js/custom.js' %}"></script>
-    <script src = "{% static 'build/js/messages/jquery.waypoints.min.js' %}"></script>
-    <script src = "{% static 'build/js/messages/infinite.min.js' %}"></script>
+    <script src = "{% static 'vendors/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src = "{% static 'vendors/waypoints/shortcuts/infinite.min.js' %}"></script>
     <script>
         let infinite = new Waypoint.Infinite({
             element: $('.notifs')[0],
             onBeforePageLoad: function () {
                 $('.loading').show();
             },
-            onAfterPageLoad: function ($items) {
+            onAfterPageLoad: function () {
                 $('.loading').hide();
-            }
+            },
+            items: ".notif",
         });
     </script>
 {% endblock %}

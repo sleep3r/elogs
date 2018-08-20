@@ -1,6 +1,9 @@
 import json
 from datetime import date, datetime, timedelta
 
+from e_logs.core.utils.loggers import stdout_logger
+
+from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
@@ -9,14 +12,10 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
-from e_logs.common.all_journals_app.models import Cell, CellGroup, Shift, \
-    Equipment, Field, Table, Journal, Plant, Comment
-from e_logs.common.all_journals_app.services.page_modes import get_page_mode, \
-    plant_permission, has_edited
-from e_logs.core.models import Setting
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant
+
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged
-from e_logs.core.utils.loggers import default_logger
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -37,6 +36,10 @@ class JournalView(LoginRequiredMixin, View):
     @logged
     def get_context(request, plant, journal) -> DeepDict:
         return get_context(request, plant, journal)
+
+
+journal_view = JournalView.as_view()
+# journal_view = cached_view_as(Cell)(journal_view)
 
 
 class ShihtaJournalView(JournalView):
@@ -105,6 +108,7 @@ class MetalsJournalView(JournalView):
         return context
 
 
+@csrf_exempt
 @process_json_view(auth_required=False)
 @logged
 def change_table(request):
@@ -143,6 +147,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
+
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
@@ -164,6 +169,24 @@ def save_cell(request):
     return {"status": 1}
 
 
+@csrf_exempt
+@process_json_view(auth_required=False)
+# @logged
+def save_table_comment(request):
+    comment_data = json.loads(request.body)
+    cell = Cell.get_or_create_cell(**comment_data['comment'])
+    text = comment_data['text']
+    if text:
+        cell.responsible = request.user.employee
+        cell.value = text
+        cell.save()
+    else:
+        cell.delete()
+
+    return {"status": 1}
+
+
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
@@ -171,7 +194,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
                to_date=date.today()):
     """Creates shifts for speficied period of time"""
 
-    def daterange(start_date, end_date):
+    def date_range(start_date, end_date):
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
 
@@ -189,16 +212,13 @@ def get_shifts(request, plant_name: str, journal_name: str,
     journal = Journal.objects.get(plant=plant, name=journal_name)
     employee = request.user.employee
     owned_shifts = employee.owned_shifts.all()
+
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
-        for shift_date in daterange(from_date, to_date):
+        for shift_date in date_range(from_date, to_date + timedelta(days=1)):
             for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(
-                    journal=journal,
-                    order=shift_order,
-                    date=shift_date
-                )[0]
-                is_owned =  shift in owned_shifts
+                shift = Shift.get_or_create(journal, shift_order, shift_date)
+                is_owned = shift in owned_shifts
                 result.append(shift_event(request, shift, is_owned))
         return result
     else:

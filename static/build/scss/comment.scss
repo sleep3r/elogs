@@ -1,18 +1,12 @@
+/*------------------------------------*\
+  # Comment
+\*------------------------------------*/
 @import "colors";
 
 /** Table Comment */
 .journal-table {
   margin-bottom: 20px;
   margin-right: 20px;
-  td {
-  }
-}
-
-.table__title {
-  line-height: 40px;
-  margin-bottom: 10px;
-  padding-left: 10px;
-  background-color: $color-bg1;
 }
 
 .table__comment {
@@ -136,4 +130,3 @@
 .table-comment-button {
     cursor: pointer;
 }
-

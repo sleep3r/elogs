@@ -2,7 +2,10 @@
   # MENU
 \*------------------------------------*/
 /*------------------------------------*\
-  # Colors
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
 \*------------------------------------*/
 .menu__panel {
   display: flex;
@@ -34,14 +37,14 @@
   color: #656565;
   text-align: center;
   padding-bottom: 5px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #CCCCCC;
 }
 
 .menu {
   list-style: none;
   background-color: #e5e5e5;
   padding: 0;
-  border: 1px dotted #cccccc;
+  border: 1px dotted #CCCCCC;
 }
 .menu a {
   color: white;

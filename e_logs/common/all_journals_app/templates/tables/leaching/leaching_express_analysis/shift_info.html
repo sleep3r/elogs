@@ -14,17 +14,17 @@
             <th>
                  {% trans "Мастер сдал" %}
             </th>
-            <td>{% include "value.html" with field_name="this_master" index=0 %}</td>
+            <td colspan="3">{% include "value.html" with field_name="this_master" index=0 %}</td>
         </tr>
         <tr>
             <th>
                  {% trans "Мастер принял" %}
             </th>
-            <td>{% include "value.html" with field_name="next_master" index=0 %}</td>
+            <td colspan="3">{% include "value.html" with field_name="next_master" index=0 %}</td>
         </tr>
         <thead>
             <tr class="th-common">
-                <th colspan="5" >{% trans "Откачено" %}</th>
+                <th colspan="5" >{% trans "Откачано" %}</th>
             </tr>
         </thead>
         <tbody>

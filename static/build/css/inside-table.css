@@ -1,3 +1,6 @@
+/*
+ * Styles in this file concerns tables enclosed inside another tables
+ */
 .removeleftborder.removeleftborder {
   border-left: none !important;
 }
@@ -14,7 +17,8 @@
   border-bottom: none !important;
 }
 
-table.insidetable {
+.insidetable {
+  height: 100%;
   margin: 0 !important;
   border: none;
 }

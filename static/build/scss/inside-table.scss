@@ -1,20 +1,26 @@
+/*
+ * Styles in this file concerns tables enclosed inside another tables
+ */
+
+// classname applied twice for higher specificity and priority
 .removeleftborder.removeleftborder {
-  border-left: none !important;
+    border-left: none !important;
 }
 
 .removetopborder.removetopborder {
-  border-top: none !important;
+    border-top: none !important;
 }
 
 .removerightborder.removerightborder {
-  border-right: none !important;
+    border-right: none !important;
 }
 
 .removebottomborder.removebottomborder {
-  border-bottom: none !important;
+    border-bottom: none !important;
 }
 
-table.insidetable {
-  margin: 0 !important;
-  border: none;
+.insidetable {
+    height: 100%;
+    margin: 0 !important;
+    border: none;
 }

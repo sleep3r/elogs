@@ -1,4 +1,7 @@
-#MessageToDevelopersModal {
+/*------------------------------------*\
+  # Feedback
+\*------------------------------------*/
+[id=MessageToDevelopersModal] {
   display: none;
 }
 

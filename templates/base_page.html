@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load cacheops %}
+{% load cache %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,9 +9,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>
     {% block title %}
-        <title>Title</title>
+        <title>E-logs</title>
     {% endblock %}
 
     {% block css %}
@@ -48,17 +52,19 @@
             {% include "menu.html" %}
         </div>
         <div class="column-content">
-          <div class="journal-page">
-            {% include "journal__panel.html" %}
-            <!-- -->
-            <div class="journal-tables">
-              {% block content %}
-              {% endblock %}
+            <div class="journal-page">
+                {% block journal_panel %}
+                    {% include "journal__panel.html" %}
+                {% endblock %}
+                <!-- -->
+                <div class="journal-tables">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
-          </div>
-          {% include "footer.html" %}
+            {% include "footer.html" %}
         </div>
-      </div>
+    </div>
 </div>
 
 {% include "popup.html" %}
@@ -66,7 +72,9 @@
 {% block footer %}
     <!-- Bootstrap -->
     <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'v/moment/moment.min.js' %}"></script>
+    <script src="{% static 'vendors/vue/vue.js' %}"></script>
+    <script src="{% static 'vendors/vue/vue-resource.min.js' %}"></script>
+    <script src="{% static 'vendors/moment/moment.min.js' %}"></script>
     <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
     <script src="{% static 'build/js/datepicker.js' %}"></script>
     <script src="{% static 'build/js/datepicker-init.js' %}"></script>
@@ -76,7 +84,7 @@
     <script src="{% static 'build/js/user-menu.js' %}"></script>
     <script src="{% static 'build/js/menu.js' %}"></script>
     <script src="{% static 'build/js/journal-panel.js' %}"></script>
-    <script src="{% static 'vendors/popups/popper.js' %}" ></script>
+    <script src="{% static 'vendors/popups/popper.js' %}"></script>
 {% endblock %}
 
 </body>

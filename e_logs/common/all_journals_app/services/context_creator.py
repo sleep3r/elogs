@@ -1,7 +1,7 @@
 import json
 
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.loggers import default_logger
+from e_logs.core.utils.loggers import err_logger
 from e_logs.common.all_journals_app.models import *
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
@@ -55,7 +55,7 @@ def get_tables_paths(journal):
 
 
 def add_permissions(context, page, request):
-    default_logger.info('page_mode=' + str(context.page_mode))
+    err_logger.info('page_mode=' + str(context.page_mode))
     context.page_mode = get_page_mode(request, page)
     context.has_edited = has_edited(request, page)
     context.has_plant_perm = plant_permission(request)
@@ -78,6 +78,7 @@ def get_cells_data(page: CellGroup) -> dict:
 
     def table_desc(table):
         cells = table.cells(page)
+        err_logger.debug(f'cells: {cells}')
         desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
         return desc
 

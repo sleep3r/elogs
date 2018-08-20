@@ -1,16 +1,16 @@
 /*------------------------------------*\
-  # Colors
+  # Comment
+\*------------------------------------*/
+/*------------------------------------*\
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
 \*------------------------------------*/
 /** Table Comment */
 .journal-table {
   margin-bottom: 20px;
   margin-right: 20px;
-}
-.table__title {
-  line-height: 40px;
-  margin-bottom: 10px;
-  padding-left: 10px;
-  background-color: #EAEAEA;
 }
 
 .table__comment {

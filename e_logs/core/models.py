@@ -9,7 +9,7 @@ from django.db.models.base import ModelBase
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import StrAsDictMixin, logged
-from e_logs.core.utils.loggers import default_logger
+from e_logs.core.utils.loggers import err_logger
 
 
 class SettingsMeta(ModelBase):
@@ -35,7 +35,6 @@ class TargetedSetting:
 
     @logged
     def __setitem__(self, name: str, value: str) -> None:
-        default_logger.debug(f'self.kwargs=')
         Setting.set_value(name=name, value=value, employee=self.employee, obj=self.obj)
 
     def __str__(self):
@@ -123,5 +122,4 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     @staticmethod
     @logged
     def of(obj=None, employee: Optional[Employee] = None) -> TargetedSetting:
-        default_logger.debug(f'of(kwargs=')
         return TargetedSetting(employee=employee, obj=obj)

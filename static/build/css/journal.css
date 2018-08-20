@@ -2,7 +2,10 @@
   # JOURNAL
 \*------------------------------------*/
 /*------------------------------------*\
-  # Colors
+  # Color variables
+\*------------------------------------*/
+/*------------------------------------*\
+  # Sizes
 \*------------------------------------*/
 .journal__panel {
   margin-top: 20px;
@@ -27,6 +30,9 @@
   top: -16px;
   display: block;
   width: 200px;
+}
+.date-selector .date-selector__date {
+  color: #656565;
 }
 
 .mode-buttons {
