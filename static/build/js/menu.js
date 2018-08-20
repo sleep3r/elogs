@@ -42,7 +42,10 @@ class Menu {
        return firstMatchedParent(node.parentNode, selector);
       }
 
-      let currentItem = document.querySelector(".menu__item a[data-url='"+ location.pathname +"']").parentNode;
+      let link =  this.menuNode.querySelector(".menu__item a[data-url='"+ location.pathname +"']");
+      if (link === null ) return;
+
+      let currentItem = link.parentNode;
       currentItem.classList.add("open");
 
       // set .open parentNode also
