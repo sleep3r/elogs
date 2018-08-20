@@ -21,6 +21,7 @@ def get_context(request, plant, journal) -> DeepDict:
     context.tables_paths = get_tables_paths(journal)
     context.journal_cells_data = get_cells_data(page)
     context.journal_fields_descriptions = get_fields_descriptions(journal)
+    context.plant = plant
 
     return context
 

@@ -314,5 +314,6 @@ def model_to_representation(model: Model):
 
 
 class StrAsDictMixin:
-    def __str__(self: Model):
-        return str(self.__class__.__name__) + format(model_to_representation(self))
+    # def __str__(self: Model):
+    #     return str(self.__class__.__name__) + format(model_to_representation(self))
+    pass
