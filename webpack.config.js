@@ -108,6 +108,7 @@ module.exports = {
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
+            'waypoints': 'waypoints/lib/jquery.waypoints.js'
         }
     }
     ,
