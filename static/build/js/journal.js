@@ -70,7 +70,6 @@ class Journal {
         }
         document.addEventListener('mouseup', PopUp.hideOnMouseUp);
         if (view === "True" || validate === "True") {
-            console.log('ads');
             document.querySelectorAll(".popup-comment-content > textarea").forEach(Cell.markCommented)
         }
 

@@ -25,7 +25,6 @@ class PopUp {
           },
           onCreate: function(item) {
               let commentText = item.instance.reference.getAttribute("comment");
-              console.log(item.instance.reference);
               cell = item.instance.reference;
               let popup = item.instance.popper;
               let textarea = popup.querySelector(".content");
@@ -78,7 +77,6 @@ class PopUp {
               },
               onCreate: function(item) {
                 let commentText = item.instance.reference.getAttribute("comment");
-                console.log(item.instance.reference);
                 cell = item.instance.reference;
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
