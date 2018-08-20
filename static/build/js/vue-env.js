@@ -14,3 +14,6 @@ Vue.filter('formatHour', function(value) {
         return moment(String(value)).format('hh')
     }
 });
+
+
+console.log('loading vue-env');

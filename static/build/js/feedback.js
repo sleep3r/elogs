@@ -32,3 +32,5 @@ class FeedBack {
     }
 
 }
+
+console.log('Loading feedback');

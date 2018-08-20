@@ -1,3 +1,6 @@
+import $ from 'jquery'
+import _ from 'underscore'
+
 class FormTable {
 
     constructor() {
@@ -123,3 +126,9 @@ class Lines {
     }
 
 }
+
+$(document).ready(() => {
+    window.FormTable = FormTable;
+});
+
+export {Lines, FormTable}

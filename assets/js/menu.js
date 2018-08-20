@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function(event) {
   const selectorMenuItemTopLevel = ".menu > li.menu__item";
   const selectorMenuItem = "li.menu__item";

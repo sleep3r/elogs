@@ -40,3 +40,5 @@ class JournalPanel {
        return "";
    }
 }
+
+console.log('Loading journal_pannel')

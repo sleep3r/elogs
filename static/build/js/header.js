@@ -10,3 +10,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
   });
 });
+
+console.log('Loading header');

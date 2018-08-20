@@ -19,3 +19,6 @@ class Toggle {
         element.classList.toggle(className);
     }
 }
+
+window.Toggle = Toggle;
+export {Toggle}

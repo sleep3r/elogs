@@ -1,6 +1,3 @@
-/**
- * @depedency CELL_CLASS
- */
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
@@ -129,3 +126,4 @@ class PopUp {
 
 }
 
+console.log('Loading popup')

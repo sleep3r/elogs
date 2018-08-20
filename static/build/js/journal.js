@@ -1,5 +1,3 @@
-import './popup'
-
 class Journal {
 
     constructor() {
@@ -133,3 +131,5 @@ class Comment {
     }
 
 }
+
+console.log('Loading journal');

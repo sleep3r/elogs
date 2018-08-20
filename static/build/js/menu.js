@@ -20,3 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }, false);
   });
 });
+
+
+console.log('Loading menu')

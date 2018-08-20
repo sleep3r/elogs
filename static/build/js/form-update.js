@@ -56,3 +56,5 @@ $(document).ready(function () {
     Shift.confirm();
     Journal.onReady();
 });
+
+console.log('Loading form-update');

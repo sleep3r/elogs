@@ -121,5 +121,6 @@ class Lines {
             });
         }
     }
-
 }
+
+console.log('Loading form_table...');

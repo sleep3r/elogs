@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 /**
  * @depedency CELL_CLASS
  */
@@ -128,4 +130,7 @@ class PopUp {
     }
 
 }
+
+window.PopUp = PopUp;
+export {PopUp}
 

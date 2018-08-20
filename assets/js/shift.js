@@ -1,4 +1,10 @@
-var app = new Vue({
+import $ from 'jquery';
+import Vue from 'vue';
+window.Vue = Vue;
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
+
+let app = new Vue({
     delimiters: ['[[', ']]'],
     el: '#modal_shift',
     data: {
@@ -12,7 +18,6 @@ var app = new Vue({
             plant = 'furnace';
             journal_name = 'fractional';
         }
-
 
         this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
             .then(response => {
@@ -57,8 +62,8 @@ var app = new Vue({
                 select: function (start, end, allDay) {
                     $('#fc_create').click();
 
-                    started = start;
-                    ended = end;
+                    let started = start;
+                    let ended = end;
 
                     $(".antosubmit").on("click", function () {
                         var title = $("#title").val();
@@ -153,5 +158,11 @@ class Shift {
             }
         }
     }
-
 }
+
+$(document).ready(() => {
+   window.Shift = Shift;
+   window.app = app;
+});
+
+export { Shift, app };

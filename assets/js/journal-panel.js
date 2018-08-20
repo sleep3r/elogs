@@ -1,4 +1,3 @@
-
 class JournalPanel {
    static changeMode(mode){
       let id = this.getUrlParam("id");
@@ -40,3 +39,10 @@ class JournalPanel {
        return "";
    }
 }
+
+$(document).ready(() => {
+    window.JournalPanel = JournalPanel;
+});
+
+
+export {JournalPanel}

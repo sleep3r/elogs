@@ -110,3 +110,6 @@ $(document).ready(function () {
         }, 1000);
     }
 });
+
+
+console.log('Loading common...')

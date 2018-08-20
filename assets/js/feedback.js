@@ -1,3 +1,4 @@
+import $ from 'jquery'
 
 class FeedBack {
 
@@ -27,8 +28,14 @@ class FeedBack {
 
         }
         else {
-        $("#message-modal-alert").css("display", "block");
-    }
+            $("#message-modal-alert").css("display", "block");
+        }
     }
 
 }
+
+$(document).ready(() => {
+   window.FeedBack = FeedBack;
+});
+
+export {FeedBack}

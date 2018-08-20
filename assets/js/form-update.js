@@ -1,3 +1,9 @@
+import { Shift } from "../../assets/js/shift";
+import {Journal} from "./journal";
+
+import $ from 'jquery'
+// import './journal'
+
 /*jshint esversion: 6 */
 "use strict";
 
@@ -5,7 +11,7 @@
  * @dependecies Journal, CELL_CLASS
  * @param e
  */
-var selectedElement = null;
+let selectedElement = null;
 
 function onKeyDownAction(e) {
 
@@ -53,6 +59,12 @@ function onKeyDownAction(e) {
 
 
 $(document).ready(function () {
+    window.onKeyDownAction = onKeyDownAction;
     Shift.confirm();
     Journal.onReady();
 });
+
+
+export {onKeyDownAction};
+
+
