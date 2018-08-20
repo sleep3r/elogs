@@ -6,8 +6,8 @@
 {% block table %}
     <ul class="nav nav-tabs">
         {% for month in months %}
-            <li class="{% if month == cur_month %}active{% endif %}">
-                <a aria-selected="{% if month == cur_month %}true{% endif %}"
+            <li class="nav-item">
+                <a class="nav-link {% if month == cur_month %}active{% endif %}"
                    data-toggle="tab"
                    href="#{{ month|add:"_table" }}">{{ months|keyval:month }}</a>
             </li>
