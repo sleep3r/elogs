@@ -84,7 +84,7 @@ Date.prototype.incrementMonth = function () {
 
 Date.prototype.getMonthWithYear = function() {
     return this.getFullYear() + '-' + this.getMonth();
-};
+}
 
 
 /**

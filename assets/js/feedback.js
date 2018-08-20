@@ -3,11 +3,8 @@ class FeedBack {
 
     static send() {
         console.log("SendMessageToDevelopers");
-        let $theme = $("#devs-message-theme");
-        let $text = $("#devs-message-text");
-
-        let theme = $theme.val();
-        let text = $text.val();
+        let theme = $("#devs-message-theme").val();
+        let text = $("#devs-message-text").val();
         let plant = document.URL.split("?")[0].split("/")[3];
         let journal = document.URL.split("?")[0].split("/")[4];
         let data = {
@@ -25,12 +22,13 @@ class FeedBack {
                 dataType: "json"
             });
             $("#message-modal-alert").css("display", "none");
-            $theme.val("");
-            $text.val("");
+            $("#devs-message-theme").val("");
+            $("#devs-message-text").val("");
 
         }
         else {
         $("#message-modal-alert").css("display", "block");
     }
     }
+
 }
