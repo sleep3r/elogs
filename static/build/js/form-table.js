@@ -76,6 +76,10 @@ class Lines {
     }
 
     clone_last_line(form) {
+        if (Journal.getMode() === 'view' || Journal.getMode() === 'validate') {
+            return;
+        }
+
         const tables = $(form).find("table:not(.table-insided)");
         for (let i=0; i<tables.get().length; i++) {
             let table = $(tables.get()[i]);
@@ -85,17 +89,20 @@ class Lines {
                 new_last_line.find("input").val("");
                 new_last_line.find("textarea").val("");
                 new_last_line.find("input").attr('title', "");
+                new_last_line.find("input").attr('comment-id', "");
+                new_last_line.find("input").attr('comment', "");
                 new_last_line.find("input").attr('index', last_line.find("input").attr('index')*1 + 1);
-                new_last_line.find("input.general-value").map((k,v)=> {
-                    v.id = v.id.replace(/(\d+)+$/g, (m,n)=>
+                new_last_line.find("input.general-value").map((k,cell)=> {
+                    cell.id = cell.id.replace(/(\d+)+$/g, (m,n)=>
                          (n*1 + 1)
                     );
-                    v.setAttribute("class", v.getAttribute("class").replace(/(\d+)+$/g, (m,n)=>
+                    cell.setAttribute("class", cell.getAttribute("class").replace(/(\d+)+$/g, (m,n)=>
                          (n*1 + 1)
                     ));
-                    v.setAttribute("comment-id", v.id + "-comment");
+                    cell.setAttribute("comment-id", cell.id + "-comment");
                 });
                 new_last_line.find(".index-input").val(last_line.find(".index-input").val() * 1 + 1);
+                new_last_line.find("i.comment-notification").remove();
                 table.append(new_last_line);
             }
         }
