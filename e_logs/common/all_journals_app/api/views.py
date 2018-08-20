@@ -12,7 +12,7 @@ class PlantsList(generics.ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Plant.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('name', 'journal__name')
+    filter_fields = ('name', )
 
 
 class PlantAPI(generics.RetrieveAPIView):
