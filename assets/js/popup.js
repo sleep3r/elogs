@@ -70,5 +70,6 @@ class PopUp {
 
 }
 
+window.PopUp = PopUp;
 export {PopUp}
 

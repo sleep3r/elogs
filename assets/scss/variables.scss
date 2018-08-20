@@ -43,6 +43,10 @@ $width-left-menu: 230px;
   # Font strings
 \*------------------------------------*/
 
+@import '~typeface-roboto-condensed/index.css';
+@import '~typeface-roboto/index.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
 $roboto-font: 'Roboto', sans-serif;
 $roboto-condensed-fonts: 'Roboto Condensed', sans-serif;
 $material-font: 'Material Icons', sans serif;

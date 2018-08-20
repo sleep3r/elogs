@@ -15,4 +15,9 @@ class Toggle {
     }
 }
 
+$(document).ready(() => {
+    window.Toggle = Toggle;
+});
+
+
 export {Toggle}

@@ -1,4 +1,4 @@
-var app = new Vue({
+let app = new Vue({
     delimiters: ['[[', ']]'],
     el: '#modal_shift',
     data: {
@@ -155,3 +155,5 @@ class Shift {
     }
 
 }
+
+console.log('Loading shift')

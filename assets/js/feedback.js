@@ -36,4 +36,8 @@ class FeedBack {
     }
 }
 
+$(document).ready(() => {
+   window.FeedBack = FeedBack;
+});
+
 export {FeedBack}

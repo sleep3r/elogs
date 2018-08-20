@@ -1,10 +1,10 @@
 import $ from 'jquery'
 import _ from 'underscore'
 
-import {Cell} from "../../assets/js/cell"
-import {Lines} from "../../assets/js/form-table";
-import {onKeyDownAction} from "../../assets/js/form-update"
-import {PopUp} from "../../assets/js/popup";
+import {Cell} from "./cell"
+import {Lines} from "./form-table";
+import {onKeyDownAction} from "./form-update"
+import {PopUp} from "./popup";
 
 class Comment {
 
@@ -35,9 +35,8 @@ class Comment {
     }
 
     static collapse(element) {
-
         let container = $(element).parent().find(".comment__text");
-        container.collapse('toggle');
+        container.toggleClass('collapse');
     }
 
     static focus(event) {
@@ -129,5 +128,8 @@ class Journal {
         }, false);
     }
 }
+
+window.Comment = Comment;
+window.Journal = Journal;
 
 export {Comment, Journal}

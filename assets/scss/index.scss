@@ -16,11 +16,34 @@
 * Popup.....................Popup for each cell comment
 *
 */
+
+
+
+// ------------------------------------- Libs -------------------------------------
 @import "~bootstrap-scss";
 
-//@import "../css/font-icons/all.css";
+@import "~fullcalendar/dist/fullcalendar.css";
+@import "~fullcalendar/dist/fullcalendar.print.css";
+@import "~jquery-confirm/css/jquery-confirm.css";
+@import "~pnotify/dist/PNotifyBrightTheme.css";
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
+
+
+// ------------------------------------- Fonts and typefaces -------------------------
+@import '~typeface-roboto-condensed/index.css';
+@import '~typeface-roboto/index.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+
+
+// ------------------------------------- Modules -------------------------------------
 @import "common.scss";
-@import "font-faces";
 @import "variables";
 @import "layout.scss";
 @import "notifications";

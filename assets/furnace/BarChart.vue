@@ -22,7 +22,6 @@
 
 <script>
 import * as d3 from 'd3'
-import map from 'lodash/map'
 import measurementForm from './Form.vue';
 
 export default {

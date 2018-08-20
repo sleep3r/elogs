@@ -17,11 +17,17 @@ module.exports = {
     mode: 'development',
     context: path.join(__dirname, 'assets'),
     entry: {
-        messages: './notifications/index',
-        leaching: './leaching/index',
-        furnace: './furnace/index',
-        index: './js/index',
-        "index.min": './js/index',
+        index: './index',
+        "index.min": './index',
+        vendor: [
+            "jquery",
+            "moment",
+            "fullcalendar",
+            // "webpack-material-design-icons",
+            // 'font-awesome/scss/font-awesome.scss',
+            'tether',
+            // "font-awesome-webpack!./path/to/font-awesome.config.js",
+        ],
     },
     output: {
         path: path.resolve('./static/webpack_bundles'),
@@ -35,27 +41,25 @@ module.exports = {
                 parallel: true,
                 extractComments: true
             }),
-            new OptimizeCSSAssetsPlugin({})
+            new OptimizeCSSAssetsPlugin({
+                assetNameRegExp: /\.min\.css$/g,
+                cssProcessor: require('cssnano'),
+                cssProcessorOptions: {discardComments: {removeAll: true}},
+                canPrint: true
+            })
         ],
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
     },
     module:
         {
             rules: [
                 {
                     test: /\.js$/,
-                    loader: 'babel-loader',
                     exclude: /node_modules/,
-                    query: {compact: true},
+                    use: [
+                        "babel-loader",
+                        // "eslint-loader",
+                        // 'jshint-loader',
+                    ],
                 },
                 {
                     test: /\.vue$/,
@@ -65,8 +69,8 @@ module.exports = {
                     test: /\.css$/,
                     use: [
                         // 'style-loader',
-                        'vue-style-loader',
-                        // MiniCssExtractPlugin.loader,
+                        // 'vue-style-loader',
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                     ],
                 },
@@ -74,37 +78,61 @@ module.exports = {
                     test: /\.scss$/,
                     use: [
                         // 'style-loader',
-                        'vue-style-loader',
-                        // MiniCssExtractPlugin.loader,
+                        // 'vue-style-loader',
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                         'sass-loader',
                     ],
                 },
                 {
-                    test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                    test: /\.(jpe?g|png|gif|eot|ttf|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: 'fonts/'
-                    }
-                }
+                        outputPath: 'fonts/',
+                    },
+                },
+                {
+                    test: /bootstrap\/dist\/js\/umd\//, use: 'imports-loader?jQuery=jquery'
+                },
+                {
+                    test: /font-awesome\.config\.js/,
+                    use: [
+                        {loader: 'style-loader'},
+                        {loader: 'font-awesome-loader'}
+                    ]
+                },
             ]
         }
     ,
     resolve: {
         alias: {
-            'vue$':
-                'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
         }
     }
     ,
     plugins: [
         new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery',
-            $: 'jquery',
             moment: 'moment',
             Vue: ['vue/dist/vue.esm.js', 'default'],
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            tether: 'tether',
+            Tether: 'tether',
+            'window.Tether': 'tether',
+            Popper: ['popper.js', 'default'],
+            Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
+            Button: 'exports-loader?Button!bootstrap/js/dist/button',
+            Carousel: 'exports-loader?Carousel!bootstrap/js/dist/carousel',
+            Collapse: 'exports-loader?Collapse!bootstrap/js/dist/collapse',
+            Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
+            Modal: 'exports-loader?Modal!bootstrap/js/dist/modal',
+            Popover: 'exports-loader?Popover!bootstrap/js/dist/popover',
+            Scrollspy: 'exports-loader?Scrollspy!bootstrap/js/dist/scrollspy',
+            Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
+            Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
+            Util: 'exports-loader?Util!bootstrap/js/dist/util'
         }),
         new webpack.HotModuleReplacementPlugin(),
         new BundleTracker({filename: './webpack-stats.json'}),
@@ -115,21 +143,22 @@ module.exports = {
             include: /\.min\.js$/, cache: true, parallel: true,
             extractComments: true, sourceMap: true
         }),
-        new CompressionPlugin(),
+        // new CompressionPlugin(),
         new webpack.DefinePlugin({PRODUCTION: JSON.stringify(false)}),
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
         }),
-        new webpack.SourceMapDevToolPlugin({
-            test: '\\.((js)|(scc)|(scss))$',
-            filename: '[name].js.map',
-            exclude: /node_modules/,
-        }),
+        // new webpack.SourceMapDevToolPlugin({
+        //     test: '\\.((js)|(scc)|(scss))$',
+        //     filename: '[name].js.map',
+        //     exclude: /node_modules/,
+        // }),
         new OfflinePlugin(),
     ],
-    devtool:
-        false, //'inline-source-map',
+    // devtool: "source-map",
+    // devtool: false,
+    devtool: "inline-source-map",
     devServer:
         {
             hot: true,

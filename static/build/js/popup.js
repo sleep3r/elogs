@@ -1,5 +1,3 @@
-import Popper from "popper.js";
-
 class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
@@ -128,3 +126,4 @@ class PopUp {
 
 }
 
+console.log('Loading popup')

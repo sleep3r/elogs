@@ -19,3 +19,5 @@ class Toggle {
         element.classList.toggle(className);
     }
 }
+
+console.log('User-menu')

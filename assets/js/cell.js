@@ -192,4 +192,9 @@ class Cell {
 }
 
 
+$(document).ready(() => {
+   window.Cell = Cell;
+});
+
+
 export {IsJsonString, Cell};

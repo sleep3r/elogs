@@ -40,4 +40,9 @@ class JournalPanel {
    }
 }
 
+$(document).ready(() => {
+    window.JournalPanel = JournalPanel;
+});
+
+
 export {JournalPanel}

@@ -88,6 +88,7 @@ function onKeyDownAction(e) {
 
 
 $(document).ready(function () {
+    window.onKeyDownAction = onKeyDownAction;
     Shift.confirm();
     Journal.onReady();
 });

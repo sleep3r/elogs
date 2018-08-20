@@ -131,3 +131,5 @@ class Comment {
     }
 
 }
+
+console.log('Loading journal');

@@ -4,3 +4,5 @@ $('#datepicker').on('changeDate', function() {
         $('#datepicker').datepicker('getFormattedDate')
     );
 });
+
+console.log('Initing datepicker...');

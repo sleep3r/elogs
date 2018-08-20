@@ -120,4 +120,8 @@ class Lines {
 
 }
 
+$(document).ready(() => {
+    window.FormTable = FormTable;
+});
+
 export {Lines, FormTable}

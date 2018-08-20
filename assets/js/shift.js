@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Vue from 'vue';
+window.Vue = Vue;
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
@@ -61,8 +62,8 @@ let app = new Vue({
                 select: function (start, end, allDay) {
                     $('#fc_create').click();
 
-                    started = start;
-                    ended = end;
+                    let started = start;
+                    let ended = end;
 
                     $(".antosubmit").on("click", function () {
                         var title = $("#title").val();
@@ -158,5 +159,10 @@ class Shift {
         }
     }
 }
+
+$(document).ready(() => {
+   window.Shift = Shift;
+   window.app = app;
+});
 
 export { Shift, app };
