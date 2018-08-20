@@ -1,5 +1,12 @@
 
 class JournalPanel {
+
+   static init() {
+        let modeButtons =  document.querySelector(".mode-buttons");
+        let activeBtn = modeButtons.querySelector(".btn-" + Journal.getMode());
+        activeBtn.classList.toggle("btn--active");
+   }
+
    static changeMode(mode){
       let id = this.getUrlParam("id");
 

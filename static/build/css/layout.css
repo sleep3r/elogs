@@ -460,10 +460,13 @@ footer {
   height: 30px;
   cursor: pointer;
 }
-
 .btn:hover {
   background-color: #386486;
   color: white;
+}
+
+.btn--active {
+  background-color: #386486;
 }
 
 /*------------------------------------*\
