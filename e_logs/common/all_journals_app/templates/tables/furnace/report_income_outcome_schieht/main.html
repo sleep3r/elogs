@@ -1,4 +1,4 @@
-{% extends "table.html" %} 
+{% extends "table.html" %}
 {% load express_tags %}
 
 {% block title %}Поступление, расходы и остатки Zn концентратов{% endblock %}
@@ -46,23 +46,4 @@
     </div>
 {% endblock %}
 {% block js %}
-    <script>
-    function getRedirectLink() {
-        let date = $("#selected_month").val();
-        let mode = $('input[name=mode]:checked').attr('id');
-        
-        return "/furnace/report_income_outcome_schieht?month=" + date + "&mode=" + mode;
-    }
-
-    $(document).ready(() => {
-        $("input:radio").change(function (event) {
-            window.location.href = getRedirectLink()
-        });
-
-        $("#selected_month").change((event) => {
-            window.location.href = getRedirectLink()
-        });
-
-    });
-    </script>
 {% endblock %}

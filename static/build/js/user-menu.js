@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 class Toggle {
 
     static bind(selector, toggleSelector ,className) {
-        console.log("Toggle.bind()");
         let el = document.querySelector(selector);
         el.onclick = function() {
             let element = document.querySelector(toggleSelector);
