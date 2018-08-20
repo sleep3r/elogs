@@ -1,4 +1,5 @@
 {% load express_tags %}
+{% load staticfiles %}
 {% load i18n %}
 
 <script language="JavaScript">
@@ -21,7 +22,26 @@
 
 {#{%  include "all_journals_app/journal_control_panel.html" %}#}
 
-{% for table_path in tables_paths %}
-    {% get_table_name table_path as tn %}
-    {% include table_path with table_name=tn%}
-{% endfor %}
+<div id="vue-test">
+
+
+  ${plant_name}
+
+
+
+  <div v-for="table in tables" class="journal-table" v-bind:id="'table_id_' + table.name">
+      <div class="table__title">${ table.name }</div>
+          <div class="elog-table-container">
+          </div>
+  </div>
+
+
+
+  {% for table_path in tables_paths %}
+      {% get_table_name table_path as tn %}
+      {% include table_path with table_name=tn%}
+  {% endfor %}
+
+</div>
+
+<script src = "{% static 'build/js/vue-test.js' %}"></script>
