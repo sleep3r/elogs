@@ -38,6 +38,16 @@ def logged(func):
     return wrapper
 
 
+def has_private_journals(func):
+    @wraps(func)
+    def wrapper(self, request, plant_name, journal_name):
+        if (journal_name == "report_income_outcome_schieht" or journal_name == "metals_compute") \
+                and not (request.user.is_superuser or request.user.groups.filter(name='Big boss')
+                .exists() or request.user.employee.name == "makagonov-s-n"):
+            return HttpResponse("<h2>403</h2> <h3>нет доступа</h3>")
+        return func(self, request, plant_name, journal_name)
+    return wrapper
+
 class StrJSONEncoder(JSONEncoder):
     def default(self, o):
         return str(o)

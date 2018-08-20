@@ -1,6 +1,7 @@
 import re
 
 from django import template
+from django.contrib.auth.models import Group
 from django.template import TemplateSyntaxError
 from django.template.base import FILTER_SEPARATOR
 from django.utils.html import mark_safe
@@ -55,6 +56,10 @@ def default(value):
     else:
         return value
 
+@register.filter(name='in_group')
+def in_group(user, group_name):
+    group =  Group.objects.get(name=group_name)
+    return group in user.groups.all()
 
 @register.filter('longest_field')
 def formatter(table):
