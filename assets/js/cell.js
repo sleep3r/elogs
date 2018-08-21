@@ -58,36 +58,7 @@ class Cell {
      *
      * @param cell instance in DOM
      */
-    static saveComment(cell) {
 
-        _.debounce((cell) => {
-            console.info(cell);
-            let forSend = JSON.stringify({
-                'cell_location': {
-                    'field_name': cell.name,
-                    'table_name': cell.getAttribute('table-name'),
-                    'group_id': cell.getAttribute('journal-page'),
-                    'index': cell.getAttribute('index')
-                },
-                'message': {
-                    'text': cell.getAttribute('comment'),
-                    'link': Cell.getLink(cell),
-                    'type': 'comment'
-                }
-            });
-            $.ajax({
-                url: "/common/messages/add_comment/",
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: forSend,
-                success: function (json) {
-                    if (json && json.result) {
-                         console.log(json.result)
-                    }
-                }
-            });
-        }, 300)(cell);
-    }
 
     static addMessage(msg) {
         let debounce = _.debounce((input) => {

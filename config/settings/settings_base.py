@@ -289,11 +289,14 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
         ),
     'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAdminUser',
         ),
     'DEFAULT_FILTER_BACKENDS': (
-            'django_filters.rest_framework.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
         ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+
 }
 
 CHANNEL_LAYERS = {

@@ -44,12 +44,11 @@ class ShiftAPI(generics.RetrieveAPIView):
     queryset = Shift.objects.all()
 
 class ShiftList(generics.ListAPIView):
-    lookup_field = 'id'
     serializer_class = ShiftSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Shift.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('date', )
+    filter_fields = ('date', 'order')
 
 class TablesList(generics.ListAPIView):
     serializer_class = TableSerializer
