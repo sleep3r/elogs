@@ -16,7 +16,7 @@ var elogsApp = new Vue({
   methods: {
     getTables: function () {
       axios
-        .get('http://127.0.0.1:8000/api/tables/?journal__plant__name='+this.plant_name+'&journal__name='+this.journal_name)
+        .get('/api/tables/?journal__plant__name='+this.plant_name+'&journal__name='+this.journal_name)
         .then(response => {
           this.tables = response.data
         })
