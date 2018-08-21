@@ -1,7 +1,6 @@
 
-
-import $ from 'jquery'
-import _ from 'underscore'
+// import $ from 'jquery'
+// import _ from 'underscore'
 
 import {Cell} from "./cell"
 import {Lines} from "./form-table";
@@ -125,7 +124,6 @@ class Journal {
         }
         document.addEventListener('mouseup', PopUp.hideOnMouseUp);
         if (view === "True" || validate === "True") {
-            console.log('ads');
             document.querySelectorAll(".popup-comment-content > textarea").forEach(Cell.markCommented)
         }
 

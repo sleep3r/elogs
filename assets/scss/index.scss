@@ -38,15 +38,14 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 // ------------------------------------- Fonts and typefaces -------------------------
 @import '~typeface-roboto-condensed/index.css';
 @import '~typeface-roboto/index.css';
-@import '~material-design-icons/iconfont/material-icons.css';
-
+//@import '~material-design-icons/iconfont/material-icons.css';
 
 
 // ------------------------------------- Modules -------------------------------------
 @import "common.scss";
 @import "variables";
 @import "layout.scss";
-@import "notifications";
+//@import "notifications";
 @import "calendar.scss";
 @import "fractional";
 @import "feedback";

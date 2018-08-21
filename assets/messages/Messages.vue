@@ -1,15 +1,15 @@
 <template>
   <ul class="user-notifications">
-  <li v-if="items[0]">
-      <span>Нет новых сообщений</span>
-  </li>
-  <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
-        <a href="javascript:;" onclick="return Notifications.open(event, this)">
-            <i v-if="item.type === 'comment' " class="far fa-comment" style="font-size:14px; color: #669900;" ></i>
-            <i v-else-if="item.type === 'critical_value' " class="far fa-comment" style="font-size:14px; color: #FF0000;" ></i>
-            <span class="notification-text" v-html="item.text"></span>
-        </a>
-  </li>
+      <li v-if="items[0]">
+          <span>Нет новых сообщений</span>
+      </li>
+      <li class="notification" v-bind:data-message="item.text" v-bind:data-id="item.id" v-for="item, key in items">
+            <a href="javascript:;" onclick="return Notifications.open(event, this)">
+                <i v-if="item.type === 'comment' " class="far fa-comment" style="font-size:14px; color: #669900;" ></i>
+                <i v-else-if="item.type === 'critical_value' " class="far fa-comment" style="font-size:14px; color: #FF0000;" ></i>
+                <span class="notification-text" v-html="item.text"></span>
+            </a>
+      </li>
   </ul>
 </template>
 

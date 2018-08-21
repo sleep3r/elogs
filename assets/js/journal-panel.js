@@ -1,9 +1,11 @@
 class JournalPanel {
 
    static init() {
-        let modeButtons =  document.querySelector(".mode-buttons");
-        let activeBtn = modeButtons.querySelector(".btn-" + Journal.getMode());
-        activeBtn.classList.toggle("btn--active");
+       let selector = ".mode-buttons .btn-" + Journal.getMode();
+       let activeBtn = document.querySelector(selector);
+       if (activeBtn !== null) {
+           activeBtn.classList.toggle("btn--active");
+       }
    }
 
    static changeMode(mode){
@@ -47,9 +49,10 @@ class JournalPanel {
    }
 }
 
-$(document).ready(() => {
-    window.JournalPanel = JournalPanel;
-});
+// $(document).ready(() => {
+//     window.JournalPanel = JournalPanel;
+// });
 
+window.JournalPanel = JournalPanel;
 
 export {JournalPanel}

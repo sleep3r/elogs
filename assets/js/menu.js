@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     }, false);
   });
+
+
+  window.menuLeft = new Menu(".menu--left");
 });
 
 

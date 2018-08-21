@@ -1,4 +1,4 @@
-require('offline-plugin/runtime').install();  // offline service-worker plugin
+//- require('offline-plugin/runtime').install();  // offline service-worker plugin
 
 
 // ------------------------------------- Libs -------------------------------------
@@ -12,12 +12,12 @@ import 'fullcalendar';
 import 'bootstrap-datepicker';
 import 'bootstrap-grid';
 
-// import 'waypoints/lib/jquery.waypoints.js';
+import 'waypoints/lib/jquery.waypoints.js';
 import 'waypoints'; import Waypoint from 'waypoints'; window.Waypoint = Waypoint;
 
 import 'typeface-roboto-condensed';
 import 'typeface-roboto';
-import 'material-design-icons';
+// import 'material-design-icons';
 import '@fortawesome/fontawesome';
 import '@fortawesome/fontawesome-free-brands';
 
