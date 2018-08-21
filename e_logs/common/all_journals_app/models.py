@@ -196,7 +196,7 @@ class Equipment(CellGroup):
 class Cell(StrAsDictMixin, models.Model):
     """Specific cell in some table."""
 
-    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
     field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name='cells')
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
