@@ -1,8 +1,5 @@
-{% load staticfiles %}
-{% load render_bundle from webpack_loader %}
-{% load cacheops %}
-{% load cache %}
 <!DOCTYPE html>
+{% load staticfiles %}{% load render_bundle from webpack_loader %}{% load cacheops %}{% load cache %}
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,6 +31,7 @@
 </head>
 <body>
 <div class="elogs-container">
+
     {% block top-nav %}
         {% include "top_nav.html" %}
     {% endblock %}
