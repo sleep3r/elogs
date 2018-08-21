@@ -7,7 +7,8 @@ import 'underscore'; window._ = _;
 import 'vue'; import Vue from 'vue'; window.Vue = Vue;
 import 'bootstrap';
 import 'jquery-confirm';
-import 'reconnecting-websocket'; import ReconnectingWebSocket from 'reconnecting-websocket';
+import 'reconnecting-websocket';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 window.ReconnectingWebSocket = ReconnectingWebSocket;
 
 import 'fullcalendar';
