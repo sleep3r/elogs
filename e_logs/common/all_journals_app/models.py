@@ -12,7 +12,7 @@ from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, de
     max_cache
 
 
-class Plant(StrAsDictMixin, models.Model):
+class Plant(models.Model):
     name = models.CharField(default='leaching',
                             verbose_name='Название цеха',
                             max_length=128,
@@ -28,7 +28,7 @@ class Plant(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Цеха'
 
 
-class Journal(StrAsDictMixin, models.Model):
+class Journal(models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название журнала')
@@ -54,7 +54,7 @@ class Journal(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Журналы'
 
 
-class Table(StrAsDictMixin, models.Model):
+class Table(models.Model):
     """Abstract table entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название таблицы')
@@ -82,7 +82,7 @@ class Table(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Таблицы'
 
 
-class Field(StrAsDictMixin, models.Model):
+class Field(models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Название поля')
@@ -111,7 +111,7 @@ class Field(StrAsDictMixin, models.Model):
         ]
 
 
-class CellGroup(StrAsDictMixin, models.Model):
+class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def tables(self):
@@ -167,33 +167,12 @@ class Shift(CellGroup):
         return Shift.objects.cache() \
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
 
-    @staticmethod
-    @logged
-    def get_shift(journal, pid=None) -> 'Shift':
-        shift = None
-
-        if pid:
-            shift = Shift.objects.get(id=pid)
-        else:
-            number_of_shifts = Shift.get_number_of_shifts(journal)
-            assert number_of_shifts > 0, "<= 0 number of shifts"
-
-            # create shifts for today and return current shift
-            for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.objects.get_or_create(journal=journal,
-                                                    order=shift_order,
-                                                    date=date.today())[0]
-                if shift.is_active:
-                    break
-
-        return shift
-
 
 class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(StrAsDictMixin, models.Model):
+class Cell(models.Model):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
@@ -244,7 +223,7 @@ class Cell(StrAsDictMixin, models.Model):
         return ''.join(c.get_text() for c in Comment.objects.filter(cell=self))
 
 
-class Comment(StrAsDictMixin, models.Model):
+class Comment(models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)

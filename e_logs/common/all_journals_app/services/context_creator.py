@@ -10,11 +10,10 @@ from e_logs.core.utils.webutils import logged, default_if_error
 
 
 @logged
-def get_context(request, plant, journal) -> DeepDict:
+def get_context(request, page) -> DeepDict:
     context = DeepDict()
 
-    page = get_page(journal, request)
-
+    journal = page.journal
     add_type_specific_info(context, journal, page)
     add_permissions(context, page, request)
     add_page_info(context, journal, page)
@@ -30,18 +29,6 @@ def add_type_specific_info(context, journal, page):
         context.shift_is_active_or_no_shifts = page.is_active
         context.shift_order = page.order
         context.shift_date = page.date
-
-
-def get_page(journal, request):
-    if journal.type == 'shift':
-        page_id = request.GET.get('id', None)
-        page = Shift.get_shift(journal, pid=page_id)
-    elif journal.type == 'equipment':
-        equipment = Equipment.objects.get_or_create(journal=journal)[0]
-        page = equipment
-    else:
-        raise NotImplementedError()
-    return page
 
 
 def add_page_info(context, journal, page):

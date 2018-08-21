@@ -9,6 +9,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
 from django.views import View
+from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
@@ -25,17 +26,41 @@ class JournalView(LoginRequiredMixin, View):
     """
 
     @logged
-    def get(self, request, plant_name: str, journal_name: str):
+    def get(self, request, plant_name: str, journal_name: str, page_id=None):
+
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
-        context = self.get_context(request, plant, journal)
+
+        if journal.type == 'shift':
+            if page_id:
+                page = Shift.objects.get(id=page_id)
+            else:
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                assert number_of_shifts > 0, "<= 0 number of shifts"
+
+                # create shifts for today and return current shift
+                for shift_order in range(1, number_of_shifts + 1):
+                    shift = Shift.objects.get_or_create(journal=journal,
+                                                        order=shift_order,
+                                                        date=date.today())[0]
+                    if shift.is_active:
+                        page = shift
+                        break
+                return redirect('journal_view', page_id=page.id, plant_name=plant_name,
+                                journal_name=journal_name)
+        elif journal.type == 'equipment':
+            page = Equipment.objects.get_or_create(journal=journal)[0]
+        else:
+            raise NotImplementedError()
+
+        context = self.get_context(request, page)
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
 
     @staticmethod
     @logged
-    def get_context(request, plant, journal) -> DeepDict:
-        return get_context(request, plant, journal)
+    def get_context(request, page) -> DeepDict:
+        return get_context(request, page)
 
 
 journal_view = JournalView.as_view()
@@ -45,9 +70,13 @@ journal_view = JournalView.as_view()
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
 
+    def get(self, request, plant_name='furnace', journal_name='report_income_outcome_schieht'):
+        response = super().get(request, plant_name, journal_name)
+        return response
+
     @logged
-    def get_context(self, request, journal_name, page_type):
-        context = super().get_context(request, journal_name, page_type)
+    def get_context(self, request, page):
+        context = super().get_context(request, page)
 
         context.months = {
             'January': 'Январь',
@@ -72,6 +101,9 @@ class ShihtaJournalView(JournalView):
 # TODO: Move to common journal scheme
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
+
+    def get(self, request, plant_name='furnace', journal_name='metals_compute'):
+        return super().get(request, plant_name, journal_name)
 
     @logged
     def get_context(self, request, journal_name, page_type) -> DeepDict:

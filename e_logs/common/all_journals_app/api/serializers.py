@@ -7,7 +7,7 @@ from e_logs.core.api.utils import cached
 class FilteredListSerializer(serializers.ListSerializer):
 
     def to_representation(self, data):
-        data = data.filter(group__id=self.context['shift_id'])
+        data = data.filter(group__id=self.context.get('shift_id'))
         return super(FilteredListSerializer, self).to_representation(data)
 
 

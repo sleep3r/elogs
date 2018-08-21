@@ -26,6 +26,8 @@ FIXTURE_DIRS = (
     BASE_DIR / 'fixtures',
 )
 
+APPEND_SLASH = True
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
