@@ -1,10 +1,14 @@
+import json
+
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin
+from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none
 
 
 class Message(StrAsDictMixin, models.Model):
@@ -45,8 +49,20 @@ class Message(StrAsDictMixin, models.Model):
         text = message['text']
         message.pop('text')
 
+        layer = get_channel_layer()
+
         for emp in recipients:
-            Message.objects.update_or_create(**message, defaults={'text': text}, addressee=emp, cell=cell)
+            msg = get_or_none(Message, **message, addressee=emp, cell=cell)
+            if msg:
+                msg.text = text
+                msg.save()
+            else:
+                Message.objects.create(**message, addressee=emp, cell=cell, text=text)
+                async_to_sync(layer.group_send)(f'user_{emp.id}', {"type": "message.send",
+                                                                   "text": json.dumps({
+                                                                       'cell': cell.field.name,
+                                                                       'sendee': message['sendee'].name,
+                                                                       'text': text})})
 
     @staticmethod
     def update(cell):

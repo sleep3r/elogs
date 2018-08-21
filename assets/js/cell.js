@@ -103,24 +103,25 @@ class Cell {
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     },
-
+                    'crud': "add",
                     'message': {
                         'text': input.value,
                         'link': Cell.getLink(input),
                         'type': 'critical_value'
                     },
                 });
-                $.ajax({
-                    url: "/common/messages/add_critical/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/add_critical/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
+                messages_socket.send(forSend);
             } else {
 
                 let forSend = JSON.stringify({
@@ -129,20 +130,22 @@ class Cell {
                         'table_name': $(input).attr('table-name'),
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
-                    }
+                    },
+                    "crud":"update",
                 });
 
-                $.ajax({
-                    url: "/common/messages/update/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/update/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
+                messages_socket.send(forSend);
             }
         },
             300);
