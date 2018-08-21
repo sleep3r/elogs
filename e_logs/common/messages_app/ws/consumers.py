@@ -5,12 +5,12 @@ from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from cacheops import cached_view_as
+from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 
 from e_logs.common.all_journals_app.models import Cell, Comment
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.loggers import err_logger
-from e_logs.core.utils.webutils import model_to_dict, logged, filter_or_none
 
 from ..models import Message
 from e_logs.common.login_app.models import Employee
@@ -46,11 +46,24 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
         if text is not None:
             data = json.loads(text)
             if data['crud'] == 'add':
-                cell = await self.get_cell_from_dict(data['cell'])
-                if cell:
+                if data['message']['type'] == "critical_value":
+                    cell = await self.get_cell_from_dict(data['cell'])
+                    if cell:
+                        message = data['message'].copy()
+                        message['sendee'] = self.scope['user'].employee
+                        await self.add(cell, message, all_users=True)
+
+                elif data['message']['type'] == "comment":
                     message = data['message'].copy()
                     message['sendee'] = self.scope['user'].employee
-                    await self.add(cell, message, all_users=True)
+                    text = message['text']
+
+                    cell = await self.get_or_create_cell(data['cell_location'])
+
+                    if cell:
+                        await self.add_comment(cell, text)
+                        await self.add(cell, message, all_users=True)
+
             elif data['crud'] == 'update':
                 cell = await self.get_cell_from_dict(data['cell'])
                 if cell:
@@ -58,9 +71,19 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
 
     #кастомный метод отправки сообщения по группе "messages"
     async def message_send(self, event):
-        await self.send(
-            event['text']
-        )
+        await self.send(event['text'])
+
+    @database_sync_to_async
+    def get_or_create_cell(self, cell_location):
+        return Cell.get_or_create_cell(**cell_location)
+
+    @database_sync_to_async
+    def add_comment(self, cell, text):
+        Comment.objects.update_or_create(
+            content_type=ContentType.objects.get_for_model(cell),
+            object_id=cell.id,
+            defaults={'text': text,
+                      'employee': self.scope['user'].employee})
 
     @database_sync_to_async
     def get_cell_from_dict(self, cell_dict: dict) -> Cell:

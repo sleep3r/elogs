@@ -26,17 +26,18 @@ class Comment {
                     "type": "comment",
                 },
             });
-            $.ajax({
-                url: "/common/messages/add_comment/",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: forSend,
-                success: function (json) {
-                    if (json && json.result) {
-                        // console.log(json.result)
-                    }
-                }
-            });
+            // $.ajax({
+            //     url: "/common/messages/add_comment/",
+            //     type: "POST",
+            //     contentType: "application/json; charset=utf-8",
+            //     data: forSend,
+            //     success: function (json) {
+            //         if (json && json.result) {
+            //             // console.log(json.result)
+            //         }
+            //     }
+            // });
+            messages_socket.send(forSend);
         }, 300)(textarea);
     }
 

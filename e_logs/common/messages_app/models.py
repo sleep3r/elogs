@@ -33,21 +33,19 @@ class Message(StrAsDictMixin, models.Model):
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError
 
-        recipients = []
         if uids:
             recipients = list()
             for uid in uids:
-                recipients.extend(Employee.objects.cache().get(id=uid))
+                recipients.extend(Employee.objects.get(id=uid).exclude(name=message['sendee']).cache())
         if positions:
             recipients = list()
             for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
+                recipients.extend(Employee.objects.filter(plant=plant, position=p).exclude(name=message['sendee']).cache())
         if all_users:
             recipients = list()
-            recipients.extend(Employee.objects.all().cache())
+            recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
 
-        text = message['text']
-        message.pop('text')
+        text = message.pop('text')
 
         layer = get_channel_layer()
 

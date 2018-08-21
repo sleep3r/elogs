@@ -60,7 +60,7 @@
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
-    {% render_bundle 'index' 'js' %}
+{% render_bundle 'index' 'js' %}
 {#        {% render_bundle 'vendor' 'js' %}#}
     <!-- Bootstrap -->
 {#    <script src="{% static 'vendors/jquery/dist/jquery.js' %}"></script>#}
@@ -104,10 +104,8 @@
         Notification.requestPermission(function (permission) {
           if (permission === "granted") {
             data = JSON.parse(event.data);
-            if (data.sendee != "{{ user.employee.name }}"){
             var notification = new Notification(data['sendee'] + " ввел критическое значение: " + data['text']);
             }
-          }
         });
 
     };

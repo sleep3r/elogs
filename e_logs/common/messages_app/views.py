@@ -60,39 +60,6 @@ class MessagesList(LoginRequiredMixin, ListView):
         return context
 
 
-def get_cell_from_dict(cell_dict: dict) -> Cell:
-    field_name = cell_dict['field_name']
-    table_name = cell_dict['table_name']
-    group_id = cell_dict['group_id']
-    index = cell_dict['index']
-
-    return Cell.get_by_addr(field_name, table_name, group_id, index)
-
-
-@csrf_exempt
-@login_required
-@logged
-def add_critical(request):
-    if request.is_ajax() and request.method == 'POST':
-        cell = get_cell_from_dict(json.loads(request.body)['cell'])
-        if cell:
-            message = json.loads(request.body)['message']
-            message['sendee'] = request.user.employee
-            Message.add(cell, message, all_users=True)
-    return JsonResponse({'status': 1})
-
-
-@csrf_exempt
-@login_required
-@logged
-def update(request):
-    if request.is_ajax() and request.method == 'POST':
-        cell = get_cell_from_dict(json.loads(request.body)['cell'])
-        if cell:
-            Message.update(cell)
-    return JsonResponse({'status': 1})
-
-
 @csrf_exempt
 @login_required
 @logged
