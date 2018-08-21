@@ -291,6 +291,11 @@ def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     except model.DoesNotExist:
         return None
 
+def get_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
+    try:
+        return model.objects.get(*args, **kwargs)
+    except model.DoesNotExist:
+        return None
 
 def model_to_representation(model: Model):
     def is_printable(field):
