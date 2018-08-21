@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {% load i18n %}
-{% load render_bundle from webpack_loader %}
 
 {% block title %}
     <title>Ситовой анализ огарка и шихты</title>
@@ -13,7 +12,6 @@
 
 {% block content %}
 <div id="furnace-index"></div>
-{% render_bundle 'furnace' %}
 {% endblock %}
 
 {% block footer %}
