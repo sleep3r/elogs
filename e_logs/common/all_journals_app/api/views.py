@@ -2,9 +2,23 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell
+from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell, Shift
 from .serializers import PlantSerializer, JournalSerializer, TableSerializer, FieldSerializer, \
-    CellSerializer
+    CellSerializer, ShiftSerializer
+
+
+class ShiftsList(generics.ListAPIView):
+    serializer_class = ShiftSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Shift.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+
+
+class ShiftAPI(generics.RetrieveAPIView):
+    lookup_field = 'id'
+    serializer_class = ShiftSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Shift.objects.all()
 
 
 class PlantsList(generics.ListAPIView):
