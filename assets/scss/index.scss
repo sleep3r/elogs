@@ -45,7 +45,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "common.scss";
 @import "variables";
 @import "layout.scss";
-//@import "notifications";
+@import "notifications";
 @import "calendar.scss";
 @import "fractional";
 @import "feedback";

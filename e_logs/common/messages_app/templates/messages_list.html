@@ -18,16 +18,12 @@
                 <li class="message">
                     <img class="message__image" src = "{% static 'images/no-avatar.png' %}" >
                     <span class="message__author-name">{{ user_name }}</span>
-                    <strong class="notification-title">
+                    <strong class="message__title">
                         <a href="#">{{message.sendee}}</a>
-                        {% if message.type == 'critical_value' %}
-                            ввел некорректное значение в поле
-                        {% elif message.type == 'comment'%}
-                            оставил замечание к полю
-                        {% endif %}
+                        <span class="message__info"></span>
                         <a href="{{message.link}}">{{message.cell.field.name}}</a>
                     </strong>
-                    <p class="{{ message.type }}">{{message.text}}</p>
+                    <p class="message__text {{ message.type }}">{{message.text}}</p>
                     <span class="message__created">{{message.created}}</span>
                 </li>
             {% endfor %}
