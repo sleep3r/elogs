@@ -11,17 +11,6 @@
 <input hidden name="has_edited"
     value={% if has_edited %} True {% endif %}>
 
-{#{%  include "all_journals_app/journal_control_panel.html" %}#}
-
-
-<div v-for="table in tables" class="journal-table" v-bind:id="'table_id_' + table.name">
-    <div class="table__title">${ table.name }</div>
-        <div class="elog-table-container">
-        </div>
-</div>
-
-
-
 {% for table_path in tables_paths %}
     {% get_table_name table_path as tn %}
     {% include table_path with table_name=tn%}
