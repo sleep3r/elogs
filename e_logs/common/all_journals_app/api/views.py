@@ -49,6 +49,7 @@ class ShiftList(generics.ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Shift.objects.all()
     filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('date', )
 
 class TablesList(generics.ListAPIView):
     serializer_class = TableSerializer
