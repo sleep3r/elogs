@@ -5,7 +5,10 @@ import Datetime from 'vue-datetime';
 
 Vue.use(Datetime);
 
-const vm = new Vue({
-    el: '#messages-app',
-    render: h => h(App)
- })
+$(document).ready(() => {
+    const vm = new Vue({
+        el: '#messages-app',
+        render: h => h(App)
+    });
+    window.vm = vm;
+});

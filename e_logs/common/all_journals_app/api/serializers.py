@@ -1,6 +1,9 @@
-from rest_framework import serializers
+from collections import OrderedDict
 
-from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, Field
+from rest_framework import serializers
+from rest_framework.fields import SkipField
+
+from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, Field, Shift
 from e_logs.core.api.utils import cached
 
 
@@ -12,21 +15,19 @@ class CellSerializer(serializers.ModelSerializer):
 
 
 class FieldSerializer(serializers.ModelSerializer):
-    cells = CellSerializer(many=True)
-    table = serializers.SerializerMethodField('get_table_name')
+    cells = serializers.SerializerMethodField("get_cell")
 
+    def get_cell(self, obj):
 
-    def get_table_name(self, obj):
-        return obj.table.name
+        return self.context.get('shift_id')
 
     class Meta:
         model = Field
-        fields = ('id', "name", "table", "cells")
+        fields = ('id', "name", "cells")
 
 
 class TableSerializer(serializers.ModelSerializer):
     fields = FieldSerializer(many=True)
-    journal = serializers.SerializerMethodField('get_journal_name')
 
 
     def get_journal_name(self, obj):
@@ -34,12 +35,11 @@ class TableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Table
-        fields = ('id', "name", 'journal', 'fields')
+        fields = ('id', "name", 'fields')
 
 
 class JournalSerializer(serializers.ModelSerializer):
     tables = TableSerializer(many=True)
-    plant = serializers.SerializerMethodField('get_plant_name')
 
 
     def get_plant_name(self, obj):
@@ -47,7 +47,18 @@ class JournalSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Journal
-        fields = ('id', 'name', 'type', 'plant', 'tables',)
+        fields = ('id', 'name','type','tables')
+
+class ShiftSerializer(serializers.ModelSerializer):
+    journal = serializers.SerializerMethodField('serialize_shift')
+
+    def serialize_shift(self, obj):
+        return JournalSerializer(instance=Journal.objects.get(cellgroup=obj),
+                                 context={"shift_id":obj.id}).data
+
+    class Meta:
+        model = Shift
+        fields = ('id', 'order', 'date', 'journal')
 
 
 class PlantSerializer(serializers.ModelSerializer):
