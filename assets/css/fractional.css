@@ -1,0 +1,53 @@
+/*------------------------------------*\
+  # Fractional
+\*------------------------------------*/
+.tablewrapper {
+  display: inline-flex;
+  flex: 1;
+  margin: 4px;
+}
+
+.pagewrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.editintable {
+  float: right;
+}
+
+.x_title .clearfix {
+  float: left;
+}
+
+.tablewrapper table {
+  margin: 0;
+}
+
+.wrappercell {
+  padding: 0 !important;
+}
+
+.textareainside {
+  box-sizing: border-box;
+  width: 100% !important;
+}
+
+.tablewrapper .navbar-right {
+  margin: 0;
+  min-width: 10px;
+}
+
+.x_panel {
+  margin: 0;
+  padding: 5px !important;
+  height: 100%;
+}
+
+.x_title {
+  height: 40px;
+  padding: 0;
+  min-width: 150px;
+}
+
+/*# sourceMappingURL=fractional.css.map */
