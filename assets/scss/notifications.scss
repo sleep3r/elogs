@@ -16,10 +16,11 @@
         width: 30px;
         height: 30px;
       }
+      .message__title .sendee { color: #548CB7;}
 
       .message__author-name { color: #a5a5a5; font-size: 12px; }
       .message__text { margin: 0; }
-      .message__text.critical_value { color: red; }
+      .message__text.critical_value { color: #ff9966; }
       .message__created { color: #a5a5a5; font-size: 10px; }
     }
 
