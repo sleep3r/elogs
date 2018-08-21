@@ -1,0 +1,35 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-pyodbc-azure = "*"
+djangorestframework = "==3.8.2"
+django-rest-swagger = "==2.2.0"
+python-dateutil = "==2.7.3"
+django-webpack-loader = "==0.6.0"
+telepot = "==12.7"
+gunicorn = "==19.9.0"
+watchdog = "*"
+django-extensions = "==2.1.0"
+django-filter = "==2.0.0"
+django-cacheops = "==4.0.7"
+django-pickling = "==1.0"
+django-redis = "==4.9.0"
+lz4 = "==2.1.0"
+Django = "*"
+PyFunctional = "==1.1.3"
+
+[dev-packages]
+icecream = "*"
+nplusone = "*"
+django-debug-toolbar = "*"
+django-debug-toolbar-template-profiler = "*"
+django-querycount = "*"
+django-migrations-graph = "*"
+django-developer-panel = "*"
+Werkzeug = "*"
+
+[requires]
+python_version = "3.6"
