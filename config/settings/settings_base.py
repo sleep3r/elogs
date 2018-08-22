@@ -74,6 +74,8 @@ INSTALLED_APPS = [
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
+
+    'e_logs.business_logic.modes.apps.BLModesConfig',
 ]
 
 MIDDLEWARE = [
