@@ -2,6 +2,7 @@ import json
 import asyncio
 
 from channels.db import database_sync_to_async
+from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.contenttypes.models import ContentType
 
@@ -33,6 +34,7 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
         )
 
         await self.close()
+        raise StopConsumer()
 
     async def websocket_receive(self, event):
         text = event.get('text', None)

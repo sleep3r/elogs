@@ -78,22 +78,6 @@ class Journal {
         const selectedElement = element;
     }
 
-    static send_all_forms() {
-
-        for (let form of $("form.elog-table-form").get()) {
-            $.ajax({
-                type: 'POST',
-                url: $(form).attr('action'),
-                data: $(form).serialize(),
-                dataType: "json",
-                success: function (data) {
-                    $("#async").hide();
-                    $("#sync").show();
-                }
-            });
-        }
-    }
-
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
             // console.log('adding on_input_change', input);
@@ -134,9 +118,6 @@ class Journal {
 
         document.onkeydown = onKeyDownAction;
 
-        window.addEventListener("beforeunload", function (e) {
-            Journal.send_all_forms();
-        }, false);
     }
 }
 
