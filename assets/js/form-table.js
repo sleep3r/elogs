@@ -16,7 +16,6 @@ class FormTable {
         let lines = new Lines();
         lines.clone_last_line(form);
         lines.clear_empty_lines(form);
-        FormTable.send(form);
     }
 
     static saveTableComment(input) {
@@ -42,22 +41,6 @@ class FormTable {
             }
         });
     }
-
-    static send(form) {
-        _.debounce((form) => {
-            $.ajax({
-                type: 'POST',
-                url: $(form).attr('action'),
-                data: $(form).serialize(),
-                dataType: "json",
-                success: function (data) {
-                    $("#async").hide();
-                    $("#sync").show();
-                }
-            });
-        }, 300)(form);
-    }
-
 }
 
 

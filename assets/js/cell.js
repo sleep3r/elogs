@@ -48,9 +48,12 @@ class Cell {
             contentType: 'application/json; charset=utf-8',
             data: forSend,
             success: function (json) {
-                // if (json && json.status) {
+                if (json && json.status) {
+                    $('#async').hide();
+                    $('#sync').show();
                 }
-            });
+            }
+        });
     }
     static saveComment(cell) {
 

@@ -109,34 +109,6 @@ class MetalsJournalView(JournalView):
         return context
 
 
-@csrf_exempt
-@process_json_view(auth_required=False)
-@logged
-def change_table(request):
-    """
-    Recreate the whole table from dict
-    :param request:
-    :return:
-    """
-    # tn = request.POST['table_name']
-    # jp = request.POST['journal_page']
-
-    # page = JournalPage.objects.get(id=int(jp))
-
-    # employee = request.user.employee
-    # page.employee_set.add(employee)
-
-    # Cell.objects.filter(table_name=tn, journal_page=page).delete()
-
-    # for field_name in request.POST:
-    #     values = request.POST.getlist(field_name)
-    #     with transaction.atomic():
-    #         for i, val in enumerate(values):
-    #             Cell(journal_page=page, value=val, index=i, field_name=field_name, table_name=tn).save()
-
-    return {"status": 1}
-
-
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
     """ View for action with denied permission """
