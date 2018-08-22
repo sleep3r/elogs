@@ -1,12 +1,38 @@
 import os
 from pathlib import Path
 
+import environ
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+FIXTURE_DIRS = (BASE_DIR/'fixtures',)
+STATIC_ROOT = BASE_DIR/'staticfiles'
+STATICFILES_DIRS = [BASE_DIR/'static']
+LOCALE_PATHS = [BASE_DIR/'resources/locale']
+
+LOGIN_URL = '/auth/login_page'
+LOGOUT_URL = '/auth/logout'
+STATIC_URL = '/static/'
+ROOT_URLCONF = 'config.urls'
+WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.routing.application'
+
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', env("HOSTNAME")]
+FEEDBACK_TG_BOT = {
+    "token": env("TG_TOKEN"),
+    "channel": env("TG_CHANNEL"),
+    "channel_name": env("TG_CHANNEL_NAME"),
+    "url": env("TG_PROXY_URL"),
+}
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -22,23 +48,6 @@ TEMPLATES = [
         },
     },
 ]
-
-FIXTURE_DIRS = (
-    BASE_DIR / 'fixtures',
-)
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-LOCALE_PATHS = [BASE_DIR / 'locale']
-
-SECRET_KEY = 'u-l(u==u!yqn!5k$a=1-k8zf7!1d2*3a(mxm4ec+a-9-hxduk8'
-
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -81,11 +90,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
-ASGI_APPLICATION = "config.routing.application"
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -113,25 +117,14 @@ WEBPACK_LOADER = {
 }
 
 LANGUAGE_CODE = 'ru-RU'
-
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = False
-
 USE_L10N = True
-
 USE_TZ = True
-
 ugettext = lambda s: s
-LANGUAGES = (
-    ('ru', ugettext('Russian')),
-    ('en', ugettext('English')),
-)
+LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 
 APPEND_SLASH = True
-
-LOGIN_URL = '/auth/login_page'
-LOGOUT_URL = '/auth/logout'
 
 LOGGING = {
     'version': 1,
@@ -272,13 +265,6 @@ LOGGING = {
             'handlers': ['console', 'printed_values'],
         },
     }
-}
-
-FEEDBACK_TG_BOT = {
-    "token": "484527904:AAHVkzp5hHuxWVfR0tYkIFPV-sgQkXQKqAQ",
-    "channel": "-1001169474805",
-    "channel_name": "@zxcvbnmasdfghjqwertyui",
-    "url": "http://185.93.3.123:8080",
 }
 
 CSRF_LENGTH = 32
