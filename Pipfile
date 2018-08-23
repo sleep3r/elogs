@@ -24,6 +24,7 @@ channels_redis = "==2.2.1"
 pyOpenSSL = "*"
 service-identity = "*"
 django-environ = "*"
+django-service-objects = "*"
 
 [dev-packages]
 icecream = "*"
