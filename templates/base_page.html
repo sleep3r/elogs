@@ -102,7 +102,12 @@
         Notification.requestPermission(function (permission) {
           if (permission === "granted") {
             data = JSON.parse(event.data);
-            var notification = new Notification("У вас новое сообщение");
+            var options = {
+                  body: "Asmet Omarov comes",
+                  icon: 'https://cdn2.iconfinder.com/data/icons/buttons-9/512/Button_Reminder-01.png',
+              };
+            var title = 'E-LOGS: У вас новое сообщение';
+            var notification = new Notification(title, options);
             }
         });
 
