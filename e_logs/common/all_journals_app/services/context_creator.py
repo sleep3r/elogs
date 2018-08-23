@@ -1,12 +1,13 @@
 import json
 
+from e_logs.business_logic.modes.models import FieldConstraints, Mode
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.loggers import err_logger
 from e_logs.common.all_journals_app.models import *
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
     plant_permission
-from e_logs.core.utils.webutils import logged, default_if_error
+from e_logs.core.utils.webutils import logged, default_if_error, get_or_none
 
 
 @logged
@@ -89,8 +90,23 @@ def get_cells_data(page: CellGroup) -> dict:
 
 @logged
 def get_fields_descriptions(journal: Journal) -> dict:
+    def get_field_desc(field):
+        mode = Mode.get_active_or_none(field=field)
+        desc = Setting.of(obj=field)['field_description']
+
+        if mode is not None:
+            constraint = get_or_none(FieldConstraints, mode=mode, field=field)
+            if constraint:
+                desc['min_normal'] = constraint.min_normal
+                desc['max_normal'] = constraint.max_normal
+
+
+        return desc
+
+
+
     def field_descs(table):
-        return {field.name: Setting.of(obj=field)['field_description']
+        return {field.name: get_field_desc(field)
                 for field in table.get_fields()}
 
     return {table.name: field_descs(table) for table in journal.tables.all()}
