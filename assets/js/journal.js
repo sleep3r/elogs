@@ -102,7 +102,17 @@ class Journal {
             return lines.line_is_empty($(line));
         }).remove();
 
-        lines.clone_last_line($("form"));
+        switch (this.getMode()) {
+            case 'view':
+                break;
+            case 'edit':
+                lines.clone_last_line($("form"));
+                break;
+            case 'validate':
+                break;
+            default:
+                break;
+        }
 
         if (validate === "True") {
             $('.indexed-line').removeClass('indexed-line')
