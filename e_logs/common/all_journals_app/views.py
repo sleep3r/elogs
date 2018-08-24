@@ -30,7 +30,6 @@ class JournalView(LoginRequiredMixin, View):
 
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
-
         if journal.type == 'shift':
             if page_id:
                 page = Shift.objects.get(id=page_id)
@@ -255,3 +254,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return result
     else:
         raise TypeError('Attempt to get shifts for non-shift journal')
+
+
+def index(request):
+    return redirect('/furnace/concentrate_report/')
