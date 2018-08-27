@@ -59,10 +59,10 @@ def get_tables_paths(journal):
 def add_permissions(context, page, request):
     err_logger.info('page_mode=' + str(context.page_mode))
     context.page_mode = get_page_mode(request, page)
+    context.employee_list = page.employee_set.all()
     context.has_edited = has_edited(request, page)
     context.has_plant_perm = plant_permission(request)
     context.superuser = request.user.is_superuser
-
 
 @default_if_error(value='')
 def get_responsible_name(cell: Cell):
@@ -101,10 +101,7 @@ def get_fields_descriptions(journal: Journal) -> dict:
                 desc['min_normal'] = constraint.min_normal
                 desc['max_normal'] = constraint.max_normal
 
-
         return desc
-
-
 
     def field_descs(table):
         return {field.name: get_field_desc(field)
