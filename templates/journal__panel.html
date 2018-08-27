@@ -16,10 +16,10 @@
         {% if perms.all_journals_app.view_cells %}
             <button class="btn btn-view" onclick="JournalPanel.changeMode('view')" >Просмотр {{ request.user.group }}</button>
         {% endif %}
-        {% if 'all_journals_app.edit_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
+        {% if 'all_journals_app.edit_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
             <button class="btn btn-edit" onclick="JournalPanel.changeMode('edit')">Редактирование</button>
         {% endif %}
-        {% if 'all_journals_app.validate_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
+        {% if 'all_journals_app.validate_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
             <button class="btn btn-validate" onclick="JournalPanel.changeMode('validate')">Валидация</button>
         {% endif %}
 

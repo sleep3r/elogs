@@ -24,10 +24,9 @@ def page_mode_is_valid(request, page) -> bool:
     if not page_mode:
         return False
 
-    is_valid = request.user.is_superuser or \
-         {"Boss", page.journal.plant.name.title()}.\
-             issubset(set([g.name for g in request.user.groups.all()]))
-
+    user_groups = [g.name for g in request.user.groups.all()]
+    is_valid = request.user.is_superuser or {"Boss", page.journal.plant.name.title()}.\
+             issubset(set(user_groups)) or "Big boss" in user_groups
 
     if plant_permission(request):
         has_perm = check_mode_permissions(employee, page, page_mode)
