@@ -30,7 +30,7 @@ Vue.component('cell', {
           'value': value
         })
         .then(response => {
-          console.log(response.data)
+          this.$emit('change_cell')
         })
     }
   },
@@ -44,30 +44,32 @@ var elogsApp = new Vue({
       plant_name: '',
       journal_name: '',
       cellgroup_info: '',
+      syncronized: true,
     }
   },
+  delimiters: ['%{', '}'],
   computed: {
     number_of_lines: function () {
-      maxCellsNumber = 1
-      fields = this.cellgroup_info.journal.tables.big.fields
-      for(field in fields) {
-        if (fields.hasOwnProperty(field)) {
-          console.log(field)
-          if (typeof field.cells != 'undefined') {
-            curCellsNumber = Object.keys(field.cells).length
-            maxCellsNumber = maxCellsNumber < curCellsNumber ? curCellsNumber : maxCellsNumber
+      maxCellIndex = 1
+      if (this.cellgroup_info != '') {
+        fields = this.cellgroup_info.journal.tables.big.fields
+        for(field in fields) {
+          for (cellIndex in fields[field].cells) {
+            cellIndex = parseInt(cellIndex)
+            maxCellIndex = maxCellIndex < cellIndex ? cellIndex : maxCellIndex
           }
-          console.log(Object.keys(field))
         }
       }
-      return maxCellsNumber
+      return maxCellIndex+1
     }
   },
   methods: {
-    getTables: function () {
+    getCellGroupInfo: function () {
+      this.syncronized = false
       axios
         .get('/api/shifts/' + this.page_id)
         .then(response => {
+          this.syncronized = true
           this.cellgroup_info = response.data
         })
     }
@@ -76,6 +78,6 @@ var elogsApp = new Vue({
     this.plant_name = window.location.pathname.split("/")[1];
     this.journal_name = window.location.pathname.split("/")[2];
     this.page_id = window.location.pathname.split("/")[3];
-    this.getTables();
+    this.getCellGroupInfo();
   }
 });

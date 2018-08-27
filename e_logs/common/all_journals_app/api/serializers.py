@@ -35,7 +35,7 @@ class FieldSerializer(serializers.ModelSerializer):
 
     def get_cell(self, obj):
         qs = Cell.objects.filter(group_id=self.context.get('shift_id'), field=obj)
-        return {CellSerializer(c).data.get('index'): CellSerializer(c).data for c in qs}
+        return {int(CellSerializer(c).data.get('index')): CellSerializer(c).data for c in qs}
 
     class Meta:
         model = Field
@@ -44,12 +44,12 @@ class FieldSerializer(serializers.ModelSerializer):
 
 class TableSerializer(serializers.ModelSerializer):
     fields = serializers.SerializerMethodField('get_fields_dict')
-    number_of_lines = serializers.SerializerMethodField()
+    # number_of_lines = serializers.SerializerMethodField()
 
-    def get_number_of_lines(self, obj):
-        shift_id = self.context.get('shift_id')
-        return Cell.objects.filter(field__table=obj, group__id=shift_id)\
-                .aggregate(Max('index')).get('index__max') or 1
+    # def get_number_of_lines(self, obj):
+    #     shift_id = self.context.get('shift_id')
+    #     return Cell.objects.filter(field__table=obj, group__id=shift_id)\
+    #             .aggregate(Max('index')).get('index__max') or 1
 
     def get_fields_dict(self, obj):
         return {FieldSerializer(f).data.get('name'):
@@ -58,7 +58,7 @@ class TableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Table
-        fields = ('id', 'name', 'number_of_lines', 'fields', )
+        fields = ('id', 'name', 'fields', )
 
 
 class JournalSerializer(serializers.ModelSerializer):

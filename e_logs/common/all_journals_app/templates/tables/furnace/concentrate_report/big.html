@@ -3,7 +3,13 @@
 
 {% block title %}Учет поставок{% endblock %}
 
+
 {% block table %}
+%{syncronized}
+
+<big-table>
+  
+</big-table>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -22,19 +28,19 @@
         </tr>
     </thead>
     <tbody>
-          <tr v-for="(value, index) in 3" class="indexed-line">
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="wagon_num" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="conc_num" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="supply_time" v-bind:index="index"></cell></td>
+          <tr v-for="(value, index) in number_of_lines+1" class="indexed-line">
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="wagon_num" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="conc_num" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="supply_time" v-bind:index="index"></cell></td>
 
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="plan_cleaning_time" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="fact_cleaning_time" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="plan_cleaning_time" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="fact_cleaning_time" v-bind:index="index"></cell></td>
 
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="downtime" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_conc" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_beds" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_stops" v-bind:index="index"></cell></td>
-              <td><cell v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_braces" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="downtime" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_conc" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_beds" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_stops" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="getCellGroupInfo" v-bind:cellgroup_info="cellgroup_info" table_name={{table_name}} field_name="recieved_braces" v-bind:index="index"></cell></td>
           </tr>
     </tbody>
 </table>
