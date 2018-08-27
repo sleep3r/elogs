@@ -16,7 +16,7 @@ from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, C
 from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged
+from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -26,6 +26,7 @@ class JournalView(LoginRequiredMixin, View):
     """
 
     @logged
+    @has_private_journals
     def get(self, request, plant_name: str, journal_name: str):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
