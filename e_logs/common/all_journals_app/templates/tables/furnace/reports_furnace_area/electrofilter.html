@@ -7,17 +7,17 @@
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
-            <th rowspan="2" colspan="2"> Электрофильтр </th>
-            <th colspan="2"> Температура<i class='units'>ᵒC</i> </th>
-            <th rowspan="2"> Вольтамперная характеристика </th>
-            <th rowspan="2" > Концентрация SO<sub>2</sub><i class='units'>%</i> </th>
-            <th colspan="3"> Запылённость газа по системам </th>
-            <th rowspan="2"> Откачка пыли с бункеров по факту<i class='units'>м³</i> </th>
-            <th colspan="2"> Вакуум насос </th>
+            <th rowspan="2" colspan="2" class="th-common"> Электрофильтр </th>
+            <th colspan="2" class="th-common"> Температура<i class='units'>ᵒC</i> </th>
+            <th rowspan="2" class="th-number"> Вольтамперная характеристика </th>
+            <th rowspan="2" class="th-number"> Концентрация SO<sub>2</sub><i class='units'>%</i> </th>
+            <th colspan="3" class="th-common"> Запылённость газа по системам </th>
+            <th rowspan="2" class="th-number"> Откачка пыли с бункеров по факту<i class='units'>м³</i> </th>
+            <th colspan="2" class="th-common"> Вакуум насос </th>
         </tr>
         <tr>
-            <th> Вход </th>
-            <th> Выход </th>
+            <th class="th-number"> Вход </th>
+            <th class="th-number"> Выход </th>
             <th> 1 </th>
             <th> 2 </th>
             <th> 3 </th>
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr>
-            <th rowspan="2"> ГК-30М </th>
+            <th rowspan="2" class="th-mul-row"> ГК-30М </th>
             <th> 1 секция </th>
             <td>{% include "value.html" with field_name="M_s1_t_in" index=0 %}</td>
             <td>{% include "value.html" with field_name="M_s1_t_out" index=0 %}</td>
@@ -50,7 +50,7 @@
 
         </tr>
         <tr>
-            <th rowspan="2"> ГК-30Г </th>
+            <th rowspan="2" class="th-mul-row"> ГК-30Г </th>
             <th> 1 секция </th>
             <td>{% include "value.html" with field_name="G_s1_t_in" index=0 %}</td>
             <td>{% include "value.html" with field_name="G_s1_t_out" index=0 %}</td>
@@ -67,7 +67,7 @@
             <td>{% include "value.html" with field_name="G_s2_fact" index=0 %}</td>
         </tr>
         <tr>
-            <th rowspan="2"> ГК-60 </th>
+            <th rowspan="2" class="th-mul-row"> ГК-60 </th>
             <th> 1 секция </th>
             <td>{% include "value.html" with field_name="s1_t_in" index=0 %}</td>
             <td>{% include "value.html" with field_name="s1_t_out" index=0 %}</td>

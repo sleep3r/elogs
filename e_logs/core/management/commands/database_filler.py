@@ -89,6 +89,19 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
+        user = User.objects.create_user('shaukenov-shalkar', password='qwerty')
+        user.first_name = "Шалкар"
+        user.last_name = "Шаукенов"
+        user.is_superuser = False
+        user.is_staff = True
+        user.groups.add(Group.objects.get(name="Big boss"))
+        for group in user.groups.all():
+            for perm in group.permissions.all():
+                user.user_permissions.add(perm)
+        user.save()
+        Employee(name="shaukenov-shalkar", position="Big boss", user=user).save()
+
+
     @staticmethod
     def fill_plants():
         plant_names = ['furnace', 'electrolysis', 'leaching']
@@ -121,10 +134,12 @@ class DatabaseFiller:
             user.first_name = user_dict['ru']['first_name']
             user.last_name = user_dict['ru']['last_name']
             user.is_superuser = False
-            user.is_staff = True
+            user.is_staff = False
             for group in user_dict["groups"]:
                 user.groups.add(Group.objects.get(name=group))
-            user.user_permissions.add(Permission.objects.get(codename="view_cells"))
+            for group in user.groups.all():
+                for perm in group.permissions.all():
+                    user.user_permissions.add(perm)
 
             e = Employee()
             e.name = user.first_name + ' ' + user.last_name
@@ -193,10 +208,12 @@ class DatabaseFiller:
         perm_names = ["Modify Leaching Plant", "Modify Furnace Plant", "Modify Electrolysis Plant",
                       "Validate Cells", "Edit Cells", "View Cells"]
         perm_codenames = ["modify_leaching", "modify_furnace", "modify_electrolysis",
-                          "validate_cells", "edit_cells", "view_cells"]
-        group_perms = {"Laborant": "edit_cells", "Boss": "validate_cells",
-                       "Leaching": "modify_leaching", "Furnace": "modify_furnace",
-                       "Electrolysis": "modify_electrolysis"}
+                          "validate_cells", "edit_cells",  "view_cells"]
+        group_perms = {"Laborant": ("edit_cells", "view_cells",), "Boss": ("validate_cells", "view_cells", "edit_cells"),
+                       "Leaching": ("modify_leaching",), "Furnace": ("modify_furnace",),
+                       "Electrolysis": ("modify_electrolysis",),
+                       "Big boss":("modify_leaching", "modify_furnace", "modify_electrolysis",
+                          "validate_cells", "view_cells", "edit_cells")}
 
         content_type = ContentType.objects.get_for_model(Cell)
 
@@ -204,11 +221,12 @@ class DatabaseFiller:
             perm = Permission(name=n, codename=cn, content_type=content_type)
             perm.save()
 
-        for group_name, perm in group_perms.items():
+        for group_name, perms in group_perms.items():
             gr = Group(name=group_name)
             gr.save()  # for many-to-many to work
-            perm_obj = Permission.objects.get(codename=perm)
-            gr.permissions.set([perm_obj])
+            for perm in perms:
+                perm_obj = Permission.objects.get(codename=perm)
+                gr.permissions.add(perm_obj)
             gr.save()
 
     @staticmethod

@@ -1,8 +1,5 @@
-{% load staticfiles %}
-{% load cacheops %}
-{% load cache %}
-
 <!DOCTYPE html>
+{% load staticfiles %}{% load render_bundle from webpack_loader %}{% load cacheops %}{% load cache %}
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,63 +13,25 @@
     {% endblock %}
 
     {% block css %}
-        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">
-        <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">
+{#        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">#}
+{#        <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">#}
+{#        <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">#}
+{#        <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">#}
+{#        <link href="{% static '/vendors/font-awesome/css/font-awesome.css' %}" rel="stylesheet">#}
 
         <!-- css all in one -->
-        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">
+{#        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">#}
+        {% render_bundle 'index' 'css' %}
+{#        {% render_bundle 'vendor' 'css' %}#}
     {% endblock %}
 
     {% block extracss %}
     {% endblock %}
-    <!-- jQuery -->
-    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
-    <!-- underscore -->
-    <script src="{% static 'vendors/underscore/underscore-min.js' %}"></script>
-    <script src="{% static 'build/js/common.js' %}"></script>
-
-    <script src="{% static 'vendors/vue/vue.js' %}"></script>
-    <script src="{% static 'vendors/vue/vue-resource.min.js' %}"></script>
-    <script src="{% static 'vendors/moment/moment.min.js' %}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <!-- jquery-confirm -->
-    <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>
-    <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>
-    <script language="JavaScript">
-        var user = {
-            email: "{{ user.email }}",
-            username: "{{ user.username }}",
-        }
-        var backend = {
-            user: user,
-        };
-    </script>
-    <script>
-    function getRedirectLink() {
-        let date = $("#selected_month").val();
-        let mode = $('input[name=mode]:checked').attr('id');
-
-        return "/furnace/report_income_outcome_schieht?month=" + date + "&mode=" + mode;
-    }
-
-    $(document).ready(() => {
-        $("input:radio").change(function (event) {
-            window.location.href = getRedirectLink()
-        });
-
-        $("#selected_month").change((event) => {
-            window.location.href = getRedirectLink()
-        });
-
-    });
-    </script>
 
 </head>
-<body class="nav-md">
+<body>
 <div class="elogs-container">
+
     {% block top-nav %}
         {% include "top_nav.html" %}
     {% endblock %}
@@ -81,7 +40,7 @@
             {% include "menu.html" %}
         </div>
         <div class="column-content" id="elogs-app">
-            <div class="journal-page">
+            <div class="journal-page" mode="{{ page_mode }}">
                 {% block journal_panel %}
                     {% include "journal__panel.html" %}
                 {% endblock %}
@@ -99,20 +58,72 @@
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
+{% render_bundle 'index' 'js' %}
+{#        {% render_bundle 'vendor' 'js' %}#}
     <!-- Bootstrap -->
-    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>
-    <script src="{% static 'build/js/datepicker.js' %}"></script>
-    <script src="{% static 'build/js/datepicker-init.js' %}"></script>
-    <script src="{% static 'build/js/shift.js' %}"></script>
-    <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>
-    <script src="{% static 'build/js/header.js' %}"></script>
-    <script src="{% static 'build/js/user-menu.js' %}"></script>
-    <script src="{% static 'build/js/menu.js' %}"></script>
-    <script src="{% static 'build/js/journal-panel.js' %}"></script>
-    <script src="{% static 'vendors/popups/popper.js' %}"></script>
-    <script src="{% static 'build/js/vue-app.js' %}"></script>
+{#    <script src="{% static 'vendors/jquery/dist/jquery.js' %}"></script>#}
+{#    <script src="{% static 'vendors/underscore/underscore-min.js' %}"></script>#}
+{#    <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>#}
+{#    <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>#}
+{#    <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>#}
+{#    <script src="{% static 'vendors/popups/popper.js' %}"></script>#}
+{#    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>#}
+{#    <script src="{% static 'vendors/vue/vue.js' %}"></script>#}
+{#    <script src="{% static 'vendors/vue/vue-resource.min.js' %}"></script>#}
+{#    <script src="{% static 'vendors/moment/moment.min.js' %}"></script>#}
+{#    <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>#}
+
+{#    <script src="{% static 'build/js/common.js' %}"></script>#}
+{##}
+{#    <script src="{% static 'build/js/popup.js' %}"></script>#}
+{#    <script src="{% static 'build/js/datepicker.js' %}"></script>#}
+{#    <script src="{% static 'build/js/datepicker-init.js' %}"></script>#}
+{#    <script src="{% static 'build/js/shift.js' %}"></script>#}
+{#    <script src="{% static 'build/js/header.js' %}"></script>#}
+{#    <script src="{% static 'build/js/user-menu.js' %}"></script>#}
+{#    <script src="{% static 'build/js/menu.js' %}"></script>#}
+{#    <script src="{% static 'build/js/journal-panel.js' %}"></script>#}
+
+{#    <script src="{% static 'build/js/form-update.js' %}"></script>#}
+{#    <script src="{% static 'build/js/journal.js' %}"></script>#}
+{#    <script src="{% static 'build/js/form-table.js' %}"></script>#}
+{#    <script src="{% static 'build/js/cell.js' %}"></script>#}
+{#    <script src="{% static 'build/js/feedback.js' %}"></script>#}
+<script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
+
+<script>
+    var endpoint = 'ws://' + window.location.host + '/messages/';
+    messages_socket = new ReconnectingWebSocket(endpoint);
+
+    messages_socket.onmessage = function (event) {
+        console.log("message", event);
+        {#alert(event.data);#}
+
+        Notification.requestPermission(function (permission) {
+          if (permission === "granted") {
+            data = JSON.parse(event.data);
+            var options = {
+                  body: "Asmet Omarov comes",
+                  icon: 'https://cdn2.iconfinder.com/data/icons/buttons-9/512/Button_Reminder-01.png',
+              };
+            var title = 'E-LOGS: У вас новое сообщение';
+            var notification = new Notification(title, options);
+            }
+        });
+
+    };
+    messages_socket.onopen = function (event) {
+        console.log("connected", event);
+    };
+    messages_socket.onerror = function (event) {
+        console.log("error", event);
+    };
+    messages_socket.onclose = function (event) {
+        console.log("closed", event);
+    };
+</script>
 {% endblock %}
+
 
 </body>
 </html>

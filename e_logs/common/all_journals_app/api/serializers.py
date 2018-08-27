@@ -3,7 +3,6 @@ from rest_framework import serializers
 from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, Field, Shift
 from e_logs.core.models import Setting
 from e_logs.core.api.utils import cached
-from django.db.models import Max
 
 
 class CellSerializer(serializers.ModelSerializer):
@@ -44,12 +43,6 @@ class FieldSerializer(serializers.ModelSerializer):
 
 class TableSerializer(serializers.ModelSerializer):
     fields = serializers.SerializerMethodField('get_fields_dict')
-    # number_of_lines = serializers.SerializerMethodField()
-
-    # def get_number_of_lines(self, obj):
-    #     shift_id = self.context.get('shift_id')
-    #     return Cell.objects.filter(field__table=obj, group__id=shift_id)\
-    #             .aggregate(Max('index')).get('index__max') or 1
 
     def get_fields_dict(self, obj):
         return {FieldSerializer(f).data.get('name'):
@@ -79,4 +72,4 @@ class PlantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plant
-        fields = ('id', 'name', 'journals')
+        fields = ("id", "name", "journals")

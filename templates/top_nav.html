@@ -8,7 +8,7 @@
         <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>
     </div>
     <div class="header__user">
-        <i class="fas fa-envelope"></i>
+        <i class="fas fa-envelope user-messages-badge" onclick="Toggle.class('.user-notifications','display')"></i>
         <i class="fas fa-bell"></i>
         <span class="user-name">{{ user.employee }}</span>
         <i class="fas fa-user-circle"></i>
@@ -32,7 +32,6 @@
                       class="caption">Оставить отзыв разработчикам</span>
                   </a>
               </li>
-
               <li class="user-menu__item">
                   <a href="/auth/logout">
                       <i class="fas fa-sign-out-alt"></i>
@@ -41,10 +40,6 @@
               </li>
             </ul>
           </div>
-        <div class="user-notifications">
-            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                {% include "notification-list.html" with notifications=notifications %}
-            </ul>
-        </div>
+        <div id="messages-app"></div>
     </div>
 </div>

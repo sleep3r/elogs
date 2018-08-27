@@ -6,8 +6,8 @@
 {% block table %}
     <ul class="nav nav-tabs">
         {% for month in months %}
-            <li class="{% if month == cur_month %}active{% endif %}">
-                <a aria-selected="{% if month == cur_month %}true{% endif %}"
+            <li class="nav-item">
+                <a class="nav-link {% if month == cur_month %}active{% endif %}"
                    data-toggle="tab"
                    href="#{{ month|add:"_table" }}">{{ months|keyval:month }}</a>
             </li>
@@ -46,4 +46,23 @@
     </div>
 {% endblock %}
 {% block js %}
+    <script>
+    function getRedirectLink() {
+        let date = $("#selected_month").val();
+        let mode = $('input[name=mode]:checked').attr('id');
+
+        return "/furnace/report_income_outcome_schieht?month=" + date + "&mode=" + mode;
+    }
+
+    $(document).ready(() => {
+        $("input:radio").change(function (event) {
+            window.location.href = getRedirectLink()
+        });
+
+        $("#selected_month").change((event) => {
+            window.location.href = getRedirectLink()
+        });
+
+    });
+    </script>
 {% endblock %}

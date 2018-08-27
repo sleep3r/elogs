@@ -175,7 +175,7 @@ class Equipment(CellGroup):
 class Cell(models.Model):
     """Specific cell in some table."""
 
-    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='data')
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
     field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name='cells')
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')
@@ -210,8 +210,8 @@ class Cell(models.Model):
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
         group = CellGroup.objects.cache().get(id=group_id)
         field = Field.objects.cache().get_or_create(
-            table=Table.objects.get_or_create(name=table_name, journal=group.journal)[0],
-                                  name=field_name)[0]
+            table=Table.objects.get(name=table_name, journal=group.journal), name=field_name)[0]
+
         return Cell.objects.cache().get_or_create(group=group, field=field, index=index)[0]
 
     class Meta:
@@ -219,8 +219,8 @@ class Cell(models.Model):
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
-    def get_comments_text(self):
-        return ''.join(c.get_text() for c in Comment.objects.filter(cell=self))
+    def get_comments_text(self, cell):
+        return ''.join(c.get_text() for c in Comment.objects.filter(cell=cell))
 
 
 class Comment(models.Model):

@@ -1,10 +1,14 @@
+import json
+
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin
+from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none
 
 
 class Message(StrAsDictMixin, models.Model):
@@ -14,39 +18,63 @@ class Message(StrAsDictMixin, models.Model):
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=1024, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
-                                                 ('comment', 'Замечание')))
+                                                 ('comment', 'Замечание'),
+                                                 ('set_mode', "Режим")),)
     text = models.TextField(verbose_name='Текст сообщения')
 
     sendee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
                                related_name='messages_sendee')
     addressee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
-                                  related_name='messages_adressee')
+                                  related_name='messages_addressee')
 
-    link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#")
+    link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#", null=True)
 
     @staticmethod
     def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
+        '''
+        'message': {
+                    'text': "some text",
+                    'link': Optional[URI],
+                    'type': "message type",
+                    'sendee': Employee,
+                }
+        '''
+
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError
 
         recipients = []
-        if uids:
-            recipients = list()
-            for uid in uids:
-                recipients.extend(Employee.objects.cache().get(id=uid))
-        if positions:
-            recipients = list()
-            for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p).cache())
-        if all_users:
-            recipients = list()
-            recipients.extend(Employee.objects.all().cache())
 
-        text = message['text']
-        message.pop('text')
+        if uids:
+            recipients = []
+            for uid in uids:
+                recipients.extend(Employee.objects.get(id=uid).exclude(name=message['sendee']).cache())
+        if positions:
+            recipients = []
+            for p in positions:
+                recipients.extend(Employee.objects.filter(plant=plant, position=p).exclude(name=message['sendee']).cache())
+        if all_users:
+            recipients = []
+            recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
+
+        text = message.pop('text', '')
+
+        layer = get_channel_layer()
 
         for emp in recipients:
-            Message.objects.update_or_create(**message, defaults={'text': text}, addressee=emp, cell=cell)
+            msg = get_or_none(Message, **message,
+                              addressee=emp, cell=cell, type__in=('comment', 'critical_value'))
+            if msg:
+                msg.text = text
+                msg.save()
+            else:
+                Message.objects.create(**message, addressee=emp, cell=cell, text=text)
+                async_to_sync(layer.group_send)\
+                    (f'user_{emp.id}', {"type": "message.send",
+                                       "text": json.dumps({
+                                           'cell': cell.field.name if cell else None,
+                                           'sendee': message['sendee'].name,
+                                           'text': text})})
 
     @staticmethod
     def update(cell):

@@ -1,10 +1,11 @@
+{% load express_tags %}
 {% load i18n %}
 <div class="menu__panel">
     <div class="menu__title">Список цехов</div>
     <i class="menu__toggle fas fa-bars"></i>
 </div>
 <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
-<ul class="menu">
+<ul class="menu menu--left">
     <li class="menu__item open">
         <a href="#" class="menu-item__link">
             <i class="menu-item__icon fa fa-book"></i>
@@ -18,16 +19,8 @@
             <li class="menu__item">
                 <a href="" data-url="/furnace/concentrate_report" class="menu-item__link">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a>
             </li>
-            <li class="menu__item parent">
+            <li class="menu__item">
                 <a href="" data-url="/furnace/reports_furnace_area" class="menu-item__link">{% trans "Журнал рапортов ОЦ" %}</a>
-                <ul class="sub-menu">
-                    <li class="menu__item">
-                        <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="" data-url="/furnace/metals_compute" class="menu-item__link">{% trans "Рассчёт металлов" %}</a>
-                    </li>
-                </ul>
             </li>
             <li class="menu__item">
                 <a href="" data-url="/furnace/technological_tasks" class="menu-item__link">{% trans "Журнал сменных производственных, тех. заданий" %}</a>
@@ -38,6 +31,14 @@
             <li class="menu__item">
                 <a href="" data-url="/furnace/furnace_changed_fraction" class="menu-item__link">{% trans "Рабочий журнал изменения фракции" %}</a>
             </li>
+            {% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}
+                <li class="menu__item">
+                    <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a>
+                </li>
+                <li class="menu__item">
+                    <a href="" data-url="/furnace/metals_compute" class="menu-item__link">{% trans "Рассчёт металлов" %}</a>
+                </li>
+            {% endif %}
         </ul>
     </li>
     <li class="menu__item">

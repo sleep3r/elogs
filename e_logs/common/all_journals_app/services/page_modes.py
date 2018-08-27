@@ -1,3 +1,4 @@
+from e_logs.business_logic.modes import services
 from e_logs.common.login_app.models import Employee
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
@@ -23,9 +24,15 @@ def page_mode_is_valid(request, page) -> bool:
     if not page_mode:
         return False
 
-    is_valid = request.user.is_superuser
+    user_groups = [g.name for g in request.user.groups.all()]
+    is_valid = request.user.is_superuser or {"Boss", page.journal.plant.name.title()}.\
+             issubset(set(user_groups)) or "Big boss" in user_groups
+
     if plant_permission(request):
         has_perm = check_mode_permissions(employee, page, page_mode)
+        if has_perm == True:
+            has_perm = services.CheckRole.execute({"employee":request.user.employee, "page":page}) \
+            and services.CheckTime.execute({"employee": request.user.employee, "page": page})
     else:
         has_perm = page_mode == "view"
 
