@@ -79,11 +79,14 @@ class CheckTime(Service):
         page = self.data['page']
         employee = self.data['employee']
         assignment_time = Setting.of(page)['shift_assignment_time']
+
         if timezone.now() > page.end_time - timedelta(**assignment_time if \
            assignment_time else {"hours":1}) and employee not in page.employee_set.all():
             return False
 
-        if timezone.now() > page.end_time + timedelta(hours=12):
+        if timezone.now() > page.end_time + timedelta(hours=12) and \
+                employee not in page.employee_set.all():
             return False
+
 
         return True
