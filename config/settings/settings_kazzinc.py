@@ -7,8 +7,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149', 'kzukgs7Elog0.kazzinc.kz', '10.77.103.88', 'elogs.kazzinc.kz']
 
-ROOT_URLCONF = 'DigitalLogs.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import environ
+
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env()
 
@@ -14,14 +15,16 @@ LOCALE_PATHS = [BASE_DIR/'resources/locale']
 
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
+ADMIN_URL = 'admin/'
 STATIC_URL = '/static/'
+
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.routing.application'
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', env("HOSTNAME")]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("HOSTNAME")]
 FEEDBACK_TG_BOT = {
     "token": env("TG_TOKEN"),
     "channel": env("TG_CHANNEL"),
@@ -32,7 +35,7 @@ FEEDBACK_TG_BOT = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -49,13 +52,19 @@ TEMPLATES = [
     },
 ]
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
+# APPS
+# ------------------------------------------------------------------------------
+DJANGO_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',  # Handy template tags
+    'django.contrib.admin',
+]
+THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
     'rest_framework_swagger',
@@ -65,9 +74,11 @@ INSTALLED_APPS = [
     'cacheops',
     'django_pickling',
     'template_profiler_panel',
+    'compressor',
     'django_celery_beat',
     'django_celery_results',
-
+]
+LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
 
     'e_logs.common.login_app.apps.LoginApp',
@@ -79,6 +90,7 @@ INSTALLED_APPS = [
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
 ]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,6 +106,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# PASSWORDS
+# ------------------------------------------------------------------------------
+PASSWORD_HASHERS = [
+    # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+]
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -120,8 +142,10 @@ WEBPACK_LOADER = {
     }
 }
 
+CSRF_LENGTH = 32
 LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'Europe/Moscow'
+SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -129,6 +153,8 @@ ugettext = lambda s: s
 LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 
 APPEND_SLASH = True
+
+MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
 
 LOGGING = {
     'version': 1,
@@ -243,6 +269,11 @@ LOGGING = {
         'django': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'INFO',
             'propagate': False,
         },
         'django.db': {
@@ -271,22 +302,26 @@ LOGGING = {
     }
 }
 
-CSRF_LENGTH = 32
-
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-        ),
+    ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
-        ),
+        # 'rest_framework.permissions.IsAuthenticated',  # coockuecutter
+    ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
-        ),
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
     'PAGE_SIZE': 100,
-
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework.authentication.TokenAuthentication',
+    # )
 }
 
 CHANNEL_LAYERS = {
@@ -298,16 +333,13 @@ CHANNEL_LAYERS = {
     },
 }
 
-CONN_MAX_AGE = 60*20  # save database connections for 30 minutes
-
 # --------------------------------- CACHING STAFF ---------------------------------------
 
-MAX_CACHE_TIME = 60*60*5
-
+MAX_CACHE_TIME = 60 * 60 * 5
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379?db=0",
+        "LOCATION": "redis://127.0.0.1:6379?db=0",  # redis is inside docker so we'll not .env it
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
@@ -315,7 +347,7 @@ CACHES = {
             "CONNECTION_POOL_KWARGS": {"max_connections": 100},
         },
         'TIMEOUT': MAX_CACHE_TIME,
-        "KEY_PREFIX": '',
+        "KEY_PREFIX": 'e_logs_cache_',
     }
 }
 
@@ -328,19 +360,18 @@ SESSION_CACHE_ALIAS = "default"
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
 DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
-
 CACHEOPS_REDIS = {
-    'host': 'localhost', # redis-server is on same machine
-    'port': 6379,        # default redis port
-    'db': 1,             # SELECT non-default redis database
-                         # using separate redis db or redis instance
-                         # is highly recommended
+    'host': 'localhost',  # redis-server is on same machine
+    'port': 6379,  # default redis port
+    'db': 1,  # SELECT non-default redis database
+    # using separate redis db or redis instance
+    # is highly recommended
 
     # 'socket_timeout': 3,
 }
 
 CACHEOPS_DEFAULTS = {
-    'timeout': 60*60,
+    'timeout': 60 * 60,
     # 'local_get': True,
 }
 
@@ -349,15 +380,15 @@ CACHEOPS = {
     # This also includes .first() and .last() calls,
     # as well as request.user or post.author access,
     # where Post.author is a foreign key to auth.User
-    'auth.user': {'ops': 'get', 'timeout': 60*15},
+    'auth.user': {'ops': 'get', 'timeout': 60 * 15},
 
     # Automatically cache all gets and queryset fetches
     # to other django.contrib.auth models for an hour
-    'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60*60},
+    'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60 * 60},
 
     # Cache all queries to Permission
     # 'all' is an alias for {'get', 'fetch', 'count', 'aggregate', 'exists'}
-    'auth.permission': {'ops': 'all', 'timeout': 60*60},
+    'auth.permission': {'ops': 'all', 'timeout': 60 * 60},
 
     # Enable manual caching on all other models with default timeout of an hour
     # Use Post.objects.cache().get(...)
@@ -365,11 +396,11 @@ CACHEOPS = {
     # to cache particular ORM request.
     # Invalidation is still automatic
     # '*.*': {'timeout': 60*60},
-    '*.*': {'ops': 'all', 'timeout': 60*60},
+    '*.*': {'ops': 'all', 'timeout': 60 * 60},
 
-    'core.models.Setting': {'ops': 'all', 'timeout': 60*60},
-    'common.all_journals_app.models.Cell': {'ops': 'all', 'timeout': 60*60},
-    'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60*60},
+    'core.models.Setting': {'ops': 'all', 'timeout': 60 * 60},
+    'common.all_journals_app.models.Cell': {'ops': 'all', 'timeout': 60 * 60},
+    'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60 * 60},
     # 'core.models.Setting': {'timeout': 60*60},
     # 'core.models.Setting': {'timeout': 60*60},
 }
