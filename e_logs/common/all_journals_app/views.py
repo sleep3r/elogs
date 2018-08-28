@@ -159,7 +159,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 @process_json_view(auth_required=False)
 # @logged
 def save_cell(request):
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         cell_info = json.loads(request.body)
         cell = Cell.get_or_create_cell(**cell_info['cell_location'])
         value = cell_info['value']
