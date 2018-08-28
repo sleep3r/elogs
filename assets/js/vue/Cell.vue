@@ -6,12 +6,12 @@
 import axios from 'axios';
 
 export default {
-  props: ['cellgroup_info', 'table_name', 'field_name', 'index'],
+  props: ['cellgroupInfo', 'tableName', 'fieldName', 'index'],
   computed: {
     value: {
       get: function () {
-        if (this.cellgroup_info != '') {
-          let cells = this.cellgroup_info.journal.tables[this.table_name].fields[this.field_name].cells
+        if (this.cellgroupInfo != '') {
+          let cells = this.cellgroupInfo.journal.tables[this.tableName].fields[this.fieldName].cells
           if (typeof cells[this.index] !== "undefined") {
             return cells[this.index].value
           }
@@ -19,27 +19,9 @@ export default {
         return ''
       },
       set: function (value) {
-        this.saveCell(value)
+        this.$emit('change_cell', this.tableName, this.fieldName, this.index, value)
       }
     }
   },
-  methods: {
-    saveCell: function (value) {
-      axios
-        .post('/common/save_cell/', {
-          'cell_location': {
-            'group_id': this.cellgroup_info.id,
-            'table_name': this.table_name,
-            'field_name': this.field_name,
-            'index': this.index
-          },
-          'value': value
-        })
-        .then(response => {
-          this.$emit('change_cell')
-        })
-    }
-  },
-  template: ''
 }
 </script>

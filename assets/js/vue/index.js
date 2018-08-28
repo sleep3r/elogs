@@ -3,23 +3,33 @@ import Cell from './Cell.vue';
 import axios from 'axios';
 
 
-new Vue({
+window.App = new Vue({
   el: '#elogs-app',
   components: { Cell },
   data: function () {
     return {
-      plant_name: '',
-      journal_name: '',
-      cellgroup_info: '',
+      pageId: '',
+      plantName: '',
+      journalName: '',
+      cellgroupInfo: '',
       syncronized: true,
     }
   },
   delimiters: ['%{', '}'],
-  computed: {
-    number_of_lines: function () {
-      let maxCellIndex = 0
-      if (this.cellgroup_info != '') {
-        let fields = this.cellgroup_info.journal.tables.big.fields
+  methods: {
+    getCellGroupInfo: function () {
+      this.syncronized = false
+      axios
+        .get('/api/shifts/' + this.pageId)
+        .then(response => {
+          this.syncronized = true
+          this.cellgroupInfo = response.data
+        })
+    },
+    numberOfLines: function (tableName) {
+      let maxCellIndex = -1
+      if (this.cellgroupInfo != '') {
+        let fields = this.cellgroupInfo.journal.tables[tableName].fields
         for(let field in fields) {
           for (let cellIndex in fields[field].cells) {
             cellIndex = parseInt(cellIndex)
@@ -28,23 +38,44 @@ new Vue({
         }
       }
       return maxCellIndex+1
-    }
-  },
-  methods: {
-    getCellGroupInfo: function () {
-      this.syncronized = false
+    },
+    sendCell: function (tableName, fieldName, index, value) {
+      // save cell on server
       axios
-        .get('/api/shifts/' + this.page_id)
-        .then(response => {
-          this.syncronized = true
-          this.cellgroup_info = response.data
+        .post('/common/save_cell/', {
+          'cell_location': {
+            'group_id': this.cellgroupInfo.id,
+            'table_name': tableName,
+            'field_name': fieldName,
+            'index': index
+          },
+          'value': value
         })
+        .then(response => {
+          if (response.data.status != '1') {
+            console.log('DID NOT SAVE CELL ON SERVER')
+          }
+        })
+    },
+    saveCell: function (tableName, fieldName, index, value) {
+      // save cell locally
+      let cellInfo = {
+          "value": value,
+          "index": index
+      }
+      this.cellgroupInfo.journal.tables[tableName].fields[fieldName].cells[index] = cellInfo
+      this.$forceUpdate()
+    },
+    onCellChange: function (tableName, fieldName, index, value) {
+      this.saveCell(tableName, fieldName, index, value)
+      this.sendCell(tableName, fieldName, index, value)
     }
   },
   mounted () {
-    this.plant_name = window.location.pathname.split("/")[1];
-    this.journal_name = window.location.pathname.split("/")[2];
-    this.page_id = window.location.pathname.split("/")[3];
+    console.log('mounted')
+    this.plantName = window.location.pathname.split("/")[1];
+    this.journalName = window.location.pathname.split("/")[2];
+    this.pageId = window.location.pathname.split("/")[3];
     this.getCellGroupInfo();
   }
 });
