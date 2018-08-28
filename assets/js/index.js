@@ -41,3 +41,5 @@ import './vue-env';
 import './common';
 import './journal-panel';
 import './user-menu';
+
+import './vue/index';

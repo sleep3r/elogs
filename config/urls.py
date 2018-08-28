@@ -43,7 +43,7 @@ urlpatterns = [
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
 
-    path('bl/', include('e_logs.business_logic.modes.urls'))
+    path('bl/', include('e_logs.business_logic.modes.urls')),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
     path('furnace/metals_compute/', MetalsJournalView.as_view()),
     path('furnace/report_income_outcome_schieht/', ShihtaJournalView.as_view()),

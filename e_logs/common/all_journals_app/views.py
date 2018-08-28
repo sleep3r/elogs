@@ -1,4 +1,5 @@
 import json
+import pytz
 from datetime import date, datetime, timedelta
 
 from e_logs.core.utils.loggers import stdout_logger
@@ -26,11 +27,12 @@ class JournalView(LoginRequiredMixin, View):
     Inherit from this class when creating your own journal view.
     """
 
-    @has_private_journals
+    # @has_private_journals
     def get(self, request, plant_name: str, journal_name: str, page_id=None):
 
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
+        page = None
         if journal.type == 'shift':
             if page_id:
                 page = Shift.objects.get(id=page_id)
@@ -42,17 +44,18 @@ class JournalView(LoginRequiredMixin, View):
                 for shift_order in range(1, number_of_shifts + 1):
                     shift = Shift.objects.get_or_create(journal=journal,
                                                         order=shift_order,
-                                                        date=date.today())[0]
+                                                        date=datetime.now(pytz.utc))[0]
                     if shift.is_active:
                         page = shift
                         break
+                if not page: # fixme: there may be no active shift due to datetime problems
+                    page = shift
                 return redirect('journal_view', page_id=page.id, plant_name=plant_name,
                                 journal_name=journal_name)
         elif journal.type == 'equipment':
             page = Equipment.objects.get_or_create(journal=journal)[0]
         else:
             raise NotImplementedError()
-
         context = self.get_context(request, page)
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
