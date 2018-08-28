@@ -50,6 +50,7 @@ def add_page_info(context, journal, page):
     context.page_type = journal.type
     context.journal_name = journal.name
     context.journal_page = page.id
+    context.page_is_closed = page.closed
 
 
 def get_tables_paths(journal):

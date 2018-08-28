@@ -16,6 +16,7 @@
         <ul class="messages__list">
             {% for message in messages %}
                 <li class="message">
+                {% if message.sendee != None %}
                     <img class="message__image" src = "{% static 'images/no-avatar.png' %}" >
                     <span class="message__author-name">{{ user_name }}</span>
                     <strong class="message__title">
@@ -23,6 +24,7 @@
                         <span class="message__info"></span>
                         <a href="{{message.link}}">{{message.cell.field.name}}</a>
                     </strong>
+                {% endif %}
                     <p class="message__text {{ message.type }}">{{message.text}}</p>
                     <span class="message__created">{{message.created}}</span>
                 </li>

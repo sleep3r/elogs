@@ -129,6 +129,7 @@ class Measurement(CellGroup):
 class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
+    closed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Смена'
