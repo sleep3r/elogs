@@ -27,6 +27,14 @@ django-environ = "*"
 django-service-objects = "*"
 celery = "*"
 django-celery-beat = "*"
+redis = "*"
+"argon2-cffi" = "*"
+rcssmin = "*"
+python-slugify = "*"
+django-compressor = "*"
+#twisted = "*"
+[packages.Twisted]
+extras = [ "tls", "http2",]
 
 [dev-packages]
 icecream = "*"
@@ -43,11 +51,15 @@ virtualenv = "*"
 pipenv = "*"
 pip-tools = "*"
 bpython = "*"
+djdt-flamegraph = "*"
 tox-pipenv = "*"
 pylint = "*"
 pylint-common = "*"
 pylint-django = "*"
 "flake8" = "*"
+pybuilder = "*"
+coverage = "*"
+django-coverage-plugin = "*"
 
 [requires]
 python_version = "3.6.6"

@@ -1,0 +1,120 @@
+[27/Aug/2018 13:43:39] INFO [STDOUT:176] Resetting increment counter...
+[27/Aug/2018 13:43:39] INFO [STDOUT:40] Cleaning db
+[27/Aug/2018 13:43:39] INFO [STDOUT:44] Creating db
+[27/Aug/2018 13:43:39] INFO [STDOUT:46] Creating superuser...
+[27/Aug/2018 13:43:39] INFO [STDOUT:48] Adding permissions...
+[27/Aug/2018 13:43:39] INFO [STDOUT:51] Adding plants...
+[27/Aug/2018 13:43:39] INFO [STDOUT:53] Adding journals...
+[27/Aug/2018 13:43:39] INFO [STDOUT:55] Adding tables...
+[27/Aug/2018 13:43:39] INFO [STDOUT:57] Adding fields...
+[27/Aug/2018 13:43:40] INFO [STDOUT:60] Adding settings...
+[27/Aug/2018 13:43:40] INFO [STDOUT:216] Adding table lists for each journal...
+[27/Aug/2018 13:43:40] INFO [STDOUT:258] Adding fields info settings...
+[27/Aug/2018 13:43:48] INFO [STDOUT:65] Adding Employees...
+[27/Aug/2018 13:43:59] INFO [STDOUT:69] Filling fractional app...
+[27/Aug/2018 13:44:03] INFO [STDOUT:72] Done!
+[27/Aug/2018 14:01:19] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:01:19] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:01:19] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:01:19] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:01:19] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:08] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:03:23] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:04:06] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:04:06] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:04:06] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:04:06] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:04:06] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:10] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:11:10] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:10] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:10] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:10] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:15] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:16] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:16] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:16] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:16] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:16] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:17] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:17] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:18] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:19] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:19] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:19] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:19] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:20] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:20] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:20] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:20] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:22] ERROR [STDERR:58] 'AnonymousUser' object has no attribute 'employee'
+[27/Aug/2018 14:11:44] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:11:44] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:44] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:44] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:44] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:56] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:11:56] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:56] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:56] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:11:56] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:40] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:16:40] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:40] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:40] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:40] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:45] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 14:16:45] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:45] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:45] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 14:16:45] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 17:31:35] INFO [STDERR:59] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[27/Aug/2018 17:31:35] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 17:31:35] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 17:31:35] DEBUG [STDERR:82] cells: <QuerySet []>
+[27/Aug/2018 17:31:35] DEBUG [STDERR:82] cells: <QuerySet []>

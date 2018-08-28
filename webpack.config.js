@@ -10,6 +10,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const OfflinePlugin = require('offline-plugin');
 
+const OPTIONS = {
+    PROJECT_ROOT: __dirname,
+    NODE_ENV: process.env.NODE_ENV,
+    DEV_MODE: process.env.DEBUG !== 'True',
+};
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -111,8 +116,8 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg|ico)$/i,
-                // loader: 'url-loader',
-                loader: 'file-loader',
+                loader: 'url-loader',
+                // loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: 'images/',
