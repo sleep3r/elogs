@@ -17,12 +17,12 @@ new Vue({
   delimiters: ['%{', '}'],
   computed: {
     number_of_lines: function () {
-      let maxCellIndex = 1
+      let maxCellIndex = 0
       if (this.cellgroup_info != '') {
         let fields = this.cellgroup_info.journal.tables.big.fields
         for(let field in fields) {
-          for (cellIndex in fields[field].cells) {
-            let cellIndex = parseInt(cellIndex)
+          for (let cellIndex in fields[field].cells) {
+            cellIndex = parseInt(cellIndex)
             maxCellIndex = maxCellIndex < cellIndex ? cellIndex : maxCellIndex
           }
         }
