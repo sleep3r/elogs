@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <div class="journal__panel">
     <div class="date-selector">
         <label>Выберите дату и смену</label>
@@ -12,8 +13,19 @@
         >
     </div>
     <div class="mode-buttons">
-        <button class="btn btn-view" onclick="JournalPanel.changeMode('view')" >Просмотр</button>
-        <button class="btn btn-edit" onclick="JournalPanel.changeMode('edit')">Редактирование</button>
-        <button class="btn btn-validate" onclick="JournalPanel.changeMode('validate')">Валидация</button>
+        {% if perms.all_journals_app.view_cells %}
+            <button class="btn btn-view" onclick="JournalPanel.changeMode('view')" >Просмотр {{ request.user.group }}</button>
+        {% endif %}
+        {% if 'all_journals_app.edit_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn btn-edit" onclick="JournalPanel.changeMode('edit')">Редактирование</button>
+        {% endif %}
+        {% if 'all_journals_app.validate_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn btn-validate" onclick="JournalPanel.changeMode('validate')">Валидация</button>
+        {% endif %}
+
+        {% for employee in employee_list %}
+            <img style="height: 30px; width: 30px;" title="{{ employee.name }}: {{ employee.position_verbose }}" src = "{% static 'images/no-avatar.png' %}">
+        {% endfor %}
+
     </div>
 </div>

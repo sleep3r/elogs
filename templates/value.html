@@ -44,3 +44,7 @@
 {% if page_mode == "view" and comment|length > 0  %}
     <i class="far fa-envelope comment-notification"  onclick="PopUp.showView(this)"></i>
 {% endif %}
+
+{% if page_mode == "validate" and comment|length > 0  %}
+    <i class="far fa-envelope comment-notification" ></i>
+{% endif %}

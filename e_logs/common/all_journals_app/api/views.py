@@ -1,6 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics
+from rest_framework import generics, mixins, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+
 
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell, Shift
 from .serializers import PlantSerializer, JournalSerializer, TableSerializer, FieldSerializer, \
@@ -83,10 +85,14 @@ class CellsList(generics.ListAPIView):
     serializer_class = CellSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Cell.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filter_fields = (
-        'field__table__journal__plant__name', 'field__table__journal__name', 'field__table__name',
-        'field__name', 'group_id')
+
+    def post(self, request):
+        return Response({"detail":"Hello, !"}, status=status.HTTP_200_OK)
+
+    # filter_backends = (DjangoFilterBackend,)
+    # filter_fields = (
+    #     'field__table__journal__plant__name', 'field__table__journal__name', 'field__table__name',
+    #     'field__name', 'group_id')
 
 class CellAPI(generics.RetrieveAPIView):
     lookup_field = 'id'
