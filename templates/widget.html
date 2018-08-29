@@ -11,7 +11,11 @@
 <input hidden name="has_edited"
     value={% if has_edited %} True {% endif %}>
 
-{% for table_path in tables_paths %}
-    {% get_table_name table_path as tn %}
-    {% include table_path with table_name=tn%}
-{% endfor %}
+<div id="elogs-app">
+
+  <template v-for="table in tables">
+    %{table}
+    <Table-Common :cellgroup-info="cellgroupInfo" plant-name="furnace" journal-name="concentrate_report" :table-name="table" ></Table-Common>
+  </template>
+
+</div>

@@ -1,3 +1,8 @@
+{% extends "table.html" %}
+
+{% block title %}Ответственные по складу{% endblock %}
+
+{% block table %}
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -20,3 +25,4 @@
         <td>{% include "value.html" with field_name="shift" auto_val=shift_order index=0 %}</td>
     </tr>
 </table>
+{% endblock %}

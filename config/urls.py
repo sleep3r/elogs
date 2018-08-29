@@ -24,7 +24,7 @@ from rest_framework_swagger.views import get_swagger_view
 from config.settings import settings
 from e_logs.furnace.fractional_app import views
 from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, \
-                                                    get_shifts, index
+                                                    get_shifts, index, get_table_template
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
@@ -44,6 +44,7 @@ urlpatterns = [
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
 
     path('bl/', include('e_logs.business_logic.modes.urls')),
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>', get_table_template),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
     path('furnace/metals_compute/', MetalsJournalView.as_view()),
     path('furnace/report_income_outcome_schieht/', ShihtaJournalView.as_view()),

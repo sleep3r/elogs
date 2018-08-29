@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
+  name: 'Cell',
   props: ['cellgroupInfo', 'tableName', 'fieldName', 'index'],
   computed: {
     value: {

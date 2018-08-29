@@ -1,14 +1,5 @@
-{% extends "table.html" %}
-{% load express_tags %}
-
-{% block title %}Учет поставок{% endblock %}
-
-
-{% block table %}
-%{syncronized}
-
 <table class="table table-bordered elog-journal-table">
-    <thead>
+    <!-- <thead>
         <tr>
             <th scope="col" class="th-number"> Номер вагона </th>
             <th scope="col"> Наиме&shy;нование концен&shy;трата </th>
@@ -23,22 +14,21 @@
             <th scope="col" class="th-number"> Поступило упоров<i class='units'>шт</i> </th>
             <th scope="col" class="th-number"> Поступило скоб<i class='units'>шт</i> </th>
         </tr>
-    </thead>
+    </thead> -->
     <tbody>
-          <tr v-for="(value, index) in numberOfLines('{{table_name}}')+1" class="indexed-line">
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="wagon_num" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="conc_num" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="supply_time" v-bind:index="index"></cell></td>
+          <tr v-for="(value, index) in 1" class="indexed-line">
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="wagon_num" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="conc_num" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="supply_time" :index="index"></cell></td>
 
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="plan_cleaning_time" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="fact_cleaning_time" v-bind:index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="plan_cleaning_time" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="fact_cleaning_time" :index="index"></cell></td>
 
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="downtime" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_conc" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_beds" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_stops" v-bind:index="index"></cell></td>
-              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_braces" v-bind:index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="downtime" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="recieved_conc" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="recieved_beds" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="recieved_stops" :index="index"></cell></td>
+              <td><Cell v-on:change_cell="onCellChange" :cellgroup-info="cellgroupInfo" :table-name="tableName" field-name="recieved_braces" :index="index"></cell></td>
           </tr>
     </tbody>
 </table>
-{% endblock %}

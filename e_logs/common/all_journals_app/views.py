@@ -10,7 +10,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
 from django.views import View
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
@@ -153,6 +153,9 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
 
+
+def get_table_template(request, plant_name, journal_name, table_name):
+    return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
 
 
 @csrf_exempt

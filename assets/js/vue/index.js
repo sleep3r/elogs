@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Cell from './Cell.vue';
+import Vue from 'vue/dist/vue.esm.js'
+import TableCommon from './TableCommon.vue';
 import axios from 'axios';
 
 
 window.App = new Vue({
   el: '#elogs-app',
-  components: { Cell },
+  components: { TableCommon },
   data: function () {
     return {
       pageId: '',
@@ -16,6 +16,14 @@ window.App = new Vue({
     }
   },
   delimiters: ['%{', '}'],
+  computed: {
+    tables: function () {
+      if (this.cellgroupInfo != '') {
+        // return Object.keys(this.cellgroupInfo.journal.tables)
+        return ['big']
+      }
+    }
+  },
   methods: {
     getCellGroupInfo: function () {
       this.syncronized = false
@@ -28,6 +36,7 @@ window.App = new Vue({
     },
     numberOfLines: function (tableName) {
       let maxCellIndex = -1
+      // TODO: use null instead of ''
       if (this.cellgroupInfo != '') {
         let fields = this.cellgroupInfo.journal.tables[tableName].fields
         for(let field in fields) {
@@ -72,7 +81,7 @@ window.App = new Vue({
     }
   },
   mounted () {
-    console.log('mounted')
+    console.log('app is mounted')
     this.plantName = window.location.pathname.split("/")[1];
     this.journalName = window.location.pathname.split("/")[2];
     this.pageId = window.location.pathname.split("/")[3];

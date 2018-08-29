@@ -1,0 +1,43 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Учет поставок{% endblock %}
+
+
+{% block table %}
+%{syncronized}
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th scope="col" class="th-number"> Номер вагона </th>
+            <th scope="col"> Наиме&shy;нование концен&shy;трата </th>
+            <th scope="col"> Время подачи </th>
+
+            <th scope="col"> Время плано&shy;вой уборки </th>
+            <th scope="col"> Время факти&shy;ческой уборки </th>
+
+            <th scope="col" class="th-number"> Время перепростоя </th>
+            <th scope="col" class="th-number"> Поступило контей&shy;неров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Поступило поддонов<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Поступило упоров<i class='units'>шт</i> </th>
+            <th scope="col" class="th-number"> Поступило скоб<i class='units'>шт</i> </th>
+        </tr>
+    </thead>
+    <tbody>
+          <tr v-for="(value, index) in numberOfLines('{{table_name}}')+1" class="indexed-line">
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="wagon_num" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="conc_num" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="supply_time" v-bind:index="index"></cell></td>
+
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="plan_cleaning_time" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="fact_cleaning_time" v-bind:index="index"></cell></td>
+
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="downtime" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_conc" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_beds" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_stops" v-bind:index="index"></cell></td>
+              <td><cell v-on:change_cell="onCellChange" v-bind:cellgroup-info="cellgroupInfo" table-name={{table_name}} field-name="recieved_braces" v-bind:index="index"></cell></td>
+          </tr>
+    </tbody>
+</table>
+{% endblock %}
