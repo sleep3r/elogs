@@ -8,6 +8,7 @@ from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Field
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
+from e_logs.common.all_journals_app.tasks import end_of_mode
 
 
 class SetMode(Service):
@@ -41,6 +42,8 @@ class SetMode(Service):
                              'text':self.cleaned_data['message'],
                              'sendee':self.data['sendee']},
                     all_users=True)
+
+        end_of_mode.apply_async((mode,), eta=self.cleaned_data['end'])
 
         return mode
 

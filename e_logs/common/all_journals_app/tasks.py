@@ -6,6 +6,10 @@ from celery.schedules import crontab
 
 from django.utils import timezone
 
+from e_logs.core.models import Setting
+from e_logs.common.all_journals_app.models import Shift, Cell
+from e_logs.common.messages_app.models import Message
+
 os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
 django.setup()
 
@@ -38,8 +42,6 @@ app.conf.beat_schedule = {
 
 @app.task
 def check_blank_shift(plant):
-    from e_logs.common.all_journals_app.models import Shift, Cell
-    from e_logs.common.messages_app.models import Message
     for shift in filter(lambda s:s.is_active,
             list(Shift.objects.filter(date=timezone.now(), journal__plant__name=plant))):
             if not Cell.objects.filter(group=shift).exists():
@@ -57,3 +59,20 @@ def check_blank_shift(plant):
                                      'text': "Журнал остался незаполнен",
                                      'sendee':None },
                             positions=("Big boss",))
+
+@app.task
+def end_of_limited_acess(page):
+    Setting.of(page)['limited_access_employee_id_list'] = None
+
+@app.task
+def send_deferred_message(type, text, ids):
+    Message.add(cell=None,
+                message={'type': type,
+                         'text': text,
+                         'sendee': None},
+                uids=ids)
+
+@app.task
+def end_of_mode(mode):
+    mode.is_active = False
+    mode.save()

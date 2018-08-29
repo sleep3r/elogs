@@ -52,8 +52,8 @@ def check_mode_permissions(employee: Employee, page, page_mode: str) -> bool:
         if page.journal.type == "shift" or page.journal.type == "equipment":
             is_valid = not page.closed and employee.user.has_perm(EDIT_CELLS)
             if page.closed:
-                limited_emp_list = Setting.of(page)["limited_access_employee_list"]
-                if limited_emp_list and employee in limited_emp_list:
+                limited_emp_list = Setting.of(page)["limited_access_employee_id_list"]
+                if limited_emp_list and employee.id in limited_emp_list:
                     is_valid = True
 
     if page_mode == "view":
