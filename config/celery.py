@@ -1,12 +1,16 @@
 import os
 from celery import Celery
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.settings")
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
+app = Celery('main', broker="redis://localhost:6379")
 
-app = Celery('e_logs')
-app.config_from_object('django.conf:settings', namespace='CELERY')
-app.autodiscover_tasks()
+app.conf.update(
+    task_serializer='json',
+    accept_content=['json'],  # Ignore other content
+    result_serializer='json',
+    timezone='Europe/Moscow',
+)
 
 @app.task(bind=True)
 def debug_task(self):

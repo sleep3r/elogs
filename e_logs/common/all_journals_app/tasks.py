@@ -1,3 +1,5 @@
+import os
+
 from celery import Celery
 from celery.schedules import crontab
 
@@ -5,6 +7,8 @@ from django.utils import timezone
 
 from e_logs.common.all_journals_app.models import Shift, Cell
 from e_logs.common.messages_app.models import Message
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.settings")
 
 app = Celery('tasks', broker="redis://localhost:6379")
 

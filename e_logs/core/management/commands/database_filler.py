@@ -100,7 +100,7 @@ class DatabaseFiller:
             for perm in group.permissions.all():
                 user.user_permissions.add(perm)
         user.save()
-        Employee(name="shaukenov-shalkar", position="Big boss", user=user).save()
+        Employee(name="Шалкар Шаукенов", position="Big boss", user=user).save()
 
 
     @staticmethod

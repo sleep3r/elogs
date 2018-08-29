@@ -370,6 +370,7 @@ CACHEOPS_REDIS = {
     # 'socket_timeout': 3,
 }
 
+
 CACHEOPS_DEFAULTS = {
     'timeout': 60 * 60,
     # 'local_get': True,
