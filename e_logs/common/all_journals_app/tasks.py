@@ -1,14 +1,13 @@
 import os
+import django
 
 from celery import Celery
 from celery.schedules import crontab
 
 from django.utils import timezone
 
-from e_logs.common.all_journals_app.models import Shift, Cell
-from e_logs.common.messages_app.models import Message
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.settings")
+os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
+django.setup()
 
 app = Celery('tasks', broker="redis://localhost:6379")
 
@@ -39,6 +38,8 @@ app.conf.beat_schedule = {
 
 @app.task
 def check_blank_shift(plant):
+    from e_logs.common.all_journals_app.models import Shift, Cell
+    from e_logs.common.messages_app.models import Message
     for shift in filter(lambda s:s.is_active,
             list(Shift.objects.filter(date=timezone.now(), journal__plant__name=plant))):
             if not Cell.objects.filter(group=shift).exists():
