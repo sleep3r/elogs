@@ -9,7 +9,7 @@ from e_logs.business_logic.services import SetMode
 from e_logs.common.all_journals_app.models import Shift
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.tasks import end_of_limited_acess, send_deferred_message
+from e_logs.common.all_journals_app.tasks import end_of_limited_access, send_deferred_message
 
 @csrf_exempt
 def set_limited_access_employee_list(request):
@@ -24,7 +24,7 @@ def set_limited_access_employee_list(request):
         Setting.of(page)['limited_access_employee_id_list'] = data['emp_id_list']
 
         end_time = timezone.now() + timedelta(**data['time'])
-        end_of_limited_acess.apply_async((page.id,), eta=end_time)
+        end_of_limited_access.apply_async((page.id,), eta=end_time)
 
         for min in (60, 40, 20):
             send_deferred_message.apply_async(
