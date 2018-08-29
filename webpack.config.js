@@ -27,7 +27,7 @@ module.exports = {
         "index.min": './js/index',
         messages: './messages/index',
         furnace: './furnace/index',
-        vendor: [
+        vFendor: [
             "jquery",
             "moment",
             "fullcalendar",
@@ -137,7 +137,7 @@ module.exports = {
             moment: 'moment',
             Vue: ['vue/dist/vue.esm.js', 'default'],
             $: 'jquery',
-            _: 'underscore',
+            _: 'lodash',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             tether: 'tether',
