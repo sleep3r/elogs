@@ -24,7 +24,7 @@ def set_limited_access_employee_list(request):
         Setting.of(page)['limited_access_employee_id_list'] = data['emp_id_list']
 
         end_time = timezone.now() + timedelta(**data['time'])
-        end_of_limited_acess.apply_async((page,), eta=end_time)
+        end_of_limited_acess.apply_async((page.id,), eta=end_time)
 
         for min in (60, 40, 20):
             send_deferred_message.apply_async(

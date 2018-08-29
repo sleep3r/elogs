@@ -6,9 +6,11 @@ from celery.schedules import crontab
 
 from django.utils import timezone
 
+from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell
 from e_logs.common.messages_app.models import Message
+from e_logs.core.utils.webutils import get_or_none
 
 os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
 django.setup()
@@ -61,8 +63,10 @@ def check_blank_shift(plant):
                             positions=("Big boss",))
 
 @app.task
-def end_of_limited_acess(page):
-    Setting.of(page)['limited_access_employee_id_list'] = None
+def end_of_limited_acess(page_id):
+    page = get_or_none(Shift, id=page_id)
+    if page:
+        Setting.of(page)['limited_access_employee_id_list'] = None
 
 @app.task
 def send_deferred_message(type, text, ids):
@@ -73,6 +77,8 @@ def send_deferred_message(type, text, ids):
                 uids=ids)
 
 @app.task
-def end_of_mode(mode):
-    mode.is_active = False
-    mode.save()
+def end_of_mode(mode_id):
+    mode = get_or_none(Mode, id=mode_id)
+    if mode:
+        mode.is_active = False
+        mode.save()
