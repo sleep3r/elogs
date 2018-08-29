@@ -19,7 +19,9 @@
         {% endif %}
         {% if 'all_journals_app.edit_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
             <button class="btn btn-edit"
-                    {% if page_is_closed and not user.is_superuser  %} disabled {% endif %}
+                    {% if page_is_closed and not user.is_superuser and not user|in_group:"Big boss" and not user|in_group:"Boss" and user|in_group:plant.name|title%}
+                        disabled
+                    {% endif %}
                     onclick="JournalPanel.changeMode('edit')">Редактирование
             </button>
         {% endif %}
