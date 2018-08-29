@@ -1,4 +1,4 @@
-from e_logs.business_logic.modes import services
+from e_logs.business_logic import services
 from e_logs.common.login_app.models import Employee
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required

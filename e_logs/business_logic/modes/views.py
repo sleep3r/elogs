@@ -1,14 +1,11 @@
-import json
 from datetime import timedelta
 
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from e_logs.business_logic.modes.services import SetMode
+from e_logs.business_logic.services import SetMode
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import process_json_view
 
 
 @csrf_exempt

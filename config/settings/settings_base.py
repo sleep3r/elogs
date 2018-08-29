@@ -89,6 +89,7 @@ LOCAL_APPS = [
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
+    'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
