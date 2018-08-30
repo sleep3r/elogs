@@ -5,10 +5,12 @@ from service_objects.services import Service
 from django import forms
 
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
-from e_logs.common.all_journals_app.models import Field
+from e_logs.common.all_journals_app.models import Field, Shift
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.tasks import end_of_mode
+from e_logs.common.all_journals_app.tasks import end_of_mode, end_of_limited_access, \
+    send_deferred_message
+from e_logs.core.utils.webutils import get_or_none
 
 
 class SetMode(Service):
@@ -65,6 +67,8 @@ class CheckRole(Service):
             if page.employee_set.filter(position=position).\
                     count() < int(Setting.of(page)[f"number_of_{position}"] or 1):
                 return True
+        if self.data['employee'] in page.employee_set.all():
+            return True
 
         return False
 
@@ -87,9 +91,35 @@ class CheckTime(Service):
            assignment_time else {"hours":1}) and employee not in page.employee_set.all():
             return False
 
-        if timezone.now() > page.end_time + timedelta(hours=12) and \
-                employee not in page.employee_set.all():
+        if timezone.now() > page.end_time + timedelta(hours=12):
             return False
 
-
         return True
+
+class SetLimitedAccess(Service):
+    shift_id = forms.IntegerField()
+
+    def clean(self):
+        super().clean()
+
+        if ('emp_id_list' in self.data) and (isinstance(self.data['emp_id_list'],list)) is True and\
+           ('time' in self.data) and (isinstance(self.data['time'], dict)) is True:
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError('Invalid time data')
+
+    def process(self):
+        page = get_or_none(Shift, id=self.cleaned_data['shift_id'])
+
+        if page and page.closed == True:
+            Setting.of(page)['limited_access_employee_id_list'] = self.data['emp_id_list']
+
+            end_time = timezone.now() + timedelta(**self.data['time'])
+            end_of_limited_access.apply_async((page.id,), eta=end_time)
+
+            for min in (60, 40, 20):
+                send_deferred_message.apply_async(
+                    ('warning', f'До конца ограниченного доступа осталось {min} минут'),
+                    eta=end_time - timedelta(minutes=min))
+
+            return page

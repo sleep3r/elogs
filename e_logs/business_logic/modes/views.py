@@ -14,7 +14,7 @@ def create_mode(request):
     #     data = json.loads(request.body)
     #     data['sendee'] = request.user.employee
     #     SetMode.execute(**data)
-    #     return {"status":1}
+    #     return JsonResponce({"status":1})
     #
         SetMode.execute({"beginning":timezone.now(),
             "end":timezone.now() + timedelta(minutes=3),

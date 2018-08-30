@@ -46,7 +46,9 @@ urlpatterns = [
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
-    path('bl/', include(('e_logs.business_logic.modes.urls', 'e_logs.business_logic.blank_shifts.urls')))
+    path('bl/', include('e_logs.business_logic.modes.urls')),
+    path('bl/', include('e_logs.business_logic.blank_shifts.urls'))
+
 ]
 
 if settings.DEBUG:
