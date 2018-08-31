@@ -69,7 +69,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'cacheops',
     'django_pickling',
-    'template_profiler_panel',
+    'service_objects',
     'compressor',
     'django_celery_beat',
     'django_celery_results',

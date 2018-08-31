@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path, re_path
 from django.contrib.auth.decorators import user_passes_test
-from icecream import ic
 
 from rest_framework_swagger.views import get_swagger_view
 
@@ -53,7 +52,8 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
 ]
 
-if settings.DEBUG:
+# FIX IT
+if settings.DEBUG and False:
     import debug_toolbar
 
     urlpatterns = [

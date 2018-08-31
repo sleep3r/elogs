@@ -1,11 +1,15 @@
 #!/bin/bash
-#python3.6 manage.py makemigrations
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+#export CELERY_BROKER_URL="${REDIS_URL}"
+#export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
 
 python3.6 manage.py makemigrations --merge
 python3.6 manage.py migrate        # Apply database migrations
 python3.6 manage.py demo_db --recreate
-#python3 manage.py collectstatic --clear --noinput # clearstatic files
-#python3 manage.py collectstatic --noinput  # collect static files
 
 touch /srv/logs/gunicorn.log
 touch /srv/logs/access.log
@@ -17,7 +21,15 @@ echo "daemon off;" >> /etc/nginx/nginx.conf
 # Fix nginx errors (delete one bad line)
 sed -i '/listen \[\:\:\]\:80 default_server;/d' /etc/nginx/sites-available/default
 
-echo Starting Gunicorn.
+echo Starting Daphne...
+
+exec daphne config.asgi:application \
+    --bind 0.0.0.0 \
+    --port 8001 \
+    --verbosity 1 &
+
+echo Starting Gunicorn...
+
 exec gunicorn config.wsgi:application \
     --name e-logs \
     --bind unix:/srv/DigitalLogs.sock \
@@ -26,5 +38,5 @@ exec gunicorn config.wsgi:application \
     --log-file=/srv/logs/gunicorn.log \
     --access-logfile=/srv/logs/access.log &
 
-echo Starting nginx 
+echo Starting nginx...
 exec service nginx start

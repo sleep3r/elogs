@@ -5,7 +5,7 @@
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.6.6"
+            "python_version": "3.6"
         },
         "sources": [
             {
@@ -786,10 +786,10 @@
         },
         "txaio": {
             "hashes": [
-                "sha256:14bdd7b26c12bf1b213e4f85bf7e4d5a2e920692313f2fb19f0f9ab5b143026f",
-                "sha256:701de939e90bb80f7e085357081552437526752199def5541dddfc34c0b0593f"
+                "sha256:67e360ac73b12c52058219bb5f8b3ed4105d2636707a36a7cdafb56fe06db7fe",
+                "sha256:b6b235d432cc58ffe111b43e337db71a5caa5d3eaa88f0eacf60b431c7626ef5"
             ],
-            "version": "==18.7.1"
+            "version": "==18.8.1"
         },
         "unidecode": {
             "hashes": [

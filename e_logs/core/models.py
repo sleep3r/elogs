@@ -1,4 +1,5 @@
 import pickle
+
 from typing import Optional
 
 from django.db import models

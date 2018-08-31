@@ -14,12 +14,12 @@ INSTALLED_APPS += [
 ]
 
 MIDDLEWARE = [
-                 'debug_toolbar.middleware.DebugToolbarMiddleware',
                  'djdev_panel.middleware.DebugMiddleware',
                  'nplusone.ext.django.NPlusOneMiddleware',
                  'querycount.middleware.QueryCountMiddleware',
              ] + MIDDLEWARE + \
              [
+                 'debug_toolbar.middleware.DebugToolbarMiddleware',
                  'querycount.middleware.QueryCountMiddleware',
              ]
 
@@ -33,7 +33,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.cache.CachePanel',
     'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
-    'template_profiler_panel.panels.template.TemplateProfilerPanel',
+    # 'template_profiler_panel.panels.template.TemplateProfilerPanel',
 ]
 
 DEBUG_TOOLBAR_CONFIG = {

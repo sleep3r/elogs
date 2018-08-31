@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: "quay.io/inframine/e-logs:db"
+    hostname: "db"
+    ports:
+     - "1433:1433"
+  redis:
+    image: "redis"
+    hostname: "redis"
+    ports:
+     - "6379:6379"
+  web:
+    build: .
+    ports:
+     - "80:80"
+    environment:
+     - DJANGO_SETTINGS_MODULE=config.settings.settings_singapore
+    depends_on:
+     - redis
+     - db
+
