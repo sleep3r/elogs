@@ -1,13 +1,10 @@
-import os
-import django
+from config import settings_setup
 
 from celery import Celery
 from celery.schedules import crontab
 
 from django.utils import timezone
 
-os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
-django.setup()
 
 
 from e_logs.business_logic.modes.models import Mode
@@ -55,13 +52,13 @@ def check_blank_shift(plant):
                 Message.add(cell=None,
                             message={'type': 'blank_journal',
                                      'text': "Журнал остался незаполнен",
-                                     'sendee':None },
+                                     'sendee': None },
                             plant=plant, positions=("Boss",))
 
                 Message.add(cell=None,
                             message={'type': 'blank_journal',
                                      'text': "Журнал остался незаполнен",
-                                     'sendee':None },
+                                     'sendee': None },
                             positions=("Big boss",))
 
 @app.task

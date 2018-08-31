@@ -26,9 +26,8 @@ function onKeyDownAction(e) {
     }
     e = e || window.event;
 
-    e.preventDefault()
-
     if (e.keyCode === 38) { // up arrow
+        e.preventDefault()
         let idx = selectedElement.cellIndex;
         let nextrow = selectedElement.parentElement.previousElementSibling;
         if (nextrow != null) {
@@ -38,6 +37,7 @@ function onKeyDownAction(e) {
             }
         }
     } else if (e.keyCode === 40) { // down arrow
+        e.preventDefault()
         let idx = selectedElement.cellIndex;
         let nextrow = selectedElement.parentElement.nextElementSibling;
         if (nextrow != null) {
@@ -47,11 +47,13 @@ function onKeyDownAction(e) {
             }
         }
     } else if (e.keyCode === 37) { // left arrow
+        e.preventDefault()
         let sibling = selectedElement.previousElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);
         }
     } else if (e.keyCode === 39) { // right arrow
+        e.preventDefault()
         let sibling = selectedElement.nextElementSibling;
         if (sibling) {
             Journal.focusTo(sibling);

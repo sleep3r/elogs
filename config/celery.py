@@ -1,9 +1,6 @@
-import os
-import django
-from celery import Celery
+from config import settings_setup
 
-os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
-django.setup()
+from celery import Celery
 
 app = Celery('main', broker="redis://localhost:6379")
 

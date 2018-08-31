@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 import environ
 
 env = environ.Env(DEBUG=(bool, False))
@@ -8,10 +9,10 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-FIXTURE_DIRS = (BASE_DIR/'fixtures',)
-STATIC_ROOT = BASE_DIR/'staticfiles'
-STATICFILES_DIRS = [BASE_DIR/'static']
-LOCALE_PATHS = [BASE_DIR/'resources/locale']
+FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+LOCALE_PATHS = [BASE_DIR / 'resources/locale']
 
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
@@ -30,6 +31,11 @@ FEEDBACK_TG_BOT = {
     "channel": env("TG_CHANNEL"),
     "channel_name": env("TG_CHANNEL_NAME"),
     "url": env("TG_PROXY_URL"),
+}
+
+DATABASE_URL = env('DATABASE_URL')
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 TEMPLATES = [
@@ -54,16 +60,6 @@ TEMPLATES = [
 
 # APPS
 # ------------------------------------------------------------------------------
-DJANGO_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    # 'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',  # Handy template tags
-    'django.contrib.admin',
-]
 THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
@@ -85,11 +81,22 @@ LOCAL_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
+    'e_logs.common.settings_app.apps.SettingsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
     'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',
+]
+DJANGO_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    # 'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.humanize',  # Handy template tags
+    'django.contrib.admin',
+    'django.contrib.staticfiles',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -370,7 +377,6 @@ CACHEOPS_REDIS = {
 
     # 'socket_timeout': 3,
 }
-
 
 CACHEOPS_DEFAULTS = {
     'timeout': 60 * 60,
