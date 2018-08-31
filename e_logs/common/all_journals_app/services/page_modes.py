@@ -1,7 +1,9 @@
-from e_logs.business_logic.modes import services
+from e_logs.business_logic import services
 from e_logs.common.login_app.models import Employee
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
+
+from e_logs.core.models import Setting
 
 APP = 'all_journals_app'
 VALIDATE_CELLS = APP + ".validate_cells"
@@ -33,6 +35,7 @@ def page_mode_is_valid(request, page) -> bool:
         if has_perm == True:
             has_perm = services.CheckRole.execute({"employee":request.user.employee, "page":page}) \
             and services.CheckTime.execute({"employee": request.user.employee, "page": page})
+
     else:
         has_perm = page_mode == "view"
 
@@ -42,13 +45,18 @@ def page_mode_is_valid(request, page) -> bool:
 @login_required
 def check_mode_permissions(employee: Employee, page, page_mode: str) -> bool:
     is_valid = False
+
     if page_mode == "validate":
         is_valid = employee.user.has_perm(VALIDATE_CELLS)
+
     if page_mode == "edit":
-        if page.journal.type == "shift":
-            is_valid = page.is_active and employee.user.has_perm(EDIT_CELLS)
-        if page.journal.type == "equipment":
-            is_valid = employee.user.has_perm(EDIT_CELLS)
+        if page.journal.type == "shift" or page.journal.type == "equipment":
+            is_valid = not page.closed and employee.user.has_perm(EDIT_CELLS)
+            if page.closed:
+                limited_emp_id_list = Setting.of(page)["limited_access_employee_id_list"]
+                if limited_emp_id_list and employee.id in limited_emp_id_list:
+                    is_valid = True
+
     if page_mode == "view":
         is_valid = employee.user.has_perm(VIEW_CELLS)
     return is_valid

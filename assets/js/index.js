@@ -3,7 +3,7 @@
 
 // ------------------------------------- Libs -------------------------------------
 import 'jquery'; window.$ = $; window.jQuery = jQuery;
-import 'underscore'; window._ = _;
+import 'lodash'; window._ = _;
 import 'vue'; import Vue from 'vue'; window.Vue = Vue;
 import 'bootstrap';
 import 'jquery-confirm';

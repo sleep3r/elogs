@@ -1,4 +1,3 @@
-import pickle
 from typing import Optional
 
 from django.db import models
@@ -17,7 +16,7 @@ class SettingsMeta(ModelBase):
         return Setting.get_value(name)
 
     @logged
-    def __setitem__(self, name: str, value: str) -> None:
+    def __setitem__(self, name: str, value) -> None:
         Setting.set_value(name, value)
 
 
@@ -33,7 +32,7 @@ class TargetedSetting:
         return Setting.get_value(name, obj=self.obj, employee=self.employee)
 
     @logged
-    def __setitem__(self, name: str, value: str) -> None:
+    def __setitem__(self, name: str, value) -> None:
         Setting.set_value(name=name, value=value, employee=self.employee, obj=self.obj)
 
     def __str__(self):
@@ -108,7 +107,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
 
     @staticmethod
     @logged
-    def set_value(name: str, value: str, employee: Employee = None, obj=None) -> None:
+    def set_value(name: str, value, employee: Employee = None, obj=None) -> None:
         try:
             Setting.objects.create(value=pickle.dumps(value), name=name,
                                    employee=employee, object_id=obj.id,

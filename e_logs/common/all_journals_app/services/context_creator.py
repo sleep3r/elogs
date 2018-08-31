@@ -50,6 +50,7 @@ def add_page_info(context, journal, page):
     context.page_type = journal.type
     context.journal_name = journal.name
     context.journal_page = page.id
+    context.page_is_closed = page.closed
 
 
 def get_tables_paths(journal):
@@ -92,14 +93,12 @@ def get_cells_data(page: CellGroup) -> dict:
 @logged
 def get_fields_descriptions(journal: Journal) -> dict:
     def get_field_desc(field):
-        mode = Mode.get_active_or_none(field=field)
+        constraint = Mode.get_active_constraint(field=field)
         desc = Setting.of(obj=field)['field_description']
 
-        if mode is not None:
-            constraint = get_or_none(FieldConstraints, mode=mode, field=field)
-            if constraint:
-                desc['min_normal'] = constraint.min_normal
-                desc['max_normal'] = constraint.max_normal
+        if constraint:
+            desc['min_normal'] = constraint.min_normal
+            desc['max_normal'] = constraint.max_normal
 
         return desc
 

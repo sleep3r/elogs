@@ -18,15 +18,11 @@ class Mode(models.Model):
     end = models.DateTimeField()
 
     @staticmethod
-    def get_active_or_none(field):
+    def get_active_constraint(field):
         constraint = FieldConstraints.objects.filter(field=field).last()
 
-        if constraint:
-            if constraint.mode.is_active == True and constraint.mode.end > timezone.now():
-                return constraint.mode
-            elif constraint.mode.is_active == True and constraint.mode.end < timezone.now():
-                constraint.mode.is_active = False
-                constraint.mode.save()
+        if constraint and constraint.mode.is_active:
+            return constraint
 
         return None
 

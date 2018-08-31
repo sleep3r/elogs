@@ -10,11 +10,19 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const OfflinePlugin = require('offline-plugin');
 
+const OPTIONS = {
+    PROJECT_ROOT: __dirname,
+    NODE_ENV: process.env.NODE_ENV,
+    DEV_MODE: process.env.DEBUG !== 'True',
+};
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+let cacheObj = {}
+
 module.exports = {
     target: "web",
+    cache: cacheObj,
     mode: 'development',
     context: path.resolve(__dirname, 'assets'),
     entry: {
@@ -22,7 +30,7 @@ module.exports = {
         "index.min": './js/index',
         messages: './messages/index',
         furnace: './furnace/index',
-        vendor: [
+        vFendor: [
             "jquery",
             "moment",
             "fullcalendar",
@@ -111,8 +119,8 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg|ico)$/i,
-                // loader: 'url-loader',
-                loader: 'file-loader',
+                loader: 'url-loader',
+                // loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: 'images/',
@@ -132,7 +140,7 @@ module.exports = {
             moment: 'moment',
             Vue: ['vue/dist/vue.esm.js', 'default'],
             $: 'jquery',
-            _: 'underscore',
+            _: 'lodash',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             tether: 'tether',
