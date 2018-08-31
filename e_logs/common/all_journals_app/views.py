@@ -1,8 +1,10 @@
 import json
 from datetime import date, datetime, timedelta
 
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
+from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger
 
 from cacheops import cached_as, cached_view_as
@@ -22,11 +24,18 @@ from e_logs.core.utils.webutils import process_json_view, logged, has_private_jo
 
 
 class Index(LoginRequiredMixin, TemplateView):
-    template_name = 'furnace-index.html'
+
+    def get(self, request, *args, **kwargs):
+        homepage_url = Setting.of(employee=self.request.user.employee)['homepage']
+        if homepage_url is None:
+            self.template_name = 'furnace-index.html'
+            context = self.get_context_data(**kwargs)
+            return self.render_to_response(context)
+        else:
+            return redirect(homepage_url)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['journal_title'] = 'Ситовой анализ огарка и шихты'
         return context
 
 
