@@ -18,8 +18,11 @@ const OPTIONS = {
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+let cacheObj = {}
+
 module.exports = {
     target: "web",
+    cache: cacheObj,
     mode: 'development',
     context: path.resolve(__dirname, 'assets'),
     entry: {
