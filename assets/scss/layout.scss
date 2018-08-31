@@ -47,6 +47,14 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 100%;
+
+    .content {
+        width: 100%;
+        .elog-table-container {
+            overflow-x: auto;
+        }
+    }
 }
 
 .triangle {
@@ -66,9 +74,13 @@ body {
 
 .header {
     display: flex;
+    position: sticky;
+    transition: 0.2s;
     height: 50px;
+    width: 100%;
     flex-direction: row;
     background-color: $color-header;
+    z-index: 100;
 }
 
 .main-container {
@@ -85,7 +97,7 @@ body {
 
 .column-content {
     padding-left: 10px;
-    width: 100%;
+    width: calc(100% - 230px);
 }
 
 .main-container {
@@ -135,11 +147,12 @@ body {
 }
 
 .header.sticky {
-    position: fixed;
-    width: 100%;
-    z-index: 100;
+    top: 0;
 }
 
+.header.hidden {
+    top: -50px;
+}
 
 
 
