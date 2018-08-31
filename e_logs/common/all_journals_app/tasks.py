@@ -9,7 +9,6 @@ from django.utils import timezone
 os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
 django.setup()
 
-
 from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell
@@ -55,13 +54,13 @@ def check_blank_shift(plant):
                 Message.add(cell=None,
                             message={'type': 'blank_journal',
                                      'text': "Журнал остался незаполнен",
-                                     'sendee':None },
+                                     'sendee': None },
                             plant=plant, positions=("Boss",))
 
                 Message.add(cell=None,
                             message={'type': 'blank_journal',
                                      'text': "Журнал остался незаполнен",
-                                     'sendee':None },
+                                     'sendee': None },
                             positions=("Big boss",))
 
 @app.task
