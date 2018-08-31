@@ -5,8 +5,6 @@ from celery.schedules import crontab
 
 from django.utils import timezone
 
-
-
 from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell

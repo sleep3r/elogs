@@ -22,7 +22,7 @@ from icecream import ic
 from rest_framework_swagger.views import get_swagger_view
 
 from config.settings import settings
-from e_logs.furnace.fractional_app import views
+from e_logs.common.all_journals_app import views
 from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, \
     get_shifts
 

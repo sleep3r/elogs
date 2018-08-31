@@ -1,6 +1,8 @@
 import json
 from datetime import date, datetime, timedelta
 
+from django.views.generic import TemplateView
+
 from e_logs.core.utils.loggers import stdout_logger
 
 from cacheops import cached_as, cached_view_as
@@ -17,6 +19,15 @@ from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals
+
+
+class Index(LoginRequiredMixin, TemplateView):
+    template_name = 'furnace-index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['journal_title'] = 'Ситовой анализ огарка и шихты'
+        return context
 
 
 class JournalView(LoginRequiredMixin, View):
