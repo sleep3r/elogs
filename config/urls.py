@@ -49,7 +49,8 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.modes.urls'))
 ]
 
-if settings.DEBUG:
+# FIX IT
+if settings.DEBUG and False:
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),

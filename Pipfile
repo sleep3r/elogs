@@ -25,6 +25,8 @@ pyOpenSSL = "*"
 service-identity = "*"
 django-environ = "*"
 django-service-objects = "*"
+celery = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 icecream = "*"
@@ -49,4 +51,4 @@ pylint-django = "*"
 "flake8" = "*"
 
 [requires]
-python_version = "3.6.6"
+python_version = "3.6"
