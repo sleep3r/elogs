@@ -26,6 +26,8 @@ function onKeyDownAction(e) {
     }
     e = e || window.event;
 
+    e.preventDefault()
+
     if (e.keyCode === 38) { // up arrow
         let idx = selectedElement.cellIndex;
         let nextrow = selectedElement.parentElement.previousElementSibling;
