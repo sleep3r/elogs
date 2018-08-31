@@ -41,10 +41,16 @@
     background-color: $color-normal;
     padding: 0;
     border: 1px dotted #CCCCCC;
+    overflow-y: auto;
+    transition: 0.2s;
 
     a {
         color: white;
         text-decoration: none;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0;
     }
 }
 

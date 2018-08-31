@@ -13,3 +13,11 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [  # noqa F405
 ]
 
 INSTALLED_APPS += ['gunicorn']
+
+MIDDLEWARE = [] + MIDDLEWARE + \
+             [
+                 'htmlmin.middleware.HtmlMinifyMiddleware',
+                 'htmlmin.middleware.MarkRequestMiddleware',
+             ]
+
+HTML_MINIFY = True
