@@ -31,6 +31,9 @@ CACHEOPS_REDIS = {
     'db': 1,
 }
 
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',

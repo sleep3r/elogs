@@ -1,3 +1,5 @@
+import os
+
 from config import settings_setup
 
 from celery import Celery
@@ -13,7 +15,12 @@ from e_logs.common.all_journals_app.models import Shift, Cell
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.webutils import get_or_none
 
-app = Celery('tasks', broker="redis://localhost:6379")
+
+if os.environ.get('DOCKER') == 'yes':
+    app = Celery('tasks', broker="redis://redis:6379")
+else:
+    app = Celery('tasks', broker="redis://localhost:6379")
+
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.update(

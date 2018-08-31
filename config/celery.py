@@ -1,8 +1,13 @@
+import os
+
 from config import settings_setup
 
 from celery import Celery
 
-app = Celery('main', broker="redis://localhost:6379")
+if os.environ.get('DOCKER') == 'yes':
+    app = Celery('main', broker="redis://redis:6379")
+else:
+    app = Celery('main', broker="redis://localhost:6379")
 
 app.conf.update(
     task_serializer='json',

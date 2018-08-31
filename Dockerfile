@@ -30,4 +30,8 @@ COPY . /srv
 
 RUN ./node_modules/.bin/webpack
 
-ENTRYPOINT ["/srv/docker/entrypoint.sh"]
+ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
+ENV DOCKER yes
+ENV DEBUG False
+
+# ENTRYPOINT ["/srv/docker/entrypoint.sh"]
