@@ -53,7 +53,7 @@ urlpatterns = [
 ]
 
 # FIX IT
-if settings.DEBUG and False:
+if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [

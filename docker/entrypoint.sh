@@ -1,5 +1,12 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
+#export CELERY_BROKER_URL="${REDIS_URL}"
+#export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
+
 python3.6 manage.py makemigrations --merge
 python3.6 manage.py migrate        # Apply database migrations
 python3.6 manage.py demo_db --recreate

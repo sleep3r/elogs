@@ -24,6 +24,7 @@ COPY ./Pipfile.lock /srv
 COPY ./Pipfile /srv
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
+ENV PYTHONUNBUFFERED 1
 RUN pipenv install --deploy --system --ignore-pipfile
 
 COPY . /srv
