@@ -211,13 +211,11 @@ class Cell {
     }
 
     static reformat_on_change(input) {
-        if (input.value === "")
-            return;
+        if (input.value === "") {
+            input.value = ''
+        }
         if (input.type === "number") {
-            if(input.value.slice(-1) === '.' || input.value.slice(-1) === ',') {
-                input.value = input.value.slice(0, -1)
-            }
-            input.value = +(input.value*1.0).toFixed(2);
+            input.value = +(input.value*1.0).toFixed(2)
         }
         // $(input.closest('table')).alignColumn([1, 2, 3, 4, 5], {center: '.'})
     }

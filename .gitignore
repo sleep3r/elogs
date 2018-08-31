@@ -112,3 +112,4 @@ logs/main_debug_info/*
 desktop.ini
 
 e_logs_tests/screens/*
+logs/printed_values
