@@ -1,0 +1,26 @@
+{% extends 'base_page.html' %}
+{% load staticfiles %}
+{% load express_tags %}
+{% load tz %}
+{% load i18n %}
+
+
+{% block title %}
+    <title>E-LOGS | Настройки</title>
+{% endblock %}
+
+
+{% block journal_panel %}
+{% endblock %}
+
+
+{% block content %}
+    <h2>Пользовательские настройки</h2>
+    <div>
+        Привет!
+    </div>
+
+    {% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}
+        {#<h2>Настройки системы</h2>#}
+    {% endif %}
+{% endblock %}

@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         df = DatabaseFiller()
-        # df.reset_increment_counter('auth_group')
+        df.reset_increment_counter('auth_group')
         frac_num = options["frac"]
         if options["clean"] or options["recreate"]:
             stdout_logger.info("Cleaning db")

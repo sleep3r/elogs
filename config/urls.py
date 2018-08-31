@@ -34,6 +34,7 @@ urlpatterns = [
     path('auth', include('e_logs.common.login_app.urls')),
     path('common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
+    path('common/settings/', include('e_logs.common.settings_app.urls')),
     re_path('^feedback/', include('e_logs.common.feedback_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
     re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>metals_compute)$',
