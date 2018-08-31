@@ -32,14 +32,15 @@ class Message(StrAsDictMixin, models.Model):
 
     @staticmethod
     def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
-        '''
+        """
+        TODO: add builder class
         'message': {
                     'text': "some text",
                     'link': Optional[URI],
                     'type': "message type",
                     'sendee': Employee or None,
                 }
-        '''
+        """
 
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError

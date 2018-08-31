@@ -34,12 +34,14 @@ python-slugify = "*"
 django-compressor = "*"
 Twisted = { extras = [ "tls", "http2",] }
 django-celery-results = "*"
+django-htmlmin = "*"
+django-hijack = "*"
+dj-database-url = "*"
 
 [dev-packages]
 icecream = "*"
 nplusone = "*"
 watchdog = "*"
-django-debug-toolbar = "*"
 django-debug-toolbar-template-profiler = "*"
 django-querycount = "*"
 django-migrations-graph = "*"
@@ -59,6 +61,7 @@ flake8 = "*"
 pybuilder = "*"
 coverage = "*"
 django-coverage-plugin = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.6.6"
