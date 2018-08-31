@@ -1,13 +1,11 @@
-import os
-import django
+from config import settings_setup
 
 from celery import Celery
 from celery.schedules import crontab
 
 from django.utils import timezone
 
-os.environ['DJANGO_SETTINGS_MODULE'] = "config.settings.settings"
-django.setup()
+
 
 from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
