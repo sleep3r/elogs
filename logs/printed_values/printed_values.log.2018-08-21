@@ -1,5 +1,0 @@
-[21/Aug/2018 03:40:39] INFO [STDERR:58] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
-[21/Aug/2018 03:40:39] DEBUG [STDERR:81] cells: <QuerySet []>
-[21/Aug/2018 03:40:39] DEBUG [STDERR:81] cells: <QuerySet []>
-[21/Aug/2018 03:40:39] DEBUG [STDERR:81] cells: <QuerySet []>
-[21/Aug/2018 03:40:39] DEBUG [STDERR:81] cells: <QuerySet []>

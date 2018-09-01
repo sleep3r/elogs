@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__logo').outerHeight()
   let headerHeight = $('.header').outerHeight()
 
-  $('.menu').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+  $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
 
     $(window).scroll(function(event){
      let st = $(this).scrollTop();
@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
      }
      if((lastScrollTop - st > 2) && (st > 100)) {
          menu.css({top: '50px'})
-         $('.menu').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+         $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
      } else if((st - lastScrollTop > 10) && (st > 100)) {
          menu.css({top: '0px'})
-         $('.menu').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
+         $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
      }
      lastScrollTop = st;
   });

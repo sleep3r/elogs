@@ -14,6 +14,7 @@ window.ReconnectingWebSocket = ReconnectingWebSocket;
 import 'fullcalendar';
 import 'bootstrap-datepicker';
 import 'bootstrap-grid';
+import 'clockpicker/dist/bootstrap-clockpicker.min'
 
 import 'waypoints/lib/jquery.waypoints.js';
 import 'waypoints'; import Waypoint from 'waypoints'; window.Waypoint = Waypoint;
@@ -36,6 +37,7 @@ import './form-table';
 import './form-update';
 import './header';
 import './menu';
+import './clockpicker';
 import './vue-env';
 
 import './common';

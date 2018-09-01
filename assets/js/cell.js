@@ -212,7 +212,7 @@ class Cell {
 
     static reformat_on_change(input) {
         if (input.value === "") {
-            input.value = ''
+            input.value = 0 // ставить дефолтное значение = 0
         }
         if (input.type === "number") {
             input.value = +(input.value*1.0).toFixed(2)
