@@ -15,9 +15,21 @@ services:
     build: .
     ports:
      - "80:80"
-    environment:
-     - DJANGO_SETTINGS_MODULE=config.settings.settings_singapore
+    command: bash -c "./docker/entrypoint.sh"
     depends_on:
      - redis
      - db
-
+  celery:
+   build: .
+   command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
+   environment:
+    - C_FORCE_ROOT=true
+   depends_on:
+    - db
+    - redis
+  celery-beat:
+   build: .
+   command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info
+   depends_on:
+    - db
+    - redis

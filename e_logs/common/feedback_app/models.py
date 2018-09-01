@@ -2,7 +2,7 @@ import textwrap
 
 from django.db import models
 
-from config.settings.settings_base import FEEDBACK_TG_BOT
+from django.conf import settings
 from e_logs.core.utils.webutils import StrAsDictMixin
 from .services.telegram_bot import TelegramBot
 
@@ -20,9 +20,9 @@ class Feedback(StrAsDictMixin, models.Model):
         """
     )
 
-    bot = TelegramBot(channel=FEEDBACK_TG_BOT["channel"],
-                      token=FEEDBACK_TG_BOT["token"],
-                      proxy_url=FEEDBACK_TG_BOT["url"])
+    bot = TelegramBot(channel=settings.FEEDBACK_TG_BOT["channel"],
+                      token=settings.FEEDBACK_TG_BOT["token"],
+                      proxy_url=settings.FEEDBACK_TG_BOT["url"])
 
     theme = models.CharField(max_length=200, verbose_name='Тема')
     text = models.CharField(max_length=1000, verbose_name='Сообщение')
