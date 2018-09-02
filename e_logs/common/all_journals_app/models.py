@@ -182,7 +182,7 @@ class Shift(CellGroup):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
-                                                    date=date.today())[0]
+                                                    date=timezone.now().date())[0]
                 if shift.is_active:
                     break
 

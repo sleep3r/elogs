@@ -2,6 +2,7 @@ import json
 from datetime import date, datetime, timedelta
 
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 from e_logs.core.models import Setting
@@ -26,6 +27,7 @@ from e_logs.core.utils.webutils import process_json_view, logged, has_private_jo
 class Index(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
+        print(timezone.now())
         homepage_url = Setting.of(employee=self.request.user.employee)['homepage']
         if homepage_url is None:
             self.template_name = 'furnace-index.html'
@@ -188,8 +190,8 @@ def save_table_comment(request):
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
-               from_date=date.today() - timedelta(days=30),  # TODO: make aware
-               to_date=date.today()):
+               from_date=timezone.now().date() - timedelta(days=30),  # TODO: make aware
+               to_date=timezone.now().date()):
     """Creates shifts for speficied period of time"""
 
     def date_range(start_date, end_date):
@@ -213,7 +215,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
-        for shift_date in date_range(from_date, to_date + timedelta(days=1)):
+        for shift_date in date_range(from_date, to_date + timedelta(days=2)):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.get_or_create(journal, shift_order, shift_date)
                 is_owned = shift in owned_shifts
