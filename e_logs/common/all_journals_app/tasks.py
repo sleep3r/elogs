@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from config import settings_setup
 
@@ -9,7 +10,7 @@ from django.utils import timezone
 
 from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.models import Shift, Cell
+from e_logs.common.all_journals_app.models import Shift, Cell, Journal
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.webutils import get_or_none
 
@@ -34,6 +35,10 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour='7,19', minute=59),
         'args': ("furnace",)
     },
+    'run-while-OC-shift-close': {
+        'task': 'e_logs.common.all_journals_app.tasks.check_blank_OC_shift',
+        'schedule': crontab(hour='7,15,23', minute=59),
+    },
     'run-while-leaching-shift-close': {
         'task': 'e_logs.common.all_journals_app.tasks.check_blank_shift',
         'schedule': crontab(hour='7,15,23', minute=59),
@@ -44,12 +49,33 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour='1,7,13,19', minute=59),
         'args': ("electrolysis",)
     },
+    'create-shifts': {
+        'task': 'e_logs.common.all_journals_app.tasks.create_shifts',
+        'schedule': crontab(hour='0', minute=0),
+    },
 }
+
+
+@app.task
+def create_shifts():
+
+    def date_range(start_date, end_date):
+        for n in range(int((end_date - start_date).days)):
+            yield start_date + timedelta(n)
+
+    now_date = timezone.now().date()
+    for journal in Journal.objects.all():
+        if journal.type == 'shift':
+            number_of_shifts = Shift.get_number_of_shifts(journal)
+            for shift_date in date_range(now_date, now_date + timedelta(days=3)):
+                for shift_order in range(1, number_of_shifts + 1):
+                    Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
 
 @app.task
 def check_blank_shift(plant):
     for shift in filter(lambda s:s.is_active,
-            list(Shift.objects.filter(date=timezone.now(), journal__plant__name=plant))):
+            list(Shift.objects.filter(journal__plant__name=plant).
+                         exclude(journal__name="reports_furnace_area"))):
             if not Cell.objects.filter(group=shift).exists():
                 shift.closed = True
                 shift.save()

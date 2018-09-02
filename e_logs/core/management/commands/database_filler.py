@@ -154,6 +154,21 @@ class DatabaseFiller:
             return user
 
     @staticmethod
+    def create_shifts():
+
+        def date_range(start_date, end_date):
+            for n in range(int((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+
+        now_date = timezone.now().date()
+        for journal in Journal.objects.all():
+            if journal.type == 'shift':
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                for shift_date in date_range(now_date, now_date + timedelta(days=7)):
+                    for shift_order in range(1, number_of_shifts + 1):
+                        Shift.objects.get_or_create(journal=journal, order=shift_order,
+                                                    date=shift_date)
+    @staticmethod
     def fill_journals():
         """Call after fill_plants"""
 

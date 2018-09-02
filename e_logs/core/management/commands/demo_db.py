@@ -64,6 +64,8 @@ class Command(BaseCommand):
 
             stdout_logger.info("Adding Employees...")
             df.fill_employees()
+            stdout_logger.info("Adding shifts...")
+            df.create_shifts()
 
             if frac_num:
                 stdout_logger.info("Filling fractional app...")
