@@ -14,6 +14,7 @@
 * Fractional................Fractional screen
 * Slide.....................Comments slide down
 * Popup.....................Popup for each cell comment
+* Scheme....................Scheme of workshops
 *
 */
 
@@ -51,3 +52,4 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "fractional";
 @import "feedback";
 @import "popup";
+@import "scheme";
