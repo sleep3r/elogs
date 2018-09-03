@@ -36,6 +36,7 @@ urlpatterns = [
     path('common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
     re_path('^feedback/', include('e_logs.common.feedback_app.urls')),
+    path('visualization/', include('e_logs.common.data_visualization_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
     re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>metals_compute)$', MetalsJournalView.as_view()),
     re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$', ShihtaJournalView.as_view()),

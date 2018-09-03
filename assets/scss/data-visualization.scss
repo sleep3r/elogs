@@ -1,0 +1,18 @@
+/*------------------------------------*\
+  # Graphs
+\*------------------------------------*/
+@import "variables";
+
+.graph {
+    width: 50%;
+    // background-color: red;
+    // height: 200px;
+}
+
+#dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+}
