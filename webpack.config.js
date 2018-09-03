@@ -22,6 +22,7 @@ module.exports = {
         "index.min": './js/index',
         messages: './messages/index',
         furnace: './furnace/index',
+        tables: './tables/index',
         vendor: [
             "jquery",
             "moment",

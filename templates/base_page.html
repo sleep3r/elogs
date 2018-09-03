@@ -49,6 +49,8 @@
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
+{#{% render_bundle 'index' 'js' %}#}
+<script type="text/javascript" src="{% static 'webpack_bundles/tables.js' %}"></script>
 <script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
 
 <script>
