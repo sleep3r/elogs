@@ -37,6 +37,7 @@ import './form-update';
 import './header';
 import './menu';
 import './vue-env';
+import './data-visualization'
 
 import './common';
 import './journal-panel';
