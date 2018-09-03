@@ -1,7 +1,13 @@
 <script>
+    /* eslint-disable no-console */
+    /* eslint no-console: "error" */
+
 import Vue from 'vue/dist/vue.esm.js'
 import axios from 'axios'
-import Cell from './Cell.vue'
+import cell from './Cell.vue'
+
+Vue.component('cell', cell);
+Vue.component('Cell', cell);
 
 export default {
   name: 'TableCommon',
@@ -13,7 +19,7 @@ export default {
   },
   data: function() {
     return {
-      template: null
+      template: null,
     }
   },
   methods: {
@@ -25,28 +31,26 @@ export default {
     if (!this.template) {
       return createElement('div', 'Loading...');
     } else {
-      return this.template();
+      return createElement({template: this.template,
+        props: this.$props,
+        data: () => this.$data,
+        components: { 'cell': cell }
+      })
     }
   },
   mounted() {
     let self = this;
-    let templateUrl = '/templates/tables/' + this.plantName + '/' + this.journalName + '/' + this.tableName;
-    console.log(templateUrl);
+    let templateUrl = '/static/templates/tables/' + this.plantName + '/' + this.journalName + '/' + this.tableName + ".html";
     axios.get(templateUrl)
       .then(function (response) {
-        console.log("" + response.data)
-        self.template =  Vue.compile("" + response.data).render;
+         self.template = response.data;
       })
       .catch(function (error) {
-        console.log('error!!!!!!')
-        console.log(error);
+        console.log('error: ', error);
       })
-      .then(function () {
-
-      });
   },
   components: {
-    Cell
+    'cell': cell
   }
 }
 </script>

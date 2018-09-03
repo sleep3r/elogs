@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue/dist/vue.esm.js';
 import moment from "moment";
 
 Vue.filter("formatNumber", function (value) {

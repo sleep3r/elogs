@@ -36,10 +36,10 @@ import './form-table';
 import './form-update';
 import './header';
 import './menu';
-import './vue-env';
+// import './vue-env';
 
 import './common';
 import './journal-panel';
 import './user-menu';
 
-import './vue/index';
+// import './vue/index';

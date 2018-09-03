@@ -3,6 +3,8 @@ import TableCommon from './TableCommon.vue';
 import axios from 'axios';
 
 
+Vue.component('tablecommon', TableCommon);
+
 window.App = new Vue({
   el: '#elogs-app',
   components: { TableCommon },
@@ -11,17 +13,15 @@ window.App = new Vue({
       pageId: '',
       plantName: '',
       journalName: '',
-      cellgroupInfo: '',
-      syncronized: true,
+      cellgroupInfo: {},
+        tableName: '',
+      syncronized: false,
     }
   },
   delimiters: ['%{', '}'],
   computed: {
     tables: function () {
-      if (this.cellgroupInfo != '') {
-        // return Object.keys(this.cellgroupInfo.journal.tables)
         return ['big']
-      }
     }
   },
   methods: {
@@ -33,20 +33,6 @@ window.App = new Vue({
           this.syncronized = true
           this.cellgroupInfo = response.data
         })
-    },
-    numberOfLines: function (tableName) {
-      let maxCellIndex = -1
-      // TODO: use null instead of ''
-      if (this.cellgroupInfo != '') {
-        let fields = this.cellgroupInfo.journal.tables[tableName].fields
-        for(let field in fields) {
-          for (let cellIndex in fields[field].cells) {
-            cellIndex = parseInt(cellIndex)
-            maxCellIndex = maxCellIndex < cellIndex ? cellIndex : maxCellIndex
-          }
-        }
-      }
-      return maxCellIndex+1
     },
     sendCell: function (tableName, fieldName, index, value) {
       // save cell on server
@@ -81,7 +67,7 @@ window.App = new Vue({
     }
   },
   mounted () {
-    console.log('app is mounted')
+    console.log('Tables were mounted')
     this.plantName = window.location.pathname.split("/")[1];
     this.journalName = window.location.pathname.split("/")[2];
     this.pageId = window.location.pathname.split("/")[3];

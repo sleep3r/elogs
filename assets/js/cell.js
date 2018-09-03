@@ -162,6 +162,10 @@ class Cell {
 
 
     static on_input_change(input) {
+        console.log(input.dataset.info);
+
+        if (input.dataset.info === 'undefined') return;
+
         const json = input.dataset.info.replace(/'/g, '"');
         // if field description exists
         let info = null;
@@ -179,6 +183,11 @@ class Cell {
             } else {
                 $(input).css('color', 'black');
             }
+
+
+            console.log(input.value);
+
+
         } else if (info.type === "datalist") {
             if ($(input).attr('data-pagmode') === "validate") {
                 $(input).removeAttr("type");
