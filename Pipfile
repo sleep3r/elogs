@@ -34,6 +34,8 @@ python-slugify = "*"
 django-compressor = "*"
 Twisted = { extras = [ "tls", "http2",] }
 django-celery-results = "*"
+json-tricks = "*"
+plotly = "*"
 
 [dev-packages]
 icecream = "*"
