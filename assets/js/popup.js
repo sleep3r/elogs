@@ -7,6 +7,39 @@ class PopUp {
 
     static commentSelector() { return ".popup-comment-content"; }
 
+    static showInfo(cell) {
+        console.log("test")
+        let mode = Journal.getMode();
+        let popper = document.querySelector('.cell-popup');
+        popper.style.display = "block";
+        let popup = new Popper(cell, popper, {
+        placement: 'left',
+          arrow: {
+            classNames: [ 'arrow' ]
+          },
+          modifiers: {
+            flip: {
+                behavior: ['left', 'bottom', 'top']
+            },
+          },
+        });
+
+        let closeButton = popper.querySelector(".popup-close");
+        closeButton.onclick = function() {
+            popper.style.display = "none";
+        };
+
+        let plotButton = popper.querySelector(".plot-btn")
+        plotButton.onclick = () => {
+            let cell_info = {
+                journal_name: Journal.getName(),
+                table_name: $(cell).attr("table-name"),
+                field_name: $(cell).attr("name"),
+            }
+            Visualization.add_graph(cell_info)
+        }
+    }
+
     static showView(envelop) {
 
         let cell = null;
@@ -131,4 +164,3 @@ class PopUp {
 
 window.PopUp = PopUp;
 export {PopUp}
-
