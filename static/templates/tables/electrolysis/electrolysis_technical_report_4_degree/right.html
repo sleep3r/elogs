@@ -1,0 +1,262 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Технологический режим, ПАВ и кристаллизаторы{% endblock %}
+
+{% block table %}
+<div class="row_of_tables">
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th colspan="3" class="th-common"> Установленный технологический режим </th>
+        </tr>
+        <tr>
+            <th>H<sub>2</sub>SO<sub>4</sub></th> <td colspan="2"> {% include "value.html" with field_name="h2so4" index=0 %}</td>
+        </tr>
+        <tr>
+            <th>Zn в отр.<i class='units'>г/л</i></th> <td colspan="2">{% include "value.html" with field_name="zn" index=0 %}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th> Кол-во р-ра </th>
+            <th> Гор. бак<i class='units'>м³</i></th>
+            <th> Хол. бак<i class='units'>м³</i></th>
+        </tr>
+
+        <tr>
+            <th>ВИУ №1</th>
+            <td>{% include "value.html" with field_name="viu1_1"  index=0 %}</td>
+            <td>{% include "value.html" with field_name="viu1_2"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th>ВИУ №2</th>
+            <td>{% include "value.html" with field_name="viu2_1"  index=0 %}</td>
+            <td>{% include "value.html" with field_name="viu2_2"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th>ВИУ №3</th>
+            <td> {% include "value.html" with field_name="viu3_1"  index=0 %} </td>
+            <td>{% include "value.html" with field_name="viu3_2"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th colspan="2">4 чан</th> <td>{% include "value.html" with field_name="tank4"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th colspan="2">3 чан</th> <td>{% include "value.html" with field_name="tank3"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th colspan="2">5 чан</th> <td>{% include "value.html" with field_name="tank5"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th colspan="2">4A чан</th> <td>{% include "value.html" with field_name="tank4A"  index=0 %}</td>
+        </tr>
+
+
+        <tr>
+            <th> Примеси </th>
+            <th colspan="2"><i class='units no-before'>мг/л</i> </th>
+        </tr>
+
+        <tr>
+            <th> Cu </th>
+            <td colspan="2"> {% include "value.html" with field_name="cu1"  index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th> Co </th>
+            <td colspan="2"> {% include "value.html" with field_name="co1" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> Cd </th>
+            <td colspan="2"> {% include "value.html" with field_name="cd1" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> Sb </th>
+            <td colspan="2"> {% include "value.html" with field_name="sb1" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> Fe<sup>2+</sup> </th>
+            <td colspan="2"> {% include "value.html" with field_name="fe2p1" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> BT % </th>
+            <td colspan="2"> {% include "value.html" with field_name="bt1" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> Уд. вес (ЦВМО)<i class='units'>г/см<sup>3</sup></i> </th>
+            <td colspan="2"> {% include "value.html" with field_name="weight1_1" index=0 %}</td>
+        </tr>
+
+        <tr>
+            <th> Уд. вес (5 чан)<i class='units'>г/см<sup>3</sup></i></th>
+            <td colspan="2"> {% include "value.html" with field_name="weight2_1" index=0 %}</td>
+        </tr>
+    </tbody>
+</table>
+    <table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th colspan="3"> В работе ВИУ </th> <td colspan="1">{% include "value.html" with field_name="viu_in" index=0 %} </td>
+            </tr>
+            <tr>
+                <th colspan="2"> Насосы на прием смены<i class='units'>№</i> </th>
+                <th colspan="2"> Насосы на окончание смены<i class='units'>№</i> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum1" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum2" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum3" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum4" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum5" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum6" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum7" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum8" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th colspan="4" > Причина остановки насоса, принятые меры </th>
+            </tr>
+
+            <tr>
+                <td colspan="4"> {% include "value.html" with field_name="reason1" index=0 %} </td>
+            </tr>
+            <tr>
+                <th colspan="3"> Анализы чана № </th> <td> {% include "value.html" with field_name="tank_analisys" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Примеси </th>
+                <th colspan="3"> <i class='units no-before'>мг/л</i> </th>
+            </tr>
+
+            <tr>
+                <th> Cu </th>
+                <td colspan="3"> {% include "value.html" with field_name="cu2"  index=0 %}</td>
+            </tr>
+
+            <tr>
+                <th> Co </th>
+                <td colspan="3"> {% include "value.html" with field_name="co2" index=0 %}</td>
+            </tr>
+            <tr>
+                <th> Cd </th>
+                <td colspan="3"> {% include "value.html" with field_name="cd2" index=0 %}</td>
+            </tr>
+            <tr>
+                <th> Sb </th>
+                <td colspan="3"> {% include "value.html" with field_name="sb2" index=0 %}</td>
+            </tr>
+            <tr>
+                <th> Fe<sup>2+</sup> </th>
+                <td colspan="3"> {% include "value.html" with field_name="fe2p2" index=0 %}</td>
+            </tr>
+
+            <tr>
+                <th> Уд. вес<i class='units'>г/см<sup>3</sup></i> </th>
+                <td colspan="3"> {% include "value.html" with field_name="weight1_2" index=0 %}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+        <table class="table table-bordered elog-journal-table">
+            <thead>
+                <tr>
+                    <th colspan="4" class="th-common">
+                        Склад растворов
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2"> Насосы на прием смены<i class='units'>№</i> </th>
+                    <th colspan="2"> Насосы на окончание смены<i class='units'>№</i> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum9" index=0 %} </td>
+                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum10" index=0 %} </td>
+                </tr>
+
+                <tr>
+                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum11" index=0 %} </td>
+                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum12" index=0 %} </td>
+                </tr>
+
+            <tr>
+                <th colspan="4" > Причина остановки насоса, принятые меры </th>
+            </tr>
+
+            <tr>
+                <td colspan="4" > {% include "value.html" with field_name="reason2" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th colspan="4">
+                    Насосы отработанного раствора
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2"> Насосы на прием смены<i class='units'>№</i> </th>
+                <th colspan="2"> Насосы на окончание смены<i class='units'>№</i> </th>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum13" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum14" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum15" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum16" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum17" index=0 %} </td>
+                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum18" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th colspan="4" > Причина остановки насоса, принятые меры </th>
+            </tr>
+
+            <tr>
+                <td colspan="4" > {% include "value.html" with field_name="reason3" index=0 %} </td>
+            </tr>
+
+            <tr>
+                <th colspan="4"> Зумпфоровые насосы<i class='units'>№</i> </th>
+            </tr>
+
+                <tr>
+                    <td colspan="4" > {% include "value.html" with field_name="zump_pump" index=0 %} </td>
+                </tr>
+
+            <tr>
+                <th colspan="4" > Причина остановки насоса, принятые меры </th>
+            </tr>
+
+            <tr>
+                <td colspan="4" > {% include "value.html" with field_name="reason4" index=0 %} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

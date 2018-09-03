@@ -1,0 +1,22 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th scope="col"> Мастер </th>
+            <th scope="col"> Старший крановщик </th>
+            <th scope="col"> Склад<i class='units'>№</i> </th>
+            <th scope="col"> Крановщик </th>
+            <th scope="col"> Стропальщик </th>
+            <th scope="col"> Дата </th>
+            <th scope="col"> Смена </th>
+        </tr>
+    <thead>
+    <tr>
+        <td>{% include "value.html" with field_name="master" index=0 %}</td>
+        <td>{% include "value.html" with field_name="senior_crane_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="storage" index=0 %}</td>
+        <td>{% include "value.html" with field_name="crane_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="sling_operator" index=0 %}</td>
+        <td>{% include "value.html" with field_name="date" index=0 %}</td>
+        <td>{% include "value.html" with field_name="shift" auto_val=shift_order index=0 %}</td>
+    </tr>
+</table>

@@ -1,0 +1,35 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Корректирующие действия{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th>Время</th>
+                <th>Характер несоответствия ТИ</th>
+                <th>Корректирующие действия</th>
+                <th> - </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% include "value.html" with field_name="time" index=forloop.counter0 %}</td>
+                <td>{% include "value.html" with field_name="character" index=forloop.counter0 %}</td>
+                <td>{% include "value.html" with field_name="correction" index=forloop.counter0 %}</td>
+                <td>{% include "value.html" with field_name="extra" index=forloop.counter0 %}</td>
+            </tr>
+        </tbody>
+</table>
+{% endblock %}
+
+{% block additional_lower %}
+    <br/>
+        <h4>Отметка о состоянии "кипящего слоя печей КС"</h4>
+        <table class="table table-bordered elog-journal-table">
+            <tr>
+                <td>{% include "value.html" with field_name="ks_comment" index=forloop.counter0 %}</td>
+            </tr>
+        </table>
+{% endblock %}

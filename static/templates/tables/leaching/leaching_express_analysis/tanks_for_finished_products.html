@@ -1,0 +1,70 @@
+{% extends "table.html" %}
+{% load express_tags %}
+{% load i18n %}
+
+{% block title %}Баки готовой продукции{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th>{% trans "№ Бака" %}</th>
+                <th>{% trans "Кадмий" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                <th>{% trans "Медь" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                <th>{% trans "Кобальт" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                <th>{% trans "Сурьма" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                <th>{% trans "Железо" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+                <th>{% trans "В:T" %}</th>
+                <th>{% trans "Уд. вес" %}</th>
+                <th>{% trans "Норма" %}</th>
+                <th>{% trans "Факт" %}</th>
+                <th>{% trans "Коррекция" %}</th>
+                <th>{% trans "Мастер" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>3</th>
+                <td>{% include "value.html" with field_name="Cd_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Cu_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Co_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Sb_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Fe_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="VT_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="specific_weight_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="norm_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="fact_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="correction_tank3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="master_tank3" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>4</th>
+                <td>{% include "value.html" with field_name="Cd_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Cu_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Co_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Sb_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Fe_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="VT_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="specific_weight_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="norm_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="fact_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="correction_tank4" index=0 %}</td>
+                <td>{% include "value.html" with field_name="master_tank4" index=0 %}</td>
+            </tr>
+            <tr>
+                <th>5</th>
+                <td>{% include "value.html" with field_name="Cd_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Cu_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Co_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Sb_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="Fe_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="VT_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="specific_weight_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="norm_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="fact_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="correction_tank5" index=0 %}</td>
+                <td>{% include "value.html" with field_name="master_tank5" index=0 %}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
