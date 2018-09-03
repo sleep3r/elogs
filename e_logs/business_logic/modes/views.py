@@ -18,6 +18,7 @@ def create_mode(request):
     #
         SetMode.execute({"beginning":timezone.now(),
             "end":timezone.now() + timedelta(minutes=3),
+            "journal_id":16,
             "message":"12345",
             'sendee':Employee.objects.get(name='inframine'),
             "fields":[

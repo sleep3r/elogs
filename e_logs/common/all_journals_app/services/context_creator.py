@@ -92,8 +92,8 @@ def get_cells_data(page: CellGroup) -> dict:
 
 @logged
 def get_fields_descriptions(journal: Journal) -> dict:
-    def get_field_desc(field):
-        constraint = Mode.get_active_constraint(field=field)
+    def get_field_desc(journal, field):
+        constraint = Mode.get_active_constraint(field=field, journal=journal)
         desc = Setting.of(obj=field)['field_description']
 
         if constraint:
@@ -102,8 +102,8 @@ def get_fields_descriptions(journal: Journal) -> dict:
 
         return desc
 
-    def field_descs(table):
-        return {field.name: get_field_desc(field)
+    def field_descs(journal, table):
+        return {field.name: get_field_desc(journal, field)
                 for field in table.get_fields()}
 
-    return {table.name: field_descs(table) for table in journal.tables.all()}
+    return {table.name: field_descs(journal, table) for table in journal.tables.all()}

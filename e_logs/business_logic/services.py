@@ -5,7 +5,7 @@ from service_objects.services import Service
 from django import forms
 
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
-from e_logs.common.all_journals_app.models import Field, Shift
+from e_logs.common.all_journals_app.models import Field, Shift, Journal
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.tasks import end_of_mode, end_of_limited_access, \
@@ -17,6 +17,7 @@ class SetMode(Service):
     message = forms.CharField(max_length=1024)
     beginning = forms.DateTimeField()
     end = forms.DateTimeField()
+    journal_id = forms.IntegerField()
 
     # для валидации списка полей
     def clean(self):
@@ -30,10 +31,12 @@ class SetMode(Service):
     def process(self):
         mode = Mode.objects.create(message=self.cleaned_data['message'],
                                    beginning=self.cleaned_data['beginning'],
-                                   end=self.cleaned_data['end'])
+                                   end=self.cleaned_data['end'],
+                                   journal=Journal.objects.get(id=self.cleaned_data['journal_id']))
 
         for f in self.data['fields']:
-            field = Field.objects.get(name=f['name'], table__name=f['table_name'])
+            field = Field.objects.get(name=f['name'],
+                                      table__name=f['table_name'],)
 
             FieldConstraints.objects.create(min_normal=f['min_normal'],
                                             max_normal=f['max_normal'],
