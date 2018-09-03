@@ -24,7 +24,7 @@ module.exports = {
     context: path.resolve(__dirname, 'assets'),
     entry: {
         index: './js/index',
-        "index.min": './js/index',
+        // "index.min": './js/index',
         messages: './messages/index',
         furnace: './furnace/index',
         vendor: [
