@@ -109,14 +109,20 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     @staticmethod
     @logged
     def set_value(name: str, value: str, employee: Employee = None, obj=None) -> None:
+        if obj is None:
+            oid = None
+            content_type = None
+        else:
+            oid = obj.id
+            content_type = ContentType.objects.get_for_model(obj)
         try:
             Setting.objects.create(value=pickle.dumps(value), name=name,
-                                   employee=employee, object_id=obj.id,
-                                   content_type=ContentType.objects.get_for_model(obj))
+                                   employee=employee, object_id=oid,
+                                   content_type=content_type)
         except:
             Setting.objects.update_or_create(defaults={'value': pickle.dumps(value)}, name=name,
-                                             employee=employee, object_id=obj.id,
-                                             content_type=ContentType.objects.get_for_model(obj))
+                                             employee=employee, object_id=oid,
+                                             content_type=content_type)
 
     @staticmethod
     @logged
