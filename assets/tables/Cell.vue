@@ -1,5 +1,5 @@
 <template>
-  <input class="general-value"
+  <input :class="classes"
          type="text"
          v-bind:name="fieldName"
          v-bind:row-index="rowIndex"
@@ -20,7 +20,9 @@ export default {
   ],
   data() {
     return {
-        value: ''
+        value: '',
+        classes: 'general-value number-cell form-control'
+    }
     }
   },
   methods: {
