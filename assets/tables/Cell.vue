@@ -9,12 +9,12 @@
 <script>
 export default {
   name: 'Cell',
-  props: {
-      cellgroupInfo: Object,
-      tableName: String,
-      fieldName: String,
-      rowIndex: Number
-  },
+  props: [
+      'cellgroupInfo',
+      'tableName',
+      'fieldName',
+      'rowIndex',
+  ],
   data() {
     return {
         value: ''
