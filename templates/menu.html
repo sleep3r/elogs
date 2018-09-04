@@ -13,24 +13,12 @@
             <b class="arrow fa fa-angle-down"></b>
         </a>
         <ul class="sub-menu">
-            <li class="menu__item">
-                <a href="" data-url="/furnace/fractional" class="menu-item__link">{% trans "Ситовой анализ огарка и шихты" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/furnace/concentrate_report" class="menu-item__link">{% trans "Журнал рапортов о проделанной работе по складам концентратов" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/furnace/reports_furnace_area" class="menu-item__link">{% trans "Журнал рапортов ОЦ" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/furnace/technological_tasks" class="menu-item__link">{% trans "Журнал сменных производственных, тех. заданий" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/furnace/furnace_repair" class="menu-item__link">{% trans "Журнал по ремонту" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/furnace/furnace_changed_fraction" class="menu-item__link">{% trans "Рабочий журнал изменения фракции" %}</a>
-            </li>
+            {% for journal_path, journal_verbose in menu_data.furnace.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
+
             {% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}
                 <li class="menu__item">
                     <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a>
@@ -47,12 +35,11 @@
             <span class="menu-item__title">{% trans "Выщелачивание" %}</span>
             <b class="arrow fa fa-angle-down"></b></a>
         <ul class="sub-menu">
-            <li class="menu__item">
-                <a href="" data-url="/leaching/leaching_express_analysis" class="menu-item__link">{% trans "Журнал экспресс анализа" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/leaching/leaching_repair_equipment" class="menu-item__link">{% trans "Журнал по ремонту оборудования" %}</a>
-            </li>
+            {% for journal_path, journal_verbose in menu_data.leaching.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
         </ul>
     </li>
     <li class="menu__item">
@@ -62,21 +49,11 @@
             <b class="arrow fa fa-angle-down"></b>
         </a>
         <ul class="sub-menu">
-            <li class="menu__item">
-                <a href="" data-url="/electrolysis/electrolysis_repair_report_tables" class="menu-item__link">{% trans "Журнал по ремонту оборудования" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/electrolysis/masters_report" class="menu-item__link">{% trans "Журнaл рапортов мастеров смен" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/electrolysis/electrolysis_technical_report_12_degree" class="menu-item__link">{% trans "Технологические журналы электролиза 1-й и 2-й серии" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/electrolysis/electrolysis_technical_report_3_degree" class="menu-item__link">{% trans "Технологический журнал электролиза 3-й серии" %}</a>
-            </li>
-            <li class="menu__item">
-                <a href="" data-url="/electrolysis/electrolysis_technical_report_4_degree" class="menu-item__link">{% trans "Технологический журнал электролиза 4-й серии" %}</a>
-            </li>
+            {% for journal_path, journal_verbose in menu_data.electrolysis.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
         </ul>
     </li>
 </ul>
