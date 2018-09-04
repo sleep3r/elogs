@@ -36,7 +36,7 @@ app.conf.beat_schedule = {
         'args': ("furnace",)
     },
     'run-while-OC-shift-close': {
-        'task': 'e_logs.common.all_journals_app.tasks.check_blank_OC_shift',
+        'task': 'e_logs.common.all_journals_app.tasks.check_blank_oc_shift',
         'schedule': crontab(hour='7,15,23', minute=59),
     },
     'run-while-leaching-shift-close': {
@@ -58,7 +58,6 @@ app.conf.beat_schedule = {
 
 @app.task
 def create_shifts():
-
     def date_range(start_date, end_date):
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
@@ -72,25 +71,34 @@ def create_shifts():
                     Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
 
 @app.task
+def check_blank_oc_shift(plant="furnace"):
+    for shift in filter(lambda s:s.is_active,
+            list(Shift.objects.filter(journal__plant__name=plant))):
+            check_for_no_cells(plant, shift)
+
+@app.task
 def check_blank_shift(plant):
     for shift in filter(lambda s:s.is_active,
             list(Shift.objects.filter(journal__plant__name=plant).
                          exclude(journal__name="reports_furnace_area"))):
-            if not Cell.objects.filter(group=shift).exists():
-                shift.closed = True
-                shift.save()
+            check_for_no_cells(plant, shift)
 
-                Message.add(cell=None,
-                            message={'type': 'blank_journal',
-                                     'text': "Журнал остался незаполнен",
-                                     'sendee': None },
-                            plant=plant, positions=("Boss",))
+def check_for_no_cells(plant, shift):
+    if not Cell.objects.filter(group=shift).exists():
+        shift.closed = True
+        shift.save()
 
-                Message.add(cell=None,
-                            message={'type': 'blank_journal',
-                                     'text': "Журнал остался незаполнен",
-                                     'sendee': None },
-                            positions=("Big boss",))
+        Message.add(cell=None,
+                    message={'type': 'blank_journal',
+                             'text': "Журнал остался незаполнен",
+                             'sendee': None},
+                    plant=plant, positions=("Boss",))
+
+        Message.add(cell=None,
+                    message={'type': 'blank_journal',
+                             'text': "Журнал остался незаполнен",
+                             'sendee': None},
+                    positions=("Big boss",))
 
 @app.task
 def end_of_limited_access(page_id):

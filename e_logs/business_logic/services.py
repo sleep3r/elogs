@@ -18,6 +18,7 @@ class SetMode(Service):
     beginning = forms.DateTimeField()
     end = forms.DateTimeField()
     journal_id = forms.IntegerField()
+    table_name = forms.CharField(max_length=256)
 
     # для валидации списка полей
     def clean(self):
@@ -36,7 +37,7 @@ class SetMode(Service):
 
         for f in self.data['fields']:
             field = Field.objects.get(name=f['name'],
-                                      table__name=f['table_name'],)
+                                      table__name=self.cleaned_data['table_name'],)
 
             FieldConstraints.objects.create(min_normal=f['min_normal'],
                                             max_normal=f['max_normal'],
