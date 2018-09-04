@@ -20,7 +20,7 @@
 
     {% for table_path in tables_paths %}
         {% get_table_name table_path as table_name %}
-        <TableCommon :cellgroup-info="cellgroupInfo" plant-name="furnace" journal-name="concentrate_report" table-name="{{ table_name }}" ></TableCommon>
+        <TableCommon :cellgroup-info="cellgroupInfo" title="Название таблицы" plant-name="furnace" journal-name="concentrate_report" table-name="{{ table_name }}" ></TableCommon>
     {% endfor %}
 
 
