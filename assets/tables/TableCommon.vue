@@ -5,9 +5,11 @@
 import Vue from 'vue/dist/vue.esm.js'
 import axios from 'axios'
 import cell from './Cell.vue'
+import tableComment from './TableComment.vue'
 
 Vue.component('cell', cell);
 Vue.component('Cell', cell);
+Vue.component('table-comment', tableComment);
 
 
 export default {
@@ -17,6 +19,7 @@ export default {
     plantName: String,
     journalName: String,
     tableName: String,
+    title: String
   },
   data: function() {
     return {
@@ -37,13 +40,15 @@ export default {
     if (!this.template) {
       return createElement('div', 'Loading...');
     } else {
-      return createElement({template: this.template,
+      return createElement({template: "<div class=\"journal-table\" id=\"table_id_table_name\">" +
+        "<div class=\"table__title\" >" + this.title + "</div>" +
+              this.template + "<table-comment></table-comment></div>",
         data: () => { return {
               data: this.$data,
               props: this.$props
             }
         },
-        components: { 'cell': cell }
+        components: { 'cell': cell, 'table-comment': tableComment }
       })
     }
   },
