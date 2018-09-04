@@ -186,7 +186,7 @@ def save_table_comment(request):
         return {"status": 1}
 
 
-# @cached_as(Plant, Journal, Shift)
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
