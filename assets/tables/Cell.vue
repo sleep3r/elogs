@@ -14,7 +14,6 @@ export default {
   name: 'Cell',
   props: [
       'cellgroupInfo',
-      'tableName',
       'fieldName',
       'rowIndex',
   ],
@@ -23,11 +22,15 @@ export default {
         value: '',
         classes: 'general-value number-cell form-control'
     }
+  },
+  computed: {
+    tableName: function() {
+        return this.$parent.props.tableName;
     }
   },
   methods: {
       onInput() {
-          
+
       },
       onChanged() {
           console.info("table-name: ", this.tableName, "field-name: ", this.fieldName, "value: ", this.value);
