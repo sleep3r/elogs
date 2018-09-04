@@ -15,7 +15,6 @@ Vue.component('table-comment', tableComment);
 export default {
   name: 'TableCommon',
   props: {
-    cellgroupInfo: Object,
     plantName: String,
     journalName: String,
     tableName: String,
@@ -29,6 +28,9 @@ export default {
   computed: {
     name: function () {
       return this.tableName;
+    },
+    journalInfo: function() {
+        return this.$root.journalInfo;
     }
   },
   methods: {
@@ -58,6 +60,7 @@ export default {
     axios.get(templateUrl)
       .then(function (response) {
          self.template = response.data;
+         console.log(this.journalInfo);
       })
       .catch(function (error) {
         console.log('error: ', error);

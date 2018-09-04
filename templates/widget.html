@@ -12,20 +12,8 @@
     value={% if has_edited %} True {% endif %}>
 
 <div id="elogs-app">
-
-{#    {% for table_path in tables_paths %}#}
-{#    {% get_table_name table_path as tn %}#}
-{#    {% include table_path with table_name=tn%}#}
-{#    {% endfor %}#}
-
     {% for table_path in tables_paths %}
         {% get_table_name table_path as table_name %}
-        <TableCommon :cellgroup-info="cellgroupInfo" title="Название таблицы" plant-name="furnace" journal-name="concentrate_report" table-name="{{ table_name }}" ></TableCommon>
+        <TableCommon title="Название таблицы" plant-name="furnace" journal-name="concentrate_report" table-name="{{ table_name }}" ></TableCommon>
     {% endfor %}
-
-
-
-
-
-
 </div>

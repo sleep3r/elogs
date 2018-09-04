@@ -5,7 +5,7 @@ import axios from 'axios';
 
 Vue.component('tablecommon', TableCommon);
 
-window.App = new Vue({
+window.app = new Vue({
   el: '#elogs-app',
   components: { TableCommon },
   data: function () {
@@ -13,64 +13,37 @@ window.App = new Vue({
       pageId: '',
       plantName: '',
       journalName: '',
-      cellgroupInfo: {},
-        tableName: '',
+      journalInfo: {},
       syncronized: false,
     }
   },
   delimiters: ['%{', '}'],
   computed: {
     tables: function () {
-        return ['big']
+      if (this.journalInfo) {
+          console.log(this.journalInfo.journal.tables.keys());
+          return this.journalInfo.journal.tables.keys();
+      } else {
+        return [];
+      }
     }
   },
   methods: {
-    getCellGroupInfo: function () {
-      this.syncronized = false
+    loadJournal: function () {
+      this.syncronized = false;
       axios
         .get('/api/shifts/' + this.pageId)
         .then(response => {
-          this.syncronized = true
-          this.cellgroupInfo = response.data
+          this.syncronized = true;
+          this.journalInfo = response.data;
         })
     },
-    sendCell: function (tableName, fieldName, index, value) {
-      // save cell on server
-      axios
-        .post('/common/save_cell/', {
-          'cell_location': {
-            'group_id': this.cellgroupInfo.id,
-            'table_name': tableName,
-            'field_name': fieldName,
-            'index': index
-          },
-          'value': value
-        })
-        .then(response => {
-          if (response.data.status != '1') {
-            console.log('DID NOT SAVE CELL ON SERVER')
-          }
-        })
-    },
-    saveCell: function (tableName, fieldName, index, value) {
-      // save cell locally
-      let cellInfo = {
-          "value": value,
-          "index": index
-      }
-      this.cellgroupInfo.journal.tables[tableName].fields[fieldName].cells[index] = cellInfo
-      this.$forceUpdate()
-    },
-    onCellChange: function (tableName, fieldName, index, value) {
-      this.saveCell(tableName, fieldName, index, value)
-      this.sendCell(tableName, fieldName, index, value)
-    }
   },
   mounted () {
     console.log('Tables were mounted')
     this.plantName = window.location.pathname.split("/")[1];
     this.journalName = window.location.pathname.split("/")[2];
     this.pageId = window.location.pathname.split("/")[3];
-    this.getCellGroupInfo();
+    this.loadJournal();
   }
 });
