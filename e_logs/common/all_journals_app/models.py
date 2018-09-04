@@ -31,7 +31,8 @@ class Plant(StrAsDictMixin, models.Model):
 class Journal(StrAsDictMixin, models.Model):
     """Abstract journal entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название журнала')
+    name = models.CharField(max_length=128, verbose_name='Журнал')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
