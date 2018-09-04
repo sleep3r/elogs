@@ -9,6 +9,7 @@ import cell from './Cell.vue'
 Vue.component('cell', cell);
 Vue.component('Cell', cell);
 
+
 export default {
   name: 'TableCommon',
   props: {
@@ -22,6 +23,11 @@ export default {
       template: null,
     }
   },
+  computed: {
+    name: function () {
+      return this.tableName;
+    }
+  },
   methods: {
     onCellChange: function () {
       console.log('in TableCommon onCellChange ')
@@ -32,15 +38,18 @@ export default {
       return createElement('div', 'Loading...');
     } else {
       return createElement({template: this.template,
-        props: this.$props,
-        data: () => this.$data,
+        data: () => { return {
+              data: this.$data,
+              props: this.$props
+            }
+        },
         components: { 'cell': cell }
       })
     }
   },
   mounted() {
     let self = this;
-    let templateUrl = '/static/templates/tables/' + this.plantName + '/' + this.journalName + '/' + this.tableName + ".html";
+    let templateUrl = '/static/templates/tables/' + this.plantName + '/' + this.journalName + '/' + this.name + ".html";
     axios.get(templateUrl)
       .then(function (response) {
          self.template = response.data;
