@@ -413,14 +413,6 @@ CACHEOPS = {
     # 'core.models.Setting': {'timeout': 60*60},
 }
 
-# TODO: read https://redis.io/topics/sentinel
-# CACHEOPS_SENTINEL = {
-#     'locations': [('localhost', 26379)], # sentinel locations, required
-#     'service_name': 'mymaster',          # sentinel service name, required
-#     'socket_timeout': 0.1,               # connection timeout in seconds, optional
-#     'db': 0                              # redis database, default: 0
-# }
-
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']

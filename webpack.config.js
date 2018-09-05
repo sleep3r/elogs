@@ -5,10 +5,10 @@ const Cleaner = require('webpack-cleanup-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const OfflinePlugin = require('offline-plugin');
+// const CompressionPlugin = require("compression-webpack-plugin");
+// const OfflinePlugin = require('offline-plugin');
 
 const OPTIONS = {
     PROJECT_ROOT: __dirname,
@@ -18,7 +18,7 @@ const OPTIONS = {
 
 const devMode = process.env.NODE_ENV !== 'production';
 
-let cacheObj = {}
+let cacheObj = {};
 
 module.exports = {
     target: "web",
@@ -30,7 +30,7 @@ module.exports = {
         "index.min": './js/index',
         messages: './messages/index',
         furnace: './furnace/index',
-        vFendor: [
+        vendor: [
             "jquery",
             "moment",
             "fullcalendar",
@@ -63,7 +63,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.js?$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -86,6 +86,9 @@ module.exports = {
                     // 'style-loader',
                     // 'vue-style-loader',
                     MiniCssExtractPlugin.loader,
+                    // process.env.NODE_ENV !== 'production'
+                    //     ? 'vue-style-loader'
+                    //     : MiniCssExtractPlugin.loader,
                     'css-loader',
                 ],
             },
@@ -95,6 +98,9 @@ module.exports = {
                     // 'style-loader',
                     // 'vue-style-loader',
                     MiniCssExtractPlugin.loader,
+                    // process.env.NODE_ENV !== 'production'
+                    //     ? 'vue-style-loader'
+                    //     : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
@@ -119,13 +125,17 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg|ico)$/i,
-                loader: 'url-loader',
-                // loader: 'file-loader',
+                // loader: 'url-loader',
+                loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
                     outputPath: 'images/',
                     limit: 8192,
                 },
+            },
+            {
+                test: /\.pug$/,
+                loader: 'pug-plain-loader'
             }
         ]
     },
