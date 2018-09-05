@@ -36,7 +36,6 @@ export default {
   },
   methods: {
       send(){
-          console.log("cell->send()", this.journalInfo);
           axios
             .post('/common/save_cell/', {
               'cell_location': {
