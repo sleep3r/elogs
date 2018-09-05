@@ -11,7 +11,6 @@ Vue.component('cell', cell);
 Vue.component('Cell', cell);
 Vue.component('table-comment', tableComment);
 
-
 export default {
   name: 'TableCommon',
   props: {
@@ -31,8 +30,7 @@ export default {
       return this.tableName;
     },
   },
-  methods: {
-  },
+  methods: {},
   render: function(createElement) {
     if (!this.template) {
       return createElement('div', 'Loading...');
@@ -52,17 +50,6 @@ export default {
           },
           components: { 'cell': cell, 'table-comment': tableComment },
           methods: {
-              getRowsIndexies: function() {
-                if (this.journalInfo) {
-                    let indexies = [];
-                    for (let i=0; i <= this.data.rowsCount; i++) {
-                        indexies.push(i);
-                    }
-                    return indexies;
-                } else {
-                    return [];
-                }
-              },
               calcRows: function() {
                   let maxCellIndex = -1;
                   if (this.journalInfo) {
@@ -106,8 +93,5 @@ export default {
         console.log('error: ', error);
       })
   },
-  components: {
-    'cell': cell
-  }
 }
 </script>
