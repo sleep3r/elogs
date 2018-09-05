@@ -23,34 +23,74 @@ export default {
   data: function() {
     return {
       template: null,
+      rowsCount: 0
     }
   },
   computed: {
     name: function () {
       return this.tableName;
     },
-    journalInfo: function() {
-        return this.$root.journalInfo;
-    }
   },
   methods: {
-    onCellChange: function () {
-      console.log('in TableCommon onCellChange ')
-    }
   },
   render: function(createElement) {
     if (!this.template) {
       return createElement('div', 'Loading...');
     } else {
-      return createElement({template: "<div class=\"journal-table\" id=\"table_id_table_name\">" +
+      return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
         "<div class=\"table__title\" >" + this.title + "</div>" +
               this.template + "<table-comment></table-comment></div>",
-        data: () => { return {
+          name: 'table-' + this.name,
+          data: () => { return {
               data: this.$data,
               props: this.$props
+          }},
+          computed: {
+            journalInfo: function() {
+                return this.$root.journalInfo;
             }
-        },
-        components: { 'cell': cell, 'table-comment': tableComment }
+          },
+          components: { 'cell': cell, 'table-comment': tableComment },
+          methods: {
+              getRowsIndexies: function() {
+                if (this.journalInfo) {
+                    let indexies = [];
+                    for (let i=0; i <= this.data.rowsCount; i++) {
+                        indexies.push(i);
+                    }
+                    return indexies;
+                } else {
+                    return [];
+                }
+              },
+              calcRows: function() {
+                  let maxCellIndex = -1;
+                  if (this.journalInfo) {
+                    let fields = this.journalInfo.journal.tables[this.props.tableName].fields;
+                    for(let field in fields) {
+                      for (let cellIndex in fields[field].cells) {
+                        cellIndex = parseInt(cellIndex);
+                        maxCellIndex = maxCellIndex < cellIndex ? cellIndex : maxCellIndex
+                      }
+                    }
+                    return maxCellIndex+1;
+                  }
+                  return maxCellIndex;
+              }
+          },
+          mounted() {
+            console.log("mounted: ", this.props.tableName);
+            let self = this;
+            this.$root.$on('journalLoaded',function(payload) {
+                self.data.rowsCount = self.calcRows();
+            });
+
+            this.$on('addNewLine', function(payload){
+                if (self.data.rowsCount === payload.editedRowNumber ) {
+                    self.data.rowsCount += 1;
+                }
+            });
+          }
       })
     }
   },

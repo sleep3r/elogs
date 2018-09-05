@@ -5,6 +5,7 @@
          v-bind:row-index="rowIndex"
          v-model.lazy="value"
          v-on:change="onChanged"
+         v-on:input="onInput"
   />
 </template>
 <script>
@@ -51,6 +52,9 @@ export default {
                   console.log('didn`t save cell on server status:', response.data.status);
               }
             })
+      },
+      onInput() {
+            this.$parent.$emit('addNewLine', { editedRowNumber: this.rowIndex });
       },
       onChanged() {
           this.send();
