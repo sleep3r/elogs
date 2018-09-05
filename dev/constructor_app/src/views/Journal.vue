@@ -1,19 +1,17 @@
 <template>
   <div class="container">
-    <h1 class="title">
-      <span>Реальный конструктор</span>
-      <span>для нереальных таблиц</span>
-    </h1>
-    <btn :onClick="onHandleClick">Создать журнал</btn>
+    <btn :onClick="onHandleClick">Создать таблицу</btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomePage",
+  name: "JournalPage",
   methods: {
       onHandleClick () {
-          this.$router.push('/journal/create')
+          this.$store.getters['journalState/getJournalName'] ?
+              this.$router.push(`/journal/${this.$store.getters['journalState/getJournalName']}/table/create`)
+              : this.$router.push('/journal/create')
       }
   }
 }

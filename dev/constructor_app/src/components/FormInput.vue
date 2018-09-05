@@ -27,7 +27,7 @@
     margin-bottom: 6px;
 }
 .input {
-    width: 300px;
+    width: 100%;
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #dcdfe6;

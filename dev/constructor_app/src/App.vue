@@ -15,6 +15,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   color: #2c3e50;
+  box-sizing: border-box;
 }
 
 </style>

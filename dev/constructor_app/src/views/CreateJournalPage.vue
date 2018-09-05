@@ -1,18 +1,13 @@
 <template>
     <div class="container">
-        <h2 class="title">Создание таблицы</h2>
+        <h2 class="title">Создание журнала</h2>
         <form>
             <form-input
                     @change="(value) => onHandleChange('name', value)"
                     :value="name"
-                    :label="'Введите название таблицы'"
+                    :label="'Введите название журнала'"
                     :placeholder="'Название'"
-            />
-            <form-input
-                    @change="(value) => onHandleChange('latinName', value)"
-                    :value="latinName"
-                    :label="'Введите название таблицы на латинице'"
-                    :placeholder="'Название на латинице'"
+                    style="width: 300px;"
             />
             <div v-show="error" class="error">
                 Заполните все поля
@@ -27,11 +22,10 @@
 
 <script>
     export default {
-        name: "CreatePage",
+        name: "CreateJournalPage",
         data () {
             return {
                 name: '',
-                latinName: '',
                 error: ''
             }
         },
@@ -40,9 +34,11 @@
                 this.$router.back()
             },
             onHandleCreate () {
-                this.latinName && this.name ?
-                    this.$router.push(`/edit/${this.latinName}`)
-                    : this.error = true
+                if (this.name) {
+                    this.$store.commit('journalState/setJournal', {name: this.name})
+                    this.$router.push(`/journal/${this.name}`)
+                }
+                else this.error = true
             },
             onHandleChange (data, value) {
                 value ? this.error = '' : this.error = true
