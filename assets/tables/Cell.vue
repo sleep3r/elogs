@@ -54,10 +54,6 @@ export default {
       },
       onChanged() {
           this.send();
-          console.info("table-name:", this.tableName,
-              "field-name:", this.fieldName,
-              "row-index:", this.rowIndex,
-              "value:", this.value);
       },
       bindValue() {
           if (!("journal" in this.journalInfo) === false ) {
