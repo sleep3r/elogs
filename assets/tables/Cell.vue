@@ -3,7 +3,7 @@
          type="text"
          v-bind:name="fieldName"
          v-bind:row-index="rowIndex"
-         v-model="value"
+         v-model.lazy="value"
          v-on:change="onChanged"
   />
 </template>
@@ -58,17 +58,19 @@ export default {
               "field-name:", this.fieldName,
               "row-index:", this.rowIndex,
               "value:", this.value);
+      },
+      bindValue() {
+          if (!("journal" in this.journalInfo) === false ) {
+            let cells = this.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells;
+            if (Object.keys(cells).length !== 0) {
+                this.value = cells[this.rowIndex].value;
+            }
+          }
       }
+
   },
   mounted() {
-      console.log(this.journalInfo.journal);
-
-          console.log(this.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells);
-          let obj = this.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells;
-          if (Object.keys(obj).length !== 0 ) {
-              this.value = this.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells[0].value;
-          }
-
-  }
+      this.bindValue();
+    }
 }
 </script>
