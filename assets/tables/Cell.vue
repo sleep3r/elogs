@@ -63,7 +63,9 @@ export default {
           if (!("journal" in this.journalInfo) === false ) {
             let cells = this.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells;
             if (Object.keys(cells).length !== 0) {
-                this.value = cells[this.rowIndex].value;
+                if (this.rowIndex in cells) {
+                    this.value = cells[this.rowIndex].value;
+                }
             }
           }
       }
