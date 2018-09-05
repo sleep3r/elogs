@@ -47,8 +47,8 @@ export default {
               'value': this.value
             })
             .then(response => {
-              if (response.data.status != '1') {
-                  console.log('DID NOT SAVE CELL ON SERVER')
+              if (response.data.status !== 1) {
+                  console.log('didn`t save cell on server status:', response.data.status);
               }
             })
       },
