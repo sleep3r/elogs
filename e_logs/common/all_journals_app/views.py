@@ -27,7 +27,6 @@ from e_logs.core.utils.webutils import process_json_view, logged, has_private_jo
 class Index(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
-        print(timezone.now())
         homepage_url = Setting.of(employee=self.request.user.employee)['homepage']
         if homepage_url is None:
             self.template_name = 'furnace-index.html'
