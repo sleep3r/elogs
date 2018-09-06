@@ -21,10 +21,10 @@
 
             {% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}
                 <li class="menu__item">
-                    <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link">{% trans "Поступление, расходы и остатки Zn концентратов" %}</a>
+                    <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link"><b>{% trans "Поступление, расходы и остатки Zn концентратов" %}</b>></a>
                 </li>
                 <li class="menu__item">
-                    <a href="" data-url="/furnace/metals_compute" class="menu-item__link">{% trans "Рассчёт металлов" %}</a>
+                    <a href="" data-url="/furnace/metals_compute" class="menu-item__link"><b>{% trans "Рассчёт металлов" %}</b></a>
                 </li>
             {% endif %}
         </ul>

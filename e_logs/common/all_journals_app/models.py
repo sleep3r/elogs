@@ -7,7 +7,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
-
+from django_extensions.db.models import TimeStampedModel
 from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
     max_cache
 
@@ -194,7 +194,7 @@ class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(StrAsDictMixin, models.Model):
+class Cell(StrAsDictMixin, TimeStampedModel):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
