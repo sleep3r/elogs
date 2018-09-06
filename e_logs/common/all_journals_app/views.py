@@ -38,7 +38,7 @@ class Index(LoginRequiredMixin, TemplateView):
             return redirect(homepage_url)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = get_context(self.request, plant=None, journal=None)
         return context
 
 
