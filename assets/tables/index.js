@@ -40,7 +40,6 @@ window.app = new Vue({
     },
   },
   mounted () {
-    console.log('Tables were mounted')
     this.plantName = window.location.pathname.split("/")[1];
     this.journalName = window.location.pathname.split("/")[2];
     this.pageId = window.location.pathname.split("/")[3];
