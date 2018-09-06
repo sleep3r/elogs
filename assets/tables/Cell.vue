@@ -67,7 +67,10 @@ export default {
                     this.value = cells[this.rowIndex].value;
                 }
             }
-            this.value = this.$store.getters[this.linked]
+            if (this.linked) {
+              this.value = this.$store.getters[this.linked];
+            }
+
           }
 
       }
