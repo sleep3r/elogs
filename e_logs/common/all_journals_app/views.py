@@ -1,9 +1,11 @@
+import os
 import json
 from datetime import date, datetime, timedelta
 
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.conf import settings
 
 from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger
@@ -17,11 +19,11 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
-from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
 from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals
+from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
 
 
 class Index(LoginRequiredMixin, TemplateView):
@@ -222,3 +224,86 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return result
     else:
         raise TypeError('Attempt to get shifts for non-shift journal')
+
+
+class Constructor(LoginRequiredMixin, View):
+    def post(self, request):
+        journal_data = json.loads(request.body)
+
+        if journal_data:
+            new_journal = self.create_journal(journal_data)
+
+            for table_name in journal_data['tables'].keys():
+                new_table = self.create_table(journal_data=journal_data,
+                                              journal=new_journal,
+                                              name=table_name)
+
+                meta = journal_data['tables'][table_name]['meta']
+                for field_name in meta.keys():
+                    new_field = self.create_field(table=new_table,
+                                                  name=field_name,
+                                                  meta=meta)
+
+                    self.set_field_settings(field=new_field, meta=meta)
+
+                    html = journal_data['tables'][table_name].get('html', None)
+                    if html:
+                        self.create_html_file(journal_data=journal_data, html=html)
+
+
+    def create_journal(self, journal_data):
+        journal = get_or_none(Journal, name=journal_data['name'],
+                              plant=Plant.objects.get(name=journal_data['plant']),
+                              type=journal_data['type'])
+        if journal:
+            raise NameError("Журнал с таким именем уже существует")
+        else:
+            new_journal = Journal.objects.create(name=journal_data['name'],
+                                                verbose_name=journal_data['verbose'],
+                                                plant=Plant.objects.get(name=journal_data['plant']),
+                                                type=journal_data['type'])
+            return new_journal
+
+    def create_table(self, journal_data, journal, name):
+        table = get_or_none(Table, name=name,
+                            journal=journal)
+        if table:
+            raise NameError("Таблица с таким именем уже существует")
+        else:
+            new_table = Table.objects.create(name=name,
+                                             journal=journal,
+                                             verbose_name=journal_data['tables'][name]['verbose'])
+            return new_table
+
+    def create_field(self,table, name, meta):
+        field = get_or_none(Field, name=name,
+                            table=table)
+        if field:
+            raise NameError("Столбец с таким именем уже существует")
+        else:
+            new_field = Field.objects.create(name=name,
+                                             table=table,
+                                             verbose_name=meta[name]['verbose'])
+            return new_field
+
+    def set_field_settings(self, field, meta):
+        Setting.of(field)['min_normal'] = meta.get('min_value', None)
+        Setting.of(field)['max_normal'] = meta.get('max_value', None)
+        Setting.of(field)['units'] = meta.get('units', None)
+        Setting.of(field)['type'] = meta.get('type', None)
+        if meta['type'] == 'datalist':
+            Setting.of(field)['options'] = meta.get('options', None)
+
+    def create_html_file(self, journal_data, html):
+        tables_path = settings.BASE_DIR / \
+                      f"e_logs/common/all_journals_app/templates/tables/" \
+                      f"{journal_data['plant']}/{journal_data['name']}"
+
+        if os.path.exists(tables_path):
+            raise NameError("Журнал с таким именем уже существует")
+        else:
+            os.makedirs(tables_path)
+            os.path.dirname(tables_path)
+
+            with open('table_name.html', 'w') as table_file:
+                table_file.write(html)
