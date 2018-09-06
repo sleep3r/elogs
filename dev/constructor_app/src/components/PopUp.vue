@@ -39,14 +39,18 @@
           cell (value) {
               if (value) {
                   this.fieldName = $(this.cell).attr('field-name')
-                  $('#name input').val($(this.cell).attr('field-name'))
+                  this.minValue = this.$store.getters['journalState/getCellMinValue'](this.$route.params.tableName, this.cell)
+                  this.maxValue = this.$store.getters['journalState/getCellMaxValue'](this.$route.params.tableName, this.cell)
               }
               else {
                   this.fieldName = ''
-                  $('#name input').val('')
-                  $('#minValue input').val('')
-                  $('#maxValue input').val('')
+                  this.minValue = ''
+                  this.maxValue = ''
               }
+
+              $('#name input').val(this.fieldName)
+              $('#minValue input').val(this.minValue)
+              $('#maxValue input').val(this.maxValue)
           }
         },
         methods: {
