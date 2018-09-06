@@ -167,26 +167,6 @@ def save_cell(request):
         return {"status": 1}
 
 
-@csrf_exempt
-@process_json_view(auth_required=False)
-# @logged
-def save_table_comment(request):
-    if request.is_ajax() and request.method == 'POST':
-        comment_data = json.loads(request.body)
-        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
-        text = comment_data['text']
-        if text:
-            cell.responsible = request.user.employee
-            cell.value = text
-            cell.save()
-
-        if cell.journal.type == 'shift':
-            shift = Shift.objects.get(id=int(comment_data['cell_location']['group_id']))
-            shift.employee_set.add(request.user.employee)
-
-        return {"status": 1}
-
-
 @cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
