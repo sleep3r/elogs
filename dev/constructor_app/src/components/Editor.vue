@@ -1,7 +1,7 @@
 <template>
     <div class="editor-container" >
        <div class="editor-header">
-           <!--<btn :onClick="onAddRow">Добавить строку</btn>-->
+           <btn :onClick="onAddRow">Добавить строку</btn>
        </div>
         <div id="editor-content" class="editor-body" v-html="table">
 
@@ -11,13 +11,14 @@
 </template>
 
 <script>
-    import Cell from './Cell'
+    import shortid from 'shortid'
     import PopUp from './PopUp'
     export default {
         name: "Editor",
-        components: {Cell, PopUp},
+        components: {PopUp},
         data () {
           return {
+              cells: [],
               currentCell: null,
               display: 'none',
               x: '0',
@@ -97,9 +98,47 @@
           }
         },
         methods: {
+            setPopUpListeners () {
+                let _this = this
+                $('.cell').click(function(e) {
+                    e.stopPropagation()
+                    _this.display = 'block'
+                    if (e.clientX + $('.pop-up').outerWidth() >= $('#app').outerWidth()) {
+                        _this.x = e.clientX - $('.pop-up').outerWidth()
+                    }
+                    else _this.x = e.clientX
+                    _this.y = e.clientY
+                    _this.currentCell = $(this).attr('id')
+                })
+                $('.pop-up').click(function(e) {
+                    e.stopPropagation()
+                    _this.display = 'block'
+                })
+                $('#app').click(function(e) {
+                    _this.display = 'none'
+                    _this.currentCell = null
+                })
+            },
+            setCells () {
+                let _this = this
+                $('.cell').css({width: $('.cell').outerWidth()})
+                $('.cell').each(function () {
+                    if (!$(this).attr('id')) {
+                        let id = shortid.generate()
+                        $(this).attr('id', id)
+                        _this.cells.push({cell: id})
+                    }
+                })
+                this.$store.commit('journalState/setTable',
+                    {
+                        tableName: _this.$route.params.tableName,
+                        fields: _this.cells
+                    }
+                )
+            },
             onAddRow () {
                 this.rowsLength ++
-                let table = $(this.table)
+                let table = $('#editor-content')
                 let thead = table.find('thead')
                 let tbody = table.find('tbody')
                 let newRowData = ''
@@ -109,39 +148,14 @@
                   '                        </td>\n'
                 })
                 tbody.append(newRowData)
-                this.table = '<table>' + table.html() + '</table>'
+                this.table = table.html()
+                setTimeout(() => this.setPopUpListeners(), 0)
+                setTimeout(() => this.setCells(), 0)
             }
         },
         mounted () {
-            let _this = this
-            let cells = []
-            $('.cell').click(function(e) {
-                e.stopPropagation()
-                _this.display = 'block'
-                if (e.clientX + $('.pop-up').outerWidth() >= $('#app').outerWidth()) {
-                    _this.x = e.clientX - $('.pop-up').outerWidth()
-                }
-                else _this.x = e.clientX
-                _this.y = e.clientY
-                _this.currentCell = this
-            })
-            $('.pop-up').click(function(e) {
-                e.stopPropagation()
-                _this.display = 'block'
-            })
-            $('#app').click(function(e) {
-                _this.display = 'none'
-                _this.currentCell = null
-            })
-            $('.cell').each(function () {
-                cells.push({cell: this})
-            })
-            this.$store.commit('journalState/setTable',
-                {
-                    tableName: this.$route.params.tableName,
-                    fields: cells
-                }
-            )
+            this.setPopUpListeners()
+            this.setCells()
         }
     }
 </script>
@@ -177,9 +191,14 @@ table {
     border-collapse: collapse;
 }
 .cell {
-    width: 100%;
     height: 28px;
+    line-height: 28px;
     transition: 0.2s;
+    box-sizing: border-box;
+    padding: 0px 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &:hover {
         cursor: pointer;
@@ -190,8 +209,6 @@ table td {
     border: 1px solid #a9a9a9;
 
     .cell:hover {
-        width: 100%;
-        height: 28px;
         background-color: #f9f9f9;
     }
 }
@@ -201,8 +218,6 @@ table th {
     background-color: #eaeaea;
 
     .cell:hover {
-        width: 100%;
-        height: 28px;
         background-color: #e3e3e3;
     }
 }

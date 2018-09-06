@@ -46,12 +46,11 @@ const journalState = {
     },
     setTable (state, payload) {
         let table = state.journal.tables.filter((item) => item.latinName === payload.tableName)[0]
-        table.fields = table.fields.concat(payload.fields)
+        table.fields = payload.fields
     },
     setField (state, payload) {
         let table = state.journal.tables.filter((item) => item.latinName === payload.name)[0]
         let field = table.fields.filter(item => item.cell === payload.field.cell)[0]
-        console.log(field, payload.field)
         if(field) {
             field.field_name = payload.field.field_name
             field.min_value = payload.field.min_value

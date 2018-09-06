@@ -38,7 +38,7 @@
         watch: {
           cell (value) {
               if (value) {
-                  this.fieldName = $(this.cell).attr('field-name')
+                  this.fieldName = $(`#${this.cell}`).attr('field-name')
                   this.minValue = this.$store.getters['journalState/getCellMinValue'](this.$route.params.tableName, this.cell)
                   this.maxValue = this.$store.getters['journalState/getCellMaxValue'](this.$route.params.tableName, this.cell)
               }
@@ -56,9 +56,9 @@
         methods: {
             onHandleChange (data, value) {
                 this[data] = value
-                console.log(data)
                 if (data === 'fieldName') {
-                    $(this.cell).attr('field-name', value)
+                    $(`#${this.cell}`).attr('field-name', value)
+                    $(`#${this.cell}`).text(value)
                 }
                 this.$store.commit('journalState/setField',
                     {
