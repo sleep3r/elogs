@@ -12,6 +12,7 @@ from django.template import loader, TemplateDoesNotExist
 from django.views import View
 from django.shortcuts import redirect, render_to_response
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment
@@ -44,7 +45,7 @@ class JournalView(LoginRequiredMixin, View):
                 for shift_order in range(1, number_of_shifts + 1):
                     shift = Shift.objects.get_or_create(journal=journal,
                                                         order=shift_order,
-                                                        date=datetime.now(pytz.utc))[0]
+                                                        date=timezone.now().date())[0]
                     if shift.is_active:
                         page = shift
                         break

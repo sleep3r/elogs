@@ -1,12 +1,14 @@
 import Vue from 'vue/dist/vue.esm.js'
 import TableCommon from './TableCommon.vue';
 import axios from 'axios';
+import { store } from './store';
 
 
 Vue.component('tablecommon', TableCommon);
 
 window.app = new Vue({
   el: '#elogs-app',
+  store: store,
   components: { TableCommon },
   data: function () {
     return {
@@ -20,9 +22,10 @@ window.app = new Vue({
   delimiters: ['%{', '}'],
   computed: {
     tables: function () {
-      if (this.journalInfo) {
-          console.log(this.journalInfo.journal.tables.keys());
-          return this.journalInfo.journal.tables.keys();
+      if (Object.keys(this.journalInfo).length !== 0) {
+          console.log('tables from store:');
+          console.log(store.getters.tables);
+          return Object.keys(this.journalInfo.journal.tables);
       } else {
         return [];
       }
@@ -36,6 +39,7 @@ window.app = new Vue({
         .then(response => {
           this.syncronized = true;
           this.journalInfo = response.data;
+          store.commit('updateJournalInfo', response.data);
         })
     },
   },

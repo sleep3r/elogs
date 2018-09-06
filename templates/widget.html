@@ -12,8 +12,7 @@
     value={% if has_edited %} True {% endif %}>
 
 <div id="elogs-app">
-    {% for table_path in tables_paths %}
-        {% get_table_name table_path as table_name %}
-        <TableCommon title="Название таблицы" plant-name="furnace" journal-name="concentrate_report" table-name="{{ table_name }}" ></TableCommon>
-    {% endfor %}
+    <template v-for="table in $store.getters.tables">
+      <TableCommon title="Название таблицы" plant-name="furnace" :journal-name="$store.getters.journalName" :table-name="table" ></TableCommon>
+    </template>
 </div>
