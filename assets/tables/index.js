@@ -36,6 +36,7 @@ window.app = new Vue({
         .then(response => {
           this.syncronized = true;
           this.journalInfo = response.data;
+          this.$root.$emit('journalLoaded',{});
         })
     },
   },
