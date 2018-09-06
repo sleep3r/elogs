@@ -26,6 +26,13 @@ export const store = new Vuex.Store({
         } else {
           return '';
         }
+      },
+      shiftOrder: state => {
+        if (Object.keys(state.journalInfo).length !== 0) {
+          return state.journalInfo.order
+        } else {
+          return -1;
+        }
       }
     },
     mutations: {

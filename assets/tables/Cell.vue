@@ -3,7 +3,7 @@
          type="text"
          v-bind:name="fieldName"
          v-bind:row-index="rowIndex"
-         v-model.lazy="value"
+         v-model="value"
          v-on:change="onChanged"
          v-on:input="onInput"
   />
@@ -16,6 +16,7 @@ export default {
   props: [
       'fieldName',
       'rowIndex',
+      'linked'
   ],
   data() {
     return {
@@ -66,7 +67,9 @@ export default {
                     this.value = cells[this.rowIndex].value;
                 }
             }
+            this.value = this.$store.getters[this.linked]
           }
+
       }
 
   },
