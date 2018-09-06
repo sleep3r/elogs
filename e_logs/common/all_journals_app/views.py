@@ -1,5 +1,6 @@
 import os
 import json
+import pickle
 from datetime import date, datetime, timedelta
 
 from django.shortcuts import redirect
@@ -211,12 +212,21 @@ class Constructor(LoginRequiredMixin, View):
         journal_data = json.loads(request.body)
 
         if journal_data:
-            new_journal = self.create_journal(journal_data)
+            tables_path = settings.BASE_DIR / \
+                          f"e_logs/common/all_journals_app/templates/tables/" \
+                          f"{journal_data['plant']}/{journal_data['name']}"
+
+            new_journal = self.create_journal(journal_data, tables_path)
+
+            tables_list = []
 
             for table_name in journal_data['tables'].keys():
                 new_table = self.create_table(journal_data=journal_data,
                                               journal=new_journal,
                                               name=table_name)
+
+                tables_list.append(
+                    f"tables/{journal_data['plant']}/{journal_data['name']}/{table_name}.html")
 
                 meta = journal_data['tables'][table_name]['meta']
                 for field_name in meta.keys():
@@ -228,10 +238,14 @@ class Constructor(LoginRequiredMixin, View):
 
                     html = journal_data['tables'][table_name].get('html', None)
                     if html:
-                        self.create_html_file(journal_data=journal_data, html=html)
+                        self.create_html_file(name=table_name, html=html, tables_path=tables_path)
+
+            Setting.of(new_journal)['tables_list'] = pickle.dumps(tables_list)
+
+            return JsonResponse({"status":1})
 
 
-    def create_journal(self, journal_data):
+    def create_journal(self, journal_data, tables_path):
         journal = get_or_none(Journal, name=journal_data['name'],
                               plant=Plant.objects.get(name=journal_data['plant']),
                               type=journal_data['type'])
@@ -239,10 +253,16 @@ class Constructor(LoginRequiredMixin, View):
             raise NameError("Журнал с таким именем уже существует")
         else:
             new_journal = Journal.objects.create(name=journal_data['name'],
-                                                verbose_name=journal_data['verbose'],
+                                                verbose_name=journal_data.get('verbose', None),
                                                 plant=Plant.objects.get(name=journal_data['plant']),
                                                 type=journal_data['type'])
-            return new_journal
+
+            if os.path.exists(tables_path):
+                raise NameError("Журнал с таким именем уже существует")
+            else:
+                os.makedirs(tables_path)
+
+                return new_journal
 
     def create_table(self, journal_data, journal, name):
         table = get_or_none(Table, name=name,
@@ -251,8 +271,8 @@ class Constructor(LoginRequiredMixin, View):
             raise NameError("Таблица с таким именем уже существует")
         else:
             new_table = Table.objects.create(name=name,
-                                             journal=journal,
-                                             verbose_name=journal_data['tables'][name]['verbose'])
+                                    journal=journal,
+                                    verbose_name=journal_data['tables'][name].get('verbose', None))
             return new_table
 
     def create_field(self,table, name, meta):
@@ -263,7 +283,7 @@ class Constructor(LoginRequiredMixin, View):
         else:
             new_field = Field.objects.create(name=name,
                                              table=table,
-                                             verbose_name=meta[name]['verbose'])
+                                             verbose_name=meta[name].get('verbose', None),)
             return new_field
 
     def set_field_settings(self, field, meta):
@@ -274,16 +294,6 @@ class Constructor(LoginRequiredMixin, View):
         if meta['type'] == 'datalist':
             Setting.of(field)['options'] = meta.get('options', None)
 
-    def create_html_file(self, journal_data, html):
-        tables_path = settings.BASE_DIR / \
-                      f"e_logs/common/all_journals_app/templates/tables/" \
-                      f"{journal_data['plant']}/{journal_data['name']}"
-
-        if os.path.exists(tables_path):
-            raise NameError("Журнал с таким именем уже существует")
-        else:
-            os.makedirs(tables_path)
-            os.path.dirname(tables_path)
-
-            with open('table_name.html', 'w') as table_file:
-                table_file.write(html)
+    def create_html_file(self, name, html, tables_path):
+        with open(tables_path / f'{name}.html', 'w') as table_file:
+            table_file.write(html)
