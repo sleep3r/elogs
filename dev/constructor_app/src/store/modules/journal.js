@@ -22,16 +22,18 @@ const journalState = {
     },
     setField (state, payload) {
         let table = state.journal.tables.filter((item) => item.latinName === payload.name)[0]
-        // if (table.fields.length) {
-        //     let field = table.fields.filter(item => item.field_name === payload.field.field_name.substr(0, payload.field.field_name.length - 1)[0]
-        //     console.log(field)
-        //     if(field) {
-        //         field.field_name = payload.field.field_name
-        //     }
-        //     else table.fields.push(payload.field)
-        //
-        // }
-        // else table.fields.push(payload.field)
+        if (table.fields.length) {
+            let field = table.fields.filter(item => item.cell === payload.field.cell)[0]
+            console.log(field, payload.field)
+            if(field) {
+                field.field_name = payload.field.field_name
+                field.min_value = payload.field.min_value
+                field.max_value = payload.field.max_value
+            }
+            else table.fields.push(payload.field)
+
+        }
+        else table.fields.push(payload.field)
 
     }
   }

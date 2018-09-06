@@ -5,7 +5,21 @@
                     :value="fieldName"
                     :label="'Имя'"
                     :placeholder="''"
-                    class="cell-input"
+                    id="name"
+        />
+        <form-input
+                    @change="(value) => onHandleChange('minValue', value)"
+                    :value="minValue"
+                    :label="'Минимальное значение'"
+                    :placeholder="''"
+                    id="minValue"
+        />
+        <form-input
+                    @change="(value) => onHandleChange('maxValue', value)"
+                    :value="maxValue"
+                    :label="'Максимальное значение'"
+                    :placeholder="''"
+                    id="maxValue"
         />
     </div>
 </template>
@@ -16,27 +30,38 @@
         props: ['display', 'x', 'y', 'cell'],
         data () {
             return {
-                fieldName: ''
+                fieldName: '',
+                minValue: '',
+                maxValue: ''
             }
         },
         watch: {
-          cell (value) { //обработка значения инпута не работает
+          cell (value) {
               if (value) {
                   this.fieldName = $(this.cell).attr('field-name')
-                  // console.log($('.cell-input').val())
+                  $('#name input').val($(this.cell).attr('field-name'))
               }
               else {
                   this.fieldName = ''
-                  // console.log($('.cell-input').val())
+                  $('#name input').val('')
+                  $('#minValue input').val('')
+                  $('#maxValue input').val('')
               }
-              console.log($('.cell-input').val())
           }
         },
         methods: {
             onHandleChange (data, value) {
                 this[data] = value
-                $(this.cell).attr('field-name', value)
-                this.$store.commit('journalState/setField', {name: this.$route.params.tableName, field: {field_name: value}})
+                console.log(data)
+                if (data === 'fieldName') {
+                    $(this.cell).attr('field-name', value)
+                }
+                this.$store.commit('journalState/setField',
+                    {
+                        name: this.$route.params.tableName,
+                        field: {field_name: this.fieldName, cell: this.cell, min_value: this.minValue, max_value: this.maxValue}
+                    }
+                )
             }
         }
     }

@@ -117,7 +117,10 @@
             $('.cell').click(function(e) {
                 e.stopPropagation()
                 _this.display = 'block'
-                _this.x = e.clientX
+                if (e.clientX + $('.pop-up').outerWidth() >= $('#app').outerWidth()) {
+                    _this.x = e.clientX - $('.pop-up').outerWidth()
+                }
+                else _this.x = e.clientX
                 _this.y = e.clientY
                 _this.currentCell = this
             })
