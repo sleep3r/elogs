@@ -1,7 +1,7 @@
 <template>
     <div class="editor-container" >
        <div class="editor-header">
-           <btn :onClick="onAddRow">Добавить строку</btn>
+           <!--<btn :onClick="onAddRow">Добавить строку</btn>-->
        </div>
         <div id="editor-content" class="editor-body" v-html="table">
 
@@ -114,6 +114,7 @@
         },
         mounted () {
             let _this = this
+            let cells = []
             $('.cell').click(function(e) {
                 e.stopPropagation()
                 _this.display = 'block'
@@ -132,6 +133,15 @@
                 _this.display = 'none'
                 _this.currentCell = null
             })
+            $('.cell').each(function () {
+                cells.push({cell: this})
+            })
+            this.$store.commit('journalState/setTable',
+                {
+                    tableName: this.$route.params.tableName,
+                    fields: cells
+                }
+            )
         }
     }
 </script>
