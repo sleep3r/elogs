@@ -40,11 +40,11 @@ window.app = new Vue({
           this.syncronized = true;
           this.journalInfo = response.data;
           store.commit('updateJournalInfo', response.data);
+          this.$root.$emit('journalLoaded',{});
         })
     },
   },
   mounted () {
-    console.log('Tables were mounted')
     this.plantName = window.location.pathname.split("/")[1];
     this.journalName = window.location.pathname.split("/")[2];
     this.pageId = window.location.pathname.split("/")[3];

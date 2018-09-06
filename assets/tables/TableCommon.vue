@@ -50,26 +50,25 @@ export default {
           },
           components: { 'cell': cell, 'table-comment': tableComment },
           methods: {
-              calcRows: function() {
-                  let maxCellIndex = -1;
+              getRowsCount: function() {
                   if (this.journalInfo) {
-                    let fields = this.journalInfo.journal.tables[this.props.tableName].fields;
-                    for(let field in fields) {
-                      for (let cellIndex in fields[field].cells) {
-                        cellIndex = parseInt(cellIndex);
-                        maxCellIndex = maxCellIndex < cellIndex ? cellIndex : maxCellIndex
+                      let max = -1;
+                      let fields = this.journalInfo.journal.tables[this.props.tableName].fields;
+                      for(let field in fields) {
+                        for (let index in fields[field].cells) {
+                            index = parseInt(index);
+                            max = max < index ? index : max
+                        }
                       }
-                    }
-                    return maxCellIndex+1;
+                      return max+1;
                   }
-                  return maxCellIndex;
+                  return -1;
               }
           },
           mounted() {
-            console.log("mounted: ", this.props.tableName);
             let self = this;
             this.$root.$on('journalLoaded',function(payload) {
-                self.data.rowsCount = self.calcRows();
+                self.data.rowsCount = self.getRowsCount();
             });
 
             this.$on('addNewLine', function(payload){
@@ -87,7 +86,6 @@ export default {
     axios.get(templateUrl)
       .then(function (response) {
          self.template = response.data;
-         console.log(this.journalInfo);
       })
       .catch(function (error) {
         console.log('error: ', error);
