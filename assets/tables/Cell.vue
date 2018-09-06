@@ -8,6 +8,7 @@
          v-on:input="onInput"
   />
 </template>
+
 <script>
 import axios from 'axios'
 
@@ -26,7 +27,12 @@ export default {
   },
   computed: {
     tableName: function() {
-        return this.$parent.props.tableName;
+        if (typeof this.$parent.props !== 'undefined') {
+          return this.$parent.props.tableName;
+        }
+        else {
+          return ''
+        }
     },
     journalInfo: function() {
         if (!this.$root.journalInfo) {
@@ -70,9 +76,7 @@ export default {
             if (this.linked) {
               this.value = this.$store.getters[this.linked];
             }
-
           }
-
       }
 
   },

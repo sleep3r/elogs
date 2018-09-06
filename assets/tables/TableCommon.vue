@@ -37,7 +37,7 @@ export default {
     } else {
       return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
         "<div class=\"table__title\" >" + this.title + "</div>" +
-              this.template + "<table-comment></table-comment></div>",
+              this.template + "<table-comment table-name=\"" + this.tableName + "\"></table-comment></div>",
           name: 'table-' + this.name,
           data: () => { return {
               data: this.$data,
