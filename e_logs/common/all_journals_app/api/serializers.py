@@ -1,5 +1,9 @@
 from rest_framework import serializers
 
+from django.contrib.auth.models import Permission
+
+from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
+    plant_permission
 from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, Field, Shift
 from e_logs.core.models import Setting
 from e_logs.core.api.utils import cached
@@ -14,6 +18,15 @@ class CellSerializer(serializers.ModelSerializer):
 
 class ShiftSerializer(serializers.ModelSerializer):
     journal = serializers.SerializerMethodField('serialize_shift')
+    mode = serializers.SerializerMethodField('get_page_modee')
+    permissions = serializers.SerializerMethodField()
+
+    def get_page_modee(self, obj):
+        return get_page_mode(self.context['request'], obj)
+
+    def get_permissions(self, obj):
+        return [permission.codename for permission
+                    in Permission.objects.filter(user=self.context['request'].user)]
 
     def serialize_shift(self, obj):
         serializer = JournalSerializer(instance=Journal.objects.get(cellgroup=obj),
@@ -22,7 +35,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Shift
-        fields = ("id", "order", "date", "journal")
+        fields = ("id", "order", "date", "mode", "permissions", "journal")
 
 
 class FieldSerializer(serializers.ModelSerializer):

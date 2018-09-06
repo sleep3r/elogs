@@ -3,11 +3,12 @@
          type="text"
          v-bind:name="fieldName"
          v-bind:row-index="rowIndex"
-         v-model.lazy="value"
+         v-model="value"
          v-on:change="onChanged"
          v-on:input="onInput"
   />
 </template>
+
 <script>
 import axios from 'axios'
 
@@ -16,6 +17,7 @@ export default {
   props: [
       'fieldName',
       'rowIndex',
+      'linked'
   ],
   data() {
     return {
@@ -25,7 +27,12 @@ export default {
   },
   computed: {
     tableName: function() {
-        return this.$parent.props.tableName;
+        if (typeof this.$parent.props !== 'undefined') {
+          return this.$parent.props.tableName;
+        }
+        else {
+          return ''
+        }
     },
     journalInfo: function() {
         if (!this.$root.journalInfo) {
@@ -65,6 +72,9 @@ export default {
                 if (this.rowIndex in cells) {
                     this.value = cells[this.rowIndex].value;
                 }
+            }
+            if (this.linked) {
+              this.value = this.$store.getters[this.linked];
             }
           }
       }

@@ -1,17 +1,70 @@
 <template>
     <div class="table__comment">
-        <a href="javascript:;" onclick="Comment.collapse(this)">Комментарий </a>
+        <a href="javascript:;" @click="onClick">Комментарий </a>
         <i class="fas fa-envelope ico-comment"></i>
-        <div class="comment__text collapse ">
-            <textarea class="table-comment" name="comment" table-name="vsns" journal-page="1283" oninput="FormTable.onInput(this)" placeholder="Комментарий..." title="" readonly="readonly"></textarea>
+        <div :class="['comment__text', { collapse: isCollapsed }]">
+          <textarea
+            class="table-comment"
+            @change="onChange"
+            placeholder="Комментарий..."
+            title=""
+            v-model="text">
+          </textarea>
         </div>
     </div>
 </template>
+
 <script>
+import axios from 'axios'
+
 export default {
   name: 'table-comment',
-  props: {
-
+  props: [ 'tableName' ],
+  data() {
+    return {
+      isCollapsed: true,
+      text: '',
+      rowIndex: '0',
+      fieldName: 'comment'
+    }
+  },
+  methods: {
+    onClick() {
+      this.isCollapsed = !this.isCollapsed;
+    },
+    onChange() {
+      axios
+        .post('/common/save_cell/', {
+          'cell_location': {
+            'group_id': this.$store.state.journalInfo.id,
+            'table_name': this.tableName,
+            'field_name': this.fieldName,
+            'index': this.rowIndex
+          },
+          'value': this.text
+        })
+        .then(response => {
+          if (response.data.status !== 1) {
+              console.log('didn`t save comment on server status:', response.data.status);
+          }
+        })
+    },
+    bindText() {
+        if (!("journal" in this.$store.state.journalInfo) === false ) {
+          if (typeof this.$store.state.journalInfo.journal.tables[this.tableName].fields[this.fieldName] !== 'undefined') {
+            let cells = this.$store.state.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells;
+            if (Object.keys(cells).length !== 0) {
+                if (this.rowIndex in cells) {
+                    this.text = cells[this.rowIndex].value;
+                    this.isCollapsed = false
+                }
+            }
+          }
+        }
+    }
+  },
+  mounted() {
+    this.bindText();
   }
 }
 </script>
