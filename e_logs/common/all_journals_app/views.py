@@ -218,7 +218,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return {
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
-            'id': '/{}/{}/{}/'.format(shift.journal.plant.name, shift.journal.name, shift.id),
+            'url': '/{}/{}/{}/'.format(shift.journal.plant.name, shift.journal.name, shift.id),
             'title:': 'Some title',
             'color': '#169F85' if is_owned else '#2A3F54'
         }
