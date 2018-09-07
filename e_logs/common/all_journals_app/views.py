@@ -13,6 +13,7 @@ from django.views import View
 from django.shortcuts import redirect, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+from django.urls import reverse
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment
@@ -217,7 +218,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return {
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
-            'url': '?id={}'.format(shift.id),
+            'id': '/{}/{}/{}/'.format(shift.journal.plant.name, shift.journal.name, shift.id),
             'title:': 'Some title',
             'color': '#169F85' if is_owned else '#2A3F54'
         }
