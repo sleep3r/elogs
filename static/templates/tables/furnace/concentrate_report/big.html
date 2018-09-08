@@ -16,7 +16,8 @@
         </tr>
     </thead>
     <tbody>
-          <tr v-for="index in data.rowsCount">
+          <!-- (value, index) is used to start counting from 0 ("index in data.rowsCount" starts from 1)-->
+          <tr v-for="(value, index) in data.rowsCount + 1">
               <td><cell field-name="wagon_num" :row-index="index"></cell></td>
               <td><cell field-name="conc_num" :row-index="index"></cell></td>
               <td><cell field-name="supply_time" :row-index="index"></cell></td>

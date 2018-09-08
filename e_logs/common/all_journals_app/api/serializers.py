@@ -18,10 +18,14 @@ class CellSerializer(serializers.ModelSerializer):
 
 class ShiftSerializer(serializers.ModelSerializer):
     journal = serializers.SerializerMethodField('serialize_shift')
-    mode = serializers.SerializerMethodField('get_page_modee')
+    mode = serializers.SerializerMethodField('get_page_mode')
     permissions = serializers.SerializerMethodField()
+    plant = serializers.SerializerMethodField()
 
-    def get_page_modee(self, obj):
+    def get_plant(self, obj):
+        return {'name': obj.journal.plant.name}
+
+    def get_page_mode(self, obj):
         return get_page_mode(self.context['request'], obj)
 
     def get_permissions(self, obj):
@@ -35,7 +39,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Shift
-        fields = ("id", "order", "date", "mode", "permissions", "journal")
+        fields = ("id", "order", "date", "mode", "permissions", "journal", "plant")
 
 
 class FieldSerializer(serializers.ModelSerializer):
