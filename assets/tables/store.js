@@ -70,6 +70,14 @@ export const store = new Vuex.Store({
       },
       tableTitle: (state) => (tableName) => {
         return 'Заголовок таблицы'
+      },
+      fieldDescription: (state) => (tableName, fieldName) => {
+        if (state.loaded) {
+            return state.journalInfo.journal.tables[tableName].fields[fieldName].field_description || ''
+        }
+        else {
+          return ''
+        }
       }
     },
     mutations: {
