@@ -27,20 +27,22 @@
                 <img style="height: 30px; width: 30px;" :title="employeeFormatted" src = "/static/images/no-avatar.png">
             <!--{% endfor %}-->
         </div>
-        <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />
+        <modal v-show="isShowCalendar" @close="isShowCalendar = false" >
+            <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />
+        </modal>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import 'jquery'
 import { FullCalendar } from 'vue-full-calendar'
-
-
+import modal from "./Modal.vue"
 
 export default {
     name: 'journal-panel',
     data() {
         return {
+            isShowCalendar: false,
             shiftDate: '00-00-00',
             shiftOrder: '1',
             employeeName: 'Employee name',
@@ -60,43 +62,43 @@ export default {
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listMonth'
+                    right: 'month, listMonth'
                 },
                 selectable: true,
                 selectHelper: true,
                 select: function (start, end, allDay) {
-                    $('#fc_create').click();
+                    // $('#fc_create').click();
+                    //
+                    // let started = start;
+                    // let ended = end;
+                    //
+                    // $(".antosubmit").on("click", function () {
+                    //     var title = $("#title").val();
+                    //     if (end) {
+                    //         ended = end;
+                    //     }
+                    //
+                    //     categoryClass = $("#event_type").val();
+                    //
+                    //     if (title) {
+                    //         calendar.fullCalendar('renderEvent', {
+                    //                 title: title,
+                    //                 start: started,
+                    //                 end: end,
+                    //                 allDay: allDay
+                    //             },
+                    //             true // make the event "stick"
+                    //         );
+                    //     }
+                    //
+                    //     $('#title').val('');
+                    //
+                    //     calendar.fullCalendar('unselect');
+                    //
+                    //     $('.antoclose').click();
 
-                    let started = start;
-                    let ended = end;
-
-                    $(".antosubmit").on("click", function () {
-                        var title = $("#title").val();
-                        if (end) {
-                            ended = end;
-                        }
-
-                        categoryClass = $("#event_type").val();
-
-                        if (title) {
-                            calendar.fullCalendar('renderEvent', {
-                                    title: title,
-                                    start: started,
-                                    end: end,
-                                    allDay: allDay
-                                },
-                                true // make the event "stick"
-                            );
-                        }
-
-                        $('#title').val('');
-
-                        calendar.fullCalendar('unselect');
-
-                        $('.antoclose').click();
-
-                        return false;
-                    });
+                        // return false;
+                    // });
                 },
                 eventClick: function (calEvent, jsEvent, view) {
                     console.log("event click");
@@ -157,8 +159,8 @@ export default {
               }
         },
         showCalendar() {
-            console.log("showCalendar");
-            // Shift.showCalendar();
+            console.log("new showCalendar");
+            this.isShowCalendar = true;
         },
         getUrlParam(paramName) {
            let url = window.location.search.substring(1);
@@ -190,19 +192,19 @@ export default {
         let self = this;
         axios.get('/' + plant + '/' + journal_name +'/get_shifts/')
             .then(response => {
-                // init_calendar(response.data);
                 self.events = response.data;
-
+                $(".fc-month-button").click();
             })
             .catch(e => {
                 console.log(e)
             });
     },
     components: {
+        modal,
         FullCalendar
     }
 }
 </script>
 <style>
-    @import '~fullcalendar/dist/fullcalendar.css';
+    /*@import '~fullcalendar/dist/fullcalendar.css';*/
 </style>
