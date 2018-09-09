@@ -1,5 +1,6 @@
 import datetime
 import logging
+import rapidjson
 import secrets
 import string
 import time
@@ -19,6 +20,8 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from django.conf import settings
+from rest_framework_rapidjson.renderers import RapidJSONRenderer
+
 from e_logs.core.utils.errors import SemanticError, AccessError
 from e_logs.core.utils.loggers import err_logger
 

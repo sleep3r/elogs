@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <div class="modal fade" id="SchemeModal" tabindex="-1" role="dialog" aria-labelledby="SchemeModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-large" role="document">
@@ -10,8 +11,8 @@
         <h5 class="modal-title"> Схема цехов </h5>
       </div>
       <div class="modal-body">
-        <object data="../static/pdf/scheme.pdf" type="application/pdf" width="100%" height="100%">
-          <iframe src="../static/pdf/scheme.pdf" width="100%" height="100%" style="border: none;">
+        <object data="{% static 'pdf/scheme.pdf' %}" type="application/pdf" width="100%" height="100%">
+          <iframe src="{% static 'pdf/scheme.pdf' %}" width="100%" height="100%" style="border: none;">
             Ваш браузер не поддерживает PDF формат файлов!
           </iframe>
         </object>

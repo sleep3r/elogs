@@ -86,9 +86,7 @@ module.exports = {
                     // 'style-loader',
                     // 'vue-style-loader',
                     MiniCssExtractPlugin.loader,
-                    // process.env.NODE_ENV !== 'production'
-                    //     ? 'vue-style-loader'
-                    //     : MiniCssExtractPlugin.loader,
+                    // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                 ],
             },
@@ -97,10 +95,8 @@ module.exports = {
                 use: [
                     // 'style-loader',
                     // 'vue-style-loader',
-                    MiniCssExtractPlugin.loader,
-                    // process.env.NODE_ENV !== 'production'
-                    //     ? 'vue-style-loader'
-                    //     : MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,  //production shit
+                    // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
@@ -178,12 +174,20 @@ module.exports = {
             include: /\.min\.js$/, cache: true, parallel: true,
             extractComments: true, sourceMap: true
         }),
-        // new CompressionPlugin(),
         new webpack.DefinePlugin({PRODUCTION: JSON.stringify(false)}),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
         }),
+        new OptimizeCSSAssetsPlugin({
+            assetNameRegExp: /\.optimize\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorPluginOptions: {
+                preset: ['default', {discardComments: {removeAll: true}}],
+            },
+            canPrint: true
+        })
+        // new CompressionPlugin(),
         // new webpack.SourceMapDevToolPlugin({
         //     test: '\\.((js)|(scc)|(scss))$',
         //     filename: '[name].js.map',
