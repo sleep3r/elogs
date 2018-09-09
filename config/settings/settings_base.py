@@ -3,7 +3,6 @@ from pathlib import Path
 
 import dj_database_url
 import environ
-import rapidjson as rapidjson
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env()
@@ -15,6 +14,10 @@ STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
 LOCALE_PATHS = [BASE_DIR / 'resources/locale']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
@@ -60,19 +63,6 @@ TEMPLATES = [
     },
 ]
 
-COMPRESS_ENABLED = False  # TODO: move to production
-# COMPRESS_URL = STATIC_URL
-# COMPRESS_ROOT = STATIC_ROOT
-# COMPRESS_OFFLINE = True
-# COMPRESS_OFFLINE_CONTEXT = {}
-# COMPRESS_DEBUG_TOGGLE = None
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     # other finders..
-#     'compressor.finders.CompressorFinder',
-# )
-
 # APPS
 # ------------------------------------------------------------------------------
 THIRD_PARTY_APPS = [
@@ -85,7 +75,6 @@ THIRD_PARTY_APPS = [
     'cacheops',
     'django_pickling',
     'service_objects',
-    'compressor',
     'django_celery_beat',
     'django_celery_results',
 ]
@@ -117,9 +106,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
-    # GZipMiddleware can be a vulnerability!
-    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',

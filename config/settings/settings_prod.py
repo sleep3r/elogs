@@ -14,13 +14,15 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [  # noqa F405
 
 TEMPLATES[0]['APP_DIRS'] = False
 
-INSTALLED_APPS += ['gunicorn']
+INSTALLED_APPS += ['gunicorn', 'whitenoise.runserver_nostatic']
+
+
+MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 MIDDLEWARE = [] + MIDDLEWARE + \
              [
                  'htmlmin.middleware.HtmlMinifyMiddleware',
                  'htmlmin.middleware.MarkRequestMiddleware',
-                 'whitenoise.middleware.WhiteNoiseMiddleware',
              ]
-
 HTML_MINIFY = True
