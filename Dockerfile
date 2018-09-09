@@ -17,7 +17,7 @@ RUN /srv/docker/pyodbc_mssql_driver.sh
 WORKDIR /srv
 
 COPY ./package.json /srv
-RUN npm i
+RUN npm i --production
 
 RUN pip3 install pipenv
 COPY ./Pipfile.lock /srv
