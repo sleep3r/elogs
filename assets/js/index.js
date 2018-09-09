@@ -8,6 +8,7 @@ import 'vue'; import Vue from 'vue'; window.Vue = Vue;
 import 'bootstrap';
 import 'jquery-confirm';
 import 'reconnecting-websocket';
+import 'promise-polyfill/src/polyfill';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 window.ReconnectingWebSocket = ReconnectingWebSocket;
 

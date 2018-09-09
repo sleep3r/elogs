@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- {% load render_bundle from webpack_loader %}{% load cacheops %}
-{% load cache %}{% load staticfiles %} -->
+{% load cache %}{% load staticfiles %}{% load compress %} -->
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,16 +14,7 @@
     {% endblock %}
 
     {% block css %}
-{#        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/font-awesome/css/font-awesome.css' %}" rel="stylesheet">#}
-
-        <!-- css all in one -->
-{#        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">#}
         {% render_bundle 'index' 'css' %}
-{#        {% render_bundle 'vendor' 'css' %}#}
     {% endblock %}
 
     {% block extracss %}

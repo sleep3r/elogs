@@ -37,6 +37,10 @@ django-celery-results = "*"
 django-htmlmin = "*"
 django-hijack = "*"
 dj-database-url = "*"
+djangorestframework-rapidjson = "*"
+python-rapidjson = "*"
+rapidjson = "*"
+whitenoise = { extras = [ "brotli",] }
 
 [dev-packages]
 icecream = "*"
