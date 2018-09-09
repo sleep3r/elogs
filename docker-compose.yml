@@ -14,7 +14,7 @@ services:
   web:
     build: .
     ports:
-     - "80:80"
+        - "4242:80"
     command: bash -c "./docker/entrypoint.sh"
     depends_on:
      - redis
