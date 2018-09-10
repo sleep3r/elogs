@@ -26,10 +26,10 @@ class FormTable {
                 "group_id": $(input).attr('journal-page'),
                 "index": 0,
             },
-            "text": $(input).val(),
+            "value": $(input).val(),
         });
         $.ajax({
-            url: "/common/save_table_comment/",
+            url: "/common/save_cell/",
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: forSend,

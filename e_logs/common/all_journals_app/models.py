@@ -7,7 +7,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
-
+from django_extensions.db.models import TimeStampedModel
 from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
     max_cache
 
@@ -31,7 +31,8 @@ class Plant(StrAsDictMixin, models.Model):
 class Journal(StrAsDictMixin, models.Model):
     """Abstract journal entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название журнала')
+    name = models.CharField(max_length=128, verbose_name='Журнал')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
@@ -57,7 +58,8 @@ class Journal(StrAsDictMixin, models.Model):
 class Table(StrAsDictMixin, models.Model):
     """Abstract table entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название таблицы')
+    name = models.CharField(max_length=128, verbose_name='Таблица')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название таблицы')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='tables')
     settings = GenericRelation('core.Setting', related_query_name='table', related_name='tables')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table',
@@ -85,7 +87,8 @@ class Table(StrAsDictMixin, models.Model):
 class Field(StrAsDictMixin, models.Model):
     """Abstract field entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название поля')
+    name = models.CharField(max_length=128, verbose_name='Столбец')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='field', related_name='fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='field',
@@ -193,7 +196,7 @@ class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(StrAsDictMixin, models.Model):
+class Cell(StrAsDictMixin, TimeStampedModel):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
