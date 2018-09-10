@@ -38,8 +38,5 @@ exec gunicorn config.wsgi:application \
     --log-file=/srv/logs/gunicorn.log \
     --access-logfile=/srv/logs/access.log &
 
-# exec celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info &
-# exec celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info &
-
 echo Starting nginx...
 exec service nginx start
