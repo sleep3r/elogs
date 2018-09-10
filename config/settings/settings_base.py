@@ -4,10 +4,9 @@ from pathlib import Path
 import dj_database_url
 import environ
 
-env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+env = environ.Env(DEBUG=(bool, False))
 
 FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
