@@ -61,6 +61,7 @@ class Command(BaseCommand):
             df.create_tables_lists()
             df.create_fields_descriptions()
             df.create_number_of_shifts()
+            df.create_journals_verbose_names()
 
             stdout_logger.info("Adding Employees...")
             df.fill_employees()

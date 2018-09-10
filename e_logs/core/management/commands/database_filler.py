@@ -282,10 +282,9 @@ class DatabaseFiller:
         }
         for plant_name in journals_verbose_names:
             for journal_name, verbose_name in journals_verbose_names[plant_name].items():
-                Setting.objects.create(name='verbose_name', value=verbose_name,
-                                       scope=Journal.objects.get(
-                                           plant=Plant.objects.get(name=plant_name),
-                                           name=journal_name))
+                journal = Journal.objects.get(plant__name=plant_name, name=journal_name)
+                journal.verbose_name = verbose_name
+                journal.save()
 
     @staticmethod
     def create_fields_descriptions():
