@@ -1,9 +1,15 @@
+import os
 import json
+import shutil
+import pickle
+import environ
+import zipfile
 from datetime import date, datetime, timedelta
 
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.conf import settings
 
 from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger
@@ -17,17 +23,17 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.all_journals_app.services.context_creator import get_context
-from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
 from e_logs.common.messages_app.models import Message
 
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals
-
+from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env()
 
 class Index(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
-        print(timezone.now())
         homepage_url = Setting.of(employee=self.request.user.employee)['homepage']
         if homepage_url is None:
             self.template_name = 'furnace-index.html'
@@ -37,7 +43,7 @@ class Index(LoginRequiredMixin, TemplateView):
             return redirect(homepage_url)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = get_context(self.request, plant=None, journal=None)
         return context
 
 
@@ -166,27 +172,7 @@ def save_cell(request):
         return {"status": 1}
 
 
-@csrf_exempt
-@process_json_view(auth_required=False)
-# @logged
-def save_table_comment(request):
-    if request.is_ajax() and request.method == 'POST':
-        comment_data = json.loads(request.body)
-        cell = Cell.get_or_create_cell(**comment_data['cell_location'])
-        text = comment_data['text']
-        if text:
-            cell.responsible = request.user.employee
-            cell.value = text
-            cell.save()
-
-        if cell.journal.type == 'shift':
-            shift = Shift.objects.get(id=int(comment_data['cell_location']['group_id']))
-            shift.employee_set.add(request.user.employee)
-
-        return {"status": 1}
-
-
-# @cached_as(Plant, Journal, Shift)
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
@@ -223,3 +209,108 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return result
     else:
         raise TypeError('Attempt to get shifts for non-shift journal')
+
+
+class ConstructorView(LoginRequiredMixin, View):
+    def post(self, request):
+        pass
+
+
+class Log():
+    def __init__(self, file):
+        required_version = env('CONSTRUCTOR_VERSION')
+
+        self.file = zipfile.ZipFile(file)
+        meta = None
+        try:
+            meta = json.loads(self.file.read('meta.json'))
+        except ImportError('Ошибка структуры файла'):
+            pass
+
+        if meta and meta['version'] == required_version:
+            self.name = meta['name']
+            self.verbose = meta['verbose']
+            self.plant = meta['plant']
+            self.type = meta['type']
+            self.tables = list(meta['tables'].keys())
+            self.tables__meta = meta['tables']
+        else:
+            raise ImportError(f"Некорректная версия, требуется не ниже v{required_version}")
+
+    def create(self):
+        tables_path = settings.BASE_DIR / \
+                      f"e_logs/common/all_journals_app/templates/tables/" \
+                      f"{self.plant}/{self.name}"
+
+        new_journal = self.__create_journal(tables_path)
+
+        tables_list = []
+
+        for table_name in self.tables:
+            new_table = self.__create_table(journal=new_journal, name=table_name)
+
+            tables_list.append(
+                f"tables/{self.plant}/{self.name}/{table_name}.html")
+
+            meta = self.tables__meta[table_name]['meta']
+            for field_name in meta.keys():
+                new_field = self.__create_field(table=new_table,
+                                                name=field_name,
+                                                meta=meta)
+
+                self.__set_field_settings(field=new_field, meta=meta)
+
+        for table in self.file.namelist():
+            if table.startswith('tables/'):
+                self.file.extract(table, tables_path)
+
+        Setting.of(new_journal)['tables_list'] = pickle.dumps(tables_list)
+
+    def __create_journal(self, tables_path):
+        journal = get_or_none(Journal, name=self.name,
+                              plant=Plant.objects.get(name=self.plant),
+                              type=self.type)
+        if journal:
+            raise NameError("Журнал с таким именем уже существует")
+        else:
+            new_journal = Journal.objects.create(name=self.name,
+                                                 verbose_name=self.verbose,
+                                                 plant=Plant.objects.get(name=self.name),
+                                                 type=self.type)
+
+            if os.path.exists(tables_path):
+                raise NameError("Журнал с таким именем уже существует")
+            else:
+                os.makedirs(tables_path)
+
+                return new_journal
+
+    def __create_table(self, name, journal):
+        table = get_or_none(Table, name=name,
+                            journal=journal)
+        if table:
+            raise NameError("Таблица с таким именем уже существует")
+        else:
+            new_table = Table.objects.create(name=name,
+                                    journal=journal,
+                                    verbose_name=self.tables__meta[name].get('verbose', None))
+            return new_table
+
+    def __create_field(self, table, name, meta):
+        field = get_or_none(Field, name=name,
+                            table=table)
+        if field:
+            raise NameError("Столбец с таким именем уже существует")
+        else:
+            new_field = Field.objects.create(name=name,
+                                             table=table,
+                                             verbose_name=meta[name].get('verbose', None))
+            return new_field
+
+    def __set_field_settings(self, field, meta):
+        Setting.of(field)['min_normal'] = meta.get('min_value', None)
+        Setting.of(field)['max_normal'] = meta.get('max_value', None)
+        Setting.of(field)['units'] = meta.get('units', None)
+        Setting.of(field)['type'] = meta.get('type', None)
+        if meta['type'] == 'datalist':
+            Setting.of(field)['options'] = meta.get('options', None)
