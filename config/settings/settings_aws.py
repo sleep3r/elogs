@@ -1,7 +1,6 @@
 from .settings_base import *
 
 
-
 ALLOWED_HOSTS = ['*']
 
 CHANNEL_LAYERS = {
@@ -40,21 +39,6 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'DjangoRelease',
-        'HOST': '88.99.2.149',
-        'PORT': '',
-        'USER': 'InframineDeveloper',
-        'PASSWORD': 'Singapore2017',
-
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    },
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
         'NAME': 'elogs',
         'HOST': 'db',
         'PORT': '1433',
@@ -67,24 +51,9 @@ DATABASES = {
     },
 }
 
-
 DEBUG = False
 
-TEMPLATES[0]['OPTIONS']['loaders'] = [  # noqa F405
-    (
-        'django.template.loaders.cached.Loader',
-        [
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-        ]
-    ),
-]
-
-TEMPLATES[0]['APP_DIRS'] = False
-
-
 MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 MIDDLEWARE = [] + MIDDLEWARE + \
              [

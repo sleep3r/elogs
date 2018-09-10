@@ -12,7 +12,6 @@ FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
 LOCALE_PATHS = [BASE_DIR / 'resources/locale']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
