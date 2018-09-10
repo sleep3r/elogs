@@ -29,7 +29,7 @@ from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
+environ.Env.read_env('.env')
 
 class Index(LoginRequiredMixin, TemplateView):
 
@@ -122,7 +122,7 @@ class MetalsJournalView(JournalView):
             "Алтын-Топкан, ВМТ",
             "итого ВМТ",
             "ИТОГО СМТ",
-            "выданно огарка, ВМТ",
+            "выданно огарка,ы ВМТ",
             "потери, ВМТ",
             "огарка переданно, ВМТ",
             "ЦЕХ, ВМТ",
@@ -213,7 +213,14 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
 class ConstructorView(LoginRequiredMixin, View):
     def post(self, request):
-        pass
+        if request.FILES['journal_file']:
+            journal = request.FILES['journal_file']
+            log = Log(file=journal)
+            log.create()
+
+            return JsonResponse({"status":1})
+
+        return JsonResponse({"status": 0})
 
 
 class Log():
@@ -224,8 +231,8 @@ class Log():
         meta = None
         try:
             meta = json.loads(self.file.read('meta.json'))
-        except ImportError('Ошибка структуры файла'):
-            pass
+        except:
+            raise ImportError('Ошибка структуры файла')
 
         if meta and meta['version'] == required_version:
             self.name = meta['name']

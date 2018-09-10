@@ -15,10 +15,12 @@
 
 
 {% block content %}
-    <h2>Пользовательские настройки</h2>
-    <div>
-        Привет!
-    </div>
+    <h1>Загрузить журнал</h1>
+    <form action="common/journal_upload/" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+        <input id="journal_upload_button" type="file" value="Обзор" name="journal_file" />
+        <input type="submit" value="Загрузить" />
+    </form>
 
     {% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}
         {#<h2>Настройки системы</h2>#}
