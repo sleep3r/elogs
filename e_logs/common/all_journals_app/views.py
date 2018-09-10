@@ -29,7 +29,8 @@ from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env('.env')
+environ.Env.read_env("config/settings/.env")
+
 
 class Index(LoginRequiredMixin, TemplateView):
 
@@ -122,7 +123,7 @@ class MetalsJournalView(JournalView):
             "Алтын-Топкан, ВМТ",
             "итого ВМТ",
             "ИТОГО СМТ",
-            "выданно огарка,ы ВМТ",
+            "выданно огарка, ВМТ",
             "потери, ВМТ",
             "огарка переданно, ВМТ",
             "ЦЕХ, ВМТ",

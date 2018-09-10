@@ -5,7 +5,6 @@ from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils import timezone
-from functional import seq
 
 from e_logs.common.all_journals_app.models import Cell, Plant, Measurement
 from e_logs.core.utils.deep_dict import DeepDict
@@ -98,8 +97,8 @@ def granularity_graphs(request):
 
     for measurement in Measurement.objects.all():
         def process(x):
-            return seq(x).where(lambda y: y.group == measurement).map(
-                lambda z: float(z.value)).to_list()
+            # Shitty code, should not be used in future
+            raise NotImplementedError
 
         masses = process(cinder_masses)
         min_sizes = process(cinder_sizes)

@@ -1,7 +1,6 @@
 from .settings_base import *
 
 
-
 ALLOWED_HOSTS = ['*']
 
 CHANNEL_LAYERS = {
@@ -40,21 +39,6 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'DjangoRelease',
-        'HOST': '88.99.2.149',
-        'PORT': '',
-        'USER': 'InframineDeveloper',
-        'PASSWORD': 'Singapore2017',
-
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    },
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
         'NAME': 'elogs',
         'HOST': 'db',
         'PORT': '1433',
@@ -67,4 +51,13 @@ DATABASES = {
     },
 }
 
+DEBUG = False
 
+MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
+
+MIDDLEWARE = [] + MIDDLEWARE + \
+             [
+                 'htmlmin.middleware.HtmlMinifyMiddleware',
+                 'htmlmin.middleware.MarkRequestMiddleware',
+             ]
+HTML_MINIFY = True

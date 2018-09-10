@@ -35,6 +35,6 @@ ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
 ENV DOCKER yes
 ENV DEBUG False
 
-RUN mkdir /srv/logs/main /srv/logs/main_debug_calls /srv/logs/main_debug_debug /srv/logs/main_debug_error /srv/logs/main_debug_info /srv/logs/printed_values
+RUN mkdir /srv/staticfiles /srv/logs/main /srv/logs/main_debug_calls /srv/logs/main_debug_debug /srv/logs/main_debug_error /srv/logs/main_debug_info /srv/logs/printed_values
 
 # ENTRYPOINT ["/srv/docker/entrypoint.sh"]
