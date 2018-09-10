@@ -29,7 +29,8 @@ from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
+environ.Env.read_env("config/settings/.env")
+
 
 class Index(LoginRequiredMixin, TemplateView):
 
@@ -43,7 +44,8 @@ class Index(LoginRequiredMixin, TemplateView):
             return redirect(homepage_url)
 
     def get_context_data(self, **kwargs):
-        context = get_context(self.request, plant=None, journal=None)
+        context = super().get_context_data(**kwargs)
+        # context = get_context(self.request, plant=None, journal=None)
         return context
 
 

@@ -4,15 +4,15 @@ from pathlib import Path
 import dj_database_url
 import environ
 
-env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+env = environ.Env(DEBUG=(bool, False))
 
 FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
 LOCALE_PATHS = [BASE_DIR / 'resources/locale']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -312,8 +312,12 @@ LOGGING = {
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_rapidjson.parsers.RapidJSONParser',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
