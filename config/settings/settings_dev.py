@@ -11,6 +11,7 @@ INSTALLED_APPS += [
     'hijack',
     'compat',
     'debug_toolbar',
+    'template_profiler_panel',
 ]
 
 MIDDLEWARE = [
@@ -33,7 +34,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.cache.CachePanel',
     'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
-    # 'template_profiler_panel.panels.template.TemplateProfilerPanel',
+    'template_profiler_panel.panels.template.TemplateProfilerPanel',
 ]
 
 DEBUG_TOOLBAR_CONFIG = {

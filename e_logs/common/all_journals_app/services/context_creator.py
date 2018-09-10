@@ -69,7 +69,7 @@ def get_tables_paths(journal):
 
 
 def add_permissions(context, page, request):
-    err_logger.info('page_mode=' + str(context.page_mode))
+    # err_logger.info('page_mode=' + str(context.page_mode))
     context.page_mode = get_page_mode(request, page)
     context.employee_list = page.employee_set.all()
     context.has_edited = has_edited(request, page)
@@ -92,7 +92,6 @@ def get_cells_data(page: CellGroup) -> dict:
 
     def table_desc(table):
         cells = table.cells(page)
-        err_logger.debug(f'cells: {cells}')
         desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
         return desc
 

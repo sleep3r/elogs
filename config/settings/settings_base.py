@@ -10,9 +10,14 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
 LOCALE_PATHS = [BASE_DIR / 'resources/locale']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
@@ -70,7 +75,6 @@ THIRD_PARTY_APPS = [
     'cacheops',
     'django_pickling',
     'service_objects',
-    'compressor',
     'django_celery_beat',
     'django_celery_results',
 ]
@@ -102,9 +106,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
-    # GZipMiddleware can be a vulnerability!
-    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -312,8 +313,12 @@ LOGGING = {
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_rapidjson.parsers.RapidJSONParser',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
@@ -412,14 +417,6 @@ CACHEOPS = {
     # 'core.models.Setting': {'timeout': 60*60},
     # 'core.models.Setting': {'timeout': 60*60},
 }
-
-# TODO: read https://redis.io/topics/sentinel
-# CACHEOPS_SENTINEL = {
-#     'locations': [('localhost', 26379)], # sentinel locations, required
-#     'service_name': 'mymaster',          # sentinel service name, required
-#     'socket_timeout': 0.1,               # connection timeout in seconds, optional
-#     'db': 0                              # redis database, default: 0
-# }
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
