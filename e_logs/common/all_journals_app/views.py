@@ -1,7 +1,6 @@
 import os
 import json
 import shutil
-import pickle
 import environ
 import zipfile
 from datetime import date, datetime, timedelta
@@ -214,28 +213,28 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
 class ConstructorView(LoginRequiredMixin, View):
     def post(self, request):
-        if request.FILES['journal_file']:
+        if request.FILES.get('journal_file', None):
             journal = request.FILES['journal_file']
-            log = Log(file=journal)
+            log = JournalBuilder(file=journal)
             log.create()
 
-            return JsonResponse({"status":1})
+            return redirect('/common/settings/')
 
-        return JsonResponse({"status": 0})
+        return redirect('/common/settings/')
 
 
-class Log():
+class JournalBuilder():
     def __init__(self, file):
         required_version = env('CONSTRUCTOR_VERSION')
 
         self.file = zipfile.ZipFile(file)
         meta = None
         try:
-            meta = json.loads(self.file.read('meta.json'))
+            meta = json.loads(self.file.read(f'{file.name.split(".")[0]}/meta.json'))
         except:
             raise ImportError('Ошибка структуры файла')
 
-        if meta and meta['version'] == required_version:
+        if meta and meta['version'] == float(required_version):
             self.name = meta['name']
             self.verbose = meta['verbose']
             self.plant = meta['plant']
@@ -257,8 +256,7 @@ class Log():
         for table_name in self.tables:
             new_table = self.__create_table(journal=new_journal, name=table_name)
 
-            tables_list.append(
-                f"tables/{self.plant}/{self.name}/{table_name}.html")
+            tables_list.append(f"tables/{self.plant}/{self.name}/{table_name}.html")
 
             meta = self.tables__meta[table_name]['meta']
             for field_name in meta.keys():
@@ -268,30 +266,25 @@ class Log():
 
                 self.__set_field_settings(field=new_field, meta=meta)
 
-        for table in self.file.namelist():
-            if table.startswith('tables/'):
-                self.file.extract(table, tables_path)
+        self.__extract_tables(tables_path)
 
-        Setting.of(new_journal)['tables_list'] = pickle.dumps(tables_list)
+        Setting.of(new_journal)['tables_list'] = tables_list
 
     def __create_journal(self, tables_path):
         journal = get_or_none(Journal, name=self.name,
                               plant=Plant.objects.get(name=self.plant),
                               type=self.type)
-        if journal:
+
+        if journal or os.path.exists(tables_path):
             raise NameError("Журнал с таким именем уже существует")
         else:
             new_journal = Journal.objects.create(name=self.name,
                                                  verbose_name=self.verbose,
-                                                 plant=Plant.objects.get(name=self.name),
+                                                 plant=Plant.objects.get(name=self.plant),
                                                  type=self.type)
+            os.makedirs(tables_path)
 
-            if os.path.exists(tables_path):
-                raise NameError("Журнал с таким именем уже существует")
-            else:
-                os.makedirs(tables_path)
-
-                return new_journal
+            return new_journal
 
     def __create_table(self, name, journal):
         table = get_or_none(Table, name=name,
@@ -316,9 +309,10 @@ class Log():
             return new_field
 
     def __set_field_settings(self, field, meta):
-        Setting.of(field)['min_normal'] = meta.get('min_value', None)
-        Setting.of(field)['max_normal'] = meta.get('max_value', None)
-        Setting.of(field)['units'] = meta.get('units', None)
-        Setting.of(field)['type'] = meta.get('type', None)
-        if meta['type'] == 'datalist':
-            Setting.of(field)['options'] = meta.get('options', None)
+        Setting.of(field)["field_description"] = meta[field.name]
+
+    def __extract_tables(self, tables_path):
+        for table in self.file.infolist():
+            if table.filename.endswith('.html'):
+                table.filename = os.path.basename(table.filename)
+                self.file.extract(table, tables_path)
