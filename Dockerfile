@@ -17,7 +17,7 @@ RUN /srv/docker/pyodbc_mssql_driver.sh
 WORKDIR /srv
 
 COPY ./package.json /srv
-RUN npm i
+RUN npm i --production
 
 RUN pip3 install pipenv
 COPY ./Pipfile.lock /srv
@@ -31,10 +31,8 @@ COPY . /srv
 
 RUN ./node_modules/.bin/webpack
 
-ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
+ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 ENV DOCKER yes
 ENV DEBUG False
-
-RUN mkdir /srv/logs/main /srv/logs/main_debug_calls /srv/logs/main_debug_debug /srv/logs/main_debug_error /srv/logs/main_debug_info /srv/logs/printed_values
 
 # ENTRYPOINT ["/srv/docker/entrypoint.sh"]
