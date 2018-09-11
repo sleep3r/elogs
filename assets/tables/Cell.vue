@@ -1,9 +1,10 @@
 <template>
-  <input :class="classes"e
+  <input :class="classes"
          :name="fieldName"
          :row-index="rowIndex"
          v-model="value"
          @keypress="filterInput"
+         @keydown="changeFocus"
          @change="onChanged"
          @input="onInput"
          :placeholder="placeholder"
@@ -94,6 +95,60 @@ export default {
             console.log('it is a number field')
             event.preventDefault();
           }
+        }
+      },
+      changeFocus(e) {
+        function getIndex(tds, focusedTd) {
+          let index = 0
+          for (let i = 0; i < tds.length; i++) {
+            let td = tds[i];
+            if (td === focusedTd) {
+              break;
+            }
+            index += (parseInt(td.getAttribute('colspan'), 10) || 1);
+          }
+          return index;
+        }
+        function getTd(tds, index) {
+          let nextRowIndex = 0
+          for (let i = 0; i < tds.length; i++) {
+            let td = tds[i];
+            if (nextRowIndex === index) {
+              return td;
+            }
+            nextRowIndex += (parseInt(td.getAttribute('colspan'), 10) || 1);
+          }
+        }
+
+        let focusedTd = this.$el.parentElement;
+        let tr = focusedTd.parentElement;
+        let rowIndex = getIndex(tr.children, focusedTd);
+
+        switch(e.key) {
+          case 'ArrowUp':
+            let prevTr = tr.previousElementSibling;
+            if (prevTr) {
+              getTd(prevTr.children, rowIndex).children[0].focus();
+            }
+            break;
+          case 'ArrowDown':
+            let nextTr = tr.nextElementSibling;
+            if (nextTr) {
+              getTd(nextTr.children, rowIndex).children[0].focus();
+            }
+            break;
+          case 'ArrowLeft':
+            let prev = focusedTd.previousElementSibling;
+            if (prev) {
+              prev.children[0].focus();
+            }
+            break;
+          case 'ArrowRight':
+            let next = focusedTd.nextElementSibling;
+            if (next) {
+              next.children[0].focus();
+            }
+            break;
         }
       }
   },
