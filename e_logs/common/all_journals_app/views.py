@@ -5,7 +5,7 @@ import environ
 import zipfile
 from datetime import date, datetime, timedelta
 
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.generic import TemplateView, View
 from django.conf import settings
@@ -215,29 +215,42 @@ class ConstructorView(LoginRequiredMixin, View):
     def post(self, request):
         if request.FILES.get('journal_file', None):
             journal = request.FILES['journal_file']
-            log = JournalBuilder(file=journal)
-            log.create()
+            plant_name = self.request.POST.get('plant', None)
+            if plant_name:
+                plant = Plant.objects.get(name=plant_name)
+                try:
+                    log = JournalBuilder(request=self.request, file=journal, plant=plant)
+                except FileNotFoundError:
+                    return render(self.request, 'settings.html',
+                                  {'form_errors': 'Ошибка структуры файла!'})
+                except ImportError:
+                    return render(self.request, 'settings.html',
+                                  {'form_errors': 'Некорректная версия файла!'})
+                log.create()
 
-            return redirect('/common/settings/')
+                return redirect('/common/settings/')
+            else:
+                return render(self.request, 'settings.html', {'form_errors':'Выберите цех!'})
 
-        return redirect('/common/settings/')
+        return render(self.request, 'settings.html', {'form_errors': 'Выберите файл журнала!'})
 
 
 class JournalBuilder():
-    def __init__(self, file):
+    def __init__(self, request, file, plant):
         required_version = env('CONSTRUCTOR_VERSION')
 
+        self.request = request
         self.file = zipfile.ZipFile(file)
-        meta = None
+
         try:
             meta = json.loads(self.file.read(f'{file.name.split(".")[0]}/meta.json'))
         except:
-            raise ImportError('Ошибка структуры файла')
+            raise FileNotFoundError('Ошибка структуры файла')
 
-        if meta and meta['version'] == float(required_version):
+        if meta['version'] == float(required_version):
             self.name = meta['name']
             self.verbose = meta['verbose']
-            self.plant = meta['plant']
+            self.plant = plant
             self.type = meta['type']
             self.tables = list(meta['tables'].keys())
             self.tables__meta = meta['tables']
@@ -246,8 +259,7 @@ class JournalBuilder():
 
     def create(self):
         tables_path = settings.BASE_DIR / \
-                      f"e_logs/common/all_journals_app/templates/tables/" \
-                      f"{self.plant}/{self.name}"
+                    f"e_logs/common/all_journals_app/templates/tables/{self.plant.name}/{self.name}"
 
         new_journal = self.__create_journal(tables_path)
 
@@ -256,13 +268,11 @@ class JournalBuilder():
         for table_name in self.tables:
             new_table = self.__create_table(journal=new_journal, name=table_name)
 
-            tables_list.append(f"tables/{self.plant}/{self.name}/{table_name}.html")
+            tables_list.append(f"tables/{self.plant.name}/{self.name}/{table_name}.html")
 
             meta = self.tables__meta[table_name]['meta']
             for field_name in meta.keys():
-                new_field = self.__create_field(table=new_table,
-                                                name=field_name,
-                                                meta=meta)
+                new_field = self.__create_field(table=new_table, name=field_name,  meta=meta)
 
                 self.__set_field_settings(field=new_field, meta=meta)
 
@@ -271,37 +281,38 @@ class JournalBuilder():
         Setting.of(new_journal)['tables_list'] = tables_list
 
     def __create_journal(self, tables_path):
-        journal = get_or_none(Journal, name=self.name,
-                              plant=Plant.objects.get(name=self.plant),
-                              type=self.type)
+        journal = get_or_none(Journal, name=self.name, plant=self.plant, type=self.type)
 
         if journal or os.path.exists(tables_path):
-            raise NameError("Журнал с таким именем уже существует")
+            return render(self.request, 'settings.html',
+                          {'form_errors': 'Журнал с таким именем уже существует!'})
         else:
             new_journal = Journal.objects.create(name=self.name,
                                                  verbose_name=self.verbose,
-                                                 plant=Plant.objects.get(name=self.plant),
+                                                 plant=self.plant,
                                                  type=self.type)
-            os.makedirs(tables_path)
+            # os.makedirs(tables_path)
 
             return new_journal
 
     def __create_table(self, name, journal):
-        table = get_or_none(Table, name=name,
-                            journal=journal)
+        table = get_or_none(Table, name=name, journal=journal)
+
         if table:
-            raise NameError("Таблица с таким именем уже существует")
+            return render(self.request, 'settings.html',
+                          {'form_errors': f'Две таблицы с одинаковым именем {name}!'})
         else:
             new_table = Table.objects.create(name=name,
-                                    journal=journal,
-                                    verbose_name=self.tables__meta[name].get('verbose', None))
+                                        journal=journal,
+                                        verbose_name=self.tables__meta[name].get('verbose', None))
             return new_table
 
     def __create_field(self, table, name, meta):
-        field = get_or_none(Field, name=name,
-                            table=table)
+        field = get_or_none(Field, name=name, table=table)
+
         if field:
-            raise NameError("Столбец с таким именем уже существует")
+            return render(self.request, 'settings.html',
+                          {'form_errors': f'Две столбца с одинаковым именем {name}!'})
         else:
             new_field = Field.objects.create(name=name,
                                              table=table,

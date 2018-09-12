@@ -15,11 +15,20 @@
 
 
 {% block content %}
-    <h4>Загрузить журнал:</h4>
     <form action="journal_upload/" method="post" enctype="multipart/form-data">
-         {% csrf_token %}
-        <input accept=".journal" id="journal_upload_button" type="file" value="Обзор" name="journal_file" />
-        <input type="submit" value="Загрузить" />
+        {% csrf_token %}
+        <h3>Загрузить журнал:</h3>
+        <span style="color: red">{{ form_errors }}</span>
+        <p><input accept=".journal" id="journal_upload_button" type="file" value="Обзор" name="journal_file" /></p>
+        <p>
+            <select name="plant">
+                <option disabled selected>Выберите цех</option>
+                <option value="furnace">Обжиг</option>
+                <option value="leaching">Выщелачивание</option>
+                <option value="electrolysis">Электролиз</option>
+            </select>
+        </p>
+        <p><input type="submit" value="Загрузить" /></p>
     </form>
 
     {% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}
