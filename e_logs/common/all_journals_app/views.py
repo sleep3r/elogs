@@ -220,12 +220,12 @@ class ConstructorView(LoginRequiredMixin, View):
                 plant = Plant.objects.get(name=plant_name)
                 try:
                     log = JournalBuilder(request=self.request, file=journal, plant=plant)
-                except FileNotFoundError:
+                except FileNotFoundError as err:
                     return render(self.request, 'settings.html',
-                                  {'form_errors': 'Ошибка структуры файла!'})
-                except ImportError:
+                                  {'form_errors': str(err)})
+                except ImportError as err:
                     return render(self.request, 'settings.html',
-                                  {'form_errors': 'Некорректная версия файла!'})
+                                  {'form_errors': str(err)})
                 log.create()
 
                 return redirect('/common/settings/')
@@ -272,7 +272,7 @@ class JournalBuilder():
 
             meta = self.tables__meta[table_name]['meta']
             for field_name in meta.keys():
-                new_field = self.__create_field(table=new_table, name=field_name,  meta=meta)
+                new_field = self.__create_field(table=new_table, name=field_name, meta=meta)
 
                 self.__set_field_settings(field=new_field, meta=meta)
 
@@ -299,6 +299,7 @@ class JournalBuilder():
         table = get_or_none(Table, name=name, journal=journal)
 
         if table:
+            journal.delete()
             return render(self.request, 'settings.html',
                           {'form_errors': f'Две таблицы с одинаковым именем {name}!'})
         else:
@@ -311,6 +312,7 @@ class JournalBuilder():
         field = get_or_none(Field, name=name, table=table)
 
         if field:
+            table.journal.delete()
             return render(self.request, 'settings.html',
                           {'form_errors': f'Две столбца с одинаковым именем {name}!'})
         else:
