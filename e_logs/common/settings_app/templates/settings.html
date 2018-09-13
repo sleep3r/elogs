@@ -28,7 +28,15 @@
                 <option value="electrolysis">Электролиз</option>
             </select>
         </p>
-        <p><input type="submit" value="Загрузить" /></p>
+        <p>
+            <select name="type">
+                <option disabled selected>Выберите тип журнала</option>
+                <option value="shift">Смена</option>
+                <option value="equipment">Оборудование</option>
+                <option value="measurement">Измерение</option>
+            </select>
+        </p>
+        <p><input class="btn" type="submit" value="Загрузить"/></p>
     </form>
 
     {% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}
