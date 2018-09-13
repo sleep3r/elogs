@@ -1,14 +1,14 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Нейтральные сгуситители{% endblock %}
 
-{% block table %}
+
+
+Нейтральные сгуситители
+
+
     <table class="table table-bordered elog-journal-table">
         <thead>
         <tr>
-            <th>{% trans "Нейтральные сгустители" %}</th>
+            <th>Нейтральные сгустители</th>
 
             {% for i in 8|times %}
                 <th class="th-number">{{ forloop.counter }}</th>
@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tr>
-            <th>{% trans "Отстои" %}<i class="units">см</i></th>
+            <th>Отстои<i class="units">см</i></th>
 
             {% for i in 8|times %}
                 {% with ind=forloop.counter|stringformat:"i" %}
@@ -27,7 +27,7 @@
             <td><cell field-name="sediment13" index="0"></cell></td>
         </tr>
         <tr>
-            <th>{% trans "Ж:Т (НС)" %}</th>
+            <th>Ж:Т (НС)</th>
 
             {% for i in 8|times %}
                 {% with ind=forloop.counter|stringformat:"i" %}
@@ -37,4 +37,4 @@
             <td><cell field-name="liquid_solid13" index="0"></cell></td>
         </tr>
     </table>
-{% endblock %}
+

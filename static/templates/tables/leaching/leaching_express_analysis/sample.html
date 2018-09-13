@@ -1,14 +1,14 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Пробник{% endblock %}
 
-{% block table %}
+
+
+Пробник
+
+
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
-                <th>{% trans "Время" %}</th>
+                <th>Время</th>
                 <th>{% trans "Cd<i class='units'>мг/л</i>" %}</th>
                 <th>{% trans "Cu<i class='units'>мг/л</i>" %}</th>
             </tr>
@@ -22,9 +22,9 @@
             </tr>
             {% endfor %}
             <tr>
-                <th>{% trans "ВИУ" %}</th>
-                <td>{% include "value.html" with field_name="VIU1" index=5 %}</td>
+                <th>ВИУ</th>
+                <td><cell field_name="VIU1" index="5"></cell></td>
             </tr>
         </tbody>
     </table>
-{% endblock %}
+

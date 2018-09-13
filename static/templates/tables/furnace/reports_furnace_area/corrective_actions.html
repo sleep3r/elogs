@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Корректирующие действия{% endblock %}
 
-{% block table %}
+
+Корректирующие действия
+
+
 <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
@@ -15,21 +15,21 @@
         </thead>
         <tbody>
             <tr>
-                <td>{% include "value.html" with field_name="time" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="character" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="correction" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="extra" index=forloop.counter0 %}</td>
+                <td><cell field-name="time" :row-index="index"></cell></td>
+                <td><cell field-name="character" :row-index="index"></cell></td>
+                <td><cell field-name="correction" :row-index="index"></cell></td>
+                <td><cell field-name="extra" :row-index="index"></cell></td>
             </tr>
         </tbody>
 </table>
-{% endblock %}
+
 
 {% block additional_lower %}
     <br/>
         <h4>Отметка о состоянии "кипящего слоя печей КС"</h4>
         <table class="table table-bordered elog-journal-table">
             <tr>
-                <td>{% include "value.html" with field_name="ks_comment" index=forloop.counter0 %}</td>
+                <td><cell field-name="ks_comment" :row-index="index"></cell></td>
             </tr>
         </table>
-{% endblock %}
+

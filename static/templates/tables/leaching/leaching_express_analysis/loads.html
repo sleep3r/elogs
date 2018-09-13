@@ -1,18 +1,18 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Нагрузки{% endblock %}
 
-{% block table %}
+
+
+Нагрузки
+
+
     <table class="table table-bordered elog-journal-table">
             <thead>
             <tr>
                 <th colspan="2"></th>
-                <th class="th-number">{% trans "I серия" %}{% trans ", А" %}</th>
-                <th class="th-number">{% trans "II серия" %}{% trans ", А" %}</th>
-                <th class="th-number">{% trans "III серия" %}{% trans ", А" %}</th>
-                <th class="th-number">{% trans "IV серия" %}{% trans ", А" %}</th>
+                <th class="th-number">I серия, А</th>
+                <th class="th-number">II серия, А</th>
+                <th class="th-number">III серия, А</th>
+                <th class="th-number">IV серия, А</th>
             </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
 
                 </tr>
                 <tr>
-                    <th rowspan="2" class="th-mul-row">{% trans "Нагрузки" %}</th>
+                    <th rowspan="2" class="th-mul-row">Нагрузки</th>
                     <th>7<sup>00</sup></th>
                     {% for seria in 4|times %}
                         <td>{% include "value.html" with field_name="time7" index=seria %}</td>
@@ -33,29 +33,29 @@
                     {%  endfor %}
                 </tr>
                 <tr>
-                    <th colspan="2">{% trans "Показания счётчика" %}</th>
+                    <th colspan="2">Показания счётчика</th>
                     {% for seria in 4|times %}
                         <td>{% include "value.html" with field_name="counter" index=seria %}</td>
                     {%  endfor %}
                 </tr>
                 <tr>
-                    <th colspan="2">{% trans "Бункера ЦВЦО" %}</th>
+                    <th colspan="2">Бункера ЦВЦО</th>
                     {% for seria in 4|times %}
                         <td>{% include "value.html" with field_name="bunker_cvco" index=seria %}</td>
                     {%  endfor %}
                 </tr>
                 <tr>
-                    <th colspan="2">{% trans "Силоса ОЦ" %}</th>
+                    <th colspan="2">Силоса ОЦ</th>
                     {% for seria in 4|times %}
                         <td>{% include "value.html" with field_name="silos" index=seria %}</td>
                     {%  endfor %}
                 </tr>
                 <tr>
-                    <th colspan="2">{% trans "Бункера ОЦ" %}</th>
+                    <th colspan="2">Бункера ОЦ</th>
                     {% for seria in 4|times %}
                         <td>{% include "value.html" with field_name="bunkers_oc" index=seria %}</td>
                     {%  endfor %}
                 </tr>
             </tbody>
         </table>
-{% endblock %}
+

@@ -1,30 +1,30 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Реагенты{% endblock %}
 
-{% block table %}
+
+
+Реагенты
+
+
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
                 <th>Реагент</th>
-                <th>{% trans "Доставлено" %}</th>
-                <th>{% trans "Принято" %}</th>
-                <th class="th-common">{% trans "Расход" %}</th>
-                <th>{% trans "Сдано" %}</th>
+                <th>Доставлено</th>
+                <th>Принято</th>
+                <th class="th-common">Расход</th>
+                <th>Сдано</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>{% trans "Соль Шлиппе" %}{% trans "<i class='units'>кг</i>" %}</th>
+                <th>Соль Шлиппе{% trans "<i class='units'>кг</i>" %}</th>
                 <td><cell field-name="delivery_salt" index="0"></cell></td>
                 <td><cell field-name="income_salt" index="0"></cell></td>
                 <td><cell field-name="outcome_salt" index="0"></cell></td>
                 <td><cell field-name="passed_salt" index="0"></cell></td>
             </tr>
             <tr>
-                <th class="th-mul-row">{% trans "Zn пыль" %}{% trans "<i class='units'>кюбели</i>" %}</th>
+                <th class="th-mul-row">Zn пыль{% trans "<i class='units'>кюбели</i>" %}</th>
                 <td><cell field-name="delivery_Zn_dust" index="0"></cell></td>
                 <td><cell field-name="income_Zn_dust" index="0"></cell></td>
                 <td class="wrappercell">
@@ -52,30 +52,30 @@
                 <td><cell field-name="passed_Zn_dust" index="0"></cell></td>
             </tr>
             <tr>
-                <th>{% trans "Mn руда" %}{% trans "<i class='units'>тн</i>" %}</th>
+                <th>Mn руда{% trans "<i class='units'>тн</i>" %}</th>
                 <td><cell field-name="delivery_Mn_ore" index="0"></cell></td>
                 <td><cell field-name="income_Mn_ore" index="0"></cell></td>
                 <td><cell field-name="outcome_Mn_ore" index="0"></cell></td>
                 <td><cell field-name="passed_Mn_ore" index="0"></cell></td>
             </tr>
             <tr>
-                <th>{% trans "Магнофлок" %}{% trans "<i class='units'>кг</i>" %}</th>
+                <th>Магнофлок{% trans "<i class='units'>кг</i>" %}</th>
                 <td><cell field-name="delivery_Magnaflok" index="0"></cell></td>
                 <td><cell field-name="income_Magnaflok" index="0"></cell></td>
                 <td><cell field-name="outcome_Magnaflok" index="0"></cell></td>
                 <td><cell field-name="passed_Magnaflok" index="0"></cell></td>
             </tr>
             <tr>
-                <th>{% trans "Fe стружка" %}{% trans "<i class='units'>кг</i>" %}</th>
+                <th>Fe стружка{% trans "<i class='units'>кг</i>" %}</th>
                 <td><cell field-name="delivery_Fe_shave" index="0"></cell></td>
                 <td><cell field-name="income_Fe_shave" index="0"></cell></td>
                 <td><cell field-name="outcome_Fe_shave" index="0"></cell></td>
                 <td><cell field-name="passed_Fe_shave" index="0"></cell></td>
             </tr>
             <tr>
-                <th>{% trans "Состояние ограждений:" %}</th>
+                <th>Состояние ограждений:</th>
                 <td colspan="4"><cell field-name="state_fances" index="0"></cell></td>
             </tr>
         </tbody>
     </table>
-{% endblock %}
+

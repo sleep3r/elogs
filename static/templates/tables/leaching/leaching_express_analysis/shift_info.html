@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load i18n %}
-{% load express_tags %}
 
-{% block title %}Смена{% endblock %}
-{% block table %}
+
+
+
+Смена
+
  <table class="table table-bordered elog-journal-table" >
         <tr>
             <td>
@@ -12,61 +12,61 @@
         </tr>
         <tr>
             <th>
-                 {% trans "Мастер сдал" %}
+                 Мастер сдал
             </th>
             <td colspan="3"><cell field-name="this_master" index="0"></cell></td>
         </tr>
         <tr>
             <th>
-                 {% trans "Мастер принял" %}
+                 Мастер принял
             </th>
             <td colspan="3"><cell field-name="next_master" index="0"></cell></td>
         </tr>
         <thead>
             <tr class="th-common">
-                <th colspan="5" >{% trans "Откачано" %}</th>
+                <th colspan="5" >Откачано</th>
             </tr>
         </thead>
         <tbody>
            <tr>
-             <th>{% trans "Выход ТВ" %}{% trans "<i class='units optional-br'>т</i>" %}</th>
+             <th>Выход ТВ{% trans "<i class='units optional-br'>т</i>" %}</th>
                <td><cell field-name="out_sol_t" index="0"></cell></td>
                <td colspan="2" >
                    <cell field-name="out_sol_c" index="0"></cell>
                </td>
            </tr>
            <tr >
-             <th>{% trans "Пульпы ЦВЦК" %}{% trans "<i class='units optional-br'>т</i>" %}</th>
+             <th>Пульпы ЦВЦК{% trans "<i class='units optional-br'>т</i>" %}</th>
                <td colspan="3">
                    <cell field-name="out_pulp_cvck" index="0"></cell>
                </td>
            </tr>
            <tr >
-             <th>{% trans "Медного кека" %}{% trans "<i class='units optional-br'>т</i>" %}</th>
+             <th>Медного кека{% trans "<i class='units optional-br'>т</i>" %}</th>
                <td><cell field-name="out_cu_kek" index="0"></cell></td>
-               <th>{% trans "Cd губка" %}{% trans "<i class='units optional-br'>т</i>" %}</th>
+               <th>Cd губка{% trans "<i class='units optional-br'>т</i>" %}</th>
                <td><cell field-name="out_cd_sponge" index="0"></cell></td>
            </tr>
            <tr>
-             <th>{% trans "Отработ в ЦВОЦ" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+             <th>Отработ в ЦВОЦ{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="out_neutr" index="0"></cell>
                </td>
            </tr>
            <tr>
-             <th>{% trans "Богато-кадмиевого" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+             <th>Богато-кадмиевого{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="out_Cd" index="0"></cell>
                </td>
            </tr>
            <tr>
-             <th>{% trans "Нейтрального в ХМЦ" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+             <th>Нейтрального в ХМЦ{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="neutral_hmc" index="0"></cell>
                </td>
            </tr>
            <tr>
-             <th>{% trans "Cu Пульпа" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+             <th>Cu Пульпа{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="out_cu_pulp" index="0"></cell>
                </td>
@@ -74,36 +74,36 @@
         </tbody>
         <thead>
            <tr class="headings">
-               <th colspan="4" >{% trans "Принято" %}</th>
+               <th colspan="4" >Принято</th>
            </tr>
         </thead>
         <tbody >
-           <tr><th>{% trans "Фильтрат ЦВЦК, Ж:Т" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+           <tr><th>Фильтрат ЦВЦК, Ж:Т{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td>
                    <cell field-name="in_filtrate_ls" index="0"></cell>
                </td>
-               <th>{% trans "Уд. вес" %}</th>
+               <th>Уд. вес</th>
                <td>
                    <cell field-name="in_filtrate_dens" index="0"></cell>
                </td>
            </tr>
-           <tr><th>{% trans "Железистого из ЦВОЦ" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+           <tr><th>Железистого из ЦВОЦ{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="in_fe" index="0"></cell>
                </td>
            </tr>
            <tr>
-               <th>{% trans "Высоко железистого из ЦВОЦ" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+               <th>Высоко железистого из ЦВОЦ{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="in_fe_hi" index="0"></cell>
                </td>
            </tr>
            <tr>
-               <th>{% trans "Бедно-кадмиего" %}{% trans "<i class='units optional-br'>м³</i>" %}</th>
+               <th>Бедно-кадмиего{% trans "<i class='units optional-br'>м³</i>" %}</th>
                <td colspan="3">
                    <cell field-name="in_poor_cd" index="0"></cell>
                </td>
            </tr>
         </tbody>
      </table>
-{% endblock %}
+

@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Печной участок{% endblock %}
 
-{% block table %}
+
+Печной участок
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -29,23 +29,23 @@
     </thead>
     <tbody>
         {% for_or_create _ in table_cells_data|longest_field %}
-            <tr class="indexed-line">
+            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
                 <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-                <td>{% include "value.html" with field_name="number" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="rate" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="elasticity" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="rate_o2" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="rate_o2_prc" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="temperture_in_layer" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="temperture_under" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="volume" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="pressure" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="uio_select" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="uio" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="smoke1" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="smoke2" index=forloop.counter0 %}</td>
+                <td><cell field-name="number" :row-index="index"></cell></td>
+                <td><cell field-name="rate" :row-index="index"></cell></td>
+                <td><cell field-name="elasticity" :row-index="index"></cell></td>
+                <td><cell field-name="rate_o2" :row-index="index"></cell></td>
+                <td><cell field-name="rate_o2_prc" :row-index="index"></cell></td>
+                <td><cell field-name="temperture_in_layer" :row-index="index"></cell></td>
+                <td><cell field-name="temperture_under" :row-index="index"></cell></td>
+                <td><cell field-name="volume" :row-index="index"></cell></td>
+                <td><cell field-name="pressure" :row-index="index"></cell></td>
+                <td><cell field-name="uio_select" :row-index="index"></cell></td>
+                <td><cell field-name="uio" :row-index="index"></cell></td>
+                <td><cell field-name="smoke1" :row-index="index"></cell></td>
+                <td><cell field-name="smoke2" :row-index="index"></cell></td>
             </tr>
         {% endfor_or_create %}
     </tbody>
 </table>
-{% endblock %}
+

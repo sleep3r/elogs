@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Места отбора пробы{% endblock %}
 
-{% block table %}
+
+Места отбора пробы
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -20,15 +20,15 @@
     {% for_or_create _ in table_cells_data|longest_field %}
         <tr>
             <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td>{% include "value.html" with field_name="time" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="place" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="S_cinder" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="S_general" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="conformity" index=forloop.counter0 %}</td>
+            <td><cell field-name="time" :row-index="index"></cell></td>
+            <td><cell field-name="place" :row-index="index"></cell></td>
+            <td><cell field-name="S_cinder" :row-index="index"></cell></td>
+            <td><cell field-name="S_general" :row-index="index"></cell></td>
+            <td><cell field-name="conformity" :row-index="index"></cell></td>
             <td></td>
-            <td>{% include "value.html" with field_name="event" index=forloop.counter0 %}</td>
+            <td><cell field-name="event" :row-index="index"></cell></td>
         </tr>
     {% endfor_or_create %}
     </tbody>
 </table>
-{% endblock %}
+

@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Время замеров и работа оборудования{% endblock %}
 
-{% block table %}
+
+Время замеров и работа оборудования
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -33,7 +33,7 @@
         {% endfor %}
     </tbody>
 </table>
-{% endblock %}
+
 
 {% block additional_lower %}
         <table class="table table-bordered elog-journal-table">
@@ -56,32 +56,32 @@
                 </tr>
                 <tr>
                     <th> Вент. скорость<i class='units'>об/мин</i></th>
-                    <td> {% include "value.html" with field_name="grad1_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad2_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad3_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad4_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad5_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad6_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad7_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad8_vent"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad9_vent"  index=0 %} </td>
+                    <td> <cell field_name="grad1_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad2_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad3_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad4_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad5_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad6_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad7_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad8_vent" index="0"></cell> </td>
+                    <td> <cell field_name="grad9_vent" index="0"></cell> </td>
                     <th>№1</th>
-                    <td> {% include "value.html" with field_name="crystal1"  index=0 %} </td>
+                    <td> <cell field_name="crystal1" index="0"></cell> </td>
                 </tr>
 
                 <tr>
                     <th> Режим (з/л)</th>
-                    <td> {% include "value.html" with field_name="grad1_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad2_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad3_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad4_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad5_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad6_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad7_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad8_mode"  index=0 %} </td>
-                    <td> {% include "value.html" with field_name="grad9_mode"  index=0 %} </td>
+                    <td> <cell field_name="grad1_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad2_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad3_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad4_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad5_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad6_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad7_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad8_mode" index="0"></cell> </td>
+                    <td> <cell field_name="grad9_mode" index="0"></cell> </td>
                     <th>№2</th>
-                    <td> {% include "value.html" with field_name="crystal2"  index=0 %} </td>
+                    <td> <cell field_name="crystal2" index="0"></cell> </td>
                 </tr>
                 <tr>
                     <th colspan="2">Расход нейтр. р-ра<i class='units'>м³</i></th>
@@ -90,23 +90,23 @@
                 </tr>
                 <tr>
                     <th> Общий </th>
-                    <td> {% include "value.html" with field_name="common1"  index=0 %} </td>
-                    <td colspan="3"> {% include "value.html" with field_name="common2"  index=0 %} </td>
-                    <td colspan="7" rowspan="3"> {% include "value.html" with field_name="pumps_summ"  index=0 %} </td>
+                    <td> <cell field_name="common1" index="0"></cell> </td>
+                    <td colspan="3"> <cell field_name="common2" index="0"></cell> </td>
+                    <td colspan="7" rowspan="3"> <cell field_name="pumps_summ" index="0"></cell> </td>
                 </tr>
 
                 <tr>
                     <th> 3 серии </th>
-                    <td> {% include "value.html" with field_name="series31"  index=0 %} </td>
-                    <td colspan="3"> {% include "value.html" with field_name="series32"  index=0 %} </td>
+                    <td> <cell field_name="series31" index="0"></cell> </td>
+                    <td colspan="3"> <cell field_name="series32" index="0"></cell> </td>
                 </tr>
 
                 <tr>
                     <th> 4 серии </th>
-                    <td> {% include "value.html" with field_name="series41"  index=0 %} </td>
-                    <td colspan="3"> {% include "value.html" with field_name="series42"  index=0 %} </td>
+                    <td> <cell field_name="series41" index="0"></cell> </td>
+                    <td colspan="3"> <cell field_name="series42" index="0"></cell> </td>
                 </tr>
 
             </thead>
         </table>
-{% endblock %}
+

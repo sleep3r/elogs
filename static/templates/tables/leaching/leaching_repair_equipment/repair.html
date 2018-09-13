@@ -1,10 +1,10 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Журнал ремонтов{% endblock %}
 
-{% block table %}
+
+
+Журнал ремонтов
+
+
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
@@ -22,16 +22,16 @@
         </thead>
         <tbody>
              {% for_or_create _ in table_cells_data|longest_field %}
-                 <tr class="indexed-line">
+                 <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
                      <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-                     <td>{% include "value.html" with field_name="equipment" index=forloop.counter0 %}</td>
-                     <td>{% include "value.html" with field_name="date_view" index=forloop.counter0 %}</td>
-                     <td>{% include "value.html" with field_name="name_equipment" index=forloop.counter0 %}</td>
-                     <td>{% include "value.html" with field_name="date_finish" index=forloop.counter0 %}</td>
-                     <td>{% include "value.html" with field_name="volume_text" index=forloop.counter0 %}</td>
-                     <td>{% include "value.html" with field_name="fact_time" index=forloop.counter0 %}</td>
+                     <td><cell field-name="equipment" :row-index="index"></cell></td>
+                     <td><cell field-name="date_view" :row-index="index"></cell></td>
+                     <td><cell field-name="name_equipment" :row-index="index"></cell></td>
+                     <td><cell field-name="date_finish" :row-index="index"></cell></td>
+                     <td><cell field-name="volume_text" :row-index="index"></cell></td>
+                     <td><cell field-name="fact_time" :row-index="index"></cell></td>
                 </tr>
             {% endfor_or_create %}
         </tbody>
     </table>
-{% endblock %}
+
