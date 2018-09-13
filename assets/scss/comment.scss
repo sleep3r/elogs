@@ -2,6 +2,7 @@
   # Comment
 \*------------------------------------*/
 @import "variables";
+@import "common";
 
 /** Table Comment */
 .journal-table {
@@ -119,8 +120,7 @@
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .input-check-popup .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
+    @include vendor-prefix('animation', 'fadeIn 1s');
 }
 
 .popup-comment-content textarea::placeholder {
