@@ -1,13 +1,22 @@
+{% load express_tags %} {# Loading our tags #}
 
-<div>
-    <span onclick="CollapseComment(this)" class="table-comment-button">Коментарий</span>
-    <div class="collapse table-comment-wrapper">
-        <textarea class="table-comment" name="comment"
-                  placeholder="Коментарий..."
-                  {% if page_mode == 'view' %}
+{% set_global_context "table_comment_responsible" table_cells_data|keyval:"comment"|keyval:0|keyval:"responsible" %}
+
+<div class="table__comment">
+    <a href="javascript:;" onclick="Comment.collapse(this)" >Комментарий </a>
+    <i class="fas fa-envelope ico-comment"></i>
+    {% if comment %}<span class="badge">1</span>{% endif %}
+    <div class="comment__text collapse ">
+        <textarea class="table-comment"
+                  name="comment"
+                  table-name="{{ table_name }}"
+                  journal-page="{{ journal_page }}"
+                  oninput="FormTable.onInput(this)"
+                  placeholder="Комментарий..."
+                  title="{% if table_comment_responsible %} Заполнил: {{ table_comment_responsible }}{% endif %}"
+                  {% if page_mode == 'view'  or page_mode == 'validate' %}
                     readonly="readonly"
                   {% endif %}
-
         >{{ comment }}</textarea>
     </div>
 </div>

@@ -1,0 +1,88 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Участок электрофильтров{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="2" colspan="2" class="th-common"> Электрофильтр </th>
+            <th colspan="2" class="th-common"> Температура<i class='units'>ᵒC</i> </th>
+            <th rowspan="2" class="th-number"> Вольтамперная характеристика </th>
+            <th rowspan="2" class="th-number"> Концентрация SO<sub>2</sub><i class='units'>%</i> </th>
+            <th colspan="3" class="th-common"> Запылённость газа по системам </th>
+            <th rowspan="2" class="th-number"> Откачка пыли с бункеров по факту<i class='units'>м³</i> </th>
+            <th colspan="2" class="th-common"> Вакуум насос </th>
+        </tr>
+        <tr>
+            <th class="th-number"> Вход </th>
+            <th class="th-number"> Выход </th>
+            <th> 1 </th>
+            <th> 2 </th>
+            <th> 3 </th>
+            <th> 1 </th>
+            <th> 2 </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th rowspan="2" class="th-mul-row"> ГК-30М </th>
+            <th> 1 секция </th>
+            <td>{% include "value.html" with field_name="M_s1_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s1_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s1_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s1_con" index=0 %}</td>
+            <td rowspan="6">{% include "value.html" with field_name="gas1" index=0 %}</td>
+            <td rowspan="6">{% include "value.html" with field_name="gas2" index=0 %}</td>
+            <td rowspan="6">{% include "value.html" with field_name="gas3" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s1_fact" index=0 %}</td>
+            <td rowspan="6">{% include "value.html" with field_name="vak1" index=0 %}</td>
+            <td rowspan="6">{% include "value.html" with field_name="vak2" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> 2 секция </th>
+            <td>{% include "value.html" with field_name="M_s2_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s2_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s2_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s2_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="M_s2_fact" index=0 %}</td>
+
+        </tr>
+        <tr>
+            <th rowspan="2" class="th-mul-row"> ГК-30Г </th>
+            <th> 1 секция </th>
+            <td>{% include "value.html" with field_name="G_s1_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s1_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s1_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s1_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s1_fact" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> 2 секция </th>
+            <td>{% include "value.html" with field_name="G_s2_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s2_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s2_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s2_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="G_s2_fact" index=0 %}</td>
+        </tr>
+        <tr>
+            <th rowspan="2" class="th-mul-row"> ГК-60 </th>
+            <th> 1 секция </th>
+            <td>{% include "value.html" with field_name="s1_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s1_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s1_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s1_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s1_fact" index=0 %}</td>
+        </tr>
+        <tr>
+            <th> 2 секция </th>
+            <td>{% include "value.html" with field_name="s2_t_in" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s2_t_out" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s2_vam" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s2_con" index=0 %}</td>
+            <td>{% include "value.html" with field_name="s2_fact" index=0 %}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

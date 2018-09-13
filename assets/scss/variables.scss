@@ -1,0 +1,52 @@
+/*------------------------------------*\
+  # Color variables
+\*------------------------------------*/
+
+
+$color-header: #548CB7;
+$color-th: #666666;
+$color-bg1: #EAEAEA;
+$color-bg2: #F5F5F5;
+$color-bg3: #FFFFFF;
+$color-main: #548CB7;
+$color-ac1: #FFF652;
+$color-ac2: #9FBF47;
+$color-ac3: #FF734C;
+$color-content: white;
+$color-text: #656565;
+$color-normal: #e5e5e5;
+$color-level2: #e0e0e0;
+$color-border: #2c3e50;
+$color-active: #f8f8f8;
+$color-menu-text: #6d6d6d;
+$color-acent: red;
+$base-gray: #666666;
+$base-blue: #548CB7;
+$accent-yellow: #FFF652;
+$accent-green: #9FBF47;
+$accent-orange: #FF734C;
+
+$bg-color: #F5F5F5;
+$tr-even-background: #F5F5F5;
+$table-borders: #EAEAEA;
+$placeholder-color: #BBBBBB;
+
+
+/*------------------------------------*\
+  # Sizes
+\*------------------------------------*/
+
+$width-left-menu: 230px;
+
+
+/*------------------------------------*\
+  # Font strings
+\*------------------------------------*/
+
+@import '~typeface-roboto-condensed/index.css';
+@import '~typeface-roboto/index.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+$roboto-font: 'Roboto', sans-serif;
+$roboto-condensed-fonts: 'Roboto Condensed', sans-serif;
+$material-font: 'Material Icons', sans serif;

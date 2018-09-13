@@ -1,0 +1,25 @@
+<div class="journal__panel">
+    <div class="date-selector">
+        <label>Выберите дату и смену</label>
+        <input type="text"
+               class="date-selector__date"
+               id="shift_field"
+               value="{{ shift_date }}, {{ shift_order }}-ая смена"
+               placeholder="Выберите дату..."
+               onclick="Shift.showCalendar()"
+               data-toggle="modal"
+               data-target="#myModal"
+        >
+    </div>
+    <div class="mode-buttons">
+        {% if perms.all_journals_app.view_cells %}
+            <button class="btn" onclick="JournalPanel.changeMode('view')" >Просмотр {{ request.user.group }}</button>
+        {% endif %}
+        {% if 'all_journals_app.edit_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn" onclick="JournalPanel.changeMode('edit')">Редактирование</button>
+        {% endif %}
+        {% if 'all_journals_app.validate_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn" onclick="JournalPanel.changeMode('validate')">Валидация</button>
+        {% endif %}
+    </div>
+</div>

@@ -86,7 +86,7 @@ export default {
   props: {
     timeframe: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
   },
   data() {

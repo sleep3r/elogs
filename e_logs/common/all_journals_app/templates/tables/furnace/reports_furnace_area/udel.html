@@ -1,0 +1,29 @@
+{% extends "table.html" %}
+{% load express_tags %}
+
+{% block title %}Удельная производительность печей{% endblock %}
+
+{% block table %}
+<table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th class="th-number">КС №</th>
+                <th class="th-number"><i class='units no-before'>тм<sup>2</sup>/сут</i></th>
+                <th class="th-number">КС №</th>
+                <th class="th-number"><i class='units no-before'>тм<sup>2</sup>/сут</i></th>
+                <th class="th-number">КС №</th>
+                <th class="th-number"><i class='units no-before'>тм<sup>2</sup>/сут</i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% include "value.html" with field_name="ks1" index=0 %}</td>
+                <td>{% include "value.html" with field_name="val1" index=0 %}</td>
+                <td>{% include "value.html" with field_name="ks2" index=0 %}</td>
+                <td>{% include "value.html" with field_name="val2" index=0 %}</td>
+                <td>{% include "value.html" with field_name="ks3" index=0 %}</td>
+                <td>{% include "value.html" with field_name="val3" index=0 %}</td>
+            </tr>
+        </tbody>
+</table>
+{% endblock %}

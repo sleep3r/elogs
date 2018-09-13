@@ -1,0 +1,273 @@
+[04/Sep/2018 16:45:25] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 16:45:25] INFO [STDOUT:44] Creating db
+[04/Sep/2018 16:45:25] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 16:45:25] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 16:45:26] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 16:45:26] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 16:45:26] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 16:45:26] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 16:45:27] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 16:45:27] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 16:45:28] INFO [STDOUT:292] Adding fields info settings...
+[04/Sep/2018 16:45:42] INFO [STDOUT:65] Adding Employees...
+[04/Sep/2018 16:45:54] INFO [STDOUT:67] Adding shifts...
+[04/Sep/2018 16:46:00] INFO [STDOUT:74] Done!
+[32m[04/Sep/2018 16:56:50] INFO [STDOUT:22] ['e_logs/common/all_journals_app/templates/tables/furnace/furnace_changed_fraction/main.html', 'e_logs/common/all_journals_app/templates/tables/furnace/concentrate_report/lower_table.html(deleted)', 'e_logs/common/all_journals_app/templates/tables/furnace/concentrate_report/upper.html', 'e_logs/common/all_journals_app/templates/tables/furnace/concentrate_report/big.html', 'e_logs/common/all_journals_app/templates/tables/furnace/concentrate_report/small.html', 'e_logs/common/all_journals_app/templates/tables/furnace/technological_tasks/main.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/area_class_cinder.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/places_of_sampling.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/electrofilter.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/worth.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/fences.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/warehouse_concentrates.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/main.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/udel.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/concentration_by_time.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/self_protection.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/corrective_actions.html', 'e_logs/common/all_journals_app/templates/tables/furnace/reports_furnace_area/airmachines.html', 'e_logs/common/all_journals_app/templates/tables/furnace/furnace_repair/repair.html', 'e_logs/common/all_journals_app/templates/tables/furnace/report_income_outcome_schieht/small_plan.html', 'e_logs/common/all_journals_app/templates/tables/furnace/report_income_outcome_schieht/supply_of_zinc_concentrates.html', 'e_logs/common/all_journals_app/templates/tables/furnace/report_income_outcome_schieht/year_plan_schieht.html', 'e_logs/common/all_journals_app/templates/tables/furnace/report_income_outcome_schieht/main.html', 'e_logs/common/all_journals_app/templates/tables/furnace/report_income_outcome_schieht/summary.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/sgok.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/sns.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/gof.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/cinder_conc.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/avg_month.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/concentrat.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/contain_zn.html', 'e_logs/common/all_journals_app/templates/tables/furnace/metals_compute/main.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/seria1.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/last.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/melt_area2.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/params.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/seria4.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/melt_area1.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/seria3.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/masters_report/zinc.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_3_degree/right.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_3_degree/left.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_4_degree/right.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_4_degree/left.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_12_degree/right.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_technical_report_12_degree/left.html', 'e_logs/common/all_journals_app/templates/tables/electrolysis/electrolysis_repair_report_tables/main.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_repair_equipment/repair.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/reagents.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/cinder.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/loads.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/agitators.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/thickeners.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/schieht.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/neutral.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/sample.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/appt_hydrometal.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/tanks_for_finished_products.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/vsns.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/tanks_availability.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/shift_info.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/self_protection.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/neutral_thickeners.html', 'e_logs/common/all_journals_app/templates/tables/leaching/leaching_express_analysis/zinc_pulp.html'][0m
+[04/Sep/2018 19:16:59] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:16:59] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:16:59] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:16:59] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:16:59] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:17:41] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:17:41] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:17:41] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:17:41] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:17:41] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:21:25] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:21:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:21:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:21:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:21:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:20] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:25:20] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:25:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:29:25] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:29:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:29:25] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:17] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:17] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:26] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:26] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:26] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:26] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:26] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:34] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:38] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:38] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:30:40] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 19:30:41] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 19:41:45] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 19:41:45] INFO [STDOUT:44] Creating db
+[04/Sep/2018 19:41:45] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 19:41:45] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 19:41:46] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 19:41:46] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 19:41:46] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 19:41:46] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 19:41:48] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 19:41:48] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 19:41:48] INFO [STDOUT:292] Adding fields info settings...
+[04/Sep/2018 19:57:27] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 19:57:28] INFO [STDOUT:44] Creating db
+[04/Sep/2018 19:57:28] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 19:57:28] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 19:57:28] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 19:57:28] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 19:57:28] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 19:57:28] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 19:57:30] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 19:57:30] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 19:57:30] INFO [STDOUT:292] Adding fields info settings...
+[04/Sep/2018 19:58:35] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 19:58:38] INFO [STDOUT:44] Creating db
+[04/Sep/2018 19:58:38] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 19:58:38] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 19:58:39] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 19:58:39] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 19:58:39] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 19:58:39] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 19:58:40] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 19:58:40] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 19:58:40] INFO [STDOUT:292] Adding fields info settings...
+[04/Sep/2018 20:00:08] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 20:00:11] INFO [STDOUT:44] Creating db
+[04/Sep/2018 20:00:11] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 20:00:11] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 20:00:11] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 20:00:11] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 20:00:11] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 20:00:12] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 20:00:13] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 20:00:13] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 20:00:13] INFO [STDOUT:289] Adding fields info settings...
+[04/Sep/2018 20:00:50] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 20:00:52] INFO [STDOUT:44] Creating db
+[04/Sep/2018 20:00:52] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 20:00:52] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 20:00:53] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 20:00:53] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 20:00:53] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 20:00:53] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 20:00:54] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 20:00:54] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 20:00:54] INFO [STDOUT:289] Adding fields info settings...
+[04/Sep/2018 20:01:07] INFO [STDOUT:66] Adding Employees...
+[04/Sep/2018 20:01:20] INFO [STDOUT:68] Adding shifts...
+[04/Sep/2018 20:01:25] INFO [STDOUT:75] Done!
+[04/Sep/2018 20:08:33] INFO [STDOUT:40] Cleaning db
+[04/Sep/2018 20:08:33] INFO [STDOUT:44] Creating db
+[04/Sep/2018 20:08:33] INFO [STDOUT:46] Creating superuser...
+[04/Sep/2018 20:08:33] INFO [STDOUT:48] Adding permissions...
+[04/Sep/2018 20:08:34] INFO [STDOUT:51] Adding plants...
+[04/Sep/2018 20:08:34] INFO [STDOUT:53] Adding journals...
+[04/Sep/2018 20:08:34] INFO [STDOUT:55] Adding tables...
+[04/Sep/2018 20:08:34] INFO [STDOUT:57] Adding fields...
+[04/Sep/2018 20:08:35] INFO [STDOUT:60] Adding settings...
+[04/Sep/2018 20:08:35] INFO [STDOUT:250] Adding table lists for each journal...
+[04/Sep/2018 20:08:35] INFO [STDOUT:291] Adding fields info settings...
+[04/Sep/2018 20:08:49] INFO [STDOUT:66] Adding Employees...
+[04/Sep/2018 20:09:01] INFO [STDOUT:68] Adding shifts...
+[04/Sep/2018 20:09:07] INFO [STDOUT:75] Done!
+[04/Sep/2018 20:11:45] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:11:45] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:12:08] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:12:08] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:13:17] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:13:17] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:01] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:07] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:07] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:14] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:28] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:28] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:28] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:28] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:28] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:34] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:45] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:45] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:45] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:52] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:52] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:56] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:18:56] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:18:56] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:06] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:06] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:08] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:08] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:08] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:14] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:14] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:14] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:14] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:14] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:18] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:18] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:19] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:22] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:19:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:19:22] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:23] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:23] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:23] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:23] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:23] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:31] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:31] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:33] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:33] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:34] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:37] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:43] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:20:43] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:43] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:43] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:20:43] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:10] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:21:10] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:10] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:24] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:21:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:24] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:38] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:21:38] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:38] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:38] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:38] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:21:45] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:21:45] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:27:09] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:27:09] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:27:37] INFO [STDERR:71] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[04/Sep/2018 20:27:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:27:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:27:37] DEBUG [STDERR:94] cells: <QuerySet []>
+[04/Sep/2018 20:27:37] DEBUG [STDERR:94] cells: <QuerySet []>

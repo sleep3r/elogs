@@ -151,7 +151,15 @@
       },
       addMeasurement() {
         this.$modal.show(measurementForm, {
-          timeframe: _.cloneDeep(_.omit(this.last_timeframe, 'id'))
+          timeframe: this.last_timeframe ? _.cloneDeep(_.omit(this.last_timeframe, 'id')) :
+          {
+            schieht: {
+              min_sizes: []
+            },
+            cinder: {
+              min_sizes: []
+            }
+          }
         })
       },
       modalChart(val, timeframe) {
@@ -165,7 +173,7 @@
             prediction: this.is_prediction(val.time)
           },
           {
-            width: "1200",
+            width: "1024",
             height: "85%"
           }
         );
@@ -198,6 +206,10 @@
         }
       },
       closest(array, num) {
+        if (!array.length) {
+          return 0
+        }
+        
         var i=0;
         var minDiff = array[array.length - 1].cinder.time * 1000
         var ans;
