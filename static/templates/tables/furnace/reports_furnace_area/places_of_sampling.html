@@ -19,7 +19,7 @@
     <tbody>
     {% for_or_create _ in table_cells_data|longest_field %}
         <tr>
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+
             <td><cell field-name="time" :row-index="index"></cell></td>
             <td><cell field-name="place" :row-index="index"></cell></td>
             <td><cell field-name="S_cinder" :row-index="index"></cell></td>
