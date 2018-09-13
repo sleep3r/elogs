@@ -6,6 +6,7 @@ __pycache__
 express_anal_app/__pycache__/apps.cpython-36.pyc
 .svn
 .DS_Store
+
 node_modules
 webpack-stats.json
 DigitalLogs/static/webpack_bundles/*
@@ -67,7 +68,6 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -112,3 +112,4 @@ logs/main_debug_info/*
 desktop.ini
 
 e_logs_tests/screens/*
+logs/printed_values

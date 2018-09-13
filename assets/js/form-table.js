@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import _ from 'underscore'
+import _ from 'lodash'
 
 class FormTable {
 
@@ -16,7 +16,6 @@ class FormTable {
         let lines = new Lines();
         lines.clone_last_line(form);
         lines.clear_empty_lines(form);
-        FormTable.send(form);
     }
 
     static saveTableComment(input) {
@@ -27,10 +26,10 @@ class FormTable {
                 "group_id": $(input).attr('journal-page'),
                 "index": 0,
             },
-            "text": $(input).val(),
+            "value": $(input).val(),
         });
         $.ajax({
-            url: "/common/save_table_comment/",
+            url: "/common/save_cell/",
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: forSend,
@@ -42,22 +41,6 @@ class FormTable {
             }
         });
     }
-
-    static send(form) {
-        _.debounce((form) => {
-            $.ajax({
-                type: 'POST',
-                url: $(form).attr('action'),
-                data: $(form).serialize(),
-                dataType: "json",
-                success: function (data) {
-                    $("#async").hide();
-                    $("#sync").show();
-                }
-            });
-        }, 300)(form);
-    }
-
 }
 
 

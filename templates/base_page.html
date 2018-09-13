@@ -1,42 +1,31 @@
-{% load staticfiles %}
-{% load render_bundle from webpack_loader %}
-{% load cacheops %}
-{% load cache %}
 <!DOCTYPE html>
+<!-- {% load render_bundle from webpack_loader %}{% load cacheops %}
+{% load cache %}{% load staticfiles %} -->
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="The worlds best electronic journaling system">
+    <meta name="keywords" content="journals, e-logs">
 
-    <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>
-    {% block title %}
-        <title>E-logs</title>
-    {% endblock %}
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>
+    <title>{% block title %} E-logs {% endblock %}</title>
 
     {% block css %}
-{#        <link href="{% static '/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/fullcalendar/dist/fullcalendar.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/jquery-confirm/css/jquery-confirm.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/pnotify/pnotify.custom.min.css' %}" rel="stylesheet">#}
-{#        <link href="{% static '/vendors/font-awesome/css/font-awesome.css' %}" rel="stylesheet">#}
-
-        <!-- css all in one -->
-{#        <link href="{% static '/build/css/index.css' %}" rel="stylesheet">#}
         {% render_bundle 'index' 'css' %}
-{#        {% render_bundle 'vendor' 'css' %}#}
     {% endblock %}
 
-    {% block extracss %}
-    {% endblock %}
-
+    {% block extracss %}{% endblock %}
 </head>
+
 <body>
 <div class="elogs-container">
     {% block top-nav %}
         {% include "top_nav.html" %}
     {% endblock %}
+
     <div class="main-container">
         <div class="column-left">
             {% include "menu.html" %}
@@ -55,44 +44,47 @@
             {% include "footer.html" %}
         </div>
     </div>
+
 </div>
 
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
-        {% render_bundle 'index' 'js' %}
-{#        {% render_bundle 'vendor' 'js' %}#}
-    <!-- Bootstrap -->
-{#    <script src="{% static 'vendors/jquery/dist/jquery.js' %}"></script>#}
-{#    <script src="{% static 'vendors/underscore/underscore-min.js' %}"></script>#}
-{#    <script src="{% static 'vendors/jquery-confirm/js/jquery-confirm.js' %}"></script>#}
-{#    <script src="{% static 'vendors/jquery-align-column/js/jquery.align-column.js' %}"></script>#}
-{#    <script src="{% static 'vendors/pnotify/pnotify.custom.min.js' %}"></script>#}
-{#    <script src="{% static 'vendors/popups/popper.js' %}"></script>#}
-{#    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>#}
-{#    <script src="{% static 'vendors/vue/vue.js' %}"></script>#}
-{#    <script src="{% static 'vendors/vue/vue-resource.min.js' %}"></script>#}
-{#    <script src="{% static 'vendors/moment/moment.min.js' %}"></script>#}
-{#    <script src="{% static 'vendors/fullcalendar/dist/fullcalendar.js' %}"></script>#}
+    {% render_bundle 'index' 'js' %}
+    <script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
 
-{#    <script src="{% static 'build/js/common.js' %}"></script>#}
-{##}
-{#    <script src="{% static 'build/js/popup.js' %}"></script>#}
-{#    <script src="{% static 'build/js/datepicker.js' %}"></script>#}
-{#    <script src="{% static 'build/js/datepicker-init.js' %}"></script>#}
-{#    <script src="{% static 'build/js/shift.js' %}"></script>#}
-{#    <script src="{% static 'build/js/header.js' %}"></script>#}
-{#    <script src="{% static 'build/js/user-menu.js' %}"></script>#}
-{#    <script src="{% static 'build/js/menu.js' %}"></script>#}
-{#    <script src="{% static 'build/js/journal-panel.js' %}"></script>#}
+    <script>
+        var endpoint = 'ws://' + window.location.host + '/messages/';
+        messages_socket = new ReconnectingWebSocket(endpoint);
 
-{#    <script src="{% static 'build/js/form-update.js' %}"></script>#}
-{#    <script src="{% static 'build/js/journal.js' %}"></script>#}
-{#    <script src="{% static 'build/js/form-table.js' %}"></script>#}
-{#    <script src="{% static 'build/js/cell.js' %}"></script>#}
-{#    <script src="{% static 'build/js/feedback.js' %}"></script>#}
+        messages_socket.onmessage = function (event) {
+            console.log("message", event);
+            {#alert(event.data);#}
+
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    data = JSON.parse(event.data);
+                    var options = {
+                        body: "Asmet Omarov comes",
+                        icon: 'https://cdn2.iconfinder.com/data/icons/buttons-9/512/Button_Reminder-01.png',
+                    };
+                    var title = 'E-LOGS: У вас новое сообщение';
+                    var notification = new Notification(title, options);
+                }
+            });
+
+        };
+        messages_socket.onopen = function (event) {
+            console.log("connected", event);
+        };
+        messages_socket.onerror = function (event) {
+            console.log("error", event);
+        };
+        messages_socket.onclose = function (event) {
+            console.log("closed", event);
+        };
+    </script>
 {% endblock %}
-
 
 </body>
 </html>

@@ -1,4 +1,13 @@
 class JournalPanel {
+
+   static init() {
+       let selector = ".mode-buttons .btn-" + Journal.getMode();
+       let activeBtn = document.querySelector(selector);
+       if (activeBtn !== null) {
+           activeBtn.classList.toggle("btn--active");
+       }
+   }
+
    static changeMode(mode){
       let id = this.getUrlParam("id");
 
@@ -40,9 +49,10 @@ class JournalPanel {
    }
 }
 
-$(document).ready(() => {
-    window.JournalPanel = JournalPanel;
-});
+// $(document).ready(() => {
+//     window.JournalPanel = JournalPanel;
+// });
 
+window.JournalPanel = JournalPanel;
 
 export {JournalPanel}

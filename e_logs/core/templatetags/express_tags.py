@@ -58,7 +58,7 @@ def default(value):
 
 @register.filter(name='in_group')
 def in_group(user, group_name):
-    group =  Group.objects.get(name=group_name)
+    group = Group.objects.get(name=group_name)
     return group in user.groups.all()
 
 @register.filter('longest_field')

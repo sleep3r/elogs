@@ -1,7 +1,6 @@
 
-
-import $ from 'jquery'
-import _ from 'underscore'
+// import $ from 'jquery'
+// import _ from 'underscore'
 
 import {Cell} from "./cell"
 import {Lines} from "./form-table";
@@ -26,17 +25,18 @@ class Comment {
                     "type": "comment",
                 },
             });
-            $.ajax({
-                url: "/common/messages/add_comment/",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: forSend,
-                success: function (json) {
-                    if (json && json.result) {
-                        // console.log(json.result)
-                    }
-                }
-            });
+            // $.ajax({
+            //     url: "/common/messages/add_comment/",
+            //     type: "POST",
+            //     contentType: "application/json; charset=utf-8",
+            //     data: forSend,
+            //     success: function (json) {
+            //         if (json && json.result) {
+            //             // console.log(json.result)
+            //         }
+            //     }
+            // });
+            messages_socket.send(forSend);
         }, 300)(textarea);
     }
 
@@ -78,22 +78,6 @@ class Journal {
         const selectedElement = element;
     }
 
-    static send_all_forms() {
-
-        for (let form of $("form.elog-table-form").get()) {
-            $.ajax({
-                type: 'POST',
-                url: $(form).attr('action'),
-                data: $(form).serialize(),
-                dataType: "json",
-                success: function (data) {
-                    $("#async").hide();
-                    $("#sync").show();
-                }
-            });
-        }
-    }
-
     static onReady() {
         document.querySelectorAll(".general-value").forEach(input => { // Adding on_input_change for every input
             // console.log('adding on_input_change', input);
@@ -118,7 +102,17 @@ class Journal {
             return lines.line_is_empty($(line));
         }).remove();
 
-        lines.clone_last_line($("form"));
+        switch (this.getMode()) {
+            case 'view':
+                break;
+            case 'edit':
+                lines.clone_last_line($("form"));
+                break;
+            case 'validate':
+                break;
+            default:
+                break;
+        }
 
         if (validate === "True") {
             $('.indexed-line').removeClass('indexed-line')
@@ -134,9 +128,6 @@ class Journal {
 
         document.onkeydown = onKeyDownAction;
 
-        window.addEventListener("beforeunload", function (e) {
-            Journal.send_all_forms();
-        }, false);
     }
 }
 

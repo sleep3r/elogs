@@ -1,65 +1,41 @@
 {% extends 'base_page.html' %}
 {% load staticfiles %}
 {% load tz %}
-
-
 {% load i18n %}
 
 {% block title %}
-    <title>Все сообщения</title>
+    Все сообщения
 {% endblock %}
 
-{% block css %}
-    {{ block.super }}
-    <link href="{% static '/vendors/bootstrap/dist/css/bootstrap-notifications.css' %}" rel="stylesheet">
-{% endblock %}
 
 {% block journal_panel %}
 {% endblock %}
 
 {% block content %}
-    <div class="content">
-        <ul class="notifs">
+    <div class="messages">
+        <ul class="messages__list">
+            {% if not messages %}
+                <h1 style="text-align: center">Нет сообщений</h1>
+            {% endif %}
             {% for message in messages %}
-                <li class="notif">
-                    <div class="media">
-                        <div class="media-left">
-                            <div class="media-object">
-                                <img src = "{% static 'images/no-avatar.png' %}" class="emp-img">{{ user_name }}
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <strong class="notification-title">
-                                <a href="#">{{message.sendee}}</a> 
-                                
-                                {% if message.type == 'critical_value' %}
-                                    ввел некорректное значение в поле
-                                {% elif message.type == 'comment'%}
-                                    оставил замечание к полю
-                                {% endif %}
-
-                                <a href="{{message.link}}">{{message.cell.field.name}}</a>
-                            </strong>
-
-                            {% if message.type == 'critical_value' %}
-                                <p class="notif-desc-critical">{{message.text}}</p>
-                            {% elif message.type == 'comment'%}
-                                <p class="notif-desc-comment">{{message.text}}</p>
-                            {% endif %}
-
-                            <div class="notif-meta">
-                                <small class="timestamp">{{message.created}}</small>
-                            </div>
-                        </div>
-                    </div>
+                <li class="message">
+                {% if message.sendee != None %}
+                    <img class="message__image" src = "{% static 'images/no-avatar.png' %}" >
+                    <span class="message__author-name">{{ user_name }}</span>
+                    <strong class="message__title">
+                        <a class="sendee" href="#">{{message.sendee}}</a>
+                        <span class="message__info"></span>
+                        <a href="{{message.link}}">{{message.cell.field.name}}</a>
+                    </strong>
+                {% endif %}
+                    <p class="message__text {{ message.type }}">{{message.text}}</p>
+                    <span class="message__created">{{message.created}}</span>
                 </li>
             {% endfor %}
         </ul>
-
         <div class="loading" style="display: none;text-align: center">
             ЗАГРУЗКА...
         </div>
-
         {% if page_obj.has_next %}
             <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
         {% endif %}
@@ -68,18 +44,18 @@
 
 {% block footer %}
     {{ block.super }}
-    <script src = "{% static 'vendors/waypoints/jquery.waypoints.min.js' %}"></script>
-    <script src = "{% static 'vendors/waypoints/shortcuts/infinite.min.js' %}"></script>
-    <script>
-        let infinite = new Waypoint.Infinite({
-            element: $('.notifs')[0],
-            onBeforePageLoad: function () {
-                $('.loading').show();
-            },
-            onAfterPageLoad: function () {
-                $('.loading').hide();
-            },
-            items: ".notif",
-        });
-    </script>
+{#    <script src = "{% static 'vendors/waypoints/jquery.waypoints.min.js' %}"></script>#}
+{#    <script src = "{% static 'vendors/waypoints/shortcuts/infinite.min.js' %}"></script>#}
+{#    <script>#}
+{#        let infinite = new Waypoint.Infinite({#}
+{#            element: $('.notifs')[0],#}
+{#            onBeforePageLoad: function () {#}
+{#                $('.loading').show();#}
+{#            },#}
+{#            onAfterPageLoad: function () {#}
+{#                $('.loading').hide();#}
+{#            },#}
+{#            items: ".notif",#}
+{#        });#}
+{#    </script>#}
 {% endblock %}

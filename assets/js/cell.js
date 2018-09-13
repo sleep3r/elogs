@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import _ from 'underscore'
+import _ from 'lodash'
 
     /**
  * @return {boolean}
@@ -21,12 +21,14 @@ class Cell {
 
     // public
     static onInput(input) {
+        console.log('onInput', input.value)
         this.on_input_change(input);
         this.saveCell(input);
         $('#sync').hide();$('#async').show();
     }
 
     static onChange(input) {
+        console.log('onChange', input.value)
         this.reformat_on_change(input);
         this.addMessage(input);
     }
@@ -48,16 +50,13 @@ class Cell {
             contentType: 'application/json; charset=utf-8',
             data: forSend,
             success: function (json) {
-                // if (json && json.status) {
+                if (json && json.status) {
+                    $('#async').hide();
+                    $('#sync').show();
                 }
-            });
+            }
+        });
     }
-
-
-    /**
-     *
-     * @param cell instance in DOM
-     */
     static saveComment(cell) {
 
         _.debounce((cell) => {
@@ -73,21 +72,30 @@ class Cell {
                     'text': cell.getAttribute('comment'),
                     'link': Cell.getLink(cell),
                     'type': 'comment'
-                }
+                },
+                "crud":"add",
             });
-            $.ajax({
-                url: "/common/messages/add_comment/",
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: forSend,
-                success: function (json) {
-                    if (json && json.result) {
-                         console.log(json.result)
-                    }
-                }
-            });
+            // $.ajax({
+            //     url: "/common/messages/add_comment/",
+            //     type: 'POST',
+            //     contentType: 'application/json; charset=utf-8',
+            //     data: forSend,
+            //     success: function (json) {
+            //         if (json && json.result) {
+            //              console.log(json.result)
+            //         }
+            //     }
+            // });
+            messages_socket.send(forSend);
         }, 300)(cell);
     }
+
+
+    /**
+     *
+     * @param cell instance in DOM
+     */
+
 
     static addMessage(msg) {
         let debounce = _.debounce((input) => {
@@ -103,24 +111,25 @@ class Cell {
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
                     },
-
+                    'crud': "add",
                     'message': {
                         'text': input.value,
                         'link': Cell.getLink(input),
                         'type': 'critical_value'
                     },
                 });
-                $.ajax({
-                    url: "/common/messages/add_critical/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/add_critical/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
+                messages_socket.send(forSend);
             } else {
 
                 let forSend = JSON.stringify({
@@ -129,20 +138,22 @@ class Cell {
                         'table_name': $(input).attr('table-name'),
                         'group_id': $(input).attr('journal-page'),
                         'index': $(input).attr('index')
-                    }
+                    },
+                    "crud":"update",
                 });
 
-                $.ajax({
-                    url: "/common/messages/update/",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: forSend,
-                    success: function (json) {
-                        if (json && json.status) {
-                            // console.log(json.result)
-                        }
-                    }
-                });
+                // $.ajax({
+                //     url: "/common/messages/update/",
+                //     type: 'POST',
+                //     contentType: 'application/json; charset=utf-8',
+                //     data: forSend,
+                //     success: function (json) {
+                //         if (json && json.status) {
+                //             // console.log(json.result)
+                //         }
+                //     }
+                // });
+                messages_socket.send(forSend);
             }
         },
             300);
@@ -202,10 +213,11 @@ class Cell {
     }
 
     static reformat_on_change(input) {
-        if (input.value === "")
-            return;
+        if (input.value === "") {
+            input.value = 0
+        }
         if (input.type === "number") {
-            input.value = +(input.value*1.0).toFixed(2);
+            input.value = +(input.value*1.0).toFixed(2)
         }
         // $(input.closest('table')).alignColumn([1, 2, 3, 4, 5], {center: '.'})
     }

@@ -7,8 +7,4 @@ urlpatterns = [
     path('get/', views.msg_view, name='messages_get'),
     path('read/', views.msg_view, name='messages_read'),
     path('list/', views.MessagesList.as_view(), name='messages_list'),
-    path('add_critical/', views.add_critical),
-    path('add_comment/', views.add_comment),
-    path('update/', views.update),
-
 ]

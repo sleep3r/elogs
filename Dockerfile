@@ -1,13 +1,8 @@
 FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python3 python3-pip
-RUN apt-get install -y python3-dev
-RUN apt-get install -y git
-RUN apt-get install -y vim
-RUN apt-get install -y nginx
-RUN apt-get install -y curl
-RUN apt-get install -y npm
+RUN apt-get install -y python3.6 python3-pip python3-dev git vim nginx curl npm
+
 
 RUN mkdir /srv/media /srv/static
 
@@ -19,25 +14,27 @@ COPY ./docker/pyodbc_mssql_driver.sh /srv/docker/
 # installs ubuntu odbc drivers and pip django odbc packets
 RUN /srv/docker/pyodbc_mssql_driver.sh
 
-COPY ./requirements.txt /srv
-RUN pip3 install -r /srv/requirements.txt
-
 WORKDIR /srv
 
 COPY ./package.json /srv
 RUN npm i
 
+RUN pip3 install pipenv
+COPY ./Pipfile.lock /srv
+COPY ./Pipfile /srv
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+ENV PYTHONUNBUFFERED 1
+RUN pipenv install --deploy --system --ignore-pipfile
+
 COPY . /srv
-RUN mkdir /srv/logs
-RUN mkdir /srv/logs/main
-RUN mkdir /srv/logs/main_debug_calls
-RUN mkdir /srv/logs/main_debug_debug
-RUN mkdir /srv/logs/main_debug_error
-RUN mkdir /srv/logs/main_debug_info
-RUN mkdir /srv/logs/printed_values
-RUN mkdir /srv/logs/db_log
 
 RUN ./node_modules/.bin/webpack
-ENV DJANGO_SETTINGS_MODULE config.settings.settings_singapore
 
-ENTRYPOINT ["/srv/docker/entrypoint.sh"]
+ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
+ENV DOCKER yes
+ENV DEBUG False
+
+RUN mkdir /srv/staticfiles /srv/logs/main /srv/logs/main_debug_calls /srv/logs/main_debug_debug /srv/logs/main_debug_error /srv/logs/main_debug_info /srv/logs/printed_values
+
+# ENTRYPOINT ["/srv/docker/entrypoint.sh"]

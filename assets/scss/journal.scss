@@ -41,12 +41,18 @@
     border-radius: 5px;
     background-color: $color-main;
     color: white;
-    margin: 0 5px;
-    height: 30px;
+    height: 38px;
     cursor: pointer;
+
+    &:hover {
+        background-color: darken($color-main, 15);
+        color: white;
+    }
+
 }
 
-.btn:hover {
-    background-color: darken($color-main, 15);
-    color: white;
+.btn--active {
+    background-color: #386486;
 }
+
+

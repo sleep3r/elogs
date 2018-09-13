@@ -1,3 +1,5 @@
+{% load staticfiles %}
+{% load express_tags %}
 <div class="journal__panel">
     <div class="date-selector">
         <label>Выберите дату и смену</label>
@@ -13,13 +15,25 @@
     </div>
     <div class="mode-buttons">
         {% if perms.all_journals_app.view_cells %}
-            <button class="btn" onclick="JournalPanel.changeMode('view')" >Просмотр {{ request.user.group }}</button>
+            <button class="btn btn-view" onclick="JournalPanel.changeMode('view')" >Просмотр {{ request.user.group }}</button>
         {% endif %}
-        {% if 'all_journals_app.edit_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
-            <button class="btn" onclick="JournalPanel.changeMode('edit')">Редактирование</button>
+        {% if 'all_journals_app.edit_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn btn-edit"
+                    {% if page_is_closed and not user.is_superuser and not user|in_group:"Big boss" and not user|in_group:"Boss" and user|in_group:plant.name|title%}
+                        disabled
+                    {% endif %}
+                    onclick="JournalPanel.changeMode('edit')">Редактирование
+            </button>
         {% endif %}
-        {% if 'all_journals_app.validate_cells' and 'all_journals_app.modify_'|add:plant.name in perms %}
-            <button class="btn" onclick="JournalPanel.changeMode('validate')">Валидация</button>
+        {% if 'all_journals_app.validate_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}
+            <button class="btn btn-validate" onclick="JournalPanel.changeMode('validate')">Валидация</button>
         {% endif %}
+
+        {% for employee in employee_list %}
+            <img style="height: 30px; width: 30px;" title="{{ employee.name }}: {{ employee.position_verbose }}" src = "{% static 'images/no-avatar.png' %}">
+        {% endfor %}
+
+        {% if page_is_closed %}<h8 style="color: #ef0b26"><br>
+            Журнал закрыт, т.к. в него не были внесены данные!</h8>{% endif %}
     </div>
 </div>

@@ -1,15 +1,6 @@
 {% load express_tags %}
 {% load i18n %}
 
-<script language="JavaScript">
-    var user = {
-        email: "{{ user.email }}",
-        username: "{{ user.username }}",
-    }
-    var backend = {
-        user: user,
-    };
-</script>
 <input hidden name="validate"
        value={% if page_mode == 'validate' %} True {% endif %}>
 <input hidden name="view"

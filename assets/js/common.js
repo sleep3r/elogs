@@ -112,6 +112,8 @@ $(document).ready(function () {
             $("table #" + cell_id + "").addClass("highlight");
         }, 1000);
     }
+    
+    JournalPanel.init();
 });
 
 export {Notifications, getCookie, GetURLParameter}
