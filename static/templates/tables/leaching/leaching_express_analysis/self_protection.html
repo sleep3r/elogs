@@ -21,12 +21,9 @@
                 <td><cell field-name="visiting" index="0"></cell></td>
                 <td rowspan="3"><cell field-name="notation" index="0"></cell></td>
             </tr>
-            {% for _ in 2|times %}
-                <tr>
-                    <td>{% include "value.html" with field_name="visiting_time" index=forloop.counter %}</td>
-                    <td>{% include "value.html" with field_name="visiting" index=forloop.counter %}</td>
-                </tr>
-             {% endfor %}
+              <tr v-for="(value, index) in 2">
+                  <td><cell field-name="visiting_time" row-index="index"></cell></td>
+                  <td><cell field-name="visiting" row-index="index"></cell></td>
+              </tr>
         </tbody>
     </table>
-
