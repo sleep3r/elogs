@@ -16,18 +16,18 @@
         <tr>
             <input class="index-input" hidden name="index" value="0">
             <th>НЗП</th>
-            <td>{% include "value.html" with field_name="nzp_concentrate" index=0 %}</td>
-            <td>{% include "value.html" with field_name="nzp_zn" index=0 %}</td>
+            <td><cell field-name="nzp_concentrate" index="0"></cell></td>
+            <td><cell field-name="nzp_zn" index="0"></cell></td>
         </tr>
         <tr>
             <th>Склады</th>
-            <td>{% include "value.html" with field_name="sklad_concentrate" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sklad_zn" index=0 %}</td>
+            <td><cell field-name="sklad_concentrate" index="0"></cell></td>
+            <td><cell field-name="sklad_zn" index="0"></cell></td>
         </tr>
         <tr>
             <th>Итого</th>
-            <td>{% include "value.html" with field_name="itogo_concentrate" index=0 %}</td>
-            <td>{% include "value.html" with field_name="itogo_zn" index=0 %}</td>
+            <td><cell field-name="itogo_concentrate" index="0"></cell></td>
+            <td><cell field-name="itogo_zn" index="0"></cell></td>
         </tr>
     {% else %}
         {% for _ in table_cells_data.concentrate %}

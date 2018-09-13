@@ -1,0 +1,5 @@
+[06/Sep/2018 06:28:49] INFO [STDERR:61] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[06/Sep/2018 06:29:05] INFO [STDERR:61] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[06/Sep/2018 06:29:48] INFO [STDERR:61] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[06/Sep/2018 07:06:49] INFO [STDERR:61] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})
+[06/Sep/2018 07:06:50] INFO [STDERR:61] page_mode=defaultdict(<class 'e_logs.core.utils.deep_dict.DeepDict'>, {})

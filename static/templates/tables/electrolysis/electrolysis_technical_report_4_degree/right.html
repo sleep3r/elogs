@@ -11,10 +11,10 @@
             <th colspan="3" class="th-common"> Установленный технологический режим </th>
         </tr>
         <tr>
-            <th>H<sub>2</sub>SO<sub>4</sub></th> <td colspan="2"> {% include "value.html" with field_name="h2so4" index=0 %}</td>
+            <th>H<sub>2</sub>SO<sub>4</sub></th> <td colspan="2"> <cell field-name="h2so4" index="0"></cell></td>
         </tr>
         <tr>
-            <th>Zn в отр.<i class='units'>г/л</i></th> <td colspan="2">{% include "value.html" with field_name="zn" index=0 %}</td>
+            <th>Zn в отр.<i class='units'>г/л</i></th> <td colspan="2"><cell field-name="zn" index="0"></cell></td>
         </tr>
     </thead>
     <tbody>
@@ -71,39 +71,39 @@
 
         <tr>
             <th> Co </th>
-            <td colspan="2"> {% include "value.html" with field_name="co1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="co1" index="0"></cell></td>
         </tr>
         <tr>
             <th> Cd </th>
-            <td colspan="2"> {% include "value.html" with field_name="cd1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="cd1" index="0"></cell></td>
         </tr>
         <tr>
             <th> Sb </th>
-            <td colspan="2"> {% include "value.html" with field_name="sb1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="sb1" index="0"></cell></td>
         </tr>
         <tr>
             <th> Fe<sup>2+</sup> </th>
-            <td colspan="2"> {% include "value.html" with field_name="fe2p1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="fe2p1" index="0"></cell></td>
         </tr>
         <tr>
             <th> BT % </th>
-            <td colspan="2"> {% include "value.html" with field_name="bt1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="bt1" index="0"></cell></td>
         </tr>
         <tr>
             <th> Уд. вес (ЦВМО)<i class='units'>г/см<sup>3</sup></i> </th>
-            <td colspan="2"> {% include "value.html" with field_name="weight1_1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="weight1_1" index="0"></cell></td>
         </tr>
 
         <tr>
             <th> Уд. вес (5 чан)<i class='units'>г/см<sup>3</sup></i></th>
-            <td colspan="2"> {% include "value.html" with field_name="weight2_1" index=0 %}</td>
+            <td colspan="2"> <cell field-name="weight2_1" index="0"></cell></td>
         </tr>
     </tbody>
 </table>
     <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
-                <th colspan="3"> В работе ВИУ </th> <td colspan="1">{% include "value.html" with field_name="viu_in" index=0 %} </td>
+                <th colspan="3"> В работе ВИУ </th> <td colspan="1"><cell field-name="viu_in" index="0"></cell> </td>
             </tr>
             <tr>
                 <th colspan="2"> Насосы на прием смены<i class='units'>№</i> </th>
@@ -112,23 +112,23 @@
         </thead>
         <tbody>
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum1" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum2" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum1" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum2" index="0"></cell> </td>
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum3" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum4" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum3" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum4" index="0"></cell> </td>
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum5" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum6" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum5" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum6" index="0"></cell> </td>
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum7" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum8" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum7" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum8" index="0"></cell> </td>
             </tr>
 
             <tr>
@@ -136,10 +136,10 @@
             </tr>
 
             <tr>
-                <td colspan="4"> {% include "value.html" with field_name="reason1" index=0 %} </td>
+                <td colspan="4"> <cell field-name="reason1" index="0"></cell> </td>
             </tr>
             <tr>
-                <th colspan="3"> Анализы чана № </th> <td> {% include "value.html" with field_name="tank_analisys" index=0 %} </td>
+                <th colspan="3"> Анализы чана № </th> <td> <cell field-name="tank_analisys" index="0"></cell> </td>
             </tr>
 
             <tr>
@@ -154,24 +154,24 @@
 
             <tr>
                 <th> Co </th>
-                <td colspan="3"> {% include "value.html" with field_name="co2" index=0 %}</td>
+                <td colspan="3"> <cell field-name="co2" index="0"></cell></td>
             </tr>
             <tr>
                 <th> Cd </th>
-                <td colspan="3"> {% include "value.html" with field_name="cd2" index=0 %}</td>
+                <td colspan="3"> <cell field-name="cd2" index="0"></cell></td>
             </tr>
             <tr>
                 <th> Sb </th>
-                <td colspan="3"> {% include "value.html" with field_name="sb2" index=0 %}</td>
+                <td colspan="3"> <cell field-name="sb2" index="0"></cell></td>
             </tr>
             <tr>
                 <th> Fe<sup>2+</sup> </th>
-                <td colspan="3"> {% include "value.html" with field_name="fe2p2" index=0 %}</td>
+                <td colspan="3"> <cell field-name="fe2p2" index="0"></cell></td>
             </tr>
 
             <tr>
                 <th> Уд. вес<i class='units'>г/см<sup>3</sup></i> </th>
-                <td colspan="3"> {% include "value.html" with field_name="weight1_2" index=0 %}</td>
+                <td colspan="3"> <cell field-name="weight1_2" index="0"></cell></td>
             </tr>
         </tbody>
 
@@ -191,13 +191,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum9" index=0 %} </td>
-                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum10" index=0 %} </td>
+                    <th> Насос </th> <td> <cell field-name="pumpnum9" index="0"></cell> </td>
+                    <th> Насос </th> <td> <cell field-name="pumpnum10" index="0"></cell> </td>
                 </tr>
 
                 <tr>
-                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum11" index=0 %} </td>
-                    <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum12" index=0 %} </td>
+                    <th> Насос </th> <td> <cell field-name="pumpnum11" index="0"></cell> </td>
+                    <th> Насос </th> <td> <cell field-name="pumpnum12" index="0"></cell> </td>
                 </tr>
 
             <tr>
@@ -205,7 +205,7 @@
             </tr>
 
             <tr>
-                <td colspan="4" > {% include "value.html" with field_name="reason2" index=0 %} </td>
+                <td colspan="4" > <cell field-name="reason2" index="0"></cell> </td>
             </tr>
 
             <tr>
@@ -219,18 +219,18 @@
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum13" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum14" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum13" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum14" index="0"></cell> </td>
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum15" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum16" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum15" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum16" index="0"></cell> </td>
             </tr>
 
             <tr>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum17" index=0 %} </td>
-                <th> Насос </th> <td> {% include "value.html" with field_name="pumpnum18" index=0 %} </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum17" index="0"></cell> </td>
+                <th> Насос </th> <td> <cell field-name="pumpnum18" index="0"></cell> </td>
             </tr>
 
             <tr>
@@ -238,7 +238,7 @@
             </tr>
 
             <tr>
-                <td colspan="4" > {% include "value.html" with field_name="reason3" index=0 %} </td>
+                <td colspan="4" > <cell field-name="reason3" index="0"></cell> </td>
             </tr>
 
             <tr>
@@ -246,7 +246,7 @@
             </tr>
 
                 <tr>
-                    <td colspan="4" > {% include "value.html" with field_name="zump_pump" index=0 %} </td>
+                    <td colspan="4" > <cell field-name="zump_pump" index="0"></cell> </td>
                 </tr>
 
             <tr>
@@ -254,7 +254,7 @@
             </tr>
 
             <tr>
-                <td colspan="4" > {% include "value.html" with field_name="reason4" index=0 %} </td>
+                <td colspan="4" > <cell field-name="reason4" index="0"></cell> </td>
             </tr>
         </tbody>
     </table>

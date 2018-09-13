@@ -9,15 +9,15 @@
             <tbody>
             <tr>
                 <th scope="row">{% trans "За смену" %}</th>
-                <td>{% include "value.html" with field_name="shift_total" index=0 %}</td>
+                <td><cell field-name="shift_total" index="0"></cell></td>
             </tr>
             <tr>
                 <th scope="row">{% trans "За сутки" %}</th>
-                <td>{% include "value.html" with field_name="day_total" index=0 %}</td>
+                <td><cell field-name="day_total" index="0"></cell></td>
             </tr>
             <tr>
                 <th scope="row">{% trans "В процессе" %}</th>
-                <td>{% include "value.html" with field_name="in_process" index=0 %}</td>
+                <td><cell field-name="in_process" index="0"></cell></td>
             </tr>
             </tbody>
         </table>
