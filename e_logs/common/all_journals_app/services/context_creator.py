@@ -18,11 +18,10 @@ def get_context(request, plant, journal) -> DeepDict:
 
         add_type_specific_info(context, journal, page)
         add_permissions(context, page, request)
-        add_page_info(context, journal, page)
+        add_page_info(context, plant, journal, page)
         context.tables_paths = get_tables_paths(journal)
         context.journal_cells_data = get_cells_data(page)
         context.journal_fields_descriptions = get_fields_descriptions(journal)
-        context.plant = plant
 
     context.menu_data = get_menu_data()
 
@@ -57,11 +56,15 @@ def get_menu_data():
                             for journal in Journal.objects.filter(plant__name="electrolysis")}
             }
 
-def add_page_info(context, journal, page):
+def add_page_info(context, plant, journal, page):
     context.page_type = journal.type
     context.journal_name = journal.name
     context.journal_page = page.id
     context.page_is_closed = page.closed
+    context.page_is_ended = page.ended
+    context.plant = plant
+    if timezone.now() > page.end_time - timedelta(hours=1) and not page.closed and not page.ended:
+        context.shift_end_is_near = True
 
 
 def get_tables_paths(journal):

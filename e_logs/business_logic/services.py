@@ -98,6 +98,10 @@ class CheckTime(Service):
         if timezone.now() > page.end_time + timedelta(hours=12):
             return False
 
+        shift = get_or_none(Shift, date=page.date, order=int(page.order-1), journal=page.journal)
+        if shift and not shift.ended and employee not in page.employee_set.all():
+            return False
+
         return True
 
 class SetLimitedAccess(Service):

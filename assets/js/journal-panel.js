@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 class JournalPanel {
 
    static init() {
@@ -33,6 +35,26 @@ class JournalPanel {
              console.log("change mode to Default mode!");
              break;
       }
+   }
+
+   static endShift(shift_id){
+     $.confirm({
+        title: 'Вы действительно хотите сдать смену?',
+        content: 'После закрытия смены у вас будет 12 часов на редактирование занесенных во время прошедшей смены данных.',
+        autoClose: 'cancel|60000',
+        theme: 'supervan',
+        buttons: {
+            confirm: {
+                text: "Да",
+                action: function(id=shift_id) {
+                    $.post("/common/end_shift/", {id:id} ,function() {location.reload()});
+                }
+            },
+            cancel: {
+                text: "Нет",
+            },
+        }
+     });
    }
 
    static getUrlParam(paramName) {

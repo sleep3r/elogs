@@ -29,11 +29,21 @@
             <button class="btn btn-validate" onclick="JournalPanel.changeMode('validate')">Валидация</button>
         {% endif %}
 
+        {% if not page_is_ended %}
+            <button style="margin-left: 450px" onclick="JournalPanel.endShift({{journal_page}})" >Сдать смену</button>
+        {% else %}
+            <b style="color: red; margin-left: 450px">СМЕНА СДАНА</b>
+        {% endif %}
+
+
+
         {% for employee in employee_list %}
             <img style="height: 30px; width: 30px;" title="{{ employee.name }}: {{ employee.position_verbose }}" src = "{% static 'images/no-avatar.png' %}">
         {% endfor %}
 
-        {% if page_is_closed %}<h8 style="color: #ef0b26"><br>
-            Журнал закрыт, т.к. в него не были внесены данные!</h8>{% endif %}
+        {% if page_is_closed %}
+            <h8 style="color: #ef0b26"><br>
+            Журнал закрыт, т.к. в него не были внесены данные!</h8>
+        {% endif %}
     </div>
 </div>
