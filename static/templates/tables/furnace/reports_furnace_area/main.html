@@ -28,24 +28,20 @@
         </tr>
     </thead>
     <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-                <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-                <td><cell field-name="number" :row-index="index"></cell></td>
-                <td><cell field-name="rate" :row-index="index"></cell></td>
-                <td><cell field-name="elasticity" :row-index="index"></cell></td>
-                <td><cell field-name="rate_o2" :row-index="index"></cell></td>
-                <td><cell field-name="rate_o2_prc" :row-index="index"></cell></td>
-                <td><cell field-name="temperture_in_layer" :row-index="index"></cell></td>
-                <td><cell field-name="temperture_under" :row-index="index"></cell></td>
-                <td><cell field-name="volume" :row-index="index"></cell></td>
-                <td><cell field-name="pressure" :row-index="index"></cell></td>
-                <td><cell field-name="uio_select" :row-index="index"></cell></td>
-                <td><cell field-name="uio" :row-index="index"></cell></td>
-                <td><cell field-name="smoke1" :row-index="index"></cell></td>
-                <td><cell field-name="smoke2" :row-index="index"></cell></td>
-            </tr>
-        {% endfor_or_create %}
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="number" :row-index="index"></cell></td>
+          <td><cell field-name="rate" :row-index="index"></cell></td>
+          <td><cell field-name="elasticity" :row-index="index"></cell></td>
+          <td><cell field-name="rate_o2" :row-index="index"></cell></td>
+          <td><cell field-name="rate_o2_prc" :row-index="index"></cell></td>
+          <td><cell field-name="temperture_in_layer" :row-index="index"></cell></td>
+          <td><cell field-name="temperture_under" :row-index="index"></cell></td>
+          <td><cell field-name="volume" :row-index="index"></cell></td>
+          <td><cell field-name="pressure" :row-index="index"></cell></td>
+          <td><cell field-name="uio_select" :row-index="index"></cell></td>
+          <td><cell field-name="uio" :row-index="index"></cell></td>
+          <td><cell field-name="smoke1" :row-index="index"></cell></td>
+          <td><cell field-name="smoke2" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>
-
