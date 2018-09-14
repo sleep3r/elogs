@@ -1,9 +1,4 @@
-
-
-
-Время замеров и работа оборудования
-
-
+<div class="table__title">Время замеров и работа оборудования</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -13,24 +8,18 @@
             <th rowspan="2"> Принятые меры </th>
         </tr>
         <tr>
-            {% for time in table_info.times %}
-                <th> {{ time }} </th>
-            {% endfor %}
+                <th>time</th>
         </tr>
     </thead>
     <tbody>
-        {% for row_name in table_info.row_names %}
+{#        {% for row_name in table_info.row_names %}#}
             <tr>
-                <th> {{row_name.view}} </th>
-                {% for header in table_info.times|stack:table_info.last_headers %}
-                <td>
-                    {% with row_name.db|add:header as field_name %}
-                    {% include "value.html" with index=0 %}
-                    {% endwith %}
-                </td>
-                {% endfor %}
+                <th> row_name-view </th>
+{#                {% for header in table_info.times|stack:table_info.last_headers %}#}
+                <td> <cell field_name="" row-index="0"></cell> </td>
+{#                {% endfor %}#}
             </tr>
-        {% endfor %}
+{#        {% endfor %}#}
     </tbody>
 </table>
 
@@ -55,32 +44,31 @@
         </tr>
         <tr>
             <th> Вент. скорость<i class='units'>об/мин</i></th>
-            <td> <cell field_name="grad1_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad2_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad3_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad4_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad5_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad6_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad7_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad8_vent" index="0"></cell> </td>
-            <td> <cell field_name="grad9_vent" index="0"></cell> </td>
+            <td> <cell field_name="grad1_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad2_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad3_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad4_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad5_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad6_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad7_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad8_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad9_vent" row-index="0"></cell> </td>
             <th>№1</th>
-            <td> <cell field_name="crystal1" index="0"></cell> </td>
+            <td> <cell field_name="crystal1" row-index="0"></cell> </td>
         </tr>
-
         <tr>
             <th> Режим (з/л)</th>
-            <td> <cell field_name="grad1_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad2_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad3_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad4_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad5_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad6_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad7_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad8_mode" index="0"></cell> </td>
-            <td> <cell field_name="grad9_mode" index="0"></cell> </td>
+            <td> <cell field_name="grad1_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad2_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad3_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad4_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad5_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad6_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad7_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad8_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad9_mode" row-index="0"></cell> </td>
             <th>№2</th>
-            <td> <cell field_name="crystal2" index="0"></cell> </td>
+            <td> <cell field_name="crystal2" row-index="0"></cell> </td>
         </tr>
         <tr>
             <th colspan="2">Расход нейтр. р-ра<i class='units'>м³</i></th>
@@ -89,21 +77,21 @@
         </tr>
         <tr>
             <th> Общий </th>
-            <td> <cell field_name="common1" index="0"></cell> </td>
-            <td colspan="3"> <cell field_name="common2" index="0"></cell> </td>
-            <td colspan="7" rowspan="3"> <cell field_name="pumps_summ" index="0"></cell> </td>
+            <td> <cell field_name="common1" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="common2" row-index="0"></cell> </td>
+            <td colspan="7" rowspan="3"> <cell field_name="pumps_summ" row-index="0"></cell> </td>
         </tr>
 
         <tr>
             <th> 3 серии </th>
-            <td> <cell field_name="series31" index="0"></cell> </td>
-            <td colspan="3"> <cell field_name="series32" index="0"></cell> </td>
+            <td> <cell field_name="series31" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="series32" row-index="0"></cell> </td>
         </tr>
 
         <tr>
             <th> 4 серии </th>
-            <td> <cell field_name="series41" index="0"></cell> </td>
-            <td colspan="3"> <cell field_name="series42" index="0"></cell> </td>
+            <td> <cell field_name="series41" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="series42" row-index="0"></cell> </td>
         </tr>
 
     </thead>

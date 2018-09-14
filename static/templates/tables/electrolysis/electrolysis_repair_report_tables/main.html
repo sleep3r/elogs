@@ -1,9 +1,4 @@
-
-
-
-Ремонт
-
-
+<div class="table__title">Ремонт</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -19,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+      <tr v-for="(value, index) in data.rowsCount" >
           <td><cell field-name="date1" :row-index="index"></cell></td>
           <td><cell field-name="node_name" :row-index="index"></cell></td>
           <td><cell field-name="date2" :row-index="index"></cell></td>
