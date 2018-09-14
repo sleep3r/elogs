@@ -1,9 +1,4 @@
-
-
-
-ГОФ таблица
-
-
+<div class="table__title">ГОФ таблица</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -11,53 +6,277 @@
             <th colspan="3">Приход концентрата (Пасечникова)</th>
             <th colspan="2">Остаток на
                 <span>
-                    <cell field-name="remainder_date" index="0"></cell>
+                    <cell field-name="remainder_date" row-index="0"></cell>
                 </span>
             </th>
             <th colspan="2">Итого</th>
             <th colspan="2">Расход концентрата</th>
             <th colspan="2">Остаток концентрата на
                 <span>
-                    <cell field-name="remainder_date_guild" index="0"></cell>
+                    <cell field-name="remainder_date_guild" row-index="0"></cell>
                 </span>
                 ЦеХ
             </th>
             <th colspan="2">остаток концентрата на
                 <span>
-                    <cell field-name="remainder_date_Kusmanov" index="0"></cell>
+                    <cell field-name="remainder_date_Kusmanov" row-ndex="0"></cell>
                 </span>
                 Кусманов
             </th>
             <th colspan="2">невязка
                 <span>
-                    <cell field-name="discrepancy_date" index="0"></cell>
+                    <cell field-name="discrepancy_date" row-index="0"></cell>
                 </span>
             </th>
             <th colspan="2">Данные по сводке</th>
         </tr>
         <tr>
-            {% with columns="ВМТ|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>|СМТ|Цинк<i class='units'>т</i>" %}
-            {% for column_name in columns|split:"|" %}
-                <th>{{ column_name|safe }}</th>
-            {%  endfor %}
-            {%  endwith %}
+            <th>ВМТ</th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
+            <th>СМТ</th>
+            <th>Цинк<i class='units'>т</i></th>
         </tr>
     </thead>
     <tbody>
-        {% with row_names="ЗГОК|Арт-ий|Усть-ТАЛ|Карагайлы|Верх-Бер|Белоусовка|Жезкент|Ер Тай|Н.Широкинский|Лесосиб|Алтын-Топкан" %}
-        {% for row_name in row_names|split:"|" %}
         <tr>
-            <th>{{ row_name }}</th>
-            {% with row_index=forloop.counter0  %}
-                {% for name in gof_table.fields %}
-                    {% if not name in 'remainder_date,remainder_date_guild,remainder_date_Kusmanov,discrepancy_date'|split:',' %}
-                    <td>{% include "value.html" with field_name=name index=row_index %}</td>
-                    {% endif %}
-                {% endfor %}
-            {% endwith %}
+            <th>ЗГОК</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
         </tr>
-        {% endfor %}
-        {% endwith %}
+    <tr>
+            <th>Арт-ий</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+    </tr>
+    <tr>
+        <th>Усть-ТАЛ</th>
+        <td><cell field-name="vmt" row-index="0"></cell></td>
+        <td><cell field-name="cmt" row-index="0"></cell></td>
+        <td><cell field-name="zinc" row-index="0"></cell></td>
+        <td><cell field-name="cmt2" row-index="0"></cell></td>
+        <td><cell field-name="zinc2" row-index="0"></cell></td>
+        <td><cell field-name="cmt3" row-index="0"></cell></td>
+        <td><cell field-name="zinc3" row-index="0"></cell></td>
+        <td><cell field-name="cmt4" row-index="0"></cell></td>
+        <td><cell field-name="zinc4" row-index="0"></cell></td>
+        <td><cell field-name="cmt5" row-index="0"></cell></td>
+        <td><cell field-name="zinc5" row-index="0"></cell></td>
+        <td><cell field-name="cmt6" row-index="0"></cell></td>
+        <td><cell field-name="zinc6" row-index="0"></cell></td>
+        <td><cell field-name="cmt7" row-index="0"></cell></td>
+        <td><cell field-name="zinc7" row-index="0"></cell></td>
+        <td><cell field-name="cmt8" row-index="0"></cell></td>
+        <td><cell field-name="zinc8" row-index="0"></cell></td>
+    </tr>
+    <tr>
+            <th>Карагайлы</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+        <th>Верх-Бер</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+        <th>Белоусовка</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+                    <th>Жезкент</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+        <th>Ер Тай</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+                    <th>Н.Широкинский</th>
+
+
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+            <th>Лесосиб</th>
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+    <tr>
+
+            <th>Алтын-Топкан</th>
+
+            <td><cell field-name="vmt" row-index="0"></cell></td>
+            <td><cell field-name="cmt" row-index="0"></cell></td>
+            <td><cell field-name="zinc" row-index="0"></cell></td>
+            <td><cell field-name="cmt2" row-index="0"></cell></td>
+            <td><cell field-name="zinc2" row-index="0"></cell></td>
+            <td><cell field-name="cmt3" row-index="0"></cell></td>
+            <td><cell field-name="zinc3" row-index="0"></cell></td>
+            <td><cell field-name="cmt4" row-index="0"></cell></td>
+            <td><cell field-name="zinc4" row-index="0"></cell></td>
+            <td><cell field-name="cmt5" row-index="0"></cell></td>
+            <td><cell field-name="zinc5" row-index="0"></cell></td>
+            <td><cell field-name="cmt6" row-index="0"></cell></td>
+            <td><cell field-name="zinc6" row-index="0"></cell></td>
+            <td><cell field-name="cmt7" row-index="0"></cell></td>
+            <td><cell field-name="zinc7" row-index="0"></cell></td>
+            <td><cell field-name="cmt8" row-index="0"></cell></td>
+            <td><cell field-name="zinc8" row-index="0"></cell></td>
+        </tr>
+
+
     </tbody>
 </table>
 
