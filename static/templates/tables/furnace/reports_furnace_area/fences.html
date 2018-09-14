@@ -17,7 +17,6 @@
     </thead>
     <tbody>
       <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-          <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
           <td><cell field-name="results" :row-index="index"></cell></td>
           <td><cell field-name="term" :row-index="index"></cell></td>
           <td><cell field-name="mark" :row-index="index"></cell></td>
