@@ -42,14 +42,19 @@ export const store = new Vuex.Store({
       },
       cellValue: (state) => (tableName, fieldName, rowIndex) => {
         if (state.loaded) {
-          let cells = state.journalInfo.journal.tables[tableName].fields[fieldName].cells;
+          let fields = state.journalInfo.journal.tables[tableName].fields;
+          if (!(fieldName in fields)) {
+            console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
+            return '';
+          }
+          let cells = fields[fieldName].cells;
           if (Object.keys(cells).length !== 0) {
               if (rowIndex in cells) {
-                  return cells[rowIndex].value
+                  return cells[rowIndex].value;
               }
           }
           else {
-            return ''
+            return '';
           }
         }
       },
@@ -60,7 +65,7 @@ export const store = new Vuex.Store({
           for(let field in fields) {
             for (let index in fields[field].cells) {
                 index = parseInt(index);
-                max = max < index ? index : max
+                max = max < index ? index : max;
             }
           }
           return max+1;
@@ -73,7 +78,12 @@ export const store = new Vuex.Store({
       },
       fieldDescription: (state) => (tableName, fieldName) => {
         if (state.loaded) {
-            return state.journalInfo.journal.tables[tableName].fields[fieldName].field_description || ''
+            let fields = state.journalInfo.journal.tables[tableName].fields;
+            if (!(fieldName in fields)) {
+              console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+              return {};
+            }
+            return fields[fieldName].field_description || ''
         }
         else {
           return ''
@@ -89,12 +99,17 @@ export const store = new Vuex.Store({
       },
       SAVE_CELL_VALUE (state, payload) {
         if (state.loaded) {
-          let cells = state.journalInfo.journal.tables[payload.tableName].fields[payload.fieldName].cells;
+          let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+          if (!(payload.fieldName in fields)) {
+            console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
+            console.log('  Creating field ' + payload.fieldName + '...');
+            fields[payload.fieldName] = {};
+            fields[payload.fieldName]['cells'] = {};
+          }
+          let cells = fields[payload.fieldName].cells;
           if (payload.index in cells) {
             // update cell
-            console.log('update cell')
             cells[payload.index]['value'] = payload.value;
-            console.log(state)
           }
           else {
             // create cell

@@ -9,6 +9,7 @@
          @input="onInput"
          :placeholder="placeholder"
          :style="{ color: activeColor }"
+         :type="type"
   />
 </template>
 
@@ -159,7 +160,7 @@ export default {
     this.placeholder = desc['units'] || ''
     this.minValue = desc['min_normal'] || null
     this.maxValue = desc['max_normal'] || null
-    this.type = desc['type'] || ''
+    this.type = desc['type'] || 'text'
 
     if (this.linked) {
       // auto fill cell
