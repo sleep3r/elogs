@@ -1,9 +1,4 @@
-{%  extends "table.html" %}
-
-
-Расчет годового плана шихты
-
-
+<div class="table__title">Расчет годового плана шихты</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -34,8 +29,7 @@
             <th> Норма/Отклоние</th>
         </tr>
     </thead>
-
-    <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+    <tr v-for="(value, index) in data.rowsCount">
         <td><cell field-name="concentrate" :row-index="index"></cell></td>
         <td><cell field-name="year_plans" :row-index="index"></cell></td>
         <td><cell field-name="month_smt" :row-index="index"></cell></td>

@@ -1,9 +1,4 @@
-
-
-
-Какая-то таблица
-
-
+<div class="table__title">Таблица концентратов</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
     <tr>
@@ -18,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+      <tr v-for="(value, index) in data.rowsCount" >
           <td><cell field-name="concentrate" :row-index="index"></cell></td>
           <td><cell field-name="smt_plan" :row-index="index"></cell></td>
           <td><cell field-name="gpp_year_plan" :row-index="index"></cell></td>

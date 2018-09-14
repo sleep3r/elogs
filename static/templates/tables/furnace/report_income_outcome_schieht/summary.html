@@ -1,43 +1,27 @@
-
-
-
-НЗП и склады
-
-
+<div class="table__title">НЗП и склады</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
             <th></th>
-            <th colspan="2"> На 01.01.{{ date_year }} года </th>
+            <th colspan="2"> На 01.01.XX года </th>
         </tr>
     </thead>
     <tbody>
-    {% if table_cells_data.concentrate|length == 0 %}
         <tr>
-            <input class="index-input" hidden name="index" value="0">
             <th>НЗП</th>
-            <td><cell field-name="nzp_concentrate" index="0"></cell></td>
-            <td><cell field-name="nzp_zn" index="0"></cell></td>
+            <td><cell field-name="nzp_concentrate" :row-index="0"></cell></td>
+            <td><cell field-name="nzp_zn" :row-index="0"></cell></td>
         </tr>
         <tr>
             <th>Склады</th>
-            <td><cell field-name="sklad_concentrate" index="0"></cell></td>
-            <td><cell field-name="sklad_zn" index="0"></cell></td>
+            <td><cell field-name="sklad_concentrate" :row-index="0"></cell></td>
+            <td><cell field-name="sklad_zn" :row-index="0"></cell></td>
         </tr>
         <tr>
             <th>Итого</th>
-            <td><cell field-name="itogo_concentrate" index="0"></cell></td>
-            <td><cell field-name="itogo_zn" index="0"></cell></td>
+            <td><cell field-name="itogo_concentrate" :row-index="0"></cell></td>
+            <td><cell field-name="itogo_zn" :row-index="0"></cell></td>
         </tr>
-    {% else %}
-        {% for _ in table_cells_data.concentrate %}
-            <tr >
-
-                <td><cell field-name="nzp_concentrate" :row-index="index"></cell></td>
-                <td><cell field-name="nzp_zn" :row-index="index"></cell></td>
-            </tr>
-        {%  endfor %}
-    {%  endif %}
     </tbody>
 </table>
 
