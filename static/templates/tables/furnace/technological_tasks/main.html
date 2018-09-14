@@ -1,51 +1,44 @@
-{% extends "table.html" %}
-{% load express_tags %}
-
-{% block title %}Технологические задания{% endblock %}
-
-{% block table %}
-<table class="table table-bordered elog-journal-table">
-    <thead>
-        <tr>
-            <th rowspan="2">Дата распоряжения</th>
-            <th rowspan="2">Комментарии</th>
-            <th >Шихта</th>
-            <th rowspan="2">Заполнил</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr class="indexed-line">
-                <input class="index-input" hidden name="index" value=forloop.counter0 >
-                <td >{% include "value.html" with field_name="date_create" index=forloop.counter0 %}</td>
-                <td >{% include "value.html" with field_name="comments" index=forloop.counter0 %}</td>
-                <td >
-                    <table class="table table-bordered insidetable">
-                        <tr>
-                            <th>Концентрат</th>
-                            <th>Масса</th>
-                        </tr>
-                        <tr>
-                            <td>{% include "value.html" with field_name="caption1" index=forloop.counter0 %}</td>
-                            <td>{% include "value.html" with field_name="weight1" index=forloop.counter0 %}</td>
-                        </tr>
-                        <tr>
-                            <td>{% include "value.html" with field_name="caption2" index=forloop.counter0 %}</td>
-                            <td>{% include "value.html" with field_name="weight2" index=forloop.counter0 %}</td>
-                        </tr>
-                        <tr>
-                            <td>{% include "value.html" with field_name="caption3" index=forloop.counter0 %}</td>
-                            <td>{% include "value.html" with field_name="weight3" index=forloop.counter0 %}</td>
-                        </tr>
-                        <tr>
-                            <td>{% include "value.html" with field_name="caption4" index=forloop.counter0 %}</td>
-                            <td>{% include "value.html" with field_name="weight4" index=forloop.counter0 %}</td>
-                        </tr>
-                    </table>
-                </td>
-                <td >{% include "value.html" with field_name="employee" index=forloop.counter0 %}</td>
+<div class="table-wrapper">
+    <div> Технологические задания </div>
+    <table class="table table-bordered elog-journal-table">
+        <thead>
+            <tr>
+                <th rowspan="2">Дата распоряжения</th>
+                <th rowspan="2">Комментарии</th>
+                <th >Шихта</th>
+                <th rowspan="2">Заполнил</th>
             </tr>
-        {% endfor_or_create %}
-    </tbody>
-</table>
-{% endblock %}
+        </thead>
+        <tbody>
+                <tr class="indexed-line">
+                    <td><cell field-name="date_create" row-index="0"></cell></td>
+                    <td><cell field-name="comments" row-index="0"></cell></td>
+                    <td >
+                        <table class="table table-bordered insidetable">
+                            <tr>
+                                <th>Концентрат</th>
+                                <th>Масса</th>
+                            </tr>
+                            <tr>
+                                <td><cell field-name="caption1" row-index="0"></cell></td>
+                                <td><cell field-name="weight1" row-index="0"></cell></td>
+                            </tr>
+                            <tr>
+                                <td><cell field-name="caption2" row-index="0"></cell></td>
+                                <td><cell field-name="weight2" row-index="0"></cell></td>
+                            </tr>
+                            <tr>
+                                <td><cell field-name="caption3" row-index="0"></cell></td>
+                                <td><cell field-name="weight3" row-index="0"></cell></td>
+                            </tr>
+                            <tr>
+                                <td><cell field-name="caption4" row-index="0"></cell></td>
+                                <td><cell field-name="weight4" row-index="0"></cell></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td><cell field-name="employee" row-index="0"></cell></td>
+                </tr>
+        </tbody>
+    </table>
+</div>
