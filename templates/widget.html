@@ -17,5 +17,8 @@
         <template v-if="$store.getters.loaded">
           <TableCommon name="{{ table_name }}" ></TableCommon>
         </template>
+        <template v-else >
+            <span>Нет данных</span>
+        </template>
     {% endfor %}
 </div>
