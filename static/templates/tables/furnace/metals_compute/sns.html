@@ -1,9 +1,5 @@
 
-
-
-СНС
-
-
+<div class="table__title">СНС</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -22,27 +18,7 @@
         </tr>
     </thead>
     <tbody>
-    {% if table_cells_data.cmt|length == 0 %}
         <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            <input class="index-input" hidden name="index" value=0>
-            <td><cell field-name="caption" index="0"></cell></td>
-            <td><cell field-name="cmt" index="0"></cell></td>
-            <td><cell field-name="znp" index="0"></cell></td>
-            <td><cell field-name="SodZn" index="0"></cell></td>
-            <td><cell field-name="Pb_" index="0"></cell></td>
-            <td><cell field-name="SodPb" index="0"></cell></td>
-            <td><cell field-name="Cu_" index="0"></cell></td>
-            <td><cell field-name="SodCu" index="0"></cell></td>
-            <td><cell field-name="Cd_" index="0"></cell></td>
-            <td><cell field-name="SodCd" index="0"></cell></td>
-            <td><cell field-name="Au" index="0"></cell></td>
-            <td><cell field-name="Ag" index="0"></cell></td>
-        </tr>
-    {% else %}
-        {% for _ in table_cells_data.cmt %}
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-
-            <td>{% include "value.html" with field_name="caption" index=forloop.counter0     %}</td>
             <td><cell field-name="cmt" :row-index="index"></cell></td>
             <td><cell field-name="znp" :row-index="index"></cell></td>
             <td><cell field-name="SodZn" :row-index="index"></cell></td>
@@ -55,7 +31,5 @@
             <td><cell field-name="Au" :row-index="index"></cell></td>
             <td><cell field-name="Ag" :row-index="index"></cell></td>
         </tr>
-        {% endfor %}
-    {% endif %}
     </tbody>
 </table>

@@ -1,10 +1,4 @@
-
-
-
-
-Среднее содержание за месяц
-
-
+<div class="table__title"> Среднее содержание за месяц </div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -33,12 +27,29 @@
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            {% with index=forloop.counter0  %}
-                {% for field_name in avg_month_table.fields %}
-                <td>{% include "value.html" with field_name=field_name index=index %}</td>
-                {% endfor %}
-            {% endwith %}
+        <tr v-for="(value, index) in data.rowsCount" >
+            <td><cell field-name="moisture" :row-index="index" /></td>
+            <td><cell field-name="issued" :row-index="index" /></td>
+            <td><cell field-name="SMT" :row-index="index" /></td>
+            <td><cell field-name="cinder" :row-index="index" /></td>
+            <td><cell field-name="Zn_conc" :row-index="index" /></td>
+            <td><cell field-name="Pb" :row-index="index" /></td>
+            <td><cell field-name="Cu" :row-index="index" /></td>
+            <td><cell field-name="Cd" :row-index="index" /></td>
+            <td><cell field-name="Fe" :row-index="index" /></td>
+            <td><cell field-name="SiO2" :row-index="index" /></td>
+            <td><cell field-name="Zn_cinder" :row-index="index" /></td>
+            <td><cell field-name="Znk" :row-index="index" /></td>
+            <td><cell field-name="Znb" :row-index="index" /></td>
+            <td><cell field-name="Pb2" :row-index="index" /></td>
+            <td><cell field-name="Cu2" :row-index="index" /></td>
+            <td><cell field-name="Cd2" :row-index="index" /></td>
+            <td><cell field-name="Fe2" :row-index="index" /></td>
+            <td><cell field-name="SiO2_2" :row-index="index" /></td>
+            <td><cell field-name="S" :row-index="index" /></td>
+            <td><cell field-name="As" :row-index="index" /></td>
+            <td><cell field-name="Sb" :row-index="index" /></td>
+            <td><cell field-name="S_sulf" :row-index="index" /></td>
         </tr>
     </tbody>
 </table>

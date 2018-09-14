@@ -1,9 +1,4 @@
-
-
-
-Среднее содержание за месяц
-
-
+<div class="table__title">Среднее содержание за месяц</div>
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -28,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+      <tr v-for="(value, index) in data.rowsCount" >
           <td><cell field-name="vmt" :row-index="index"></cell></td>
           <td><cell field-name="cmt" :row-index="index"></cell></td>
           <td><cell field-name="zn_end" :row-index="index"></cell></td>
