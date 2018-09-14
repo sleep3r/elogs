@@ -32,7 +32,7 @@
     {% else %}
         {% for _ in table_cells_data.concentrate %}
             <tr >
-                <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+
                 <td><cell field-name="nzp_concentrate" :row-index="index"></cell></td>
                 <td><cell field-name="nzp_zn" :row-index="index"></cell></td>
             </tr>

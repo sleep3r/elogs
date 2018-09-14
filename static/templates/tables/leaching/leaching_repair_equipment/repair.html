@@ -23,7 +23,7 @@
         <tbody>
              {% for_or_create _ in table_cells_data|longest_field %}
                  <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-                     <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
+
                      <td><cell field-name="equipment" :row-index="index"></cell></td>
                      <td><cell field-name="date_view" :row-index="index"></cell></td>
                      <td><cell field-name="name_equipment" :row-index="index"></cell></td>
