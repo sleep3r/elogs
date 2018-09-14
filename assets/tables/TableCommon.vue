@@ -27,7 +27,6 @@ export default {
       return createElement('div', 'Loading...');
     } else {
       return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
-        "<div class=\"table__title\" >" + this.$store.getters.tableTitle(this.name) + "</div>" +
               this.template + "<table-comment table-name=\"" + this.name + "\"></table-comment></div>",
           name: 'table-' + this.name,
           data: () => { return {
