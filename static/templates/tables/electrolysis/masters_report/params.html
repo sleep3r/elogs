@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Параметры{% endblock %}
 
-{% block table %}
+
+Параметры
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -19,31 +19,31 @@
     <tbody>
         <tr>
             <th>%</th>
-            <td>{% include "value.html" with field_name="percent_Pb" index=0 %} </td>
-            <td>{% include "value.html" with field_name="percent_Cu" index=0 %} </td>
-            <td>{% include "value.html" with field_name="percent_Fe" index=0 %} </td>
-            <td>{% include "value.html" with field_name="percent_Cd" index=0 %} </td>
-            <td>{% include "value.html" with field_name="percent_Al" index=0 %} </td>
-            <td>{% include "value.html" with field_name="percent_Zn" index=0 %} </td>
+            <td><cell field-name="percent_Pb" index="0"></cell> </td>
+            <td><cell field-name="percent_Cu" index="0"></cell> </td>
+            <td><cell field-name="percent_Fe" index="0"></cell> </td>
+            <td><cell field-name="percent_Cd" index="0"></cell> </td>
+            <td><cell field-name="percent_Al" index="0"></cell> </td>
+            <td><cell field-name="percent_Zn" index="0"></cell> </td>
         </tr>
         <tr>
             <th>Несоответсвие</th>
-            <td>{% include "value.html" with field_name="divergence_Pb" index=0 %} </td>
-            <td>{% include "value.html" with field_name="divergence_Cu" index=0 %} </td>
-            <td>{% include "value.html" with field_name="divergence_Fe" index=0 %} </td>
-            <td>{% include "value.html" with field_name="divergence_Cd" index=0 %} </td>
-            <td>{% include "value.html" with field_name="divergence_Al" index=0 %} </td>
-            <td>{% include "value.html" with field_name="divergence_Zn" index=0 %} </td>
+            <td><cell field-name="divergence_Pb" index="0"></cell> </td>
+            <td><cell field-name="divergence_Cu" index="0"></cell> </td>
+            <td><cell field-name="divergence_Fe" index="0"></cell> </td>
+            <td><cell field-name="divergence_Cd" index="0"></cell> </td>
+            <td><cell field-name="divergence_Al" index="0"></cell> </td>
+            <td><cell field-name="divergence_Zn" index="0"></cell> </td>
         </tr>
         <tr>
             <th>Принятые меры</th>
-            <td>{% include "value.html" with field_name="taken_actions_Pb" index=0 %} </td>
-            <td>{% include "value.html" with field_name="taken_actions_Cu" index=0 %} </td>
-            <td>{% include "value.html" with field_name="taken_actions_Fe" index=0 %} </td>
-            <td>{% include "value.html" with field_name="taken_actions_Cd" index=0 %} </td>
-            <td>{% include "value.html" with field_name="taken_actions_Al" index=0 %} </td>
-            <td>{% include "value.html" with field_name="taken_actions_Zn" index=0 %} </td>
+            <td><cell field-name="taken_actions_Pb" index="0"></cell> </td>
+            <td><cell field-name="taken_actions_Cu" index="0"></cell> </td>
+            <td><cell field-name="taken_actions_Fe" index="0"></cell> </td>
+            <td><cell field-name="taken_actions_Cd" index="0"></cell> </td>
+            <td><cell field-name="taken_actions_Al" index="0"></cell> </td>
+            <td><cell field-name="taken_actions_Zn" index="0"></cell> </td>
         </tr>
     </tbody>
 </table>
-{% endblock %}
+

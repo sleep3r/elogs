@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Участок классификаци огарка{% endblock %}
 
-{% block table %}
+
+Участок классификаци огарка
+
+
 <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
@@ -21,34 +21,34 @@
         <tbody>
             <tr>
                 <th>4</th>
-                <td>{% include "value.html" with field_name="gmc4_1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="gmc4_2" index=0 %}</td>
+                <td><cell field-name="gmc4_1" index="0"></cell></td>
+                <td><cell field-name="gmc4_2" index="0"></cell></td>
                 <th>3</th>
-                <td>{% include "value.html" with field_name="uk3" index=0 %}</td>
+                <td><cell field-name="uk3" index="0"></cell></td>
                 <th>4</th>
-                <td>{% include "value.html" with field_name="uk4" index=0 %}</td>
+                <td><cell field-name="uk4" index="0"></cell></td>
                 <th>1</th>
-                <td>{% include "value.html" with field_name="silos1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos4" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos7" index=0 %}</td>
+                <td><cell field-name="silos1" index="0"></cell></td>
+                <td><cell field-name="silos4" index="0"></cell></td>
+                <td><cell field-name="silos7" index="0"></cell></td>
                 <th> Элеваторы </th>
-                <td>{% include "value.html" with field_name="elevators" index=0 %}</td>
+                <td><cell field-name="elevators" index="0"></cell></td>
             </tr>
             <tr>
                 <th>1</th>
-                <td>{% include "value.html" with field_name="gmc1_1" index=0 %}</td>
-                <td>{% include "value.html" with field_name="gmc1_2" index=0 %}</td>
+                <td><cell field-name="gmc1_1" index="0"></cell></td>
+                <td><cell field-name="gmc1_2" index="0"></cell></td>
                 <th>5</th>
-                <td>{% include "value.html" with field_name="uk5" index=0 %}</td>
+                <td><cell field-name="uk5" index="0"></cell></td>
                 <th>6</th>
-                <td>{% include "value.html" with field_name="uk6" index=0 %}</td>
+                <td><cell field-name="uk6" index="0"></cell></td>
                 <th>2</th>
-                <td>{% include "value.html" with field_name="silos2" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos5" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos8" index=0 %}</td>
+                <td><cell field-name="silos2" index="0"></cell></td>
+                <td><cell field-name="silos5" index="0"></cell></td>
+                <td><cell field-name="silos8" index="0"></cell></td>
 
                 <th> Мельницы </th>
-                <td>{% include "value.html" with field_name="mills" index=0 %}</td>
+                <td><cell field-name="mills" index="0"></cell></td>
 
             </tr>
             <tr>
@@ -56,18 +56,18 @@
                 <td></td>
 
                 <th>7</th>
-                <td>{% include "value.html" with field_name="uk7" index=0 %}</td>
+                <td><cell field-name="uk7" index="0"></cell></td>
                 <th>Тонн:</th>
-                <td>{% include "value.html" with field_name="tonn" index=0 %}</td>
+                <td><cell field-name="tonn" index="0"></cell></td>
 
                 <th>3</th>
-                <td>{% include "value.html" with field_name="silos3" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos6" index=0 %}</td>
-                <td>{% include "value.html" with field_name="silos9" index=0 %}</td>
+                <td><cell field-name="silos3" index="0"></cell></td>
+                <td><cell field-name="silos6" index="0"></cell></td>
+                <td><cell field-name="silos9" index="0"></cell></td>
 
                 <th> А/сеп-ры </th>
-                <td>{% include "value.html" with field_name="separators" index=0 %}</td>
+                <td><cell field-name="separators" index="0"></cell></td>
             </tr>
         </tbody>
 </table>
-{% endblock %}
+

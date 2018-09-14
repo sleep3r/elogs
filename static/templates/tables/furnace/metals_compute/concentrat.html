@@ -1,29 +1,26 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Концентрат{% endblock %}
 
-{% block table %}
+
+
+Концентрат
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
             <th colspan="3">Концентрат</th>
         </tr>
         <tr>
-            <th>{% trans "Дата" %}</th>
-            <th>{% trans "Золото" %}</th>
-            <th>{% trans "Серебро" %}</th>
+            <th>Дата</th>
+            <th>Золото</th>
+            <th>Серебро</th>
         </tr>
     </thead>
     <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-        <tr class="indexed-line">
-            <td>{% include "value.html" with field_name="date_conc" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="gold" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="silver" index=forloop.counter0 %}</td>
+        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+            <td><cell field-name="date_conc" :row-index="index"></cell></td>
+            <td><cell field-name="gold" :row-index="index"></cell></td>
+            <td><cell field-name="silver" :row-index="index"></cell></td>
         </tr>
-        {% endfor_or_create %}
     </tbody>
 </table>
-{% endblock %}

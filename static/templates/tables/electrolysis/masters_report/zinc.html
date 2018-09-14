@@ -1,9 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Цинк товарный{% endblock %}
 
-{% block table %}
+
+Цинк товарный
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -24,17 +24,17 @@
     </thead>
     <tbody>
         <tr>
-            <td>{% include "value.html" with field_name="zn1" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn2" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn3" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn4" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn5" index=0 %}</td>
+            <td><cell field-name="zn1" index="0"></cell></td>
+            <td><cell field-name="zn2" index="0"></cell></td>
+            <td><cell field-name="zn3" index="0"></cell></td>
+            <td><cell field-name="zn4" index="0"></cell></td>
+            <td><cell field-name="zn5" index="0"></cell></td>
 
-            <td>{% include "value.html" with field_name="zn6" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn7" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn8" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn9" index=0 %}</td>
-            <td>{% include "value.html" with field_name="zn10" index=0 %}</td>
+            <td><cell field-name="zn6" index="0"></cell></td>
+            <td><cell field-name="zn7" index="0"></cell></td>
+            <td><cell field-name="zn8" index="0"></cell></td>
+            <td><cell field-name="zn9" index="0"></cell></td>
+            <td><cell field-name="zn10" index="0"></cell></td>
         </tr>
 
     </tbody>
@@ -56,15 +56,15 @@
         </tr>
     </thead>
     <tbody>
-            <td>{% include "value.html" with field_name="skd1" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd2" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd3" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd4" index=0 %}</td>
+            <td><cell field-name="skd1" index="0"></cell></td>
+            <td><cell field-name="skd2" index="0"></cell></td>
+            <td><cell field-name="skd3" index="0"></cell></td>
+            <td><cell field-name="skd4" index="0"></cell></td>
 
-            <td>{% include "value.html" with field_name="skd5" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd6" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd7" index=0 %}</td>
-            <td>{% include "value.html" with field_name="skd8" index=0 %}</td>
+            <td><cell field-name="skd5" index="0"></cell></td>
+            <td><cell field-name="skd6" index="0"></cell></td>
+            <td><cell field-name="skd7" index="0"></cell></td>
+            <td><cell field-name="skd8" index="0"></cell></td>
     </tbody>
 </table>
 
@@ -84,16 +84,16 @@
             <th>Чушки<i class='units'>т</i></th>
             <th>Блоки<i class='units'>т</i></th>
             <th>Конт<i class='units'>т</i></th>
-            <td rowspan="2">{% include "value.html" with field_name="sk7" index=0 %}</td>
+            <td rowspan="2"><cell field-name="sk7" index="0"></cell></td>
         </tr>
         <tr>
-            <td>{% include "value.html" with field_name="sk1" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sk2" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sk3" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sk4" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sk5" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sk6" index=0 %}</td>
+            <td><cell field-name="sk1" index="0"></cell></td>
+            <td><cell field-name="sk2" index="0"></cell></td>
+            <td><cell field-name="sk3" index="0"></cell></td>
+            <td><cell field-name="sk4" index="0"></cell></td>
+            <td><cell field-name="sk5" index="0"></cell></td>
+            <td><cell field-name="sk6" index="0"></cell></td>
         </tr>
     </tbody>
 </table>
-{% endblock %}
+

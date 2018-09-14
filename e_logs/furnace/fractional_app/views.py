@@ -7,7 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.utils import timezone
 from django.views.generic import TemplateView
-from functional import seq
 
 from e_logs.common.all_journals_app.models import Cell, Plant, Measurement
 from e_logs.core.utils.deep_dict import DeepDict

@@ -19,7 +19,7 @@ export default {
   data: function () {
     return {
       template: null,
-      rowsCount: 0 //index of additional (blank) row
+      rowsCount: 1
     }
   },
   render: function (createElement) {
@@ -37,9 +37,9 @@ export default {
           components: { 'cell': cell, 'table-comment': tableComment },
           mounted() {
             let self = this;
-            this.data.rowsCount = this.$store.getters.maxRowIndex(this.props.name);
+            this.data.rowsCount = this.$store.getters.maxRowIndex(this.props.name) + 1;
             this.$on('addNewLine', function (payload) {
-                if (self.data.rowsCount === payload.editedRowIndex) {
+                if (self.data.rowsCount - 1  === payload.editedRowIndex) {
                     self.data.rowsCount += 1;
                 }
             });

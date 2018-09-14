@@ -1,62 +1,58 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Сгустители{% endblock %}
 
-{% block table %}
+
+
+Сгустители
+
+
  <table class="table table-bordered elog-journal-table">
         <thead>
             <tr>
-                <th rowspan="4">{% trans "Время" %}</th>
-                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 10</th>
-                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 11</th>
-                <th colspan="6" class="th-common">{% trans "Сгуститель" %} 12</th>
+                <th rowspan="4">Время</th>
+                <th colspan="6" class="th-common">Сгуститель 10</th>
+                <th colspan="6" class="th-common">Сгуститель 11</th>
+                <th colspan="6" class="th-common">Сгуститель 12</th>
             </tr>
             <tr>
-                <th colspan="4" class="th-common">{% trans "ВС" %} 10{% trans "сг." %}</th>
-                <th colspan="2" class="th-common">{% trans "НС" %} 11{% trans "сг." %}</th>
-                <th colspan="4" class="th-common">{% trans "ВС" %} 12{% trans "сг." %}</th>
-                <th colspan="2" class="th-common">{% trans "НС" %} 10{% trans "сг." %}</th>
-                <th colspan="4" class="th-common">{% trans "ВС" %} 11{% trans "сг." %}</th>
-                <th colspan="2" class="th-common">{% trans "НС" %} 12{% trans "сг." %}</th>
+                <th colspan="4" class="th-common">ВС 10сг.</th>
+                <th colspan="2" class="th-common">НС 11сг.</th>
+                <th colspan="4" class="th-common">ВС 12сг.</th>
+                <th colspan="2" class="th-common">НС 10сг.</th>
+                <th colspan="4" class="th-common">ВС 11сг.</th>
+                <th colspan="2" class="th-common">НС 12сг.</th>
             </tr>
             <tr>
-              {% for _ in 3|times %}
+              <template v-for="(value, index) in 3">
                 <th class="th-number">pH</th>
                 <th class="th-number">Cu<i class='units'>мг/л</i></th>
                 <th class="th-number">Fe<i class='units'>мг/л</i></th>
                 <th class="th-number">Ж:Т</th>
                 <th class="th-number">pH</th>
                 <th class="th-number">Ж:Т</th>
-              {% endfor %}
+              </template>
             </tr>
         </thead>
         <tbody>
-            {% for_or_create _ in table_cells_data|longest_field %}
-                <tr class="indexed-line">
-                    <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-                    <td>{% include "value.html" with field_name="time" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs10_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs10_Cu" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs10_Fe" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs10_liquid_solid" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns10_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns10_liquid_solid" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs11_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs11_Cu" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs11_Fe" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs11_liquid_solid" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns11_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns11_liquid_solid" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs12_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs12_Cu" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs12_Fe" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="vs12_liquid_solid" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns12_pH" index=forloop.counter0 %}</td>
-                    <td>{% include "value.html" with field_name="ns12_liquid_solid" index=forloop.counter0 %}</td>
+                <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+                    <td><cell field-name="time" :row-index="index"></cell></td>
+                    <td><cell field-name="vs10_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="vs10_Cu" :row-index="index"></cell></td>
+                    <td><cell field-name="vs10_Fe" :row-index="index"></cell></td>
+                    <td><cell field-name="vs10_liquid_solid" :row-index="index"></cell></td>
+                    <td><cell field-name="ns10_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="ns10_liquid_solid" :row-index="index"></cell></td>
+                    <td><cell field-name="vs11_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="vs11_Cu" :row-index="index"></cell></td>
+                    <td><cell field-name="vs11_Fe" :row-index="index"></cell></td>
+                    <td><cell field-name="vs11_liquid_solid" :row-index="index"></cell></td>
+                    <td><cell field-name="ns11_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="ns11_liquid_solid" :row-index="index"></cell></td>
+                    <td><cell field-name="vs12_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="vs12_Cu" :row-index="index"></cell></td>
+                    <td><cell field-name="vs12_Fe" :row-index="index"></cell></td>
+                    <td><cell field-name="vs12_liquid_solid" :row-index="index"></cell></td>
+                    <td><cell field-name="ns12_pH" :row-index="index"></cell></td>
+                    <td><cell field-name="ns12_liquid_solid" :row-index="index"></cell></td>
                 </tr>
-            {% endfor_or_create %}
         </tbody>
     </table>
-{% endblock %}

@@ -1,42 +1,40 @@
-{% extends "table.html" %}
-{% load express_tags %}
-{% load i18n %}
 
-{% block title %}Аппаратчик - гидрометаллург{% endblock %}
 
-{% block table %}
+
+
+Аппаратчик - гидрометаллург
+
+
     <table class="table table-bordered elog-journal-table">
         <thead>
         <tr>
-            <th colspan="4" class="th-common">{% trans "1 Манн" %}</th>
-            <th colspan="5" class="th-common">{% trans "4 Манн" %}</th>
+            <th colspan="4" class="th-common">1 Манн</th>
+            <th colspan="5" class="th-common">4 Манн</th>
         </tr>
         <tr>
             <th>pH</th>
-            <th>{% trans "Кислотность" %}{% trans "<i class='units'>г/л</i>" %}</th>
-            <th>{% trans "Fe двухвал." %}{% trans "<i class='units'>мг/л</i>" %}</th>
-            <th>{% trans "Fe Общее" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+            <th>Кислотность{% trans "<i class='units'>г/л</i>" %}</th>
+            <th>Fe двухвал.{% trans "<i class='units'>мг/л</i>" %}</th>
+            <th>Fe Общее{% trans "<i class='units'>мг/л</i>" %}</th>
             <th>pH</th>
-            <th>{% trans "Медь" %}{% trans "<i class='units'>мг/л</i>" %}</th>
+            <th>Медь{% trans "<i class='units'>мг/л</i>" %}</th>
             <th>Fe{% trans "<i class='units'>мг/л</i>" %}</th>
-            <th>{% trans "Сурьма" %}{% trans ",<br>мг/л" %}</th>
-            <th>{% trans "Отстои" %}</th>
+            <th>Сурьма{% trans ",<br>мг/л" %}</th>
+            <th>Отстои</th>
         </tr>
         </thead>
         <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr class="indexed-line" data-index="{{ forloop.counter0 }}">
-                <td>{% include "value.html" with field_name="mann1_pH" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann1_acid" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann1_Fe2" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann1_Fe" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann4_pH" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann4_Cu" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann4_Fe" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann4_Sb" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="mann4_ots" index=forloop.counter0 %}</td>
+            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+                <td><cell field-name="mann1_pH" :row-index="index"></cell></td>
+                <td><cell field-name="mann1_acid" :row-index="index"></cell></td>
+                <td><cell field-name="mann1_Fe2" :row-index="index"></cell></td>
+                <td><cell field-name="mann1_Fe" :row-index="index"></cell></td>
+                <td><cell field-name="mann4_pH" :row-index="index"></cell></td>
+                <td><cell field-name="mann4_Cu" :row-index="index"></cell></td>
+                <td><cell field-name="mann4_Fe" :row-index="index"></cell></td>
+                <td><cell field-name="mann4_Sb" :row-index="index"></cell></td>
+                <td><cell field-name="mann4_ots" :row-index="index"></cell></td>
             </tr>
-        {% endfor_or_create %}
         </tbody>
         <tbody>
     </table>
@@ -45,25 +43,24 @@
         <tbody>
         <tr>
             <th colspan="1">Ситовой огарка<i class='units'>мм</i></th>
-            <td>{% include "value.html" with field_name="sit_cinder1" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sit_cinder2" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sit_cinder3" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sit_cinder4" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sit_cinder5" index=0 %}</td>
-            <td>{% include "value.html" with field_name="sit_cinder6" index=0 %}</td>
+            <td><cell field-name="sit_cinder1" index="0"></cell></td>
+            <td><cell field-name="sit_cinder2" index="0"></cell></td>
+            <td><cell field-name="sit_cinder3" index="0"></cell></td>
+            <td><cell field-name="sit_cinder4" index="0"></cell></td>
+            <td><cell field-name="sit_cinder5" index="0"></cell></td>
+            <td><cell field-name="sit_cinder6" index="0"></cell></td>
         </tr>
         <tr>
             <th colspan="1">Ситовой средн.<i class='units'>мм</i></th>
-            <td colspan="6">{% include "value.html" with field_name="sit_cinder_avg" index=0 %}</td>
+            <td colspan="6"><cell field-name="sit_cinder_avg" index="0"></cell></td>
         </tr>
         <tr>
-            <th colspan="1">{% trans "Общее Fe среднее" %}{% trans "<i class='units'>мм</i>" %}</th>
-            <td colspan="6">{% include "value.html" with field_name="fe_avg" index=0 %}</td>
+            <th colspan="1">Общее Fe среднее{% trans "<i class='units'>мм</i>" %}</th>
+            <td colspan="6"><cell field-name="fe_avg" index="0"></cell></td>
         </tr>
         <tr>
-            <th colspan="1">{% trans "Fe стружка Fe" %}{% trans "<i class='units'>мг/л</i>" %}</th>
-            <td colspan="6">{% include "value.html" with field_name="fe_shave" index=0 %}</td>
+            <th colspan="1">Fe стружка Fe{% trans "<i class='units'>мг/л</i>" %}</th>
+            <td colspan="6"><cell field-name="fe_shave" index="0"></cell></td>
         </tr>
         </tbody>
     </table>
-{% endblock %}

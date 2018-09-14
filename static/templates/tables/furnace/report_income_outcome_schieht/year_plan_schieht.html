@@ -1,9 +1,9 @@
 {%  extends "table.html" %}
-{% load express_tags %}
 
-{% block title %}Расчет годового плана шихты{% endblock %}
 
-{% block table %}
+Расчет годового плана шихты
+
+
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -35,35 +35,31 @@
         </tr>
     </thead>
 
-    {% for_or_create _ in table_cells_data|longest_field %}
-        <tr class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td>{% include "value.html" with field_name="concentrate" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="year_plans" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="month_smt" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="empty_field" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="day_smt" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="tonns_a_year" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="schieht_frac" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="zn" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="s" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="h2o" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="fe" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="cu" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="pb" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="sio2" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="cd" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="cao" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="mgo" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="K" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="na" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="arsenic" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="co" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="au" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="ag" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="vmt" index=forloop.counter0 %}</td>
-            <td>{% include "value.html" with field_name="norm" index=forloop.counter0 %}</td>
-        </tr>
-    {% endfor_or_create %}
+    <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+        <td><cell field-name="concentrate" :row-index="index"></cell></td>
+        <td><cell field-name="year_plans" :row-index="index"></cell></td>
+        <td><cell field-name="month_smt" :row-index="index"></cell></td>
+        <td><cell field-name="empty_field" :row-index="index"></cell></td>
+        <td><cell field-name="day_smt" :row-index="index"></cell></td>
+        <td><cell field-name="tonns_a_year" :row-index="index"></cell></td>
+        <td><cell field-name="schieht_frac" :row-index="index"></cell></td>
+        <td><cell field-name="zn" :row-index="index"></cell></td>
+        <td><cell field-name="s" :row-index="index"></cell></td>
+        <td><cell field-name="h2o" :row-index="index"></cell></td>
+        <td><cell field-name="fe" :row-index="index"></cell></td>
+        <td><cell field-name="cu" :row-index="index"></cell></td>
+        <td><cell field-name="pb" :row-index="index"></cell></td>
+        <td><cell field-name="sio2" :row-index="index"></cell></td>
+        <td><cell field-name="cd" :row-index="index"></cell></td>
+        <td><cell field-name="cao" :row-index="index"></cell></td>
+        <td><cell field-name="mgo" :row-index="index"></cell></td>
+        <td><cell field-name="K" :row-index="index"></cell></td>
+        <td><cell field-name="na" :row-index="index"></cell></td>
+        <td><cell field-name="arsenic" :row-index="index"></cell></td>
+        <td><cell field-name="co" :row-index="index"></cell></td>
+        <td><cell field-name="au" :row-index="index"></cell></td>
+        <td><cell field-name="ag" :row-index="index"></cell></td>
+        <td><cell field-name="vmt" :row-index="index"></cell></td>
+        <td><cell field-name="norm" :row-index="index"></cell></td>
+    </tr>
 </table>
-{% endblock %}
