@@ -45,9 +45,7 @@ BCHC
             </tr>
         </thead>
         <tbody>
-            {% for_or_create _ in table_cells_data|longest_field %}
                 <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-
                     <td><cell field-name="time" :row-index="index"></cell></td>
                     <td><cell field-name="vsns_cobalt" :row-index="index"></cell></td>
                     <td><cell field-name="vsns_Sb" :row-index="index"></cell></td>
@@ -77,7 +75,5 @@ BCHC
                     <td><cell field-name="mng_correction" :row-index="index"></cell></td>
                     <td><cell field-name="master" :row-index="index"></cell></td>
                 </tr>
-            {% endfor_or_create %}
         </tbody>
     </table>
-

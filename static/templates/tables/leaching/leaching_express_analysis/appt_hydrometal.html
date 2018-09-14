@@ -24,8 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr class="indexed-line" data-index="{{ forloop.counter0 }}">
+            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
                 <td><cell field-name="mann1_pH" :row-index="index"></cell></td>
                 <td><cell field-name="mann1_acid" :row-index="index"></cell></td>
                 <td><cell field-name="mann1_Fe2" :row-index="index"></cell></td>
@@ -36,7 +35,6 @@
                 <td><cell field-name="mann4_Sb" :row-index="index"></cell></td>
                 <td><cell field-name="mann4_ots" :row-index="index"></cell></td>
             </tr>
-        {% endfor_or_create %}
         </tbody>
         <tbody>
     </table>
@@ -66,4 +64,3 @@
         </tr>
         </tbody>
     </table>
-

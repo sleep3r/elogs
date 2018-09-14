@@ -22,40 +22,27 @@
                 <tr>
                     <th rowspan="2" class="th-mul-row">Нагрузки</th>
                     <th>7<sup>00</sup></th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="time7" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="time7" index="index"></cell></td>
                 </tr>
                 <tr>
                     <th>12<sup>00</sup></th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="time12" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="time12" index="index"></cell></td>
                 </tr>
                 <tr>
                     <th colspan="2">Показания счётчика</th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="counter" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="counter" index="index"></cell></td>
                 </tr>
                 <tr>
                     <th colspan="2">Бункера ЦВЦО</th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="bunker_cvco" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="bunker_cvco" index="index"></cell></td>
                 </tr>
                 <tr>
                     <th colspan="2">Силоса ОЦ</th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="silos" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="silos" index="index"></cell></td>
                 </tr>
                 <tr>
                     <th colspan="2">Бункера ОЦ</th>
-                    {% for seria in 4|times %}
-                        <td>{% include "value.html" with field_name="bunkers_oc" index=seria %}</td>
-                    {%  endfor %}
+                    <td v-for="(value, index) in 4"><cell field-name="bunkers_oc" index="index"></cell></td>
                 </tr>
             </tbody>
         </table>
-

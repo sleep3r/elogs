@@ -9,10 +9,7 @@
         <thead>
         <tr>
             <th>Нейтральные сгустители</th>
-
-            {% for i in 8|times %}
-                <th class="th-number">{{ forloop.counter }}</th>
-            {% endfor %}
+            <th v-for="(value, index) in 8 class=">{{ index }}</th>
             <th class="th-number">13</th>
         </tr>
         </thead>
@@ -37,4 +34,3 @@
             <td><cell field-name="liquid_solid13" index="0"></cell></td>
         </tr>
     </table>
-

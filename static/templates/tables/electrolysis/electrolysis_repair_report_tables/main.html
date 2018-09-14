@@ -19,16 +19,12 @@
         </tr>
     </thead>
     <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-
-                <td><cell field-name="date1" :row-index="index"></cell></td>
-                <td><cell field-name="node_name" :row-index="index"></cell></td>
-                <td><cell field-name="date2" :row-index="index"></cell></td>
-                <td><cell field-name="work_done" :row-index="index"></cell></td>
-                <td><cell field-name="expl_time" :row-index="index"></cell></td>
-            </tr>
-        {% endfor_or_create %}
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="date1" :row-index="index"></cell></td>
+          <td><cell field-name="node_name" :row-index="index"></cell></td>
+          <td><cell field-name="date2" :row-index="index"></cell></td>
+          <td><cell field-name="work_done" :row-index="index"></cell></td>
+          <td><cell field-name="expl_time" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>
-

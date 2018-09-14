@@ -21,17 +21,13 @@
             </tr>
         </thead>
         <tbody>
-             {% for_or_create _ in table_cells_data|longest_field %}
-                 <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-
-                     <td><cell field-name="equipment" :row-index="index"></cell></td>
-                     <td><cell field-name="date_view" :row-index="index"></cell></td>
-                     <td><cell field-name="name_equipment" :row-index="index"></cell></td>
-                     <td><cell field-name="date_finish" :row-index="index"></cell></td>
-                     <td><cell field-name="volume_text" :row-index="index"></cell></td>
-                     <td><cell field-name="fact_time" :row-index="index"></cell></td>
-                </tr>
-            {% endfor_or_create %}
+           <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+               <td><cell field-name="equipment" :row-index="index"></cell></td>
+               <td><cell field-name="date_view" :row-index="index"></cell></td>
+               <td><cell field-name="name_equipment" :row-index="index"></cell></td>
+               <td><cell field-name="date_finish" :row-index="index"></cell></td>
+               <td><cell field-name="volume_text" :row-index="index"></cell></td>
+               <td><cell field-name="fact_time" :row-index="index"></cell></td>
+          </tr>
         </tbody>
     </table>
-

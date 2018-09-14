@@ -22,20 +22,18 @@
                 <th colspan="2" class="th-common">НС 12сг.</th>
             </tr>
             <tr>
-              {% for _ in 3|times %}
+              <template v-for="(value, index) in 3">
                 <th class="th-number">pH</th>
                 <th class="th-number">Cu<i class='units'>мг/л</i></th>
                 <th class="th-number">Fe<i class='units'>мг/л</i></th>
                 <th class="th-number">Ж:Т</th>
                 <th class="th-number">pH</th>
                 <th class="th-number">Ж:Т</th>
-              {% endfor %}
+              </template>
             </tr>
         </thead>
         <tbody>
-            {% for_or_create _ in table_cells_data|longest_field %}
                 <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-
                     <td><cell field-name="time" :row-index="index"></cell></td>
                     <td><cell field-name="vs10_pH" :row-index="index"></cell></td>
                     <td><cell field-name="vs10_Cu" :row-index="index"></cell></td>
@@ -56,7 +54,5 @@
                     <td><cell field-name="ns12_pH" :row-index="index"></cell></td>
                     <td><cell field-name="ns12_liquid_solid" :row-index="index"></cell></td>
                 </tr>
-            {% endfor_or_create %}
         </tbody>
     </table>
-
