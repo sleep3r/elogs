@@ -1,0 +1,47 @@
+<div class="table__title">Среднее содержание за месяц</div>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th>Выданно концнт ВМТ</th>
+            <th>Выданно концнт СМТ</th>
+            <th>Выданно огарка<i class='units'>т</i></th>
+            <th>Zn конц<i class='units'>%</i></th>
+            <th>Pb<i class='units'>%</i></th>
+            <th>Cu<i class='units'>%</i></th>
+            <th>Cd,	Fe<i class='units'>%</i></th>
+            <th>SiO2<i class='units'>%</i></th>
+            <th>Zn огар<i class='units'>%</i></th>
+            <th>Pb<i class='units'>%</i></th>
+            <th>Cu<i class='units'>%</i></th>
+            <th>Cd<i class='units'>%</i></th>
+            <th>Fe<i class='units'>%</i></th>
+            <th>SiO<sub>2</sub><i class='units'>%</i></th>
+            <th>S<i class='units'>%</i></th>
+            <th>As<i class='units'>%</i></th>
+            <th>Sb<i class='units'>%</i></th>
+            <th>S сульф<i class='units'>%</i></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(value, index) in data.rowsCount" >
+          <td><cell field-name="vmt" :row-index="index"></cell></td>
+          <td><cell field-name="cmt" :row-index="index"></cell></td>
+          <td><cell field-name="zn_end" :row-index="index"></cell></td>
+          <td><cell field-name="pb" :row-index="index"></cell></td>
+          <td><cell field-name="cu" :row-index="index"></cell></td>
+          <td><cell field-name="cd" :row-index="index"></cell></td>
+          <td><cell field-name="fe" :row-index="index"></cell></td>
+          <td><cell field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell field-name="Zn_furn" :row-index="index"></cell></td>
+          <td><cell field-name="Pb2" :row-index="index"></cell></td>
+          <td><cell field-name="Cu2" :row-index="index"></cell></td>
+          <td><cell field-name="Cd2" :row-index="index"></cell></td>
+          <td><cell field-name="Fe" :row-index="index"></cell></td>
+          <td><cell field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell field-name="S" :row-index="index"></cell></td>
+          <td><cell field-name="As" :row-index="index"></cell></td>
+          <td><cell field-name="Sb" :row-index="index"></cell></td>
+          <td><cell field-name="S_sulf" :row-index="index"></cell></td>
+      </tr>
+    </tbody>
+</table>

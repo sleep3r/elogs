@@ -10,7 +10,7 @@
     <meta name="description" content="The worlds best electronic journaling system">
     <meta name="keywords" content="journals, e-logs">
 
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>
+{#    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>#}
     <title>{% block title %} E-logs {% endblock %}</title>
 
     {% block css %}
@@ -30,12 +30,11 @@
         <div class="column-left">
             {% include "menu.html" %}
         </div>
-        <div class="column-content">
+        <div class="column-content" id="elogs-app">
             <div class="journal-page" mode="{{ page_mode }}">
                 {% block journal_panel %}
                     {% include "journal__panel.html" %}
                 {% endblock %}
-                <!-- -->
                 <div class="journal-tables">
                     {% block content %}
                     {% endblock %}
@@ -44,14 +43,15 @@
             {% include "footer.html" %}
         </div>
     </div>
-
 </div>
 
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
-    {% render_bundle 'index' 'js' %}
-    <script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
+{% render_bundle 'index' 'js' %}
+{% render_bundle 'tables' 'js' %}
+{#<script type="text/javascript" src="{% static 'webpack_bundles/tables.js' %}"></script>#}
+<script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
 
     <script>
         var endpoint = 'ws://' + window.location.host + '/messages/';

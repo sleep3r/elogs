@@ -1,0 +1,20 @@
+html
+    head
+        title Table
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Ubuntu")
+        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.2.0/css/all.css")
+        link(rel="stylesheet", href="index.css")
+
+    body
+        .elogs-container
+            .header
+            .main-container
+                .column-left
+                    p left menu
+                .column-content
+                    .journal-tables('journal-page'=541)
+                        .content
+                            .journal-table(id="table_id_small", 'table-name'="small")
+                                .table__title Разгружено/остаток
+                                    .elog-table-container#elogs-app
+                                        TableCommon(plant-name="plant", journal-name="j-541", table-name="global")

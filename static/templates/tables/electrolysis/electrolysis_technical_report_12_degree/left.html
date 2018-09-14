@@ -1,0 +1,98 @@
+<div class="table__title">Время замеров и работа оборудования</div>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="2"> Параметры </th>
+            <th colspan="12" class="th-common"> Время замеров </th>
+            <th rowspan="2"> Несоотвествия </th>
+            <th rowspan="2"> Принятые меры </th>
+        </tr>
+        <tr>
+                <th>time</th>
+        </tr>
+    </thead>
+    <tbody>
+{#        {% for row_name in table_info.row_names %}#}
+            <tr>
+                <th> row_name-view </th>
+{#                {% for header in table_info.times|stack:table_info.last_headers %}#}
+                <td> <cell field_name="" row-index="0"></cell> </td>
+{#                {% endfor %}#}
+            </tr>
+{#        {% endfor %}#}
+    </tbody>
+</table>
+
+
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th colspan="15" class="th-common"> Работа обрудования </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>Град №1</th>
+            <th>Град №2</th>
+            <th>Град №3</th>
+            <th>Град №4</th>
+            <th>Град №5</th>
+            <th>Град №6</th>
+            <th>Град №7</th>
+            <th>Град №8</th>
+            <th>Град №9</th>
+            <th colspan="2">Кристализаторы</th>
+        </tr>
+        <tr>
+            <th> Вент. скорость<i class='units'>об/мин</i></th>
+            <td> <cell field_name="grad1_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad2_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad3_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad4_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad5_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad6_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad7_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad8_vent" row-index="0"></cell> </td>
+            <td> <cell field_name="grad9_vent" row-index="0"></cell> </td>
+            <th>№1</th>
+            <td> <cell field_name="crystal1" row-index="0"></cell> </td>
+        </tr>
+        <tr>
+            <th> Режим (з/л)</th>
+            <td> <cell field_name="grad1_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad2_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad3_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad4_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad5_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad6_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad7_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad8_mode" row-index="0"></cell> </td>
+            <td> <cell field_name="grad9_mode" row-index="0"></cell> </td>
+            <th>№2</th>
+            <td> <cell field_name="crystal2" row-index="0"></cell> </td>
+        </tr>
+        <tr>
+            <th colspan="2">Расход нейтр. р-ра<i class='units'>м³</i></th>
+            <th colspan="3">Промывка/чистка</th>
+            <th colspan="7">Работа насосов</th>
+        </tr>
+        <tr>
+            <th> Общий </th>
+            <td> <cell field_name="common1" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="common2" row-index="0"></cell> </td>
+            <td colspan="7" rowspan="3"> <cell field_name="pumps_summ" row-index="0"></cell> </td>
+        </tr>
+
+        <tr>
+            <th> 3 серии </th>
+            <td> <cell field_name="series31" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="series32" row-index="0"></cell> </td>
+        </tr>
+
+        <tr>
+            <th> 4 серии </th>
+            <td> <cell field_name="series41" row-index="0"></cell> </td>
+            <td colspan="3"> <cell field_name="series42" row-index="0"></cell> </td>
+        </tr>
+
+    </thead>
+</table>

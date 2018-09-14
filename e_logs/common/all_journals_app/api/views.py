@@ -3,10 +3,23 @@ from rest_framework import generics, mixins, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell, Shift
 from .serializers import PlantSerializer, JournalSerializer, TableSerializer, FieldSerializer, \
     CellSerializer, ShiftSerializer
+
+
+class ShiftsList(generics.ListAPIView):
+    serializer_class = ShiftSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Shift.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+
+
+class ShiftAPI(generics.RetrieveAPIView):
+    lookup_field = 'id'
+    serializer_class = ShiftSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Shift.objects.all()
 
 
 class PlantsList(generics.ListAPIView):

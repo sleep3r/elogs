@@ -12,7 +12,7 @@ from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, de
     max_cache
 
 
-class Plant(StrAsDictMixin, models.Model):
+class Plant(models.Model):
     name = models.CharField(default='leaching',
                             verbose_name='Название цеха',
                             max_length=128,
@@ -28,7 +28,7 @@ class Plant(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Цеха'
 
 
-class Journal(StrAsDictMixin, models.Model):
+class Journal(models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Журнал')
@@ -55,7 +55,7 @@ class Journal(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Журналы'
 
 
-class Table(StrAsDictMixin, models.Model):
+class Table(models.Model):
     """Abstract table entity."""
 
     name = models.CharField(max_length=128, verbose_name='Таблица')
@@ -84,7 +84,7 @@ class Table(StrAsDictMixin, models.Model):
         verbose_name_plural = 'Таблицы'
 
 
-class Field(StrAsDictMixin, models.Model):
+class Field(models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Столбец')
@@ -114,7 +114,7 @@ class Field(StrAsDictMixin, models.Model):
         ]
 
 
-class CellGroup(StrAsDictMixin, models.Model):
+class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def tables(self):
@@ -197,7 +197,7 @@ class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(StrAsDictMixin, TimeStampedModel):
+class Cell(TimeStampedModel):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
@@ -248,7 +248,7 @@ class Cell(StrAsDictMixin, TimeStampedModel):
         return ''.join(c.get_text() for c in Comment.objects.filter(cell=cell))
 
 
-class Comment(StrAsDictMixin, models.Model):
+class Comment(models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)

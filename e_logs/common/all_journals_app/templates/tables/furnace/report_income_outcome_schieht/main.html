@@ -1,4 +1,4 @@
-{% extends "table.html" %} 
+{% extends "table.html" %}
 {% load express_tags %}
 
 {% block title %}Поступление, расходы и остатки Zn концентратов{% endblock %}
@@ -50,7 +50,7 @@
     function getRedirectLink() {
         let date = $("#selected_month").val();
         let mode = $('input[name=mode]:checked').attr('id');
-        
+
         return "/furnace/report_income_outcome_schieht?month=" + date + "&mode=" + mode;
     }
 

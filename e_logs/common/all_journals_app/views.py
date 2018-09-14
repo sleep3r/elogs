@@ -1,5 +1,6 @@
 import os
 import json
+import pytz
 import shutil
 import environ
 import zipfile
@@ -19,9 +20,12 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
 from django.views import View
+from django.shortcuts import redirect, render_to_response
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+from django.urls import reverse
 
-from e_logs.common.all_journals_app.services.context_creator import get_context
+from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
 from e_logs.common.messages_app.models import Message
 
@@ -32,19 +36,9 @@ environ.Env.read_env("config/settings/.env")
 
 
 class Index(LoginRequiredMixin, TemplateView):
-
     def get(self, request, *args, **kwargs):
-        homepage_url = Setting.of(employee=self.request.user.employee)['homepage']
-        if homepage_url is None:
-            self.template_name = 'furnace-index.html'
-            context = self.get_context_data(**kwargs)
-            return self.render_to_response(context)
-        else:
-            return redirect(homepage_url)
+        return redirect('/furnace/metals_compute')
 
-    def get_context_data(self, **kwargs):
-        context = get_context(self.request, plant=None, journal=None)
-        return context
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -53,19 +47,43 @@ class JournalView(LoginRequiredMixin, View):
     Inherit from this class when creating your own journal view.
     """
 
-    @logged
-    @has_private_journals
-    def get(self, request, plant_name: str, journal_name: str):
+    # @has_private_journals
+    def get(self, request, plant_name: str, journal_name: str, page_id=None):
+
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
-        context = self.get_context(request, plant, journal)
+        page = None
+        if journal.type == 'shift':
+            if page_id:
+                page = Shift.objects.get(id=page_id)
+            else:
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                assert number_of_shifts > 0, "<= 0 number of shifts"
+
+                # create shifts for today and return current shift
+                for shift_order in range(1, number_of_shifts + 1):
+                    shift = Shift.objects.get_or_create(journal=journal,
+                                                        order=shift_order,
+                                                        date=timezone.now().date())[0]
+                    if shift.is_active:
+                        page = shift
+                        break
+                if not page: # fixme: there may be no active shift due to datetime problems
+                    page = shift
+                return redirect('journal_view', page_id=page.id, plant_name=plant_name,
+                                journal_name=journal_name)
+        elif journal.type == 'equipment':
+            page = Equipment.objects.get_or_create(journal=journal)[0]
+        else:
+            raise NotImplementedError()
+        context = self.get_context(request, page)
         template = loader.get_template('common.html')
         return HttpResponse(template.render(context, request))
 
     @staticmethod
     @logged
-    def get_context(request, plant, journal) -> DeepDict:
-        return get_context(request, plant, journal)
+    def get_context(request, page) -> DeepDict:
+        return get_context(request, page)
 
 
 journal_view = JournalView.as_view()
@@ -75,9 +93,13 @@ journal_view = JournalView.as_view()
 class ShihtaJournalView(JournalView):
     """ View of report_income_outcome_schieht journal """
 
+    def get(self, request, plant_name='furnace', journal_name='report_income_outcome_schieht'):
+        response = super().get(request, plant_name, journal_name)
+        return response
+
     @logged
-    def get_context(self, request, journal_name, page_type):
-        context = super().get_context(request, journal_name, page_type)
+    def get_context(self, request, page):
+        context = super().get_context(request, page)
 
         context.months = {
             'January': 'Январь',
@@ -102,6 +124,9 @@ class ShihtaJournalView(JournalView):
 # TODO: Move to common journal scheme
 class MetalsJournalView(JournalView):
     """ View of metals_compute journal """
+
+    def get(self, request, plant_name='furnace', journal_name='metals_compute'):
+        return super().get(request, plant_name, journal_name)
 
     @logged
     def get_context(self, request, journal_name, page_type) -> DeepDict:
@@ -158,11 +183,15 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
+def get_table_template(request, plant_name, journal_name, table_name):
+    return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
+
+
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
 def save_cell(request):
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         cell_info = json.loads(request.body)
         cell = Cell.get_or_create_cell(**cell_info['cell_location'])
         value = cell_info['value']
@@ -196,7 +225,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         return {
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
-            'url': '?id={}'.format(shift.id),
+            'url': '/{}/{}/{}/'.format(shift.journal.plant.name, shift.journal.name, shift.id),
             'title:': 'Some title',
             'color': '#169F85' if is_owned else '#2A3F54'
         }
@@ -209,7 +238,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
-        for shift_date in date_range(from_date, to_date + timedelta(days=2)):
+        for shift_date in date_range(from_date, to_date + timedelta(days=1)):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.get_or_create(journal, shift_order, shift_date)
                 is_owned = shift in owned_shifts

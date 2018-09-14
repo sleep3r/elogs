@@ -23,26 +23,20 @@ from rest_framework_swagger.views import get_swagger_view
 from django.conf import settings
 from e_logs.common.all_journals_app import views
 from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, \
-    get_shifts
+    get_shifts, Index, get_table_template
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
 
+
 urlpatterns = [
-    path('', views.Index.as_view()),
+    path('', Index.as_view()),
     path('admin/', admin.site.urls),
     path('auth', include('e_logs.common.login_app.urls')),
     path('common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
     path('common/settings/', include('e_logs.common.settings_app.urls')),
-    re_path('^feedback/', include('e_logs.common.feedback_app.urls')),
-    path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
-    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>metals_compute)$',
-            MetalsJournalView.as_view()),
-    re_path(r'^(?P<plant_name>furnace)/(?P<journal_name>report_income_outcome_schieht)$',
-            ShihtaJournalView.as_view()),
-    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)$', JournalView.as_view()),
-    re_path(r'^(?P<plant_name>[\w]+)/(?P<journal_name>[\w]+)/get_shifts/$', get_shifts),
+    path('feedback/', include('e_logs.common.feedback_app.urls')),
 
     url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
@@ -50,9 +44,18 @@ urlpatterns = [
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
     path('bl/', include('e_logs.business_logic.modes.urls')),
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
-]
 
-# FIX IT
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>', get_table_template),
+    path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
+    path('furnace/metals_compute/', MetalsJournalView.as_view()),
+    path('furnace/report_income_outcome_schieht/', ShihtaJournalView.as_view()),
+    path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
+    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(), name='journal_view'),
+    path('<str:plant_name>/<str:journal_name>/get_shifts/', get_shifts),
+
+    ]
+
+
 if settings.DEBUG:
     import debug_toolbar
 

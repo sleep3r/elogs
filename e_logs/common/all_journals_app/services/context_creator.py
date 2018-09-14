@@ -11,17 +11,18 @@ from e_logs.core.utils.webutils import logged, default_if_error, get_or_none
 
 
 @logged
-def get_context(request, plant, journal) -> DeepDict:
+def get_context(request, page) -> DeepDict:
     context = DeepDict()
-    if plant != journal != None:
-        page = get_page(journal, request)
+    journal = page.journal
+    plant = journal.plant
 
-        add_type_specific_info(context, journal, page)
-        add_permissions(context, page, request)
-        add_page_info(context, plant, journal, page)
-        context.tables_paths = get_tables_paths(journal)
-        context.journal_cells_data = get_cells_data(page)
-        context.journal_fields_descriptions = get_fields_descriptions(journal)
+    add_type_specific_info(context, journal, page)
+    add_permissions(context, page, request)
+    add_page_info(context, plant, journal, page)
+    context.tables_paths = get_tables_paths(journal)
+    context.journal_cells_data = get_cells_data(page)
+    context.journal_fields_descriptions = get_fields_descriptions(journal)
+    context.plant = journal.plant
 
     context.menu_data = get_menu_data()
 
