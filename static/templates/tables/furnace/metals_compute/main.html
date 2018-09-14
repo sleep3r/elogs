@@ -28,29 +28,25 @@
         </tr>
     </thead>
     <tbody>
-    {% for_or_create _ in table_cells_data|longest_field %}
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td><cell field-name="vmt" :row-index="index"></cell></td>
-            <td><cell field-name="cmt" :row-index="index"></cell></td>
-            <td><cell field-name="zn_end" :row-index="index"></cell></td>
-            <td><cell field-name="pb" :row-index="index"></cell></td>
-            <td><cell field-name="cu" :row-index="index"></cell></td>
-            <td><cell field-name="cd" :row-index="index"></cell></td>
-            <td><cell field-name="fe" :row-index="index"></cell></td>
-            <td><cell field-name="SiO2" :row-index="index"></cell></td>
-            <td><cell field-name="Zn_furn" :row-index="index"></cell></td>
-            <td><cell field-name="Pb2" :row-index="index"></cell></td>
-            <td><cell field-name="Cu2" :row-index="index"></cell></td>
-            <td><cell field-name="Cd2" :row-index="index"></cell></td>
-            <td><cell field-name="Fe" :row-index="index"></cell></td>
-            <td><cell field-name="SiO2" :row-index="index"></cell></td>
-            <td><cell field-name="S" :row-index="index"></cell></td>
-            <td><cell field-name="As" :row-index="index"></cell></td>
-            <td><cell field-name="Sb" :row-index="index"></cell></td>
-            <td><cell field-name="S_sulf" :row-index="index"></cell></td>
-        </tr>
-    {% endfor_or_create %}
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="vmt" :row-index="index"></cell></td>
+          <td><cell field-name="cmt" :row-index="index"></cell></td>
+          <td><cell field-name="zn_end" :row-index="index"></cell></td>
+          <td><cell field-name="pb" :row-index="index"></cell></td>
+          <td><cell field-name="cu" :row-index="index"></cell></td>
+          <td><cell field-name="cd" :row-index="index"></cell></td>
+          <td><cell field-name="fe" :row-index="index"></cell></td>
+          <td><cell field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell field-name="Zn_furn" :row-index="index"></cell></td>
+          <td><cell field-name="Pb2" :row-index="index"></cell></td>
+          <td><cell field-name="Cu2" :row-index="index"></cell></td>
+          <td><cell field-name="Cd2" :row-index="index"></cell></td>
+          <td><cell field-name="Fe" :row-index="index"></cell></td>
+          <td><cell field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell field-name="S" :row-index="index"></cell></td>
+          <td><cell field-name="As" :row-index="index"></cell></td>
+          <td><cell field-name="Sb" :row-index="index"></cell></td>
+          <td><cell field-name="S_sulf" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>
-

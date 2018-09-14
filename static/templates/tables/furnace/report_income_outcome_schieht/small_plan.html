@@ -18,19 +18,15 @@
     </tr>
     </thead>
     <tbody>
-    {% for_or_create _ in table_cells_data|longest_field %}
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td><cell field-name="concentrate" :row-index="index"></cell></td>
-            <td><cell field-name="smt_plan" :row-index="index"></cell></td>
-            <td><cell field-name="gpp_year_plan" :row-index="index"></cell></td>
-            <td><cell field-name="tpp_year_plan" :row-index="index"></cell></td>
-            <td><cell field-name="fact_year" :row-index="index"></cell></td>
-            <td><cell field-name="tpp_dispersion" :row-index="index"></cell></td>
-            <td><cell field-name="upp_deviation" :row-index="index"></cell></td>
-            <td><cell field-name="ratio" :row-index="index"></cell></td>
-        </tr>
-    {% endfor_or_create %}
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="concentrate" :row-index="index"></cell></td>
+          <td><cell field-name="smt_plan" :row-index="index"></cell></td>
+          <td><cell field-name="gpp_year_plan" :row-index="index"></cell></td>
+          <td><cell field-name="tpp_year_plan" :row-index="index"></cell></td>
+          <td><cell field-name="fact_year" :row-index="index"></cell></td>
+          <td><cell field-name="tpp_dispersion" :row-index="index"></cell></td>
+          <td><cell field-name="upp_deviation" :row-index="index"></cell></td>
+          <td><cell field-name="ratio" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>
-

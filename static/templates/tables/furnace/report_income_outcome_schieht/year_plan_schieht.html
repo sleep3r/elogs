@@ -35,35 +35,31 @@
         </tr>
     </thead>
 
-    {% for_or_create _ in table_cells_data|longest_field %}
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td><cell field-name="concentrate" :row-index="index"></cell></td>
-            <td><cell field-name="year_plans" :row-index="index"></cell></td>
-            <td><cell field-name="month_smt" :row-index="index"></cell></td>
-            <td><cell field-name="empty_field" :row-index="index"></cell></td>
-            <td><cell field-name="day_smt" :row-index="index"></cell></td>
-            <td><cell field-name="tonns_a_year" :row-index="index"></cell></td>
-            <td><cell field-name="schieht_frac" :row-index="index"></cell></td>
-            <td><cell field-name="zn" :row-index="index"></cell></td>
-            <td><cell field-name="s" :row-index="index"></cell></td>
-            <td><cell field-name="h2o" :row-index="index"></cell></td>
-            <td><cell field-name="fe" :row-index="index"></cell></td>
-            <td><cell field-name="cu" :row-index="index"></cell></td>
-            <td><cell field-name="pb" :row-index="index"></cell></td>
-            <td><cell field-name="sio2" :row-index="index"></cell></td>
-            <td><cell field-name="cd" :row-index="index"></cell></td>
-            <td><cell field-name="cao" :row-index="index"></cell></td>
-            <td><cell field-name="mgo" :row-index="index"></cell></td>
-            <td><cell field-name="K" :row-index="index"></cell></td>
-            <td><cell field-name="na" :row-index="index"></cell></td>
-            <td><cell field-name="arsenic" :row-index="index"></cell></td>
-            <td><cell field-name="co" :row-index="index"></cell></td>
-            <td><cell field-name="au" :row-index="index"></cell></td>
-            <td><cell field-name="ag" :row-index="index"></cell></td>
-            <td><cell field-name="vmt" :row-index="index"></cell></td>
-            <td><cell field-name="norm" :row-index="index"></cell></td>
-        </tr>
-    {% endfor_or_create %}
+    <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+        <td><cell field-name="concentrate" :row-index="index"></cell></td>
+        <td><cell field-name="year_plans" :row-index="index"></cell></td>
+        <td><cell field-name="month_smt" :row-index="index"></cell></td>
+        <td><cell field-name="empty_field" :row-index="index"></cell></td>
+        <td><cell field-name="day_smt" :row-index="index"></cell></td>
+        <td><cell field-name="tonns_a_year" :row-index="index"></cell></td>
+        <td><cell field-name="schieht_frac" :row-index="index"></cell></td>
+        <td><cell field-name="zn" :row-index="index"></cell></td>
+        <td><cell field-name="s" :row-index="index"></cell></td>
+        <td><cell field-name="h2o" :row-index="index"></cell></td>
+        <td><cell field-name="fe" :row-index="index"></cell></td>
+        <td><cell field-name="cu" :row-index="index"></cell></td>
+        <td><cell field-name="pb" :row-index="index"></cell></td>
+        <td><cell field-name="sio2" :row-index="index"></cell></td>
+        <td><cell field-name="cd" :row-index="index"></cell></td>
+        <td><cell field-name="cao" :row-index="index"></cell></td>
+        <td><cell field-name="mgo" :row-index="index"></cell></td>
+        <td><cell field-name="K" :row-index="index"></cell></td>
+        <td><cell field-name="na" :row-index="index"></cell></td>
+        <td><cell field-name="arsenic" :row-index="index"></cell></td>
+        <td><cell field-name="co" :row-index="index"></cell></td>
+        <td><cell field-name="au" :row-index="index"></cell></td>
+        <td><cell field-name="ag" :row-index="index"></cell></td>
+        <td><cell field-name="vmt" :row-index="index"></cell></td>
+        <td><cell field-name="norm" :row-index="index"></cell></td>
+    </tr>
 </table>
-

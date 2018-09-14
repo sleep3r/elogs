@@ -21,17 +21,13 @@
         </tr>
     </thead>
     <tbody>
-    {% for_or_create _ in table_cells_data|longest_field %}
-        <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
-            <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-            <td><cell field-name="date_start" :row-index="index"></cell></td>
-            <td><cell field-name="shift_number" :row-index="index"></cell></td>
-            <td><cell field-name="massa_fur" :row-index="index"></cell></td>
-            <td><cell field-name="massa_sit" :row-index="index"></cell></td>
-            <td><cell field-name="fraction" :row-index="index"></cell></td>
-            <td><cell field-name="executer" :row-index="index"></cell></td>
-        </tr>
-    {% endfor_or_create %}
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="date_start" :row-index="index"></cell></td>
+          <td><cell field-name="shift_number" :row-index="index"></cell></td>
+          <td><cell field-name="massa_fur" :row-index="index"></cell></td>
+          <td><cell field-name="massa_sit" :row-index="index"></cell></td>
+          <td><cell field-name="fraction" :row-index="index"></cell></td>
+          <td><cell field-name="executer" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>
-
