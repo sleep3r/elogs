@@ -1,3 +1,4 @@
+<div class="table__title">Big</div>
 <table class="table table-bordered elog-journal-table" >
     <thead>
         <tr>
@@ -16,7 +17,6 @@
         </tr>
     </thead>
     <tbody>
-          <!-- (value, index) is used to start indexing from 0 ("index in data.rowsCount" will start from 1)-->
           <tr v-for="(value, index) in data.rowsCount">
               <td><cell field-name="wagon_num" :row-index="index"></cell></td>
               <td><cell field-name="conc_num" :row-index="index"></cell></td>
