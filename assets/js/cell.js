@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import _ from 'underscore'
+import _ from 'lodash'
 
     /**
  * @return {boolean}
@@ -21,12 +21,14 @@ class Cell {
 
     // public
     static onInput(input) {
+        console.log('onInput', input.value)
         this.on_input_change(input);
         this.saveCell(input);
         $('#sync').hide();$('#async').show();
     }
 
     static onChange(input) {
+        console.log('onChange', input.value)
         this.reformat_on_change(input);
         this.addMessage(input);
     }
@@ -220,10 +222,11 @@ class Cell {
     }
 
     static reformat_on_change(input) {
-        if (input.value === "")
-            return;
+        if (input.value === "") {
+            input.value = 0
+        }
         if (input.type === "number") {
-            input.value = +(input.value*1.0).toFixed(2);
+            input.value = +(input.value*1.0).toFixed(2)
         }
         // $(input.closest('table')).alignColumn([1, 2, 3, 4, 5], {center: '.'})
     }

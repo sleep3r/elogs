@@ -7,7 +7,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
-
+from django_extensions.db.models import TimeStampedModel
 from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
     max_cache
 
@@ -31,7 +31,8 @@ class Plant(models.Model):
 class Journal(models.Model):
     """Abstract journal entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название журнала')
+    name = models.CharField(max_length=128, verbose_name='Журнал')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
@@ -57,7 +58,8 @@ class Journal(models.Model):
 class Table(models.Model):
     """Abstract table entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название таблицы')
+    name = models.CharField(max_length=128, verbose_name='Таблица')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название таблицы')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='tables')
     settings = GenericRelation('core.Setting', related_query_name='table', related_name='tables')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table',
@@ -85,7 +87,8 @@ class Table(models.Model):
 class Field(models.Model):
     """Abstract field entity."""
 
-    name = models.CharField(max_length=128, verbose_name='Название поля')
+    name = models.CharField(max_length=128, verbose_name='Столбец')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца', null=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='field', related_name='fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='field',
@@ -129,19 +132,20 @@ class Measurement(CellGroup):
 class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Номер смены')
     date = models.DateField(verbose_name='Дата начала смены')
+    closed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Смена'
         verbose_name_plural = 'Смены'
 
-    @cached_property
+    @property
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
         shift_time = time(hour=shift_hour)
         return make_aware(datetime.combine(self.date, shift_time))
 
-    @cached_property
+    @property
     def end_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_length = timedelta(hours=24 // number_of_shifts)
@@ -162,17 +166,37 @@ class Shift(CellGroup):
         return cached_number_of_shifts(obj)
 
     @staticmethod
-    # @cached(timeout=60*5)
     def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
         return Shift.objects.cache() \
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
+
+    @staticmethod
+    @logged
+    def get_shift(journal, pid=None) -> 'Shift':
+        shift = None
+
+        if pid:
+            shift = Shift.objects.get(id=pid)
+        else:
+            number_of_shifts = Shift.get_number_of_shifts(journal)
+            assert number_of_shifts > 0, "<= 0 number of shifts"
+
+            # create shifts for today and return current shift
+            for shift_order in range(1, number_of_shifts + 1):
+                shift = Shift.objects.get_or_create(journal=journal,
+                                                    order=shift_order,
+                                                    date=timezone.now().date())[0]
+                if shift.is_active:
+                    break
+
+        return shift
 
 
 class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class Cell(models.Model):
+class Cell(TimeStampedModel):
     """Specific cell in some table."""
 
     group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')

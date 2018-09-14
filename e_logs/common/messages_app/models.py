@@ -19,7 +19,8 @@ class Message(StrAsDictMixin, models.Model):
     type = models.CharField(max_length=1024, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
                                                  ('comment', 'Замечание'),
-                                                 ('set_mode', "Режим")),)
+                                                 ('set_mode', "Режим"),
+                                                 ('blank_journal', "Пустой журнал"),),)
     text = models.TextField(verbose_name='Текст сообщения')
 
     sendee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
@@ -31,14 +32,15 @@ class Message(StrAsDictMixin, models.Model):
 
     @staticmethod
     def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
-        '''
+        """
+        TODO: add builder class
         'message': {
                     'text': "some text",
                     'link': Optional[URI],
                     'type': "message type",
-                    'sendee': Employee,
+                    'sendee': Employee or None,
                 }
-        '''
+        """
 
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError
@@ -48,11 +50,15 @@ class Message(StrAsDictMixin, models.Model):
         if uids:
             recipients = []
             for uid in uids:
-                recipients.extend(Employee.objects.get(id=uid).exclude(name=message['sendee']).cache())
+                recipients.extend(Employee.objects.get(id=uid).
+                                  exclude(name=message['sendee']).cache())
         if positions:
             recipients = []
             for p in positions:
-                recipients.extend(Employee.objects.filter(plant=plant, position=p).exclude(name=message['sendee']).cache())
+                recipients.\
+                    extend(Employee.objects.
+                           filter(plant=plant if plant else None, position=p).
+                           exclude(name=message['sendee']).cache())
         if all_users:
             recipients = []
             recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
@@ -73,7 +79,7 @@ class Message(StrAsDictMixin, models.Model):
                     (f'user_{emp.id}', {"type": "message.send",
                                        "text": json.dumps({
                                            'cell': cell.field.name if cell else None,
-                                           'sendee': message['sendee'].name,
+                                           'sendee': message['sendee'].name if message['sendee'] else '',
                                            'text': text})})
 
     @staticmethod

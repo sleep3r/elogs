@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         df = DatabaseFiller()
-        df.reset_increment_counter('auth_group')
+        # df.reset_increment_counter('auth_group')
         frac_num = options["frac"]
         if options["clean"] or options["recreate"]:
             stdout_logger.info("Cleaning db")
@@ -61,9 +61,12 @@ class Command(BaseCommand):
             df.create_tables_lists()
             df.create_fields_descriptions()
             df.create_number_of_shifts()
+            df.create_journals_verbose_names()
 
             stdout_logger.info("Adding Employees...")
             df.fill_employees()
+            stdout_logger.info("Adding shifts...")
+            df.create_shifts()
 
             if frac_num:
                 stdout_logger.info("Filling fractional app...")

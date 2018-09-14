@@ -5,16 +5,24 @@ const Cleaner = require('webpack-cleanup-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const OfflinePlugin = require('offline-plugin');
+// const CompressionPlugin = require("compression-webpack-plugin");
+// const OfflinePlugin = require('offline-plugin');
 
+const OPTIONS = {
+    PROJECT_ROOT: __dirname,
+    NODE_ENV: process.env.NODE_ENV,
+    DEV_MODE: process.env.DEBUG !== 'True',
+};
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+let cacheObj = {};
+
 module.exports = {
     target: "web",
+    cache: cacheObj,
     mode: 'development',
     context: path.resolve(__dirname, 'assets'),
     entry: {
@@ -56,7 +64,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.js?$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -79,6 +87,7 @@ module.exports = {
                     // 'style-loader',
                     // 'vue-style-loader',
                     MiniCssExtractPlugin.loader,
+                    // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                 ],
             },
@@ -87,7 +96,8 @@ module.exports = {
                 use: [
                     // 'style-loader',
                     // 'vue-style-loader',
-                    MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,  //production shit
+                    // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
@@ -119,6 +129,10 @@ module.exports = {
                     outputPath: 'images/',
                     limit: 8192,
                 },
+            },
+            {
+                test: /\.pug$/,
+                loader: 'pug-plain-loader'
             }
         ]
     },
@@ -133,7 +147,7 @@ module.exports = {
             moment: 'moment',
             Vue: ['vue/dist/vue.esm.js', 'default'],
             $: 'jquery',
-            _: 'underscore',
+            _: 'lodash',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             tether: 'tether',
@@ -161,12 +175,20 @@ module.exports = {
             include: /\.min\.js$/, cache: true, parallel: true,
             extractComments: true, sourceMap: true
         }),
-        // new CompressionPlugin(),
         new webpack.DefinePlugin({PRODUCTION: JSON.stringify(false)}),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
         }),
+        new OptimizeCSSAssetsPlugin({
+            assetNameRegExp: /\.optimize\.css$/g,
+            cssProcessor: require('cssnano'),
+            cssProcessorPluginOptions: {
+                preset: ['default', {discardComments: {removeAll: true}}],
+            },
+            canPrint: true
+        })
+        // new CompressionPlugin(),
         // new webpack.SourceMapDevToolPlugin({
         //     test: '\\.((js)|(scc)|(scss))$',
         //     filename: '[name].js.map',

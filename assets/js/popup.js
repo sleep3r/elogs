@@ -36,6 +36,20 @@ class PopUp {
                   textarea.setAttribute("readonly", "yes");
               }
               textarea.value = commentText;
+              textarea.onchange = function() {
+                    if (Journal.getMode() === 'validate') {
+                        if (item.instance.reference !== null) {
+                            let textareaComment = popper.querySelector("textarea");
+                            item.instance.reference.setAttribute("comment", textareaComment.value);
+                            Cell.saveComment(item.instance.reference);
+                            let i = document.createElement("i");
+                            i.className = "far fa-envelope comment-notification";
+                            item.instance.reference.parentNode.insertBefore(i, item.instance.reference.nextSibling);
+
+                        }
+                    }
+                };
+
           },
 
         });
@@ -78,13 +92,27 @@ class PopUp {
                 },
               },
               onCreate: function(item) {
+                let mode = Journal.getMode();
                 let commentText = item.instance.reference.getAttribute("comment");
                 cell = item.instance.reference;
                 let popup = item.instance.popper;
                 let textarea = popup.querySelector(".content");
-
                 textarea.setAttribute("placeholder", "Введите замечание...");
                 textarea.value = commentText;
+                textarea.onchange = function() {
+                    if (Journal.getMode() === 'validate') {
+                        if (item.instance.reference !== null) {
+                            let textareaComment = popper.querySelector("textarea");
+                            item.instance.reference.setAttribute("comment", textareaComment.value);
+                            Cell.saveComment(item.instance.reference);
+                            let i = document.createElement("i");
+                            i.className = "far fa-envelope comment-notification";
+                            item.instance.reference.parentNode.
+                            insertBefore(i, item.instance.reference.nextSibling);
+                        }
+                    }
+                };
+
               },
 
             });
@@ -100,6 +128,10 @@ class PopUp {
                         let textareaComment = popper.querySelector("textarea");
                         cell.setAttribute("comment", textareaComment.value);
                         Cell.saveComment(cell);
+                        let i = document.createElement("i");
+                        i.className = "far fa-envelope comment-notification";
+                        item.instance.reference.parentNode.
+                        insertBefore(i, item.instance.reference.nextSibling);
                     } else {
                         console.log("cell is null");
                     }

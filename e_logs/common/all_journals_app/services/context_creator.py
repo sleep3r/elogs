@@ -13,7 +13,6 @@ from e_logs.core.utils.webutils import logged, default_if_error, get_or_none
 @logged
 def get_context(request, page) -> DeepDict:
     context = DeepDict()
-
     journal = page.journal
     add_type_specific_info(context, journal, page)
     add_permissions(context, page, request)
@@ -22,6 +21,8 @@ def get_context(request, page) -> DeepDict:
     context.journal_cells_data = get_cells_data(page)
     context.journal_fields_descriptions = get_fields_descriptions(journal)
     context.plant = journal.plant
+
+    context.menu_data = get_menu_data()
 
     return context
 
@@ -33,10 +34,32 @@ def add_type_specific_info(context, journal, page):
         context.shift_date = page.date
 
 
+def get_page(journal, request):
+    if journal.type == 'shift':
+        page_id = request.GET.get('id', None)
+        page = Shift.get_shift(journal, pid=page_id)
+    elif journal.type == 'equipment':
+        equipment = Equipment.objects.get_or_create(journal=journal)[0]
+        page = equipment
+    else:
+        raise NotImplementedError()
+    return page
+
+def get_menu_data():
+    return {
+            "furnace":{f'/furnace/{journal.name}':journal.verbose_name
+                       for journal in Journal.objects.filter(plant__name="furnace")},
+            "leaching":{f'/leaching/{journal.name}':journal.verbose_name
+                        for journal in Journal.objects.filter(plant__name="leaching")},
+            "electrolysis":{f'/electrolysis/{journal.name}':journal.verbose_name
+                            for journal in Journal.objects.filter(plant__name="electrolysis")}
+            }
+
 def add_page_info(context, journal, page):
     context.page_type = journal.type
     context.journal_name = journal.name
     context.journal_page = page.id
+    context.page_is_closed = page.closed
 
 
 def get_tables_paths(journal):
@@ -44,7 +67,7 @@ def get_tables_paths(journal):
 
 
 def add_permissions(context, page, request):
-    err_logger.info('page_mode=' + str(context.page_mode))
+    # err_logger.info('page_mode=' + str(context.page_mode))
     context.page_mode = get_page_mode(request, page)
     context.employee_list = page.employee_set.all()
     context.has_edited = has_edited(request, page)
@@ -67,7 +90,6 @@ def get_cells_data(page: CellGroup) -> dict:
 
     def table_desc(table):
         cells = table.cells(page)
-        err_logger.debug(f'cells: {cells}')
         desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
         return desc
 
@@ -78,20 +100,18 @@ def get_cells_data(page: CellGroup) -> dict:
 
 @logged
 def get_fields_descriptions(journal: Journal) -> dict:
-    def get_field_desc(field):
-        mode = Mode.get_active_or_none(field=field)
+    def get_field_desc(journal, field):
+        constraint = Mode.get_active_constraint(field=field, journal=journal)
         desc = Setting.of(obj=field)['field_description']
 
-        if mode is not None:
-            constraint = get_or_none(FieldConstraints, mode=mode, field=field)
-            if constraint:
-                desc['min_normal'] = constraint.min_normal
-                desc['max_normal'] = constraint.max_normal
+        if constraint:
+            desc['min_normal'] = constraint.min_normal
+            desc['max_normal'] = constraint.max_normal
 
         return desc
 
-    def field_descs(table):
-        return {field.name: get_field_desc(field)
+    def field_descs(journal, table):
+        return {field.name: get_field_desc(journal, field)
                 for field in table.get_fields()}
 
-    return {table.name: field_descs(table) for table in journal.tables.all()}
+    return {table.name: field_descs(journal, table) for table in journal.tables.all()}

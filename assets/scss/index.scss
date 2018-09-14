@@ -14,15 +14,17 @@
 * Fractional................Fractional screen
 * Slide.....................Comments slide down
 * Popup.....................Popup for each cell comment
+* Scheme....................Scheme of workshops
 *
 */
 
 
 
 // ------------------------------------- Libs -------------------------------------
+@import "~fullcalendar/dist/fullcalendar.css";
+//@import "~fullcalendar/dist/fullcalendar.print.css";
 @import "~bootstrap-scss";
 
-@import "~fullcalendar/dist/fullcalendar.css";
 @import "~jquery-confirm/css/jquery-confirm.css";
 @import "~pnotify/dist/PNotifyBrightTheme.css";
 
@@ -31,6 +33,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~clockpicker/dist/bootstrap-clockpicker.min.css';
 
 
 
@@ -49,3 +52,4 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "fractional";
 @import "feedback";
 @import "popup";
+@import "scheme";

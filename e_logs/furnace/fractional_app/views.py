@@ -1,25 +1,14 @@
 import json
 from datetime import timedelta
 
-from cacheops import cached_as, cached_view_as
+from cacheops import cached_view_as
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.utils import timezone
-from django.views.generic import TemplateView
 
 from e_logs.common.all_journals_app.models import Cell, Plant, Measurement
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.webutils import process_json_view
-
-
-class Index(LoginRequiredMixin, TemplateView):
-    template_name = 'furnace-index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['journal_title'] = 'Ситовой анализ огарка и шихты'
-        return context
 
 
 @login_required
@@ -108,8 +97,8 @@ def granularity_graphs(request):
 
     for measurement in Measurement.objects.all():
         def process(x):
-            return seq(x).where(lambda y: y.group == measurement).map(
-                lambda z: float(z.value)).to_list()
+            # Shitty code, should not be used in future
+            raise NotImplementedError
 
         masses = process(cinder_masses)
         min_sizes = process(cinder_sizes)

@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: "quay.io/inframine/e-logs:db"
+    hostname: "db"
+    ports:
+     - "1433:1433"
+  redis:
+    image: "redis"
+    hostname: "redis"
+    ports:
+     - "6379:6379"
+  web:
+    build: .
+    ports:
+        - "4242:80"
+    command: bash -c "./docker/entrypoint.sh"
+    depends_on:
+     - redis
+     - db
+  celery:
+   build: .
+   command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
+   environment:
+    - C_FORCE_ROOT=true
+   depends_on:
+    - db
+    - redis
+  celery-beat:
+   build: .
+   command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info
+   depends_on:
+    - db
+    - redis

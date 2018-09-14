@@ -6,6 +6,7 @@ from typing import List, Optional
 from django.contrib.auth.models import User, Group, Permission
 from django.db import connection
 from django.db.models import Model
+from slugify import slugify
 
 from e_logs.common.all_journals_app.models import *
 from e_logs.common.login_app.models import Employee
@@ -15,7 +16,7 @@ from e_logs.core.management.commands.tables_filler import fill_tables
 from e_logs.core.management.commands.tables_lists_filler import fill_tables_lists
 from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger, err_logger
-from e_logs.core.utils.webutils import translate, logged
+from e_logs.core.utils.webutils import logged
 from e_logs.furnace.fractional_app import models as famodels
 
 
@@ -70,7 +71,7 @@ class DatabaseFiller:
                 plant = info[-1]
                 position = info[3]
                 user_ru = user_fio.split()
-                user_en = translate(user_fio).split("-")
+                user_en = slugify(user_fio).split("-")
                 groups = DatabaseFiller._get_groups(position, plant)
                 user = {
                     'ru': {
@@ -99,7 +100,7 @@ class DatabaseFiller:
             for perm in group.permissions.all():
                 user.user_permissions.add(perm)
         user.save()
-        Employee(name="shaukenov-shalkar", position="Big boss", user=user).save()
+        Employee(name="Шалкар Шаукенов", position="Big boss", user=user).save()
 
 
     @staticmethod
@@ -152,6 +153,21 @@ class DatabaseFiller:
             user.save()
             return user
 
+    @staticmethod
+    def create_shifts():
+
+        def date_range(start_date, end_date):
+            for n in range(int((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+
+        now_date = timezone.now().date()
+        for journal in Journal.objects.all():
+            if journal.type == 'shift':
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                for shift_date in date_range(now_date, now_date + timedelta(days=7)):
+                    for shift_order in range(1, number_of_shifts + 1):
+                        Shift.objects.get_or_create(journal=journal, order=shift_order,
+                                                    date=shift_date)
     @staticmethod
     def fill_journals():
         """Call after fill_plants"""
@@ -266,10 +282,9 @@ class DatabaseFiller:
         }
         for plant_name in journals_verbose_names:
             for journal_name, verbose_name in journals_verbose_names[plant_name].items():
-                Setting.objects.create(name='verbose_name', value=verbose_name,
-                                       scope=Journal.objects.get(
-                                           plant=Plant.objects.get(name=plant_name),
-                                           name=journal_name))
+                journal = Journal.objects.get(plant__name=plant_name, name=journal_name)
+                journal.verbose_name = verbose_name
+                journal.save()
 
     @staticmethod
     def create_fields_descriptions():

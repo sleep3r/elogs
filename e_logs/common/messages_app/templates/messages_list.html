@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block title %}
-    <title>Все сообщения</title>
+    Все сообщения
 {% endblock %}
 
 
@@ -14,8 +14,12 @@
 {% block content %}
     <div class="messages">
         <ul class="messages__list">
+            {% if not messages %}
+                <h1 style="text-align: center">Нет сообщений</h1>
+            {% endif %}
             {% for message in messages %}
                 <li class="message">
+                {% if message.sendee != None %}
                     <img class="message__image" src = "{% static 'images/no-avatar.png' %}" >
                     <span class="message__author-name">{{ user_name }}</span>
                     <strong class="message__title">
@@ -23,6 +27,7 @@
                         <span class="message__info"></span>
                         <a href="{{message.link}}">{{message.cell.field.name}}</a>
                     </strong>
+                {% endif %}
                     <p class="message__text {{ message.type }}">{{message.text}}</p>
                     <span class="message__created">{{message.created}}</span>
                 </li>
@@ -34,7 +39,7 @@
         {% if page_obj.has_next %}
             <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
         {% endif %}
-    <div>
+    </div>
 {% endblock %}
 
 {% block footer %}

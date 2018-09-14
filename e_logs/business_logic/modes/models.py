@@ -7,6 +7,7 @@ from django.utils import timezone
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
+from e_logs.common.all_journals_app.models import Journal
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import filter_or_none, get_or_none
 
@@ -16,17 +17,17 @@ class Mode(models.Model):
     message = models.CharField(max_length=512, default='')
     beginning = models.DateTimeField(default=timezone.now)
     end = models.DateTimeField()
+    journal = models.ForeignKey("all_journals_app.Journal", on_delete=models.CASCADE, null=True)
 
     @staticmethod
-    def get_active_or_none(field):
-        constraint = FieldConstraints.objects.filter(field=field).last()
+    def get_active_constraint(field, journal):
+        mode = get_or_none(Mode, journal=journal)
 
-        if constraint:
-            if constraint.mode.is_active == True and constraint.mode.end > timezone.now():
-                return constraint.mode
-            elif constraint.mode.is_active == True and constraint.mode.end < timezone.now():
-                constraint.mode.is_active = False
-                constraint.mode.save()
+        if mode and mode.is_active == True:
+            constraint = FieldConstraints.objects.filter(field=field, mode=mode).last()
+
+            if constraint:
+                return constraint
 
         return None
 

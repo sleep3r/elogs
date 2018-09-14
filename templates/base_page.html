@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-{% load staticfiles %}{% load render_bundle from webpack_loader %}{% load cacheops %}{% load cache %}
+<!-- {% load render_bundle from webpack_loader %}{% load cacheops %}
+{% load cache %}{% load staticfiles %} -->
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="The worlds best electronic journaling system">
+    <meta name="keywords" content="journals, e-logs">
 
-{#    <link rel="icon" href="{% static '/images/favicon.ico' %}" type="image/ico"/>#}
-    {% block title %}
-        <title>E-logs</title>
-    {% endblock %}
+{#    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>#}
+    <title>{% block title %} E-logs {% endblock %}</title>
 
     {% block css %}
         {% render_bundle 'index' 'css' %}
     {% endblock %}
 
-    {% block extracss %}
-    {% endblock %}
-
+    {% block extracss %}{% endblock %}
 </head>
+
 <body>
 <div class="elogs-container">
-
     {% block top-nav %}
         {% include "top_nav.html" %}
     {% endblock %}
+
     <div class="main-container">
         <div class="column-left">
             {% include "menu.html" %}
@@ -43,49 +43,48 @@
             {% include "footer.html" %}
         </div>
     </div>
-
 </div>
 
 {% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 {% block footer %}
 {% render_bundle 'index' 'js' %}
-<script type="text/javascript" src="{% static 'webpack_bundles/tables.js' %}"></script>
+{% render_bundle 'tables' 'js' %}
+{#<script type="text/javascript" src="{% static 'webpack_bundles/tables.js' %}"></script>#}
 <script src="{% static 'vendors/reconnecting-websocket/reconnecting-websocket.js' %}"></script>
 
-<script>
-    var endpoint = 'ws://' + window.location.host + '/messages/';
-    messages_socket = new ReconnectingWebSocket(endpoint);
+    <script>
+        var endpoint = 'ws://' + window.location.host + '/messages/';
+        messages_socket = new ReconnectingWebSocket(endpoint);
 
-    messages_socket.onmessage = function (event) {
-        console.log("message", event);
-        {#alert(event.data);#}
+        messages_socket.onmessage = function (event) {
+            console.log("message", event);
+            {#alert(event.data);#}
 
-        Notification.requestPermission(function (permission) {
-          if (permission === "granted") {
-            data = JSON.parse(event.data);
-            var options = {
-                  body: "Asmet Omarov comes",
-                  icon: 'https://cdn2.iconfinder.com/data/icons/buttons-9/512/Button_Reminder-01.png',
-              };
-            var title = 'E-LOGS: У вас новое сообщение';
-            var notification = new Notification(title, options);
-            }
-        });
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    data = JSON.parse(event.data);
+                    var options = {
+                        body: "Asmet Omarov comes",
+                        icon: 'https://cdn2.iconfinder.com/data/icons/buttons-9/512/Button_Reminder-01.png',
+                    };
+                    var title = 'E-LOGS: У вас новое сообщение';
+                    var notification = new Notification(title, options);
+                }
+            });
 
-    };
-    messages_socket.onopen = function (event) {
-        console.log("connected", event);
-    };
-    messages_socket.onerror = function (event) {
-        console.log("error", event);
-    };
-    messages_socket.onclose = function (event) {
-        console.log("closed", event);
-    };
-</script>
+        };
+        messages_socket.onopen = function (event) {
+            console.log("connected", event);
+        };
+        messages_socket.onerror = function (event) {
+            console.log("error", event);
+        };
+        messages_socket.onclose = function (event) {
+            console.log("closed", event);
+        };
+    </script>
 {% endblock %}
-
 
 </body>
 </html>

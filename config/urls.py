@@ -20,30 +20,31 @@ from django.contrib.auth.decorators import user_passes_test
 
 from rest_framework_swagger.views import get_swagger_view
 
-
-from config.settings import settings
-from e_logs.furnace.fractional_app import views
+from django.conf import settings
+from e_logs.common.all_journals_app import views
 from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView, MetalsJournalView, \
-                                                    get_shifts, index, get_table_template
+    get_shifts, Index, get_table_template
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
 
 
 urlpatterns = [
-    path('', index),
+    path('', Index.as_view()),
     path('admin/', admin.site.urls),
     path('auth', include('e_logs.common.login_app.urls')),
     path('common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
+    path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
 
     url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
-
     path('bl/', include('e_logs.business_logic.modes.urls')),
+    path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
+
     path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>', get_table_template),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
     path('furnace/metals_compute/', MetalsJournalView.as_view()),
@@ -54,8 +55,11 @@ urlpatterns = [
 
     ]
 
+
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      re_path(r'^__debug__/', include(debug_toolbar.urls)),
+                      re_path(r'^hijack/', include('hijack.urls', namespace='hijack')),
+                  ] + urlpatterns
