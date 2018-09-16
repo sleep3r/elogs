@@ -54,5 +54,5 @@ class MessagesList(LoginRequiredMixin, ListView):
 
     @logged
     def get_context_data(self, **kwargs):
-        context = get_context(self.request, plant=None, journal=None)
+        context = get_context(self.request, page=None)
         return context
