@@ -54,7 +54,7 @@ class FieldSerializer(serializers.ModelSerializer):
 
     def get_cell(self, obj):
         qs = Cell.objects.filter(group_id=self.context.get('shift_id'), field=obj)
-        return {int(CellSerializer(c).data.get('index')): CellSerializer(c).data for c in qs}
+        return {str(CellSerializer(c).data.get('index')): CellSerializer(c).data for c in qs}
 
     class Meta:
         model = Field
