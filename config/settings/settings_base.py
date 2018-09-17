@@ -163,6 +163,13 @@ APPEND_SLASH = True
 
 MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
 
+if DEBUG:
+    import logging
+
+    l = logging.getLogger('django.db.backends')
+    l.setLevel(logging.DEBUG)
+    l.addHandler(logging.StreamHandler())
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -290,12 +297,11 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug', 'console'],
-            'level': 'INFO',
-        },
-        'werkzeug': {
-            'handlers': ['console'],
             'level': 'DEBUG',
-            'propagate': True,
+        },
+        'django.db.backends.mssql': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
