@@ -14,5 +14,5 @@ class SettingsView(LoginRequiredMixin, TemplateView):
         pass
 
     def get_context_data(self, *args, **kwargs):
-        context = get_context(self.request, page=None)
-        return  context
+        context = get_context(self.request, plant=None, journal=None)
+        return context

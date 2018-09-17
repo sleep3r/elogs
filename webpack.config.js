@@ -7,6 +7,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlMinifierPlugin = require('html-minifier-webpack-plugin');
 // const CompressionPlugin = require("compression-webpack-plugin");
 // const OfflinePlugin = require('offline-plugin');
 
@@ -80,6 +81,10 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
+            },
+            {
+                test: /\.html$/,
+                loaders: ['file-loader?name=[name].html', 'extract-loader', 'html-loader']
             },
             {
                 test: /\.css$/,
@@ -187,6 +192,9 @@ module.exports = {
                 preset: ['default', {discardComments: {removeAll: true}}],
             },
             canPrint: true
+        }),
+        new HtmlMinifierPlugin({
+            // HTMLMinifier options
         })
         // new CompressionPlugin(),
         // new webpack.SourceMapDevToolPlugin({

@@ -8,7 +8,7 @@ urlpatterns = [
     path('tables/<str:name>', TableAPI.as_view()),
     path('fields/<int:id>', FieldAPI.as_view()),
     path('cells/<int:id>', CellAPI.as_view()),
-    path('shifts/<int:id>', ShiftAPI.as_view()),
+    path('shifts/<int:id>', shift_api_view),
 
     path('plants/', PlantsList.as_view()),
     path('journals/', JournalsList.as_view()),

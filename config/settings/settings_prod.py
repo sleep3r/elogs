@@ -16,7 +16,8 @@ TEMPLATES[0]['APP_DIRS'] = False
 
 INSTALLED_APPS += ['gunicorn', 'whitenoise.runserver_nostatic']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # whitenoise
-
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
