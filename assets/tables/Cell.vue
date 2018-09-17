@@ -46,13 +46,8 @@ export default {
       return this.critical ? 'red' : '';
     },
     critical: function () {
-      if ((this.minValue && (this.value < this.minValue)) ||
-          (this.maxValue && (this.value > this.maxValue))) {
-        return true;
-      }
-      else {
-        return false;
-      }
+      return (this.minValue && (this.value < this.minValue)) ||
+          (this.maxValue && (this.value > this.maxValue));
     }
   },
   methods: {
