@@ -5,6 +5,7 @@
 import 'jquery'; window.$ = $; window.jQuery = jQuery;
 import 'lodash'; window._ = _;
 import 'vue'; import Vue from 'vue'; window.Vue = Vue;
+import 'vue-websocket';import VueWebsocket from "vue-websocket";window.VueWebsocket = VueWebsocket;
 import 'bootstrap';
 import 'jquery-confirm';
 import 'reconnecting-websocket';
@@ -38,6 +39,7 @@ import './form-table';
 import './form-update';
 import './header';
 import './menu';
+import './ws'
 import './clockpicker';
 import './vue-env';
 
