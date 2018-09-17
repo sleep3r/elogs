@@ -1,13 +1,6 @@
-import ReconnectingWebSocket from 'reconnecting-websocket';
+import ReconnectingWebSocket from '../vendors/reconnecting-websocket/reconnecting-websocket.min';
 window.ReconnectingWebSocket = ReconnectingWebSocket;
-import WS from 'ws';
 
-const options = {
-    WebSocket: WebSocket, // custom WebSocket constructor
-    connectionTimeout: 1000,
-    maxRetries: 1000,
-    debug: true
-};
 
 function show_notification() {
     Notification.requestPermission(function (permission) {
@@ -26,7 +19,7 @@ function show_notification() {
 $(document).ready(() => {
     // <---------------------------------------MESSAGES------------------------------------------->
     const messages_endpoint = 'ws://' + window.location.host + '/messages/';
-    const messages_socket = new ReconnectingWebSocket(messages_endpoint, [], options);
+    const messages_socket = new ReconnectingWebSocket(messages_endpoint);
     messages_socket.onmessage = function (event) {console.log("message", event);show_notification();};
     messages_socket.onopen = function (event) {console.log("Messages connected", event);};
     messages_socket.onerror = function (event) {console.log("Messages error", event);};
@@ -34,7 +27,7 @@ $(document).ready(() => {
 
     // <-----------------------------------------DATA--------------------------------------------->
     const data_endpoint = 'ws://' + window.location.host + '/data/';
-    const data_socket = new ReconnectingWebSocket(data_endpoint, [], options);
+    const data_socket = new ReconnectingWebSocket(data_endpoint);
     data_socket.onmessage = function (event) {console.log("message", event);};
     data_socket.onopen = function (event) {console.log("Data connected", event);};
     data_socket.onerror = function (event) {console.log("Data error", event);};
