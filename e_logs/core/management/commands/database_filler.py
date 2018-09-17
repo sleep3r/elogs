@@ -154,6 +154,21 @@ class DatabaseFiller:
             return user
 
     @staticmethod
+    def create_shifts():
+
+        def date_range(start_date, end_date):
+            for n in range(int((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+
+        now_date = timezone.now().date()
+        for journal in Journal.objects.all():
+            if journal.type == 'shift':
+                number_of_shifts = Shift.get_number_of_shifts(journal)
+                for shift_date in date_range(now_date, now_date + timedelta(days=7)):
+                    for shift_order in range(1, number_of_shifts + 1):
+                        Shift.objects.get_or_create(journal=journal, order=shift_order,
+                                                    date=shift_date)
+    @staticmethod
     def fill_journals():
         """Call after fill_plants"""
 
@@ -267,10 +282,9 @@ class DatabaseFiller:
         }
         for plant_name in journals_verbose_names:
             for journal_name, verbose_name in journals_verbose_names[plant_name].items():
-                Setting.objects.create(name='verbose_name', value=verbose_name,
-                                       scope=Journal.objects.get(
-                                           plant=Plant.objects.get(name=plant_name),
-                                           name=journal_name))
+                journal = Journal.objects.get(plant__name=plant_name, name=journal_name)
+                journal.verbose_name = verbose_name
+                journal.save()
 
     @staticmethod
     def create_fields_descriptions():

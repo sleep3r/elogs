@@ -1,17 +1,21 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 import environ
-
-env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-FIXTURE_DIRS = (BASE_DIR/'fixtures',)
-STATIC_ROOT = BASE_DIR/'staticfiles'
-STATICFILES_DIRS = [BASE_DIR/'static']
-LOCALE_PATHS = [BASE_DIR/'resources/locale']
+env = environ.Env(DEBUG=(bool, False))
+
+FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
+STATIC_ROOT = str(BASE_DIR / 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static']
+LOCALE_PATHS = [BASE_DIR / 'resources/locale']
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
@@ -30,6 +34,11 @@ FEEDBACK_TG_BOT = {
     "channel": env("TG_CHANNEL"),
     "channel_name": env("TG_CHANNEL_NAME"),
     "url": env("TG_PROXY_URL"),
+}
+
+DATABASE_URL = env('DATABASE_URL')
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 TEMPLATES = [
@@ -54,16 +63,6 @@ TEMPLATES = [
 
 # APPS
 # ------------------------------------------------------------------------------
-DJANGO_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    # 'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',  # Handy template tags
-    'django.contrib.admin',
-]
 THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
@@ -73,8 +72,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'cacheops',
     'django_pickling',
-    'template_profiler_panel',
-    'compressor',
+    'service_objects',
     'django_celery_beat',
     'django_celery_results',
 ]
@@ -86,18 +84,27 @@ LOCAL_APPS = [
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
     'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
+    'e_logs.common.settings_app.apps.SettingsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
+    'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',
+]
+DJANGO_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    # 'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.humanize',  # Handy template tags
+    'django.contrib.admin',
+    'django.contrib.staticfiles',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # https://docs.djangoproject.com/en/2.0/ref/middleware/#django.middleware.gzip.GZipMiddleware
-    # GZipMiddleware can be a vulnerability!
-    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -305,8 +312,12 @@ LOGGING = {
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_rapidjson.parsers.RapidJSONParser',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
@@ -371,7 +382,6 @@ CACHEOPS_REDIS = {
     # 'socket_timeout': 3,
 }
 
-
 CACHEOPS_DEFAULTS = {
     'timeout': 60 * 60,
     # 'local_get': True,
@@ -406,14 +416,6 @@ CACHEOPS = {
     # 'core.models.Setting': {'timeout': 60*60},
     # 'core.models.Setting': {'timeout': 60*60},
 }
-
-# TODO: read https://redis.io/topics/sentinel
-# CACHEOPS_SENTINEL = {
-#     'locations': [('localhost', 26379)], # sentinel locations, required
-#     'service_name': 'mymaster',          # sentinel service name, required
-#     'socket_timeout': 0.1,               # connection timeout in seconds, optional
-#     'db': 0                              # redis database, default: 0
-# }
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'

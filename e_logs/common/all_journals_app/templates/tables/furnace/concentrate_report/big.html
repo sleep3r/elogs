@@ -1,15 +1,9 @@
-{% extends "table.html" %}
-{% load express_tags %}
-
-{% block title %}Учет поставок{% endblock %}
-
-{% block table %}
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
-            <th scope="col" class="th-number"> Номер вагона </th>
-            <th scope="col"> Наиме&shy;нование концен&shy;трата </th>
-            <th scope="col"> Время подачи </th>
+            <th scope="col" > Номер вагона </th>
+            <th scope="col" > Наиме&shy;нование концен&shy;трата </th>
+            <th scope="col" > Время подачи </th>
 
             <th scope="col"> Время плано&shy;вой уборки </th>
             <th scope="col"> Время факти&shy;ческой уборки </th>
@@ -22,23 +16,17 @@
         </tr>
     </thead>
     <tbody>
-        {% for_or_create _ in table_cells_data|longest_field %}
-            <tr class="indexed-line">
-                <input class="index-input" hidden name="index" value="{{ forloop.counter0 }}">
-                <td>{% include "value.html" with field_name="wagon_num" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="conc_num" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="supply_time" index=forloop.counter0 %}</td>
-
-                <td>{% include "value.html" with field_name="plan_cleaning_time" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="fact_cleaning_time" index=forloop.counter0 %}</td>
-
-                <td>{% include "value.html" with field_name="downtime" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="recieved_conc" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="recieved_beds" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="recieved_stops" index=forloop.counter0 %}</td>
-                <td>{% include "value.html" with field_name="recieved_braces" index=forloop.counter0 %}</td>
-            </tr>
-        {% endfor_or_create %}
+          <tr v-for="(index, v) in [1, 2, 3, 4]">
+              <td><cell :table-name="tableName" field-name="wagon_num" :row-index="index"></cell></td>
+              <td><cell :table-name="tableName" field-name="conc_num" :row-index="index"></cell></td>
+              <td><cell :table-name="tableName" field-name="supply_time" :row-index="index"></cell></td>
+              <td><cell :table-name="tableName" field-name="plan_cleaning_time" :row-index="index"></cell></td>
+              <td><cell :table-name="tableName" field-name="fact_cleaning_time" :row-index="index"></cell></td>
+              <td><cell  :table-name="tableName" field-name="downtime" :row-index="index"></cell></td>
+              <td><cell  :table-name="tableName" field-name="recieved_conc" :row-index="index"></cell></td>
+              <td><cell  :table-name="tableName" field-name="recieved_beds" :row-index="index"></cell></td>
+              <td><cell  :table-name="tableName" field-name="recieved_stops" :row-index="index"></cell></td>
+              <td><cell :table-name="tableName" field-name="recieved_braces" :row-index="index"></cell></td>
+          </tr>
     </tbody>
 </table>
-{% endblock %}

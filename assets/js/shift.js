@@ -19,7 +19,8 @@ let app = new Vue({
             journal_name = 'fractional';
         }
 
-        this.$http.get('/' + plant + '/' + journal_name +'/get_shifts')
+
+        this.$http.get('/' + plant + '/' + journal_name +'/get_shifts/')
             .then(response => {
                 this.answer = response.data;
                 init_calendar(response.data);

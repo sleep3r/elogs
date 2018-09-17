@@ -13,6 +13,14 @@ textarea {
   # Framework
 \*------------------------------------*/
 
+// really cool mixin allows you to do {
+//  @include vendor-prefix('box-sizing', 'border-box');
+//}
+@mixin vendor-prefix($name, $value) {
+  @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+    #{$vendor}#{$name}: #{$value};
+  }
+}
 
 .hidden {
     visibility: collapse;
@@ -30,10 +38,7 @@ textarea {
 // ---- sliding elements ----
 .slide-up, .slide-down {
     overflow-y: hidden;
-    -webkit-transition: max-height 0.3s ease-in-out;
-    -moz-transition: max-height 0.3s ease-in-out;
-    -o-transition: max-height 0.3s ease-in-out;
-    transition: max-height 0.3s ease-in-out;
+    @include vendor-prefix('transition', 'max-height 0.3s ease-in-out');
 }
 
 .slide-up {

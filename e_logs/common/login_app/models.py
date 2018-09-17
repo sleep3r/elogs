@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 
-from config.settings.settings_base import CSRF_LENGTH
+from django.conf import settings
 from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import StrAsDictMixin
 
@@ -22,7 +22,7 @@ class Employee(StrAsDictMixin, models.Model):
                                                  ('leaching', 'Выщелачивание'),
                                                  ('electrolysis', 'Электролиз'),
                                                  ))
-    csrf = models.CharField(max_length=CSRF_LENGTH, default=' ')
+    csrf = models.CharField(max_length=settings.CSRF_LENGTH, default=' ')
     owned_shifts = models.ManyToManyField(Shift, blank=True)
 
     @property

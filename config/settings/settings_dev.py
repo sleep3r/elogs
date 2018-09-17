@@ -5,36 +5,24 @@ from .settings_base import *
 DEBUG = True
 INTERNAL_IPS = ['127.0.0.1', '10.0.2.2']
 
-INSTALLED_APPS += ['debug_toolbar',
-                   'migraph',
-                   'nplusone.ext.django', ]
+INSTALLED_APPS += [
+    'migraph',
+    'nplusone.ext.django',
+    'hijack',
+    'compat',
+    'debug_toolbar',
+    'template_profiler_panel',
+]
 
 MIDDLEWARE = [
                  'djdev_panel.middleware.DebugMiddleware',
                  'nplusone.ext.django.NPlusOneMiddleware',
-                 'querycount.middleware.QueryCountMiddleware'
+                 'querycount.middleware.QueryCountMiddleware',
              ] + MIDDLEWARE + \
              [
                  'debug_toolbar.middleware.DebugToolbarMiddleware',
-                 'querycount.middleware.QueryCountMiddleware'
+                 'querycount.middleware.QueryCountMiddleware',
              ]
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'elogs',
-        'HOST': '127.0.0.1',
-        'PORT': '1433',
-        'USER': 'sa',
-        'PASSWORD': 'Singapore2017',
-        'ATOMIC_REQUESTS': True,
-        'CONN_MAX_AGE': 120,
-
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    },
-}
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.timer.TimerPanel',
@@ -62,6 +50,7 @@ CELERY_TASK_EAGER_PROPAGATES = True
 
 if env('USE_DOCKER') == 'yes':
     import socket
+
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS += [ip[:-1] + '1' for ip in ips]
 

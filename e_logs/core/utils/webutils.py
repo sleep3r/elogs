@@ -1,5 +1,6 @@
 import datetime
 import logging
+import rapidjson
 import secrets
 import string
 import time
@@ -18,7 +19,9 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from config.settings.settings_base import CSRF_LENGTH, MAX_CACHE_TIME
+from django.conf import settings
+from rest_framework_rapidjson.renderers import RapidJSONRenderer
+
 from e_logs.core.utils.errors import SemanticError, AccessError
 from e_logs.core.utils.loggers import err_logger
 
@@ -46,7 +49,9 @@ def has_private_journals(func):
                 .exists() or request.user.employee.name == "makagonov-s-n"):
             return HttpResponse("<h2>403</h2> <h3>нет доступа</h3>")
         return func(self, request, plant_name, journal_name)
+
     return wrapper
+
 
 class StrJSONEncoder(JSONEncoder):
     def default(self, o):
@@ -150,13 +155,12 @@ def process_json_view(auth_required=True):
 
         return wrapper
 
-
-
     return real_decorator
 
 
 def generate_csrf() -> str:
-    return ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(CSRF_LENGTH))
+    return ''.join(
+        secrets.choice(string.ascii_letters + string.digits) for _ in range(settings.CSRF_LENGTH))
 
 
 def parse(s: str) -> timezone.datetime:
@@ -164,7 +168,7 @@ def parse(s: str) -> timezone.datetime:
 
 
 def max_cache(func):
-    return cached(timeout=MAX_CACHE_TIME)(func)
+    return cached(timeout=settings.MAX_CACHE_TIME)(func)
 
 
 def model_to_dict(model: Model) -> dict:
@@ -208,11 +212,13 @@ def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     except model.DoesNotExist:
         return None
 
+
 def get_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     try:
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         return None
+
 
 def model_to_representation(model: Model):
     def is_printable(field):

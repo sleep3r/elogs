@@ -1,8 +1,3 @@
-{% extends "table.html" %}
-
-{% block title %}Разгружено/остаток{% endblock %}
-
-{% block table %}
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
@@ -58,4 +53,3 @@
         <td>{% include "value.html" with field_name="residue_stops_total" index=0 %}</td>
     </tr>
 </table>
-{% endblock %}

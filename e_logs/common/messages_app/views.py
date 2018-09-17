@@ -10,6 +10,8 @@ from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged, process_json_view
+from e_logs.common.all_journals_app.services.context_creator import get_context
+
 
 
 class MessageView(LoginRequiredMixin, View):
@@ -52,5 +54,5 @@ class MessagesList(LoginRequiredMixin, ListView):
 
     @logged
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = get_context(self.request, page=None)
         return context

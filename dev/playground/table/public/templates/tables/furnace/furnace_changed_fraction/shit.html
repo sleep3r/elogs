@@ -1,0 +1,33 @@
+
+<div class="journal-table" v-bind:id="'table_id_' + item.name">
+  <h2>{{ plantName }}</h2>
+    <div class="table__title">{{ item.name }}</div>
+    <h2>{{ item.name }}</h2>
+    <form action="" method="post" autocomplete="off"
+          oninput="FormTable.on_form_change(this)"
+          class="elog-table-form">
+
+        <input hidden name="table_name" value="">
+        <input hidden name="journal_page" value="">
+
+        <div class="elog-table-container">
+        </div>
+    </form>
+    <table class="table table-bordered elog-journal-table table-responsive">
+      <thead>
+        <th>Первый</th>
+        <th>Второй</th>
+        <th>Third</th>
+      </thead>
+      <tr>
+        <td><Cell table-name="shit"  field-name="alfa" index="1" /></td>
+        <td><Cell table-name="shit"  field-name="betta" index="1" /></td>
+        <td><Cell table-name="shit"  field-name="gamma" index="1" /></td>
+      </tr>
+      <tr>
+        <td><Cell table-name="shit"  field-name="alfa" index="2" /></td>
+        <td><Cell table-name="shit"  field-name="betta" index="2" /></td>
+        <td><Cell table-name="shit"  field-name="gamma" index="2" /></td>
+      </tr>
+    </table>
+</div>

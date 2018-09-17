@@ -1,15 +1,7 @@
 {% load express_tags %}
+{% load staticfiles %}
 {% load i18n %}
 
-<script language="JavaScript">
-    let user = {
-        email: "{{ user.email }}",
-        username: "{{ user.username }}",
-    }
-    window.backend = {
-        user: user,
-    };
-</script>
 <input hidden name="validate"
        value={% if page_mode == 'validate' %} True {% endif %}>
 <input hidden name="view"
@@ -19,9 +11,14 @@
 <input hidden name="has_edited"
     value={% if has_edited %} True {% endif %}>
 
-{#{%  include "all_journals_app/journal_control_panel.html" %}#}
-
-{% for table_path in tables_paths %}
-    {% get_table_name table_path as tn %}
-    {% include table_path with table_name=tn%}
-{% endfor %}
+<div>
+    {% for table_path in tables_paths %}
+        {% get_table_name table_path as table_name %}
+        <template v-if="$store.getters.loaded">
+          <TableCommon name="{{ table_name }}" ></TableCommon>
+        </template>
+        <template v-else >
+            <span>Нет данных</span>
+        </template>
+    {% endfor %}
+</div>
