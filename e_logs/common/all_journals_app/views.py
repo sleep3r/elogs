@@ -213,7 +213,7 @@ def save_cell(request):
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
-               from_date=timezone.now().date() - timedelta(days=30),  # TODO: make aware
+               from_date=timezone.now().date() - timedelta(days=30),
                to_date=timezone.now().date()):
     """Creates shifts for speficied period of time"""
 
@@ -238,11 +238,13 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
     if journal.type == 'shift':
         number_of_shifts = Shift.get_number_of_shifts(journal)
+
         for shift_date in date_range(from_date, to_date + timedelta(days=1)):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.get_or_create(journal, shift_order, shift_date)
                 is_owned = shift in owned_shifts
                 result.append(shift_event(request, shift, is_owned))
+
         return result
     else:
         raise TypeError('Attempt to get shifts for non-shift journal')
