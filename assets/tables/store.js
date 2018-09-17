@@ -113,7 +113,7 @@ export const store = new Vuex.Store({
           }
           else {
             // create cell
-            cells[payload.index] = {}
+            cells[payload.index] = {};
             cells[payload.index]['value'] = payload.value;
           }
         }

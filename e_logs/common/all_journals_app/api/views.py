@@ -1,3 +1,4 @@
+from cacheops import cached_as
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, mixins, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -19,7 +20,13 @@ class ShiftAPI(generics.RetrieveAPIView):
     lookup_field = 'id'
     serializer_class = ShiftSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Shift.objects.all()
+    queryset = Shift.objects\
+        .select_related('journal', 'journal__plant') \
+        .prefetch_related('journal__plant', 'journal', 'cells', 'cells__field', 'journal__tables')\
+        .all()
+
+
+shift_api_view = ShiftAPI.as_view()
 
 
 class PlantsList(generics.ListAPIView):
@@ -27,7 +34,7 @@ class PlantsList(generics.ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Plant.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('name', )
+    filter_fields = ('name',)
 
 
 class PlantAPI(generics.RetrieveAPIView):
@@ -52,18 +59,13 @@ class JournalAPI(generics.RetrieveAPIView):
     queryset = Journal.objects.all()
 
 
-class ShiftAPI(generics.RetrieveAPIView):
-    lookup_field = 'id'
-    serializer_class = ShiftSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Shift.objects.all()
-
 class ShiftList(generics.ListAPIView):
     serializer_class = ShiftSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Shift.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('date', 'order')
+
 
 class TablesList(generics.ListAPIView):
     serializer_class = TableSerializer
@@ -78,6 +80,7 @@ class TableAPI(generics.RetrieveAPIView):
     serializer_class = TableSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Table.objects.all()
+
 
 class FieldsList(generics.ListAPIView):
     serializer_class = FieldSerializer
@@ -100,12 +103,13 @@ class CellsList(generics.ListAPIView):
     queryset = Cell.objects.all()
 
     def post(self, request):
-        return Response({"detail":"Hello, !"}, status=status.HTTP_200_OK)
+        return Response({"detail": "Hello, !"}, status=status.HTTP_200_OK)
 
     # filter_backends = (DjangoFilterBackend,)
     # filter_fields = (
     #     'field__table__journal__plant__name', 'field__table__journal__name', 'field__table__name',
     #     'field__name', 'group_id')
+
 
 class CellAPI(generics.RetrieveAPIView):
     lookup_field = 'id'
