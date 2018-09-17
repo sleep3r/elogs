@@ -1,9 +1,31 @@
 import $ from 'jquery'
 import 'jquery-ui-bundle';
 import Plotly from 'plotly.js-dist'
+import VueGridLayout from 'vue-grid-layout';
 
-let json = '{"data": [{"x": [1999, 2000, 2001, 2002], "y": [10, 15, 13, 17], "type": "scatter", "uid": "c4a0f6c8-abc2-11e8-968a-4a0004e53b00"}, {"x": [1999, 2000, 2001, 2002], "y": [16, 5, 11, 9], "type": "scatter", "uid": "c4a0f91e-abc2-11e8-bca0-4a0004e53b00"}], "layout": {"autosize": true, "title": "Sales Growth", "xaxis": {"showgrid": false, "title": "Year", "zeroline": false}, "yaxis": {"showline": false, "title": "Percent"}}}'
-window.plot = JSON.parse(json)
+
+var testLayout = [
+    {"x":0,"y":0,"w":2,"h":4,"i":"0"},
+    {"x":2,"y":0,"w":2,"h":4,"i":"1"},
+    {"x":4,"y":0,"w":2,"h":5,"i":"2"},
+    {"x":6,"y":0,"w":2,"h":3,"i":"3"},
+    {"x":8,"y":0,"w":2,"h":3,"i":"4"},
+    {"x":10,"y":0,"w":2,"h":3,"i":"5"},
+    {"x":0,"y":5,"w":2,"h":5,"i":"6"},
+    {"x":2,"y":5,"w":2,"h":5,"i":"7"},
+    {"x":4,"y":5,"w":2,"h":5,"i":"8"},
+    {"x":6,"y":4,"w":2,"h":4,"i":"9"},
+    {"x":8,"y":4,"w":2,"h":4,"i":"10"},
+    {"x":10,"y":4,"w":2,"h":4,"i":"11"},
+    {"x":0,"y":10,"w":2,"h":5,"i":"12"},
+    {"x":2,"y":10,"w":2,"h":5,"i":"13"},
+    {"x":4,"y":8,"w":2,"h":4,"i":"14"},
+    {"x":6,"y":8,"w":2,"h":4,"i":"15"},
+    {"x":8,"y":10,"w":2,"h":5,"i":"16"},
+    {"x":10,"y":4,"w":2,"h":2,"i":"17"},
+    {"x":0,"y":9,"w":2,"h":3,"i":"18"},
+    {"x":2,"y":6,"w":2,"h":2,"i":"19"}
+];
 
 class Visualization {
     static get_graphs_list() {
@@ -80,9 +102,26 @@ class Visualization {
     }
 }
 
+var GridLayout = VueGridLayout.GridLayout;
+var GridItem = VueGridLayout.GridItem;
+
 $(document).ready(() => {
-   window.Visualization = Visualization;
-   window.Visualization.init()
+    window.Visualization = Visualization;
+    // window.Visualization.init()
+
+    new Vue({
+        el: '#vue-dashboard-container',
+        components: {
+            "GridLayout": GridLayout,
+            "GridItem": GridItem
+        },
+        data: {
+            layout: testLayout,
+            draggable: true,
+            resizable: true,
+            index: 0
+        },
+    });
 });
 
 export {Visualization}

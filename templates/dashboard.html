@@ -1,0 +1,48 @@
+{% extends 'base_page.html' %}
+{% load staticfiles %}
+
+{% load i18n %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+
+{% block journal_panel %}
+{% endblock %}
+
+{% block content %}
+<div id="vue-dashboard-container">
+    <div id="content">
+        <!--<button @click="decreaseWidth">Decrease Width</button>
+        <button @click="increaseWidth">Increase Width</button>
+        <button @click="addItem">Add an item</button>-->
+        <input type="checkbox" v-model="draggable"/> Draggable
+        <input type="checkbox" v-model="resizable"/> Resizable
+        <br/>
+        <grid-layout :layout="layout"
+                     :col-num="12"
+                     :row-height="30"
+                     :is-draggable="draggable"
+                     :is-resizable="resizable"
+                     :vertical-compact="true"
+                     :use-css-transforms="true"
+        >
+            <grid-item v-for="item in layout"
+                       :x="item.x"
+                       :y="item.y"
+                       :w="item.w"
+                       :h="item.h"
+                       :i="item.i"
+                       :key="item.i"
+                    >
+                    {{ item.i }} 
+                <span class="text"> 31234</span>
+            </grid-item>
+        </grid-layout>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

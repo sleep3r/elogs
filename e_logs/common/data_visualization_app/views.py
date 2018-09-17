@@ -3,6 +3,7 @@ from cacheops import cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponse
 from django.views import View
+from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
 from e_logs.core.utils.webutils import process_json_view
@@ -32,18 +33,57 @@ def get_data(field, employee=None, period=7):
         shift = Shift.objects.get(id=group.id)
         shifts.append(shift)
 
-    cells_w_dates = [{"cell": cell, "date": shift.date} for cell, shift in zip(cells, shifts) if shift.date >= start]
-    sorted(cells_w_dates, key=lambda x: x["date"])
-    values = [int(item["cell"].value) for item in cells_w_dates]
-    dates = [item["date"] for item in cells_w_dates]
-    return values, dates
+    cells_w_shifts = [{"cell": cell, "shift": shift} for cell, shift in zip(cells, shifts) if shift.date >= start]
+    cells_w_shifts = sorted(cells_w_shifts, key=lambda x: x["shift"].start_time)
+
+    values = [int(item["cell"].value) for item in cells_w_shifts]
+    shifts = [item["shift"] for item in cells_w_shifts]
+    return values, shifts
 
 
-def line(x, y):
-    trace = go.Scatter(x=x, y=y);
-    layout = {"title": 'Average High and Low Temperatures in New York'}
+def timeline(x, y):
+    """
+    Function description
+
+    Parameters
+    ----------
+    x : list of numbers
+        description
+    y : list of Shifts
+        description
+
+    Returns
+    -------
+    var1 : type
+        description
+
+    Example:
+    --------
+    >> a = func(x)
+    """
+    trace = go.Scatter(x=[shift.start_time for shift in x], y=y)
+    xaxis = go.XAxis(
+        showgrid=True,
+        showline=True,
+        ticks="",
+        showticklabels=True,
+        ticktext=[str(shift.start_time) + f' Смена {shift.order}' for shift in x],
+        tickvals=[shift.start_time for shift in x],
+    )
+    layout = go.Layout(
+        xaxis=xaxis,
+    )
     fig = go.Figure(data=[trace], layout=layout)
     return fig.to_plotly_json()
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['journal_title'] = 'Dashboard'
+        return context
 
 
 class GraphsListView(LoginRequiredMixin, View):
@@ -61,7 +101,7 @@ class GraphView(LoginRequiredMixin, View):
         field = Field(id=field_id)
         y, x = get_data(field)
         print(x, y)
-        graph = line(x, y)
+        graph = timeline(x, y)
         print(dumps(graph, primitives=True))
         return HttpResponse(dumps(graph, primitives=True),
             content_type='application/json; charset=utf8')
