@@ -16,7 +16,7 @@ application = ProtocolTypeRouter({
             URLRouter(
                 [
                     url(r"^messages/$", MessageConsumer),
-                    url(r"^journal_info/(?P<id>\d+)$", JournalInfoConsumer),
+                    url(r"^shift/(?P<id>\d+)$", JournalInfoConsumer),
                 ]
             )
         )
