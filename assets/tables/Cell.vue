@@ -52,6 +52,15 @@ export default {
   },
   methods: {
       send() {
+        this.$socket.sendObj({
+            'cell_location': {
+              'group_id': this.$store.state.journalInfo.id,
+              'table_name': this.tableName,
+              'field_name': this.fieldName,
+              'index': this.rowIndex
+            },
+            'value': this.value
+        });
         axios
           .post('/common/save_cell/', {
             'cell_location': {
