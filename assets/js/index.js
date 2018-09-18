@@ -7,7 +7,6 @@ import 'lodash'; window._ = _;
 import 'vue'; import Vue from 'vue'; window.Vue = Vue;
 import 'bootstrap';
 import 'jquery-confirm';
-import 'reconnecting-websocket';
 import 'promise-polyfill/src/polyfill';
 
 import 'fullcalendar';
@@ -39,7 +38,6 @@ import './menu';
 import './clockpicker';
 import './vue-env';
 
-import './ws'
 import './common';
 import './journal-panel';
 import './user-menu';

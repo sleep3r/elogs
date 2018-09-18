@@ -32,7 +32,9 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_receive(self, event):
         text = event.get('text', None)
         if text is not None:
+            print(text)
             data = json.loads(text)
+            print(data)
             cell = await self.get_or_create_cell(data['cell_location'])
             value = data['value']
             await self.update_cell(cell, value)
