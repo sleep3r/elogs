@@ -8,7 +8,8 @@ import { store } from './store';
 Vue.component('tablecommon', TableCommon);
 Vue.component('journal-panel', JournalPanel);
 
-const dataEndpoint = 'ws://' + window.location.host + '/journal_info/';
+
+const dataEndpoint = 'ws://' + window.location.host + '/shift/' + window.location.pathname.split("/")[3];
 Vue.use(VueNativeSock, dataEndpoint, { store: store, format: 'json', reconnection: true, connectManually: true });
 
 window.app = new Vue({
