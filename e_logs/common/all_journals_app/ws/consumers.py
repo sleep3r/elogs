@@ -69,7 +69,4 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
         shift.employee_set.add(self.scope['user'].employee)
 
     async def send_message(self, event):
-        await self.send({
-            "type":"websocket.send",
-            "text": event['text']
-        })
+        await self.send(event['text'])
