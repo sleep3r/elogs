@@ -6,7 +6,7 @@ from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 
-class DataConsumer(AsyncJsonWebsocketConsumer):
+class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
         self.channel = f"user_{self.scope['user'].employee.id}"
         await self.channel_layer.group_add(
