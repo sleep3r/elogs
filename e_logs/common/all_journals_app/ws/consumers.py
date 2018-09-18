@@ -10,7 +10,7 @@ from e_logs.common.all_journals_app.models import Cell, Shift
 
 class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        self.channel = f"user_{self.scope['user'].employee.id}"
+        self.channel = f"shift_{self.scope['url_route']['kwargs']['id']}"
         await self.channel_layer.group_add(
             self.channel,
             self.channel_name,
@@ -21,7 +21,7 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
-            f"user_{self.scope['user'].employee.id}",
+            self.channel,
             self.channel_name,
         )
 
