@@ -19,11 +19,10 @@ def create_mode(request):
         SetMode.execute({"beginning":timezone.now(),
             "end":timezone.now() + timedelta(minutes=3),
             "journal_id":16,
-            "table_name": "big",
             "message":"12345",
             'sendee':Employee.objects.get(name='inframine'),
             "fields":[
-                {"name":"wagon_num","min_normal":228, "max_normal":1488},
+                {"name":"wagon_num","table_name": "big", "min_normal":228, "max_normal":1488},
             ]})
 
         return JsonResponse({"status":1})
