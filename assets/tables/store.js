@@ -9,6 +9,10 @@ export const store = new Vuex.Store({
     state: {
       journalInfo: {},
       loaded: false,
+      socket: {
+        isConnected: false,
+        reconnectError: false,
+      }
     },
     getters: {
       loaded: state => state.loaded,
@@ -117,7 +121,27 @@ export const store = new Vuex.Store({
             cells[payload.index]['value'] = payload.value;
           }
         }
-      }
+      },
+      SOCKET_ONOPEN (state, event)  {
+        Vue.prototype.$socket = event.currentTarget
+        state.socket.isConnected = true
+      },
+      SOCKET_ONCLOSE (state, event)  {
+        state.socket.isConnected = false
+      },
+      SOCKET_ONERROR (state, event)  {
+        console.error(state, event)
+      },
+      SOCKET_ONMESSAGE (state, message)  {
+        //state.socket.message = message
+        console.log(message);
+      },
+      SOCKET_RECONNECT(state, count) {
+        console.info(state, count)
+      },
+      SOCKET_RECONNECT_ERROR(state) {
+        state.socket.reconnectError = true;
+      },
     },
     actions: {
       loadJournal: function () {

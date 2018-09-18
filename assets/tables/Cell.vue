@@ -61,21 +61,6 @@ export default {
             },
             'value': this.value
         });
-        axios
-          .post('/common/save_cell/', {
-            'cell_location': {
-              'group_id': this.$store.state.journalInfo.id,
-              'table_name': this.tableName,
-              'field_name': this.fieldName,
-              'index': this.rowIndex
-            },
-            'value': this.value
-          })
-          .then(response => {
-            if (response.data.status !== 1) {
-              console.log('didn`t save cell on server status:', response.data.status);
-            }
-          })
       },
       onInput(e) {
         this.$store.commit('SAVE_CELL_VALUE', {
