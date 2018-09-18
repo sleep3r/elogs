@@ -26,7 +26,7 @@ $(document).ready(() => {
     messages_socket.onclose = function (event) {console.log("Messages closed", event);};
 
     // <-----------------------------------------DATA--------------------------------------------->
-    const data_endpoint = 'ws://' + window.location.host + '/data/';
+    const data_endpoint = 'ws://' + window.location.host + '/journal_info/';
     const data_socket = new ReconnectingWebSocket(data_endpoint);
     data_socket.onmessage = function (event) {console.log("message", event);};
     data_socket.onopen = function (event) {console.log("Data connected", event);};
