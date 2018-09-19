@@ -16,7 +16,7 @@ class Mode(models.Model):
     is_active = models.BooleanField(default=True)
     message = models.CharField(max_length=512, default='')
     beginning = models.DateTimeField(default=timezone.now)
-    end = models.DateTimeField()
+    end = models.DateTimeField(null=True)
     journal = models.ForeignKey("all_journals_app.Journal", on_delete=models.CASCADE, null=True)
 
     @staticmethod
