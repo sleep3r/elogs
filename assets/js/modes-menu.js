@@ -4,7 +4,10 @@ let modes
 let currentMode
 
 $(document).ready(function () {
-    modes = getModes()
+    getModes()
+})
+
+function setData() {
     modes.map(item => $('.menu--modes').append(`<li id=${item.id} class="menu__item">${item.message}</li>`))
 
     $('.menu--modes .menu__item').click(function () {
@@ -24,7 +27,7 @@ $(document).ready(function () {
                                                    </tr>`)
         )
         $('.mode-content__title__mode-btns').css({display: 'block'})
-        $('button[data-target="mode-on-off"]').text(currentMode.isActive ? 'Выключить' : 'Включить')
+        $('button[data-target="mode-on-off"]').text(currentMode.is_active ? 'Выключить' : 'Включить')
         $('.mode-content__body').css({display: 'block'})
     })
 
@@ -37,12 +40,13 @@ $(document).ready(function () {
     $('button[data-target="mode-delete"]').click(function () {
 
     })
-})
+}
 
 function getModes() {
-    axios.get('/bl/modes_api/')
+    return axios.get('/bl/modes_api/')
         .then(response => {
-            console.log('res', response)
+            modes = response.data
+            setData()
         })
         .catch(e => {
             console.log(e)

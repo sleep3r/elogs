@@ -77,5 +77,5 @@ function addMode(mode) {
         .catch(e => {
             console.log(e)
         });
-    // location.reload()
+    location.reload()
 }

@@ -281,9 +281,9 @@ LOGGING = {
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.server': {
             'handlers': ['console'],
@@ -293,15 +293,15 @@ LOGGING = {
         'django.db': {
             'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['debug_file_debug', 'console'],
+            'handlers': ['db_log'],
             'level': 'DEBUG',
         },
         'django.db.backends.mssql': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['db_log']
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
