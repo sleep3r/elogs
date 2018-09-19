@@ -48,7 +48,6 @@ class SetMode(Service):
                              'sendee':self.data['sendee']},
                     all_users=True)
 
-        end_of_mode.apply_async((mode.id,), eta=self.cleaned_data['end'])
 
         return mode
 
