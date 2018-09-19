@@ -133,13 +133,7 @@ export const store = new Vuex.Store({
         console.error(state, event)
       },
       SOCKET_ONMESSAGE (state, message)  {
-        console.log(message);
-        this.$store.commit('SAVE_CELL_VALUE', {
-          tableName: message['cell_location']['table_name'],
-          fieldName: message['cell_location']['field_name'],
-          index: message['cell_location']['index'],
-          value: message['value']
-        })
+        //state.socket.message = message
       },
       SOCKET_RECONNECT(state, count) {
         console.info(state, count)
