@@ -1,7 +1,6 @@
 import json
 import asyncio
 
-from channels.db import database_sync_to_async
 from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
@@ -16,7 +15,6 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
         await self.accept()
 
-
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
             f"user_{self.scope['user'].employee.id}",
@@ -25,7 +23,6 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
         await self.close()
         raise StopConsumer()
-
 
     async def websocket_receive(self, event):
         text = event.get('text', None)
@@ -39,7 +36,6 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
                     "text": json.dumps(data)
                 }
             )
-
 
     async def message_send(self, event):
         await self.send({

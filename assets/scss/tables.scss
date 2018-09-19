@@ -190,5 +190,25 @@ h2.table-title {
     border: none;
 }
 
+.insidetable tr > td:first-child,
+.insidetable tr > th:first-child {
+    border-left: none !important;
+}
+
+.insidetable tr > td:last-child,
+.insidetable tr > td:last-child {
+    border-right: none !important;
+}
+
+.insidetable tr:first-child > td,
+.insidetable tr:first-child > th {
+    border-top: none !important;
+}
+
+.insidetable tr:last-child > td,
+.insidetable tr:last-child > th
+{
+    border-bottom: none !important;
+}
 
 @import "comment";
