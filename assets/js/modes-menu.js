@@ -40,7 +40,7 @@ $(document).ready(function () {
 })
 
 function getModes() {
-    axios.get('/bl/modes-api/')
+    axios.get('/bl/modes_api/')
         .then(response => {
             console.log('res', response)
         })
