@@ -1,31 +1,13 @@
 import $ from 'jquery'
-import 'jquery-ui-bundle';
+import Vue from 'vue/dist/vue.esm.js'
 import Plotly from 'plotly.js-dist'
 import VueGridLayout from 'vue-grid-layout';
 
 
-var testLayout = [
-    {"x":0,"y":0,"w":2,"h":4,"i":"0"},
-    {"x":2,"y":0,"w":2,"h":4,"i":"1"},
-    {"x":4,"y":0,"w":2,"h":5,"i":"2"},
-    {"x":6,"y":0,"w":2,"h":3,"i":"3"},
-    {"x":8,"y":0,"w":2,"h":3,"i":"4"},
-    {"x":10,"y":0,"w":2,"h":3,"i":"5"},
-    {"x":0,"y":5,"w":2,"h":5,"i":"6"},
-    {"x":2,"y":5,"w":2,"h":5,"i":"7"},
-    {"x":4,"y":5,"w":2,"h":5,"i":"8"},
-    {"x":6,"y":4,"w":2,"h":4,"i":"9"},
-    {"x":8,"y":4,"w":2,"h":4,"i":"10"},
-    {"x":10,"y":4,"w":2,"h":4,"i":"11"},
-    {"x":0,"y":10,"w":2,"h":5,"i":"12"},
-    {"x":2,"y":10,"w":2,"h":5,"i":"13"},
-    {"x":4,"y":8,"w":2,"h":4,"i":"14"},
-    {"x":6,"y":8,"w":2,"h":4,"i":"15"},
-    {"x":8,"y":10,"w":2,"h":5,"i":"16"},
-    {"x":10,"y":4,"w":2,"h":2,"i":"17"},
-    {"x":0,"y":9,"w":2,"h":3,"i":"18"},
-    {"x":2,"y":6,"w":2,"h":2,"i":"19"}
-];
+var testLayout = {
+    "313": {"x":0,"y":0,"w":5,"h":6},
+    "314": {"x":0,"y":0,"w":6,"h": 10},
+};
 
 class Visualization {
     static get_graphs_list() {
@@ -48,7 +30,7 @@ class Visualization {
         let data = JSON.stringify(id)
         $.ajax({
             type: 'POST',
-            url: "/visualization/get-graph-data",
+            url: "/visualization/get-graph-data/",
             data: data,
             contentType: "application/json; charset=utf-8",
             success: (data) => {
@@ -83,14 +65,22 @@ class Visualization {
     }
 
     static render_graph(id, data) {
-        console.log(data)
-        Plotly.newPlot(id, data["data"], data["layout"])
+        let width = $("#" + 'vue-grid-item-' + id).width()
+        let height = $("#" + 'vue-grid-item-' + id).height()
+        console.log(width, height)
+        data.layout.width = width;
+        data.layout.height = height - 50;
+        window.graphs_data[id] = data
+
+        Plotly.newPlot(id, data.data, data.layout)
     }
 
     static render_graphs() {
-        let graph_containers = $("#dashboard-container").children(".graph")
+        let graph_containers = $(".vue-grid-layout").children(".vue-grid-item:not(.vue-grid-placeholder)")
         graph_containers.each((index, element) => {
             let id = $(element).attr('id')
+            id = id.split("-")[3]
+            console.log(id)
             let data = this.get_graph_data(id)
             // this.render_graph(id, data)
         })
@@ -98,6 +88,7 @@ class Visualization {
 
     static init() {
         console.log(1)
+        window.graphs_data = {};
         this.get_graphs_list()
     }
 }
@@ -108,20 +99,33 @@ var GridItem = VueGridLayout.GridItem;
 $(document).ready(() => {
     window.Visualization = Visualization;
     // window.Visualization.init()
-
-    new Vue({
+    console.log("test")
+    window.graphs_data = {}
+    window.Plotly = Plotly
+    window.dashboard = new Vue({
         el: '#vue-dashboard-container',
         components: {
             "GridLayout": GridLayout,
-            "GridItem": GridItem
+            "GridItem": GridItem,
         },
         data: {
             layout: testLayout,
             draggable: true,
             resizable: true,
+            dragIgnoreFrom: ".plotly",
             index: 0
         },
+        methods: {
+            resizedEvent: function(i, newH, newW, newHpx, newWpx) {
+                Plotly.relayout(i, {
+                    autosize: false,
+                    width: newWpx - 4,
+                    height: newHpx - 50,
+                })
+            },
+        }
     });
+    Visualization.render_graphs();
 });
 
 export {Visualization}

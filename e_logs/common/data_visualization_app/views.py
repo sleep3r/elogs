@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.views.decorators.csrf import csrf_exempt
 from e_logs.core.utils.webutils import process_json_view
 from e_logs.common.messages_app.models import Message
+from e_logs.common.all_journals_app.services.context_creator import get_menu_data
 from e_logs.core.models import Setting
 from e_logs.common.login_app.models import Employee
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Table, Field
@@ -81,8 +82,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['journal_title'] = 'Dashboard'
+        context = DeepDict(super().get_context_data(**kwargs))
+        context.journal_title = 'Dashboard'
+        context.menu_data = get_menu_data()
         return context
 
 
