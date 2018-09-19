@@ -1,3 +1,4 @@
+import json
 from datetime import timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,15 +26,10 @@ class ModeView(LoginRequiredMixin, TemplateView):
 
 class ModeApi(LoginRequiredMixin, View):
     def post(self, request):
-        SetMode.execute({"plant": "furnace",
-                         "journal":"concentrate_report",
-                         "message": "12345",
-                         # "sendee": Employee.objects.get(name='inframine'),
-                         "fields": [{"name": "wagon_num",
-                                     "table_name": "big",
-                                     "min_normal": 228,
-                                     "max_normal": 1488}]
-                         })
+        data = json.loads(request.body)
+        print(data)
+        data['sendee'] = request.user.employee
+        SetMode.execute(data)
 
         return JsonResponse({"status": 1})
 
