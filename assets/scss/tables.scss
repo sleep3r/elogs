@@ -107,6 +107,8 @@ h2.table-title {
         overflow: hidden; // TODO: seems to need min-width
         text-overflow: ellipsis;
         hyphens: auto;
+        padding-top: 6px;
+        padding-bottom: 6px;
     }
 
     .th-number {
