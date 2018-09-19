@@ -68,11 +68,12 @@ export default {
           fieldName: this.fieldName,
           index: this.rowIndex,
           value: this.value
-        })
+        });
+        this.send();
         this.$parent.$emit('addNewLine', { editedRowIndex: this.rowIndex });
       },
       onChanged() {
-        this.send();
+        // this.send();
       },
       filterInput(e) {
         if (this.type === 'number') {

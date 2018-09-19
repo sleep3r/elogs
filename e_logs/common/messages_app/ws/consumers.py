@@ -67,8 +67,16 @@ class MessageConsumer(AsyncJsonWebsocketConsumer):
                 await self.add_comment_query(cell, text)
                 await self.add_cell_message_query(cell, message, all_users=True)
 
+                await self.channel_layer.group_send(
+                    'shift/',
+                    {
+                        "type": "send_message",
+                        "text": json.dumps(data)
+                    }
+                )
+
     #кастомный метод отправки сообщения по группе "messages"
-    async def message_send(self, event):
+    async def send_message(self, event):
         await self.send(event['text'])
 
     @database_sync_to_async
