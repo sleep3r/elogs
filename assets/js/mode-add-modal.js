@@ -1,10 +1,28 @@
 import shortid from 'shortid'
+import axios from "axios";
 let fieldsLength = 0
+let currentMode = {}
 
 $(document).ready(function () {
     $('button[data-target="mode-cell-add"]').click(function (e) {
         e.preventDefault()
         addFieldItem()
+    })
+    $('button[data-target="mode-add"]').click(function (e) {
+        e.preventDefault()
+        currentMode.message = $('#message').val()
+        currentMode.plant = $('#plantName').val()
+        currentMode.journal = $('#journalName').val()
+        currentMode.fields = []
+        $('#fields').find('.field-item').each(function () {
+            currentMode.fields.push({
+                table_name: $(this).find('input[data-field-name="table_name"]').val(),
+                name: $(this).find('input[data-field-name="name"]').val(),
+                min_normal: $(this).find('input[data-field-name="min_normal"]').val(),
+                max_normal: $(this).find('input[data-field-name="max_normal"]').val()
+            })
+        })
+        addMode(currentMode)
     })
     $('#plantName').change(function () {
         $('#journal').css({display: 'block'})
@@ -49,4 +67,15 @@ function deleteFieldItem(id) {
     if (fieldsLength === 0) {
         $('.no-fields-text').css({display: 'block'})
     }
+}
+
+function addMode(mode) {
+    axios.post('/bl/modes-api/', mode)
+        .then(response => {
+            console.log('res', response)
+        })
+        .catch(e => {
+            console.log(e)
+        });
+    location.reload()
 }
