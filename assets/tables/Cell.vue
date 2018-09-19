@@ -2,7 +2,7 @@
   <input :class="classes"
          :name="fieldName"
          :row-index="rowIndex"
-         v-model="value"
+         :value="value"
          @keypress="filterInput"
          @keydown="changeFocus"
          @change="onChanged"
@@ -26,7 +26,6 @@ export default {
   data() {
     return {
         classes: 'general-value number-cell form-control',
-        value: '',
         minValue: null,
         maxValue: null,
         type: null,
@@ -48,6 +47,9 @@ export default {
     critical: function () {
       return (this.minValue && (this.value < this.minValue)) ||
           (this.maxValue && (this.value > this.maxValue));
+    },
+    value: function () {
+      return this.$store.getters.cellValue(this.tableName, this.fieldName, this.rowIndex);
     }
   },
   methods: {
@@ -63,11 +65,12 @@ export default {
         });
       },
       onInput(e) {
+        console.log('in oninput')
         this.$store.commit('SAVE_CELL_VALUE', {
           tableName: this.tableName,
           fieldName: this.fieldName,
           index: this.rowIndex,
-          value: this.value
+          value: e.target.value
         });
         this.send();
         this.$parent.$emit('addNewLine', { editedRowIndex: this.rowIndex });
@@ -145,7 +148,7 @@ export default {
   },
   mounted() {
     // initializing data
-    this.value = this.$store.getters.cellValue(this.tableName, this.fieldName, this.rowIndex);
+    //this.value = this.$store.getters.cellValue(this.tableName, this.fieldName, this.rowIndex);
     let desc = this.$store.getters.fieldDescription(this.tableName, this.fieldName);
     this.placeholder = desc['units'] || ''
     this.minValue = desc['min_normal'] || null
@@ -155,7 +158,7 @@ export default {
     if (this.linked) {
       // auto fill cell
       this.value = this.$store.getters[this.linked];
-      this.send();
+      //this.send();
     }
   }
 }
