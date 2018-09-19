@@ -4,13 +4,13 @@
 {% load i18n %}
 
 {% block title %}
-    <title>Dashboard</title>
+    Dashboard
 {% endblock %}
 
 {% block journal_panel %}
 {% endblock %}
 
-{% block content %}
+{% block dashboard %}
 <div id="vue-dashboard-container">
     <div id="content">
         <!--<button @click="decreaseWidth">Decrease Width</button>
@@ -27,16 +27,17 @@
                      :vertical-compact="true"
                      :use-css-transforms="true"
         >
-            <grid-item v-for="item in layout"
-                       :x="item.x"
-                       :y="item.y"
-                       :w="item.w"
-                       :h="item.h"
-                       :i="item.i"
-                       :key="item.i"
+            <grid-item v-for="i in layout"
+                       :x="layout[i].x"
+                       :y="layout[i].y"
+                       :w="layout[i].w"
+                       :h="layout[i].h"
+                       :i="i"
+                       :id="'vue-grid-item-' + layout[i].i"
+                       :drag-ignore-from="dragIgnoreFrom"
+                       @resized="resizedEvent"
                     >
-                    {{ item.i }} 
-                <span class="text"> 31234</span>
+                <div :id="layout[i].i"></div>
             </grid-item>
         </grid-layout>
     </div>
