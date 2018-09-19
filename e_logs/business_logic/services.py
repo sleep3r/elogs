@@ -5,7 +5,7 @@ from service_objects.services import Service
 from django import forms
 
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
-from e_logs.common.all_journals_app.models import Field, Shift, Journal
+from e_logs.common.all_journals_app.models import Field, Shift, Journal, Plant
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.tasks import end_of_mode, end_of_limited_access, \
@@ -14,11 +14,9 @@ from e_logs.core.utils.webutils import get_or_none
 
 
 class SetMode(Service):
+    plant = forms.CharField(max_length=32)
+    journal = forms.CharField(max_length=128)
     message = forms.CharField(max_length=1024)
-    beginning = forms.DateTimeField()
-    end = forms.DateTimeField()
-    journal_id = forms.IntegerField()
-    table_name = forms.CharField(max_length=256)
 
     # для валидации списка полей
     def clean(self):
@@ -31,13 +29,14 @@ class SetMode(Service):
 
     def process(self):
         mode = Mode.objects.create(message=self.cleaned_data['message'],
-                                   beginning=self.cleaned_data['beginning'],
-                                   end=self.cleaned_data['end'],
-                                   journal=Journal.objects.get(id=self.cleaned_data['journal_id']))
+                                   beginning=timezone.now(),
+                                   journal=Journal.objects.get(
+                                       plant=Plant.objects.get(name=self.cleaned_data['plant']),
+                                       name=self.cleaned_data['journal']))
 
         for f in self.data['fields']:
             field = Field.objects.get(name=f['name'],
-                                      table__name=self.cleaned_data['table_name'],)
+                                      table__name=f['table_name'],)
 
             FieldConstraints.objects.create(min_normal=f['min_normal'],
                                             max_normal=f['max_normal'],
@@ -50,6 +49,42 @@ class SetMode(Service):
                     all_users=True)
 
         end_of_mode.apply_async((mode.id,), eta=self.cleaned_data['end'])
+
+        return mode
+
+
+class UpdateMode(Service):
+    id = forms.IntegerField()
+    is_active = forms.BooleanField()
+    plant = forms.CharField(max_length=32)
+    journal = forms.CharField(max_length=128)
+    message = forms.CharField(max_length=1024)
+
+    # для валидации списка полей
+    def clean(self):
+        super().clean()
+
+        if ('fields' in self.data) and (isinstance(self.data['fields'], list)) is True:
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError('Invalid fields data')
+
+    def process(self):
+        mode = Mode.objects.get(id=self.cleaned_data['id'])
+        mode.is_active = self.cleaned_data.get('is_active', mode.is_active)
+        mode.message = self.cleaned_data.get('is_active', mode.message)
+        mode.save()
+
+        for f in self.data['fields']:
+            field = Field.objects.get(name=f['name'],
+                                      table__name=f['table_name'],)
+
+            constraint = FieldConstraints.objects.get(min_normal=f['min_normal'],
+                                                      max_normal=f['max_normal'],
+                                                      field=field, mode=mode)
+
+            constraint.min_normal = self.data['fields'].get('min_normal', constraint.min_normal)
+            constraint.max_normal = self.data['fields'].get('max_normal', constraint.max_normal)
 
         return mode
 
