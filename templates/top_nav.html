@@ -1,7 +1,11 @@
 {% load i18n %}
 {% load staticfiles %}
 <header class="header sticky">
-    <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
+    <div class="header__logo">
+        <a href="/">
+            <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
+        </a>
+    </div>
     <div class="header__title">
         <span class="journal_title">{{ journal_title }}</span>
         {% if plant %}
@@ -19,7 +23,13 @@
               <li class="user-menu__item">
                   <a href="/common/settings/">
                       <i class="fas fa-cogs"></i>
-                      <span class="caption">Найтроки</span>
+                      <span class="caption">Настройки</span>
+                  </a>
+              </li>
+              <li class="user-menu__item">
+                  <a href="/bl/modes/">
+                      <i class="fas fa-sliders-h"></i>
+                      <span class="caption">Режимы</span>
                   </a>
               </li>
               <li class="user-menu__item">

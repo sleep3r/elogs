@@ -14,72 +14,46 @@
 {% endblock %}
 
 {% block menu %}
-    <div class="menu__panel">
-    <div class="menu__title">HUY</div>
-    <i class="menu__toggle fas fa-bars"></i>
-</div>
-<div class="menu__logo"><i class="fas fa-sitemap"></i></div>
-<ul class="menu menu--left">
-    <li class="menu__item open">
-        <a href="#" class="menu-item__link">
-            <i class="menu-item__icon fa fa-book"></i>
-            <span class="menu-item__title">{% trans "Обжиг" %}</span>
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-        <ul class="sub-menu">
-            {% for journal_path, journal_verbose in menu_data.furnace.items %}
-                <li class="menu__item">
-                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
-                </li>
-            {% endfor %}
-
-            {% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}
-                <li class="menu__item">
-                    <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link"><b>{% trans "Поступление, расходы и остатки Zn концентратов"%}</b></a>
-                </li>
-                <li class="menu__item">
-                    <a href="" data-url="/furnace/metals_compute" class="menu-item__link"><b>{% trans "Рассчёт металлов" %}</b></a>
-                </li>
-            {% endif %}
-        </ul>
-    </li>
-    <li class="menu__item">
-        <a href="#" class="menu-item__link">
-            <i class="menu-item__icon fa fa-book"></i>
-            <span class="menu-item__title">{% trans "Выщелачивание" %}</span>
-            <b class="arrow fa fa-angle-down"></b></a>
-        <ul class="sub-menu">
-            {% for journal_path, journal_verbose in menu_data.leaching.items %}
-                <li class="menu__item">
-                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </li>
-    <li class="menu__item">
-        <a href="#" class="menu-item__link">
-            <i class="menu-item__icon fa fa-book"></i>
-            <span class="menu-item__title">{% trans "Электролиз" %}</span>
-            <b class="arrow fa fa-angle-down"></b>
-        </a>
-        <ul class="sub-menu">
-            {% for journal_path, journal_verbose in menu_data.electrolysis.items %}
-                <li class="menu__item">
-                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </li>
-</ul>
+    <div class="menu__panel menu__panel--modes">
+        <div class="menu__title">Список режимов</div>
+        <i class="menu__toggle fas fa-bars"></i>
+    </div>
+    <div class="menu__sub-title">
+        <button class="btn" data-toggle="modal" data-target="#addModeModal">Добавить режим</button>
+    </div>
+    <ul class="menu menu--left menu--modes"></ul>
 {% endblock %}
 
 
 {% block content %}
-    <form action="journal_upload/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h3>Hello world:</h3>
-
-    </form>
+    <!--<form action="" method="" enctype="multipart/form-data">-->
+        <!--{% csrf_token %}-->
+    <div class="mode-content">
+        <div class="mode-content__title">
+            <div class="mode-content__title__mode-info">
+                <h3 id="modeTitle">Выберите режим</h3>
+            </div>
+            <div class="mode-content__title__mode-btns" style="display: none">
+                <button class="btn" data-target="mode-on-off">Выключить</button>
+                <button class="btn" data-target="mode-edit">Изменить</button>
+                <button class="btn" data-target="mode-delete">Удалить</button>
+            </div>
+        </div>
+        <div class="mode-content__body" style="display: none">
+            <table class="table table-bordered elog-journal-table">
+                <thead>
+                    <tr>
+                        <th>Таблица</th>
+                        <th>Ячейка</th>
+                        <th>Минимальное значение</th>
+                        <th>Максимальное значение</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <!--</form>-->
 
     {% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}
         {#<h2>Настройки системы</h2>#}

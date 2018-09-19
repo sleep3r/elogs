@@ -36,6 +36,8 @@ import './form-table';
 import './form-update';
 import './header';
 import './menu';
+import './modes-menu';
+import './mode-add-modal';
 import './clockpicker';
 import './vue-env';
 

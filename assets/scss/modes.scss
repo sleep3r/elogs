@@ -1,0 +1,90 @@
+/*------------------------------------*\
+  # MODES PAGE
+\*------------------------------------*/
+@import "variables";
+
+.menu__sub-title {
+  padding: 10px;
+
+  button {
+    width: 100%;
+  }
+}
+
+.menu--modes > .menu__item {
+  padding: 10px;
+}
+
+.menu--modes > .menu__item.selected {
+  background-color: #f8f8f8;
+}
+
+.mode-content {
+  width: 100%;
+}
+
+.mode-content__title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mode-content__title__mode-info {
+  width: 50%;
+  word-break: break-all;
+
+  #modeDateRange {
+    opacity: 0.6;
+  }
+}
+
+.mode-content__title__mode-btns {
+  margin-right: 10px;
+}
+
+.mode-content__body {
+  margin-right: 10px;
+}
+
+@media all and (min-width: 576px){
+  #addModeModal .modal-dialog {
+    max-width: 60%;
+  }
+}
+
+#addModeModal {
+  .modal-body {
+    margin: 0;
+  }
+  .form-control {
+    border: 1px solid #ced4da;
+    height: calc(2.25rem + 2px);
+  }
+  .btns {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.fields-container {
+  .field-item {
+    margin-bottom: 10px;
+  }
+
+  .no-fields-text {
+    opacity: 0.6;
+  }
+
+  .delete-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    opacity: 0.6;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  .delete-icon:hover {
+    opacity: 1;
+  }
+}

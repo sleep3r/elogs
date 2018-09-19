@@ -137,6 +137,11 @@ body {
 
 .header__logo {
     padding-left: 20px;
+
+    a {
+        color: #ffffff;
+        text-decoration: none;
+    }
 }
 
 .header__title {
@@ -182,6 +187,7 @@ footer {
 
 @import "user-menu";
 @import "menu.scss";
+@import "modes.scss";
 @import "journal.scss";
 @import "tables.scss";
 @import "values";
