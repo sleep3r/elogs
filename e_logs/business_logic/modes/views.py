@@ -33,14 +33,8 @@ class ModeApi(LoginRequiredMixin, View):
         return JsonResponse({"status": 1})
 
     def put(self, request, *args, **kwargs):
-        UpdateMode.execute({"id":request.body['id'],
-                            "is_active":1,
-                            "message": "12345",
-                            "fields": [{"name": "wagon_num",
-                                        "table_name": "big",
-                                        "min_normal": 227,
-                                        "max_normal": 1477}]
-                            })
+        data = json.loads(request.body)
+        UpdateMode.execute(data)
 
         return JsonResponse({"status": 1})
 
