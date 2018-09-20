@@ -25,7 +25,7 @@ function setModeData() {
     $('.mode-content__title__mode-btns').css({display: 'block'})
     let $onOfBtn = $('button[data-target="mode-on-off"]')
     $onOfBtn.text(currentMode.is_active ? 'Выключить' : 'Включить')
-    $onOfBtn.val('data-value', currentMode.is_active ? 'on' : 'off')
+    $onOfBtn.attr('data-value', currentMode.is_active ? 'on' : 'off')
     $('.mode-content__body').css({display: 'block'})
 }
 
@@ -36,7 +36,7 @@ function removeModeData() {
     $('.mode-content__body').css({display: 'none'})
     $('.mode-content__title__mode-btns').css({display: 'none'})
     $('.mode-content__title__mode-edit-btns').css({display: 'none'})
-    $('button[data-target="mode-on-off"]').val('data-value', 'off')
+    $('button[data-target="mode-on-off"]').attr('data-value', 'off')
 }
 
 function setListeners() {
@@ -48,7 +48,7 @@ function setListeners() {
     })
 
     $('button[data-target="mode-on-off"]').click(function () {
-        toggleModeActive($('button[data-target="mode-on-off"]').val('data-value') === 'on' ? 0 : 1)
+        toggleModeActive($('button[data-target="mode-on-off"]').attr('data-value') === 'on' ? 0 : 1)
     })
 
     $('button[data-target="mode-edit"]').click(function () {
@@ -88,7 +88,7 @@ function setListeners() {
     })
 
     $('button[data-target="mode-delete"]').click(function () {
-
+        deleteMode()
     })
 }
 
@@ -123,7 +123,7 @@ function updateFieldItems() {
 function updateMode(mode) {
     return axios.put('/bl/modes_api/', mode)
         .then(response => {
-            location.reload()
+            // location.reload()
         })
         .catch(e => {
             console.log(e)
@@ -133,17 +133,17 @@ function updateMode(mode) {
 function toggleModeActive(isActive) {
     return axios.put('/bl/modes_api/', { id: currentMode.id, is_active: isActive })
         .then(response => {
-            location.reload()
+            // location.reload()
         })
         .catch(e => {
             console.log(e)
         });
 }
 
-function deleteMode(mode) {
-    return axios.delete('/bl/modes_api/')
+function deleteMode() {
+    return axios.delete('/bl/modes_api/', { id: currentMode.id })
         .then(response => {
-            location.reload()
+            // location.reload()
         })
         .catch(e => {
             console.log(e)
