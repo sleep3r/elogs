@@ -81,6 +81,7 @@ class UpdateMode(Service):
 
                 constraint.min_normal = fld.get('min_normal', constraint.min_normal)
                 constraint.max_normal = fld.get('max_normal', constraint.max_normal)
+                constraint.save()
 
         return mode
 
