@@ -12,7 +12,14 @@
 }
 
 .menu--modes > .menu__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
+
+  .is-active-icon {
+    font-size: 12px;
+  }
 }
 
 .menu--modes > .menu__item.selected {
@@ -46,7 +53,7 @@
   margin-right: 10px;
 }
 
-@media all and (min-width: 576px){
+@media all and (min-width: 576px) {
   #addModeModal .modal-dialog {
     max-width: 60%;
   }

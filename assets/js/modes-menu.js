@@ -8,8 +8,17 @@ $(document).ready(function () {
 })
 
 function setData() {
-    modes.map(item => $('.menu--modes').append(`<li id=${item.id} class="menu__item">${item.message}</li>`))
+    modes.map(item =>
+        $('.menu--modes').append(`<li id=${item.id} class="menu__item">
+                                      <span>${item.message}</span>
+                                      <i style="color: ${item.is_active ? '#9FBF47' : '#FF734C'}" class="fas fa-circle is-active-icon"></i>
+                                  </li>`))
     setListeners()
+}
+
+function removeData() {
+    $('.menu--modes').find('li').remove()
+    removeModeData()
 }
 
 function setModeData() {
@@ -32,7 +41,7 @@ function setModeData() {
 function removeModeData() {
     $('.menu--modes .menu__item').removeClass('selected')
     $('.mode-content__body tbody').html('')
-    $('#modeTitle').text('')
+    $('#modeTitle').text('Выберите режим')
     $('.mode-content__body').css({display: 'none'})
     $('.mode-content__title__mode-btns').css({display: 'none'})
     $('.mode-content__title__mode-edit-btns').css({display: 'none'})
@@ -123,7 +132,11 @@ function updateFieldItems() {
 function updateMode(mode) {
     return axios.put('/bl/modes_api/', mode)
         .then(response => {
-            // location.reload()
+            location.reload()
+            // removeData()
+            // getModes().then(() => {
+            //     $(`.menu--modes li[id="${currentMode.id}"]`).trigger('click')
+            // })
         })
         .catch(e => {
             console.log(e)
@@ -133,7 +146,11 @@ function updateMode(mode) {
 function toggleModeActive(isActive) {
     return axios.put('/bl/modes_api/', { id: currentMode.id, is_active: isActive })
         .then(response => {
-            // location.reload()
+            location.reload()
+            // removeData()
+            // getModes().then(() => {
+            //     $(`.menu--modes li[id="${currentMode.id}"]`).trigger('click')
+            // })
         })
         .catch(e => {
             console.log(e)
@@ -143,7 +160,7 @@ function toggleModeActive(isActive) {
 function deleteMode() {
     return axios.delete(`/bl/modes_api/${currentMode.id}`)
         .then(response => {
-            // location.reload()
+            location.reload()
         })
         .catch(e => {
             console.log(e)
