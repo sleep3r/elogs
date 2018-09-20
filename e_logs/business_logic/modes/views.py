@@ -27,23 +27,14 @@ class ModeView(LoginRequiredMixin, TemplateView):
 class ModeApi(LoginRequiredMixin, View):
     def post(self, request):
         data = json.loads(request.body)
-        print(data)
         data['sendee'] = request.user.employee
         SetMode.execute(data)
 
         return JsonResponse({"status": 1})
 
     def put(self, request, *args, **kwargs):
-        UpdateMode.execute({"id":request.body['id'],
-                            "is_active":1,
-                            "plant": "furnace",
-                            "journal":"concentrate_report",
-                            "message": "12345",
-                            "fields": [{"name": "wagon_num",
-                                        "table_name": "big",
-                                        "min_normal": 228,
-                                        "max_normal": 1488}]
-                            })
+        data = json.loads(request.body)
+        UpdateMode.execute(data)
 
         return JsonResponse({"status": 1})
 

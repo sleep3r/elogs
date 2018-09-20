@@ -54,10 +54,6 @@ class SetMode(Service):
 
 class UpdateMode(Service):
     id = forms.IntegerField()
-    is_active = forms.BooleanField()
-    plant = forms.CharField(max_length=32)
-    journal = forms.CharField(max_length=128)
-    message = forms.CharField(max_length=1024)
 
     # для валидации списка полей
     def clean(self):
@@ -70,20 +66,19 @@ class UpdateMode(Service):
 
     def process(self):
         mode = Mode.objects.get(id=self.cleaned_data['id'])
-        mode.is_active = self.cleaned_data.get('is_active', mode.is_active)
-        mode.message = self.cleaned_data.get('is_active', mode.message)
+        mode.is_active = self.data.get('is_active', mode.is_active)
+        mode.message = self.data.get('message', mode.message)
         mode.save()
 
-        for f in self.data['fields']:
-            field = Field.objects.get(name=f['name'],
-                                      table__name=f['table_name'],)
+        if 'fields' in self.data:
+            for fld in self.data['fields']:
+                field = Field.objects.get(name=fld['name'],
+                                          table__name=fld['table_name'],)
 
-            constraint = FieldConstraints.objects.get(min_normal=f['min_normal'],
-                                                      max_normal=f['max_normal'],
-                                                      field=field, mode=mode)
+                constraint = FieldConstraints.objects.get(field=field, mode=mode)
 
-            constraint.min_normal = self.data['fields'].get('min_normal', constraint.min_normal)
-            constraint.max_normal = self.data['fields'].get('max_normal', constraint.max_normal)
+                constraint.min_normal = fld.get('min_normal', constraint.min_normal)
+                constraint.max_normal = fld.get('max_normal', constraint.max_normal)
 
         return mode
 
