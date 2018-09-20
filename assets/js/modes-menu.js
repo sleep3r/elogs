@@ -141,7 +141,7 @@ function toggleModeActive(isActive) {
 }
 
 function deleteMode() {
-    return axios.delete('/bl/modes_api/', { id: currentMode.id })
+    return axios.delete(`/bl/modes_api/${currentMode.id}`)
         .then(response => {
             // location.reload()
         })
