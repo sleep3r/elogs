@@ -38,14 +38,6 @@ class ModeApi(LoginRequiredMixin, View):
 
         return JsonResponse({"status": 1})
 
-    def delete(self, request, *args, **kwargs):
-        mode = get_or_none(Mode, id=json.loads(request.body)['id'])
-        if mode:
-            mode.delete()
-            return JsonResponse({"status":1})
-        else:
-            return JsonResponse({"status":0})
-
     def get(self, request, *args, **kwargs):
         res = [{
             "id":mode.id,
@@ -61,3 +53,14 @@ class ModeApi(LoginRequiredMixin, View):
             } for mode in Mode.objects.all().order_by('is_active')]
 
         return JsonResponse(res, safe=False)
+
+
+def mode_delete(request, *args, **kwargs):
+    if request.method == "DELETE":
+        mode = get_or_none(Mode, id=kwargs['id'])
+
+        if mode:
+            mode.delete()
+            return JsonResponse({"status": 1})
+        else:
+            return JsonResponse({"status": 0})
