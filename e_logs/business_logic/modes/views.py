@@ -54,7 +54,7 @@ class ModeApi(LoginRequiredMixin, View):
 
         return JsonResponse(res, safe=False)
 
-
+@csrf_exempt
 def mode_delete(request, *args, **kwargs):
     if request.method == "DELETE":
         mode = get_or_none(Mode, id=kwargs['id'])
