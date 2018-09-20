@@ -72,10 +72,9 @@ function deleteFieldItem(id) {
 function addMode(mode) {
     axios.post('/bl/modes_api/', mode)
         .then(response => {
-            console.log('res', response)
+            location.reload()
         })
         .catch(e => {
             console.log(e)
         });
-    location.reload()
 }
