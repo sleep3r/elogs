@@ -16,9 +16,11 @@ Vue.use(VueNativeSock, dataEndpoint, {
   reconnection: true,
   connectManually: true,
   passToStoreHandler: function (eventName, event) {
-    console.log(event)
-    if (!(eventName === 'SOCKET_ONMESSAGE')) { return }
+    console.log(eventName)
+    if (!(eventName === 'SOCKET_onmessage')) { return }
+    console.log('in onmessage')
     let data = JSON.parse(event.data);
+    console.log(data)
     this.store.commit('SAVE_CELL_VALUE', {
       tableName: data['cell_location']['table_name'],
       fieldName: data['cell_location']['field_name'],
@@ -28,7 +30,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
   }
 })
 
-window.app = new Vue({
+window.tablesApp = new Vue({
   el: '#elogs-app',
   store: store,
   components: { TableCommon },

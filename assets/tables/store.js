@@ -53,9 +53,13 @@ export const store = new Vuex.Store({
           }
           let cells = fields[fieldName].cells;
           if (Object.keys(cells).length !== 0) {
-              if (rowIndex in cells) {
-                  return cells[rowIndex].value;
-              }
+            if (rowIndex in cells) {
+              return cells[rowIndex].value;
+            }
+            else {
+              console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
+              return '';
+            }
           }
           else {
             return '';
@@ -117,8 +121,8 @@ export const store = new Vuex.Store({
           }
           else {
             // create cell
-            cells[payload.index] = {};
-            cells[payload.index]['value'] = payload.value;
+            Vue.set(cells, payload.index, {});
+            Vue.set(cells[payload.index], 'value', payload.value);
           }
         }
       },
@@ -133,7 +137,7 @@ export const store = new Vuex.Store({
         console.error(state, event)
       },
       SOCKET_ONMESSAGE (state, message)  {
-        //state.socket.message = message
+
       },
       SOCKET_RECONNECT(state, count) {
         console.info(state, count)
