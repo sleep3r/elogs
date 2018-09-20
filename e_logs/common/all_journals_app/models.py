@@ -14,14 +14,16 @@ from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, de
 
 class Plant(models.Model):
     name = models.CharField(default='leaching',
-                            verbose_name='Название цеха',
+                            verbose_name='Цех',
                             max_length=128,
                             choices=(('leaching', 'Выщелачивание'),
                                      ('furnace', 'Обжиг'),
                                      ('electrolysis', 'Электролиз')))
     settings = GenericRelation('core.Setting', related_query_name='plant', related_name='plants')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='plant',
-                               related_name='plants')
+                                related_name='plants')
+
+    verbose_name = models.CharField(max_length=128, verbose_name='Название цеха')
 
     class Meta:
         verbose_name = 'Цех'
