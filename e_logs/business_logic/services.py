@@ -70,14 +70,15 @@ class UpdateMode(Service):
         mode.message = self.data.get('message', mode.message)
         mode.save()
 
-        for fld in self.data['fields']:
-            field = Field.objects.get(name=fld['name'],
-                                      table__name=fld['table_name'],)
+        if 'fields' in self.data:
+            for fld in self.data['fields']:
+                field = Field.objects.get(name=fld['name'],
+                                          table__name=fld['table_name'],)
 
-            constraint = FieldConstraints.objects.get(field=field, mode=mode)
+                constraint = FieldConstraints.objects.get(field=field, mode=mode)
 
-            constraint.min_normal = fld.get('min_normal', constraint.min_normal)
-            constraint.max_normal = fld.get('max_normal', constraint.max_normal)
+                constraint.min_normal = fld.get('min_normal', constraint.min_normal)
+                constraint.max_normal = fld.get('max_normal', constraint.max_normal)
 
         return mode
 
