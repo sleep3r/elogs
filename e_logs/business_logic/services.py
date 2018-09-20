@@ -59,10 +59,12 @@ class UpdateMode(Service):
     def clean(self):
         super().clean()
 
-        if ('fields' in self.data) and (isinstance(self.data['fields'], list)) is True:
+        if ('fields' in self.data) and (isinstance(self.data['fields'], list)) is True \
+                or not ('fields' in self.data):
             return self.cleaned_data
         else:
             raise forms.ValidationError('Invalid fields data')
+
 
     def process(self):
         mode = Mode.objects.get(id=self.cleaned_data['id'])
