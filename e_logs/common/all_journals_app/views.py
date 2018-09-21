@@ -43,6 +43,22 @@ class Index(LoginRequiredMixin, TemplateView):
         return redirect('/furnace/metals_compute')
 
 
+def get_current_shift(journal):
+    number_of_shifts = Shift.get_number_of_shifts(journal)
+    assert number_of_shifts > 0, "<= 0 number of shifts"
+
+    # create shifts for today and return current shift
+    for shift_order in range(1, number_of_shifts + 1):
+        shift = Shift.objects.get_or_create(journal=journal,
+                                            order=shift_order,
+                                            date=timezone.now().date())[0]
+        if shift.is_active:
+            return shift
+    if not page: # fixme: there may be no active shift due to datetime problems
+        return shift
+
+
+
 class JournalView(LoginRequiredMixin, View):
     """
     Common view for a journal.
@@ -59,19 +75,7 @@ class JournalView(LoginRequiredMixin, View):
             if page_id:
                 page = Shift.objects.get(id=page_id)
             else:
-                number_of_shifts = Shift.get_number_of_shifts(journal)
-                assert number_of_shifts > 0, "<= 0 number of shifts"
-
-                # create shifts for today and return current shift
-                for shift_order in range(1, number_of_shifts + 1):
-                    shift = Shift.objects.get_or_create(journal=journal,
-                                                        order=shift_order,
-                                                        date=timezone.now().date())[0]
-                    if shift.is_active:
-                        page = shift
-                        break
-                if not page: # fixme: there may be no active shift due to datetime problems
-                    page = shift
+                page = get_current_shift(journal)
                 return redirect('journal_view', page_id=page.id, plant_name=plant_name,
                                 journal_name=journal_name)
         elif journal.type == 'equipment':
@@ -213,17 +217,28 @@ def save_cell(request):
 
 @process_json_view(auth_required=False)
 def get_menu_info(request):
-    result = {}
-    for plant in Plant.objects.all():
-        result[plant.name] = {}
-        for journal in Journal.objects.filter(plant=plant):
-            result[plant.name][journal.name] = {}
-    return result
+    return {
+        'plants': [
+            {
+                'name': plant.name,
+                'verbose_name': plant.name,
+                'journals': [
+                    {
+                        'name': journal.name,
+                        'verbose_name': journal.verbose_name,
+                        'latest_shift_id': get_current_shift(journal).id
+                    }
+                for journal in Journal.objects.filter(plant=plant)
+                ]
+            }
+            for plant in Plant.objects.all()
+        ]
+    }
 
 
 @process_json_view(auth_required=False)
 def get_shift_info(request, id):
-    result = {}
+    result = DeepDict()
     shift = Shift.objects.get(id=id)
     journal = shift.journal
     user = request.user
@@ -240,17 +255,23 @@ def get_shift_info(request, id):
     result['journal'] = {}
     result['journal']['name'] = journal.name
     tables = result['journal']['tables'] = {}
-    for table in Table.objects.filter(journal=journal):
-        tables[table.name] = {}
-        fields = tables[table.name]['fields'] = {}
-        for field in Field.objects.filter(table=table):
-            field_description = Setting.of(field)['field_description']
-            fields[field.name] = {}
-            fields[field.name]['field_description'] = field_description
-            cells = fields[field.name]['cells'] = {}
-            for cell in Cell.objects.filter(group=shift, field=field):
-                cells[cell.index] = {}
-                cells[cell.index]['value'] = cell.value
+
+    cells = Cell.objects.select_related('field', 'field__table', 'field__table__journal').filter(group=shift)
+    for cell in cells:
+        journal = cell.field.table.journal
+        result['journal']['tables'][cell.table.name][cell.field.name]['cells'][cell.index] = cell.value
+
+    # for table in Table.objects.filter(journal=journal):
+    #     tables[table.name] = {}
+    #     fields = tables[table.name]['fields'] = {}
+    #     for field in Field.objects.filter(table=table):
+    #         field_description = Setting.of(field)['field_description']
+    #         fields[field.name] = {}
+    #         fields[field.name]['field_description'] = field_description
+    #         cells = fields[field.name]['cells'] = {}
+    #         for cell in Cell.objects.filter(group=shift, field=field):
+    #             cells[cell.index] = {}
+    #             cells[cell.index]['value'] = cell.value
     return result
 
 
