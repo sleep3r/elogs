@@ -32,15 +32,20 @@
         </nav>
         <div class="column-content" id="elogs-app">
             <main class="journal-page" data-mode="{{ page_mode }}">
-                {% block journal_panel %}
-                    {% include "journal__panel.html" %}
-                {% endblock %}
+                <journal-panel></journal-panel>
                 <article class="journal-tables">
                     {% block content %}
                     {% endblock %}
                 </article>
             </main>
-            {% include "footer.html" %}
+            <footer>
+                <button class="btn" data-toggle="modal" data-target="#MessageToDevelopersModal">
+                    <span>Оставить отзыв разработчикам</span>
+                    <i class="fab fa-optin-monster"></i>
+                </button>
+            </footer>
+            {% include "message_modal.html" %}
+            {% include "scheme_modal.html" %}
         </div>
     </div>
 </div>

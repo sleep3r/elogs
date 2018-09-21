@@ -212,6 +212,16 @@ def save_cell(request):
 
 
 @process_json_view(auth_required=False)
+def get_menu_info(request):
+    result = {}
+    for plant in Plant.objects.all():
+        result[plant.name] = {}
+        for journal in Journal.objects.filter(plant=plant):
+            result[plant.name][journal.name] = {}
+    return result
+
+
+@process_json_view(auth_required=False)
 def get_shift_info(request, id):
     result = {}
     shift = Shift.objects.get(id=id)

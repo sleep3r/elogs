@@ -29,7 +29,6 @@ Vue.use(VueNativeSock, dataEndpoint, {
 window.tablesApp = new Vue({
   el: '#elogs-app',
   store: store,
-  components: { TableCommon },
   delimiters: ['%{', '}'],
   mounted () {
     this.$connect();
