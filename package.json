@@ -46,6 +46,7 @@
         "typeface-roboto": "0.0.54",
         "typeface-roboto-condensed": "0.0.54",
         "underscore": "^1.9.1",
+        "v-tooltip": "^2.0.0-rc.33",
         "vue": "^2.5.17",
         "vue-datetime": "^1.0.0-beta.6",
         "vue-full-calendar": "^2.6.1",

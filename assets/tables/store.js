@@ -105,6 +105,9 @@ export const store = new Vuex.Store({
       SET_LOADED (state, loaded) {
         state.loaded = loaded;
       },
+      SET_PAGE_MODE (state, mode) {
+        state.journalInfo.mode = mode
+      },
       SAVE_CELL_VALUE (state, payload) {
         if (state.loaded) {
           let fields = state.journalInfo.journal.tables[payload.tableName].fields;

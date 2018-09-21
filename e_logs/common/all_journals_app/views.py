@@ -16,6 +16,7 @@ from e_logs.core.utils.loggers import stdout_logger
 
 from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Permission
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
@@ -26,6 +27,8 @@ from django.utils import timezone
 from django.urls import reverse
 
 from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
+from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
+    plant_permission
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
 from e_logs.common.messages_app.models import Message
 
@@ -38,7 +41,6 @@ environ.Env.read_env("config/settings/.env")
 class Index(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         return redirect('/furnace/metals_compute')
-
 
 
 class JournalView(LoginRequiredMixin, View):
@@ -207,6 +209,49 @@ def save_cell(request):
             shift.employee_set.add(request.user.employee)
 
         return {"status": 1}
+
+
+@process_json_view(auth_required=False)
+def get_menu_info(request):
+    result = {}
+    for plant in Plant.objects.all():
+        result[plant.name] = {}
+        for journal in Journal.objects.filter(plant=plant):
+            result[plant.name][journal.name] = {}
+    return result
+
+
+@process_json_view(auth_required=False)
+def get_shift_info(request, id):
+    result = {}
+    shift = Shift.objects.get(id=id)
+    journal = shift.journal
+    user = request.user
+
+    result['date'] = str(shift.date)
+    result['id'] = shift.id
+    result['order'] = shift.order
+    result['plant'] = {}
+    result['plant']['name'] = journal.plant.name
+    result['permissions'] = [permission.codename for permission
+                in Permission.objects.filter(user=user)]
+    result['mode'] = get_page_mode(request, shift)
+
+    result['journal'] = {}
+    result['journal']['name'] = journal.name
+    tables = result['journal']['tables'] = {}
+    for table in Table.objects.filter(journal=journal):
+        tables[table.name] = {}
+        fields = tables[table.name]['fields'] = {}
+        for field in Field.objects.filter(table=table):
+            field_description = Setting.of(field)['field_description']
+            fields[field.name] = {}
+            fields[field.name]['field_description'] = field_description
+            cells = fields[field.name]['cells'] = {}
+            for cell in Cell.objects.filter(group=shift, field=field):
+                cells[cell.index] = {}
+                cells[cell.index]['value'] = cell.value
+    return result
 
 
 @cached_as(Plant, Journal, Shift)
