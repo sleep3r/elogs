@@ -10,11 +10,18 @@
          :placeholder="placeholder"
          :style="{ color: activeColor }"
          :type="type"
+         v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
+         @blur="showCellTypeTooltip=false"
   />
 </template>
 
 <script>
 import axios from 'axios'
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
+
+Vue.directive('tooltip', VTooltip)
+Vue.directive('close-popover', VClosePopover)
+Vue.component('v-popover', VPopover)
 
 export default {
   name: 'Cell',
@@ -30,6 +37,7 @@ export default {
         maxValue: null,
         type: null,
         placeholder: '',
+        showCellTypeTooltip: false,
     }
   },
   computed: {
@@ -85,8 +93,11 @@ export default {
           // if non number character was pressed
           if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
             || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            console.log('it is a number field')
+            this.showCellTypeTooltip = true;
             event.preventDefault();
+          }
+          else {
+            this.showCellTypeTooltip = false;
           }
         }
       },
@@ -121,25 +132,25 @@ export default {
           case 'ArrowUp':
             let prevTr = tr.previousElementSibling;
             if (prevTr) {
-              getTd(prevTr.children, rowIndex).children[0].focus();
+              getTd(prevTr.children, rowIndex).children[0].select();
             }
             break;
           case 'ArrowDown':
             let nextTr = tr.nextElementSibling;
             if (nextTr) {
-              getTd(nextTr.children, rowIndex).children[0].focus();
+              getTd(nextTr.children, rowIndex).children[0].select();
             }
             break;
           case 'ArrowLeft':
-            let prev = focusedTd.previousElementSibling;
-            if (prev) {
-              prev.children[0].focus();
+            let prevTd = focusedTd.previousElementSibling;
+            if (prevTd) {
+              prevTd.children[0].select();
             }
             break;
           case 'ArrowRight':
-            let next = focusedTd.nextElementSibling;
-            if (next) {
-              next.children[0].focus();
+            let nextTd = focusedTd.nextElementSibling;
+            if (nextTd) {
+              nextTd.children[0].select();
             }
             break;
         }
