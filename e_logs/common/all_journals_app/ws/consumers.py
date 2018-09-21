@@ -68,6 +68,3 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_message(self, event):
         await self.send(event['text'])
-
-class CommonConsumer(AsyncJsonWebsocketConsumer):
-    pass
