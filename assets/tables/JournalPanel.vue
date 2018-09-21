@@ -4,30 +4,32 @@
             <label>Выберите дату и смену</label>
             <input id="shift_field"
                    type="text"
-                   :value="shiftFormatted"
-                   v-on:click="showCalendar"
+                   :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
+                   @click="showCalendar=true"
                    class="date-selector__date"
                    placeholder="Выберите дату..."
-
                    data-toggle="modal"
                    data-target="#myModal"
             >
         </div>
         <div class="mode-buttons">
-            <!--{% if perms.all_journals_app.view_cells %}-->
-                <button class="btn btn-view" v-on:click="changeMode('view')" >Просмотр</button>
-            <!--{% endif %}-->
-            <!--{% if 'all_journals_app.edit_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}-->
-                <button class="btn btn-edit" v-on:click="changeMode('edit')">Редактирование</button>
-            <!--{% endif %}-->
-            <!--{% if 'all_journals_app.validate_cells' in perms and 'all_journals_app.modify_'|add:plant.name in perms %}-->
-                <button class="btn btn-validate" v-on:click="changeMode('validate')">Валидация</button>
-            <!--{% endif %}-->
-            <!--{% for employee in employee_list %}-->
-                <img style="height: 30px; width: 30px;" :title="employeeFormatted" src = "/static/images/no-avatar.png">
-            <!--{% endfor %}-->
+          <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
+                  @click="changeMode('view')">
+            Просмотр
+          </button>
+          <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                  @click="changeMode('edit')">
+            Редактирование
+          </button>
+          <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                  @click="changeMode('validate')">
+            Валидация
+          </button>
+          <img style="height: 30px; width: 30px;"
+               :title="employeeFormatted"
+               src="/static/images/no-avatar.png">
         </div>
-        <modal v-show="isShowCalendar" @close="isShowCalendar = false" >
+        <modal v-show="showCalendar" @close="showCalendar = false" >
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />
         </modal>
     </div>
@@ -42,12 +44,9 @@ export default {
     name: 'journal-panel',
     data() {
         return {
-            isShowCalendar: false,
-            shiftDate: '00-00-00',
-            shiftOrder: '1',
+            showCalendar: false,
             employeeName: 'Employee name',
             employeePosition: 'position',
-            mode: '',
             events: null,
             fullCalendarConfig: {
                 locale: 'ru',
@@ -121,74 +120,34 @@ export default {
         }
     },
     computed: {
-      shiftFormatted() {
-          return  this.shiftDate + ", " + this.shiftOrder + "-ая смена";
-      },
       employeeFormatted() {
           return this.employeeName + " : " + this.employeePosition;
       },
-      getMode() {
-          return this.getUrlParam('page_mode');
+      mode() {
+          return this.$store.state.journalInfo.mode;
+      },
+      shiftDate() {
+        return this.$store.state.journalInfo.date;
+      },
+      shiftOrder() {
+        return this.$store.state.journalInfo.order;
       }
     },
     methods: {
         changeMode(mode) {
-            console.log("change mode to ", mode);
-             let id = this.$root.pageId;
-              function prepareUrl(mode) {
-                  let url = location.pathname.concat(mode);
-                      if (id !== null) {
-                          url = url.concat("&id=" + id);
-                      }
-                  return url;
-              }
-
-              switch (mode) {
-                  case 'view':
-                      location.href = prepareUrl("?page_mode=view");
-                     break;
-                  case 'edit':
-                     location.href = prepareUrl("?page_mode=edit");
-                     break;
-                  case 'validate':
-                     location.href = prepareUrl("?page_mode=validate");
-                     break;
-                  default:
-                     console.log("change mode to Default mode!");
-                     break;
-              }
+          let permission = mode + '_cells'
+          let permissions = this.$store.state.journalInfo.permissions
+          for (let i=0; i<permissions.length; i++) {
+            if (permission === permissions[i]) {
+              this.$store.commit('SET_PAGE_MODE', mode);
+            }
+          }
         },
-        showCalendar() {
-            console.log("new showCalendar");
-            this.isShowCalendar = true;
-        },
-        getUrlParam(paramName) {
-           let url = window.location.search.substring(1);
-           let urlParams = url.split('&');
-           for (let i = 0; i < urlParams.length; i++) {
-                let parameterName = urlParams[i].split('=');
-                if (parameterName[0] === paramName) {
-                    return parameterName[1];
-                }
-           }
-
-           return "";
-        }
     },
     mounted() {
-       let selector = ".mode-buttons .btn-" + this.getMode;
-       let activeBtn = document.querySelector(selector);
-       if (activeBtn !== null) {
-           activeBtn.classList.toggle("btn--active");
-       }
-
         let plant = location.pathname.split('/')[1];
         let journal_name = location.pathname.split('/')[2];
 
-        if (!plant || !journal_name) {
-            plant = 'furnace';
-            journal_name = 'fractional';
-        }
         let self = this;
         axios.get('/' + plant + '/' + journal_name +'/get_shifts/')
             .then(response => {
