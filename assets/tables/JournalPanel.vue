@@ -36,7 +36,6 @@
 </template>
 <script>
 import axios from 'axios'
-import 'jquery'
 import { FullCalendar } from 'vue-full-calendar'
 import modal from "./Modal.vue"
 
@@ -102,7 +101,6 @@ export default {
     mounted() {
         let plant = location.pathname.split('/')[1];
         let journal_name = location.pathname.split('/')[2];
-
         let self = this;
         axios.get('/' + plant + '/' + journal_name +'/get_shifts/')
             .then(response => {
