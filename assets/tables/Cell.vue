@@ -7,11 +7,12 @@
          @keydown="changeFocus"
          @change="onChanged"
          @input="onInput"
+         @blur="showCellTypeTooltip=false"
+         :disabled="mode==='view'"
          :placeholder="placeholder"
          :style="{ color: activeColor }"
          :type="type"
          v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
-         @blur="showCellTypeTooltip=false"
   />
 </template>
 
@@ -65,7 +66,10 @@ export default {
           value: val
         });
       }
-    }
+    },
+    mode() {
+      return this.$store.state.journalInfo.mode;
+    },
   },
   methods: {
       send() {
