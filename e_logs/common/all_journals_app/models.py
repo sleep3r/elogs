@@ -63,9 +63,9 @@ class Table(models.Model):
     name = models.CharField(max_length=128, verbose_name='Таблица')
     verbose_name = models.CharField(max_length=256, verbose_name='Название таблицы')
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE, related_name='tables')
-    settings = GenericRelation('core.Setting', related_query_name='table', related_name='tables')
+    settings = GenericRelation('core.Setting', related_query_name='table', related_name='setting_tables')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='table',
-                               related_name='tables')
+                               related_name='comment_tables')
 
     @cached_property
     def plant(self):
@@ -92,9 +92,9 @@ class Field(models.Model):
     name = models.CharField(max_length=128, verbose_name='Столбец')
     verbose_name = models.CharField(max_length=256, verbose_name='Название столбца', null=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
-    settings = GenericRelation('core.Setting', related_query_name='field', related_name='fields')
-    comments = GenericRelation('all_journals_app.Comment', related_query_name='field',
-                               related_name='fields')
+    settings = GenericRelation('core.Setting', related_query_name='setting_field', related_name='setting_fields')
+    comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
+                               related_name='comment_fields')
 
     @cached_property
     def plant(self):
@@ -202,7 +202,7 @@ class Equipment(CellGroup):
 class Cell(TimeStampedModel):
     """Specific cell in some table."""
 
-    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='cells')
+    group = models.ForeignKey(CellGroup, on_delete=models.CASCADE, related_name='group_cells')
     field = models.ForeignKey(Field, on_delete=models.CASCADE, related_name='cells')
     index = models.IntegerField(default=None, verbose_name='Номер строчки')
     value = models.CharField(max_length=1024, verbose_name='Значение поля', blank=True, default='')

@@ -30,7 +30,8 @@ class ShiftAPI(generics.RetrieveAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Shift.objects\
         .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__plant', 'journal', 'cells', 'cells__field', 'journal__tables')\
+        .prefetch_related('journal__plant', 'journal', 'journal__tables',
+                          'journal__tables__fields', 'group_cells')\
         .all()
 
 
@@ -39,34 +40,37 @@ shift_api_view = ShiftAPI.as_view()
 
 class ShiftAPI1(View):
     def get(self, request, *args, **kwargs):
-        shift = Shift.objects.get(id=kwargs['id'])
+        qs = Shift.objects\
+        .select_related('journal', 'journal__plant') \
+        .prefetch_related('journal__tables',
+                          'journal__tables__fields', 'journal__tables__fields__cells').get(id=kwargs['id'])
 
         res = {
-                "id": shift.id ,
-                "plant":{"name":shift.journal.plant.name},
-                "order": shift.order,
-                "date": shift.date,
-                "closed":shift.closed,
-                "ended": shift.ended,
-                "mode": get_page_mode(self.request, shift),
+                "id": qs.id ,
+                "plant":{"name":qs.journal.plant.name},
+                "order": qs.order,
+                "date": qs.date,
+                "closed":qs.closed,
+                "ended": qs.ended,
+                "mode": get_page_mode(self.request, qs),
                 "permissions": [permission.codename for permission
                     in Permission.objects.filter(user=self.request.user)],
-                "journal": self.journal_serializer(shift)}
+                "journal": self.journal_serializer(qs)}
 
         return JsonResponse(res, safe=False)
 
-    def journal_serializer(self, shift):
-        journal = shift.journal
+    def journal_serializer(self, qs):
+        journal = qs.journal
         res = {
                 "id": journal.id,
                 "name": journal.name,
                 "type": journal.type,
-                "tables": self.table_serializer(journal)
+                "tables": self.table_serializer(qs)
         }
         return res
 
-    def table_serializer(self, journal):
-        tables = Table.objects.filter(journal=journal)
+    def table_serializer(self, qs):
+        tables = qs.journal.tables.all()
         res = {
                 table.name: {
                     "id": table.id,
@@ -77,19 +81,19 @@ class ShiftAPI1(View):
         return res
 
     def field_serializer(self, table):
-        fields = Field.objects.filter(table=table)
+        fields = table.fields.all()
 
         res = {field.name: {
                         "id": field.id,
                         "name": field.name,
-                        "field_description": Setting.of(field)['field_description'],
+                        "field_description": 87,#Setting.of(field)['field_description'],
                         "cells": self.cell_serializer(field)}
             for field in fields }
 
         return res
 
     def cell_serializer(self, field):
-        cells = Cell.objects.filter(field=field)
+        cells = field.cells.all()
         res = {
             cell.index:{
             "id":cell.id,
