@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     'service_objects',
     'django_celery_beat',
     'django_celery_results',
+    'corsheaders',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
@@ -106,6 +107,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -428,3 +430,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+
+CORS_ORIGIN_ALLOW_ALL = True
