@@ -164,7 +164,7 @@ class DatabaseFiller:
         for journal in Journal.objects.all():
             if journal.type == 'shift':
                 number_of_shifts = Shift.get_number_of_shifts(journal)
-                for shift_date in date_range(now_date, now_date + timedelta(days=7)):
+                for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
                     for shift_order in range(1, number_of_shifts + 1):
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
@@ -285,6 +285,25 @@ class DatabaseFiller:
                 journal = Journal.objects.get(plant__name=plant_name, name=journal_name)
                 journal.verbose_name = verbose_name
                 journal.save()
+
+
+    @staticmethod
+    def create_dashboard_sample_data():
+        journal = Journal.objects.get(name="concentrate_report")
+        cellgroups = CellGroup.objects.filter(journal=journal)
+        shifts = Shift.objects.filter(cellgroup_ptr__in=cellgroups).order_by("date")
+        group_ids = shifts[:14].values_list("cellgroup_ptr", flat=True)
+
+        table_name = "small"
+        field_names = ["poured_containers_num1", "shipped_empty_num1"]
+
+        for group_id in group_ids:
+            for field_name in field_names:
+                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                    field_name=field_name, index=0)
+                cell.value = str(random.randint(0, 100))
+                cell.save()
+
 
     @staticmethod
     def create_fields_descriptions():
