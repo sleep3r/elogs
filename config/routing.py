@@ -4,7 +4,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
 
-from e_logs.common.all_journals_app.ws.consumers import DataConsumer
+from e_logs.common.all_journals_app.ws.consumers import JournalInfoConsumer
 from e_logs.common.messages_app.ws.consumers import MessageConsumer
 
 
@@ -16,7 +16,7 @@ application = ProtocolTypeRouter({
             URLRouter(
                 [
                     url(r"^messages/$", MessageConsumer),
-                    url(r"^data/$", DataConsumer),
+                    url(r"^journal_info/$", JournalInfoConsumer),
                 ]
             )
         )

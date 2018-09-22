@@ -18,7 +18,6 @@ const OPTIONS = {
 };
 
 const devMode = process.env.NODE_ENV !== 'production';
-
 let cacheObj = {};
 
 module.exports = {
@@ -36,8 +35,6 @@ module.exports = {
             "jquery",
             "moment",
             "fullcalendar",
-            // "webpack-material-design-icons",
-            // 'font-awesome/scss/font-awesome.scss',
             'tether',
             // "font-awesome-webpack!./path/to/font-awesome.config.js",
         ],
@@ -84,7 +81,7 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                loaders: ['file-loader?name=[name].html', 'extract-loader', 'html-loader']
+                loaders: ['file-loader?name=[resource].html', 'extract-loader', 'html-loader']
             },
             {
                 test: /\.css$/,
@@ -99,8 +96,6 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    // 'style-loader',
-                    // 'vue-style-loader',
                     MiniCssExtractPlugin.loader,  //production shit
                     // devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',

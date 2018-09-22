@@ -2,6 +2,7 @@ import pickle
 
 from typing import Optional
 
+from cacheops import cached_as
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType

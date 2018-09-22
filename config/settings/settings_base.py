@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     'service_objects',
     'django_celery_beat',
     'django_celery_results',
+    'corsheaders',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
@@ -107,6 +108,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -163,6 +165,13 @@ LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 APPEND_SLASH = True
 
 MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
+
+if DEBUG:
+    import logging
+
+    l = logging.getLogger('django.db.backends')
+    l.setLevel(logging.DEBUG)
+    l.addHandler(logging.StreamHandler())
 
 LOGGING = {
     'version': 1,
@@ -291,12 +300,11 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['debug_file_debug', 'console'],
-            'level': 'INFO',
-        },
-        'werkzeug': {
-            'handlers': ['console'],
             'level': 'DEBUG',
-            'propagate': True,
+        },
+        'django.db.backends.mssql': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
@@ -423,3 +431,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+
+CORS_ORIGIN_ALLOW_ALL = True

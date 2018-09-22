@@ -1,24 +1,13 @@
 {% extends 'base_page.html' %}
-{% load staticfiles %}
-
-{% load i18n %}
 
 {% block title %}
     {{ journal_title }}
-{% endblock %}
-
-{% block css %}
-   {{ block.super }}
 {% endblock %}
 
 {% block content %}
     <div class="content">
     {% include "widget.html" %}
     </div>
-{% endblock %}
-
-{% block footer %}
-    {{ block.super }}
 {% endblock %}
 
 

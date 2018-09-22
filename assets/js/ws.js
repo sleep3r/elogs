@@ -1,53 +1,35 @@
-import VueWebsocket from "vue-websocket"
-
-import ReconnectingWebSocket from 'reconnecting-websocket';
+import ReconnectingWebSocket from '../vendors/reconnecting-websocket/reconnecting-websocket.min';
 window.ReconnectingWebSocket = ReconnectingWebSocket;
 
-// <---------------------------------------MESSAGES------------------------------------------------>
-var messages_endpoint = 'ws://' + window.location.host + '/messages/';
-var messages_socket = new ReconnectingWebSocket(messages_endpoint);
 
-messages_socket.onmessage = function (event) {
-    console.log("message", event);
-
+function show_notification() {
     Notification.requestPermission(function (permission) {
         if (permission === "granted") {
-            var data = JSON.parse(event.data);
-            var options = {
+            const data = JSON.parse(event.data);
+            const options = {
                 body: "Asmet Omarov comes",
                 icon: '',
             };
-            var title = 'E-LOGS: У вас новое сообщение';
-            var notification = new Notification(title, options);
+            const title = 'E-LOGS: У вас новое сообщение';
+            const notification = new Notification(title, options);
         }
     });
+}
 
-};
-messages_socket.onopen = function (event) {
-    console.log("Messages connected", event);
-};
-messages_socket.onerror = function (event) {
-    console.log("Messages error", event);
-};
-messages_socket.onclose = function (event) {
-    console.log("Messages closed", event);
-};
+$(document).ready(() => {
+    // <---------------------------------------MESSAGES------------------------------------------->
+    const messages_endpoint = 'ws://' + window.location.host + '/messages/';
+    const messages_socket = new ReconnectingWebSocket(messages_endpoint);
+    messages_socket.onmessage = function (event) {console.log("message", event);show_notification();};
+    messages_socket.onopen = function (event) {console.log("Messages connected", event);};
+    messages_socket.onerror = function (event) {console.log("Messages error", event);};
+    messages_socket.onclose = function (event) {console.log("Messages closed", event);};
 
-// <-----------------------------------------DATA-------------------------------------------------->
-var data_endpoint = 'ws://' + window.location.host + '/data/';
-var data_socket = new ReconnectingWebSocket(data_endpoint);
-
-data_socket.onmessage = function (event) {
-    console.log("message", event);
-
-
-};
-data_socket.onopen = function (event) {
-    console.log("Data connected", event);
-};
-data_socket.onerror = function (event) {
-    console.log("Data error", event);
-};
-data_socket.onclose = function (event) {
-    console.log("Data closed", event);
-};
+    // <-----------------------------------------DATA--------------------------------------------->
+    const data_endpoint = 'ws://' + window.location.host + '/data/';
+    const data_socket = new ReconnectingWebSocket(data_endpoint);
+    data_socket.onmessage = function (event) {console.log("message", event);};
+    data_socket.onopen = function (event) {console.log("Data connected", event);};
+    data_socket.onerror = function (event) {console.log("Data error", event);};
+    data_socket.onclose = function (event) {console.log("Data closed", event);};
+});

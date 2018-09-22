@@ -1,13 +1,11 @@
 /*------------------------------------*\
   # Common definitions
 \*------------------------------------*/
-
+@import "variables";
 
 textarea {
     resize: none;
 }
-
-
 
 /*------------------------------------*\
   # Framework
@@ -34,6 +32,9 @@ textarea {
     visibility: visible !important;
 }
 
+.bordered.bordered {
+    border: 1px solid $border-color;
+}
 
 // ---- sliding elements ----
 .slide-up, .slide-down {

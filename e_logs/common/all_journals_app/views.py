@@ -16,6 +16,7 @@ from e_logs.core.utils.loggers import stdout_logger
 
 from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Permission
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
 from django.template import loader, TemplateDoesNotExist
@@ -26,6 +27,8 @@ from django.utils import timezone
 from django.urls import reverse
 
 from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
+from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
+    plant_permission
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
 from e_logs.common.messages_app.models import Message
 
@@ -38,6 +41,21 @@ environ.Env.read_env("config/settings/.env")
 class Index(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         return redirect('/furnace/metals_compute')
+
+
+def get_current_shift(journal):
+    number_of_shifts = Shift.get_number_of_shifts(journal)
+    assert number_of_shifts > 0, "<= 0 number of shifts"
+
+    # create shifts for today and return current shift
+    for shift_order in range(1, number_of_shifts + 1):
+        shift = Shift.objects.get_or_create(journal=journal,
+                                            order=shift_order,
+                                            date=timezone.now().date())[0]
+        if shift.is_active:
+            return shift
+    if not page: # fixme: there may be no active shift due to datetime problems
+        return shift
 
 
 
@@ -57,19 +75,7 @@ class JournalView(LoginRequiredMixin, View):
             if page_id:
                 page = Shift.objects.get(id=page_id)
             else:
-                number_of_shifts = Shift.get_number_of_shifts(journal)
-                assert number_of_shifts > 0, "<= 0 number of shifts"
-
-                # create shifts for today and return current shift
-                for shift_order in range(1, number_of_shifts + 1):
-                    shift = Shift.objects.get_or_create(journal=journal,
-                                                        order=shift_order,
-                                                        date=timezone.now().date())[0]
-                    if shift.is_active:
-                        page = shift
-                        break
-                if not page: # fixme: there may be no active shift due to datetime problems
-                    page = shift
+                page = get_current_shift(journal)
                 return redirect('journal_view', page_id=page.id, plant_name=plant_name,
                                 journal_name=journal_name)
         elif journal.type == 'equipment':
