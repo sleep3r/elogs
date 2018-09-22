@@ -217,16 +217,17 @@ def save_cell(request):
 
 @process_json_view(auth_required=False)
 def get_menu_info(request):
+    verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
     return {
         'plants': [
             {
                 'name': plant.name,
-                'verbose_name': plant.name,
+                'verbose_name': verbose_name[plant.name],
                 'journals': [
                     {
                         'name': journal.name,
                         'verbose_name': journal.verbose_name,
-                        'latest_shift_id': get_current_shift(journal).id
+                        'current_shift_id': get_current_shift(journal).id
                     }
                 for journal in Journal.objects.filter(plant=plant)
                 ]
