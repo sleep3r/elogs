@@ -43,7 +43,7 @@ def get_data(field, employee=None, period=7):
     return values, shifts
 
 
-def timeline(x, y):
+def timeline(x, y, title):
     """
     Function description
 
@@ -67,12 +67,12 @@ def timeline(x, y):
     xaxis = go.XAxis(
         showgrid=True,
         showline=True,
-        ticks="",
         showticklabels=True,
         ticktext=[str(shift.start_time) + f' Смена {shift.order}' for shift in x],
         tickvals=[shift.start_time for shift in x],
     )
     layout = go.Layout(
+        title=title,
         xaxis=xaxis,
     )
     fig = go.Figure(data=[trace], layout=layout)
@@ -127,11 +127,12 @@ class GraphView(LoginRequiredMixin, View):
     @logged
     def post(self, request):
         field_id = json.loads(request.body)
-        field = Field(id=field_id)
+        field = Field.objects.get(id=field_id)
+        title = field.verbose_name if field.verbose_name else field.name
         y, x = get_data(field)
-        print(x, y)
-        graph = timeline(x, y)
-        print(dumps(graph, primitives=True))
+        print(x, y, title)
+        graph = timeline(x, y, title)
+        # print(dumps(graph, primitives=True))
         return HttpResponse(dumps(graph, primitives=True),
             content_type='application/json; charset=utf8')
 
@@ -139,8 +140,8 @@ class GraphView(LoginRequiredMixin, View):
 class AddGraphView(View):
     @logged
     def post(self, request):
-        # user = request.user
-        user = User.objects.get(username="inframine")
+        user = request.user
+        # user = User.objects.get(username="inframine")
         employee = Employee.objects.get(user=user)
         print(request.body)
         cell_info = json.loads(request.body)
