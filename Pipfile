@@ -40,6 +40,7 @@ djangorestframework-rapidjson = "*"
 python-rapidjson = "*"
 rapidjson = "*"
 whitenoise = { extras = [ "brotli",] }
+django-cors-headers = "*"
 
 [dev-packages]
 icecream = "*"
