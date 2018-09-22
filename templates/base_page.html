@@ -28,7 +28,9 @@
 
     <div class="main-container">
         <nav class="column-left">
-            {% include "menu.html" %}
+            {% block menu %}
+                {% include "menu.html" %}
+            {% endblock %}
         </nav>
         <div class="column-content" id="elogs-app">
             <main class="journal-page" data-mode="{{ page_mode }}">

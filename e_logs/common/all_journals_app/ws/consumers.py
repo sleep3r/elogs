@@ -18,7 +18,6 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
         await self.accept()
 
-
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
             self.channel,
@@ -27,7 +26,6 @@ class JournalInfoConsumer(AsyncJsonWebsocketConsumer):
 
         await self.close()
         raise StopConsumer()
-
 
     async def websocket_receive(self, event):
         text = event.get('text', None)
