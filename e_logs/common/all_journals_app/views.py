@@ -237,45 +237,6 @@ def get_menu_info(request):
     }
 
 
-@process_json_view(auth_required=False)
-def get_shift_info(request, id):
-    result = DeepDict()
-    shift = Shift.objects.get(id=id)
-    journal = shift.journal
-    user = request.user
-
-    result['date'] = str(shift.date)
-    result['id'] = shift.id
-    result['order'] = shift.order
-    result['plant'] = {}
-    result['plant']['name'] = journal.plant.name
-    result['permissions'] = [permission.codename for permission
-                in Permission.objects.filter(user=user)]
-    result['mode'] = get_page_mode(request, shift)
-
-    result['journal'] = {}
-    result['journal']['name'] = journal.name
-    tables = result['journal']['tables'] = {}
-
-    cells = Cell.objects.select_related('field', 'field__table', 'field__table__journal').filter(group=shift)
-    for cell in cells:
-        journal = cell.field.table.journal
-        result['journal']['tables'][cell.table.name][cell.field.name]['cells'][cell.index] = cell.value
-
-    # for table in Table.objects.filter(journal=journal):
-    #     tables[table.name] = {}
-    #     fields = tables[table.name]['fields'] = {}
-    #     for field in Field.objects.filter(table=table):
-    #         field_description = Setting.of(field)['field_description']
-    #         fields[field.name] = {}
-    #         fields[field.name]['field_description'] = field_description
-    #         cells = fields[field.name]['cells'] = {}
-    #         for cell in Cell.objects.filter(group=shift, field=field):
-    #             cells[cell.index] = {}
-    #             cells[cell.index]['value'] = cell.value
-    return result
-
-
 @cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged

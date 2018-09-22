@@ -11,6 +11,7 @@ from rest_framework.response import Response
 
 
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell, Shift
+from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.core.models import Setting
 from .serializers import PlantSerializer, JournalSerializer, TableSerializer, FieldSerializer, \
@@ -117,6 +118,29 @@ class JournalAPI(View):
             queryset = Journal.objects.filter(plant__name=plant)
         res = [{journal.name:journal.verbose_name} for journal in queryset]
         return JsonResponse(res, safe=False)
+
+
+class MenuInfoAPI(View):
+    def get(self, request):
+        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
+        return JsonResponse({
+            'plants': [
+                {
+                    'name': plant.name,
+                    'verbose_name': verbose_name[plant.name],
+                    'journals': [
+                        {
+                            'name': journal.name,
+                            'verbose_name': journal.verbose_name,
+                            'current_shift_id': get_current_shift(journal).id
+                        }
+                    for journal in Journal.objects.filter(plant=plant)
+                    ]
+                }
+                for plant in Plant.objects.all()
+            ]
+        })
+
 
 
 class TableAPI(View):
