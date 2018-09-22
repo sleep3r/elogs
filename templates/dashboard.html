@@ -12,35 +12,7 @@
 
 {% block dashboard %}
 <div id="vue-dashboard-container">
-    <div id="content">
-        <!--<button @click="decreaseWidth">Decrease Width</button>
-        <button @click="increaseWidth">Increase Width</button>
-        <button @click="addItem">Add an item</button>-->
-        <input type="checkbox" v-model="draggable"/> Draggable
-        <input type="checkbox" v-model="resizable"/> Resizable
-        <br/>
-        <grid-layout :layout="layout"
-                     :col-num="12"
-                     :row-height="30"
-                     :is-draggable="draggable"
-                     :is-resizable="resizable"
-                     :vertical-compact="true"
-                     :use-css-transforms="true"
-        >
-            <grid-item v-for="i in layout"
-                       :x="layout[i].x"
-                       :y="layout[i].y"
-                       :w="layout[i].w"
-                       :h="layout[i].h"
-                       :i="i"
-                       :id="'vue-grid-item-' + layout[i].i"
-                       :drag-ignore-from="dragIgnoreFrom"
-                       @resized="resizedEvent"
-                    >
-                <div :id="layout[i].i"></div>
-            </grid-item>
-        </grid-layout>
-    </div>
+    <Dashboard></Dashboard>
 </div>
 {% endblock %}
 

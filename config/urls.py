@@ -37,7 +37,6 @@ urlpatterns = [
     path('common/messages/', include('e_logs.common.messages_app.urls')),
     path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
-    path('visualization/', include('e_logs.common.data_visualization_app.urls')),
     path('dashboard/', include('e_logs.common.data_visualization_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
 

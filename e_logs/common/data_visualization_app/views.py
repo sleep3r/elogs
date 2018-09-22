@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from cacheops import cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.views import View
 from django.views.generic import TemplateView
@@ -88,12 +89,38 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class GraphsListView(LoginRequiredMixin, View):
+class DashboardConfigView(LoginRequiredMixin, View):
+    @staticmethod
+    def config2list(config):
+        res = []
+        for i in config:
+            spec = config[i]
+            spec["i"] = str(i)
+            res.append(spec)
+        return res
+
     @logged
     def get(self, request):
         employee = Employee.objects.get(user=request.user)
-        graphs = Setting.get_value(name="graphs", employee=employee)
-        return JsonResponse({"graphs": graphs})
+        dashboard_config = Setting.get_value(name="dashboard_config", employee=employee)
+        if dashboard_config:
+            return JsonResponse({"config": self.config2list(dashboard_config)})
+        else:
+            return JsonResponse({"config": {}})
+
+
+class DashboardConfigUpdateView(LoginRequiredMixin, View):
+    def post(self, request):
+        layout = json.loads(request.body)
+        employee = Employee.objects.get(user=request.user)
+        config = Setting.get_value(name="dashboard_config", employee=employee)
+        for item in layout:
+            id = item["i"]
+            for key in item:
+                if key not in ["i", "moved"]:
+                    config[id][key] = item[key]
+        Setting.set_value(name="dashboard_config", employee=employee, value=config)
+        return JsonResponse({"result": 1})
 
 
 class GraphView(LoginRequiredMixin, View):
@@ -109,10 +136,12 @@ class GraphView(LoginRequiredMixin, View):
             content_type='application/json; charset=utf8')
 
 
-class AddGraphView(LoginRequiredMixin, View):
+class AddGraphView(View):
     @logged
     def post(self, request):
-        employee = Employee.objects.get(user=request.user)
+        # user = request.user
+        user = User.objects.get(username="inframine")
+        employee = Employee.objects.get(user=user)
         print(request.body)
         cell_info = json.loads(request.body)
         journal_name = cell_info["journal_name"]
@@ -122,10 +151,15 @@ class AddGraphView(LoginRequiredMixin, View):
         table = Table.objects.get(name=table_name, journal_id=journal.id)
         field = Field.objects.get(name=field_name, table_id=table.id)
 
-        graphs = Setting.get_value(name="graphs", employee=employee)
-        if graphs is None:
-            graphs = []
-        graphs.append(field.id)
-        Setting.set_value(name="graphs", employee=employee, value=graphs)
+        dashboard_config = Setting.get_value(name="dashboard_config", employee=employee)
+        if dashboard_config is None:
+            dashboard_config = {}
+        dashboard_config[str(field.id)] = dict(x=0, y=0, w=6, h=8)
+        Setting.set_value(name="dashboard_config", employee=employee, value=dashboard_config)
 
         return JsonResponse({"result": 1})
+
+
+class DeleteGraphView(LoginRequiredMixin, View):
+    def get(self, request):
+        pass
