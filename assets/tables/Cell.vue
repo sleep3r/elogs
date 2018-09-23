@@ -10,11 +10,14 @@
          :placeholder="placeholder"
          :style="{ color: activeColor }"
          :type="type"
+         :data-provide="(type==='date') ? 'datepicker' : ''"
+         data-date-end-date="0d"
   />
 </template>
 
 <script>
 import axios from 'axios'
+import 'clockpicker/dist/bootstrap-clockpicker.min'
 
 export default {
   name: 'Cell',
@@ -74,7 +77,7 @@ export default {
           fieldName: this.fieldName,
           index: this.rowIndex,
           value: this.value
-        })
+        });
         this.$parent.$emit('addNewLine', { editedRowIndex: this.rowIndex });
       },
       onChanged() {
@@ -82,12 +85,12 @@ export default {
       },
       filterInput(e) {
         if (this.type === 'number') {
-          let keycode = e.which
-          console.log('code')
-          console.log(keycode)
+          let keycode = e.which;
+          console.log('code');
+          console.log(keycode);
           // if non number character was pressed
-          if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
-            || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+          if (!(e.shiftKey === false && ((keycode === 45 && this.value === '') || keycode === 46
+            || keycode === 8 || keycode === 37 || keycode === 39 || (keycode >= 48 && keycode <= 57)))) {
             console.log('it is a number field')
             event.preventDefault();
           }
@@ -95,7 +98,7 @@ export default {
       },
       changeFocus(e) {
         function getIndex(tds, focusedTd) {
-          let index = 0
+          let index = 0;
           for (let i = 0; i < tds.length; i++) {
             let td = tds[i];
             if (td === focusedTd) {
@@ -106,7 +109,7 @@ export default {
           return index;
         }
         function getTd(tds, index) {
-          let nextRowIndex = 0
+          let nextRowIndex = 0;
           for (let i = 0; i < tds.length; i++) {
             let td = tds[i];
             if (nextRowIndex === index) {
@@ -152,15 +155,24 @@ export default {
     // initializing data
     this.value = this.$store.getters.cellValue(this.tableName, this.fieldName, this.rowIndex);
     let desc = this.$store.getters.fieldDescription(this.tableName, this.fieldName);
-    this.placeholder = desc['units'] || ''
-    this.minValue = desc['min_normal'] || null
-    this.maxValue = desc['max_normal'] || null
-    this.type = desc['type'] || 'text'
+    this.placeholder = desc['units'] || '';
+    this.minValue = desc['min_normal'] || null;
+    this.maxValue = desc['max_normal'] || null;
+    this.type = desc['type'] || 'text';
 
     if (this.linked) {
       // auto fill cell
       this.value = this.$store.getters[this.linked];
       this.send();
+    }
+
+    if (this.type === 'time') {
+        this.classes += ' clockpicker';
+        console.log('clockpicker');
+        $('.clockpicker').clockpicker( {
+            autoclose: true,
+            'default': 'now'
+        })
     }
   }
 }
