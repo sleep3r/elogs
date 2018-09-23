@@ -13,7 +13,6 @@ import 'promise-polyfill/src/polyfill';
 import 'fullcalendar';
 import 'bootstrap-datepicker';
 import 'bootstrap-grid';
-import 'clockpicker/dist/bootstrap-clockpicker.min'
 
 import 'waypoints/lib/jquery.waypoints.js';
 // import 'waypoints'; import Waypoint from 'waypoints'; window.Waypoint = Waypoint;
@@ -31,7 +30,6 @@ import '@fortawesome/fontawesome-free-brands';
 import './datepicker-init';
 import './feedback';
 import './header';
-import './menu';
 import './clockpicker';
 import './vue-env';
 

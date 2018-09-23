@@ -1,15 +1,12 @@
 <template>
     <div id="app">
-        <base-page></base-page>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import BasePage from './components/BasePage.vue'
-
     export default {
         name: 'app',
-        components: { BasePage }
     }
 </script>
 

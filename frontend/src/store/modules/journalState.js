@@ -3,6 +3,7 @@ import axios from 'axios';
 const journalState = {
     namespaced: true,
     state: {
+        plantsInfo: [],
         journalInfo: {},
         loaded: false,
     },
@@ -14,6 +15,9 @@ const journalState = {
             } else {
                 return [];
             }
+        },
+        plants: state => {
+            return state.plantsInfo
         },
         plantName: state => {
             if (state.loaded) {
@@ -90,6 +94,9 @@ const journalState = {
         UPDATE_JOURNAL_INFO (state, journalInfo) {
             state.journalInfo = journalInfo;
         },
+        UPDATE_PLANTS_INFO (state, plantsInfo) {
+            state.plantsInfo = plantsInfo;
+        },
         SET_LOADED (state, loaded) {
             state.loaded = loaded;
         },
@@ -122,6 +129,13 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_JOURNAL_INFO', response.data);
                     commit('SET_LOADED', true);
+                })
+        },
+        loadPlants: function ({ commit, state, getters }) {
+            axios
+                .get('http://localhost:8000/api/menu_info/')
+                .then(response => {
+                    commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
         },
     }

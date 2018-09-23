@@ -2,11 +2,11 @@
     <header class="header sticky">
         <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
         <div class="header__title">
-            <span class="journal_title">?? Journal_Title ??</span>
-            // if plant
-            <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
-            <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>
-            //
+            <span class="journal_title">{{$store.getters['journalState/plantName']}}</span>
+             <!--if plant-->
+            <!--<i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>-->
+            <!--<i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>-->
+            <!---->
         </div>
         <div class="header__user">
             <i class="fas fa-envelope user-messages-badge" onclick="Toggle.class('.user-notifications','display')"></i>

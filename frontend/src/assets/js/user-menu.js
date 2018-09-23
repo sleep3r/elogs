@@ -8,9 +8,11 @@ class Toggle {
 
     static bind(selector, toggleSelector, className) {
         let el = document.querySelector(selector);
-        el.onclick = function() {
-            let element = document.querySelector(toggleSelector);
-            element.classList.toggle(className);
+        if (el) {
+            el.onclick = function() {
+                let element = document.querySelector(toggleSelector);
+                element.classList.toggle(className);
+            }
         }
     }
 

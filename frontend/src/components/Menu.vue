@@ -6,16 +6,16 @@
         </div>
         <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
-            <li class="menu__item open">
+            <li class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
                 <a href="#" class="menu-item__link">
                     <i class="menu-item__icon fa fa-book"></i>
-                    <span class="menu-item__title">Обжиг</span>
+                    <span class="menu-item__title">{{plant.verbose_name}}</span>
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
                 <ul class="sub-menu">
                     <!--{% for journal_path, journal_verbose in menu_data.furnace.items %}-->
-                    <li class="menu__item">
-                        <a href="" data-url='??journal_path??' class="menu-item__link">?? journal_verbose ??</a>
+                    <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
+                        <a href="" :data-url="journal.name + '/' + journal.current_shift_id" class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
                     <!--{% endfor %}-->
 
@@ -29,39 +29,13 @@
                     <!--{% endif %}-->
                 </ul>
             </li>
-            <li class="menu__item">
-                <a href="#" class="menu-item__link">
-                    <i class="menu-item__icon fa fa-book"></i>
-                    <span class="menu-item__title">Выщелачивание</span>
-                    <b class="arrow fa fa-angle-down"></b></a>
-                <ul class="sub-menu">
-                    <!--{% for journal_path, journal_verbose in menu_data.leaching.items %}-->
-                    <li class="menu__item">
-                        <a href="" data-url='?? journal_path ??' class="menu-item__link">?? journal_verbose ??</a>
-                    </li>
-                    <!--{% endfor %}-->
-                </ul>
-            </li>
-            <li class="menu__item">
-                <a href="#" class="menu-item__link">
-                    <i class="menu-item__icon fa fa-book"></i>
-                    <span class="menu-item__title">Электролиз</span>
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-                <ul class="sub-menu">
-                    <!--{% for journal_path, journal_verbose in menu_data.electrolysis.items %}-->
-                    <li class="menu__item">
-                        <a href="" data-url='??  journal_path  ??' class="menu-item__link">?? journal_verbose ??</a>
-                    </li>
-                    <!--{% endfor %}-->
-                </ul>
-            </li>
         </ul>
     </div>
 </template>
 
 <script>
     import $ from 'jquery'
+    import axios from 'axios'
 
     export default {
         name: "Menu",
@@ -70,54 +44,66 @@
                 menuSelector: ".menu--left"
             }
         },
-        mounted () {
-            const selectorMenuItemTopLevel = ".menu > li.menu__item";
-            const selectorMenuItem = "li.menu__item";
-            const selectorLink = "a.menu-item__link";
-            let items = document.querySelectorAll(selectorMenuItemTopLevel);
-            [].forEach.call(items, (item) => {
-                item.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const listItem = event.target.closest(selectorMenuItem);
-                    const linkNode = listItem.querySelector(selectorLink);
-                    const url = linkNode.getAttribute("data-url");
-
-                    if (url !== null && url !== "" && url !== "#") {
-                        location.href = url;
-                    } else {
-                        listItem.classList.toggle("open");
-                    }
-
-                }, false);
-            });
-
-            let menu = $(".column-left");
-            let lastScrollTop = 0;
-            let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__logo').outerHeight()
-            let headerHeight = $('.header').outerHeight()
-
-            $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
-
-            $(window).scroll(function (event) {
-                let st = $(this).scrollTop();
-                if (st < 100) {
-                    menu.css({top: '50px'})
+        watch: {
+            getPlants (value) {
+                if (value) {
+                    setTimeout(() => this.setActiveItem(), 0)
                 }
-                if ((lastScrollTop - st > 2) && (st > 100)) {
-                    menu.css({top: '50px'})
-                    $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
-                } else if ((st - lastScrollTop > 10) && (st > 100)) {
-                    menu.css({top: '0px'})
-                    $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
-                }
-                lastScrollTop = st;
-            });
-
-            this.closeAllItems();
-            this.setActiveItem();
+            }
+        },
+        computed: {
+            getPlants () {
+                return this.$store.getters['journalState/plants']
+            }
+        },
+        mounted() {
+            this.$store.dispatch('journalState/loadPlants')
+                .then(() => {
+                    this.setListeners()
+                })
         },
         methods: {
-            setActiveItem () {
+            onMenuItemClick () {
+                const selectorMenuItem = "li.menu__item";
+                const selectorLink = "a.menu-item__link";
+                event.preventDefault();
+                const listItem = event.target.closest(selectorMenuItem);
+                const linkNode = listItem.querySelector(selectorLink);
+                const url = linkNode.getAttribute("data-url");
+
+                if (url !== null && url !== "" && url !== "#") {
+                    this.$router.push('/' + url)
+                    this.setActiveItem()
+                    this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+                } else {
+                    listItem.classList.toggle("open");
+                }
+            },
+            setListeners () {
+                let menu = $(".column-left");
+                let lastScrollTop = 0;
+                let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__logo').outerHeight()
+                let headerHeight = $('.header').outerHeight()
+
+                $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+
+                $(window).scroll(function (event) {
+                    let st = $(this).scrollTop();
+                    if (st < 100) {
+                        menu.css({top: '50px'})
+                    }
+                    if ((lastScrollTop - st > 2) && (st > 100)) {
+                        menu.css({top: '50px'})
+                        $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+                    } else if ((st - lastScrollTop > 10) && (st > 100)) {
+                        menu.css({top: '0px'})
+                        $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
+                    }
+                    lastScrollTop = st;
+                });
+            },
+            setActiveItem() {
+                this.closeAllItems()
                 function firstMatchedParent(node, selector) {
                     if (node.classList.contains(selector)) {
                         return node;
@@ -125,7 +111,8 @@
                     return firstMatchedParent(node.parentNode, selector);
                 }
 
-                let link = document.querySelector(this.menuSelector).querySelector(".menu__item a[data-url='" + location.search + "']");
+                let link = document.querySelector(
+                    `.menu__item a[data-url="${this.$route.params.journal}/${this.$route.params.shift_id}"]`)
                 if (!link) return;
 
                 let currentItem = link.parentNode;
@@ -135,7 +122,7 @@
                 let parentItem = firstMatchedParent(currentItem.parentNode, "menu__item");
                 parentItem.classList.add("open");
             },
-            closeAllItems () {
+            closeAllItems() {
                 let allItems = document.querySelectorAll(".menu--left .menu__item");
                 for (let key in allItems) {
                     let menuItem = allItems[key];
