@@ -67,6 +67,7 @@ THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
     'rest_framework.authtoken',
+    'djoser',
     'rest_framework_swagger',
     'rest_auth',
     'django_filters',
@@ -320,6 +321,10 @@ LOGGING = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
