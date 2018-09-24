@@ -11,7 +11,9 @@ Vue.component('journal-panel', JournalPanel);
 window.app = new Vue({
   el: '#elogs-app',
   store: store,
-  components: { TableCommon },
+  components: {
+      "TableCommon": TableCommon,
+  },
   delimiters: ['%{', '}'],
   mounted () {
     store.dispatch('loadJournal');

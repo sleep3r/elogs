@@ -27,15 +27,15 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '-frac',
-            type=int,
-            help='Number of fraction hists to create',
+            '--dashboard',
+            action="store_true",
+            help='Create sample data for dashboard',
         )
 
     def handle(self, *args, **options):
         df = DatabaseFiller()
         # df.reset_increment_counter('auth_group')
-        frac_num = options["frac"]
+        dashboard = options["dashboard"]
         if options["clean"] or options["recreate"]:
             stdout_logger.info("Cleaning db")
             df.clean_database()
@@ -68,8 +68,8 @@ class Command(BaseCommand):
             stdout_logger.info("Adding shifts...")
             df.create_shifts()
 
-            if frac_num:
-                stdout_logger.info("Filling fractional app...")
-                df.fill_fractional_app(frac_num)
+            if dashboard:
+                stdout_logger.info("Adding sample dashboard data...")
+                df.create_dashboard_sample_data()
 
             stdout_logger.info("Done!")

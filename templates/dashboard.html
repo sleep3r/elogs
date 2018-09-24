@@ -4,16 +4,16 @@
 {% load i18n %}
 
 {% block title %}
-    Ситовой анализ огарка и шихты
+    Dashboard
 {% endblock %}
 
 {% block journal_panel %}
 {% endblock %}
 
-{% block content %}
-<!-- <div id="furnace-index"> -->
-<div id="dashboard-container"></div>
-<!-- </div> -->
+{% block dashboard %}
+<div id="vue-dashboard-container">
+    <Dashboard></Dashboard>
+</div>
 {% endblock %}
 
 {% block footer %}

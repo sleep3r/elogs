@@ -37,6 +37,7 @@ import './header';
 import './menu';
 import './clockpicker';
 import './vue-env';
+import './data-visualization'
 
 import './ws'
 import './common';

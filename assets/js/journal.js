@@ -129,6 +129,11 @@ class Journal {
         document.onkeydown = onKeyDownAction;
 
     }
+
+    static getName() {
+        let path = window.location.pathname;
+        return path.split("/").pop();
+    }
 }
 
 window.Comment = Comment;

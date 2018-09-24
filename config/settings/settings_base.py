@@ -85,6 +85,7 @@ LOCAL_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
+    'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
     'e_logs.common.settings_app.apps.SettingsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
