@@ -52,7 +52,6 @@ class ShiftAPI1(View):
                                     queryset=Setting.objects.filter(name='field_description')),
                           'journal__tables__fields',
                           'journal__tables__fields__cells').get(id=kwargs['id'])
-
         with transaction.atomic():
             res = {
                     "id": qs.id ,
