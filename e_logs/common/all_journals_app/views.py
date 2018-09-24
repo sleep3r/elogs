@@ -58,7 +58,6 @@ def get_current_shift(journal):
         return shift
 
 
-
 class JournalView(LoginRequiredMixin, View):
     """
     Common view for a journal.
@@ -70,7 +69,6 @@ class JournalView(LoginRequiredMixin, View):
 
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
-        page = None
         if journal.type == 'shift':
             if page_id:
                 page = Shift.objects.get(id=page_id)
