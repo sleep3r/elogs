@@ -28,7 +28,6 @@ from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView,
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
 
-
 urlpatterns = [
     path('', Index.as_view()),
     path('admin/', admin.site.urls),
@@ -38,6 +37,7 @@ urlpatterns = [
     path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
 
+    url(r'^rest-auth/', include('rest_auth.urls')),  # django-rest-auth urls
     url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
@@ -45,16 +45,16 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.modes.urls')),
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
 
-    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>', get_table_template),
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>',
+         get_table_template),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
     path('furnace/metals_compute/', MetalsJournalView.as_view()),
     path('furnace/report_income_outcome_schieht/', ShihtaJournalView.as_view()),
     path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
-    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(), name='journal_view'),
+    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(),
+         name='journal_view'),
     path('<str:plant_name>/<str:journal_name>/get_shifts/', get_shifts),
-
-    ]
-
+]
 
 if settings.DEBUG:
     import debug_toolbar
