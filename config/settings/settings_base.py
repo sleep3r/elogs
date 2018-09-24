@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'cacheops',
     'django_pickling',
-    # 'service_objects',
+    'service_objects',
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
