@@ -1,6 +1,10 @@
+import pickle
+
 from cacheops import cached_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
+from django.db import transaction
+from django.db.models import Prefetch
 from django.views import View
 from django.http import JsonResponse
 from django_filters.rest_framework import DjangoFilterBackend
@@ -44,19 +48,22 @@ class ShiftAPI1(View):
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables',
-                          'journal__tables__fields', 'journal__tables__fields__cells').get(id=kwargs['id'])
-
-        res = {
-                "id": qs.id ,
-                "plant":{"name":qs.journal.plant.name},
-                "order": qs.order,
-                "date": qs.date,
-                "closed":qs.closed,
-                "ended": qs.ended,
-                "mode": get_page_mode(self.request, qs),
-                "permissions": [permission.codename for permission
-                    in Permission.objects.filter(user=self.request.user)],
-                "journal": self.journal_serializer(qs)}
+                          Prefetch('journal__tables__fields__settings',
+                                    queryset=Setting.objects.filter(name='field_description')),
+                          'journal__tables__fields',
+                          'journal__tables__fields__cells').get(id=kwargs['id'])
+        with transaction.atomic():
+            res = {
+                    "id": qs.id ,
+                    "plant":{"name":qs.journal.plant.name},
+                    "order": qs.order,
+                    "date": qs.date,
+                    "closed":qs.closed,
+                    "ended": qs.ended,
+                    "mode": get_page_mode(self.request, qs),
+                    "permissions": [permission.codename for permission
+                        in Permission.objects.filter(user=self.request.user)],
+                    "journal": self.journal_serializer(qs)}
 
         return JsonResponse(res, safe=False)
 
@@ -84,10 +91,11 @@ class ShiftAPI1(View):
     def field_serializer(self, table):
         fields = table.fields.all()
 
+
         res = {field.name: {
                         "id": field.id,
                         "name": field.name,
-                        "field_description": 87,#Setting.of(field)['field_description'],
+                        "field_description": pickle.loads(list(field.settings.all())[-1].value),
                         "cells": self.cell_serializer(field)}
             for field in fields }
 

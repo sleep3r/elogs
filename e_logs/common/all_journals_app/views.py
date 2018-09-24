@@ -1,5 +1,7 @@
 import os
 import json
+from collections import defaultdict
+
 import pytz
 import shutil
 import environ
@@ -58,7 +60,6 @@ def get_current_shift(journal):
         return shift
 
 
-
 class JournalView(LoginRequiredMixin, View):
     """
     Common view for a journal.
@@ -70,7 +71,6 @@ class JournalView(LoginRequiredMixin, View):
 
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
-        page = None
         if journal.type == 'shift':
             if page_id:
                 page = Shift.objects.get(id=page_id)
@@ -232,7 +232,6 @@ def get_shifts(request, plant_name: str, journal_name: str,
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
             'url': '/{}/{}/{}/'.format(shift.journal.plant.name, shift.journal.name, shift.id),
-            'title:': 'Some title',
             'color': '#169F85' if is_owned else '#2A3F54'
         }
 
@@ -243,13 +242,23 @@ def get_shifts(request, plant_name: str, journal_name: str,
     owned_shifts = employee.owned_shifts.all()
 
     if journal.type == 'shift':
-        number_of_shifts = Shift.get_number_of_shifts(journal)
+        shifts = Shift.objects.select_related('journal', 'journal__plant').\
+            filter(date__range=[from_date, to_date + timedelta(days=1)], journal__name=journal_name,
+                   journal__plant__name=plant_name)
 
-        for shift_date in date_range(from_date, to_date + timedelta(days=1)):
-            for shift_order in range(1, number_of_shifts + 1):
-                shift = Shift.get_or_create(journal, shift_order, shift_date)
+        shifts_dict = defaultdict(list)
+
+
+        for shift in shifts:
+            shifts_dict[str(shift.date)].append(shift)
+
+
+        for shifts in shifts_dict.values():
+            for shift in shifts:
                 is_owned = shift in owned_shifts
                 result.append(shift_event(request, shift, is_owned))
+
+        result.append(shifts_dict.keys())
 
         return result
     else:

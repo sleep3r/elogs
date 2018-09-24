@@ -43,6 +43,7 @@ python-rapidjson = "*"
 rapidjson = "*"
 whitenoise = { extras = [ "brotli",] }
 django-cors-headers = "*"
+django-rest-auth = "*"
 
 [dev-packages]
 icecream = "*"

@@ -66,6 +66,7 @@ TEMPLATES = [
 THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'django_filters',
     'webpack_loader',
@@ -286,25 +287,25 @@ LOGGING = {
         'django': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.server': {
             'handlers': ['console'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
         'django.db': {
             'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['debug_file_debug', 'console'],
+            'handlers': ['debug_file_debug'],
             'level': 'DEBUG',
         },
         'django.db.backends.mssql': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['db_log'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
@@ -431,6 +432,5 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-
 
 CORS_ORIGIN_ALLOW_ALL = True

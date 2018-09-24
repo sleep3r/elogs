@@ -20,6 +20,7 @@ class ColorsFormatter(logging.Formatter):
     def format(self, record):
         message = logging.Formatter.format(self, record)
         if sys.version_info[0] < 3:
-            message = message.encode('utf-8')
+            message = message.encode('utf-8', errors='coerce')
         colorizer = getattr(self.style, record.levelname, self.style.HTTP_SUCCESS)
-        return colorizer(message)
+        # message = colorizer(message)
+        return message

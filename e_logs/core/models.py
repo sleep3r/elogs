@@ -83,30 +83,40 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
         get related field/table/journal/plant first
         and than return most close setting.
         """
-        found_setting = None
-        for (scope, attr) in Setting.scopes_attrs:
-            if hasattr(obj, attr):  # get parent object if it exists
-                obj = getattr(obj, attr)
-            if type(obj) == scope:
-                found_setting = Setting.objects.filter(**{
-                    'name': name,
-                    'employee': employee,
-                    attr: obj
-                }).first()
-            if found_setting:
-                return pickle.loads(found_setting.value)
-        else:  # case of global setting
-            try:
-                found_setting = Setting.objects.get(name=name, employee=employee)
-                return pickle.loads(found_setting.value)
-            except:  # if haven't found, we'll search father
-                pass
 
-        # if no employee specific setting was found,
-        # search for global setting
-        if not found_setting and employee:
-            return Setting.get_value(name, obj)
-        # raise ValueError("No such setting")
+        qs = Setting.objects.filter(**{
+            'name': name,
+            'employee': employee,
+        })
+
+        @cached_as(qs, extra=obj)
+        def _cached_get_value(name: str, obj=None, employee: Optional[Employee] = None):
+            found_setting = None
+            for (scope, attr) in Setting.scopes_attrs:
+                if hasattr(obj, attr):  # get parent object if it exists
+                    obj = getattr(obj, attr)
+                if type(obj) == scope:
+                    found_setting = Setting.objects.filter(**{
+                        'name': name,
+                        'employee': employee,
+                        attr: obj
+                    }).first()
+                if found_setting:
+                    return pickle.loads(found_setting.value)
+            else:  # case of global setting
+                try:
+                    found_setting = Setting.objects.get(name=name, employee=employee)
+                    return pickle.loads(found_setting.value)
+                except:  # if haven't found, we'll search father
+                    pass
+
+            # if no employee specific setting was found,
+            # search for global setting
+            if not found_setting and employee:
+                return Setting.get_value(name, obj)
+            # raise ValueError("No such setting")
+
+        return _cached_get_value(name, obj, employee)
 
     @staticmethod
     @logged

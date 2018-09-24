@@ -28,7 +28,6 @@ from e_logs.common.all_journals_app.views import JournalView, ShihtaJournalView,
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
 
-
 urlpatterns = [
     path('', Index.as_view()),
     path('admin/', admin.site.urls),
@@ -47,16 +46,16 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.modes.urls')),
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
 
-    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>', get_table_template),
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>',
+         get_table_template),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
     path('furnace/metals_compute/', MetalsJournalView.as_view()),
     path('furnace/report_income_outcome_schieht/', ShihtaJournalView.as_view()),
     path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
-    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(), name='journal_view'),
+    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(),
+         name='journal_view'),
     path('<str:plant_name>/<str:journal_name>/get_shifts/', get_shifts),
-
-    ]
-
+]
 
 if settings.DEBUG:
     import debug_toolbar
