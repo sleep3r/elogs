@@ -77,7 +77,6 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
-    'rest_auth',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
