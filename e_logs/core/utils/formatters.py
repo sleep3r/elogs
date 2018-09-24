@@ -22,6 +22,5 @@ class ColorsFormatter(logging.Formatter):
         if sys.version_info[0] < 3:
             message = message.encode('utf-8', errors='coerce')
         colorizer = getattr(self.style, record.levelname, self.style.HTTP_SUCCESS)
-        message = colorizer(message)
-        message = message.encode('utf-8', errors='coerce')
+        # message = colorizer(message)
         return message
