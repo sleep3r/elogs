@@ -66,6 +66,7 @@ TEMPLATES = [
 THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'django_filters',
     'webpack_loader',
@@ -76,6 +77,7 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
+    'rest_auth',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
@@ -430,6 +432,5 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-
 
 CORS_ORIGIN_ALLOW_ALL = True
