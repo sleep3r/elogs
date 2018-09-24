@@ -37,7 +37,6 @@ urlpatterns = [
     path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
 
-    url(r'^rest-auth/', include('rest_auth.urls')),  # django-rest-auth urls
     url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
