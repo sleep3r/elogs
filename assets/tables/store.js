@@ -70,7 +70,7 @@ export const store = new Vuex.Store({
         if (state.loaded) {
           let max = -1;
           let fields = state.journalInfo.journal.tables[tableName].fields;
-          for(let field in fields) {
+          for (let field in fields) {
             for (let index in fields[field].cells) {
                 index = parseInt(index);
                 max = max < index ? index : max;
@@ -79,6 +79,19 @@ export const store = new Vuex.Store({
           return max+1;
         } else {
           return -1;
+        }
+      },
+      rowIsEmpty: (state) => (tableName, index) => {
+        if (state.loaded) {
+          let fields = state.journalInfo.journal.tables[tableName].fields
+          for (let field in fields) {
+            if ('cells' in fields[field]) {
+              if (index in fields[field].cells) {
+                return false
+              }
+            }
+          }
+          return true
         }
       },
       tableTitle: (state) => (tableName) => {
@@ -118,14 +131,19 @@ export const store = new Vuex.Store({
             fields[payload.fieldName]['cells'] = {};
           }
           let cells = fields[payload.fieldName].cells;
-          if (payload.index in cells) {
-            // update cell
-            cells[payload.index]['value'] = payload.value;
+          if (payload.value) {
+            if (payload.index in cells) {
+              // update cell
+              cells[payload.index]['value'] = payload.value;
+            }
+            else {
+              // create cell
+              Vue.set(cells, payload.index, {});
+              Vue.set(cells[payload.index], 'value', payload.value);
+            }
           }
           else {
-            // create cell
-            Vue.set(cells, payload.index, {});
-            Vue.set(cells[payload.index], 'value', payload.value);
+            Vue.delete(cells, payload.index);
           }
         }
       },

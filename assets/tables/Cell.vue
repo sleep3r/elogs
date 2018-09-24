@@ -84,7 +84,6 @@ export default {
         });
       },
       onInput(e) {
-        this.$parent.$emit('addNewLine', { editedRowIndex: this.rowIndex });
         this.value = e.target.value;
         this.send();
       },
