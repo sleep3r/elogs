@@ -62,7 +62,11 @@
             onSubmit () {
                 let username = $('input[name="username"]').val()
                 let password = $('input[name="password"]').val()
-                console.log(username, password)
+                this.login(username, password)
+                // this.$router.push('/')
+            },
+            login (username, password) {
+                axios.post('http://localhost:8000/login', { username, password })
             }
         }
     }

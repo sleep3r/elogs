@@ -1,6 +1,6 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
+        <div class="header__logo" @click.prevent="$router.push('/')"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
         <div class="header__title">
             <span class="journal_title">{{$store.getters['journalState/plantName']}}</span>
              <!--if plant-->
@@ -9,20 +9,20 @@
             <!---->
         </div>
         <div class="header__user">
-            <i class="fas fa-envelope user-messages-badge" onclick="Toggle.class('.user-notifications','display')"></i>
+            <i class="fas fa-envelope user-messages-badge" @click="onMsgClick"></i>
             <i class="fas fa-bell"></i>
-            <span class="user-name">?? user.employee ??</span>
+            <span class="user-name" @click="onUsernameClick">?? user.employee ??</span>
             <i class="fas fa-user-circle"></i>
             <div class="user-menu">
                 <ul class="menu">
                     <li class="user-menu__item">
-                        <a href="/common/settings/">
+                        <a href="" @click.prevent="onSettingsClick">
                             <i class="fas fa-cogs"></i>
                             <span class="caption">Настройки</span>
                         </a>
                     </li>
                     <li class="user-menu__item">
-                        <a href="/common/messages/list/">
+                        <a href="" @click.prevent="onMessagesClick">
                             <i class="fa fa-envelope" ></i>
                             <span class="caption">Список сообщений </span>
                         </a>
@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class="user-menu__item">
-                        <a href="/auth/logout">
+                        <a href="" @click.prevent="onLogout">
                             <i class="fas fa-sign-out-alt"></i>
                             <span class="caption">Выйти из системы</span>
                         </a>
@@ -54,7 +54,28 @@
 
 <script>
 export default {
-    name: "TopNav"
+    name: "TopNav",
+    methods: {
+        onLogout () {
+            this.$router.push('/login')
+        },
+        onUsernameClick () {
+            let element = document.querySelector('.header .user-menu');
+            element.classList.toggle('visible');
+        },
+        onMsgClick () {
+            let element = document.querySelector('.user-notifications');
+            element.classList.toggle('display');
+        },
+        onSettingsClick () {
+            this.$router.push('/settings')
+            this.onUsernameClick()
+        },
+        onMessagesClick () {
+            this.$router.push('/messages')
+            this.onUsernameClick()
+        }
+    }
 }
 </script>
 

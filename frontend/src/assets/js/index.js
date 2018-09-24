@@ -35,4 +35,3 @@ import './vue-env';
 
 // import './ws'
 import './common';
-import './user-menu';

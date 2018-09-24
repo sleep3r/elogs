@@ -68,6 +68,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'rest_auth',
     'django_filters',
     'webpack_loader',
     'django_extensions',
@@ -77,7 +78,6 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
-    'rest_auth',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
