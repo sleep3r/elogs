@@ -39,7 +39,6 @@ urlpatterns = [
 
     url(r'^auth/', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.jwt')),
-    url(r'^auth/', include('djoser.urls')),
     url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
