@@ -13,7 +13,7 @@ app.conf.update(
     task_serializer='json',
     accept_content=['json'],  # Ignore other content
     result_serializer='json',
-    timezone='Europe/Moscow',
+    timezone='Europe/Moscow',  # TODO: take from settings
 )
 
 @app.task(bind=True)
