@@ -5,45 +5,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.db.models import Prefetch
+from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
-from django_filters.rest_framework import DjangoFilterBackend
-
-from rest_framework import generics, mixins, status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 
 
-from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Cell, Shift
+from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.core.models import Setting
-from .serializers import PlantSerializer, JournalSerializer, TableSerializer, FieldSerializer, \
-    CellSerializer, ShiftSerializer
 
 
-class ShiftsList(generics.ListAPIView):
-    serializer_class = ShiftSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Shift.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-
-
-class ShiftAPI(generics.RetrieveAPIView):
-    lookup_field = 'id'
-    serializer_class = ShiftSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Shift.objects\
-        .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__plant', 'journal', 'journal__tables',
-                          'journal__tables__fields', 'group_cells')\
-        .all()
-
-
-shift_api_view = ShiftAPI.as_view()
-
-
-class ShiftAPI1(View):
+class ShiftAPI(View):
     def get(self, request, *args, **kwargs):
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
@@ -176,24 +149,3 @@ class FieldAPI(View):
                                             table__name=table)
         res = [{field.name:field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
-
-
-class CellsList(generics.ListAPIView):
-    serializer_class = CellSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Cell.objects.all()
-
-    def post(self, request):
-        return Response({"detail": "Hello, !"}, status=status.HTTP_200_OK)
-
-    # filter_backends = (DjangoFilterBackend,)
-    # filter_fields = (
-    #     'field__table__journal__plant__name', 'field__table__journal__name', 'field__table__name',
-    #     'field__name', 'group_id')
-
-
-class CellAPI(generics.RetrieveAPIView):
-    lookup_field = 'id'
-    serializer_class = CellSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
-    queryset = Cell.objects.all()
