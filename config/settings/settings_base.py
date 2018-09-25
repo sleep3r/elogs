@@ -69,7 +69,6 @@ THIRD_PARTY_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'rest_framework_swagger',
-    'rest_auth',
     'django_filters',
     'webpack_loader',
     'django_extensions',
@@ -166,7 +165,7 @@ LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 
 APPEND_SLASH = True
 
-MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
+MANAGERS = ADMINS = [("inframine", 'inframine@inframine.io')]
 
 if DEBUG:
     import logging
