@@ -58,6 +58,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         text = event.get('text', None)
         if text is not None:
             data = json.loads(text)
+            print(data)
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 
@@ -136,13 +137,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 await self.add_comment_query(cell, text)
                 await self.add_cell_message_query(cell, message, all_users=True)
 
-                await self.channel_layer.group_send(
-                    'shift/',
-                    {
-                        "type": "send_message",
-                        "text": json.dumps(data)
-                    }
-                )
+                # await self.channel_layer.group_send(
+                #     'shift/',
+                #     {
+                #         "type": "send_message",
+                #         "text": json.dumps(data)
+                #     }
+                # )
 
     @database_sync_to_async
     def get_or_create_cell(self, cell_location):

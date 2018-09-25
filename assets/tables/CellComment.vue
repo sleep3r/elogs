@@ -64,9 +64,26 @@ export default {
     },
   },
   methods: {
+    send() {
+      this.$socket.sendObj({
+        'type': 'messages',
+        'cell_location': {
+          'group_id': this.$store.state.journalInfo.id,
+          'table_name': this.tableName,
+          'field_name': this.fieldName,
+          'index': this.rowIndex
+        },
+        'message': {
+          'text': this.comment,
+          'link': 'lalala',
+          'type': 'comment'
+        },
+        'crud': 'add'
+      });
+    },
     onInput(e) {
       this.comment = e.target.value;
-      // this.send();
+      this.send();
     },
   }
 }

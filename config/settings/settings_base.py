@@ -293,15 +293,15 @@ LOGGING = {
         'django.db': {
             'handlers': ['db_log'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['debug_file_debug', 'console'],
+            'handlers': ['debug_file_debug'],
             'level': 'DEBUG',
         },
         'django.db.backends.mssql': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['debug_file_debug'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
