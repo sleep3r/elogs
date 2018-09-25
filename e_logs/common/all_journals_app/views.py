@@ -45,21 +45,6 @@ class Index(LoginRequiredMixin, TemplateView):
         return redirect('/furnace/metals_compute')
 
 
-def get_current_shift(journal):
-    number_of_shifts = Shift.get_number_of_shifts(journal)
-    assert number_of_shifts > 0, "<= 0 number of shifts"
-
-    # create shifts for today and return current shift
-    for shift_order in range(1, number_of_shifts + 1):
-        shift = Shift.objects.get_or_create(journal=journal,
-                                            order=shift_order,
-                                            date=timezone.now().date())[0]
-        if shift.is_active:
-            return shift
-    if not page: # fixme: there may be no active shift due to datetime problems
-        return shift
-
-
 class JournalView(LoginRequiredMixin, View):
     """
     Common view for a journal.
@@ -91,83 +76,21 @@ class JournalView(LoginRequiredMixin, View):
     def get_context(request, page) -> DeepDict:
         return get_context(request, page)
 
-
 journal_view = JournalView.as_view()
 # journal_view = cached_view_as(Cell)(journal_view)
 
+def get_current_shift(journal):
+    number_of_shifts = Shift.get_number_of_shifts(journal)
+    assert number_of_shifts > 0, "<= 0 number of shifts"
 
-class ShihtaJournalView(JournalView):
-    """ View of report_income_outcome_schieht journal """
+    for shift_order in range(1, number_of_shifts + 1):
+        shift = Shift.objects.get(journal=journal,
+                                  order=shift_order,
+                                  date=timezone.now().date())
+        if shift.is_active:
+            return shift
 
-    def get(self, request, plant_name='furnace', journal_name='report_income_outcome_schieht'):
-        response = super().get(request, plant_name, journal_name)
-        return response
-
-    @logged
-    def get_context(self, request, page):
-        context = super().get_context(request, page)
-
-        context.months = {
-            'January': 'Январь',
-            'February': 'Февраль',
-            'March': 'Март',
-            'April': 'Апрель',
-            'May': 'Май',
-            'June': 'Июнь',
-            'July': 'Июль',
-            'August': 'Август',
-            'September': 'Сентябрь',
-            'October': 'Октябрь',
-            'November': 'Ноябрь',
-            'December': 'Декабрь'
-        }
-        context.plan_or_fact = ['plan', 'fact']
-        context.date_year = datetime.now().year
-        context.cur_month = list(context.months.keys())[date.today().month - 1]
-        return context
-
-
-# TODO: Move to common journal scheme
-class MetalsJournalView(JournalView):
-    """ View of metals_compute journal """
-
-    def get(self, request, plant_name='furnace', journal_name='metals_compute'):
-        return super().get(request, plant_name, journal_name)
-
-    @logged
-    def get_context(self, request, journal_name, page_type) -> DeepDict:
-        from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
-        context = super().get_context(request, journal_name, page_type)
-
-        context.sgok_table.columns = [
-            "ЗГОК, ВМТ",
-            "Арт-ий, ВМТ",
-            "Усть-ТАЛ, ВМТ",
-            "Кара<wbr>гайлы, ВМТ",
-            "Верх-Бер, ВМТ",
-            "Бело<wbr>усовка, ВМТ",
-            "Жез<wbr>кент, ВМТ",
-            "Ер Тай, ВМТ",
-            "Н.Широ<wbr>кинский, ВМТ",
-            "Лесо<wbr>сиб, ВМТ",
-            "Алтын-Топкан, ВМТ",
-            "итого ВМТ",
-            "ИТОГО СМТ",
-            "выданно огарка, ВМТ",
-            "потери, ВМТ",
-            "огарка переданно, ВМТ",
-            "ЦЕХ, ВМТ",
-            "Лента, ВМТ",
-            "потеря бункеров ОВЦО, ВМТ",
-            "лента итого, ВМТ",
-            "откло<wbr>нение"
-        ]
-
-        context.sgok_table.fields = fields_info_desc.metals_compute.sgok_table.keys()
-        context.gof_table.fields = fields_info_desc.metals_compute.gof_table.keys()
-        context.avg_month_table.fields = fields_info_desc.metals_compute.avg_month_table.keys()
-        return context
-
+#-------------------Пропала кнопка СМЕНУ СДАЛ---------------------------------
 @csrf_exempt
 def end_shift(request):
     if request.method == 'POST':
@@ -188,11 +111,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
 
-
-def get_table_template(request, plant_name, journal_name, table_name):
-    return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
-
-
+#----------------------------------------Будет убрана-----------------------------------------------
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
@@ -215,17 +134,13 @@ def save_cell(request):
         return {"status": 1}
 
 
-@cached_as(Plant, Journal, Shift)
+# @cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
                from_date=timezone.now().date() - timedelta(days=30),
                to_date=timezone.now().date()):
     """Creates shifts for speficied period of time"""
-
-    def date_range(start_date, end_date):
-        for n in range(int((end_date - start_date).days)):
-            yield start_date + timedelta(n)
 
     def shift_event(request, shift, is_owned):
         return {
@@ -248,10 +163,8 @@ def get_shifts(request, plant_name: str, journal_name: str,
 
         shifts_dict = defaultdict(list)
 
-
         for shift in shifts:
             shifts_dict[str(shift.date)].append(shift)
-
 
         for shifts in shifts_dict.values():
             for shift in shifts:
