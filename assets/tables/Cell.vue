@@ -85,6 +85,7 @@ export default {
   methods: {
       send() {
         this.$socket.sendObj({
+          'type': 'shift_data',
           'cell_location': {
             'group_id': this.$store.state.journalInfo.id,
             'table_name': this.tableName,
