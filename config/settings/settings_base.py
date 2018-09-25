@@ -108,10 +108,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -459,15 +459,19 @@ CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
 CORS_ALLOW_CREDENTIALS = True  # for cookie
 
 CORS_ORIGIN_WHITELIST = (
-    '127.0.0.1:8000',
-    '127.0.0.1:8080',
+    '127.0.0.1:8000/',
+    '127.0.0.1:8080/',
     'http://localhost:8080/'
     'http://localhost:8000/'
 )
 
 CSRF_TRUSTED_ORIGINS = (
-    '127.0.0.1:8000',
-    '127.0.0.1:8080',
+    '127.0.0.1:8000/',
+    '127.0.0.1:8080/',
     'http://localhost:8080/'
     'http://localhost:8000/'
 )
+
+CORS_REPLACE_HTTPS_REFERER = True  # TODO: disable and fix
+# ('corsheaders.middleware.CorsPostCsrfMiddleware')
+CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
