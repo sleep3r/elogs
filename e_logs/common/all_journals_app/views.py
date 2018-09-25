@@ -1,41 +1,28 @@
-import os
 import json
-from collections import defaultdict
-
-import pytz
-import shutil
-import environ
+import os
 import zipfile
+from collections import defaultdict
 from datetime import date, datetime, timedelta
 
-from django.shortcuts import redirect, render
-from django.utils import timezone
-from django.views.generic import TemplateView, View
+import environ
+from cacheops import cached_as
 from django.conf import settings
-
-from e_logs.core.models import Setting
-from e_logs.core.utils.loggers import stdout_logger
-
-from cacheops import cached_as, cached_view_as
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import Permission
-from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpRequest
-from django.template import loader, TemplateDoesNotExist
-from django.views import View
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect, render_to_response
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.template import loader, TemplateDoesNotExist
 from django.utils import timezone
-from django.urls import reverse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
+from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Table, Field
 from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
-from e_logs.common.all_journals_app.services.page_modes import get_page_mode, has_edited, \
-    plant_permission
-from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Comment, Table, Field
-from e_logs.common.messages_app.models import Message
-
+from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, has_private_journals, get_or_none
+from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
+
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
 
