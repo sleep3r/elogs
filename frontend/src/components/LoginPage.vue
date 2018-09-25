@@ -66,7 +66,11 @@
                 // this.$router.push('/')
             },
             login (username, password) {
-                axios.post('http://localhost:8000/login', { username, password })
+                axios.post('http://localhost:8000/auth/jwt/create/', { username, password })
+                    .then((resp) => {
+                        console.log(resp.data.token)
+                        axios.get('http://localhost:8000/auth/users/me', {headers: {Authorization: resp.data.token}})
+                    })
             }
         }
     }

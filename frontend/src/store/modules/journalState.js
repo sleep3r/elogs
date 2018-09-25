@@ -125,7 +125,10 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             axios
-                .get('http://localhost:8000/api/shifts/' + payload)
+                .get('http://localhost:8000/api/shifts/' + payload, {headers: {
+                        Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTksInVzZXJuYW1lIjoiaW5mcmFtaW5lIiwiZXhwIjoxNTM3ODA5OTQzLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.BOtmGRgf6GqyK92CT4VR-uvdX_4IGlW0UATmHtVY2MA'}
+                    }
+                )
                 .then(response => {
                     commit('UPDATE_JOURNAL_INFO', response.data);
                     commit('SET_LOADED', true);
