@@ -453,5 +453,21 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 
+# ------------------------------------- CORS shit ------------------------------------------------
+
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
 CORS_ALLOW_CREDENTIALS = True  # for cookie
+
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:8000',
+    '127.0.0.1:8080',
+    'http://localhost:8080/'
+    'http://localhost:8000/'
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    '127.0.0.1:8000',
+    '127.0.0.1:8080',
+    'http://localhost:8080/'
+    'http://localhost:8000/'
+)
