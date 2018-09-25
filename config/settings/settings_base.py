@@ -67,6 +67,7 @@ THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
     'rest_framework.authtoken',
+    'djoser',
     'rest_framework_swagger',
     'django_filters',
     'webpack_loader',
@@ -165,7 +166,7 @@ LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 
 APPEND_SLASH = True
 
-MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
+MANAGERS = ADMINS = [("inframine", 'inframine@inframine.io')]
 
 if DEBUG:
     import logging
@@ -320,6 +321,10 @@ LOGGING = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
@@ -327,10 +332,13 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework_rapidjson.parsers.RapidJSONParser',
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
-        # 'rest_framework.permissions.IsAuthenticated',  # coockuecutter
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -345,13 +353,17 @@ REST_FRAMEWORK = {
     # )
 }
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("localhost", 6379)],
-        },
-    },
+# --------------------------------- AUTHENTICATION ---------------------------------------
+
+DJOSER = {
+    'SEND_ACTIVATION_EMAIL': False,
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://test.localhost/']
+}
+
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
 }
 
 # --------------------------------- CACHING STAFF ---------------------------------------
@@ -424,6 +436,15 @@ CACHEOPS = {
     'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60 * 60},
     # 'core.models.Setting': {'timeout': 60*60},
     # 'core.models.Setting': {'timeout': 60*60},
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
 }
 
 CELERY_BROKER_URL = 'redis://localhost:6379'

@@ -22,7 +22,10 @@ urlpatterns = [
     path('dashboard/', include('e_logs.common.data_visualization_app.urls')),
     path('furnace/fractional', include('e_logs.furnace.fractional_app.urls')),
 
-    url(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
+    re_path(r'^api/auth/', include('djoser.urls.base')),
+    re_path(r'^api/auth/', include('djoser.urls.authtoken')),
+    re_path(r'^api/auth/', include('djoser.urls.jwt')),
+    re_path(r'^api/docs/$', user_passes_test(lambda u: u.is_superuser)(schema_view)),
     re_path(r'^api/analysis?/', include('e_logs.furnace.fractional_app.api.urls')),
     re_path(r'^api/settings?/', include('e_logs.core.api.urls')),
     re_path(r'^api/', include('e_logs.common.all_journals_app.api.urls')),
