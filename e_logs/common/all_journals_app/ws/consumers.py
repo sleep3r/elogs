@@ -13,12 +13,11 @@ from e_logs.common.messages_app.models import Message
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        query = dict(urllib.parse.parse_qsl(self.scope['query_string']))
+        query = dict(urllib.parse.parse_qsl(self.scope['query_string'].decode("utf-8")))
         shift_id = query.get('shift', None)
         self.user_channel = f"user_{self.scope['user'].employee.id}"
         if shift_id:
             self.shift_channel = f"shift_{shift_id}"
-
             await self.channel_layer.group_add(
                 self.shift_channel,
                 self.channel_name,
@@ -62,7 +61,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 
-            if data['type'] == 'messages':
+            elif data['type'] == 'messages':
                 if data['crud'] == 'add':
                     await self.add_cell_message(data)
 
