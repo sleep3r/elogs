@@ -30,9 +30,37 @@ export const store = new Vuex.Store({
           return '';
         }
       },
+      plantVerboseName: state => {
+        if (state.loaded) {
+          return state.journalInfo.plant.name;
+        } else {
+          return '';
+        }
+      },
       journalName: state => {
         if (state.loaded) {
           return state.journalInfo.journal.name;
+        } else {
+          return '';
+        }
+      },
+      journalVerboseName: state => {
+        if (state.loaded) {
+          return state.journalInfo.journal.name;
+        } else {
+          return '';
+        }
+      },
+      tableVerboseName: (state) => (tableName) => {
+        if (state.loaded) {
+          return tableName;
+        } else {
+          return '';
+        }
+      },
+      fieldVerboseName: (state) => (tableName, fieldName) => {
+        if (state.loaded) {
+          return fieldName;
         } else {
           return '';
         }
@@ -58,6 +86,28 @@ export const store = new Vuex.Store({
             }
             else {
               console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
+              return '';
+            }
+          }
+          else {
+            return '';
+          }
+        }
+      },
+      cellComment: (state) => (tableName, fieldName, rowIndex) => {
+        if (state.loaded) {
+          let fields = state.journalInfo.journal.tables[tableName].fields;
+          if (!(fieldName in fields)) {
+            console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
+            return '';
+          }
+          let cells = fields[fieldName].cells;
+          if (Object.keys(cells).length !== 0) {
+            if (rowIndex in cells) {
+              return cells[rowIndex].comment;
+            }
+            else {
+              console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
               return '';
             }
           }
@@ -140,6 +190,32 @@ export const store = new Vuex.Store({
               // create cell
               Vue.set(cells, payload.index, {});
               Vue.set(cells[payload.index], 'value', payload.value);
+            }
+          }
+          else {
+            Vue.delete(cells, payload.index);
+          }
+        }
+      },
+      SAVE_CELL_COMMENT (state, payload) {
+        if (state.loaded) {
+          let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+          if (!(payload.fieldName in fields)) {
+            console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
+            console.log('  Creating field ' + payload.fieldName + '...');
+            fields[payload.fieldName] = {};
+            fields[payload.fieldName]['cells'] = {};
+          }
+          let cells = fields[payload.fieldName].cells;
+          if (payload.comment) {
+            if (payload.index in cells) {
+              // update cell
+              cells[payload.index]['comment'] = payload.comment;
+            }
+            else {
+              // create cell
+              Vue.set(cells, payload.index, {});
+              Vue.set(cells[payload.index], 'comment', payload.comment);
             }
           }
           else {

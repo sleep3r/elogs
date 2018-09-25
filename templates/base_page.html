@@ -15,6 +15,7 @@
 
     {% block css %}
         {% render_bundle 'index' 'css' %}
+        {% render_bundle 'tables' 'css' %}
     {% endblock %}
 
     {% block extracss %}{% endblock %}
@@ -52,7 +53,6 @@
     </div>
 </div>
 
-{% include "popup.html" %}
 {% include "modals/pick_shift.html" %}
 
 {% block footer %}
