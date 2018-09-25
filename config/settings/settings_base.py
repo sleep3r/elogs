@@ -475,3 +475,4 @@ CSRF_TRUSTED_ORIGINS = (
 CORS_REPLACE_HTTPS_REFERER = True  # TODO: disable and fix
 # ('corsheaders.middleware.CorsPostCsrfMiddleware')
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
+USE_ETAGS = True  #  TODO: read about it
