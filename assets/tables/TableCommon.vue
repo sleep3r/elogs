@@ -6,7 +6,9 @@ import Vue from 'vue/dist/vue.esm.js'
 import axios from 'axios'
 import cell from './Cell.vue'
 import tableComment from './TableComment.vue'
+import ToggleButton from 'vue-js-toggle-button'
 
+Vue.use(ToggleButton);
 Vue.component('cell', cell);
 Vue.component('Cell', cell);
 Vue.component('table-comment', tableComment);
@@ -18,8 +20,22 @@ export default {
   },
   data: function () {
     return {
+      fact: false,
       template: null,
-      rowsCount: 1
+      rowsCount: 1,
+      months: {
+                'Январь',
+                'Февраль',
+                'Март',
+                'Май',
+                'Июнь',
+                'Июль',
+                'Август',
+                'Сентябрь',
+                'Октябрь',
+                'Ноябрь',
+                'Декабрь'
+      }
     }
   },
   render: function (createElement) {
