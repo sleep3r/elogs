@@ -7,16 +7,14 @@ const journalState = {
         plantsInfo: [],
         journalInfo: {},
         loaded: false,
+        socket: {
+            isConnected: false,
+            reconnectError: false,
+        }
     },
     getters: {
         loaded: state => state.loaded,
-        journal: state => {
-            if (state.loaded) {
-                return state.journalInfo.journal
-            } else {
-                return [];
-            }
-        },
+        journalInfo: state =>  state.journalInfo,
         tables: state => {
             if (state.loaded) {
                 return Object.keys(state.journalInfo.journal.tables);
@@ -34,9 +32,37 @@ const journalState = {
                 return '';
             }
         },
+        plantVerboseName: state => {
+            if (state.loaded) {
+                return state.journalInfo.plant.name;
+            } else {
+                return '';
+            }
+        },
         journalName: state => {
             if (state.loaded) {
                 return state.journalInfo.journal.name;
+            } else {
+                return '';
+            }
+        },
+        journalVerboseName: state => {
+            if (state.loaded) {
+                return state.journalInfo.journal.name;
+            } else {
+                return '';
+            }
+        },
+        tableVerboseName: (state) => (tableName) => {
+            if (state.loaded) {
+                return tableName;
+            } else {
+                return '';
+            }
+        },
+        fieldVerboseName: (state) => (tableName, fieldName) => {
+            if (state.loaded) {
+                return fieldName;
             } else {
                 return '';
             }
@@ -59,6 +85,32 @@ const journalState = {
                 if (Object.keys(cells).length !== 0) {
                     if (rowIndex in cells) {
                         return cells[rowIndex].value;
+                    }
+                    else {
+                        console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        return '';
+                    }
+                }
+                else {
+                    return '';
+                }
+            }
+        },
+        cellComment: (state) => (tableName, fieldName, rowIndex) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields;
+                if (!(fieldName in fields)) {
+                    console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
+                    return '';
+                }
+                let cells = fields[fieldName].cells;
+                if (Object.keys(cells).length !== 0) {
+                    if (rowIndex in cells) {
+                        return cells[rowIndex].comment;
+                    }
+                    else {
+                        console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        return '';
                     }
                 }
                 else {
@@ -90,6 +142,19 @@ const journalState = {
                 return max+1;
             } else {
                 return -1;
+            }
+        },
+        rowIsEmpty: (state) => (tableName, index) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields
+                for (let field in fields) {
+                    if ('cells' in fields[field]) {
+                        if (index in fields[field].cells) {
+                            return false
+                        }
+                    }
+                }
+                return true
             }
         },
         tableTitle: (state) => (tableName) => {
@@ -129,17 +194,67 @@ const journalState = {
                     fields[payload.fieldName]['cells'] = {};
                 }
                 let cells = fields[payload.fieldName].cells;
-                if (payload.index in cells) {
-                    // update cell
-                    cells[payload.index]['value'] = payload.value;
+                if (payload.value) {
+                    if (payload.index in cells) {
+                        // update cell
+                        cells[payload.index]['value'] = payload.value;
+                    }
+                    else {
+                        // create cell
+                        Vue.set(cells, payload.index, {});
+                        Vue.set(cells[payload.index], 'value', payload.value);
+                    }
                 }
                 else {
-                    // create cell
-                    cells[payload.index] = {};
-                    cells[payload.index]['value'] = payload.value;
+                    Vue.delete(cells, payload.index);
                 }
             }
-        }
+        },
+        SAVE_CELL_COMMENT (state, payload) {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+                if (!(payload.fieldName in fields)) {
+                    console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
+                    console.log('  Creating field ' + payload.fieldName + '...');
+                    fields[payload.fieldName] = {};
+                    fields[payload.fieldName]['cells'] = {};
+                }
+                let cells = fields[payload.fieldName].cells;
+                if (payload.comment) {
+                    if (payload.index in cells) {
+                        // update cell
+                        cells[payload.index]['comment'] = payload.comment;
+                    }
+                    else {
+                        // create cell
+                        Vue.set(cells, payload.index, {});
+                        Vue.set(cells[payload.index], 'comment', payload.comment);
+                    }
+                }
+                else {
+                    Vue.delete(cells, payload.index);
+                }
+            }
+        },
+        SOCKET_ONOPEN (state, event)  {
+            Vue.prototype.$socket = event.currentTarget
+            state.socket.isConnected = true
+        },
+        SOCKET_ONCLOSE (state, event)  {
+            state.socket.isConnected = false
+        },
+        SOCKET_ONERROR (state, event)  {
+            console.error(state, event)
+        },
+        SOCKET_ONMESSAGE (state, message)  {
+
+        },
+        SOCKET_RECONNECT(state, count) {
+            console.info(state, count)
+        },
+        SOCKET_RECONNECT_ERROR(state) {
+            state.socket.reconnectError = true;
+        },
     },
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {

@@ -211,7 +211,6 @@
                         format: 'yyyy-mm-dd',
                         autoclose: true,
                         endDate: '+0d',
-                        'default': 'now'
                     })
                 }, 0)
             }

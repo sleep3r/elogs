@@ -27,11 +27,9 @@ import '@fortawesome/fontawesome-free-brands';
 // ---------------------------------- Modules -------------------------------------
 // import '../scss/index.scss';
 
-import './datepicker-init';
+// import './datepicker-init';
 import './feedback';
 import './header';
-import './clockpicker';
 import './vue-env';
 
-// import './ws'
 import './common';
