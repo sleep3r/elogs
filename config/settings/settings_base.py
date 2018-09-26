@@ -108,10 +108,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -386,7 +386,7 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 SESSION_CACHE_ALIAS = "default"
 
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
@@ -458,6 +458,7 @@ CELERY_TIMEZONE = TIME_ZONE
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
 CORS_ALLOW_CREDENTIALS = True  # for cookie
 
+
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8000/',
     '127.0.0.1:8080/',
@@ -482,7 +483,5 @@ CSRF_TRUSTED_ORIGINS = (
     'http://localhost:8000/'
 )
 
-CORS_REPLACE_HTTPS_REFERER = True  # TODO: disable and fix
-# ('corsheaders.middleware.CorsPostCsrfMiddleware')
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
 USE_ETAGS = True  #  TODO: read about it
