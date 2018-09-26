@@ -1,0 +1,59 @@
+<div class="table__title">Расчет годового плана шихты</div>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th> Концентрат</th>
+            <th> План на год СМТ</th>
+            <th> Расход шихты за месяц СМТ</th>
+            <th></th>
+            <th> Расход шихты в сутки СМТ</th>
+            <th> Тонн в год</th>
+            <th> Доля в шихте<i class='units'>%</i></th>
+            <th> Zn<i class='units'>%</i></th>
+            <th> S<i class='units'>%</i></th>
+            <th> H<sup>2</sup>O<i class='units'>%</i></th>
+            <th> Fe<i class='units'>%</i></th>
+            <th> Cu<i class='units'>%</i></th>
+            <th> Pb<i class='units'>%</i></th>
+            <th> SiO<sub>2</sub><i class='units'>%</i></th>
+            <th> Cd<i class='units'>%</i></th>
+            <th> CaO<i class='units'>%</i></th>
+            <th> MgO<i class='units'>%</i></th>
+            <th> K<i class='units'>%</i></th>
+            <th> Na<i class='units'>%</i></th>
+            <th> As<i class='units'>%</i></th>
+            <th> Co<i class='units'>%</i></th>
+            <th> Au<i class='units'>г/т</i></th>
+            <th> Ag<i class='units'>г/т</i></th>
+            <th> ВМТ</th>
+            <th> Норма/Отклоние</th>
+        </tr>
+    </thead>
+    <tr v-for="(value, index) in data.rowsCount">
+        <td><cell field-name="concentrate" :row-index="index"></cell></td>
+        <td><cell field-name="year_plans" :row-index="index"></cell></td>
+        <td><cell field-name="month_smt" :row-index="index"></cell></td>
+        <td><cell field-name="empty_field" :row-index="index"></cell></td>
+        <td><cell field-name="day_smt" :row-index="index"></cell></td>
+        <td><cell field-name="tonns_a_year" :row-index="index"></cell></td>
+        <td><cell field-name="schieht_frac" :row-index="index"></cell></td>
+        <td><cell field-name="zn" :row-index="index"></cell></td>
+        <td><cell field-name="s" :row-index="index"></cell></td>
+        <td><cell field-name="h2o" :row-index="index"></cell></td>
+        <td><cell field-name="fe" :row-index="index"></cell></td>
+        <td><cell field-name="cu" :row-index="index"></cell></td>
+        <td><cell field-name="pb" :row-index="index"></cell></td>
+        <td><cell field-name="sio2" :row-index="index"></cell></td>
+        <td><cell field-name="cd" :row-index="index"></cell></td>
+        <td><cell field-name="cao" :row-index="index"></cell></td>
+        <td><cell field-name="mgo" :row-index="index"></cell></td>
+        <td><cell field-name="K" :row-index="index"></cell></td>
+        <td><cell field-name="na" :row-index="index"></cell></td>
+        <td><cell field-name="arsenic" :row-index="index"></cell></td>
+        <td><cell field-name="co" :row-index="index"></cell></td>
+        <td><cell field-name="au" :row-index="index"></cell></td>
+        <td><cell field-name="ag" :row-index="index"></cell></td>
+        <td><cell field-name="vmt" :row-index="index"></cell></td>
+        <td><cell field-name="norm" :row-index="index"></cell></td>
+    </tr>
+</table>

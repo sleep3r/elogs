@@ -10,7 +10,7 @@
     <meta name="description" content="The worlds best electronic journaling system">
     <meta name="keywords" content="journals, e-logs">
 
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>
+{#    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>#}
     <title>{% block title %} E-logs {% endblock %}</title>
 
     {% block css %}
@@ -32,22 +32,27 @@
                 {% include "menu.html" %}
             {% endblock %}
         </nav>
-        <div class="column-content" id="elogs-app">
-            <main class="journal-page" data-mode="{{ page_mode }}">
-                {% block journal_panel %}
-                    {% include "journal__panel.html" %}
-                {% endblock %}
-                <article class="journal-tables">
-                    {% block content %}
-                    {% endblock %}
-                </article>
-            </main>
+        <div class="column-content">
+			{% block dashboard %}
+			{% endblock %}
+			<div id="elogs-app">
+	            <main class="journal-page" data-mode="{{ page_mode }}">
+	                {% block journal_panel %}
+	                    {% include "journal__panel.html" %}
+	                {% endblock %}
+	                <article class="journal-tables">
+	                    {% block content %}
+	                    {% endblock %}
+	                </article>
+	            </main>
+		    </div>
             {% include "footer.html" %}
         </div>
     </div>
 </div>
 
 {% include "popup.html" %}
+{% include "big_popup.html" %}
 {% include "modals/pick_shift.html" %}
 
 {% block footer %}

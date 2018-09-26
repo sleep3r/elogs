@@ -86,6 +86,7 @@ LOCAL_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
+    'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
     'e_logs.common.settings_app.apps.SettingsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
@@ -192,7 +193,6 @@ LOGGING = {
         },
         'color_formatter': {
             '()': 'e_logs.core.utils.formatters.ColorsFormatter',
-            # 'format': "[%(asctime)s] %(message)s",
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
@@ -205,7 +205,7 @@ LOGGING = {
         },
         'production_file': {
             'level': 'INFO',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main/main.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -214,7 +214,7 @@ LOGGING = {
         },
         'debug_file_debug': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_debug/main_debug_debug.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -223,7 +223,7 @@ LOGGING = {
         },
         'debug_file_info': {
             'level': 'INFO',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_info/main_debug_info.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -232,7 +232,7 @@ LOGGING = {
         },
         'debug_file_error': {
             'level': 'ERROR',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_error/main_debug_error.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -241,7 +241,7 @@ LOGGING = {
         },
         'debug_file_calls': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_calls/main_debug_calls.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -250,7 +250,7 @@ LOGGING = {
         },
         'printed_values': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/printed_values/printed_values.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -259,7 +259,7 @@ LOGGING = {
         },
         'db_log': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/db_log/db_log.log',
             'backupCount': 7,
             'formatter': 'color_formatter',

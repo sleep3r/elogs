@@ -1,0 +1,48 @@
+
+
+
+
+Нагрузки
+
+
+    <table class="table table-bordered elog-journal-table">
+            <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th class="th-number">I серия, А</th>
+                <th class="th-number">II серия, А</th>
+                <th class="th-number">III серия, А</th>
+                <th class="th-number">IV серия, А</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                </tr>
+                <tr>
+                    <th rowspan="2" class="th-mul-row">Нагрузки</th>
+                    <th>7<sup>00</sup></th>
+                    <td v-for="(value, index) in 4"><cell field-name="time7" index="index"></cell></td>
+                </tr>
+                <tr>
+                    <th>12<sup>00</sup></th>
+                    <td v-for="(value, index) in 4"><cell field-name="time12" index="index"></cell></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Показания счётчика</th>
+                    <td v-for="(value, index) in 4"><cell field-name="counter" index="index"></cell></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Бункера ЦВЦО</th>
+                    <td v-for="(value, index) in 4"><cell field-name="bunker_cvco" index="index"></cell></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Силоса ОЦ</th>
+                    <td v-for="(value, index) in 4"><cell field-name="silos" index="index"></cell></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Бункера ОЦ</th>
+                    <td v-for="(value, index) in 4"><cell field-name="bunkers_oc" index="index"></cell></td>
+                </tr>
+            </tbody>
+        </table>

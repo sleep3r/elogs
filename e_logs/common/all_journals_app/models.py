@@ -170,7 +170,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
-        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache() \
+        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache()\
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
 
     @staticmethod

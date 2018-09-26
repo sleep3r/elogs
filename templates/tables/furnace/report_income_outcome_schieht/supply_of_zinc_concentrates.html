@@ -1,0 +1,15 @@
+<div class="table__title">Поставка цинковых концентратов</div>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th class="th-number"> Конц. смт </th>
+            <th class="th-number"> Zn </th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+          <td><cell field-name="concentrate" :row-index="index"></cell></td>
+          <td><cell field-name="zn" :row-index="index"></cell></td>
+      </tr>
+    </tbody>
+</table>
