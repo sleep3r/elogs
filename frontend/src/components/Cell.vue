@@ -69,7 +69,7 @@ export default {
           })
       },
       onInput(e) {
-        this.$store.commit('SAVE_CELL_VALUE', {
+        this.$store.commit('journalState/SAVE_CELL_VALUE', {
           tableName: this.tableName,
           fieldName: this.fieldName,
           index: this.rowIndex,

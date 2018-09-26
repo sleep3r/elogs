@@ -49,7 +49,7 @@ export default {
   mounted() {
     let self = this;
     let templateUrl = 'http://localhost:8000/static/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + ".html";
-    axios.get(templateUrl)
+    axios.get(templateUrl, {withCredentials: true})
       .then(function (response) {
          self.template = response.data;
       })

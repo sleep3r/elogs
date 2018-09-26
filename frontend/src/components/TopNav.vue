@@ -1,17 +1,18 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo" @click.prevent="$router.push('/')"> <i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span></div>
+        <div class="header__logo" @click.prevent="$router.push('/')"><i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
+        </div>
         <div class="header__title">
             <span class="journal_title">{{$store.getters['journalState/plantName']}}</span>
-             <!--if plant-->
-            <!--<i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>-->
-            <!--<i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>-->
-            <!---->
+            <template v-if="$route.params.journal">
+                <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
+                <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>
+            </template>
         </div>
         <div class="header__user">
             <i class="fas fa-envelope user-messages-badge" @click="onMsgClick"></i>
             <i class="fas fa-bell"></i>
-            <span class="user-name" @click="onUsernameClick">?? user.employee ??</span>
+            <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle"></i>
             <div class="user-menu">
                 <ul class="menu">
@@ -23,13 +24,13 @@
                     </li>
                     <li class="user-menu__item">
                         <a href="" @click.prevent="onMessagesClick">
-                            <i class="fa fa-envelope" ></i>
+                            <i class="fa fa-envelope"></i>
                             <span class="caption">Список сообщений </span>
                         </a>
                     </li>
                     <li class="user-menu__item">
                         <a href="javascript:;" data-toggle="modal" data-target="#SchemeModal">
-                            <i class="fa fa-book" ></i>
+                            <i class="fa fa-book"></i>
                             <span class="caption">Схема цехов </span>
                         </a>
                     </li>
@@ -53,30 +54,33 @@
 </template>
 
 <script>
-export default {
-    name: "TopNav",
-    methods: {
-        onLogout () {
-            this.$router.push('/login')
-        },
-        onUsernameClick () {
-            let element = document.querySelector('.header .user-menu');
-            element.classList.toggle('visible');
-        },
-        onMsgClick () {
-            let element = document.querySelector('.user-notifications');
-            element.classList.toggle('display');
-        },
-        onSettingsClick () {
-            this.$router.push('/settings')
-            this.onUsernameClick()
-        },
-        onMessagesClick () {
-            this.$router.push('/messages')
-            this.onUsernameClick()
+    export default {
+        name: "TopNav",
+        methods: {
+            onLogout() {
+                this.$store.dispatch('userState/logout')
+                    .then(() => {
+                        this.$router.push('/login')
+                    })
+            },
+            onUsernameClick() {
+                let element = document.querySelector('.header .user-menu');
+                element.classList.toggle('visible');
+            },
+            onMsgClick() {
+                let element = document.querySelector('.user-notifications');
+                element.classList.toggle('display');
+            },
+            onSettingsClick() {
+                this.$router.push('/settings')
+                this.onUsernameClick()
+            },
+            onMessagesClick() {
+                this.$router.push('/messages')
+                this.onUsernameClick()
+            }
         }
     }
-}
 </script>
 
 <style scoped>

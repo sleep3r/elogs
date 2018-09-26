@@ -191,7 +191,9 @@
                 journal_name = 'fractional';
             }
             let self = this;
-            axios.get('http://localhost:8000/' + plant + '/' + journal_name + '/get_shifts/')
+            axios.get('http://localhost:8000/' + plant + '/' + journal_name + '/get_shifts/', {
+                withCredentials: true
+            })
                 .then(response => {
                     self.events = response.data;
                     $(".fc-month-button").click();

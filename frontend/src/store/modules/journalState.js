@@ -1,4 +1,5 @@
 import axios from 'axios';
+import VueCookies from 'vue-cookies'
 
 const journalState = {
     namespaced: true,
@@ -125,13 +126,15 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             axios
-                .get('http://localhost:8000/api/shifts/' + payload, {headers: {
-                        Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNTksInVzZXJuYW1lIjoiaW5mcmFtaW5lIiwiZXhwIjoxNTM3ODA5OTQzLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9.BOtmGRgf6GqyK92CT4VR-uvdX_4IGlW0UATmHtVY2MA'}
-                    }
-                )
+                .get('http://localhost:8000/api/shifts/' + payload, {
+                    withCredentials: true
+                })
                 .then(response => {
                     commit('UPDATE_JOURNAL_INFO', response.data);
                     commit('SET_LOADED', true);
+                })
+                .catch((err) => {
+                    console.log(err)
                 })
         },
         loadPlants: function ({ commit, state, getters }) {

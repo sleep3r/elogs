@@ -15,7 +15,7 @@
                 <ul class="sub-menu">
                     <!--{% for journal_path, journal_verbose in menu_data.furnace.items %}-->
                     <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
-                        <a href="" :data-url="journal.name + '/' + journal.current_shift_id" class="menu-item__link">{{journal.verbose_name}}</a>
+                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" :data-shift-id="journal.current_shift_id" class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
                     <!--{% endfor %}-->
 
@@ -44,13 +44,6 @@
                 menuSelector: ".menu--left"
             }
         },
-        watch: {
-            getPlants (value) {
-                if (value) {
-                    setTimeout(() => this.setActiveItem(), 0)
-                }
-            }
-        },
         computed: {
             getPlants () {
                 return this.$store.getters['journalState/plants']
@@ -59,7 +52,8 @@
         mounted() {
             this.$store.dispatch('journalState/loadPlants')
                 .then(() => {
-                    this.setListeners()
+                    setTimeout(() => this.setListeners(), 0)
+                    setTimeout(() => this.setActiveItem(), 0)
                 })
         },
         methods: {
@@ -69,10 +63,17 @@
                 event.preventDefault();
                 const listItem = event.target.closest(selectorMenuItem);
                 const linkNode = listItem.querySelector(selectorLink);
-                const url = linkNode.getAttribute("data-url");
+                const plantName = linkNode.getAttribute("data-plant-name")
+                const journalName = linkNode.getAttribute("data-journal-name")
+                const shiftId = linkNode.getAttribute("data-shift-id")
+                let url = ''
+
+                if (plantName && journalName && shiftId) {
+                    url = '/' + plantName + '/' + journalName + '/' + shiftId;
+                }
 
                 if (url !== null && url !== "" && url !== "#") {
-                    this.$router.push('/' + url)
+                    this.$router.push(url)
                     this.setActiveItem()
                     this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
                 } else {
@@ -112,7 +113,7 @@
                 }
 
                 let link = document.querySelector(
-                    `.menu__item a[data-url="${this.$route.params.journal}/${this.$route.params.shift_id}"]`)
+                    `.menu__item a[data-journal-name="${this.$route.params.journal}"]`)
                 if (!link) return;
 
                 let currentItem = link.parentNode;

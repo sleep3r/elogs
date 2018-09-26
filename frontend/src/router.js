@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueCookies from 'vue-cookies'
+
 import BasePage from './components/BasePage.vue'
 import JournalPage from './components/JournalPage.vue'
 import LoginPage from './components/LoginPage.vue'
@@ -8,7 +10,7 @@ import SettingsPage from './components/SettingsPage.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -17,7 +19,7 @@ export default new Router({
             component: BasePage,
             children: [
                 {
-                    path: ':journal/:shift_id',
+                    path: '/:plant/:journal/:shift_id',
                     name: 'journalPage',
                     component: JournalPage
                 },
@@ -40,3 +42,14 @@ export default new Router({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    if (!VueCookies.get('X-CSRF-TOKEN') && to.name !== 'loginPage') {
+        next('/login')
+    }
+    else {
+        next()
+    }
+})
+
+export default router
