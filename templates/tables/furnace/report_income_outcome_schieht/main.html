@@ -1,0 +1,39 @@
+<div class="table__title">Поступление, расходы и остатки Zn концентратов</div>
+<ul class="nav nav-tabs">
+    <li v-for="(name, month) in data.months" class="nav-item">
+        <a class="nav-link active"
+           data-toggle="tab"
+           :href="`#${month}-table`">{{ name }}
+        </a>
+    </li>
+    <li>
+        <toggle-button style="font-size: 12px"
+            v-model="data.fact"
+            :color="{checked: '#90c743', unchecked: '#458bb9'}"
+            :width="90"
+            :height="37"
+            :labels="{checked: 'ФАКТ', unchecked: 'ПЛАН'}">
+        </toggle-button>
+    </li>
+</ul>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr v-if="data.fact">
+            <th> Конц. смт (по факту)</th>
+            <th> Zn (по факту)</th>
+            <th> Соотношение (по факту)</th>
+        </tr>
+        <tr v-else>
+            <th> Конц. смт (по плану)</th>
+            <th> Zn (по плану)</th>
+            <th> Соотношение (по плану)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, index) in data.rowsCount" >
+            <td><cell field-name="concentrate__" :row-index="index"></cell></td>
+            <td><cell field-name="zn__" :row-index="index"></cell></td>
+            <td><cell field-name="ratio__" :row-index="index"></cell></td>
+        </tr>
+    </tbody>
+</table>

@@ -123,6 +123,10 @@ def save_cell(request):
         return {"status": 1}
 
 
+def get_table_template(request, plant_name, journal_name, table_name):
+    return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
+
+
 # @cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged

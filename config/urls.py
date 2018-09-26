@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import user_passes_test
 from rest_framework_swagger.views import get_swagger_view
 
 from django.conf import settings
-from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index
+from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
@@ -32,6 +32,7 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.modes.urls')),
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
     path('furnace/fractional/', include('e_logs.furnace.fractional_app.urls')),
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/', get_table_template),
     path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
     path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(),
          name='journal_view'),
