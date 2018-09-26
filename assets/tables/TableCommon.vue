@@ -24,18 +24,19 @@ export default {
       template: null,
       rowsCount: 1,
       months: {
-                'Январь',
-                'Февраль',
-                'Март',
-                'Май',
-                'Июнь',
-                'Июль',
-                'Август',
-                'Сентябрь',
-                'Октябрь',
-                'Ноябрь',
-                'Декабрь'
-      }
+            'January': 'Январь',
+            'February': 'Февраль',
+            'March': 'Март',
+            'April': 'Апрель',
+            'May': 'Май',
+            'June': 'Июнь',
+            'July': 'Июль',
+            'August': 'Август',
+            'September': 'Сентябрь',
+            'October': 'Октябрь',
+            'November': 'Ноябрь',
+            'December': 'Декабрь'
+        },
     }
   },
   render: function (createElement) {

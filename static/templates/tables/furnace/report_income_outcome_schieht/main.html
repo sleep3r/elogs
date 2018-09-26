@@ -1,11 +1,11 @@
 <div class="table__title">Поступление, расходы и остатки Zn концентратов</div>
 <ul class="nav nav-tabs">
-    <li v-for="(month, name) in months ['Январь','Февраль','Март', 'Май', 'Июнь','Июль', 'Август','Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']" class="nav-item">
+    <li v-for="(name, month) in data.months" class="nav-item">
         <a class="nav-link active"
            data-toggle="tab"
-           href="#month_table" >{{ month }}</a>
+           :href="`#${month}-table`">{{ name }}
+        </a>
     </li>
-
     <li>
         <toggle-button style="font-size: 12px"
             v-model="data.fact"
