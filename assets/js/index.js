@@ -39,7 +39,6 @@ import './clockpicker';
 import './vue-env';
 import './data-visualization'
 
-import './ws'
 import './common';
 import './journal-panel';
 import './user-menu';
