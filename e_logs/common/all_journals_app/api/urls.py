@@ -7,17 +7,6 @@ urlpatterns = [
     path('journals/', JournalAPI.as_view()),
     path('tables/', TableAPI.as_view()),
     path('fields/', FieldAPI.as_view()),
-    path('cells/<int:id>', CellAPI.as_view()),
-    path('shifts/<int:id>', ShiftAPI1.as_view()),
-<<<<<<< HEAD
-    path('menu_info', MenuInfoAPI.as_view()),
-=======
+    path('shifts/<int:id>', ShiftAPI.as_view()),
     path('menu_info/', MenuInfoAPI.as_view()),
->>>>>>> develop
-
-    # path('journals/', JournalsList.as_view()),
-    # path('tables/', TablesList.as_view()),
-    # path('fields/', FieldsList.as_view()),
-    # path('cells/', CellsList.as_view()),
-    # path('shifts/', ShiftList.as_view()),
 ]

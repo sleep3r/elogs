@@ -10,7 +10,7 @@
     <meta name="description" content="The worlds best electronic journaling system">
     <meta name="keywords" content="journals, e-logs">
 
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>
+{#    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>#}
     <title>{% block title %} E-logs {% endblock %}</title>
 
     {% block css %}
@@ -33,14 +33,18 @@
                 {% include "menu.html" %}
             {% endblock %}
         </nav>
-        <div class="column-content" id="elogs-app">
-            <main class="journal-page" data-mode="{{ page_mode }}">
-                <journal-panel></journal-panel>
-                <article class="journal-tables">
-                    {% block content %}
-                    {% endblock %}
-                </article>
-            </main>
+        <div class="column-content">
+			{% block dashboard %}
+			{% endblock %}
+			<div id="elogs-app">
+	            <main class="journal-page" data-mode="{{ page_mode }}">
+	                <journal-panel></journal-panel>
+	                <article class="journal-tables">
+	                    {% block content %}
+	                    {% endblock %}
+	                </article>
+	            </main>
+		    </div>
             <footer>
                 <button class="btn" data-toggle="modal" data-target="#MessageToDevelopersModal">
                     <span>Оставить отзыв разработчикам</span>

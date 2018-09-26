@@ -66,6 +66,8 @@ TEMPLATES = [
 THIRD_PARTY_APPS = [
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'rest_framework_swagger',
     'django_filters',
     'webpack_loader',
@@ -84,6 +86,7 @@ LOCAL_APPS = [
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
+    'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
     'e_logs.common.settings_app.apps.SettingsAppConfig',
 
     'e_logs.furnace.fractional_app.apps.FurnaceFractionalAppConfig',
@@ -163,7 +166,7 @@ LANGUAGES = (('ru', ugettext('Russian')), ('en', ugettext('English')))
 
 APPEND_SLASH = True
 
-MANAGERS = ADMINS = [("""inframine""", 'inframine@inframine.io')]
+MANAGERS = ADMINS = [("inframine", 'inframine@inframine.io')]
 
 if DEBUG:
     import logging
@@ -190,7 +193,6 @@ LOGGING = {
         },
         'color_formatter': {
             '()': 'e_logs.core.utils.formatters.ColorsFormatter',
-            # 'format': "[%(asctime)s] %(message)s",
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
             'datefmt': "%d/%b/%Y %H:%M:%S"
         },
@@ -203,7 +205,7 @@ LOGGING = {
         },
         'production_file': {
             'level': 'INFO',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main/main.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -212,7 +214,7 @@ LOGGING = {
         },
         'debug_file_debug': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_debug/main_debug_debug.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -221,7 +223,7 @@ LOGGING = {
         },
         'debug_file_info': {
             'level': 'INFO',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_info/main_debug_info.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -230,7 +232,7 @@ LOGGING = {
         },
         'debug_file_error': {
             'level': 'ERROR',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_error/main_debug_error.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -239,7 +241,7 @@ LOGGING = {
         },
         'debug_file_calls': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_calls/main_debug_calls.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -248,7 +250,7 @@ LOGGING = {
         },
         'printed_values': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/printed_values/printed_values.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -257,7 +259,7 @@ LOGGING = {
         },
         'db_log': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/db_log/db_log.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
@@ -285,12 +287,12 @@ LOGGING = {
         'django': {
             'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'django.server': {
             'handlers': ['console'],
             'level': 'INFO',
-            'propagate': False,
+            'propagate': True,
         },
         'django.db': {
             'handlers': ['db_log'],
@@ -303,7 +305,7 @@ LOGGING = {
         },
         'django.db.backends.mssql': {
             'level': 'DEBUG',
-            'handlers': ['debug_file_debug'],
+            'handlers': ['db_log'],
         },
         'CALL': {
             'handlers': ['debug_file_calls'],
@@ -318,6 +320,10 @@ LOGGING = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework_rapidjson.renderers.RapidJSONRenderer',
         'rest_framework.renderers.JSONRenderer',
@@ -325,10 +331,13 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework_rapidjson.parsers.RapidJSONParser',
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser',
-        # 'rest_framework.permissions.IsAuthenticated',  # coockuecutter
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -343,13 +352,17 @@ REST_FRAMEWORK = {
     # )
 }
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("localhost", 6379)],
-        },
-    },
+# --------------------------------- AUTHENTICATION ---------------------------------------
+
+DJOSER = {
+    'SEND_ACTIVATION_EMAIL': False,
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://test.localhost/']
+}
+
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
 }
 
 # --------------------------------- CACHING STAFF ---------------------------------------
@@ -424,12 +437,20 @@ CACHEOPS = {
     # 'core.models.Setting': {'timeout': 60*60},
 }
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
+
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
-
 
 CORS_ORIGIN_ALLOW_ALL = True
