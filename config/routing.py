@@ -4,8 +4,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
 
-from e_logs.common.all_journals_app.ws.consumers import JournalInfoConsumer
-from e_logs.common.messages_app.ws.consumers import MessageConsumer
+from e_logs.common.all_journals_app.ws.consumers import CommonConsumer
 
 
 ASGI_APPLICATION = "config.asgi.application"
@@ -15,8 +14,7 @@ application = ProtocolTypeRouter({
         AuthMiddlewareStack(
             URLRouter(
                 [
-                    url(r"^messages/$", MessageConsumer),
-                    url(r"^journal_info/$", JournalInfoConsumer),
+                    url(r"^e-logs/$", CommonConsumer),
                 ]
             )
         )

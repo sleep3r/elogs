@@ -127,7 +127,29 @@ def get_table_template(request, plant_name, journal_name, table_name):
     return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
 
 
-# @cached_as(Plant, Journal, Shift)
+# @process_json_view(auth_required=False)
+def get_menu_info(request):
+    verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
+    return {
+        'plants': [
+            {
+                'name': plant.name,
+                'verbose_name': verbose_name[plant.name],
+                'journals': [
+                    {
+                        'name': journal.name,
+                        'verbose_name': journal.verbose_name,
+                        'current_shift_id': get_current_shift(journal).id
+                    }
+                for journal in Journal.objects.filter(plant=plant)
+                ]
+            }
+            for plant in Plant.objects.all()
+        ]
+    }
+
+
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,

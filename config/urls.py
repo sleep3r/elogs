@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import user_passes_test
 from rest_framework_swagger.views import get_swagger_view
 
 from django.conf import settings
-from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template
+from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template, get_menu_info
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')

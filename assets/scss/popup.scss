@@ -3,6 +3,8 @@
 \*------------------------------------*/
 @import "variables";
 
+
+/*
 $color-popup: white;
 $color-popup-arrow: black;
 
@@ -139,8 +141,9 @@ $color-popup-arrow: black;
     margin-left: 0;
     margin-right: 0;
 }
-
+*/
 /* Modal */
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -181,6 +184,8 @@ $color-popup-arrow: black;
 .modal-default-button {
   float: right;
 }
+
+
 
 /*
  * The following styles are auto-applied to elements with

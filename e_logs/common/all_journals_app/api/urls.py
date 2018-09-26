@@ -9,5 +9,4 @@ urlpatterns = [
     path('fields/', FieldAPI.as_view()),
     path('shifts/<int:id>', ShiftAPI.as_view()),
     path('menu_info/', MenuInfoAPI.as_view()),
-
 ]

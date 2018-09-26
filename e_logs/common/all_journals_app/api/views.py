@@ -123,6 +123,7 @@ class MenuInfoAPI(View):
         })
 
 
+
 class TableAPI(View):
     def get(self, request):
         queryset = Table.objects.all()
