@@ -10,6 +10,13 @@ const journalState = {
     },
     getters: {
         loaded: state => state.loaded,
+        journal: state => {
+            if (state.loaded) {
+                return state.journalInfo.journal
+            } else {
+                return [];
+            }
+        },
         tables: state => {
             if (state.loaded) {
                 return Object.keys(state.journalInfo.journal.tables);
@@ -57,6 +64,17 @@ const journalState = {
                 else {
                     return '';
                 }
+            }
+        },
+        fieldCells: (state) => (tableName, fieldName) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields;
+                if (fieldName in fields) {
+                    return state.journalInfo.journal.tables[tableName].fields[fieldName].cells
+                }
+                else return []
+            } else {
+                return []
             }
         },
         maxRowIndex: (state) => (tableName) => {

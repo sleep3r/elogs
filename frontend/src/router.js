@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import Router from 'vue-router'
 import VueCookies from 'vue-cookies'
 

@@ -150,8 +150,8 @@ export default {
   },
   mounted() {
     // initializing data
-    this.value = this.$store.getters.cellValue(this.tableName, this.fieldName, this.rowIndex);
-    let desc = this.$store.getters.fieldDescription(this.tableName, this.fieldName);
+    this.value = this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex);
+    let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
     this.placeholder = desc['units'] || ''
     this.minValue = desc['min_normal'] || null
     this.maxValue = desc['max_normal'] || null

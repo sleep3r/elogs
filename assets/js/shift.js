@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Vue from 'vue';
+import Vue from 'vue/dist/vue.esm.js';
 window.Vue = Vue;
 import VueResource from 'vue-resource';
 Vue.use(VueResource);

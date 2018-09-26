@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import App from './Messages.vue'
 
 import Datetime from 'vue-datetime';

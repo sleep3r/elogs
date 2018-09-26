@@ -50,16 +50,14 @@ export default {
         })
     },
     bindText() {
-        if (!("journal" in this.$store.state.journalInfo) === false ) {
-          if (typeof this.$store.state.journalInfo.journal.tables[this.tableName].fields[this.fieldName] !== 'undefined') {
-            let cells = this.$store.state.journalInfo.journal.tables[this.tableName].fields[this.fieldName].cells;
+        if (this.$store.getters['journalState/journal']) {
+            let cells = this.$store.getters['journalState/fieldCells'](this.tableName, this.fieldName)
             if (Object.keys(cells).length !== 0) {
                 if (this.rowIndex in cells) {
                     this.text = cells[this.rowIndex].value;
                     this.isCollapsed = false
                 }
             }
-          }
         }
     }
   },
