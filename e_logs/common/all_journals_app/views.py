@@ -66,16 +66,18 @@ class JournalView(LoginRequiredMixin, View):
 journal_view = JournalView.as_view()
 # journal_view = cached_view_as(Cell)(journal_view)
 
+
 def get_current_shift(journal):
     number_of_shifts = Shift.get_number_of_shifts(journal)
     assert number_of_shifts > 0, "<= 0 number of shifts"
 
-    for shift_order in range(1, number_of_shifts + 1):
-        shift = Shift.objects.get(journal=journal,
-                                  order=shift_order,
-                                  date=timezone.now().date())
+    shifts = Shift.objects.cache()\
+        .filter(journal=journal, date__lte=timezone.now().date()).order_by('-date', '-order')
+    for shift in shifts:
         if shift.is_active:
             return shift
+
+    assert True, "No active shifts!"
 
 #-------------------Пропала кнопка СМЕНУ СДАЛ---------------------------------
 @csrf_exempt
