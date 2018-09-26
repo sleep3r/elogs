@@ -1,5 +1,7 @@
+import os
 import sys
 import logging
+from logging.handlers import TimedRotatingFileHandler
 
 from django.core.management.color import color_style
 
@@ -24,3 +26,11 @@ class ColorsFormatter(logging.Formatter):
         colorizer = getattr(self.style, record.levelname, self.style.HTTP_SUCCESS)
         # message = colorizer(message)
         return message
+
+
+class MkdirTimedRotatingFileHandler(TimedRotatingFileHandler):
+    def __init__(self, filename, when='h', interval=1, backupCount=0, encoding=None, delay=False,
+                 utc=False, atTime=None):
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        TimedRotatingFileHandler.__init__(self, filename, when, interval, backupCount, encoding, delay,
+                                     utc, atTime)
