@@ -23,7 +23,7 @@ const userState = {
                     password: payload.password
                 })
                     .then((resp) => {
-                        axios.get('http://localhost:8000/api/auth/users/me', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
+                        axios.get('http://'+ window.location.host +'/api/auth/users/me', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
                             .then((userData) => {
                                 commit('SET_USER', userData.data)
                             })
@@ -38,7 +38,7 @@ const userState = {
         },
         logout ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
-                axios.post('http://localhost:8000/api/auth/token/logout/', null, {
+                axios.post('http://'+ window.location.host +'/api/auth/token/logout/', null, {
                     headers: {Authorization: 'Token ' + VueCookies.get('X-CSRF-TOKEN')}
                 })
                     .then(() => {

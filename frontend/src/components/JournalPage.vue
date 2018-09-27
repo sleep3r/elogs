@@ -23,7 +23,7 @@ export default {
         'journal-panel': JournalPanel
     },
     mounted () {
-
+        this.$connect();
     }
 }
 </script>
