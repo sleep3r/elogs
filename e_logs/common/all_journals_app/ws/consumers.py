@@ -12,20 +12,19 @@ from e_logs.common.messages_app.models import Message
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        if self.scope["user"].is_authenticated:
-            self.user_channel = f"user_{self.scope['user'].employee.id}"
+        self.user_channel = f"user_{self.scope['user'].employee.id}"
 
-            await self.channel_layer.group_add(
-                "messages",
-                self.channel_name,
-            )
+        await self.channel_layer.group_add(
+            "messages",
+            self.channel_name,
+        )
 
-            await self.channel_layer.group_add(
-                self.user_channel,
-                self.channel_name,
-            )
+        await self.channel_layer.group_add(
+            self.user_channel,
+            self.channel_name,
+        )
 
-            await self.accept()
+        await self.accept()
 
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
