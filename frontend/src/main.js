@@ -9,7 +9,7 @@ import './assets/js/index'
 
 Vue.config.productionTip = false;
 
-const dataEndpoint = 'ws://' + window.location.host + '/e-logs/';
+const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
