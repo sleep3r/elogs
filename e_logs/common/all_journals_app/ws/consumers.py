@@ -10,30 +10,32 @@ from django.contrib.contenttypes.models import ContentType
 from e_logs.common.all_journals_app.models import Cell, Shift, Comment
 from e_logs.common.messages_app.models import Message
 
-
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
         query = dict(urllib.parse.parse_qsl(self.scope['query_string'].decode("utf-8")))
         shift_id = query.get('shift', None)
-        self.user_channel = f"user_{self.scope['user'].employee.id}"
-        if shift_id:
-            self.shift_channel = f"shift_{shift_id}"
+
+        if self.scope["user"].is_authenticated:
+            self.user_channel = f"user_{self.scope['user'].employee.id}"
+            if shift_id:
+                self.shift_channel = f"shift_{shift_id}"
+                await self.channel_layer.group_add(
+                    self.shift_channel,
+                    self.channel_name,
+                )
+
             await self.channel_layer.group_add(
-                self.shift_channel,
+                "messages",
                 self.channel_name,
             )
 
-        await self.channel_layer.group_add(
-            "messages",
-            self.channel_name,
-        )
+            await self.channel_layer.group_add(
+                self.user_channel,
+                self.channel_name,
+            )
 
-        await self.channel_layer.group_add(
-            self.user_channel,
-            self.channel_name,
-        )
+            await self.accept()
 
-        await self.accept()
 
     async def websocket_disconnect(self, event):
         if hasattr(CommonConsumer, 'shift_channel'):
