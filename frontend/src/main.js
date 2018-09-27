@@ -7,9 +7,9 @@ import VueNativeSock from 'vue-native-websocket';
 import './register-sw'
 import './assets/js/index'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-const dataEndpoint = 'ws://localhost:8000' + '/e-logs/?shift=' + window.location.pathname.split("/")[3];
+const dataEndpoint = 'ws://' + window.location.host + '/e-logs/';
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
@@ -25,7 +25,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
             value: data['value']
         })
     }
-})
+});
 
 new Vue({
     el: '#app',
@@ -35,4 +35,4 @@ new Vue({
     mounted () {
         this.$connect();
     }
-})
+});

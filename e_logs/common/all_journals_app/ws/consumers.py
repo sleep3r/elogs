@@ -12,17 +12,8 @@ from e_logs.common.messages_app.models import Message
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        query = dict(urllib.parse.parse_qsl(self.scope['query_string'].decode("utf-8")))
-        shift_id = query.get('shift', None)
-
         if self.scope["user"].is_authenticated:
             self.user_channel = f"user_{self.scope['user'].employee.id}"
-            if shift_id:
-                self.shift_channel = f"shift_{shift_id}"
-                await self.channel_layer.group_add(
-                    self.shift_channel,
-                    self.channel_name,
-                )
 
             await self.channel_layer.group_add(
                 "messages",
@@ -36,14 +27,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
             await self.accept()
 
-
     async def websocket_disconnect(self, event):
-        if hasattr(CommonConsumer, 'shift_channel'):
-            await self.channel_layer.group_discard(
-                self.shift_channel,
-                self.channel_name,
-            )
-
         await self.channel_layer.group_discard(
             "messages",
             self.channel_name,
