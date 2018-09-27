@@ -32,6 +32,5 @@ new Vue({
     store,
     render: h => h(App),
     mounted () {
-        this.$connect();
     }
 })
