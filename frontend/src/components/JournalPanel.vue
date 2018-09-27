@@ -102,7 +102,10 @@
             let plant = location.pathname.split('/')[1];
             let journal_name = location.pathname.split('/')[2];
             let self = this;
-            axios.get('http://localhost:8000/' + plant + '/' + journal_name +'/get_shifts/')
+            axios.get('http://localhost:8000/' + plant + '/' + journal_name +'/get_shifts/',
+                {
+                    withCredentials: true
+                })
                 .then(response => {
                     self.events = response.data;
                     $(".fc-month-button").click();

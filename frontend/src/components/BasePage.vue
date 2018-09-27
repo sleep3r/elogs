@@ -29,7 +29,9 @@ export default {
         'popup': Popup,
     },
     mounted () {
-
+        if (this.$route.params.shift_id) {
+            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+        }
     }
 }
 </script>

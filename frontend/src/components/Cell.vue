@@ -1,7 +1,7 @@
 <template>
     <v-popover
             offset="16"
-            :disabled="!(mode==='validate')">
+            :disabled="mode !== 'validate'">
         <input
                 :class="classes"
                 :name="fieldName"
@@ -12,7 +12,7 @@
                 @change="onChanged"
                 @input="onInput"
                 @blur="showCellTypeTooltip=false"
-                :readonly="mode!=='edit'"
+                :readonly="mode !== 'edit'"
                 :placeholder="placeholder"
                 :style="{ color: activeColor }"
                 :type="type"
@@ -32,11 +32,9 @@
 
 <script>
     import Vue from 'vue/dist/vue.esm.js'
-    import $ from 'jquery'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
     import 'clockpicker/dist/bootstrap-clockpicker.min'
-    import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min'
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -58,7 +56,28 @@
                 maxValue: null,
                 type: null,
                 placeholder: '',
-                showCellTypeTooltip: false,
+                showCellTypeTooltip: false
+            }
+        },
+        watch: {
+            mode (value) {
+                if (this.type === 'time') {
+                    if (value === 'edit') {
+                        console.log('edit')
+                            $(this.$el).find('input').clockpicker({
+                                autoclose: true,
+                                'default': 'now',
+                                donetext: false,
+                                afterDone: () => {
+                                    this.value = $(this.$el).find('input').val();
+                                }
+                            })
+                    }
+                    else {
+                        console.log('not-edit')
+                            $(this.$el).find('input').clockpicker('remove')
+                    }
+                }
             }
         },
         computed: {
@@ -198,24 +217,15 @@
                 this.send();
             }
 
-            if (this.type === 'time') {
-                setTimeout(() => {
-                    $(this.$el).clockpicker({
-                        autoclose: true,
-                        'default': 'now'
-                    })
-                }, 0)
-            }
-
-            if (this.type === 'date') {
-                setTimeout(() => {
-                    $(this.$el).datepicker({
-                        format: 'yyyy-mm-dd',
-                        autoclose: true,
-                        endDate: '+0d',
-                    })
-                }, 0)
-            }
+            // if (this.type === 'date') {
+            //     setTimeout(() => {
+            //         $(this.$el).datepicker({
+            //             format: 'yyyy-mm-dd',
+            //             autoclose: true,
+            //             endDate: '+0d',
+            //         })
+            //     }, 0)
+            // }
         }
     }
 </script>

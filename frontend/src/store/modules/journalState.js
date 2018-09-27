@@ -236,6 +236,11 @@ const journalState = {
                 }
             }
         },
+        SET_PAGE_MODE (state, mode) {
+            if (state.loaded) {
+                state.journalInfo.mode = mode
+            }
+        },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget
             state.socket.isConnected = true
@@ -258,17 +263,22 @@ const journalState = {
     },
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
-            axios
-                .get('http://localhost:8000/api/shifts/' + payload, {
-                    withCredentials: true
-                })
-                .then(response => {
-                    commit('UPDATE_JOURNAL_INFO', response.data);
-                    commit('SET_LOADED', true);
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            return new Promise((res, rej) => {
+                axios
+                    .get('http://localhost:8000/api/shifts/' + payload, {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        commit('UPDATE_JOURNAL_INFO', response.data);
+                        commit('SET_LOADED', true);
+                    })
+                    .then(() => {
+                        res()
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            })
         },
         loadPlants: function ({ commit, state, getters }) {
             axios

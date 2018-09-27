@@ -27,7 +27,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
     }
 });
 
-new Vue({
+window.mv = new Vue({
     el: '#app',
     router,
     store,
