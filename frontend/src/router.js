@@ -44,7 +44,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    if (!VueCookies.get('X-CSRF-TOKEN') && to.name !== 'loginPage') {
+    if (!VueCookies.get('Authorization') && to.name !== 'loginPage') {
         next('/login')
     }
     else {

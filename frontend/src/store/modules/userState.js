@@ -28,7 +28,7 @@ const userState = {
                                 commit('SET_USER', userData.data)
                             })
                             .then(() => {
-                                VueCookies.set('X-CSRF-TOKEN', resp.data.auth_token)
+                                VueCookies.set('Authorization', resp.data.auth_token)
                             })
                             .then(() => {
                                 res()
@@ -39,13 +39,13 @@ const userState = {
         logout ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
                 axios.post('http://' + window.location.hostname + ':8000/api/auth/token/logout/', null, {
-                    headers: {Authorization: 'Token ' + VueCookies.get('X-CSRF-TOKEN')}
+                    headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
                 })
                     .then(() => {
                         commit('SET_USER', null)
                     })
                     .then(() => {
-                        VueCookies.set('X-CSRF-TOKEN', '')
+                        VueCookies.set('Authorization', '')
                     })
                     .then(() => {
                         res()
