@@ -9,8 +9,7 @@ import './assets/js/index'
 
 Vue.config.productionTip = false
 
-const dataEndpoint = 'ws://localhost:8000' + '/e-logs/?shift=' + window.location.pathname.split("/")[3];
-Vue.use(VueNativeSock, dataEndpoint, {
+Vue.use(VueNativeSock, 'ws://localhost:8000/e-logs/', {
     store: store,
     format: 'json',
     reconnection: true,
