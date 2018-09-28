@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.db.models import Prefetch
+from django.forms import model_to_dict
 from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
@@ -127,13 +128,17 @@ class MenuInfoAPI(View):
 
 class SettingsAPI(View):
     def get(self, request):
-        user = Employee.objects.get(name="inframine")
-        qs = Setting.objects.select_related('employee')
+        user = request.user.employee
+        qs = Setting.objects.select_related('employee').prefetch_related('scope')
 
         return JsonResponse({
-            "user_settings": [{"name":s.name, "value":pickle.loads(s.value), "scope":str(s.scope)}
-                              for s in qs.filter(employee=user)],
-            "settings":[{"name":s.name, "value":pickle.loads(s.value), "scope":str(s.scope)} for s in qs],
+            "user_settings": [{"name":s.name,
+                               "value":pickle.loads(s.value),
+                               "scope":model_to_dict(s.scope)} for s in qs.filter(employee=user)],
+
+            "settings":[{"name":s.name,
+                         "value":pickle.loads(s.value),
+                         "scope":model_to_dict(s.scope)} for s in qs],
         })
 
 
