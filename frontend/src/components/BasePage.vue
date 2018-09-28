@@ -28,10 +28,11 @@ export default {
         'main-footer': Footer,
         'popup': Popup,
     },
+    methods: {
+
+    },
     mounted () {
-        if (this.$route.params.shift_id) {
-            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
-        }
+
     }
 }
 </script>

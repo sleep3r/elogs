@@ -10,6 +10,7 @@ import 'jquery-confirm';
 import 'promise-polyfill/src/polyfill';
 
 import 'fullcalendar';
+import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min'
 import 'bootstrap-grid';
 
 import 'waypoints/lib/jquery.waypoints.js';

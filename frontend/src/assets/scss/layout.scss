@@ -91,7 +91,7 @@ body {
 }
 
 .column-left {
-    position: sticky;
+    position: fixed;
     top: 50px;
     min-width: $width-left-menu;
     width: $width-left-menu;
@@ -101,6 +101,7 @@ body {
 }
 
 .column-content {
+    margin-left: 230px;
     padding-left: 10px;
     width: calc(100% - 230px);
 }

@@ -10,7 +10,8 @@ const journalState = {
         socket: {
             isConnected: false,
             reconnectError: false,
-        }
+        },
+        isSynchronized: true
     },
     getters: {
         loaded: state => state.loaded,
@@ -22,6 +23,7 @@ const journalState = {
                 return [];
             }
         },
+        isSynchronized: state => state.isSynchronized,
         plants: state => {
             return state.plantsInfo
         },
@@ -129,6 +131,21 @@ const journalState = {
                 return []
             }
         },
+        unsyncJournalCells: (state, getters) => () => {
+            let unsyncCells = []
+            getters.tables.map((table, index) => {
+                let currentTable = state.journalInfo.journal.tables[table]
+                for (let field in currentTable.fields) {
+                    let currentCells = currentTable.fields[field].cells
+                    for (let cell in currentCells) {
+                        if (currentCells[cell].notSynchronized) {
+                            unsyncCells.push(currentCells[cell])
+                        }
+                    }
+                }
+            })
+            return unsyncCells
+        },
         maxRowIndex: (state) => (tableName) => {
             if (state.loaded) {
                 let max = -1;
@@ -175,6 +192,9 @@ const journalState = {
         }
     },
     mutations: {
+        SET_SYNCHRONIZED (state, isSynchronized) {
+            state.isSynchronized = isSynchronized
+        },
         UPDATE_JOURNAL_INFO (state, journalInfo) {
             state.journalInfo = journalInfo;
         },
@@ -198,11 +218,20 @@ const journalState = {
                     if (payload.index in cells) {
                         // update cell
                         cells[payload.index]['value'] = payload.value;
+                        if (payload.notSynchronized) {
+                            cells[payload.index]['notSynchronized'] = payload.notSynchronized;
+                            cells[payload.index]['fieldName'] = payload.fieldName;
+                            cells[payload.index]['tableName'] = payload.tableName;
+                            cells[payload.index]['index'] = payload.index;
+                        }
                     }
                     else {
                         // create cell
                         Vue.set(cells, payload.index, {});
                         Vue.set(cells[payload.index], 'value', payload.value);
+                        if (payload.notSynchronized) {
+                            Vue.set(cells[payload.index], 'notSynchronized', payload.notSynchronized);
+                        }
                     }
                 }
                 else {
@@ -264,20 +293,42 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
-                axios
-                    .get('http://localhost:8000/api/shifts/' + payload, {
-                        withCredentials: true
-                    })
-                    .then(response => {
-                        commit('UPDATE_JOURNAL_INFO', response.data);
-                        commit('SET_LOADED', true);
-                    })
-                    .then(() => {
-                        res()
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                if (getters.isSynchronized) {
+                    axios
+                        .get('http://localhost:8000/api/shifts/' + payload, {
+                            withCredentials: true
+                        })
+                        .then(response => {
+                            commit('UPDATE_JOURNAL_INFO', response.data);
+                            commit('SET_LOADED', true);
+                        })
+                        .then(() => {
+                            res()
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                }
+                else {
+                    setTimeout(() => {
+                        axios
+                            .get('http://localhost:8000/api/shifts/' + payload, {
+                                withCredentials: true
+                            })
+                            .then(response => {
+                                commit('UPDATE_JOURNAL_INFO', {});
+                                commit('UPDATE_JOURNAL_INFO', response.data);
+                                commit('SET_LOADED', true);
+                            })
+                            .then(() => {
+                                console.log('qewqeqwewqeqweqweqwe')
+                                res()
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    }, 10000)
+                }
             })
         },
         loadPlants: function ({ commit, state, getters }) {

@@ -32,6 +32,7 @@
 
 <script>
     import Vue from 'vue/dist/vue.esm.js'
+    import axios from 'axios'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
     import 'clockpicker/dist/bootstrap-clockpicker.min'
@@ -61,23 +62,7 @@
         },
         watch: {
             mode (value) {
-                if (this.type === 'time') {
-                    if (value === 'edit') {
-                        console.log('edit')
-                            $(this.$el).find('input').clockpicker({
-                                autoclose: true,
-                                'default': 'now',
-                                donetext: false,
-                                afterDone: () => {
-                                    this.value = $(this.$el).find('input').val();
-                                }
-                            })
-                    }
-                    else {
-                        console.log('not-edit')
-                            $(this.$el).find('input').clockpicker('remove')
-                    }
-                }
+                this.setPickersListeners()
             }
         },
         computed: {
@@ -101,11 +86,13 @@
                     return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex);
                 },
                 set: function (val) {
+                    this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELL_VALUE', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         index: this.rowIndex,
-                        value: val
+                        value: val,
+                        notSynchronized: !navigator.onLine
                     });
                 }
             },
@@ -114,6 +101,37 @@
             },
         },
         methods: {
+            setPickersListeners () {
+                if (this.type === 'time') {
+                    if (this.mode === 'edit') {
+                        $(this.$el).find('input').clockpicker({
+                            autoclose: true,
+                            'default': 'now',
+                            donetext: false,
+                            afterDone: () => {
+                                this.value = $(this.$el).find('input').val();
+                            }
+                        })
+                    }
+                    else {
+                        $(this.$el).find('input').clockpicker('remove')
+                    }
+                }
+                if (this.type === 'date') {
+                    if (this.mode === 'edit') {
+                        $(this.$el).find('input').datepicker({
+                            format: 'yyyy-mm-dd',
+                            autoclose: true,
+                            endDate: '+0d'
+                        }).on('changeDate', () => {
+                            this.value = $(this.$el).find('input').val();
+                        })
+                    }
+                    else {
+                        $(this.$el).find('input').datepicker('destroy')
+                    }
+                }
+            },
             send() {
                 this.$socket.sendObj({
                     'type': 'shift_data',
@@ -217,15 +235,7 @@
                 this.send();
             }
 
-            // if (this.type === 'date') {
-            //     setTimeout(() => {
-            //         $(this.$el).datepicker({
-            //             format: 'yyyy-mm-dd',
-            //             autoclose: true,
-            //             endDate: '+0d',
-            //         })
-            //     }, 0)
-            // }
+            this.setPickersListeners()
         }
     }
 </script>
