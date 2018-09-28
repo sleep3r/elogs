@@ -59,7 +59,7 @@ export default {
   },
   methods: {
       layoutUpdatedEvent: function(newLayout) {
-          axios.post("/dashboard/update-config", newLayout)
+          axios.post("http://localhost:8000/dashboard/update-config", newLayout)
       },
 
       resizedEvent: function(i, newH, newW, newHpx, newWpx) {
@@ -72,7 +72,7 @@ export default {
   },
   mounted(){
       let self = this;
-      axios.get("/dashboard/get-config")
+      axios.get("http://localhost:8000/dashboard/get-config")
         .then(function (response) {
             console.log(response.data)
             if ($.isEmptyObject(response.data.config)) {
