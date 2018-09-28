@@ -33,6 +33,7 @@ body {
     flex-wrap: wrap;
     padding-top: 20px;
     padding-left: 10px;
+    overflow-x: hidden;
 }
 
 .journal__panel {
@@ -79,6 +80,7 @@ body {
     height: 50px;
     width: 100%;
     flex-direction: row;
+    align-items: center;
     background-color: $color-header;
     transition: 0.2s;
     z-index: 100;
@@ -133,7 +135,6 @@ body {
 }
 
 .header > div {
-    line-height: 50px;
     margin-right: 20px;
 }
 

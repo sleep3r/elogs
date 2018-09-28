@@ -19,20 +19,16 @@ Vue.use(VueNativeSock, dataEndpoint, {
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
 
-            unsyncCells.map((item, index) => {
+            unsyncCells.map(item => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
-                    .then(() => {
-                        console.log(index)
-                        console.log(unsyncCells.length)
-                        if (index === unsyncCells.length-1) {
-                            console.log(333334343)
-                            this.store.commit('journalState/SET_SYNCHRONIZED', true)
-                            if (window.mv.$route.params.shift_id) {
-                                this.store.dispatch('journalState/loadJournal', window.mv.$route.params.shift_id)
-                            }
-                        }
-                    })
             })
+
+            this.store.commit('journalState/SET_SYNCHRONIZED', true)
+            if (window.mv.$route.params.shift_id) {
+                setTimeout(() => {
+                    this.store.dispatch('journalState/loadJournal', window.mv.$route.params.shift_id)
+                }, 2000)
+            }
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);

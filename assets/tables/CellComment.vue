@@ -110,6 +110,7 @@ $color-bg: #548CB7;
 }
 
 .popover {
+  max-width: 100%;
   .wrapper {
     width: 450px;
   }
@@ -129,7 +130,7 @@ $color-bg: #548CB7;
     .btn--close {
       color: #ffffff !important;
       position: relative !important;
-      top: 10px;
+      top: -10px;
       left: $popup-width - 20;
       cursor: pointer;
     }
