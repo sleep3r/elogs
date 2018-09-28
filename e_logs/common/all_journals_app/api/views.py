@@ -168,3 +168,13 @@ class FieldAPI(View):
                                             table__name=table)
         res = [{field.name:field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
+
+
+class AutocompleteAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([emp.name for emp in Employee.objects.filter(name__contains=name)],
+                                safe=False)
+        else:
+            return JsonResponse([], safe=False)
