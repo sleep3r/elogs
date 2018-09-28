@@ -32,7 +32,6 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            console.log('data')
             this.store.commit('journalState/SAVE_CELL_VALUE', {
                 tableName: data['cell_location']['table_name'],
                 fieldName: data['cell_location']['field_name'],

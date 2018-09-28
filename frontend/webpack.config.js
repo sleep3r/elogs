@@ -52,7 +52,7 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(jpe?g|png|gif|eot|ttf|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                test: /\.(jpe?g|png|gif|pdf|eot|ttf|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
