@@ -208,15 +208,6 @@ def none_if_error(func):
     return default_if_error(None)(func)
 
 
-def _str_to_dict(str):
-    return {k: v.strip('"') for k, v in re.findall(r'(\S+)=(".*?"|\S+)', str)}
-
-
-def user_from_asgi_request(request):
-    auth_token = _str_to_dict(dict(request.scope['headers'])[b'cookie'].decode())['Authorization']
-    return Token.objects.get(key=auth_token).user
-
-
 def filter_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     try:
         return model.objects.filter(*args, **kwargs)

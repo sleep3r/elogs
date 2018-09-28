@@ -14,12 +14,11 @@ from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, 
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.core.models import Setting
-from e_logs.core.utils.webutils import user_from_asgi_request
 
 
 class ShiftAPI(View):
     def get(self, request, *args, **kwargs):
-        user = user_from_asgi_request(request)
+        user = request.user
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables',

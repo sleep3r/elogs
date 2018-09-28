@@ -21,7 +21,7 @@ from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, T
 from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, get_or_none, user_from_asgi_request
+from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
@@ -166,7 +166,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         }
 
     result = []
-    user = user_from_asgi_request(request)
+    user = request.user
     plant = Plant.objects.get(name=plant_name)
     journal = Journal.objects.get(plant=plant, name=journal_name)
     employee = user.employee
