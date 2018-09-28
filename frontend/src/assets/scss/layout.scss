@@ -74,7 +74,7 @@ body {
 
 .header {
     display: flex;
-    position: sticky;
+    position: fixed;
     top: 0;
     height: 50px;
     width: 100%;
@@ -103,6 +103,7 @@ body {
 .column-content {
     margin-left: 230px;
     padding-left: 10px;
+    padding-top: 50px;
     width: calc(100% - 230px);
 }
 
