@@ -28,6 +28,9 @@ export default {
         'main-footer': Footer,
         'popup': Popup,
     },
+    methods: {
+
+    },
     mounted () {
 
     }

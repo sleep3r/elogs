@@ -5,8 +5,8 @@
         <div class="header__title">
             <span class="journal_title">{{$store.getters['journalState/plantName']}}</span>
             <template v-if="$route.params.journal">
-                <i class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="display:none; color:red"> Синхронизация...</i>
-                <i class="fa fa-check" id="sync" aria-hidden="true" style="display:none; color:springgreen"> Синхронизировано</i>
+                <i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color:red"> Синхронизация...</i>
+                <i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color:springgreen"> Синхронизировано</i>
             </template>
         </div>
         <div class="header__user">

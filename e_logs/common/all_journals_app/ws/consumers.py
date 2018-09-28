@@ -12,26 +12,20 @@ from e_logs.common.messages_app.models import Message
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        self.user_channel = f"user_{self.scope['user'].employee.id}"
+        if self.scope['user'].is_authenticated:
+            self.user_channel = f"user_{self.scope['user'].employee.id}"
 
-        await self.channel_layer.group_add(
-            "messages",
-            self.channel_name,
-        )
+            await self.channel_layer.group_add(
+                self.user_channel,
+                self.channel_name,
+            )
 
-        await self.channel_layer.group_add(
-            self.user_channel,
-            self.channel_name,
-        )
-
-        await self.accept()
+            await self.accept()
+        else:
+            await self.close()
+            raise StopConsumer()
 
     async def websocket_disconnect(self, event):
-        await self.channel_layer.group_discard(
-            "messages",
-            self.channel_name,
-        )
-
         await self.channel_layer.group_discard(
             self.user_channel,
             self.channel_name,
@@ -47,13 +41,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 await self.shift_receive(data)
 
             elif data['type'] == 'messages':
-                if data['crud'] == 'add':
-                    await self.add_cell_message(data)
-
-                elif data['crud'] == 'update':
-                    cell = await self.get_cell_from_dict(data['cell'])
-                    if cell:
-                        await self.update(cell)
+                await self.messages_receive(data)
 
     async def shift_receive(self, data):
         cell = await self.get_or_create_cell(data['cell_location'])
@@ -63,13 +51,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         if cell.journal.type == 'shift':
             await self.add_shift_resonsible(shift_id=int(data['cell_location']['group_id']))
 
-        await self.channel_layer.group_send(
-            self.shift_channel,
-            {
-                "type": "send_message",
-                "text": json.dumps(data)
-            }
-        )
+        await self.send(json.dumps(data))
 
     async def messages_receive(self, data):
         if data['crud'] == 'add':
@@ -97,9 +79,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     def add_shift_resonsible(self, shift_id):
         shift = Shift.objects.get(id=shift_id)
         shift.employee_set.add(self.scope['user'].employee)
-
-    async def send_message(self, event):
-        await self.send(event['text'])
 
     #----------------------------------MESSAGES----------------------------------
     async def add_cell_message(self, data):

@@ -10,7 +10,8 @@ const journalState = {
         socket: {
             isConnected: false,
             reconnectError: false,
-        }
+        },
+        isSynchronized: true
     },
     getters: {
         loaded: state => state.loaded,
@@ -22,6 +23,7 @@ const journalState = {
                 return [];
             }
         },
+        isSynchronized: state => state.isSynchronized,
         plants: state => {
             return state.plantsInfo
         },
@@ -78,7 +80,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
+                    // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
                     return '';
                 }
                 let cells = fields[fieldName].cells;
@@ -87,7 +89,7 @@ const journalState = {
                         return cells[rowIndex].value;
                     }
                     else {
-                        console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        // console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
                         return '';
                     }
                 }
@@ -100,7 +102,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
+                    // console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
                     return '';
                 }
                 let cells = fields[fieldName].cells;
@@ -109,7 +111,7 @@ const journalState = {
                         return cells[rowIndex].comment;
                     }
                     else {
-                        console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        // console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
                         return '';
                     }
                 }
@@ -128,6 +130,21 @@ const journalState = {
             } else {
                 return []
             }
+        },
+        unsyncJournalCells: (state, getters) => () => {
+            let unsyncCells = []
+            getters.tables.map((table, index) => {
+                let currentTable = state.journalInfo.journal.tables[table]
+                for (let field in currentTable.fields) {
+                    let currentCells = currentTable.fields[field].cells
+                    for (let cell in currentCells) {
+                        if (currentCells[cell].notSynchronized) {
+                            unsyncCells.push(currentCells[cell])
+                        }
+                    }
+                }
+            })
+            return unsyncCells
         },
         maxRowIndex: (state) => (tableName) => {
             if (state.loaded) {
@@ -164,7 +181,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+                    // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
                     return {};
                 }
                 return fields[fieldName].field_description || ''
@@ -175,6 +192,9 @@ const journalState = {
         }
     },
     mutations: {
+        SET_SYNCHRONIZED (state, isSynchronized) {
+            state.isSynchronized = isSynchronized
+        },
         UPDATE_JOURNAL_INFO (state, journalInfo) {
             state.journalInfo = journalInfo;
         },
@@ -188,8 +208,8 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 if (!(payload.fieldName in fields)) {
-                    console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
-                    console.log('  Creating field ' + payload.fieldName + '...');
+                    // console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
+                    // console.log('  Creating field ' + payload.fieldName + '...');
                     fields[payload.fieldName] = {};
                     fields[payload.fieldName]['cells'] = {};
                 }
@@ -198,11 +218,20 @@ const journalState = {
                     if (payload.index in cells) {
                         // update cell
                         cells[payload.index]['value'] = payload.value;
+                        if (payload.notSynchronized) {
+                            cells[payload.index]['notSynchronized'] = payload.notSynchronized;
+                            cells[payload.index]['fieldName'] = payload.fieldName;
+                            cells[payload.index]['tableName'] = payload.tableName;
+                            cells[payload.index]['index'] = payload.index;
+                        }
                     }
                     else {
                         // create cell
                         Vue.set(cells, payload.index, {});
                         Vue.set(cells[payload.index], 'value', payload.value);
+                        if (payload.notSynchronized) {
+                            Vue.set(cells[payload.index], 'notSynchronized', payload.notSynchronized);
+                        }
                     }
                 }
                 else {
@@ -214,8 +243,8 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 if (!(payload.fieldName in fields)) {
-                    console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
-                    console.log('  Creating field ' + payload.fieldName + '...');
+                    // console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
+                    // console.log('  Creating field ' + payload.fieldName + '...');
                     fields[payload.fieldName] = {};
                     fields[payload.fieldName]['cells'] = {};
                 }
@@ -234,6 +263,11 @@ const journalState = {
                 else {
                     Vue.delete(cells, payload.index);
                 }
+            }
+        },
+        SET_PAGE_MODE (state, mode) {
+            if (state.loaded) {
+                state.journalInfo.mode = mode
             }
         },
         SOCKET_ONOPEN (state, event)  {
@@ -258,17 +292,22 @@ const journalState = {
     },
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
-            axios
-                .get('http://localhost:8000/api/shifts/' + payload, {
-                    withCredentials: true
-                })
-                .then(response => {
-                    commit('UPDATE_JOURNAL_INFO', response.data);
-                    commit('SET_LOADED', true);
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            return new Promise((res, rej) => {
+                axios
+                    .get('http://localhost:8000/api/shifts/' + payload, {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
+                        commit('SET_LOADED', true);
+                    })
+                    .then(() => {
+                        res()
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            })
         },
         loadPlants: function ({ commit, state, getters }) {
             axios
@@ -276,6 +315,18 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
+        },
+        sendUnsyncCell: function ({ commit, state, getters }, payload) {
+            window.mv.$socket.sendObj({
+                'type': 'shift_data',
+                'cell_location': {
+                    'group_id': getters.journalInfo.id,
+                    'table_name': payload.tableName,
+                    'field_name': payload.fieldName,
+                    'index': payload.index
+                },
+                'value': payload.value
+            })
         },
     }
 }

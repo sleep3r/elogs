@@ -157,7 +157,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
                to_date=timezone.now().date()):
     """Creates shifts for speficied period of time"""
 
-    def shift_event(request, shift, is_owned):
+    def shift_event(shift, is_owned):
         return {
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
@@ -166,16 +166,16 @@ def get_shifts(request, plant_name: str, journal_name: str,
         }
 
     result = []
+    user = request.user
     plant = Plant.objects.get(name=plant_name)
     journal = Journal.objects.get(plant=plant, name=journal_name)
-    employee = request.user.employee
+    employee = user.employee
     owned_shifts = employee.owned_shifts.all()
 
     if journal.type == 'shift':
         shifts = Shift.objects.select_related('journal', 'journal__plant').\
             filter(date__range=[from_date, to_date + timedelta(days=1)], journal__name=journal_name,
                    journal__plant__name=plant_name)
-
         shifts_dict = defaultdict(list)
 
         for shift in shifts:
@@ -184,7 +184,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         for shifts in shifts_dict.values():
             for shift in shifts:
                 is_owned = shift in owned_shifts
-                result.append(shift_event(request, shift, is_owned))
+                result.append(shift_event(shift, is_owned))
 
         result.append(shifts_dict.keys())
 

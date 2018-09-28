@@ -3,7 +3,7 @@
         <journal-panel></journal-panel>
         <article class="journal-tables">
             <template v-if="$store.getters['journalState/loaded']">
-                <tablecommon v-for="table in $store.getters['journalState/tables']" :name="table" :key="table"></tablecommon>
+                <tablecommon v-for="table in $store.getters['journalState/tables']" :name="table" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
             </template>
             <template v-else >
                 <span>Нет данных</span>
@@ -22,8 +22,17 @@ export default {
         'tablecommon': TableCommon,
         'journal-panel': JournalPanel
     },
+    updated () {
+        // if (this.$route.params.shift_id) {
+        //     this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+        // }
+    },
     mounted () {
         this.$connect();
+
+        if (this.$route.params.shift_id) {
+            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+        }
     }
 }
 </script>

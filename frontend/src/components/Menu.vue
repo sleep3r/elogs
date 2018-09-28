@@ -73,9 +73,11 @@
                 }
 
                 if (url !== null && url !== "" && url !== "#") {
-                    this.$router.push(url)
-                    this.setActiveItem()
-                    this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+                    if (this.$store.getters['journalState/isSynchronized']) {
+                        this.$router.push(url)
+                        this.setActiveItem()
+                        this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+                    }
                 } else {
                     listItem.classList.toggle("open");
                 }
