@@ -12,11 +12,10 @@ VIEW_CELLS = APP + ".view_cells"
 PLANT_PERM = APP + ".modify_{plant}"
 
 
-@login_required
-def plant_permission(request):
-    employee = Employee.objects.get(user=request.user)
-    plant = request.path.split("/")[1]
-    return employee.user.has_perm(PLANT_PERM.format(plant=plant))
+#@login_required
+def plant_permission(user, plant):
+    employee = Employee.objects.get(user=user)
+    return user.has_perm(PLANT_PERM.format(plant=plant))
 
 
 @login_required
@@ -67,10 +66,10 @@ def has_edited(request, page) -> bool:
     return page in list(request.user.employee.owned_shifts.all())
 
 
-@login_required
-def default_page_mode(request) -> str:
-    employee = Employee.objects.get(user=request.user)
-    if plant_permission(request):
+#@login_required
+def get_page_mode(user, plant) -> str:
+    employee = Employee.objects.get(user=user)
+    if plant_permission(user, plant):
         if employee.user.has_perm(VALIDATE_CELLS):
             return "validate"
         elif employee.user.has_perm(VIEW_CELLS):
@@ -82,11 +81,3 @@ def default_page_mode(request) -> str:
             return "view"
         else:
             raise PermissionDenied("У вас нет доступа к этому цеху.")
-
-
-@login_required
-def get_page_mode(request, page) -> str:
-    if page_mode_is_valid(request, page):
-        return request.GET.get('page_mode')
-    else:
-        return default_page_mode(request)

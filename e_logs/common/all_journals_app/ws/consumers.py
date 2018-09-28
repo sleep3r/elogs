@@ -63,13 +63,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         if cell.journal.type == 'shift':
             await self.add_shift_resonsible(shift_id=int(data['cell_location']['group_id']))
 
-        await self.channel_layer.group_send(
-            self.shift_channel,
-            {
-                "type": "send_message",
-                "text": json.dumps(data)
-            }
-        )
+        # await self.channel_layer.group_send(
+        #     self.shift_channel,
+        #     {
+        #         "type": "send_message",
+        #         "text": json.dumps(data)
+        #     }
+        # )
 
     async def messages_receive(self, data):
         if data['crud'] == 'add':

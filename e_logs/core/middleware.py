@@ -5,6 +5,8 @@ import logging
 from channels.auth import AuthMiddlewareStack
 from jwt import InvalidSignatureError, ExpiredSignatureError, DecodeError
 from rest_framework.authtoken.models import Token
+from e_logs.core.utils.webutils import _str_to_dict
+
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +41,3 @@ class TokenAuthMiddleware:
 
 
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
-
-
-def _str_to_dict(str):
-    return {k: v.strip('"') for k, v in re.findall(r'(\S+)=(".*?"|\S+)', str)}
