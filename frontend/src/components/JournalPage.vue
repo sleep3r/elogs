@@ -3,7 +3,7 @@
         <journal-panel></journal-panel>
         <article class="journal-tables">
             <template v-if="$store.getters['journalState/loaded']">
-                <tablecommon v-for="table in $store.getters['journalState/tables']" :name="table"></tablecommon>
+                <tablecommon v-for="table in $store.getters['journalState/tables']" :name="table" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
             </template>
             <template v-else >
                 <span>Нет данных</span>
