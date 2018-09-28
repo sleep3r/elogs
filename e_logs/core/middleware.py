@@ -13,6 +13,9 @@ from django.utils.functional import SimpleLazyObject
 logger = logging.getLogger(__name__)
 
 
+def str_to_dict(str):
+    return {k: v.strip('"') for k, v in re.findall(r'(\S+)=(".*?"|\S+)', str)}
+
 class TokenAuthMiddleware:
 
     def __init__(self, inner):
@@ -22,7 +25,7 @@ class TokenAuthMiddleware:
         headers = dict(scope['headers'])
         auth_header = None
         try:
-            auth_header = _str_to_dict(headers[b'cookie'].decode())['Authorization']
+            auth_header = str_to_dict(headers[b'cookie'].decode())['Authorization']
         except:
             pass
 
@@ -45,11 +48,9 @@ class TokenAuthMiddleware:
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
 
 
-def _str_to_dict(str):
-    return {k: v.strip('"') for k, v in re.findall(r'(\S+)=(".*?"|\S+)', str)}
-
 def user_from_asgi_request(request):
-    auth_token = _str_to_dict(dict(request.scope['headers'])[b'cookie'].decode())['Authorization']
+    headers = dict(request.scope['headers'])
+    auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
     return Token.objects.get(key=auth_token).user
 
 class CustomAuthenticationMiddleware(MiddlewareMixin):
