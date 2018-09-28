@@ -18,6 +18,7 @@ from e_logs.core.models import Setting
 
 class ShiftAPI(View):
     def get(self, request, *args, **kwargs):
+        user = request.user
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables',
@@ -25,19 +26,19 @@ class ShiftAPI(View):
                                     queryset=Setting.objects.filter(name='field_description')),
                           'journal__tables__fields',
                           'journal__tables__fields__cells').get(id=kwargs['id'])
+        plant = qs.journal.plant
         with transaction.atomic():
             res = {
                     "id": qs.id ,
-                    "plant":{"name":qs.journal.plant.name},
+                    "plant":{"name":plant.name},
                     "order": qs.order,
                     "date": qs.date,
                     "closed":qs.closed,
                     "ended": qs.ended,
-                    "mode": get_page_mode(self.request, qs),
+                    "mode": get_page_mode(user=user, plant=plant),
                     "permissions": [permission.codename for permission
-                        in Permission.objects.filter(user=self.request.user)],
+                        in Permission.objects.filter(user=user)],
                     "journal": self.journal_serializer(qs)}
-
         return JsonResponse(res, safe=False)
 
     def journal_serializer(self, qs):
@@ -64,11 +65,10 @@ class ShiftAPI(View):
     def field_serializer(self, table):
         fields = table.fields.all()
 
-
         res = {field.name: {
                         "id": field.id,
                         "name": field.name,
-                        "field_description": pickle.loads(list(field.settings.all())[-1].value),
+                        "field_description": pickle.loads(list(field.settings.all())[-1].value) if field.settings.all() else '',
                         "cells": self.cell_serializer(field)}
             for field in fields }
 

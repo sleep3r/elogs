@@ -80,7 +80,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
+                    // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
                     return '';
                 }
                 let cells = fields[fieldName].cells;
@@ -89,7 +89,7 @@ const journalState = {
                         return cells[rowIndex].value;
                     }
                     else {
-                        console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        // console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
                         return '';
                     }
                 }
@@ -102,7 +102,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
+                    // console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
                     return '';
                 }
                 let cells = fields[fieldName].cells;
@@ -111,7 +111,7 @@ const journalState = {
                         return cells[rowIndex].comment;
                     }
                     else {
-                        console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
+                        // console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
                         return '';
                     }
                 }
@@ -181,7 +181,7 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
-                    console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+                    // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
                     return {};
                 }
                 return fields[fieldName].field_description || ''
@@ -208,8 +208,8 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 if (!(payload.fieldName in fields)) {
-                    console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
-                    console.log('  Creating field ' + payload.fieldName + '...');
+                    // console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
+                    // console.log('  Creating field ' + payload.fieldName + '...');
                     fields[payload.fieldName] = {};
                     fields[payload.fieldName]['cells'] = {};
                 }
@@ -243,8 +243,8 @@ const journalState = {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 if (!(payload.fieldName in fields)) {
-                    console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
-                    console.log('  Creating field ' + payload.fieldName + '...');
+                    // console.log('WARNING! Trying to save comment of unexistent field: ' + payload.fieldName);
+                    // console.log('  Creating field ' + payload.fieldName + '...');
                     fields[payload.fieldName] = {};
                     fields[payload.fieldName]['cells'] = {};
                 }

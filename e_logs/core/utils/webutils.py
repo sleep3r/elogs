@@ -1,3 +1,4 @@
+import re
 import datetime
 import logging
 import rapidjson
@@ -18,6 +19,7 @@ from django.db.models import Model, QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authtoken.models import Token
 
 from django.conf import settings
 from rest_framework_rapidjson.renderers import RapidJSONRenderer
