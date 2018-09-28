@@ -855,22 +855,6 @@ def fill_fields_descriptions():
         ),
         Setting(
             name='field_description',
-            value=pickle.dumps({'type': 'text', 'min_normal': 0, 'max_normal': 100}),
-            scope=Field.objects.get(
-                table=Table.objects.get(
-                    journal=Journal.objects.get(
-                        plant=Plant.objects.get(
-                            name='furnace'
-                        ),
-                        name='concentrate_report'
-                    ),
-                    name='lower'
-                ),
-                name='notes'
-             )
-        ),
-        Setting(
-            name='field_description',
             value=pickle.dumps({'type': 'date'}),
             scope=Field.objects.get(
                 table=Table.objects.get(
