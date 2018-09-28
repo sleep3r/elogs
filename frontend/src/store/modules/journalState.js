@@ -293,42 +293,20 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
-                if (getters.isSynchronized) {
-                    axios
-                        .get('http://localhost:8000/api/shifts/' + payload, {
-                            withCredentials: true
-                        })
-                        .then(response => {
-                            commit('UPDATE_JOURNAL_INFO', response.data);
-                            commit('SET_LOADED', true);
-                        })
-                        .then(() => {
-                            res()
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                }
-                else {
-                    setTimeout(() => {
-                        axios
-                            .get('http://localhost:8000/api/shifts/' + payload, {
-                                withCredentials: true
-                            })
-                            .then(response => {
-                                commit('UPDATE_JOURNAL_INFO', {});
-                                commit('UPDATE_JOURNAL_INFO', response.data);
-                                commit('SET_LOADED', true);
-                            })
-                            .then(() => {
-                                console.log('qewqeqwewqeqweqweqwe')
-                                res()
-                            })
-                            .catch((err) => {
-                                console.log(err)
-                            })
-                    }, 10000)
-                }
+                axios
+                    .get('http://localhost:8000/api/shifts/' + payload, {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
+                        commit('SET_LOADED', true);
+                    })
+                    .then(() => {
+                        res()
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             })
         },
         loadPlants: function ({ commit, state, getters }) {
@@ -337,6 +315,18 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
+        },
+        sendUnsyncCell: function ({ commit, state, getters }, payload) {
+            window.mv.$socket.sendObj({
+                'type': 'shift_data',
+                'cell_location': {
+                    'group_id': getters.journalInfo.id,
+                    'table_name': payload.tableName,
+                    'field_name': payload.fieldName,
+                    'index': payload.index
+                },
+                'value': payload.value
+            })
         },
     }
 }
