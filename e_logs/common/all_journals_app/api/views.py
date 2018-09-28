@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db import transaction
 from django.db.models import Prefetch
+from django.forms import model_to_dict
 from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
@@ -13,6 +14,7 @@ from django.http import JsonResponse
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
+from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 
 
@@ -68,7 +70,8 @@ class ShiftAPI(View):
         res = {field.name: {
                         "id": field.id,
                         "name": field.name,
-                        "field_description": pickle.loads(list(field.settings.all())[-1].value) if field.settings.all() else '',
+                        "field_description": pickle.loads(list(field.settings.all())[-1].value)
+                                if field.settings.all() else '',
                         "cells": self.cell_serializer(field)}
             for field in fields }
 
@@ -122,6 +125,21 @@ class MenuInfoAPI(View):
             ]
         })
 
+
+class SettingsAPI(View):
+    def get(self, request):
+        user = request.user.employee
+        qs = Setting.objects.select_related('employee').prefetch_related('scope')
+
+        return JsonResponse({
+            "user_settings": [{"name":s.name,
+                               "value":pickle.loads(s.value),
+                               "scope":model_to_dict(s.scope)} for s in qs.filter(employee=user)],
+
+            "settings":[{"name":s.name,
+                         "value":pickle.loads(s.value),
+                         "scope":model_to_dict(s.scope)} for s in qs],
+        })
 
 
 class TableAPI(View):
