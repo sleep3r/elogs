@@ -295,8 +295,12 @@ const journalState = {
             return new Promise((res, rej) => {
                 if (getters.isSynchronized) {
                     axios
-                        .get('http://localhost:8000/api/shifts/' + payload, {
-                            withCredentials: true
+                        .get('http://localhost:8000/api/shifts/' + payload['id'], {
+                            withCredentials: true,
+                            params: {
+                                'plantName': payload['plantName'],
+                                'journalName': payload['journalName']
+                            }
                         })
                         .then(response => {
                             commit('UPDATE_JOURNAL_INFO', response.data);
@@ -312,8 +316,12 @@ const journalState = {
                 else {
                     setTimeout(() => {
                         axios
-                            .get('http://localhost:8000/api/shifts/' + payload, {
-                                withCredentials: true
+                            .get('http://localhost:8000/api/shifts/' + payload['id'], {
+                                withCredentials: true,
+                                params: {
+                                    'plantName': payload['plantName'],
+                                    'journalName': payload['journalName']
+                                }
                             })
                             .then(response => {
                                 commit('UPDATE_JOURNAL_INFO', {});

@@ -1,4 +1,5 @@
 import pickle
+from urllib.parse import parse_qs
 
 from cacheops import cached_as
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,13 +20,22 @@ from e_logs.core.models import Setting
 class ShiftAPI(View):
     def get(self, request, *args, **kwargs):
         user = request.user
+        if not kwargs.get('id', None):
+            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
+            current_shift = get_current_shift(Journal.objects.get(name=journal_name))
+            if current_shift:
+                id = current_shift.id
+            else:
+                id = Shift.objects.latest('date').id
+        else:
+            id = kwargs['id']
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables',
                           Prefetch('journal__tables__fields__settings',
                                     queryset=Setting.objects.filter(name='field_description')),
                           'journal__tables__fields',
-                          'journal__tables__fields__cells').get(id=kwargs['id'])
+                          'journal__tables__fields__cells').get(id=id)
         plant = qs.journal.plant
         with transaction.atomic():
             res = {
@@ -113,7 +123,6 @@ class MenuInfoAPI(View):
                         {
                             'name': journal.name,
                             'verbose_name': journal.verbose_name,
-                            'current_shift_id': get_current_shift(journal).id
                         }
                     for journal in Journal.objects.filter(plant=plant)
                     ]

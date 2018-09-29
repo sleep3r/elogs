@@ -29,6 +29,13 @@ export default {
                 _this.synchronizeCells()
             })
         },
+        // setUrl () {
+        //     console.log(this.$store.getters['journalState/journalInfo'])
+        //     let plantName = this.$store.getters['journalState/journalInfo']['plant']['name']
+        //     let journalName = this.$store.getters['journalState/journalInfo']['journal']['name']
+        //     let id = this.$store.getters['journalState/journalInfo']['id']
+        //     this.$router.push('/' + plantName + '/' + journalName + '/' + id + '/')
+        // },
         synchronizeCells () {
             let unsyncCells = this.$store.getters['journalState/unsyncJournalCells']()
             // let unsyncCellPromises = unsyncCells.map(item => new Promise((res, rej) => {
@@ -71,25 +78,30 @@ export default {
 
             this.$store.commit('journalState/SET_SYNCHRONIZED', true)
             if (this.$route.params.shift_id) {
-                this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+                this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
+                // this.setUrl();
             }
         }
     },
     updated () {
+        console.log('updated')
         this.setConnectionListeners()
-
         if (navigator.onLine && !this.$store.getters['journalState/isSynchronized']) {
             this.synchronizeCells()
         }
     },
     mounted () {
+        console.log('mounted')
         this.$connect();
-
         if (navigator.onLine && this.$store.getters['journalState/isSynchronized'] && this.$route.params.shift_id) {
-            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+            this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
         }
         else if (navigator.onLine && !this.$store.getters['journalState/isSynchronized']) {
             this.synchronizeCells()
+        }
+        else {
+            this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
+            // this.setUrl();
         }
     }
 }

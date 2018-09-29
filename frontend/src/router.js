@@ -19,9 +19,16 @@ const router = new Router({
             component: BasePage,
             children: [
                 {
-                    path: '/:plant/:journal/:shift_id',
-                    name: 'journalPage',
-                    component: JournalPage
+                    path: '/:plant/:journal',
+                    name: 'defaultJournalPage',
+                    component: JournalPage,
+                    children: [
+                        {
+                            path: ':shift_id',
+                            name: 'journalPage',
+                            component: JournalPage
+                        }
+                    ]
                 },
                 {
                     path: '/messages',
