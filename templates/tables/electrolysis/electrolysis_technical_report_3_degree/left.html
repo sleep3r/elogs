@@ -3,34 +3,867 @@
 
 Время замеров и работа оборудования
 
-
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
             <th rowspan="2"> Параметры </th>
-            <th colspan="12" class="th-common"> Время замеров </th>
+            <th colspan="12"> Время замеров </th>
             <th rowspan="2"> Несоотвествия </th>
             <th rowspan="2"> Принятые меры </th>
         </tr>
         <tr>
-            {% for time in table_info.times %}
-                <th> {{ time }} </th>
-            {% endfor %}
+
+                <th> 20:00 </th>
+
+                <th> 21:00 </th>
+
+                <th> 22:00 </th>
+
+                <th> 23:00 </th>
+
+                <th> 00:00 </th>
+
+                <th> 01:00 </th>
+
+                <th> 02:00 </th>
+
+                <th> 03:00 </th>
+
+                <th> 04:00 </th>
+
+                <th> 05:00 </th>
+
+                <th> 06:00 </th>
+
+                <th> 07:00 </th>
+
         </tr>
     </thead>
     <tbody>
-        {% for row_name in table_info.row_names %}
+
             <tr>
-                <th> {{row_name.view}} </th>
-                {% for header in table_info.times|stack:table_info.last_headers %}
+                <th> Zn в отр., г/л </th>
+
                 <td>
-                    {% with row_name.db|add:header as field_name %}
-                    {% include "value.html" with index=0 %}
-                    {% endwith %}
+
+                    <cell field_name="zn20:00" index="0"></cell>
+
+
                 </td>
-                {% endfor %}
+
+                <td>
+
+                    <cell field_name="zn21:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn22:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn23:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn00:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn01:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn02:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn03:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn04:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn05:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn06:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn07:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zninconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="znmeasures" index="0"></cell>
+
+
+                </td>
+
             </tr>
-        {% endfor %}
+
+            <tr>
+                <th> Смеси, г/л </th>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so420:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so421:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so422:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so423:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so400:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so401:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so402:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so403:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so404:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so405:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so406:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so407:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so4inconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="zn_mixh2so4measures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> H₂SO₄ отр., г/л </th>
+
+                <td>
+
+                    <cell field_name="solute120:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute121:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute122:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute123:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute100:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute101:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute102:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute103:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute104:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute105:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute106:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute107:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute1inconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute1measures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> Удельный вес хол-го раствора, г/см³ </th>
+
+                <td>
+
+                    <cell field_name="solute220:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute221:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute222:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute223:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute200:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute201:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute202:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute203:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute204:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute205:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute206:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute207:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute2inconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="solute2measures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> Удельный вес отр-го раствора, г/см³ </th>
+
+                <td>
+
+                    <cell field_name="mixture_temp20:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp21:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp22:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp23:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp00:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp01:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp02:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp03:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp04:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp05:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp06:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_temp07:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_tempinconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="mixture_tempmeasures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> Температура смеси, ᵒC </th>
+
+                <td>
+
+                    <cell field_name="bath_temp20:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp21:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp22:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp23:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp00:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp01:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp02:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp03:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp04:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp05:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp06:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_temp07:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_tempinconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="bath_tempmeasures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> Температура в ваннах, ᵒC </th>
+
+                <td>
+
+                    <cell field_name="temp120:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp121:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp122:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp123:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp100:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp101:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp102:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp103:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp104:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp105:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp106:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp107:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp1inconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp1measures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <th> Температура 1, ᵒC </th>
+
+                <td>
+
+                    <cell field_name="temp220:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp221:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp222:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp223:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp200:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp201:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp202:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp203:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp204:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp205:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp206:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp207:00" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp2inconsistencies" index="0"></cell>
+
+
+                </td>
+
+                <td>
+
+                    <cell field_name="temp2measures" index="0"></cell>
+
+
+                </td>
+
+            </tr>
+
     </tbody>
 </table>
-
