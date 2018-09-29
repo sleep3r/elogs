@@ -109,7 +109,11 @@ $color-bg: #548CB7;
   }
 }
 
-.popover {
+.popover:not(.clockpicker-popover){
+  max-width: 0;
+  height: 0;
+  border: none;
+
   .wrapper {
     width: 450px;
   }
@@ -129,7 +133,7 @@ $color-bg: #548CB7;
     .btn--close {
       color: #ffffff !important;
       position: relative !important;
-      top: 10px;
+      top: -20px;
       left: $popup-width - 20;
       cursor: pointer;
     }
@@ -183,7 +187,7 @@ $color-bg: #548CB7;
     }
     .item__text {
       color: #252525;
-      font-size: 12px;
+      font-size: 14px;
       padding-left: 15px;
       line-height: 30px;
     }
@@ -209,15 +213,6 @@ $color-bg: #548CB7;
       text-align: center;
 
       .btn {
-        background-color: #548CB7;
-        width: 168px;
-        text-align: center;
-        color: #fff;
-        margin: 0 auto;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 1px 1px 5px #454545;
-
         i {
           color: #ffffff;
           margin-right: 5px;

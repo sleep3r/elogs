@@ -11,7 +11,7 @@ from django.views import View
 from django.http import JsonResponse
 
 
-from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift
+from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
@@ -23,24 +23,25 @@ class ShiftAPI(View):
         user = request.user
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__tables',
+        .prefetch_related('journal__tables', 'journal__tables__fields',
                           Prefetch('journal__tables__fields__settings',
                                     queryset=Setting.objects.filter(name='field_description')),
-                          'journal__tables__fields',
-                          'journal__tables__fields__cells').get(id=kwargs['id'])
-        plant = qs.journal.plant
-        with transaction.atomic():
-            res = {
-                    "id": qs.id ,
-                    "plant":{"name":plant.name},
-                    "order": qs.order,
-                    "date": qs.date,
-                    "closed":qs.closed,
-                    "ended": qs.ended,
-                    "mode": get_page_mode(user=user, plant=plant),
-                    "permissions": [permission.codename for permission
-                        in Permission.objects.filter(user=user)],
-                    "journal": self.journal_serializer(qs)}
+                          Prefetch('group_cells',
+                                   queryset=Cell.objects.select_related('field', 'field__table').
+                                   filter(group_id=kwargs['id'])),
+                          ).get(id=kwargs['id'])
+
+        res = {
+                "id": qs.id ,
+                "plant":{"name":qs.journal.plant.name},
+                "order": qs.order,
+                "date": qs.date,
+                "closed":qs.closed,
+                "ended": qs.ended,
+                "mode": get_page_mode(user=user, plant=qs.journal.plant),
+                "permissions": [permission.codename for permission
+                    in Permission.objects.filter(user=user)],
+                "journal": self.journal_serializer(qs)}
         return JsonResponse(res, safe=False)
 
     def journal_serializer(self, qs):
@@ -59,12 +60,12 @@ class ShiftAPI(View):
                 table.name: {
                     "id": table.id,
                     "name": table.name,
-                    "fields": self.field_serializer(table),}
+                    "fields": self.field_serializer(qs, table),}
             for table in tables}
 
         return res
 
-    def field_serializer(self, table):
+    def field_serializer(self, qs, table):
         fields = table.fields.all()
 
         res = {field.name: {
@@ -72,17 +73,18 @@ class ShiftAPI(View):
                         "name": field.name,
                         "field_description": pickle.loads(list(field.settings.all())[-1].value)
                                 if field.settings.all() else '',
-                        "cells": self.cell_serializer(field)}
+                        "cells": self.cell_serializer(qs, table, field)}
             for field in fields }
 
         return res
 
-    def cell_serializer(self, field):
-        cells = field.cells.all()
+    def cell_serializer(self, qs, table, field):
+        cells = qs.group_cells.all()
+
         res = {
             cell.index:{
             "id":cell.id,
-            "value":cell.value}
+            "value":cell.value if cell.table == table and cell.field == field else ''}
                     for cell in cells}
 
         return res
@@ -168,3 +170,13 @@ class FieldAPI(View):
                                             table__name=table)
         res = [{field.name:field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
+
+
+class AutocompleteAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([emp.name for emp in Employee.objects.filter(name__contains=name)],
+                                safe=False)
+        else:
+            return JsonResponse([], safe=False)

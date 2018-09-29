@@ -9,11 +9,7 @@
                     <h5 class="modal-title"> Схема цехов </h5>
                 </div>
                 <div class="modal-body">
-                    <!--<object data="../assets/pdf/scheme.pdf" type="application/pdf" width="100%" height="100%">-->
-                        <!--<iframe src="../assets/pdf/scheme.pdf" width="100%" height="100%" style="border: none;">-->
-                            <!--Ваш браузер не поддерживает PDF формат файлов!-->
-                        <!--</iframe>-->
-                    <!--</object>-->
+                    <embed :src="require('../assets/pdf/scheme.pdf')" width="100%" height="100%"></embed>
                 </div>
             </div>
         </div>
@@ -28,5 +24,7 @@
 </script>
 
 <style scoped>
-
+    #scheme {
+        width: 100%;
+    }
 </style>

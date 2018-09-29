@@ -6,6 +6,7 @@ const journalState = {
     state: {
         plantsInfo: [],
         journalInfo: {},
+        events: [],
         loaded: false,
         socket: {
             isConnected: false,
@@ -16,6 +17,7 @@ const journalState = {
     getters: {
         loaded: state => state.loaded,
         journalInfo: state =>  state.journalInfo,
+        events: state =>  state.events,
         tables: state => {
             if (state.loaded) {
                 return Object.keys(state.journalInfo.journal.tables);
@@ -315,6 +317,19 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
+        },
+        loadShifts: function ({commit, state, getters}, payload) {
+            return axios.get('http://localhost:8000/' + payload.plant + '/' + payload.journal +'/get_shifts/',
+                {
+                    withCredentials: true
+                })
+                .then(response => {
+                    state.events = response.data;
+                    $(".fc-month-button").click();
+                })
+                .catch(e => {
+                    console.log(e)
+                });
         },
         sendUnsyncCell: function ({ commit, state, getters }, payload) {
             window.mv.$socket.sendObj({

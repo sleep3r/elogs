@@ -4,6 +4,7 @@ import logging
 
 from django.conf import settings
 from channels.auth import AuthMiddlewareStack
+from django.contrib.auth.models import AnonymousUser
 from jwt import InvalidSignatureError, ExpiredSignatureError, DecodeError
 from rest_framework.authtoken.models import Token
 from django.utils.deprecation import MiddlewareMixin
@@ -48,13 +49,18 @@ class TokenAuthMiddleware:
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
 
 
-def user_from_asgi_request(request):
-    headers = dict(request.scope['headers'])
-    auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
-    return Token.objects.get(key=auth_token).user
-
 class CustomAuthenticationMiddleware(MiddlewareMixin):
     ''' Overwritten to work with rest_framework auth '''
+
+    def user_from_asgi_request(self, request):
+        if not hasattr(request, '_cached_user'):
+            headers = dict(request.scope['headers'])
+            try:
+                auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
+                request._cached_user = Token.objects.get(key=auth_token).user
+            except:
+                request._cached_user = AnonymousUser
+        return request._cached_user
 
     def process_request(self, request):
         assert hasattr(request, 'session'), (
@@ -63,4 +69,4 @@ class CustomAuthenticationMiddleware(MiddlewareMixin):
             "'django.contrib.sessions.middleware.SessionMiddleware' before "
             "'django.contrib.auth.middleware.AuthenticationMiddleware'."
         ) % ("_CLASSES" if settings.MIDDLEWARE is None else "")
-        request.user = SimpleLazyObject(lambda: user_from_asgi_request(request))
+        request.user = SimpleLazyObject(lambda: self.user_from_asgi_request(request))
