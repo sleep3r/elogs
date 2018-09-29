@@ -59,7 +59,10 @@ export default {
   },
   methods: {
       layoutUpdatedEvent: function(newLayout) {
-          axios.post("http://localhost:8000/dashboard/update-config", newLayout)
+          axios.post(
+              "http://localhost:8000/dashboard/update-config",
+              newLayout, {withCredentials: true}
+          )
       },
 
       resizedEvent: function(i, newH, newW, newHpx, newWpx) {
@@ -72,8 +75,10 @@ export default {
   },
   mounted(){
       let self = this;
-      axios.get("http://localhost:8000/dashboard/get-config")
-        .then(function (response) {
+      axios.get(
+          'http://' + window.location.hostname + ':8000/dashboard/get-config',
+          {withCredentials: true},
+      ).then(function (response) {
             console.log(response.data)
             if ($.isEmptyObject(response.data.config)) {
                 self.message = "There is no data"
@@ -81,6 +86,7 @@ export default {
             else {
                 self.config = response.data.config
                 self.config_flag = false
+                console.log(self)
             }
         })
   }

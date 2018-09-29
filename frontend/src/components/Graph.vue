@@ -15,7 +15,6 @@ export default {
     props: ["idx"],
     data: function() {
         return {
-            idx: "",
             message: "Loading graph..."
         }
     },
