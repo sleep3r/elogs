@@ -6,6 +6,7 @@ const journalState = {
     state: {
         plantsInfo: [],
         journalInfo: {},
+        events: [],
         loaded: false,
         socket: {
             isConnected: false,
@@ -16,6 +17,7 @@ const journalState = {
     getters: {
         loaded: state => state.loaded,
         journalInfo: state =>  state.journalInfo,
+        events: state =>  state.events,
         tables: state => {
             if (state.loaded) {
                 return Object.keys(state.journalInfo.journal.tables);
@@ -293,50 +295,24 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
-                if (getters.isSynchronized) {
-                    axios
-                        .get('http://localhost:8000/api/shifts/' + payload['id'], {
-                            withCredentials: true,
-                            params: {
-                                'plantName': payload['plantName'],
-                                'journalName': payload['journalName']
-                            }
-                        })
-                        .then(response => {
-                            commit('UPDATE_JOURNAL_INFO', response.data);
-                            commit('SET_LOADED', true);
-                        })
-                        .then(() => {
-                            res()
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                }
-                else {
-                    setTimeout(() => {
-                        axios
-                            .get('http://localhost:8000/api/shifts/' + payload['id'], {
-                                withCredentials: true,
-                                params: {
-                                    'plantName': payload['plantName'],
-                                    'journalName': payload['journalName']
-                                }
-                            })
-                            .then(response => {
-                                commit('UPDATE_JOURNAL_INFO', {});
-                                commit('UPDATE_JOURNAL_INFO', response.data);
-                                commit('SET_LOADED', true);
-                            })
-                            .then(() => {
-                                console.log('qewqeqwewqeqweqweqwe')
-                                res()
-                            })
-                            .catch((err) => {
-                                console.log(err)
-                            })
-                    }, 10000)
-                }
+                axios
+                    .get('http://localhost:8000/api/shifts/' + payload['id'], {
+                        withCredentials: true,
+                        params: {
+                            'plantName': payload['plantName'],
+                            'journalName': payload['journalName']
+                        }
+                    })
+                    .then(response => {
+                        commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
+                        commit('SET_LOADED', true);
+                    })
+                    .then(() => {
+                        res()
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             })
         },
         loadPlants: function ({ commit, state, getters }) {
@@ -345,6 +321,31 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
+        },
+        loadShifts: function ({commit, state, getters}, payload) {
+            return axios.get('http://localhost:8000/' + payload.plant + '/' + payload.journal +'/get_shifts/',
+                {
+                    withCredentials: true
+                })
+                .then(response => {
+                    state.events = response.data;
+                    $(".fc-month-button").click();
+                })
+                .catch(e => {
+                    console.log(e)
+                });
+        },
+        sendUnsyncCell: function ({ commit, state, getters }, payload) {
+            window.mv.$socket.sendObj({
+                'type': 'shift_data',
+                'cell_location': {
+                    'group_id': getters.journalInfo.id,
+                    'table_name': payload.tableName,
+                    'field_name': payload.fieldName,
+                    'index': payload.index
+                },
+                'value': payload.value
+            })
         },
     }
 }

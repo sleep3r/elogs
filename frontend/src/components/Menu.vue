@@ -67,15 +67,18 @@
                 const journalName = linkNode.getAttribute("data-journal-name")
 
                 if (plantName && journalName) {
-                    this.setActiveItem()
-                    this.$store.dispatch('journalState/loadJournal', {
-                      'plantName': plantName,
-                      'journalName': journalName,
-                      'id': ''
-                    })
-                    // let id = this.$store.getters['journalState/journalInfo']['id']
-                    // this.$router.push('/' + plantName + '/' + journalName + '/' + id + '/')
-                    this.$router.push('/' + plantName + '/' + journalName + '/')
+                    if (this.$store.getters['journalState/isSynchronized']) {
+                        this.setActiveItem()
+                        this.$router.push('/' + plantName + '/' + journalName + '/')
+                        this.$store.dispatch('journalState/loadJournal', {
+                          'plantName': plantName,
+                          'journalName': journalName,
+                          'id': ''
+                        })
+                        // let id = this.$store.getters['journalState/journalInfo']['id']
+                        // this.$router.push('/' + plantName + '/' + journalName + '/' + id + '/')
+                        this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                    }
                 } else {
                     listItem.classList.toggle("open");
                 }

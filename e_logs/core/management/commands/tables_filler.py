@@ -100,10 +100,6 @@ def fill_tables():
             journal=concentrate_report_journal
         ),
         Table(
-            name='lower',
-            journal=concentrate_report_journal
-        ),
-        Table(
             name='main',
             journal=report_income_outcome_schieht_journal
         ),

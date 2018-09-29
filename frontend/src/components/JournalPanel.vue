@@ -46,7 +46,6 @@
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
-                events: null,
                 fullCalendarConfig: {
                     locale: 'ru',
                     buttonText: {
@@ -74,6 +73,9 @@
             }
         },
         computed: {
+            events () {
+                return this.$store.getters['journalState/events'];
+            },
             employeeFormatted() {
                 return this.employeeName + " : " + this.employeePosition;
             },
@@ -98,21 +100,9 @@
                 }
             },
         },
-        mounted() {
-            let plant = location.pathname.split('/')[1];
-            let journal_name = location.pathname.split('/')[2];
+        mounted () {
             let self = this;
-            axios.get('http://localhost:8000/' + plant + '/' + journal_name +'/get_shifts/',
-                {
-                    withCredentials: true
-                })
-                .then(response => {
-                    self.events = response.data;
-                    $(".fc-month-button").click();
-                })
-                .catch(e => {
-                    console.log(e)
-                });
+            this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
         },
         components: {
             modal,
