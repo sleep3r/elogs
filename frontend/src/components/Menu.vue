@@ -77,6 +77,7 @@
                         this.$router.push(url)
                         this.setActiveItem()
                         this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+                        this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
                     }
                 } else {
                     listItem.classList.toggle("open");
