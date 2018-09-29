@@ -2,7 +2,7 @@ from e_logs.common.all_journals_app.models import Table, Field, Journal
 
 
 def fill_fields():
-    
+
     leaching_express_analysis_journal = Journal.objects.get(name='leaching_express_analysis')
     leaching_repair_equipment_journal = Journal.objects.get(name='leaching_repair_equipment')
     concentrate_report_journal = Journal.objects.get(name='concentrate_report')
@@ -1460,10 +1460,6 @@ def fill_fields():
         Field(
             name='shift',
             table=upper_table_concentrate_report
-        ),
-        Field(
-            name='notes',
-            table=lower_table_concentrate_report
         ),
         Field(
             name='concentrate__plan__January',
