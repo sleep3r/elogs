@@ -68,8 +68,8 @@
 
                 if (plantName && journalName) {
                     if (this.$store.getters['journalState/isSynchronized']) {
-                        this.setActiveItem()
                         this.$router.push('/' + plantName + '/' + journalName + '/')
+                        this.setActiveItem()
                         this.$store.dispatch('journalState/loadJournal', {
                           'plantName': plantName,
                           'journalName': journalName,
