@@ -484,4 +484,4 @@ CSRF_TRUSTED_ORIGINS = (
 )
 
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
-USE_ETAGS = True  #  TODO: read about it
+USE_ETAGS = True
