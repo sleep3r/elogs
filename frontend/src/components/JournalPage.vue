@@ -28,6 +28,7 @@ export default {
         // }
     },
     mounted () {
+        console.log('mounted')
         this.$connect();
 
         if (this.$route.params.shift_id) {

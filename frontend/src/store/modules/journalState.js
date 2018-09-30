@@ -296,8 +296,12 @@ const journalState = {
         loadJournal: function ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
                 axios
-                    .get('http://localhost:8000/api/shifts/' + payload, {
-                        withCredentials: true
+                    .get('http://localhost:8000/api/shifts/' + payload['id'], {
+                        withCredentials: true,
+                        params: {
+                            'plantName': payload['plantName'],
+                            'journalName': payload['journalName']
+                        }
                     })
                     .then(response => {
                         commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);

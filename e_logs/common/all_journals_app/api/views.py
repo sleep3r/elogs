@@ -1,4 +1,5 @@
 import pickle
+from urllib.parse import parse_qs
 
 from cacheops import cached_as
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,6 +22,15 @@ from e_logs.core.models import Setting
 class ShiftAPI(View):
     def get(self, request, *args, **kwargs):
         user = request.user
+        if not kwargs.get('id', None):
+            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
+            current_shift = get_current_shift(Journal.objects.get(name=journal_name))
+            if current_shift:
+                id = current_shift.id
+            else:
+                id = Shift.objects.latest('date').id
+        else:
+            id = kwargs['id']
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables', 'journal__tables__fields',
@@ -28,17 +38,17 @@ class ShiftAPI(View):
                                     queryset=Setting.objects.filter(name='field_description')),
                           Prefetch('group_cells',
                                    queryset=Cell.objects.select_related('field', 'field__table').
-                                   filter(group_id=kwargs['id'])),
-                          ).get(id=kwargs['id'])
-
+                                   filter(group_id=id)),
+                          ).get(id=id)
+        plant = qs.journal.plant
         res = {
                 "id": qs.id ,
-                "plant":{"name":qs.journal.plant.name},
+                "plant":{"name":plant.name},
                 "order": qs.order,
                 "date": qs.date,
                 "closed":qs.closed,
                 "ended": qs.ended,
-                "mode": get_page_mode(user=user, plant=qs.journal.plant),
+                "mode": get_page_mode(user=user, plant=plant),
                 "permissions": [permission.codename for permission
                     in Permission.objects.filter(user=user)],
                 "journal": self.journal_serializer(qs)}
@@ -118,7 +128,6 @@ class MenuInfoAPI(View):
                         {
                             'name': journal.name,
                             'verbose_name': journal.verbose_name,
-                            'current_shift_id': get_current_shift(journal).id
                         }
                     for journal in Journal.objects.filter(plant=plant)
                     ]
