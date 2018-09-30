@@ -31,8 +31,15 @@ export default {
         console.log('mounted')
         this.$connect();
 
-        if (this.$route.params.shift_id) {
-            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+        if (this.$route.params.plant && this.$route.params.journal) {
+            this.$store.dispatch('journalState/loadJournal', {
+              'plantName': this.$route.params.plant,
+              'journalName': this.$route.params.journal
+            })
+                .then((id) => {
+                    this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
+                    this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+                })
         }
     }
 }

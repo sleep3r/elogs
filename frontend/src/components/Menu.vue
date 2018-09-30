@@ -15,7 +15,7 @@
                 <ul class="sub-menu">
                     <!--{% for journal_path, journal_verbose in menu_data.furnace.items %}-->
                     <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
-                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" :data-shift-id="journal.current_shift_id" class="menu-item__link">{{journal.verbose_name}}</a>
+                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
                     <!--{% endfor %}-->
 
@@ -66,18 +66,23 @@
                 const plantName = linkNode.getAttribute("data-plant-name")
                 const journalName = linkNode.getAttribute("data-journal-name")
 
+                let url = ''
+
                 if (plantName && journalName) {
+                    url = '/' + plantName + '/' + journalName;
+                }
+
+                if (url !== null && url !== "" && url !== "#") {
                     if (this.$store.getters['journalState/isSynchronized']) {
-                        this.$router.push('/' + plantName + '/' + journalName + '/')
-                        this.setActiveItem()
                         this.$store.dispatch('journalState/loadJournal', {
                           'plantName': plantName,
-                          'journalName': journalName,
-                          'id': ''
+                          'journalName': journalName
                         })
-                        // let id = this.$store.getters['journalState/journalInfo']['id']
-                        // this.$router.push('/' + plantName + '/' + journalName + '/' + id + '/')
-                        this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                            .then((id) => {
+                                this.$router.push('/' + plantName + '/' + journalName + '/' + id)
+                                this.setActiveItem()
+                                this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                            })
                     }
                 } else {
                     listItem.classList.toggle("open");
