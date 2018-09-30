@@ -24,13 +24,14 @@
         </li>
       </ul>
       <div class="buttons-panel">
-        <div class="btn"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
+        <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'CellComment',
@@ -80,6 +81,17 @@ export default {
         },
         'crud': 'add'
       });
+    },
+    addToDashboard() {
+        axios.post(
+            "http://localhost:8000/dashboard/add-graph",
+            {
+                'journal_name': this.$store.state.journalState.journalInfo.journal.name,
+                'table_name': this.tableName,
+                'field_name': this.fieldName,
+            },
+            {withCredentials: true}
+        )
     },
     onInput(e) {
       this.comment = e.target.value;

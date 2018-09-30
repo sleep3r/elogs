@@ -15,7 +15,6 @@ export default {
     props: ["idx"],
     data: function() {
         return {
-            idx: "",
             message: "Loading graph..."
         }
     },
@@ -37,7 +36,11 @@ export default {
         get_data: function() {
             let self = this
             let data = JSON.stringify(this.idx)
-            axios.post("/dashboard/get-graph-data/", data)
+            axios.post(
+                "http://localhost:8000/dashboard/get-graph-data/",
+                data,
+                {withCredentials: true}
+             )
                 .then(function (response) {
                     self.render(response.data)
                 })
@@ -48,3 +51,23 @@ export default {
     }
 }
 </script>
+
+<style>
+
+.vue-grid-item {
+    background: grey;
+}
+
+.vue-grid-item {
+    border: solid grey 2px;
+}
+
+#app {
+    width: 100%
+}
+
+.dashboard {
+    width: 100%
+}
+
+</style>

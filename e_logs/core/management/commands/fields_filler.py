@@ -2,7 +2,7 @@ from e_logs.common.all_journals_app.models import Table, Field, Journal
 
 
 def fill_fields():
-    
+
     leaching_express_analysis_journal = Journal.objects.get(name='leaching_express_analysis')
     leaching_repair_equipment_journal = Journal.objects.get(name='leaching_repair_equipment')
     concentrate_report_journal = Journal.objects.get(name='concentrate_report')
@@ -37,6 +37,7 @@ def fill_fields():
     big_table_concentrate_report = Table.objects.get(name='big', journal=concentrate_report_journal)
     small_table_concentrate_report = Table.objects.get(name='small', journal=concentrate_report_journal)
     upper_table_concentrate_report = Table.objects.get(name='upper', journal=concentrate_report_journal)
+    # lower_table_concentrate_report = Table.objects.get(name='lower', journal=concentrate_report_journal)
     main_table_report_income_outcome_schieht = Table.objects.get(name='main', journal=report_income_outcome_schieht_journal)
     supply_of_zinc_concentrates_table_report_income_outcome_schieht = Table.objects.get(name='supply_of_zinc_concentrates', journal=report_income_outcome_schieht_journal)
     year_plan_schieht_table_report_income_outcome_schieht = Table.objects.get(name='year_plan_schieht', journal=report_income_outcome_schieht_journal)
@@ -1460,10 +1461,6 @@ def fill_fields():
         Field(
             name='shift',
             table=upper_table_concentrate_report
-        ),
-        Field(
-            name='notes',
-            table=lower_table_concentrate_report
         ),
         Field(
             name='concentrate__plan__January',

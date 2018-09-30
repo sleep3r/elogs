@@ -6,6 +6,12 @@
         </div>
         <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
+            <li class="menu__item" @click="onDashboardClick" style="padding-bottom: 10px">
+                <span data-url="/dashboard" class="menu-item__link">
+                    <i class="menu-item__icon fa fa-book"></i>
+                    <span class="menu-item__title">Панель аналитики</span>
+                </span>
+            </li>
             <li class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
                 <a href="#" class="menu-item__link">
                     <i class="menu-item__icon fa fa-book"></i>
@@ -53,7 +59,12 @@
             this.$store.dispatch('journalState/loadPlants')
                 .then(() => {
                     setTimeout(() => this.setListeners(), 0)
-                    setTimeout(() => this.setActiveItem(), 0)
+                    if (location.pathname !== '/dashboard') {
+                        setTimeout(() => this.setActiveItem(), 0)    
+                    }
+                    else {
+                        setTimeout(() => this.onDashboardClick(), 0)   
+                    }
                 })
         },
         methods: {
@@ -87,6 +98,17 @@
                 } else {
                     listItem.classList.toggle("open");
                 }
+            },
+            onDashboardClick () {
+                const selectorMenuItem = 'li.menu__item';
+                const selectorLink = 'span.menu-item__link[data-url="/dashboard"]';
+                // event.preventDefault();
+                const listItem = document.querySelector(selectorLink).closest(selectorMenuItem);
+
+                this.closeAllItems()
+                listItem.classList.toggle("open")
+                this.$router.push('/dashboard')
+
             },
             setListeners () {
                 let menu = $(".column-left");
