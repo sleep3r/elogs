@@ -295,8 +295,9 @@ const journalState = {
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
+                let id = payload['id'] ? payload['id'] : ''
                 axios
-                    .get('http://localhost:8000/api/shifts/' + payload['id'], {
+                    .get('http://localhost:8000/api/shifts/' + id, {
                         withCredentials: true,
                         params: {
                             'plantName': payload['plantName'],

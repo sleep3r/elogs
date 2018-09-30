@@ -23,16 +23,13 @@ export default {
         'journal-panel': JournalPanel
     },
     updated () {
-        // if (this.$route.params.shift_id) {
-        //     this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
-        // }
     },
     mounted () {
         console.log('mounted')
         this.$connect();
 
         if (this.$route.params.shift_id) {
-            this.$store.dispatch('journalState/loadJournal', this.$route.params.shift_id)
+            this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
         }
     }
 }

@@ -26,7 +26,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
             this.store.commit('journalState/SET_SYNCHRONIZED', true)
             if (window.mv.$route.params.shift_id) {
                 setTimeout(() => {
-                    this.store.dispatch('journalState/loadJournal', window.mv.$route.params.shift_id)
+                    this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
                 }, 2000)
             }
         }
