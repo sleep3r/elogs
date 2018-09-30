@@ -193,26 +193,31 @@
                 let tr = focusedTd.parentElement;
                 let rowIndex = getIndex(tr.children, focusedTd);
 
+
                 switch (e.key) {
                     case 'ArrowUp':
+                        event.preventDefault();
                         let prevTr = tr.previousElementSibling;
                         if (prevTr) {
                             getTd(prevTr.children, rowIndex).children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowDown':
+                        event.preventDefault();
                         let nextTr = tr.nextElementSibling;
                         if (nextTr) {
                             getTd(nextTr.children, rowIndex).children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowLeft':
+                        event.preventDefault();
                         let prevTd = focusedTd.previousElementSibling;
                         if (prevTd) {
                             prevTd.children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowRight':
+                        event.preventDefault();
                         let nextTd = focusedTd.nextElementSibling;
                         if (nextTd) {
                             nextTd.children[0].children[0].children[0].select();
