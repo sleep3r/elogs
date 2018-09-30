@@ -162,5 +162,12 @@ class AddGraphView(View):
 
 
 class DeleteGraphView(LoginRequiredMixin, View):
-    def get(self, request):
-        pass
+    def post(self, request):
+        user = request.user
+        employee = Employee.objects.get(user=user)
+        graph_id = json.loads(request.body)["id"]
+        dashboard_config = Setting.get_value(name="dashboard_config", employee=employee)
+        if graph_id in dashboard_config.keys():
+            del dashboard_config[graph_id]
+        Setting.set_value(name="dashboard_config", employee=employee, value=dashboard_config)
+        return JsonResponse({"result": 1})

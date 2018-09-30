@@ -8,5 +8,5 @@ urlpatterns = [
     url('update-config', csrf_exempt(DashboardConfigUpdateView.as_view())),
     url('get-graph', csrf_exempt(GraphView.as_view())),
     url('add-graph', csrf_exempt(AddGraphView.as_view())),
-    url('delete-graph', csrf_exempt(AddGraphView.as_view())),
+    url('delete-graph', csrf_exempt(DeleteGraphView.as_view())),
 ]

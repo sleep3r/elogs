@@ -23,6 +23,7 @@
                        @resized="resizedEvent"
                     >
                 <Graph :idx="item.i"></Graph>
+                <button v-show="!config_flag" class="delete-btn" @click="deleteGraph(item.i)">Delete</button>
             </grid-item>
         </grid-layout>
     </div>
@@ -53,12 +54,13 @@ export default {
           config_flag: true,
           draggable: true,
           resizable: true,
-          dragIgnoreFrom: ".plotly",
+          dragIgnoreFrom: ".plotly, .delete-btn",
           index: 0
     }
   },
   methods: {
       layoutUpdatedEvent: function(newLayout) {
+          console.log(newLayout)
           axios.post(
               "http://localhost:8000/dashboard/update-config",
               newLayout, {withCredentials: true}
@@ -69,9 +71,24 @@ export default {
           Plotly.relayout(i, {
               autosize: false,
               width: newWpx - 4,
-              height: newHpx - 50,
+              height: newHpx - 30,
           })
       },
+      deleteGraph: function(id) {
+          console.log("deleting " + id)
+          axios.post(
+              "http://localhost:8000/dashboard/delete-graph",
+              {id: id},
+              {withCredentials: true},
+          )
+          for (var elem in this.config) {
+              console.log(id, this.config[elem].i)
+              if (this.config[elem].i == id) {
+                  this.config.splice(elem, 1);
+                  console.log("deleted " + id)
+              }
+          }
+      }
   },
   mounted(){
       let self = this;
@@ -92,3 +109,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.delete-btn {
+    background: solid light-grey;
+}
+
+.delete-btn:hover{
+    cursor: pointer;
+}
+
+</style>

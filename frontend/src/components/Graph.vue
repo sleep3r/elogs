@@ -28,7 +28,7 @@ export default {
             let height = $("#" + 'vue-grid-item-' + id).height()
             console.log(width, height)
             data.layout.width = width;
-            data.layout.height = height - 50;
+            data.layout.height = height - 30;
             // window.graphs_data[id] = data
 
             Plotly.newPlot(id, data.data, data.layout)
@@ -44,7 +44,7 @@ export default {
                 .then(function (response) {
                     self.render(response.data)
                 })
-        }
+        },
     },
     created() {
         this.get_data()
