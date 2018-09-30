@@ -48,7 +48,7 @@ export default {
   data() {
       return {
           classes: 'dashboard',
-          config: {},
+          config: null,
           message: "Loading dashboard config...",
           config_flag: true,
           draggable: true,

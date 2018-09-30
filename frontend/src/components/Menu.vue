@@ -6,6 +6,12 @@
         </div>
         <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
+            <li class="menu__item">
+                <a href="" data-url="/dashboard" class="menu-item__link">
+                    <i class="menu-item__icon fa fa-book"></i>
+                    <span class="menu-item__title">Панель аналитики</span>
+                </a>
+            </li>
             <li class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
                 <a href="#" class="menu-item__link">
                     <i class="menu-item__icon fa fa-book"></i>
