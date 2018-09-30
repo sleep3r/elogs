@@ -254,7 +254,7 @@ const journalState = {
                 if (payload.comment) {
                     if (payload.index in cells) {
                         // update cell
-                        cells[payload.index]['comment'] = payload.comment;
+                        Vue.set(cells[payload.index], 'comment', payload.comment);
                     }
                     else {
                         // create cell
