@@ -120,3 +120,8 @@ class Message(StrAsDictMixin, models.Model):
     @staticmethod
     def get_unread(employee) -> QuerySet:
         return Message.objects.filter(is_read=False, addressee=employee)
+
+
+class UserSubscription(models.Model):
+    subscription = models.CharField(max_length=500)
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='subscriptions')

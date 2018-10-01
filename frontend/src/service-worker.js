@@ -31,6 +31,15 @@ self.addEventListener('activate', function(event) {
     );
 });
 
+self.addEventListener('push', function(event) {
+  let message = JSON.parse(event.data.text()); //
+  event.waitUntil(
+    self.registration.showNotification(message.title, {
+      body: message.body,
+    })
+  );
+});
+
 self.addEventListener('fetch', function(event) {
     event.respondWith(
         caches.match(event.request)
