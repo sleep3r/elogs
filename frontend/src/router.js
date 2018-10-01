@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import VueCookies from 'vue-cookies'
 
 import BasePage from './components/BasePage.vue'
+import Dashboard from './components/Dashboard.vue'
 import JournalPage from './components/JournalPage.vue'
 import LoginPage from './components/LoginPage.vue'
 import MessagesPage from './components/MessagesPage.vue'
@@ -19,16 +20,14 @@ const router = new Router({
             component: BasePage,
             children: [
                 {
-                    path: '/:plant/:journal',
+                    path: '/dashboard',
+                    name: 'dashboard',
+                    component: Dashboard
+                },
+                {
+                    path: '/:plant/:journal/:shift_id',
                     name: 'defaultJournalPage',
-                    component: JournalPage,
-                    children: [
-                        {
-                            path: ':shift_id',
-                            name: 'journalPage',
-                            component: JournalPage
-                        }
-                    ]
+                    component: JournalPage
                 },
                 {
                     path: '/messages',

@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 def str_to_dict(str):
     return {k: v.strip('"') for k, v in re.findall(r'(\S+)=(".*?"|\S+)', str)}
 
+
 class TokenAuthMiddleware:
 
     def __init__(self, inner):
@@ -49,8 +50,14 @@ class TokenAuthMiddleware:
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
 
 
+def user_from_asgi_request(request):
+    headers = dict(request.scope['headers'])
+    auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
+    return Token.objects.get(key=auth_token).user
+
+
 class CustomAuthenticationMiddleware(MiddlewareMixin):
-    ''' Overwritten to work with rest_framework auth '''
+    """ Overwritten to work with rest_framework auth """
 
     def user_from_asgi_request(self, request):
         if not hasattr(request, '_cached_user'):

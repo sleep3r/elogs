@@ -30,6 +30,20 @@ export default {
 
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
+                .then((id) => {
+                    this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
+                    this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+                })
+        }
+        else if (this.$route.params.plant && this.$route.params.journal) {
+            this.$store.dispatch('journalState/loadJournal', {
+              'plantName': this.$route.params.plant,
+              'journalName': this.$route.params.journal
+            })
+                .then((id) => {
+                    this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
+                    this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+                })
         }
     }
 }

@@ -294,27 +294,23 @@ const journalState = {
     },
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
-            return new Promise((res, rej) => {
-                let id = payload['id'] ? payload['id'] : ''
-                axios
-                    .get('http://localhost:8000/api/shifts/' + id, {
-                        withCredentials: true,
-                        params: {
-                            'plantName': payload['plantName'],
-                            'journalName': payload['journalName']
-                        }
-                    })
-                    .then(response => {
-                        commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
-                        commit('SET_LOADED', true);
-                    })
-                    .then(() => {
-                        res()
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-            })
+            let id = payload['id'] ? payload['id'] : ''
+            return axios
+                .get('http://localhost:8000/api/shifts/' + id, {
+                    withCredentials: true,
+                    params: {
+                        'plantName': payload['plantName'],
+                        'journalName': payload['journalName']
+                    }
+                })
+                .then(response => {
+                    commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
+                    commit('SET_LOADED', true);
+                    return response.data.id
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         },
         loadPlants: function ({ commit, state, getters }) {
             axios

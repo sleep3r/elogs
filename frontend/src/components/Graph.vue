@@ -12,10 +12,9 @@ import Plotly from 'plotly.js-dist'
 
 export default {
     name: 'Graph',
-    props: ["idx"],
+    props: ["idx", "type"],
     data: function() {
         return {
-            idx: "",
             message: "Loading graph..."
         }
     },
@@ -29,22 +28,50 @@ export default {
             let height = $("#" + 'vue-grid-item-' + id).height()
             console.log(width, height)
             data.layout.width = width;
-            data.layout.height = height - 50;
+            data.layout.height = height - 30;
             // window.graphs_data[id] = data
 
             Plotly.newPlot(id, data.data, data.layout)
         },
         get_data: function() {
             let self = this
-            let data = JSON.stringify(this.idx)
-            axios.post("/dashboard/get-graph-data/", data)
+            let data = {
+                id: this.idx,
+                type: this.type
+            }
+            console.log(data)
+            axios.post(
+                "http://localhost:8000/dashboard/get-graph-data/",
+                data,
+                {withCredentials: true}
+             )
                 .then(function (response) {
                     self.render(response.data)
                 })
-        }
+        },
     },
     created() {
         this.get_data()
     }
 }
 </script>
+
+<style>
+
+.vue-grid-item {
+    background: grey;
+}
+
+.vue-grid-item {
+    border: solid grey 2px;
+}
+
+#app {
+    width: 100%
+}
+
+.dashboard {
+    width: 100%
+}
+
+</style>

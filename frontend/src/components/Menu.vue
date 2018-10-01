@@ -6,6 +6,12 @@
         </div>
         <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
+            <li class="menu__item" @click="onDashboardClick" style="padding-bottom: 10px">
+                <span data-url="/dashboard" class="menu-item__link">
+                    <i class="menu-item__icon fa fa-book"></i>
+                    <span class="menu-item__title">Панель аналитики</span>
+                </span>
+            </li>
             <li class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
                 <a href="#" class="menu-item__link">
                     <i class="menu-item__icon fa fa-book"></i>
@@ -15,7 +21,7 @@
                 <ul class="sub-menu">
                     <!--{% for journal_path, journal_verbose in menu_data.furnace.items %}-->
                     <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
-                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" :data-shift-id="journal.current_shift_id" class="menu-item__link">{{journal.verbose_name}}</a>
+                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
                     <!--{% endfor %}-->
 
@@ -53,7 +59,12 @@
             this.$store.dispatch('journalState/loadPlants')
                 .then(() => {
                     setTimeout(() => this.setListeners(), 0)
-                    setTimeout(() => this.setActiveItem(), 0)
+                    if (location.pathname !== '/dashboard') {
+                        setTimeout(() => this.setActiveItem(), 0)    
+                    }
+                    else {
+                        setTimeout(() => this.onDashboardClick(), 0)   
+                    }
                 })
         },
         methods: {
@@ -66,22 +77,38 @@
                 const plantName = linkNode.getAttribute("data-plant-name")
                 const journalName = linkNode.getAttribute("data-journal-name")
 
+                let url = ''
+
                 if (plantName && journalName) {
+                    url = '/' + plantName + '/' + journalName;
+                }
+
+                if (url !== null && url !== "" && url !== "#") {
                     if (this.$store.getters['journalState/isSynchronized']) {
-                        this.$router.push('/' + plantName + '/' + journalName + '/')
-                        this.setActiveItem()
                         this.$store.dispatch('journalState/loadJournal', {
                           'plantName': plantName,
-                          'journalName': journalName,
-                          'id': ''
+                          'journalName': journalName
                         })
-                        // let id = this.$store.getters['journalState/journalInfo']['id']
-                        // this.$router.push('/' + plantName + '/' + journalName + '/' + id + '/')
-                        this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                            .then((id) => {
+                                this.$router.push('/' + plantName + '/' + journalName + '/' + id)
+                                this.setActiveItem()
+                                this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                            })
                     }
                 } else {
                     listItem.classList.toggle("open");
                 }
+            },
+            onDashboardClick () {
+                const selectorMenuItem = 'li.menu__item';
+                const selectorLink = 'span.menu-item__link[data-url="/dashboard"]';
+                // event.preventDefault();
+                const listItem = document.querySelector(selectorLink).closest(selectorMenuItem);
+
+                this.closeAllItems()
+                listItem.classList.toggle("open")
+                this.$router.push('/dashboard')
+
             },
             setListeners () {
                 let menu = $(".column-left");

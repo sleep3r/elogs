@@ -45,6 +45,7 @@ whitenoise = { extras = [ "brotli",] }
 django-cors-headers = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
+pywebpush = "*"
 
 [dev-packages]
 icecream = "*"

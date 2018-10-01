@@ -24,13 +24,20 @@
         </li>
       </ul>
       <div class="buttons-panel">
-        <div class="btn"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
+        <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
+        <select v-model="selectedGraphType">
+            <option v-for="graphType in graphTypes">
+                {{ graphType }}
+            </option>
+        </select>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'CellComment',
@@ -39,6 +46,12 @@ export default {
     'fieldName',
     'rowIndex'
   ],
+  data: function() {
+      return {
+          selectedGraphType: "ShiftTimeline",
+          graphTypes: ["ShiftTimeline", "ShiftHistogram"]
+      }
+  },
   computed: {
     minNormal: function () {
       return this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName)['min_normal'];
@@ -80,6 +93,22 @@ export default {
         },
         'crud': 'add'
       });
+    },
+    addToDashboard() {
+        axios.post(
+            "http://localhost:8000/dashboard/add-graph",
+            {
+                'cell_info': {
+                    'journal_name': this.$store.state.journalState.journalInfo.journal.name,
+                    'table_name': this.tableName,
+                    'field_name': this.fieldName,
+                },
+                'graph_info': {
+                    'type': this.selectedGraphType
+                },
+            },
+            {withCredentials: true}
+        )
     },
     onInput(e) {
       this.comment = e.target.value;

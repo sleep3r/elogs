@@ -15,26 +15,24 @@
 </template>
 
 <script>
-import TopNav from './TopNav.vue'
-import Menu from './Menu.vue'
-import Footer from './Footer.vue'
-import Popup from './Popup.vue';
+    import TopNav from './TopNav.vue'
+    import Menu from './Menu.vue'
+    import Footer from './Footer.vue'
+    import Popup from './Popup.vue';
 
-export default {
-    name: "BasePage",
-    components: {
-        'top-nav': TopNav,
-        'left-menu': Menu,
-        'main-footer': Footer,
-        'popup': Popup,
-    },
-    methods: {
+    export default {
+        name: "BasePage",
+        components: {
+            'top-nav': TopNav,
+            'left-menu': Menu,
+            'main-footer': Footer,
+            'popup': Popup,
+        },
+        methods: {},
+        mounted() {
 
-    },
-    mounted () {
-
+        }
     }
-}
 </script>
 
 <style scoped>

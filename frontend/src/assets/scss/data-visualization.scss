@@ -1,0 +1,41 @@
+/*------------------------------------*\
+  # Graphs
+\*------------------------------------*/
+@import "variables";
+
+.graph {
+    width: 50%;
+    // background-color: red;
+    // height: 200px;
+}
+.vue-grid-item {
+    background: grey;
+}
+
+#vue-dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#vue-dashboard-container #content {
+    width: 100%;
+}
+
+.vue-grid-item {
+    border: solid grey 2px;
+}
+
+.dashboard {
+    width: 100%
+}
+
+#dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+}

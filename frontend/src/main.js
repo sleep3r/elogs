@@ -24,11 +24,23 @@ Vue.use(VueNativeSock, dataEndpoint, {
             })
 
             this.store.commit('journalState/SET_SYNCHRONIZED', true)
-            if (window.mv.$route.params.shift_id) {
+
+            let plant = mv.$route.params.plant
+            let journal = mv.$route.params.journal
+
+            if (plant && journal) {
                 setTimeout(() => {
-                    this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
+                    if (window.mv.$route.params.shift_id) {
+                      this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
+                    }
+                    else if (plant && journal) {
+                        this.store.dispatch('journalState/loadJournal', {
+                          'plantName': plant,
+                          'journalName': journal
+                        })
+                    }
                 }, 2000)
-            }
+        }
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
