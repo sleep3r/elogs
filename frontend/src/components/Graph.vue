@@ -12,7 +12,7 @@ import Plotly from 'plotly.js-dist'
 
 export default {
     name: 'Graph',
-    props: ["idx"],
+    props: ["idx", "type"],
     data: function() {
         return {
             message: "Loading graph..."
@@ -35,7 +35,11 @@ export default {
         },
         get_data: function() {
             let self = this
-            let data = JSON.stringify(this.idx)
+            let data = {
+                id: this.idx,
+                type: this.type
+            }
+            console.log(data)
             axios.post(
                 "http://localhost:8000/dashboard/get-graph-data/",
                 data,

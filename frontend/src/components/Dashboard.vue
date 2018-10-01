@@ -2,7 +2,7 @@
     <div :class="classes">
         <span v-if="config_flag"> {{ message }} </span>
         <grid-layout v-else
-                     :layout="config"
+                     :layout="layout"
                      :col-num="12"
                      :row-height="30"
                      :is-draggable="draggable"
@@ -22,7 +22,7 @@
                        :drag-ignore-from="dragIgnoreFrom"
                        @resized="resizedEvent"
                     >
-                <Graph :idx="item.i"></Graph>
+                <Graph :idx="item.i" :type="item.type"></Graph>
                 <button v-show="!config_flag" class="delete-btn" @click="deleteGraph(item.i)">Delete</button>
             </grid-item>
         </grid-layout>
@@ -58,6 +58,11 @@ export default {
           index: 0
     }
   },
+  computed: {
+      layout: function() {
+          return Object.values(this.config)
+      }
+  },
   methods: {
       layoutUpdatedEvent: function(newLayout) {
           console.log(newLayout)
@@ -81,17 +86,13 @@ export default {
               {id: id},
               {withCredentials: true},
           )
-          for (var elem in this.config) {
-              console.log(id, this.config[elem].i)
-              if (this.config[elem].i == id) {
-                  this.config.splice(elem, 1);
-                  console.log("deleted " + id)
-              }
-          }
+          Vue.delete(this.config, id);
       }
   },
   mounted(){
       let self = this;
+      // this.$store.commit("UPDATE_JOURNAL_INFO", {plant: {name: "Панель аналитики"}})
+      // console.log(this.$store)
       axios.get(
           'http://' + window.location.hostname + ':8000/dashboard/get-config',
           {withCredentials: true},
@@ -102,6 +103,12 @@ export default {
             }
             else {
                 self.config = response.data.config
+                for (var id in self.config) {
+                    let grid_item = self.config[id]
+                    grid_item["i"] = id
+                }
+                // console.log(self.config)
+
                 self.config_flag = false
                 console.log(self)
             }

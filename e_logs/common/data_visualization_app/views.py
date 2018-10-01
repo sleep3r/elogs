@@ -17,9 +17,9 @@ from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged, process_json_view
 from json_tricks import dumps, loads
+import e_logs.common.data_visualization_app.graphs.utils as graphs_utils
 import datetime
 import json
-import plotly.graph_objs as go
 
 
 # Create your views here.
@@ -41,42 +41,6 @@ def get_data(field, employee=None, period=7):
     values = [int(item["cell"].value) for item in cells_w_shifts]
     shifts = [item["shift"] for item in cells_w_shifts]
     return values, shifts
-
-
-def timeline(x, y, title):
-    """
-    Function description
-
-    Parameters
-    ----------
-    x : list of numbers
-        description
-    y : list of Shifts
-        description
-
-    Returns
-    -------
-    var1 : type
-        description
-
-    Example:
-    --------
-    >> a = func(x)
-    """
-    trace = go.Scatter(x=[shift.start_time for shift in x], y=y)
-    xaxis = go.XAxis(
-        showgrid=True,
-        showline=True,
-        showticklabels=True,
-        ticktext=[str(shift.start_time) + f' Смена {shift.order}' for shift in x],
-        tickvals=[shift.start_time for shift in x],
-    )
-    layout = go.Layout(
-        title=title,
-        xaxis=xaxis,
-    )
-    fig = go.Figure(data=[trace], layout=layout)
-    return fig.to_plotly_json()
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -104,7 +68,7 @@ class DashboardConfigView(LoginRequiredMixin, View):
         employee = Employee.objects.get(user=request.user)
         dashboard_config = Setting.get_value(name="dashboard_config", employee=employee)
         if dashboard_config:
-            return JsonResponse({"config": self.config2list(dashboard_config)})
+            return JsonResponse({"config": dashboard_config})
         else:
             return JsonResponse({"config": {}})
 
@@ -126,15 +90,16 @@ class DashboardConfigUpdateView(LoginRequiredMixin, View):
 class GraphView(LoginRequiredMixin, View):
     @logged
     def post(self, request):
-        field_id = json.loads(request.body)
+        body = json.loads(request.body)
+        print(body)
+        field_id = body["id"]
+        graph_name = body["type"]
         field = Field.objects.get(id=field_id)
         title = field.verbose_name if field.verbose_name else field.name
         y, x = get_data(field)
-        print(x, y, title)
-        graph = timeline(x, y, title)
-        # print(dumps(graph, primitives=True))
-        return HttpResponse(dumps(graph, primitives=True),
-            content_type='application/json; charset=utf8')
+        generator = graphs_utils.resolve(graph_name)
+        graph_data = dumps(generator(x, y, title).to_plotly_json(), primitives=True)
+        return HttpResponse(graph_data, content_type='application/json; charset=utf8')
 
 
 class AddGraphView(View):
@@ -144,7 +109,9 @@ class AddGraphView(View):
         # user = User.objects.get(username="inframine")
         employee = Employee.objects.get(user=user)
         print(request.body)
-        cell_info = json.loads(request.body)
+        data = json.loads(request.body)
+        cell_info = data["cell_info"]
+        graph_info = data["graph_info"]
         journal_name = cell_info["journal_name"]
         table_name = cell_info["table_name"]
         field_name = cell_info["field_name"]
@@ -155,7 +122,7 @@ class AddGraphView(View):
         dashboard_config = Setting.get_value(name="dashboard_config", employee=employee)
         if dashboard_config is None:
             dashboard_config = {}
-        dashboard_config[str(field.id)] = dict(x=0, y=0, w=6, h=8)
+        dashboard_config[str(field.id)] = dict(x=0, y=0, w=6, h=8, type=graph_info["type"])
         Setting.set_value(name="dashboard_config", employee=employee, value=dashboard_config)
 
         return JsonResponse({"result": 1})
