@@ -35,7 +35,6 @@
         "imports-loader": "^0.8.0",
         "jquery": "^3.3.1",
         "jquery-confirm": "^3.3.2",
-        "less": "^3.8.1",
         "less-loader": "^4.1.0",
         "lodash": "^4.17.11",
         "material-design-icons": "^3.0.1",

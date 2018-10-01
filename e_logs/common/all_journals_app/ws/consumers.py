@@ -10,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from e_logs.common.all_journals_app.models import Cell, Shift, Comment
 from e_logs.common.messages_app.models import Message
 
+
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
         if self.scope['user'].is_authenticated:
@@ -80,7 +81,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         shift = Shift.objects.get(id=shift_id)
         shift.employee_set.add(self.scope['user'].employee)
 
-    #----------------------------------MESSAGES----------------------------------
+    # ----------------------------------MESSAGES----------------------------------
     async def add_cell_message(self, data):
         if data['message']['type'] == "critical_value":
             cell = await self.get_cell_from_dict(data['cell'])
@@ -122,8 +123,9 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         return Cell.get_by_addr(field_name, table_name, group_id, index)
 
     @database_sync_to_async
-    def add_cell_message_query(self, cell, message, all_users=False, positions=None, uids=None, plant=None):
-         Message.add(cell, message, all_users, positions, uids, plant)
+    def add_cell_message_query(self, cell, message, all_users=False, positions=None, uids=None,
+                               plant=None):
+        Message.add(cell, message, all_users, positions, uids, plant)
 
     @database_sync_to_async
     def update(self, cell):
