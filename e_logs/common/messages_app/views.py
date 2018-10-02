@@ -63,10 +63,10 @@ class MessagesList(LoginRequiredMixin, ListView):
 
 class MessagesSubscription(LoginRequiredMixin, View):
     def post(self, request):
-        sub = request.POST.get('registration_data')
-        if sub:
-            UserSubscription.objects.create(user=request.user.employee,
-                                            subscription=sub)
+        sub_info = json.loads(request.body)
+        if sub_info:
+            UserSubscription.objects.create(user=request['user'].employee,
+                                            subscription=sub_info)
             return JsonResponse({"status":1})
         else:
             return JsonResponse({"status":0})
