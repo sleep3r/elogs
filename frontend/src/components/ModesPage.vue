@@ -8,15 +8,10 @@
                 </h3>
             </div>
             <template v-if="currentMode">
-                <div class="mode-content__title__mode-btns" v-if="!editMode">
+                <div class="mode-content__title__mode-btns">
                     <button class="btn" v-if="currentMode.is_active" value="off" @click.prevent="toggleMode(0)">Выключить</button>
                     <button class="btn" v-else value="on" @click.prevent="toggleMode(1)">Включить</button>
-                    <button class="btn" data-target="mode-edit" @click.prevent="onEditModeChange">Изменить</button>
                     <button class="btn" data-target="mode-delete" @click.prevent="onDeleteMode">Удалить</button>
-                </div>
-                <div class="mode-content__title__mode-edit-btns" v-else>
-                    <button class="btn" data-target="mode-add-row" @click.prevent="onAddRow">Добавить ячейку</button>
-                    <button class="btn" data-target="mode-save" @click.prevent="onSaveMode">Сохранить</button>
                 </div>
             </template>
         </div>
@@ -28,28 +23,58 @@
                         <th>Ячейка</th>
                         <th>Минимальное значение</th>
                         <th>Максимальное значение</th>
+                        <th style="width: 36px"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in currentMode.fields">
+                    <tr v-for="(item, index) in currentMode.fields" :key="item.name">
                         <td data-target="table_name"><div>{{item.table_name}}</div></td>
                         <td data-target="name"><div>{{item.name}}</div></td>
-                        <td data-target="min_normal"><div>{{item.min_normal}}</div></td>
-                        <td data-target="max_normal"><div>{{item.max_normal}}</div></td>
+                        <td data-target="min_normal">
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    :value="item.min_normal"
+                                    @input="(e) => onChangeCellValue('min_normal', item.table_name, item.name, e.target.value)"
+                            >
+                        </td>
+                        <td data-target="max_normal">
+                            <input
+                                    type="number"
+                                    class="form-control"
+                                    :value="item.max_normal"
+                                    @input="(e) => onChangeCellValue('max_normal', item.table_name, item.name, e.target.value)"
+                            >
+                        </td>
+                        <td>
+                            <div class="delete-icon" @click="onDeleteCell(item.table_name, item.name)"><i class="fas fa-times"></i></div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <div class="mode-content__title__mode-edit-btns" v-if="currentMode">
+                <button class="btn" data-toggle="modal" data-target="#AddModeCellModal">Добавить ячейку</button>
+                <div v-if="needsToSave">
+                    <button class="btn" data-target="mode-cancel" @click.prevent="onCancelMode" style="margin-right: 10px">Отмена</button>
+                    <button class="btn" data-target="mode-save" @click.prevent="onSaveMode">Сохранить</button>
+                </div>
+            </div>
         </div>
+        <add-mode-cell-modal @on-add-cell="needsToSave = true"></add-mode-cell-modal>
     </div>
 </template>
 
 <script>
+    import AddModeCellModal from './AddModeCellModal.vue'
+
     export default {
         name: "ModesPage",
+        components: {
+            'add-mode-cell-modal': AddModeCellModal
+        },
         data () {
             return {
-                editMode: false,
-                modeFields: []
+                needsToSave: false
             }
         },
         computed: {
@@ -63,35 +88,38 @@
             }
         },
         methods: {
-            onEditModeChange () {
-                $('.mode-content__body td').each(function () {
-                    $(this).html($(`<input type="text" class="form-control" value="${$(this).text()}">`))
+            onDeleteCell (tableName, name) {
+                this.$store.commit('modesState/DELETE_CELL', {
+                    tableName,
+                    name
                 })
 
-                this.editMode = true
+                this.needsToSave = true
+            },
+            onCancelMode () {
+                this.$store.commit('modesState/CANCEL_MODE', this.getURLParameter('modeId'))
+
+                this.needsToSave = false
             },
             onSaveMode () {
-                $('.mode-content__body tbody tr').each(function () {
-                    let _this = this
-                    $(this).children('td').each(function () {
-                        if (!$(this).find('input').val()) {
-                            $(_this).remove()
-                        }
-                    })
-                })
-                $('.mode-content__body td').each(function () {
-                    $(this).html(`<div>${$(this).find('input').val()}</div>`)
-                })
-
-                this.$store.dispatch('modesState/updateMode', {...this.currentMode, fields: this.getUpdatedFieldItems()})
+                this.$store.dispatch('modesState/updateMode', this.currentMode)
                     .then(() => {
                         this.$store.dispatch('modesState/getModes')
                             .then(() => {
-                                this.currentMode = null
-                                // this.currentMode = this.getURLParameter('modeId')
+                                this.currentMode = this.getURLParameter('modeId')
                             })
                     })
-                this.editMode = false
+                this.needsToSave = false
+            },
+            onChangeCellValue (dataType, tableName, name, value) {
+                this.$store.commit('modesState/CHANGE_CELL_VALUE', {
+                    dataType,
+                    tableName,
+                    name,
+                    value
+                })
+
+                this.needsToSave = true
             },
             toggleMode (isActive) {
                 this.$store.dispatch('modesState/toggleMode', {modeId: this.currentMode.id, isActive})
@@ -101,37 +129,6 @@
                                 this.currentMode = this.getURLParameter('modeId')
                             })
                     })
-            },
-            onAddRow () {
-                let updatedFields = this.currentMode.fields
-                updatedFields.push({
-                    table_name: '',
-                    name: '',
-                    min_normal: '',
-                    max_normal: ''
-                })
-
-                this.$store.commit('modesState/UPDATE_CURRENT_MODE', {...this.currentMode, fields: updatedFields})
-
-                setTimeout(() => {
-                    $('.mode-content__body td').each(function () {
-                        if (!$(this).has('input').length) {
-                            $(this).html($(`<input type="text" class="form-control" value="${$(this).text()}">`))
-                        }
-                    })
-                }, 0)
-            },
-            getUpdatedFieldItems () {
-                let updatedFields = []
-                $('.mode-content__body tbody tr').each(function () {
-                    updatedFields.push({
-                        table_name: $(this).children('td[data-target="table_name"]').find('div').text(),
-                        name: $(this).children('td[data-target="name"]').find('div').text(),
-                        min_normal: +$(this).children('td[data-target="min_normal"]').find('div').text(),
-                        max_normal: +$(this).children('td[data-target="max_normal"]').find('div').text()
-                    })
-                })
-                return updatedFields
             },
             onDeleteMode () {
                 this.$store.dispatch('modesState/deleteMode', {modeId: this.currentMode.id})
@@ -182,6 +179,7 @@
     }
 
     .mode-content table .form-control {
+        height: 36px;
         border-radius: 0;
         padding-left: 3px;
         padding-right: 3px;
