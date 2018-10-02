@@ -90,12 +90,10 @@ class ShiftAPI(View):
 
     def cell_serializer(self, qs, table, field):
         cells = qs.group_cells.all()
-
-        res = {
-            cell.index:{
-            "id":cell.id,
-            "value":cell.value if cell.table == table and cell.field == field else ''}
-                    for cell in cells}
+        res = {}
+        for cell in cells:
+            if cell.table == table and cell.field == field:
+                res[cell.index] = {"id":cell.id, "value":cell.value}
 
         return res
 
