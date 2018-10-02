@@ -67,9 +67,9 @@ class MessagesSubscription(LoginRequiredMixin, View):
         if sub:
             UserSubscription.objects.create(user=request.user.employee,
                                             subscription=sub)
-            JsonResponse({"status":1})
+            return JsonResponse({"status":1})
         else:
-            JsonResponse({"status":0})
+            return JsonResponse({"status":0})
 
 def push_notification(user_id):
     user_subscriptions = UserSubscription.objects.filter(user_id=user_id)
