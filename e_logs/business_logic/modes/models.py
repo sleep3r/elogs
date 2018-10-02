@@ -42,8 +42,6 @@ class FieldConstraints(models.Model):
     field = models.ForeignKey('all_journals_app.Field', on_delete=models.CASCADE)
     mode = models.ForeignKey(Mode, on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = 'Ограничения для поля'
         verbose_name_plural = 'Ограничения для полей'
-

@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-            <tr v-for="(value, index) in data.rowsCount" class="indexed-line">
+            <tr v-for="(value, index) in rowsCount" class="indexed-line">
                 <td><cell field-name="mann1_pH" :row-index="index"></cell></td>
                 <td><cell field-name="mann1_acid" :row-index="index"></cell></td>
                 <td><cell field-name="mann1_Fe2" :row-index="index"></cell></td>
@@ -43,24 +43,24 @@
         <tbody>
         <tr>
             <th colspan="1">Ситовой огарка<i class='units'>мм</i></th>
-            <td><cell field-name="sit_cinder1" index="0"></cell></td>
-            <td><cell field-name="sit_cinder2" index="0"></cell></td>
-            <td><cell field-name="sit_cinder3" index="0"></cell></td>
-            <td><cell field-name="sit_cinder4" index="0"></cell></td>
-            <td><cell field-name="sit_cinder5" index="0"></cell></td>
-            <td><cell field-name="sit_cinder6" index="0"></cell></td>
+            <td><cell field-name="sit_cinder1" row-index="0"></cell></td>
+            <td><cell field-name="sit_cinder2" row-index="0"></cell></td>
+            <td><cell field-name="sit_cinder3" row-index="0"></cell></td>
+            <td><cell field-name="sit_cinder4" row-index="0"></cell></td>
+            <td><cell field-name="sit_cinder5" row-index="0"></cell></td>
+            <td><cell field-name="sit_cinder6" row-index="0"></cell></td>
         </tr>
         <tr>
             <th colspan="1">Ситовой средн.<i class='units'>мм</i></th>
-            <td colspan="6"><cell field-name="sit_cinder_avg" index="0"></cell></td>
+            <td colspan="6"><cell field-name="sit_cinder_avg" row-index="0"></cell></td>
         </tr>
         <tr>
             <th colspan="1">Общее Fe среднее <i class='units'>мм</i></th>
-            <td colspan="6"><cell field-name="fe_avg" index="0"></cell></td>
+            <td colspan="6"><cell field-name="fe_avg" row-index="0"></cell></td>
         </tr>
         <tr>
             <th colspan="1">Fe стружка Fe <i class='units'>мг/л</i></th>
-            <td colspan="6"><cell field-name="fe_shave" index="0"></cell></td>
+            <td colspan="6"><cell field-name="fe_shave" row-index="0"></cell></td>
         </tr>
         </tbody>
     </table>

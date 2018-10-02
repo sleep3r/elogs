@@ -4,7 +4,7 @@
 // ------------------------------------- Libs -------------------------------------
 import 'jquery'; window.$ = $; window.jQuery = jQuery;
 import 'lodash'; window._ = _;
-import 'vue'; import Vue from 'vue'; window.Vue = Vue;
+import 'vue'; import Vue from 'vue/dist/vue.esm.js'; window.Vue = Vue;
 import 'bootstrap';
 import 'jquery-confirm';
 import 'promise-polyfill/src/polyfill';
@@ -35,6 +35,8 @@ import './form-table';
 import './form-update';
 import './header';
 import './menu';
+import './modes-menu';
+import './mode-add-modal';
 import './clockpicker';
 import './vue-env';
 import './data-visualization'

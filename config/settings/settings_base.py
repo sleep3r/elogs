@@ -27,6 +27,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.routing.application'
 
 SECRET_KEY = env('SECRET_KEY')
+NOTIFICATION_KEY = env('NOTIFICATION_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("HOSTNAME")]
 FEEDBACK_TG_BOT = {
@@ -109,11 +110,11 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'e_logs.core.middleware.CustomAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -386,7 +387,7 @@ CACHES = {
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 60
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 SESSION_CACHE_ALIAS = "default"
 
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
@@ -453,4 +454,35 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 
-CORS_ORIGIN_ALLOW_ALL = True
+# ------------------------------------- CORS shit ------------------------------------------------
+
+CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
+CORS_ALLOW_CREDENTIALS = True  # for cookie
+
+
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:8000/',
+    '127.0.0.1:8080/',
+    'http://localhost:8080/'
+    'http://localhost:8000/',
+    'localhost:8080'
+)
+
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    '127.0.0.1:8000/',
+    '127.0.0.1:8080/',
+    'http://localhost:8080/'
+    'http://localhost:8000/'
+)
+
+CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
+USE_ETAGS = True

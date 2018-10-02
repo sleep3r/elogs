@@ -50,15 +50,14 @@ export default {
               data: this.$data,
               props: this.$props
           }},
+          computed: {
+            rowsCount: function () {
+              return this.$store.getters.maxRowIndex(this.props.name) + 1;
+            }
+          },
           components: { 'cell': cell, 'table-comment': tableComment },
           mounted() {
-            let self = this;
-            this.data.rowsCount = this.$store.getters.maxRowIndex(this.props.name) + 1;
-            this.$on('addNewLine', function (payload) {
-                if (self.data.rowsCount - 1  === payload.editedRowIndex) {
-                    self.data.rowsCount += 1;
-                }
-            });
+
           }
       })
     }

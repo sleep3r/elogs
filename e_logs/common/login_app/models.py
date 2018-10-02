@@ -3,8 +3,8 @@ from django.db import models
 from django.db.models import QuerySet
 
 from django.conf import settings
-from e_logs.common.all_journals_app.models import Cell, Shift
 from e_logs.core.utils.webutils import StrAsDictMixin
+from e_logs.common.all_journals_app.models import Shift
 
 
 class Employee(StrAsDictMixin, models.Model):

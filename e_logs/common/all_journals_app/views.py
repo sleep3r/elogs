@@ -127,7 +127,29 @@ def get_table_template(request, plant_name, journal_name, table_name):
     return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
 
 
-# @cached_as(Plant, Journal, Shift)
+# @process_json_view(auth_required=False)
+def get_menu_info(request):
+    verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
+    return {
+        'plants': [
+            {
+                'name': plant.name,
+                'verbose_name': verbose_name[plant.name],
+                'journals': [
+                    {
+                        'name': journal.name,
+                        'verbose_name': journal.verbose_name,
+                        'current_shift_id': get_current_shift(journal).id
+                    }
+                for journal in Journal.objects.filter(plant=plant)
+                ]
+            }
+            for plant in Plant.objects.all()
+        ]
+    }
+
+
+@cached_as(Plant, Journal, Shift)
 @process_json_view(auth_required=False)
 @logged
 def get_shifts(request, plant_name: str, journal_name: str,
@@ -135,7 +157,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
                to_date=timezone.now().date()):
     """Creates shifts for speficied period of time"""
 
-    def shift_event(request, shift, is_owned):
+    def shift_event(shift, is_owned):
         return {
             'title': '{} смена'.format(shift.order),
             'start': shift.start_time,
@@ -144,16 +166,16 @@ def get_shifts(request, plant_name: str, journal_name: str,
         }
 
     result = []
+    user = request.user
     plant = Plant.objects.get(name=plant_name)
     journal = Journal.objects.get(plant=plant, name=journal_name)
-    employee = request.user.employee
+    employee = user.employee
     owned_shifts = employee.owned_shifts.all()
 
     if journal.type == 'shift':
         shifts = Shift.objects.select_related('journal', 'journal__plant').\
             filter(date__range=[from_date, to_date + timedelta(days=1)], journal__name=journal_name,
                    journal__plant__name=plant_name)
-
         shifts_dict = defaultdict(list)
 
         for shift in shifts:
@@ -162,7 +184,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
         for shifts in shifts_dict.values():
             for shift in shifts:
                 is_owned = shift in owned_shifts
-                result.append(shift_event(request, shift, is_owned))
+                result.append(shift_event(shift, is_owned))
 
         result.append(shifts_dict.keys())
 

@@ -15,17 +15,7 @@
     </div>
   </transition>
 </template>
-<!--
-usage example:
-...
-import modal from './components/Modal.vue'
-...
-in template:
- <modal v-if="showModal" @close="showModal = false" >
-      <some compontns :some-properties />
- </modal>
 
-!-->
 <script>
 export default {
     name: 'modal',

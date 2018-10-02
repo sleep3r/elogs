@@ -1,0 +1,191 @@
+/*------------------------------------*\
+  # LAYOUT
+\*------------------------------------*/
+
+/**
+* elogs-container
+*   header
+*   main-container
+*     column-left
+*       menu
+*     column-content
+*       journal-page
+*         journal-panel
+*         journal-tables
+*   footer
+*/
+
+@import "variables";
+
+/*layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.elogs-container {}
+
+/*layout tables */
+.journal-page {
+    display: flex;
+    align-content: stretch;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.journal__panel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.journal-tables {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .content {
+        width: 100%;
+        .elog-table-container {
+            overflow-x: auto;
+        }
+    }
+}
+
+.triangle {
+    display: block;
+    width: 0;
+    height: 0;
+    border-right: 10px solid blue;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.elogs-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    background-color: $color-header;
+    transition: 0.2s;
+    z-index: 100;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.column-left {
+    position: fixed;
+    top: 50px;
+    min-width: $width-left-menu;
+    width: $width-left-menu;
+    margin: 0;
+    align-self: flex-start;
+    transition: 0.2s;
+    z-index: 1000;
+}
+
+.column-content {
+    margin-left: 230px;
+    padding-left: 10px;
+    padding-top: 50px;
+    width: calc(100% - 230px);
+}
+
+.main-container {
+    background-color: $color-bg1;
+}
+
+.column-left {
+    background-color: $color-bg1;
+    padding-left: 0;
+}
+
+.column-content {
+    background-color: $color-content;
+}
+
+
+
+
+
+/*------------------------------------*\
+  # HEADER
+\*------------------------------------*/
+.header {
+    color: white;
+    vertical-align: middle;
+}
+
+.header > div {
+    margin-right: 20px;
+}
+
+.header__logo {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.header__title {
+    margin-left: $width-left-menu - 50;
+}
+
+.header__user {
+    margin-left: auto;
+}
+
+.header__user > i, span {
+    margin-right: 10px;
+}
+
+.header.sticky {
+    //top: 0;
+    transform: translate3d(0, 0%, 0);
+}
+
+.header.hidden {
+    //top: -50px;
+    transform: translate3d(0, -100%, 0);
+}
+
+
+
+
+/*------------------------------------*\
+  # FOOTER
+\*------------------------------------*/
+footer {
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.dev-message-button {
+    i.fab {
+        font-size: 16px;
+    }
+}
+
+
+@import "user-menu";
+@import "menu.scss";
+@import "journal.scss";
+@import "tables.scss";
+@import "values";

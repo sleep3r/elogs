@@ -20,12 +20,14 @@ class ColorsFormatter(logging.Formatter):
         return style
 
     def format(self, record):
+        # return ""
         message = logging.Formatter.format(self, record)
         if sys.version_info[0] < 3:
             message = message.encode('utf-8', errors='coerce')
-        colorizer = getattr(self.style, record.levelname, self.style.HTTP_SUCCESS)
+        # colorizer = getattr(self.style, record.levelname, self.style.HTTP_SUCCESS)
         # message = colorizer(message)
         return message
+
 
 
 class MkdirTimedRotatingFileHandler(TimedRotatingFileHandler):

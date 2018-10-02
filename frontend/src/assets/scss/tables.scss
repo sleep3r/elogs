@@ -1,0 +1,215 @@
+/*------------------------------------*\
+  # TABLES
+\*------------------------------------*/
+@import "variables";
+
+input[hidden] {
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.table {
+    padding: 0;
+    border-spacing: 1px;
+    border: 1px solid gray;
+    margin-bottom: 5px;
+    table-layout: fixed;
+
+    td {
+        padding: 0;
+    }
+}
+
+.table__title {
+    line-height: 40px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    background-color: $color-bg1;
+    font: {
+        family: $roboto-font;
+        size: 24px;
+    };
+}
+
+input[class$="-cell"] {
+    border: none;
+    min-width: 0;
+    line-height: 1.42857143 !important;
+    height: 100%;
+    min-height: 30px;
+    word-break: break-word;
+}
+
+input[class$="-cell"]:focus {
+    outline: 2px solid $color-main;
+}
+
+.number-cell {
+    text-align: right;
+    font-size: 10px;
+    border-collapse: collapse;
+}
+
+.string-cell {
+    text-align: left;
+    font-size: 11px;
+    color: grey;
+    width: 200px;
+    overflow: hidden;
+}
+
+h2.table-title {
+    font: {
+        family: Roboto, sans-serif;
+    }
+}
+
+.elog-journal-table { // the table itself
+    table-layout: auto !important; // test fixed layout
+    width: 100%;
+    margin-bottom: 40px;
+
+    font: {
+        family: 'Roboto Condensed', sans-serif;
+        weight: 300;
+        style: normal;
+    }
+
+    border: {
+        collapse: collapse !important;
+    }
+
+    tr:nth-child(even) {
+        background-color: $tr-even-background;
+    }
+
+    td, th {
+        border: 1px solid $table-borders !important;
+        vertical-align: bottom !important;
+    }
+
+    thead {
+        th {
+            padding: 12px 4px 12px 3px !important;
+            background-color: $base_gray;
+            color: white;
+        }
+    }
+
+    th {
+        font: {
+            family: 'Roboto Condensed', sans-serif;
+            weight: 400;
+        }
+        overflow: hidden; // TODO: seems to need min-width
+        text-overflow: ellipsis;
+        hyphens: auto;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .th-number {
+        text-align: right !important;
+    }
+
+    .th-common { // class for th common for several columns
+        text-align: center !important;
+    }
+    
+    .th-mul-row {
+        vertical-align: middle !important;
+    }
+
+    td {
+        padding: 0 !important; /* to have inputs inside cells*/
+        position: relative;
+    }
+
+    // ------------------------- UNITS SHIT ------------------------
+    .units {
+        white-space: nowrap;
+    }
+
+    .units:not(.no-before)::before {
+        content: ", "; // Comma before units
+        white-space: pre-line;
+    }
+
+    // -------------------------- COMMENTS BUTTON --------------------
+
+    // Indicator on comments button, overrides bootstrap
+    .table-comment-button {
+        .badge {
+            color: white;
+            background-color: $base-blue;
+        }
+
+        :hover {
+            text-decoration: underline
+        }
+
+        :active {
+            color: $accent-green;
+        }
+    }
+}
+
+.non-wrapping-table {
+    border-collapse: collapse;
+    border-top: none;
+}
+
+
+
+
+
+/*------------------------------------*\
+  # INSIDE TABLES
+\*------------------------------------*/
+// classname applied twice for higher specificity and priority
+.removeleftborder.removeleftborder {
+    border-left: none !important;
+}
+
+.removetopborder.removetopborder {
+    border-top: none !important;
+}
+
+.removerightborder.removerightborder {
+    border-right: none !important;
+}
+
+.removebottomborder.removebottomborder {
+    border-bottom: none !important;
+}
+
+.insidetable {
+    height: 100%;
+    margin: 0 !important;
+    border: none;
+}
+
+.insidetable tr > td:first-child,
+.insidetable tr > th:first-child {
+    border-left: none !important;
+}
+
+.insidetable tr > td:last-child,
+.insidetable tr > th:last-child {
+    border-right: none !important;
+}
+
+.insidetable tr:first-child > td,
+.insidetable tr:first-child > th {
+    border-top: none !important;
+}
+
+.insidetable tr:last-child > td,
+.insidetable tr:last-child > th
+{
+    border-bottom: none !important;
+}
+
+@import "comment";

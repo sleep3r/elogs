@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm.js'
 import App from './Furnace.vue'
 
 import VModal from 'vue-js-modal'

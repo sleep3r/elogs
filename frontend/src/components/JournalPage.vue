@@ -1,0 +1,54 @@
+<template>
+    <main class="journal-page" data-mode="?? page_mode ??">
+        <journal-panel></journal-panel>
+        <article class="journal-tables">
+            <template v-if="$store.getters['journalState/loaded']">
+                <tablecommon v-for="table in $store.getters['journalState/tables']" :name="table" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
+            </template>
+            <template v-else >
+                <span>Нет данных</span>
+            </template>
+        </article>
+    </main>
+</template>
+
+<script>
+import TableCommon from './TableCommon.vue';
+import JournalPanel from './JournalPanel.vue';
+
+export default {
+    name: "JournalPage",
+    components: {
+        'tablecommon': TableCommon,
+        'journal-panel': JournalPanel
+    },
+    updated () {
+    },
+    mounted () {
+        console.log('mounted')
+        this.$connect();
+
+        if (this.$route.params.shift_id) {
+            this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
+                .then((id) => {
+                    this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
+                    this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+                })
+        }
+        else if (this.$route.params.plant && this.$route.params.journal) {
+            this.$store.dispatch('journalState/loadJournal', {
+              'plantName': this.$route.params.plant,
+              'journalName': this.$route.params.journal
+            })
+                .then((id) => {
+                    this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
+                    this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+                })
+        }
+    }
+}
+</script>
+
+<style scoped>
+
+</style>
