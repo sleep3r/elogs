@@ -89,7 +89,7 @@ export default {
             }
         },
         mode() {
-            return this.$store.state.journalInfo.mode;
+            return this.$store.state.journalState.journalInfo.mode;
         },
     },
     methods: {

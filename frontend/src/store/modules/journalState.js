@@ -254,7 +254,7 @@ const journalState = {
                 if (payload.comment) {
                     if (payload.index in cells) {
                         // update cell
-                        cells[payload.index]['comment'] = payload.comment;
+                        Vue.set(cells[payload.index], 'comment', payload.comment);
                     }
                     else {
                         // create cell
@@ -294,8 +294,9 @@ const journalState = {
     },
     actions: {
         loadJournal: function ({ commit, state, getters }, payload) {
+            let id = payload['id'] ? payload['id'] : ''
             return axios
-                .get('http://localhost:8000/api/shifts/', {
+                .get('http://localhost:8000/api/shifts/' + id, {
                     withCredentials: true,
                     params: {
                         'plantName': payload['plantName'],

@@ -30,10 +30,15 @@ Vue.use(VueNativeSock, dataEndpoint, {
 
             if (plant && journal) {
                 setTimeout(() => {
-                    this.store.dispatch('journalState/loadJournal', {
-                      'plantName': plant,
-                      'journalName': journal
-                    })
+                    if (window.mv.$route.params.shift_id) {
+                      this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
+                    }
+                    else if (plant && journal) {
+                        this.store.dispatch('journalState/loadJournal', {
+                          'plantName': plant,
+                          'journalName': journal
+                        })
+                    }
                 }, 2000)
         }
         }
