@@ -32,12 +32,23 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('push', function(event) {
-  let message = JSON.parse(event.data.text()); //
-  event.waitUntil(
-    self.registration.showNotification(message.title, {
-      body: message.body,
-    })
-  );
+    let notificationData = {};
+
+    try {
+        notificationData = event.data.json();
+    } catch (e) {
+        notificationData = {
+            title: 'Default title',
+            body: 'Default message'
+        };
+    }
+
+    event.waitUntil(
+        self.registration.showNotification(notificationData.title, {
+            body: notificationData.body,
+            icon: notificationData.icon
+        })
+    );
 });
 
 self.addEventListener('fetch', function(event) {
