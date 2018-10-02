@@ -15,13 +15,13 @@
     </thead>
     <tbody>
         <tr v-for="(value, index) in 5">
-            <td><cell field-name="time" row-index="index"></cell></td>
-            <td><cell field-name="Cd" row-index="index"></cell></td>
-            <td><cell field-name="Cu" row-index="index"></cell></td>
+            <td><cell field-name="time" :row-index="index"></cell></td>
+            <td><cell field-name="Cd" :row-index="index"></cell></td>
+            <td><cell field-name="Cu" :row-index="index"></cell></td>
         </tr>
         <tr>
             <th>ВИУ</th>
-            <td><cell field_name="VIU1" index="5"></cell></td>
+            <td><cell field-name="VIU1" :row-index="5"></cell></td>
         </tr>
     </tbody>
 </table>
@@ -35,13 +35,13 @@
     </thead>
     <tbody>
         <tr v-for="(value, index) in 5">
-            <td><cell field-name="time" row-index="index"></cell></td>
-            <td><cell field-name="Cd" row-index="index"></cell></td>
-            <td><cell field-name="Cu" row-index="index"></cell></td>
+            <td><cell field-name="time" :row-index="index"></cell></td>
+            <td><cell field-name="Cd" :row-index="index"></cell></td>
+            <td><cell field-name="Cu" :row-index="index"></cell></td>
         </tr>
         <tr>
             <th>ВИУ</th>
-            <td><cell field_name="VIU1" index="5"></cell></td>
+            <td><cell field-name="VIU1" :row-index="5"></cell></td>
         </tr>
     </tbody>
 </table>
