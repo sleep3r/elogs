@@ -65,8 +65,8 @@ class MessagesSubscription(LoginRequiredMixin, View):
     def post(self, request):
         sub_info = json.loads(request.body)
         if sub_info:
-            UserSubscription.objects.create(user=request['user'].employee,
-                                            subscription=sub_info)
+            UserSubscription.objects.create(user=request.user.employee,
+                                            subscription=json.dumps(sub_info))
             return JsonResponse({"status":1})
         else:
             return JsonResponse({"status":0})
@@ -77,8 +77,9 @@ def push_notification(user_id):
         data = json.dumps({
         'title': 'Hello',
         'body': 'World!',
-    })
+        })
         try:
+            print(subscription.subscription)
             webpush(
                 subscription_info=json.loads(subscription.subscription),
                 data=data,
