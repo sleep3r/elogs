@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
 
 from e_logs.common.messages_app import views
 from e_logs.common.messages_app.views import MessagesSubscription
@@ -8,5 +9,5 @@ urlpatterns = [
     path('get/', views.msg_view, name='messages_get'),
     path('read/', views.msg_view, name='messages_read'),
     path('list/', views.MessagesList.as_view(), name='messages_list'),
-    path('subscribe/', MessagesSubscription.as_view(), name='messages_sub'),
+    path('subscribe/', csrf_exempt(MessagesSubscription.as_view()), name='messages_sub'),
 ]
