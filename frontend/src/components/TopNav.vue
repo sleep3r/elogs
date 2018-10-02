@@ -3,8 +3,8 @@
         <div class="header__logo" @click.prevent="$router.push('/')"><i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
         </div>
         <div class="header__title">
-            <span class="journal_title">{{$store.getters['journalState/plantName']}}</span>
-            <template v-if="$route.params.journal">
+            <span class="journal_title" v-if="$route.name !== 'modesPage'">{{$store.getters['journalState/plantName']}}</span>
+            <template v-if="$route.params.journal && $route.name !== 'modesPage'">
                 <i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color:red"> Синхронизация...</i>
                 <i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color:springgreen"> Синхронизировано</i>
             </template>
@@ -20,6 +20,12 @@
                         <a href="" @click.prevent="onSettingsClick">
                             <i class="fas fa-cogs"></i>
                             <span class="caption">Настройки</span>
+                        </a>
+                    </li>
+                    <li class="user-menu__item">
+                        <a href="" @click.prevent="onModesClick">
+                            <i class="fas fa-sliders-h"></i>
+                            <span class="caption">Режимы</span>
                         </a>
                     </li>
                     <li class="user-menu__item">
@@ -77,6 +83,10 @@
             },
             onMessagesClick() {
                 this.$router.push('/messages')
+                this.onUsernameClick()
+            },
+            onModesClick() {
+                this.$router.push('/modes')
                 this.onUsernameClick()
             }
         }

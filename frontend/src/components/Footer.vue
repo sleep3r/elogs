@@ -8,18 +8,21 @@
         </footer>
         <message-modal></message-modal>
         <scheme-modal></scheme-modal>
+        <add-mode-modal></add-mode-modal>
     </div>
 </template>
 
 <script>
     import MessageModal from './MessageModal.vue';
     import SchemeModal from './SchemeModal.vue';
+    import AddModeModal from './AddModeModal.vue';
 
     export default {
         name: "Footer",
         components: {
             'message-modal': MessageModal,
-            'schemeModal': SchemeModal
+            'schemeModal': SchemeModal,
+            'add-mode-modal': AddModeModal
         }
     }
 </script>
