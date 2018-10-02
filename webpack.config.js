@@ -190,7 +190,8 @@ module.exports = {
         }),
         new HtmlMinifierPlugin({
             // HTMLMinifier options
-        })
+        }),
+        // new OfflinePlugin()
         // new CompressionPlugin(),
         // new webpack.SourceMapDevToolPlugin({
         //     test: '\\.((js)|(scc)|(scss))$',
