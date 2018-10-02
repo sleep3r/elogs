@@ -22,7 +22,7 @@ function subscribeUser(serviceWorkerRegistration) {
     })
         .then(function(subscription) {
 
-            fetch('http://localhost:8000/common/messages/subscribe',{
+            fetch('http://localhost:8000/common/messages/subscribe/',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -32,8 +32,9 @@ function subscribeUser(serviceWorkerRegistration) {
                 .then(function(response) {
                     return response;
                 })
-                .then(function(text) {
-                    console.log('User is subscribed.');
+                .then(function(resp) {
+                    if (resp.status === 200) console.log('User is subscribed.');
+                    else console.log('Error while subscribing user.');
                 })
                 .catch(function(error) {
                     console.error('error fetching subscribe', error);
