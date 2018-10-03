@@ -24,7 +24,7 @@ function subscribeUser(serviceWorkerRegistration) {
         applicationServerKey: urlB64ToUint8Array(appServerKey)
     })
         .then(function(subscription) {
-            axios.post('http://localhost:8000/common/messages/subscribe/', subscription, {
+            axios.post(window.HOSTNAME+'/common/messages/subscribe/', subscription, {
                 withCredentials: true,
                 headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
             })

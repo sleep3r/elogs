@@ -353,7 +353,7 @@ const journalState = {
         loadJournal: function ({ commit, state, getters }, payload) {
             let id = payload['id'] ? payload['id'] : ''
             return axios
-                .get('http://localhost:8000/api/shifts/' + id, {
+                .get(window.HOSTNAME+'/api/shifts/' + id, {
                     withCredentials: true,
                     params: {
                         'plantName': payload['plantName'],
@@ -371,13 +371,13 @@ const journalState = {
         },
         loadPlants: function ({ commit, state, getters }) {
             axios
-                .get('http://localhost:8000/api/menu_info/')
+                .get(window.HOSTNAME+'/api/menu_info/')
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
         },
         loadShifts: function ({commit, state, getters}, payload) {
-            return axios.get('http://localhost:8000/' + payload.plant + '/' + payload.journal +'/get_shifts/',
+            return axios.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/',
                 {
                     withCredentials: true
                 })

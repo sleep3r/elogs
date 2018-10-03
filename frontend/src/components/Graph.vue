@@ -41,7 +41,7 @@ export default {
             }
             console.log(data)
             axios.post(
-                "http://localhost:8000/dashboard/get-graph-data/",
+                window.HOSTNAME+"/dashboard/get-graph-data/",
                 data,
                 {withCredentials: true}
              )

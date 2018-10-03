@@ -101,7 +101,7 @@ export default {
     },
     addToDashboard() {
         axios.post(
-            "http://localhost:8000/dashboard/add-graph",
+            window.HOSTNAME+"/dashboard/add-graph",
             {
                 'cell_info': {
                     'journal_name': this.$store.state.journalState.journalInfo.journal.name,
