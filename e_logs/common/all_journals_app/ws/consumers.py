@@ -72,12 +72,9 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def update_cell(self, cell, value):
-        if value != '':
-            cell.responsible = self.scope['user'].employee
-            cell.value = value
-            cell.save()
-        else:
-            cell.delete()
+        cell.responsible = self.scope['user'].employee
+        cell.value = value
+        cell.save()
 
     @database_sync_to_async
     def add_shift_resonsible(self, shift_id):

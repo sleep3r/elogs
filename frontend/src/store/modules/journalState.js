@@ -155,7 +155,10 @@ const journalState = {
                 for(let field in fields) {
                     for (let index in fields[field].cells) {
                         index = parseInt(index);
-                        max = max < index ? index : max;
+                        // find only non empty cells
+                        if (fields[field].cells[index].value) {
+                            max = (max < index) ? index : max;
+                        }
                     }
                 }
                 return max+1;
@@ -283,12 +286,12 @@ const journalState = {
                         let cells = fields[field]['cells']
                         for (let i=0; i<=payload.maxRowIndex; i++) {
                             if (i == payload.index) {
-                                Vue.delete(cells, i);
+                                Vue.set(cells, i, {'value': ''});
                             }
                             if (i > payload.index) {
                                 if (cells[i]) {
                                     Vue.set(cells, i-1, cells[i]);
-                                    Vue.delete(cells, i);
+                                    Vue.set(cells, i, {'value': ''});
                                 }
                             }
                         }
@@ -306,11 +309,11 @@ const journalState = {
                             if (i >= payload.index) {
                                 if (cells[i]) {
                                     Vue.set(cells, i+1, cells[i]);
-                                    Vue.delete(cells, i)
+                                    Vue.set(cells, i, {'value': ''})
                                 }
                             }
                             if (i == payload.index) {
-                                Vue.set(cells, i, '')
+                                Vue.set(cells, i, {'value': ''})
                             }
                         }
                     }
@@ -325,7 +328,7 @@ const journalState = {
                         let cells = fields[field]['cells']
                         for (let i=payload.maxRowIndex; i>=0; i--) {
                             if (i == payload.index) {
-                                Vue.set(cells, i, '')
+                                Vue.set(cells, i, {'value': ''})
                             }
                         }
                     }
@@ -353,6 +356,32 @@ const journalState = {
         },
     },
     actions: {
+        sendJournalData: function ({ commit, state, getters }, payload) {
+            // send all journal cells
+            let data = {
+                'type': 'shift_data',
+                'cells': []
+            }
+            let tables = state.journalInfo.journal.tables
+            for (let table in tables) {
+                let fields = tables[table].fields
+                    for (let field in fields) {
+                        let cells = fields[field].cells
+                        for (let index in cells) {
+                            data.cells.push({
+                                'cell_location': {
+                                    'group_id': getters.journalInfo.id,
+                                    'table_name': table,
+                                    'field_name': field,
+                                    'index': index
+                                },
+                                'value': cells[index].value
+                            })
+                        }
+                    }
+            }
+            window.mv.$socket.sendObj(data)
+        },
         loadJournal: function ({ commit, state, getters }, payload) {
             let id = payload['id'] ? payload['id'] : ''
             return axios

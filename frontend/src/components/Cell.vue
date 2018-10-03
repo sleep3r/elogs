@@ -123,13 +123,15 @@
             deleteRow() {
                 console.log('delete row')
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
-                // this.$store.dispatch('')
+                this.$store.dispatch('journalState/sendJournalData');
             },
             addRow() {
                 this.$store.commit('journalState/INSERT_EMPTY_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$store.dispatch('journalState/sendJournalData');
             },
             flushRow() {
                 this.$store.commit('journalState/FLUSH_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$store.dispatch('journalState/sendJournalData');
             },
             setPickersListeners () {
                 if (this.type === 'time') {
