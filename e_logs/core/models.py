@@ -48,7 +48,8 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     Arbitrary setting for Field/Journal/Table/Plant,
     or any model related to them
     """
-    name = models.CharField(max_length=128, verbose_name='Название')
+    name = models.CharField(max_length=128, verbose_name='Имя')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название')
     value = models.BinaryField(max_length=4096, verbose_name='Значение')
     employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
 
