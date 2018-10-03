@@ -27,6 +27,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.routing.application'
 
 SECRET_KEY = env('SECRET_KEY')
+NOTIFICATION_KEY = env('NOTIFICATION_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("HOSTNAME")]
 FEEDBACK_TG_BOT = {

@@ -19,23 +19,32 @@ Vue.use(VueNativeSock, dataEndpoint, {
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
 
-            unsyncCells.map(item => {
+            unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
 
-            this.store.commit('journalState/SET_SYNCHRONIZED', true)
+            // let plant = mv.$route.params.plant
+            // let journal = mv.$route.params.journal
 
-            let plant = mv.$route.params.plant
-            let journal = mv.$route.params.journal
-
-            if (plant && journal) {
-                setTimeout(() => {
-                    this.store.dispatch('journalState/loadJournal', {
-                      'plantName': plant,
-                      'journalName': journal
-                    })
-                }, 2000)
-        }
+            // if (plant && journal) {
+            //     setTimeout(() => {
+            //         if (window.mv.$route.params.shift_id) {
+            //           this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
+            //               .then(() => {
+            //                   this.store.commit('journalState/SET_SYNCHRONIZED', true)
+            //               })
+            //         }
+            //         else if (plant && journal) {
+            //             this.store.dispatch('journalState/loadJournal', {
+            //               'plantName': plant,
+            //               'journalName': journal
+            //             })
+            //                 .then(() => {
+            //                     this.store.commit('journalState/SET_SYNCHRONIZED', true)
+            //                 })
+            //         }
+            //     }, unsyncCells.length * 100)
+            // }
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);

@@ -18,7 +18,7 @@ django-cacheops = "==4.1"
 django-pickling = "==1.0"
 django-redis = "==4.9.0"
 lz4 = "==2.1.0"
-Django = "==2.1.1"
+Django = "==2.1.2"
 channels_redis = "==2.3.0"
 pyOpenSSL = "*"
 service-identity = "*"
@@ -45,6 +45,7 @@ whitenoise = { extras = [ "brotli",] }
 django-cors-headers = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
+pywebpush = "*"
 
 [dev-packages]
 icecream = "*"
@@ -68,6 +69,8 @@ flake8 = "*"
 coverage = "*"
 django-coverage-plugin = "*"
 django-debug-toolbar = "*"
+pygraphviz = "*"
+pydotplus = "*"
 
 [requires]
 python_version = "3.6"

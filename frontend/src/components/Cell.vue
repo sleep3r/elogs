@@ -17,7 +17,13 @@
                 :style="{ color: activeColor }"
                 :type="type"
                 v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
+                @contextmenu.prevent="$refs.menu.open"
         >
+        <template>
+            <datalist>
+                <option v-for="item in personsList" :value="item"></option>
+            </datalist>
+        </template>
         <i
                 v-if="$store.getters['journalState/cellComment'](tableName, fieldName, rowIndex)"
                 class="far fa-envelope comment-notification"></i>
@@ -27,19 +33,31 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
+
+        <!-- Menu to create, delete and flush a row -->
+        <vue-context ref="menu">
+            <ul>
+                <li @click="deleteRow()">Удалить строку</li>
+                <li @click="addRow()">Добавить строку</li>
+                <li @click="flushRow()">Очистить строку</li>
+            </ul>
+        </vue-context>
     </v-popover>
 </template>
 
 <script>
     import Vue from 'vue/dist/vue.esm.js'
     import axios from 'axios'
+    import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
+    import { VueContext } from 'vue-context';
     import 'clockpicker/dist/bootstrap-clockpicker.min'
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
     Vue.component('v-popover', VPopover);
+    Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
 
 
@@ -57,7 +75,8 @@
                 maxValue: null,
                 type: null,
                 placeholder: '',
-                showCellTypeTooltip: false
+                showCellTypeTooltip: false,
+                personsList: null,
             }
         },
         watch: {
@@ -101,6 +120,19 @@
             },
         },
         methods: {
+            deleteRow() {
+                console.log('delete row')
+                this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$root.$emit('send');
+            },
+            addRow() {
+                this.$store.commit('journalState/INSERT_EMPTY_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$root.$emit('send');
+            },
+            flushRow() {
+                this.$store.commit('journalState/FLUSH_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$root.$emit('send');
+            },
             setPickersListeners () {
                 if (this.type === 'time') {
                     if (this.mode === 'edit') {
@@ -131,6 +163,20 @@
                         $(this.$el).find('input').datepicker('destroy')
                     }
                 }
+
+                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                    let currentId = shortid.generate()
+                    $(this.$el).find('input').attr('list', currentId)
+                    $(this.$el).find('datalist').attr('id', currentId)
+                }
+            },
+            getPersons(name) {
+                return axios.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
+                    withCredentials: true
+                })
+                    .catch(err => {
+                        console.log(err)
+                    })
             },
             send() {
                 this.$socket.sendObj({
@@ -146,6 +192,86 @@
             },
             onInput(e) {
                 this.value = e.target.value;
+                if (this.value) {
+                    this.getPersons(e.target.value)
+                        .then((resp) => {
+                            let data = ["Эльдар Бауржанов",
+                                "Артем Малиновский",
+                                "Нуржан Бодаев",
+                                "Аслан Сырымбаев",
+                                "Руслан Молдабеков",
+                                "Ернат Тусупжанов",
+                                "Досхан Сулейменов",
+                                "Тимур Жумабаев",
+                                "Акжан Жарылгасинов",
+                                "Бердибек Алканов",
+                                "Сергей Макагонов",
+                                "Баглан Калиакперов",
+                                "Жарас Мамырбеков",
+                                "Даурен Ибраев",
+                                "Руслан Едильбаев",
+                                "Мухамед Шаймарданов",
+                                "Нурбек Касымханов",
+                                "Виталий Иконников",
+                                "Елдар Жумагазы",
+                                "Бекжан Габбасов",
+                                "Дастан Ерланулы",
+                                "Жандос Тугылбаев",
+                                "Куандык Онгарбаев",
+                                "Владислав Кримых",
+                                "Аябек Кенжалы",
+                                "Багдат Халелханов",
+                                "Даурен Колнакпаев",
+                                "Александр Богомазов",
+                                "Станислав Чернозипунников",
+                                "Артем Яковлев",
+                                "Владимир Беляев",
+                                "Алмаз Етекбаев",
+                                "Марат Мусабалин",
+                                "Антон Фарафонов",
+                                "Сергей Михайлевич",
+                                "Александр Шперлинг",
+                                "Болат Акпаев",
+                                "Ерлан Ахметкалиев",
+                                "Ринат Баянбаев",
+                                "Мурат Бердыкенов",
+                                "Адылкан Данияров",
+                                "Константин Козкин",
+                                "Тимур Куандыков",
+                                "Жандос Курманов",
+                                "Акзам Мукитов",
+                                "Ермат Муликов",
+                                "Ерболат Назаров",
+                                "Владимир Панасенко",
+                                "Сергей Панасюк",
+                                "Анатолий Сыздыков",
+                                "Бауржан Тажибаев",
+                                "Серикхан Тлеубердинов",
+                                "Василий Чупин",
+                                "Сымбат Ажибаев",
+                                "Андрей Будкеев",
+                                "Шарип Башиков",
+                                "Малик Коянбаев",
+                                "Дарын Нургалиев",
+                                "Нуржан Шоманов",
+                                "Александр Шульженко",
+                                "Александр Русланов",
+                                "Болаткан Есентаев",
+                                "Ерикжан Серикбеков",
+                                "Рауан Тиленбаев",
+                                "Нуржан Бакытбеков",
+                                "Дархан Баймурзин",
+                                "Сержан Байзаганов",
+                                "Эрикс Лацис",
+                                "Берік Тюлеубай",
+                                "Артем Иванов",
+                                "Мукажан Куркумбаев",
+                                "Шалкар Шаукенов"]
+                            this.personsList = data
+                        })
+                }
+                else this.personsList = null
+
                 this.send();
             },
             onChanged() {
@@ -193,26 +319,31 @@
                 let tr = focusedTd.parentElement;
                 let rowIndex = getIndex(tr.children, focusedTd);
 
+
                 switch (e.key) {
                     case 'ArrowUp':
+                        event.preventDefault();
                         let prevTr = tr.previousElementSibling;
                         if (prevTr) {
                             getTd(prevTr.children, rowIndex).children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowDown':
+                        event.preventDefault();
                         let nextTr = tr.nextElementSibling;
                         if (nextTr) {
                             getTd(nextTr.children, rowIndex).children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowLeft':
+                        event.preventDefault();
                         let prevTd = focusedTd.previousElementSibling;
                         if (prevTd) {
                             prevTd.children[0].children[0].children[0].select();
                         }
                         break;
                     case 'ArrowRight':
+                        event.preventDefault();
                         let nextTd = focusedTd.nextElementSibling;
                         if (nextTd) {
                             nextTd.children[0].children[0].children[0].select();
@@ -228,6 +359,10 @@
             this.minValue = desc['min_normal'] || null;
             this.maxValue = desc['max_normal'] || null;
             this.type = desc['type'] || 'text';
+
+            this.$root.$on('send', () => {
+                this.send();
+            })
 
             if (this.linked) {
                 // auto fill cell

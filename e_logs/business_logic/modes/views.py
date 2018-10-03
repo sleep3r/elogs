@@ -50,7 +50,7 @@ class ModeApi(LoginRequiredMixin, View):
                         "max_normal": constraint.max_normal
                         } for constraint in FieldConstraints.objects.filter(mode=mode)]
 
-            } for mode in Mode.objects.all().order_by('is_active')]
+            } for mode in Mode.objects.all()]
 
         return JsonResponse(res, safe=False)
 

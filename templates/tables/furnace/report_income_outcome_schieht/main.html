@@ -1,39 +1,750 @@
-<div class="table__title">Поступление, расходы и остатки Zn концентратов</div>
 <ul class="nav nav-tabs">
-    <li v-for="(name, month) in data.months" class="nav-item">
-        <a class="nav-link active"
-           data-toggle="tab"
-           :href="`#${month}-table`">{{ name }}
-        </a>
-    </li>
-    <li>
-        <toggle-button style="font-size: 12px"
-            v-model="data.fact"
-            :color="{checked: '#90c743', unchecked: '#458bb9'}"
-            :width="90"
-            :height="37"
-            :labels="{checked: 'ФАКТ', unchecked: 'ПЛАН'}">
-        </toggle-button>
-    </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#January_table">Январь</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#February_table">Февраль</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#March_table">Март</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#April_table">Апрель</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#May_table">Май</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#June_table">Июнь</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#July_table">Июль</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#August_table">Август</a>
+        </li>
+
+        <li class="active">
+            <a aria-selected="true" data-toggle="tab" href="#September_table">Сентябрь</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#October_table">Октябрь</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#November_table">Ноябрь</a>
+        </li>
+
+        <li class="">
+            <a aria-selected="" data-toggle="tab" href="#December_table">Декабрь</a>
+        </li>
+
 </ul>
-<table class="table table-bordered elog-journal-table">
-    <thead>
-        <tr v-if="data.fact">
-            <th> Конц. смт (по факту)</th>
-            <th> Zn (по факту)</th>
-            <th> Соотношение (по факту)</th>
-        </tr>
-        <tr v-else>
-            <th> Конц. смт (по плану)</th>
-            <th> Zn (по плану)</th>
-            <th> Соотношение (по плану)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr v-for="(value, index) in rowsCount" >
-            <td><cell field-name="concentrate__" :row-index="index"></cell></td>
-            <td><cell field-name="zn__" :row-index="index"></cell></td>
-            <td><cell field-name="ratio__" :row-index="index"></cell></td>
-        </tr>
-    </tbody>
-</table>
+<div class="tab-content">
+
+        <div class="tab-pane fade " id="January_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__January" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__January" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__January" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__January" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__January" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__January" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="February_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__February" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__February" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__February" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__February" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__February" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__February" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="March_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__March" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__March" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__March" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__March" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__March" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__March" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="April_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__April" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__April" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__April" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__April" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__April" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__April" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="May_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__May" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__May" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__May" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__May" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__May" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__May" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="June_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__June" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__June" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__June" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__June" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__June" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__June" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="July_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__July" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__July" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__July" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__July" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__July" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__July" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="August_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__August" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__August" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__August" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__August" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__August" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__August" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade active in" id="September_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__September" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__September" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__September" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__September" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__September" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__September" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="October_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__October" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__October" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__October" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__October" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__October" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__October" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="November_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__November" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__November" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__November" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__November" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__November" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__November" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+        <div class="tab-pane fade " id="December_table">
+
+                <div style="width: 50%; float:left">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по плану) </th>
+                                <th> Zn  (по плану) </th>
+                                <th> Соотношение  (по плану) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__plan__December" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__plan__December" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__plan__December" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                <div style="width: 50%; float:right">
+                    <input class="index-input" hidden="" name="index" value="0"><table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Конц. смт  (по факту) </th>
+                                <th> Zn  (по факту) </th>
+                                <th> Соотношение  (по факту) </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr v-for="(value, index) in rowsCount">
+
+                                <td><cell field-name="concentrate__fact__December" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="zn__fact__December" :row-index="index"></cell>
+</td>
+                                <td><cell field-name="ratio__fact__December" :row-index="index"></cell>
+</td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    </div>
+
+        </div>
+
+</div>
