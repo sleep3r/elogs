@@ -39,7 +39,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control" v-model="item['max_normal']" placeholder="Макс. значение">
                                     </div>
-                                    <div class="delete-icon" @click="onDeleteField(index)"><i class="fas fa-minus"></i></div>
+                                    <div class="delete-icon" @click="onDeleteField(index)"><i class="fas fa-times"></i></div>
                                 </div>
                             </template>
                         </div>

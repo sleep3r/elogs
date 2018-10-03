@@ -26,6 +26,43 @@ const modesState = {
         },
         UPDATE_CURRENT_MODE (state, mode) {
             state.currentMode = mode
+        },
+        CHANGE_CELL_VALUE (state, cellData) {
+            let currentMode = JSON.parse(JSON.stringify(state.currentMode))
+            currentMode.fields = currentMode.fields.map(item => {
+                if (item['table_name'] === cellData.tableName && item['name'] === cellData.name) {
+                    item[cellData.dataType] = +cellData.value
+                    return item
+                }
+                else return item
+            })
+
+            state.currentMode = currentMode
+        },
+        DELETE_CELL (state, cellData) {
+            let currentMode = JSON.parse(JSON.stringify(state.currentMode))
+            currentMode.fields = currentMode.fields.filter(item => {
+                if (item['table_name'] === cellData.tableName && item['name'] === cellData.name) {
+                    return null
+                }
+                else return item
+            })
+
+            state.currentMode = currentMode
+        },
+        ADD_NEW_CELL (state, cellData) {
+            let currentMode = JSON.parse(JSON.stringify(state.currentMode))
+            currentMode.fields.push({
+                'table_name': cellData.tableName,
+                'name': cellData.name,
+                'min_normal': '',
+                'max_normal': ''
+            })
+
+            state.currentMode = currentMode
+        },
+        CANCEL_MODE (state, modeId) {
+            state.currentMode = state.modes.filter(item => item.id == modeId)[0]
         }
     },
     actions: {

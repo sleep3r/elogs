@@ -37,8 +37,8 @@ class Mode(models.Model):
 
 
 class FieldConstraints(models.Model):
-    min_normal = models.IntegerField()
-    max_normal = models.IntegerField()
+    min_normal = models.IntegerField(default=0)
+    max_normal = models.IntegerField(default=1000)
     field = models.ForeignKey('all_journals_app.Field', on_delete=models.CASCADE)
     mode = models.ForeignKey(Mode, on_delete=models.CASCADE)
 

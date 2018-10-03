@@ -1,9 +1,11 @@
+import json
 import pickle
 from urllib.parse import parse_qs
 
 from cacheops import cached_as
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Prefetch
 from django.forms import model_to_dict
@@ -90,12 +92,10 @@ class ShiftAPI(View):
 
     def cell_serializer(self, qs, table, field):
         cells = qs.group_cells.all()
-
-        res = {
-            cell.index:{
-            "id":cell.id,
-            "value":cell.value if cell.table == table and cell.field == field else ''}
-                    for cell in cells}
+        res = {}
+        for cell in cells:
+            if cell.table == table and cell.field == field:
+                res[cell.index] = {"id":cell.id, "value":cell.value}
 
         return res
 
@@ -143,15 +143,37 @@ class SettingsAPI(View):
         qs = Setting.objects.select_related('employee').prefetch_related('scope')
 
         return JsonResponse({
-            "user_settings": [{"name":s.name,
+            "user_settings": [{"id":s.id,
+                               "name":s.name,
+                               "verbose_name":s.verbose_name,
                                "value":pickle.loads(s.value),
+                               "content_type":ContentType.objects.get_for_model(s.scope).id,
                                "scope":model_to_dict(s.scope)} for s in qs.filter(employee=user)],
 
-            "settings":[{"name":s.name,
+            "settings":[{"id": s.id,
+                         "name":s.name,
+                         "verbose_name": s.verbose_name,
                          "value":pickle.loads(s.value),
+                         "content_type": ContentType.objects.get_for_model(s.scope).id,
                          "scope":model_to_dict(s.scope)} for s in qs],
         })
 
+    def post(self, request):
+        setting_data = json.loads(request.body)
+        Setting.objects.create(
+            value=Setting._dumps(setting_data['value']),
+            name=setting_data['name'],
+            employee=request.user.employee,
+            object_id=int(setting_data['scope']['id']) if setting_data.get('scope', None) else None,
+            content_type=ContentType.objects.get(id=int(setting_data['content_type']))
+                if setting_data.get('scope', None) else None)
+
+    def put(self, request):
+        setting_data = json.loads(request.body)
+        setting = Setting.objects.get(id=setting_data['id'])
+        setting.verbose_name = setting_data.get('value', setting.verbose_name)
+        setting.value = setting_data.get('value', setting.value)
+        setting.save()
 
 class TableAPI(View):
     def get(self, request):

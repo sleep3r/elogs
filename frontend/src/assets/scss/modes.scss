@@ -47,7 +47,14 @@
   }
 }
 
-.mode-content__title__mode-btns button, .mode-content__title__mode-edit-btns button {
+.mode-content__title__mode-edit-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+}
+
+.mode-content__title__mode-btns button {
   margin-right: 10px;
 }
 
@@ -83,17 +90,23 @@
   .no-fields-text {
     opacity: 0.6;
   }
+}
 
-  .delete-icon {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    opacity: 0.6;
-    transition: 0.2s;
-    cursor: pointer;
-  }
+.delete-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  opacity: 0.6;
+  transition: 0.2s;
+  cursor: pointer;
+}
 
-  .delete-icon:hover {
-    opacity: 1;
-  }
+td .delete-icon {
+  height: 36px;
+  margin-right: 0;
+}
+
+.delete-icon:hover {
+  opacity: 1;
 }

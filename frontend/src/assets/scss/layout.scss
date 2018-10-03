@@ -172,6 +172,9 @@ body {
   # FOOTER
 \*------------------------------------*/
 footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
     padding: 10px;
     display: flex;
     flex-direction: row-reverse;

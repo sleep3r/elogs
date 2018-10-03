@@ -1,3 +1,6 @@
+import axios from 'axios'
+import VueCookies from "vue-cookies";
+
 const appServerKey = 'BMD5Tv0jLvfZ65LEnMpnx-ZO2B-l9eGevOvaHVlmKe7SHAiP6awavzZhmoTOqYM10ImQgmVjgxhhfKDYnSxNJsQ'
 
 function urlB64ToUint8Array(base64String) {
@@ -21,13 +24,9 @@ function subscribeUser(serviceWorkerRegistration) {
         applicationServerKey: urlB64ToUint8Array(appServerKey)
     })
         .then(function(subscription) {
-
-            fetch('http://localhost:8000/common/messages/subscribe/',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(subscription)
+            axios.post('http://localhost:8000/common/messages/subscribe/', subscription, {
+                withCredentials: true,
+                headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
             })
                 .then(function(response) {
                     return response;
