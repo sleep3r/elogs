@@ -13,6 +13,9 @@
             >
         </div>
         <div class="mode-buttons">
+            <img style="height: 30px; width: 30px;"
+                 :title="employeeFormatted"
+                 src="../assets/images/no-avatar.png">
             <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
                     @click="changeMode('view')">
                 Просмотр
@@ -25,9 +28,6 @@
                     @click="changeMode('validate')">
                 Валидация
             </button>
-            <img style="height: 30px; width: 30px;"
-                 :title="employeeFormatted"
-                 src="../assets/images/no-avatar.png">
         </div>
         <modal v-show="showCalendar" @close="showCalendar = false" >
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />

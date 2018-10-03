@@ -69,7 +69,7 @@ h2.table-title {
 .elog-journal-table { // the table itself
     table-layout: auto !important; // test fixed layout
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 0 !important;
 
     font: {
         family: 'Roboto Condensed', sans-serif;

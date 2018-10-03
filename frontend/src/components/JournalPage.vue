@@ -1,5 +1,5 @@
 <template>
-    <main class="journal-page" data-mode="?? page_mode ??">
+    <main class="journal-page">
         <journal-panel></journal-panel>
         <article class="journal-tables">
             <template v-if="$store.getters['journalState/loaded']">

@@ -44,8 +44,8 @@
             if (!this.template) {
                 return createElement('div', 'Loading...');
             } else {
-                return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
-                        this.template + "<table-comment table-name=\"" + this.name + "\"></table-comment></div>",
+                return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" + $(this.template)[0].outerHTML +
+                        "<div style='overflow-x: auto; margin-bottom: 20px;'>" + $(this.template)[2].outerHTML + "</div>" + "<table-comment table-name=\"" + this.name + "\"></table-comment></div>",
                     name: 'table-' + this.name,
                     data: () => { return {
                         data: this.$data,

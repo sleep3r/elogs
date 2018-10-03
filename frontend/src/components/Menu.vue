@@ -2,7 +2,7 @@
     <div>
         <div class="menu__panel">
             <div class="menu__title">Список цехов</div>
-            <i class="menu__toggle fas fa-bars"></i>
+            <i class="menu__toggle fas fa-bars" @click="toggleMenu"></i>
         </div>
         <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
@@ -68,6 +68,10 @@
                 })
         },
         methods: {
+            toggleMenu () {
+                $('.column-left').toggleClass('menu__hidden')
+                $('.column-content').toggleClass('menu__hidden')
+            },
             onMenuItemClick () {
                 const selectorMenuItem = "li.menu__item";
                 const selectorLink = "a.menu-item__link";
@@ -76,6 +80,8 @@
                 const linkNode = listItem.querySelector(selectorLink);
                 const plantName = linkNode.getAttribute("data-plant-name")
                 const journalName = linkNode.getAttribute("data-journal-name")
+
+                let $menu = $('.menu.menu--left')
 
                 let url = ''
 
@@ -93,6 +99,15 @@
                                 this.$router.push('/' + plantName + '/' + journalName + '/' + id)
                                 this.setActiveItem()
                                 this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+
+                                if ($('#app').outerWidth() < 768) {
+                                    if ($menu.css('display') === 'block') {
+                                        $menu.css('display', 'none')
+                                    }
+                                    else {
+                                        $menu.css('display', 'block')
+                                    }
+                                }
                             })
                     }
                 } else {
