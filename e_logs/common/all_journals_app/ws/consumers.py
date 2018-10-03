@@ -38,6 +38,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         text = event.get('text', None)
         if text is not None:
             data = json.loads(text)
+            # print(data)
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 
@@ -45,12 +46,14 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 await self.messages_receive(data)
 
     async def shift_receive(self, data):
-        cell = await self.get_or_create_cell(data['cell_location'])
-        value = data['value']
-        await self.update_cell(cell, value)
+        for cell_data in data['cells']:
+            print(cell_data)
+            cell = await self.get_or_create_cell(cell_data['cell_location'])
+            value = cell_data['value']
+            await self.update_cell(cell, value)
 
-        if cell.journal.type == 'shift':
-            await self.add_shift_resonsible(shift_id=int(data['cell_location']['group_id']))
+            if cell.journal.type == 'shift':
+                await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
 
         await self.send(json.dumps(data))
 
