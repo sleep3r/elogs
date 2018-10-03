@@ -12,4 +12,5 @@ urlpatterns = [
     path('menu_info/', MenuInfoAPI.as_view()),
     path('settings/', SettingsAPI.as_view()),
     path('autocomplete/', AutocompleteAPI.as_view()),
+    path('cell/', CellAPI.as_view()),
 ]

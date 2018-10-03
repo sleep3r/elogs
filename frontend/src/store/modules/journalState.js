@@ -272,6 +272,63 @@ const journalState = {
                 state.journalInfo.mode = mode
             }
         },
+        DELETE_TABLE_ROW (state, payload) {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+                for (let field in fields) {
+                    if ('cells' in fields[field]) {
+                        let cells = fields[field]['cells']
+                        for (let i=0; i<=payload.maxRowIndex; i++) {
+                            if (i == payload.index) {
+                                Vue.delete(cells, i);
+                            }
+                            if (i > payload.index) {
+                                if (cells[i]) {
+                                    Vue.set(cells, i-1, cells[i]);
+                                    Vue.delete(cells, i);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        INSERT_EMPTY_TABLE_ROW (state, payload) {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+                for (let field in fields) {
+                    if ('cells' in fields[field]) {
+                        let cells = fields[field]['cells']
+                        for (let i=payload.maxRowIndex; i>=0; i--) {
+                            if (i >= payload.index) {
+                                if (cells[i]) {
+                                    Vue.set(cells, i+1, cells[i]);
+                                    Vue.delete(cells, i)
+                                }
+                            }
+                            if (i == payload.index) {
+                                Vue.set(cells, i, '')
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        FLUSH_TABLE_ROW (state, payload) {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[payload.tableName].fields;
+                for (let field in fields) {
+                    if ('cells' in fields[field]) {
+                        let cells = fields[field]['cells']
+                        for (let i=payload.maxRowIndex; i>=0; i--) {
+                            if (i == payload.index) {
+                                Vue.set(cells, i, '')
+                            }
+                        }
+                    }
+                }
+            }
+        },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget
             state.socket.isConnected = true
