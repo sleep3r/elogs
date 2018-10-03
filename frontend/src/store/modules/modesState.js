@@ -67,7 +67,7 @@ const modesState = {
     },
     actions: {
         getModes ({ commit, state, getters }, payload) {
-            return axios.get('http://localhost:8000/bl/modes_api/', {
+            return axios.get(window.HOSTNAME+'/bl/modes_api/', {
                 withCredentials: true
             })
                 .then(response => {
@@ -78,7 +78,7 @@ const modesState = {
                 });
         },
         addMode ({ commit, state, getters }, payload) {
-            return axios.post('http://localhost:8000/bl/modes_api/', payload.mode, {
+            return axios.post(window.HOSTNAME+'/bl/modes_api/', payload.mode, {
                 withCredentials: true
             })
                 .catch(e => {
@@ -86,7 +86,7 @@ const modesState = {
                 });
         },
         toggleMode ({ commit, state, getters }, payload) {
-            return axios.put('http://localhost:8000/bl/modes_api/', { id: payload.modeId, is_active: payload.isActive }, {
+            return axios.put(window.HOSTNAME+'/bl/modes_api/', { id: payload.modeId, is_active: payload.isActive }, {
                 withCredentials: true
             })
                 .catch(e => {
@@ -94,7 +94,7 @@ const modesState = {
                 });
         },
         deleteMode ({ commit, state, getters }, payload) {
-            return axios.delete(`http://localhost:8000/bl/modes_api/${payload.modeId}`, {
+            return axios.delete(window.HOSTNAME+`/bl/modes_api/${payload.modeId}`, {
                 withCredentials: true
             })
                 .catch(e => {
@@ -102,7 +102,7 @@ const modesState = {
                 });
         },
         updateMode ({ commit, state, getters }, payload) {
-            return axios.put(`http://localhost:8000/bl/modes_api/`, payload, {
+            return axios.put(window.HOSTNAME+`/bl/modes_api/`, payload, {
                 withCredentials: true
             })
                 .catch(e => {
