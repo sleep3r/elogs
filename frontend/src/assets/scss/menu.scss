@@ -4,15 +4,19 @@
 @import "variables";
 
 .column-left.menu__hidden {
-    .menu.menu--left {
+    .menu.menu--left, .menu__sub-title, .menu__logo {
         opacity: 0;
+    }
+
+    .menu__sub-title, .menu__logo {
+        display: none;
     }
 }
 
 .menu__panel {
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px 0 20px;
+    padding: 10px 20px;
 }
 
 .menu__title {

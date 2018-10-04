@@ -101,12 +101,7 @@
                                 this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
 
                                 if ($('#app').outerWidth() < 768) {
-                                    if ($menu.css('display') === 'block') {
-                                        $menu.css('display', 'none')
-                                    }
-                                    else {
-                                        $menu.css('display', 'block')
-                                    }
+                                    this.toggleMenu()
                                 }
                             })
                     }

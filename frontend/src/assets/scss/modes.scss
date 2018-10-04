@@ -4,7 +4,8 @@
 @import "variables";
 
 .menu__sub-title {
-  padding: 10px;
+  padding: 0 10px 10px;
+  border-bottom: 1px solid #CCCCCC;
 
   button {
     width: 100%;
