@@ -11,12 +11,12 @@
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
-                @blur="showCellTypeTooltip=false"
+                @blur="showTooltip=false"
                 :readonly="mode !== 'edit'"
                 :placeholder="placeholder"
                 :style="{ color: activeColor }"
                 :type="type"
-                v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
         >
         <template>
@@ -75,13 +75,18 @@
                 maxValue: null,
                 type: null,
                 placeholder: '',
-                showCellTypeTooltip: false,
+                showTooltip: false,
                 personsList: null,
+                tooltipContent: ''
             }
         },
         watch: {
             mode (value) {
                 this.setPickersListeners()
+            },
+            value (value) {
+                // this.tooltipContent =  + 'вводит значение...'
+                // this.showTooltip = true;
             }
         },
         computed: {
@@ -102,6 +107,9 @@
             },
             value: {
                 get: function () {
+                    console.log('VALUE CHANGED')
+
+                    //this.responsible = this.$store.getters['jounalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
                     return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex);
                 },
                 set: function (val) {
@@ -212,11 +220,12 @@
                     // if non number character was pressed
                     if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
                         || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        this.showCellTypeTooltip = true;
+                        this.tooltipContent = 'Введите число'
+                        this.showTooltip = true;
                         event.preventDefault();
                     }
                     else {
-                        this.showCellTypeTooltip = false;
+                        this.showTooltip = false;
                     }
                 }
             },

@@ -52,12 +52,16 @@ Vue.use(VueNativeSock, dataEndpoint, {
             let commitData = {'cells': []}
             for (let i in data['cells']) {
                 let cellData = data['cells'][i]
-                commitData['cells'].push({
-                    tableName: cellData['cell_location']['table_name'],
-                    fieldName: cellData['cell_location']['field_name'],
-                    index: cellData['cell_location']['index'],
-                    value: cellData['value']
-                })
+                // if received cell value is inputed by this user,
+                // store has it already
+                if (!(this.store.getters['userState/username'] in cellData['responsible'])) {
+                    commitData['cells'].push({
+                        tableName: cellData['cell_location']['table_name'],
+                        fieldName: cellData['cell_location']['field_name'],
+                        index: cellData['cell_location']['index'],
+                        value: cellData['value']
+                    })
+                }
             }
             this.store.commit('journalState/SAVE_CELLS', commitData)
         }
