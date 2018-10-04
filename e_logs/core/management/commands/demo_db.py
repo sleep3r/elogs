@@ -32,10 +32,17 @@ class Command(BaseCommand):
             help='Create sample data for dashboard',
         )
 
+        parser.add_argument(
+            '--formula',
+            action="store_true",
+            help='Create sample data for formulas',
+        )
+
     def handle(self, *args, **options):
         df = DatabaseFiller()
         # df.reset_increment_counter('auth_group')
         dashboard = options["dashboard"]
+        formula = options["formula"]
         if options["clean"] or options["recreate"]:
             stdout_logger.info("Cleaning db")
             df.clean_database()
@@ -71,5 +78,9 @@ class Command(BaseCommand):
             if dashboard:
                 stdout_logger.info("Adding sample dashboard data...")
                 df.create_dashboard_sample_data()
+
+            if formula:
+                stdout_logger.info("Adding sample formula data...")
+                df.create_formula_sample_data()
 
             stdout_logger.info("Done!")

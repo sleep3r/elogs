@@ -19,30 +19,27 @@ if (!String.prototype.format) {
   };
 }
 
-$(document).ready(() => {
-    console.log("Loading formula...")
-    var parser = new FormulaParser();
-    window.parser = parser
-    window.parser.setFunction('FUNC', function (params) {
-        const journal = params[0];
-        const table = params[1];
-        const field = params[2];
-        const index = params[3];
-        const shift = params[4];
+console.log("Loading formula...")
+var parser = new FormulaParser();
+window.parser = parser
+window.parser.setFunction('FUNC', function (params) {
+    const journal = params[0];
+    const table = params[1];
+    const field = params[2];
+    const index = params[3];
+    const shift = params[4];
 
-        var res = request("GET",
-            "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(
-                journal, table, field, shift
-            ))
-        let json = JSON.parse(res.getBody())
-        let result = null
-        if (isNumeric(json.value)){
-            result = Number(json.value)
-        }
-        else {
-            result = window.parser.parse(json.value)
-        }
-        return result
-    })
-
-});
+    var res = request("GET",
+        "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(
+            journal, table, field, shift
+        ))
+    let json = JSON.parse(res.getBody())
+    let result = null
+    if (isNumeric(json.value)){
+        result = Number(json.value)
+    }
+    else {
+        result = window.parser.parse(json.value)
+    }
+    return result
+})
