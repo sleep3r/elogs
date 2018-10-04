@@ -29,8 +29,7 @@
 
 .mode-content {
   width: 100%;
-  padding-top: 20px;
-  padding-left: 10px;
+  padding: 20px;
 }
 
 .mode-content__title {
@@ -55,11 +54,7 @@
 
 }
 
-.mode-content__title__mode-btns button {
-  margin-right: 10px;
-}
-
-.mode-content__body {
+.mode-content__title__mode-btns button:first-child {
   margin-right: 10px;
 }
 

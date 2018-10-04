@@ -217,7 +217,7 @@ footer {
     }
 
     .column-left.menu__hidden {
-        margin-left: 0;
+        transform: translateX(0);
 
         .menu.menu--left {
             display: none;

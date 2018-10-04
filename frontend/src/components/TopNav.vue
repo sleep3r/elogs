@@ -85,6 +85,7 @@
             },
             onSettingsClick() {
                 this.$router.push('/settings')
+                this.onUsernameClick();
             },
             onAddJournal() {
                 this.$router.push('/addjournal');

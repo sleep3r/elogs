@@ -18,8 +18,9 @@
                 </div>
             </div>
         </modal>
-        <table class="settings-list table table-striped">
-            <thead>
+        <div class="table-container">
+            <table class="settings-list table table-striped">
+                <thead>
                 <tr>
                     <th>#</th>
                     <th>Type</th>
@@ -28,11 +29,12 @@
                     <th>User</th>
                     <th>Scope</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <setting-item v-for="item in filtredByName" :key="item.id" :model="item"></setting-item>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <script>
@@ -141,8 +143,12 @@
         min-height: 300px;
         list-style: none;
         text-align: left;
-        overflow:scroll;
         height:400px;
+        table-layout: auto;
+
+        td {
+            padding: 10px;
+        }
 
         td:first-child, th:first-child {
             max-width: 30px;
@@ -155,5 +161,13 @@
 
             border: 1px solid $color-border;
         }
+
+        code {
+            word-break: normal;
+        }
+    }
+
+    .table-container {
+        overflow-x: auto;
     }
 </style>

@@ -4,12 +4,8 @@
 @import "variables";
 
 .column-left.menu__hidden {
-    .menu.menu--left, .menu__sub-title, .menu__logo {
+    .menu.menu--left, .menu__sub-title {
         opacity: 0;
-    }
-
-    .menu__sub-title, .menu__logo {
-        display: none;
     }
 }
 

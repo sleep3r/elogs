@@ -1,4 +1,5 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 
 module.exports = {
     configureWebpack: {
@@ -12,7 +13,7 @@ module.exports = {
         },
         plugins: [
             new ServiceWorkerWebpackPlugin({
-                entry: './src/sw2.js'
+                entry: path.join(__dirname, 'src/sw2.js')
             }),
         ]
     }

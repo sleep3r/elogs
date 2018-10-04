@@ -52,7 +52,7 @@ if ('serviceWorker' in navigator) {
     registration = runtime.register()
          .then(function(registration) {
              // Регистрация успешна
-             console.log('ServiceWorker registration successful with scope: ', registration);
+             console.log('ServiceWorker registration successful with scope: ', registration.scope);
              subscribeUser(registration)
          })
          .catch(function(err) {
