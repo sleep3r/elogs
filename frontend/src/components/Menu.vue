@@ -122,8 +122,9 @@
             },
             setListeners () {
                 let menu = $(".column-left");
+                let menuLogo = $('.menu__logo');
                 let lastScrollTop = 0;
-                let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__logo').outerHeight()
+                let menuHeaderHeight = $('.menu__panel').outerHeight() + menuLogo.outerHeight()
                 let headerHeight = $('.header').outerHeight()
 
                 $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})

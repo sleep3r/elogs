@@ -102,7 +102,7 @@ body {
 }
 
 .column-left.menu__hidden {
-    margin-left: calc(54px - 230px);
+    transform: translateX(calc(54px - 230px));
 }
 
 .column-content {
