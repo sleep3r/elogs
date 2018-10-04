@@ -1,23 +1,11 @@
 <template>
   <div class="settings-page">
-    <button @click="isShowHelp = true">Help</button>
     <settings-list></settings-list>
-
-    <modal v-show="isShowHelp" @close="isShowHelp = false">
-        <pre>
-          <code>
-            API get
-            API post
-            API put
-          </code>
-        </pre>
-    </modal>
   </div>
 </template>
 
 <script>
 import SettingsList from './SettingsList.vue'
-import Modal from "../Modal.vue";
 
 export default {
   name: 'settings-page',
@@ -30,7 +18,6 @@ export default {
     }
   },
   components: {
-      Modal,
       SettingsList
   }
 }
