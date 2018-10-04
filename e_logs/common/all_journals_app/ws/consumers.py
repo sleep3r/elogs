@@ -14,10 +14,16 @@ from e_logs.common.messages_app.models import Message
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
         if self.scope['user'].is_authenticated:
+            self.data_channel = 'data'
             self.user_channel = f"user_{self.scope['user'].employee.id}"
 
             await self.channel_layer.group_add(
                 self.user_channel,
+                self.channel_name,
+            )
+
+            await self.channel_layer.group_add(
+                self.data_channel,
                 self.channel_name,
             )
 
@@ -31,6 +37,12 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             self.user_channel,
             self.channel_name,
         )
+
+        await self.channel_layer.group_discard(
+            self.data_channel,
+            self.channel_name,
+        )
+
         await self.close()
         raise StopConsumer()
 
@@ -45,6 +57,9 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             elif data['type'] == 'messages':
                 await self.messages_receive(data)
 
+    async def send_message(self, event):
+        await self.send(event['text'])
+
     async def shift_receive(self, data):
         for cell_data in data['cells']:
             print(cell_data)
@@ -58,7 +73,14 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             employee = self.scope['user'].employee
             cell_data['responsible'] = {str(employee.user):employee.name}
 
-        await self.send(json.dumps(data))
+        await self.channel_layer.group_send(
+            self.data_channel,
+            {
+                "type": "send_message",
+                "text": json.dumps(data)
+            }
+        )
+
 
     async def messages_receive(self, data):
         if data['crud'] == 'add':
