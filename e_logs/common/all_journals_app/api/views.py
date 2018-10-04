@@ -35,13 +35,16 @@ class ShiftAPI(View):
             id = kwargs['id']
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__tables', 'journal__tables__fields',
+        .prefetch_related('journal__tables',
+                          'journal__tables__fields',
                           Prefetch('journal__tables__fields__settings',
-                                    queryset=Setting.objects.filter(name='field_description')),
+                                    queryset=Setting.objects.filter(name='field_description')
+                                   ),
                           Prefetch('group_cells',
                                    queryset=Cell.objects.select_related('field', 'field__table').
-                                   filter(group_id=id)),
-                          ).get(id=id)
+                                   filter(group_id=id)
+                                  )).get(id=id)
+
         plant = qs.journal.plant
         res = {
                 "id": qs.id ,
@@ -95,7 +98,9 @@ class ShiftAPI(View):
         res = {}
         for cell in cells:
             if cell.table == table and cell.field == field:
-                res[cell.index] = {"id":cell.id, "value":cell.value}
+                res[cell.index] = {"id":cell.id,
+                                   "value":cell.value,
+                                   "responsible":cell.responsible.name}
 
         return res
 

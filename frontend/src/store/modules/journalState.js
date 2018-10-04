@@ -155,7 +155,10 @@ const journalState = {
                 for(let field in fields) {
                     for (let index in fields[field].cells) {
                         index = parseInt(index);
-                        max = max < index ? index : max;
+                        // find only non empty cells
+                        if (fields[field].cells[index].value) {
+                            max = (max < index) ? index : max;
+                        }
                     }
                 }
                 return max+1;
@@ -206,38 +209,41 @@ const journalState = {
         SET_LOADED (state, loaded) {
             state.loaded = loaded;
         },
-        SAVE_CELL_VALUE (state, payload) {
+        SAVE_CELLS (state, payload) {
             if (state.loaded) {
-                let fields = state.journalInfo.journal.tables[payload.tableName].fields;
-                if (!(payload.fieldName in fields)) {
-                    // console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
-                    // console.log('  Creating field ' + payload.fieldName + '...');
-                    fields[payload.fieldName] = {};
-                    fields[payload.fieldName]['cells'] = {};
-                }
-                let cells = fields[payload.fieldName].cells;
-                if (payload.value) {
-                    if (payload.index in cells) {
-                        // update cell
-                        cells[payload.index]['value'] = payload.value;
-                        if (payload.notSynchronized) {
-                            cells[payload.index]['notSynchronized'] = payload.notSynchronized;
-                            cells[payload.index]['fieldName'] = payload.fieldName;
-                            cells[payload.index]['tableName'] = payload.tableName;
-                            cells[payload.index]['index'] = payload.index;
+                let data = payload['cells']
+                for (let i in data) {
+                    let fields = state.journalInfo.journal.tables[data[i].tableName].fields;
+                    if (!(data[i].fieldName in fields)) {
+                        // console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
+                        // console.log('  Creating field ' + payload.fieldName + '...');
+                        fields[data[i].fieldName] = {};
+                        fields[data[i].fieldName]['cells'] = {};
+                    }
+                    let cells = fields[data[i].fieldName].cells;
+                    if (data[i].value) {
+                        if (data[i].index in cells) {
+                            // update cell
+                            cells[data[i].index]['value'] = data[i].value;
+                            if (data[i].notSynchronized) {
+                                cells[data[i].index]['notSynchronized'] = data[i].notSynchronized;
+                                cells[data[i].index]['fieldName'] = data[i].fieldName;
+                                cells[data[i].index]['tableName'] = data[i].tableName;
+                                cells[data[i].index]['index'] = data[i].index;
+                            }
+                        }
+                        else {
+                            // create cell
+                            Vue.set(cells, data[i].index, {});
+                            Vue.set(cells[data[i].index], 'value', data[i].value);
+                            if (data[i].notSynchronized) {
+                                Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
+                            }
                         }
                     }
                     else {
-                        // create cell
-                        Vue.set(cells, payload.index, {});
-                        Vue.set(cells[payload.index], 'value', payload.value);
-                        if (payload.notSynchronized) {
-                            Vue.set(cells[payload.index], 'notSynchronized', payload.notSynchronized);
-                        }
+                        Vue.delete(cells, data[i].index);
                     }
-                }
-                else {
-                    Vue.delete(cells, payload.index);
                 }
             }
         },
@@ -280,12 +286,12 @@ const journalState = {
                         let cells = fields[field]['cells']
                         for (let i=0; i<=payload.maxRowIndex; i++) {
                             if (i == payload.index) {
-                                Vue.delete(cells, i);
+                                Vue.set(cells, i, {'value': ''});
                             }
                             if (i > payload.index) {
                                 if (cells[i]) {
                                     Vue.set(cells, i-1, cells[i]);
-                                    Vue.delete(cells, i);
+                                    Vue.set(cells, i, {'value': ''});
                                 }
                             }
                         }
@@ -303,11 +309,11 @@ const journalState = {
                             if (i >= payload.index) {
                                 if (cells[i]) {
                                     Vue.set(cells, i+1, cells[i]);
-                                    Vue.delete(cells, i)
+                                    Vue.set(cells, i, {'value': ''})
                                 }
                             }
                             if (i == payload.index) {
-                                Vue.set(cells, i, '')
+                                Vue.set(cells, i, {'value': ''})
                             }
                         }
                     }
@@ -322,7 +328,7 @@ const journalState = {
                         let cells = fields[field]['cells']
                         for (let i=payload.maxRowIndex; i>=0; i--) {
                             if (i == payload.index) {
-                                Vue.set(cells, i, '')
+                                Vue.set(cells, i, {'value': ''})
                             }
                         }
                     }
@@ -350,6 +356,32 @@ const journalState = {
         },
     },
     actions: {
+        sendJournalData: function ({ commit, state, getters }, payload) {
+            // send all journal cells
+            let data = {
+                'type': 'shift_data',
+                'cells': []
+            }
+            let tables = state.journalInfo.journal.tables
+            for (let table in tables) {
+                let fields = tables[table].fields
+                    for (let field in fields) {
+                        let cells = fields[field].cells
+                        for (let index in cells) {
+                            data.cells.push({
+                                'cell_location': {
+                                    'group_id': getters.journalInfo.id,
+                                    'table_name': table,
+                                    'field_name': field,
+                                    'index': index
+                                },
+                                'value': cells[index].value
+                            })
+                        }
+                    }
+            }
+            window.mv.$socket.sendObj(data)
+        },
         loadJournal: function ({ commit, state, getters }, payload) {
             let id = payload['id'] ? payload['id'] : ''
             return axios

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import VueCookies from "vue-cookies";
+import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
 const appServerKey = 'BMD5Tv0jLvfZ65LEnMpnx-ZO2B-l9eGevOvaHVlmKe7SHAiP6awavzZhmoTOqYM10ImQgmVjgxhhfKDYnSxNJsQ'
 
@@ -45,15 +46,17 @@ function subscribeUser(serviceWorkerRegistration) {
         });
 }
 
+let registration;
+
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-            // Регистрация успешна
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            subscribeUser(registration)
-        }).catch(function(err) {
-            // Регистрация не успешна
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    });
+    registration = runtime.register()
+         .then(function(registration) {
+             // Регистрация успешна
+             console.log('ServiceWorker registration successful with scope: ', registration);
+             subscribeUser(registration)
+         })
+         .catch(function(err) {
+             // Регистрация не успешна
+             console.log('ServiceWorker registration failed: ', err);
+         });
 }

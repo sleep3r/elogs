@@ -49,12 +49,17 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            this.store.commit('journalState/SAVE_CELL_VALUE', {
-                tableName: data['cell_location']['table_name'],
-                fieldName: data['cell_location']['field_name'],
-                index: data['cell_location']['index'],
-                value: data['value']
-            })
+            let commitData = {'cells': []}
+            for (let i in data['cells']) {
+                let cellData = data['cells'][i]
+                commitData['cells'].push({
+                    tableName: cellData['cell_location']['table_name'],
+                    fieldName: cellData['cell_location']['field_name'],
+                    index: cellData['cell_location']['index'],
+                    value: cellData['value']
+                })
+            }
+            this.store.commit('journalState/SAVE_CELLS', commitData)
         }
         else {
             return
