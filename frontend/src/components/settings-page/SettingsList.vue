@@ -1,20 +1,20 @@
 <template>
     <div class="settings">
-        <div class="settings-stats">
-            <b>Кол-во настроек:<span>{{countSettings}}</span></b>
-        </div>
-        <div class="search">
-            <label for="settting-search">Найти: </label>
-            <input type="text" v-model="searchByName" id="settting-search"/>
-            <button @click="uncheckAllSettings()"><i class="material-icons">check_box</i></button>
-        </div>
+        <!--<div class="settings-stats">-->
+            <!--<b>Кол-во настроек:<span>{{countSettings}}</span></b>-->
+        <!--</div>-->
+        <!--<div class="search">-->
+            <!--<label for="settting-search">Найти: </label>-->
+            <!--<input type="text" v-model="searchByName" id="settting-search"/>-->
+            <!--<button @click="uncheckAllSettings()"><i class="material-icons">check_box</i></button>-->
+        <!--</div>-->
         <modal v-show="isEditing" @close="closeModal" :action="customAction" >
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Окно редактирования setting'a</h3>
                 </div>
                 <div class="panel-body">
-                    <field-edit v-if="currentModel" :model="currentModel"></field-edit>
+                    <setting-edit v-if="currentModel" :model="currentModel"></setting-edit>
                 </div>
             </div>
         </modal>
@@ -37,8 +37,8 @@
 </template>
 <script>
     import SettingItem from './SettingItem.vue';
-    import FieldEdit from "./settings/FieldEdit.vue";
     import Modal from "../Modal.vue";
+    import SettingEdit from "./settings/SettingEdit";
 
     export default {
         name: "SettingsList",
@@ -63,7 +63,6 @@
           },
           filtredByName: function () {
             return this.$store.getters['settingsState/filtredByName'];
-              // return this.$store.getters['settingsState/getSettings'];
           },
           countSettings: function() {
             return this.filtredByName.length;
@@ -84,12 +83,12 @@
             },
             saveCurrentSetting() {
               let model = this.currentModel;
-              model.value.min_normal = 99;
               this.$store.dispatch('settingsState/updateSetting', model)
                   .then((model) => {
                         console.log("current model", model);
-                        // this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
-                  }).catch();
+                        this.isEditing = false;
+                        this.$store.commit('settingsState/SET_CURRENT_MODEL', null);
+                  });
 
             },
             uncheckAllSettings() {
@@ -111,8 +110,8 @@
             this.loadSettingsFromAPI();
         },
         components: {
+            SettingEdit,
             Modal,
-            FieldEdit,
             SettingItem
         }
     }
