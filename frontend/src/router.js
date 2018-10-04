@@ -7,7 +7,7 @@ import Dashboard from './components/Dashboard.vue'
 import JournalPage from './components/JournalPage.vue'
 import LoginPage from './components/LoginPage.vue'
 import MessagesPage from './components/MessagesPage.vue'
-import SettingsPage from './components/SettingsPage.vue'
+import SettingsPage from './components/settings-page/SettingsPage.vue'
 import ModesPage from './components/ModesPage.vue'
 import AddJournal from './components/AddJournal.vue'
 
