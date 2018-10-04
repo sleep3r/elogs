@@ -30,14 +30,13 @@
                 </tr>
             </thead>
             <tbody>
-                <setting-item v-for="item in filtredByName" :model="item"></setting-item>
+                <setting-item v-for="item in filtredByName" :key="item.id" :model="item"></setting-item>
             </tbody>
         </table>
     </div>
 </template>
 <script>
     import SettingItem from './SettingItem.vue';
-    import axios from 'axios';
     import FieldEdit from "./settings/FieldEdit.vue";
     import Modal from "../Modal.vue";
 
