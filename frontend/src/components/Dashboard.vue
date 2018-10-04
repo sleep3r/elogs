@@ -67,7 +67,7 @@ export default {
       layoutUpdatedEvent: function(newLayout) {
           console.log(newLayout)
           axios.post(
-              "http://localhost:8000/dashboard/update-config",
+              window.HOSTNAME+"/dashboard/update-config",
               newLayout, {withCredentials: true}
           )
       },
@@ -82,11 +82,15 @@ export default {
       deleteGraph: function(id) {
           console.log("deleting " + id)
           axios.post(
-              "http://localhost:8000/dashboard/delete-graph",
+              window.HOSTNAME+"/dashboard/delete-graph",
               {id: id},
               {withCredentials: true},
           )
           Vue.delete(this.config, id);
+          if ($.isEmptyObject(this.config)) {
+              this.message = "There is no data"
+              this.config_flag = true
+          }
       }
   },
   mounted(){

@@ -5,7 +5,7 @@ module.exports = {
     		{
           test: /\.pdf$/,
           loader: 'file-loader',
-        }		
+        }
       ]
     }
   }

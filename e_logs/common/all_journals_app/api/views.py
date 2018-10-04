@@ -203,6 +203,25 @@ class FieldAPI(View):
         return JsonResponse(res, safe=False)
 
 
+class CellAPI(View):
+    def get(self, request):
+        print("getting cell")
+        shift = int(request.GET.get('shift', None))
+        journal_name = request.GET.get('journal', None)
+        table_name = request.GET.get('table', None)
+        field_name = request.GET.get('field', None)
+        journal = Journal.objects.get(name=journal_name)
+        table = Table.objects.get(name=table_name, journal=journal)
+        field = Field.objects.get(name=field_name, table=table)
+
+        if shift and field:
+            cell = Cell.objects.get(group=shift, field=field.id)
+        res = {
+            "value": cell.value
+        }
+        return JsonResponse(res, safe=False)
+
+
 class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
