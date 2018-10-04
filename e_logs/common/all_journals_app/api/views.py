@@ -173,12 +173,16 @@ class SettingsAPI(View):
             content_type=ContentType.objects.get(id=int(setting_data['content_type']))
                 if setting_data.get('scope', None) else None)
 
+        return JsonResponse({"status": 1})
+
     def put(self, request):
         setting_data = json.loads(request.body)
-        setting = Setting.objects.get(id=setting_data['id'])
+        setting = Setting.objects.get(id=int(setting_data['id']))
         setting.verbose_name = setting_data.get('value', setting.verbose_name)
-        setting.value = setting_data.get('value', setting.value)
+        setting.value = Setting._dumps(setting_data['value'])
         setting.save()
+
+        return JsonResponse({"status":1})
 
 class TableAPI(View):
     def get(self, request):
