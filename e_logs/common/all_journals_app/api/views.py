@@ -37,7 +37,6 @@ class ShiftAPI(View):
         .select_related('journal', 'journal__plant') \
         .prefetch_related('journal__tables',
                           'journal__tables__fields',
-                          'group_cells__responsible',
                           Prefetch('journal__tables__fields__settings',
                                     queryset=Setting.objects.filter(name='field_description')
                                    ),
