@@ -5,6 +5,7 @@ import journalState from './modules/journalState'
 import userState from './modules/userState'
 import modesState from './modules/modesState'
 import settingsState from './modules/settingsState'
+import VueCookies from "vue-cookies";
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage
@@ -12,7 +13,7 @@ const vuexLocal = new VuexPersistence({
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+let store = new Vuex.Store({
     modules: {
         journalState,
         userState,
@@ -21,3 +22,5 @@ export default new Vuex.Store({
     },
     plugins: [vuexLocal.plugin]
 })
+
+export default store

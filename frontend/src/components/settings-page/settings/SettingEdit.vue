@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import FieldPropEdit from "./FieldPropEdit";
+    import FieldPropEdit from "./FieldPropEdit.vue";
     export default {
         name: "SettingEdit",
         components: {FieldPropEdit},

@@ -38,7 +38,7 @@
 <script>
     import SettingItem from './SettingItem.vue';
     import Modal from "../Modal.vue";
-    import SettingEdit from "./settings/SettingEdit";
+    import SettingEdit from "./settings/SettingEdit.vue";
 
     export default {
         name: "SettingsList",
