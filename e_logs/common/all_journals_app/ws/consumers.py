@@ -55,7 +55,8 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             if cell.journal.type == 'shift':
                 await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
 
-            cell_data['responsible'] = self.scope['user'].employee.name
+            user = self.scope['user'].employee
+            cell_data['responsible'] = {user:user.name}
 
         await self.send(json.dumps(data))
 
