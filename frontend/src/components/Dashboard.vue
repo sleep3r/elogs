@@ -87,6 +87,10 @@ export default {
               {withCredentials: true},
           )
           Vue.delete(this.config, id);
+          if ($.isEmptyObject(this.config)) {
+              this.message = "There is no data"
+              this.config_flag = true
+          }
       }
   },
   mounted(){

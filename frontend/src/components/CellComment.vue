@@ -24,12 +24,17 @@
         </li>
       </ul>
       <div class="buttons-panel">
-        <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
-        <select v-model="selectedGraphType">
-            <option v-for="graphType in graphTypes">
-                {{ graphType }}
-            </option>
-        </select>
+        <!-- <div v-if="graphNotAdded"> -->
+            <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
+            <select v-model="selectedGraphType">
+                <option v-for="graphType in graphTypes">
+                    {{ graphType }}
+                </option>
+            </select>
+        <!-- </div> -->
+        <!-- <div v-else>
+            График добавлен в панель аналитики
+        </div> -->
       </div>
 
     </div>

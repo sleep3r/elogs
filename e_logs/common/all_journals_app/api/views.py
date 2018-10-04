@@ -35,13 +35,16 @@ class ShiftAPI(View):
             id = kwargs['id']
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__tables', 'journal__tables__fields',
+        .prefetch_related('journal__tables',
+                          'journal__tables__fields',
                           Prefetch('journal__tables__fields__settings',
-                                    queryset=Setting.objects.filter(name='field_description')),
+                                    queryset=Setting.objects.filter(name='field_description')
+                                   ),
                           Prefetch('group_cells',
                                    queryset=Cell.objects.select_related('field', 'field__table').
-                                   filter(group_id=id)),
-                          ).get(id=id)
+                                   filter(group_id=id)
+                                  )).get(id=id)
+
         plant = qs.journal.plant
         res = {
                 "id": qs.id ,
@@ -95,7 +98,9 @@ class ShiftAPI(View):
         res = {}
         for cell in cells:
             if cell.table == table and cell.field == field:
-                res[cell.index] = {"id":cell.id, "value":cell.value}
+                res[cell.index] = {"id":cell.id,
+                                   "value":cell.value,
+                                   "responsible":cell.responsible.name}
 
         return res
 
@@ -168,12 +173,16 @@ class SettingsAPI(View):
             content_type=ContentType.objects.get(id=int(setting_data['content_type']))
                 if setting_data.get('scope', None) else None)
 
+        return JsonResponse({"status": 1})
+
     def put(self, request):
         setting_data = json.loads(request.body)
-        setting = Setting.objects.get(id=setting_data['id'])
+        setting = Setting.objects.get(id=int(setting_data['id']))
         setting.verbose_name = setting_data.get('value', setting.verbose_name)
-        setting.value = setting_data.get('value', setting.value)
+        setting.value = Setting._dumps(setting_data['value'])
         setting.save()
+
+        return JsonResponse({"status":1})
 
 class TableAPI(View):
     def get(self, request):
@@ -200,6 +209,25 @@ class FieldAPI(View):
                                             table__journal__name=journal,
                                             table__name=table)
         res = [{field.name:field.verbose_name} for field in queryset]
+        return JsonResponse(res, safe=False)
+
+
+class CellAPI(View):
+    def get(self, request):
+        print("getting cell")
+        shift = int(request.GET.get('shift', None))
+        journal_name = request.GET.get('journal', None)
+        table_name = request.GET.get('table', None)
+        field_name = request.GET.get('field', None)
+        journal = Journal.objects.get(name=journal_name)
+        table = Table.objects.get(name=table_name, journal=journal)
+        field = Field.objects.get(name=field_name, table=table)
+
+        if shift and field:
+            cell = Cell.objects.get(group=shift, field=field.id)
+        res = {
+            "value": cell.value
+        }
         return JsonResponse(res, safe=False)
 
 

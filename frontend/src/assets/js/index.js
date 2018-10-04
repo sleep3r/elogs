@@ -29,5 +29,6 @@ import '@fortawesome/fontawesome-free-brands';
 import './feedback';
 import './header';
 import './vue-env';
+import './formula'
 
 import './common';

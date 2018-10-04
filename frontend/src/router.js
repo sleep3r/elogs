@@ -7,8 +7,9 @@ import Dashboard from './components/Dashboard.vue'
 import JournalPage from './components/JournalPage.vue'
 import LoginPage from './components/LoginPage.vue'
 import MessagesPage from './components/MessagesPage.vue'
-import SettingsPage from './components/SettingsPage.vue'
+import SettingsPage from './components/settings-page/SettingsPage.vue'
 import ModesPage from './components/ModesPage.vue'
+import AddJournal from './components/AddJournal.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ const router = new Router({
                     component: MessagesPage
                 },
                 {
+                    path: '/addjournal',
+                    name: 'addJournal',
+                    component: AddJournal
+                },
+                {
                     path: '/settings',
                     name: 'settingsPage',
                     component: SettingsPage
@@ -60,6 +66,7 @@ router.beforeEach((to, from, next) => {
         next('/login')
     }
     else {
+        console.dir(VueCookies.get('Authorization'))
         next()
     }
 })

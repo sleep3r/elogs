@@ -1,29 +1,42 @@
 <template>
     <transition name="modal">
-        <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
-                    <div class="modal-body">
-                        <slot>
-                        </slot>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="modal-default-button" @click="$emit('close')">Закрыть</button>
-                    </div>
-                </div>
-            </div>
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-body">
+            <slot>
+            </slot>
+          </div>
+          <div class="modal-footer">
+              <button v-if="action" @click="action.callback" class="btn btn-success">{{action.title}}</button>&nbsp;
+              <button class="modal-default-button btn btn-default" @click="$emit('close')">Закрыть</button>
+          </div>
         </div>
-    </transition>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-    export default {
-        name: 'modal',
-        data() {
-            return {
-            }
-        },
-    }
+    /*
+        Setup component:
+        import modal from "./Modal.vue"
+
+        Using example:
+        <modal v-show="showCalendar" @close="showCalendar = false" >
+            <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />
+        </modal>
+     */
+export default {
+    name: 'modal',
+    props: {
+        action: Object
+    },
+    data() {
+        return {
+        }
+    },
+}
 </script>
 <style lang="scss" scoped>
     /*.modal-mask {*/
@@ -67,14 +80,15 @@
         /*float: right;*/
     /*}*/
 
-    /*
-     * The following styles are auto-applied to elements with
-     * transition="modal" when their visibility is toggled
-     * by Vue.js.
-     *
-     * You can easily play with the modal transition by editing
-     * these styles.
-     */
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
 
     /*.modal-enter {*/
         /*opacity: 0;*/
@@ -89,5 +103,6 @@
         /*-webkit-transform: scale(1.1);*/
         /*transform: scale(1.1);*/
     /*}*/
+
 
 </style>

@@ -11,12 +11,13 @@
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
-                @blur="showCellTypeTooltip=false"
+                @blur="showTooltip=false"
                 :readonly="mode !== 'edit'"
                 :placeholder="placeholder"
                 :style="{ color: activeColor }"
                 :type="type"
-                v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
+                @contextmenu.prevent="$refs.menu.open"
         >
         <template>
             <datalist>
@@ -32,6 +33,15 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
+
+        <!-- Menu to create, delete and flush a row -->
+        <vue-context ref="menu">
+            <ul>
+                <li @click="deleteRow()">Удалить строку</li>
+                <li @click="addRow()">Добавить строку</li>
+                <li @click="flushRow()">Очистить строку</li>
+            </ul>
+        </vue-context>
     </v-popover>
 </template>
 
@@ -41,11 +51,13 @@
     import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
+    import { VueContext } from 'vue-context';
     import 'clockpicker/dist/bootstrap-clockpicker.min'
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
     Vue.component('v-popover', VPopover);
+    Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
 
 
@@ -63,13 +75,18 @@
                 maxValue: null,
                 type: null,
                 placeholder: '',
-                showCellTypeTooltip: false,
-                personsList: null
+                showTooltip: false,
+                personsList: null,
+                tooltipContent: ''
             }
         },
         watch: {
             mode (value) {
                 this.setPickersListeners()
+            },
+            value (value) {
+                // this.tooltipContent =  + 'вводит значение...'
+                // this.showTooltip = true;
             }
         },
         computed: {
@@ -90,17 +107,20 @@
             },
             value: {
                 get: function () {
+                    console.log('VALUE CHANGED')
+
+                    //this.responsible = this.$store.getters['jounalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
                     return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex);
                 },
                 set: function (val) {
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
-                    this.$store.commit('journalState/SAVE_CELL_VALUE', {
+                    this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         index: this.rowIndex,
                         value: val,
                         notSynchronized: !navigator.onLine
-                    });
+                    }]});
                 }
             },
             mode() {
@@ -108,6 +128,19 @@
             },
         },
         methods: {
+            deleteRow() {
+                console.log('delete row')
+                this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$store.dispatch('journalState/sendJournalData');
+            },
+            addRow() {
+                this.$store.commit('journalState/INSERT_EMPTY_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$store.dispatch('journalState/sendJournalData');
+            },
+            flushRow() {
+                this.$store.commit('journalState/FLUSH_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
+                this.$store.dispatch('journalState/sendJournalData');
+            },
             setPickersListeners () {
                 if (this.type === 'time') {
                     if (this.mode === 'edit') {
@@ -156,13 +189,15 @@
             send() {
                 this.$socket.sendObj({
                     'type': 'shift_data',
-                    'cell_location': {
-                        'group_id': this.$store.getters['journalState/journalInfo'].id,
-                        'table_name': this.tableName,
-                        'field_name': this.fieldName,
-                        'index': this.rowIndex
-                    },
-                    'value': this.value
+                    'cells': [{
+                        'cell_location': {
+                            'group_id': this.$store.getters['journalState/journalInfo'].id,
+                            'table_name': this.tableName,
+                            'field_name': this.fieldName,
+                            'index': this.rowIndex
+                        },
+                        'value': this.value
+                    }]
                 });
             },
             onInput(e) {
@@ -185,11 +220,12 @@
                     // if non number character was pressed
                     if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
                         || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        this.showCellTypeTooltip = true;
+                        this.tooltipContent = 'Введите число'
+                        this.showTooltip = true;
                         event.preventDefault();
                     }
                     else {
-                        this.showCellTypeTooltip = false;
+                        this.showTooltip = false;
                     }
                 }
             },
@@ -262,6 +298,10 @@
             this.minValue = desc['min_normal'] || null;
             this.maxValue = desc['max_normal'] || null;
             this.type = desc['type'] || 'text';
+
+            this.$root.$on('send', () => {
+                this.send();
+            })
 
             if (this.linked) {
                 // auto fill cell
