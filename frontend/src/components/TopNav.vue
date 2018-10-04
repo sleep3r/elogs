@@ -23,6 +23,12 @@
                         </a>
                     </li>
                     <li class="user-menu__item">
+                        <a href="" @click.prevent="onAddJournal">
+                            <i class="fas fa-journal-whills"></i>
+                            <span class="caption">Добавить журнал</span>
+                        </a>
+                    </li>
+                    <li class="user-menu__item">
                         <a href="" @click.prevent="onModesClick">
                             <i class="fas fa-sliders-h"></i>
                             <span class="caption">Режимы</span>
@@ -79,14 +85,17 @@
             },
             onSettingsClick() {
                 this.$router.push('/settings')
-                this.onUsernameClick()
+            },
+            onAddJournal() {
+                this.$router.push('/addjournal');
+                this.onUsernameClick();
             },
             onMessagesClick() {
-                this.$router.push('/messages')
+                this.$router.push('/messages');
                 this.onUsernameClick()
             },
             onModesClick() {
-                this.$router.push('/modes')
+                this.$router.push('/modes');
                 this.onUsernameClick()
             }
         }

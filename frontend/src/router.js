@@ -9,6 +9,7 @@ import LoginPage from './components/LoginPage.vue'
 import MessagesPage from './components/MessagesPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import ModesPage from './components/ModesPage.vue'
+import AddJournal from './components/AddJournal.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ const router = new Router({
                     path: '/messages',
                     name: 'messagesPage',
                     component: MessagesPage
+                },
+                {
+                    path: '/addjournal',
+                    name: 'addJournal',
+                    component: AddJournal
                 },
                 {
                     path: '/settings',
