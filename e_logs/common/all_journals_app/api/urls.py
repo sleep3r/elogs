@@ -4,10 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from .views import *
 
 urlpatterns = [
-    path('plants/', PlantAPI.as_view()),
-    path('journals/', JournalAPI.as_view()),
-    path('tables/', TableAPI.as_view()),
-    path('fields/', FieldAPI.as_view()),
+    path('plants/', PlantsAPI.as_view()),
+    path('journals/', JournalsAPI.as_view()),
+    path('tables/', TablesAPI.as_view()),
+    path('fields/', FieldsAPI.as_view()),
     path('shifts/', ShiftAPI.as_view()),
     path('shifts/<int:id>', ShiftAPI.as_view()),
     path('menu_info/', MenuInfoAPI.as_view()),

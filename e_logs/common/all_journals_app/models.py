@@ -90,7 +90,7 @@ class Field(models.Model):
     """Abstract field entity."""
 
     name = models.CharField(max_length=128, verbose_name='Столбец')
-    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца', null=True)
+    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='setting_field', related_name='setting_fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',

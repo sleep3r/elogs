@@ -105,14 +105,14 @@ class ShiftAPI(View):
 
         return res
 
-class PlantAPI(LoginRequiredMixin ,View):
+class PlantsAPI(LoginRequiredMixin ,View):
     def get(self, request):
         queryset = Plant.objects.all()
         res = [{plant.name:plant.verbose_name} for plant in queryset]
         return JsonResponse(res, safe=False)
 
 
-class JournalAPI(View):
+class JournalsAPI(View):
     def get(self, request):
         queryset = Journal.objects.all()
         plant = request.GET.get('plant', None)
@@ -185,7 +185,7 @@ class SettingsAPI(View):
 
         return JsonResponse({"status":1})
 
-class TableAPI(View):
+class TablesAPI(View):
     def get(self, request):
         queryset = Table.objects.all()
         plant = request.GET.get('plant', None)
@@ -199,7 +199,7 @@ class TableAPI(View):
         return JsonResponse(res, safe=False)
 
 
-class FieldAPI(View):
+class FieldsAPI(View):
     def get(self, request):
         queryset = Field.objects.all()
         plant = request.GET.get('plant', None)
