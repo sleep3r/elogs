@@ -78,25 +78,25 @@ const journalState = {
                 return -1;
             }
         },
-        cellValue: (state) => (tableName, fieldName, rowIndex) => {
+        cell: (state) => (tableName, fieldName, rowIndex) => {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
                     // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
-                    return '';
+                    return {};
                 }
                 let cells = fields[fieldName].cells;
                 if (Object.keys(cells).length !== 0) {
                     if (rowIndex in cells) {
-                        return cells[rowIndex].value;
+                        return cells[rowIndex];
                     }
                     else {
                         // console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
-                        return '';
+                        return {};
                     }
                 }
                 else {
-                    return '';
+                    return {};
                 }
             }
         },
@@ -225,6 +225,9 @@ const journalState = {
                         if (data[i].index in cells) {
                             // update cell
                             cells[data[i].index]['value'] = data[i].value;
+                            console.log('setting responsible')
+                            console.log(data[i].responsible)
+                            Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
                             if (data[i].notSynchronized) {
                                 cells[data[i].index]['notSynchronized'] = data[i].notSynchronized;
                                 cells[data[i].index]['fieldName'] = data[i].fieldName;
@@ -236,6 +239,7 @@ const journalState = {
                             // create cell
                             Vue.set(cells, data[i].index, {});
                             Vue.set(cells[data[i].index], 'value', data[i].value);
+                            Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
                             if (data[i].notSynchronized) {
                                 Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
                             }

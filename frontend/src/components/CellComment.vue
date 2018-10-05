@@ -11,7 +11,7 @@
     </div>
     <div class="body">
       <ul class="list">
-        <li class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{$store.getters['journalState/cellValue'](tableName, fieldName, rowIndex)}}</span></li>
+        <li class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{$store.getters['journalState/cell'](tableName, fieldName, rowIndex)['value']}}</span></li>
         <li class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{$store.getters['journalState/journalInfo'].date}}</span></li>
         <li v-if="$store.getters['journalState/fieldDescription'](tableName, fieldName)" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Критические значения от {{minNormal}} {{units}} до {{maxNormal}} {{units}}</span></li>
         <li class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">Шалкар Иванович Масханов</span></li>

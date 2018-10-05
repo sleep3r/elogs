@@ -60,6 +60,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         tableName: cellData['cell_location']['table_name'],
                         fieldName: cellData['cell_location']['field_name'],
                         index: cellData['cell_location']['index'],
+                        responsible: cellData['responsible'],
                         value: cellData['value']
                     })
                 }

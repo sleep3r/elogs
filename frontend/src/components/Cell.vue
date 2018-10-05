@@ -14,7 +14,7 @@
                 @blur="showTooltip=false"
                 :readonly="mode !== 'edit'"
                 :placeholder="placeholder"
-                :style="{ color: activeColor }"
+                :style="{ color: activeColor, fontWeight: fontWeight }"
                 :type="type"
                 v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
@@ -77,16 +77,28 @@
                 placeholder: '',
                 showTooltip: false,
                 personsList: null,
-                tooltipContent: ''
+                tooltipContent: '',
+                fontWeight: 'lighter'
             }
         },
         watch: {
             mode (value) {
                 this.setPickersListeners()
             },
-            value (value) {
-                // this.tooltipContent =  + 'вводит значение...'
-                // this.showTooltip = true;
+            value: function (val) {
+                if (this.responsible) {
+                    if (!(this.$store.getters['userState/username'] in this.responsible)) {
+                        // this.$root.$emit('addTypingUser', this.responsible)
+                        this.fontWeight = 'bold'
+                        this.tooltipContent = Object.values(this.responsible)[0] + ' печатает...'
+                        this.showTooltip = true;
+                        var self = this
+                        setTimeout(function() {
+                            self.showTooltip = false;
+                            self.fontWeight = 'lighter'
+                        }, 1500);
+                    }
+                }
             }
         },
         computed: {
@@ -105,12 +117,12 @@
                 return (this.minValue && (this.value < this.minValue)) ||
                     (this.maxValue && (this.value > this.maxValue));
             },
+            responsible: function () {
+                return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
+            },
             value: {
                 get: function () {
-                    console.log('VALUE CHANGED')
-
-                    //this.responsible = this.$store.getters['jounalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
-                    return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex);
+                    return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
                 set: function (val) {
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
@@ -129,7 +141,6 @@
         },
         methods: {
             deleteRow() {
-                console.log('delete row')
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
                 this.$store.dispatch('journalState/sendJournalData');
             },
@@ -229,7 +240,6 @@
                     }
                 }
             },
-
             changeFocus(e) {
                 function getIndex(tds, focusedTd) {
                     let index = 0
@@ -416,13 +426,13 @@
         &[aria-hidden='true'] {
             visibility: hidden;
             opacity: 0;
-            transition: opacity .15s, visibility .15s;
+            transition: opacity .50s, visibility .15s;
         }
 
         &[aria-hidden='false'] {
             visibility: visible;
             opacity: 1;
-            transition: opacity .15s;
+            transition: opacity .50s;
         }
     }
 </style>
