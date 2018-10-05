@@ -50,9 +50,10 @@ let registration;
 
 if ('serviceWorker' in navigator) {
     registration = runtime.register()
+    // navigator.serviceWorker.register('/sw2.js')
          .then(function(registration) {
              // Регистрация успешна
-             console.log('ServiceWorker registration successful with scope: ', registration);
+             console.log('ServiceWorker registration successful with scope: ', registration.scope);
              subscribeUser(registration)
          })
          .catch(function(err) {

@@ -105,8 +105,8 @@ class DatabaseFiller:
 
     @staticmethod
     def fill_plants():
-        plant_names = ['furnace', 'electrolysis', 'leaching']
-        Plant.objects.bulk_create([Plant(name=n) for n in plant_names])
+        plant_names = {'furnace':"Обжиг", 'electrolysis':"Электролиз", 'leaching':"Выщелачивание"}
+        Plant.objects.bulk_create([Plant(name=name, verbose_name=verbose_name) for name, verbose_name in plant_names.items()])
 
     @staticmethod
     @logged

@@ -27,7 +27,7 @@ export default {
     border: 1px solid #548CB7;
     vertical-align: middle;
     min-height: 400px;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
   }

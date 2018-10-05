@@ -13,7 +13,9 @@ module.exports = {
         },
         plugins: [
             new ServiceWorkerWebpackPlugin({
-                entry: './src/sw2.js'
+                entry: path.join(__dirname, 'src/sw2.js'),
+                excludes: [],
+                includes: ['**/.*', '**/*.map']
             }),
         ]
     }
