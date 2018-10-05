@@ -41,7 +41,8 @@ class ShiftAPI(View):
                                     queryset=Setting.objects.filter(name='field_description')
                                    ),
                           Prefetch('group_cells',
-                                   queryset=Cell.objects.select_related('field', 'field__table').
+                                   queryset=Cell.objects.select_related('field', 'field__table',
+                                                                        'responsible__user').
                                    filter(group_id=id)
                                   )).get(id=id)
 
@@ -100,7 +101,7 @@ class ShiftAPI(View):
             if cell.table == table and cell.field == field:
                 res[cell.index] = {"id":cell.id,
                                    "value":cell.value,
-                                   "responsible":cell.responsible.name}
+                                   "responsible":{str(cell.responsible.user):cell.responsible.name}}
 
         return res
 
