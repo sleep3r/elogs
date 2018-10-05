@@ -3,11 +3,12 @@ import App from './App.vue'
 import router from './router';
 import store from './store/store';
 import VueNativeSock from 'vue-native-websocket';
-
 import './register-sw'
 import './assets/js/index'
+import VueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
+
 
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 window.HOSTNAME =  "http://localhost:8000";
@@ -71,6 +72,12 @@ Vue.use(VueNativeSock, dataEndpoint, {
 
     }
 });
+
+store.subscribe((mutation, state) => {
+    if (!VueCookies.get('Authorization')) {
+        router.push('/login')
+    }
+})
 
 window.mv = new Vue({
     el: '#app',

@@ -66,6 +66,7 @@ router.beforeEach((to, from, next) => {
         next('/login')
     }
     else {
+        console.dir(VueCookies.get('Authorization'))
         next()
     }
 })
