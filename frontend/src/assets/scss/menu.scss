@@ -160,3 +160,9 @@
     text-align: center;
     font-size: 14px;
 }
+
+@media (max-width: 677.98px) {
+    .menu.menu--left, .menu__sub-title {
+        opacity: 1 !important;
+    }
+}
