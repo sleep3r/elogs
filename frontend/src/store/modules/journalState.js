@@ -221,32 +221,27 @@ const journalState = {
                         fields[data[i].fieldName]['cells'] = {};
                     }
                     let cells = fields[data[i].fieldName].cells;
-                    if (data[i].value) {
-                        if (data[i].index in cells) {
-                            // update cell
-                            cells[data[i].index]['value'] = data[i].value;
-                            console.log('setting responsible')
-                            console.log(data[i].responsible)
-                            Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
-                            if (data[i].notSynchronized) {
-                                cells[data[i].index]['notSynchronized'] = data[i].notSynchronized;
-                                cells[data[i].index]['fieldName'] = data[i].fieldName;
-                                cells[data[i].index]['tableName'] = data[i].tableName;
-                                cells[data[i].index]['index'] = data[i].index;
-                            }
-                        }
-                        else {
-                            // create cell
-                            Vue.set(cells, data[i].index, {});
-                            Vue.set(cells[data[i].index], 'value', data[i].value);
-                            Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
-                            if (data[i].notSynchronized) {
-                                Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
-                            }
+                    if (data[i].index in cells) {
+                        // update cell
+                        cells[data[i].index]['value'] = data[i].value;
+                        console.log('setting responsible')
+                        console.log(data[i].responsible)
+                        Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
+                        if (data[i].notSynchronized) {
+                            cells[data[i].index]['notSynchronized'] = data[i].notSynchronized;
+                            cells[data[i].index]['fieldName'] = data[i].fieldName;
+                            cells[data[i].index]['tableName'] = data[i].tableName;
+                            cells[data[i].index]['index'] = data[i].index;
                         }
                     }
                     else {
-                        Vue.delete(cells, data[i].index);
+                        // create cell
+                        Vue.set(cells, data[i].index, {});
+                        Vue.set(cells[data[i].index], 'value', data[i].value);
+                        Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
+                        if (data[i].notSynchronized) {
+                            Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
+                        }
                     }
                 }
             }
