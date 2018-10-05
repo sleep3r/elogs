@@ -108,7 +108,7 @@ class ShiftAPI(View):
 class PlantsAPI(LoginRequiredMixin ,View):
     def get(self, request):
         queryset = Plant.objects.all()
-        res = [{plant.name:plant.verbose_name} for plant in queryset]
+        res = [{"name":plant.name, "verboseName":plant.verbose_name} for plant in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -118,7 +118,7 @@ class JournalsAPI(View):
         plant = request.GET.get('plant', None)
         if plant:
             queryset = Journal.objects.filter(plant__name=plant)
-        res = [{journal.name:journal.verbose_name} for journal in queryset]
+        res = [{"name":journal.name, "verboseName":journal.verbose_name} for journal in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -195,7 +195,7 @@ class TablesAPI(View):
         elif plant and journal:
             queryset = Table.objects.filter(journal__plant__name=plant, journal__name = journal)
 
-        res = [{table.name:table.verbose_name} for table in queryset]
+        res = [{"name":table.name, "verboseName":table.verbose_name} for table in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -209,7 +209,7 @@ class FieldsAPI(View):
             queryset = Field.objects.filter(table__journal__plant__name=plant,
                                             table__journal__name=journal,
                                             table__name=table)
-        res = [{field.name:field.verbose_name} for field in queryset]
+        res = [{"name":field.name, "verboseName":field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
 
 
