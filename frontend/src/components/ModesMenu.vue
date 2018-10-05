@@ -81,7 +81,8 @@
             setActiveItem() {
                 this.closeAllItems()
                 let currentModeId = this.getURLParameter('modeId')
-                document.getElementById(currentModeId).classList.add("open");
+                let currentMode = document.getElementById(currentModeId)
+                currentMode ? currentMode.classList.add("open") : null
             },
             closeAllItems() {
                 let allItems = document.querySelectorAll(".menu--left .menu__item");
