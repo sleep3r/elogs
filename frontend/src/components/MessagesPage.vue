@@ -5,7 +5,7 @@
             <template v-else>
                 <li class="message" v-for="message in messages" :key="message.id">
                     <template v-if="message.sendee">
-                        <img class="message__image" src="{% static 'images/no-avatar.png' %}">
+                        <img class="message__image" src="../assets/images/no-avatar.png">
                         <span class="message__author-name">{{ message.user_name }}</span>
                         <strong class="message__title">
                             <a class="sendee" href="#">{{message.sendee}}</a>
@@ -36,7 +36,36 @@
         name: "MessagesPage",
         data() {
             return {
-                messages: []
+                messages: [
+                    // {
+                    //     id: 1,
+                    //     user_name: 'dfsfs',
+                    //     sendee: 'esdad',
+                    //     link: 'dadsasd',
+                    //     cell: {
+                    //         field: {
+                    //             name: 'csadas'
+                    //         }
+                    //     },
+                    //     type: 'dsa',
+                    //     text: 'sadas',
+                    //     created:'dasdad'
+                    // },
+                    // {
+                    //     id: 2,
+                    //     user_name: 'dfsfs',
+                    //     sendee: 'esdad',
+                    //     link: 'dadsasd',
+                    //     cell: {
+                    //         field: {
+                    //             name: 'csadas'
+                    //         }
+                    //     },
+                    //     type: 'dsa',
+                    //     text: 'sadas',
+                    //     created:'dasdad'
+                    // }
+                ]
             }
         },
         mounted() {

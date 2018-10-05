@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div id="loginbox" style="width:30%" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 centered-vertically">
+        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 centered-vertically">
             <div class="panel panel-info">
                 <div style="background-color: #2A3F54; color: white" class="panel-heading">
                     <div class="panel-title">Вход в систему электронных журналов</div>
@@ -123,5 +123,10 @@
         min-height: 30px;
         word-break: break-word;
         background: #fff;
+    }
+    @media (min-width: 992px) {
+        .mainbox {
+            width: 30%;
+        }
     }
 </style>

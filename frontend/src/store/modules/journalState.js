@@ -38,7 +38,7 @@ const journalState = {
         },
         plantVerboseName: state => {
             if (state.loaded) {
-                return state.journalInfo.plant.name;
+                return state.plantsInfo.filter(item => item.name === state.journalInfo.plant.name)[0].verbose_name;
             } else {
                 return '';
             }

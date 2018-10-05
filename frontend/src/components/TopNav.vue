@@ -3,7 +3,7 @@
         <div class="header__logo" @click.prevent="$router.push('/')"><i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
         </div>
         <div class="header__title">
-            <span class="journal_title" v-if="$route.name !== 'modesPage'">{{$store.getters['journalState/plantName']}}</span>
+            <span class="journal_title" v-if="$route.name !== 'modesPage'">{{$store.getters['journalState/plantVerboseName']}}</span>
             <template v-if="$route.params.journal && $route.name !== 'modesPage'">
                 <i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color:red"> Синхронизация...</i>
                 <i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color:springgreen"> Синхронизировано</i>
@@ -13,7 +13,7 @@
             <i class="fas fa-envelope user-messages-badge" @click="onMsgClick"></i>
             <i class="fas fa-bell"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
-            <i class="fas fa-user-circle"></i>
+            <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu">
                 <ul class="menu">
                     <li class="user-menu__item">
@@ -85,6 +85,7 @@
             },
             onSettingsClick() {
                 this.$router.push('/settings')
+                this.onUsernameClick();
             },
             onAddJournal() {
                 this.$router.push('/addjournal');

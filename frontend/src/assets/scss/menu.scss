@@ -3,15 +3,19 @@
 \*------------------------------------*/
 @import "variables";
 
+.column-left.menu__hidden {
+    .menu.menu--left, .menu__sub-title {
+        opacity: 0;
+    }
+}
+
 .menu__panel {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding-top: 10px;
+    justify-content: space-between;
+    padding: 10px 20px;
 }
 
 .menu__title {
-    width: 150px;
     display: block;
     font-size: 12px;
     line-height: 24px;
@@ -27,6 +31,7 @@
 .menu__toggle {
     display: block;
     line-height: 24px;
+    cursor: pointer;
 }
 
 .menu__logo {
@@ -154,4 +159,10 @@
     margin-right: 2px;
     text-align: center;
     font-size: 14px;
+}
+
+@media (max-width: 677.98px) {
+    .menu.menu--left, .menu__sub-title {
+        opacity: 1 !important;
+    }
 }

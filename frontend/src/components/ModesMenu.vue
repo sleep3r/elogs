@@ -2,7 +2,7 @@
     <div>
         <div class="menu__panel menu__panel--modes">
             <div class="menu__title">Список режимов</div>
-            <i class="menu__toggle fas fa-bars"></i>
+            <i class="menu__toggle fas fa-bars" @click="toggleMenu"></i>
         </div>
         <div class="menu__sub-title">
             <button class="btn" data-toggle="modal" data-target="#addModeModal">Добавить режим</button>
@@ -40,12 +40,20 @@
                 })
         },
         methods: {
+            toggleMenu () {
+                $('.column-left').toggleClass('menu__hidden')
+                $('.column-content').toggleClass('menu__hidden')
+            },
             onMenuItemClick (modeId) {
                 event.preventDefault();
 
                 this.$router.push('/modes?modeId=' + modeId)
                 this.setActiveItem()
                 this.$store.commit('modesState/SET_CURRENT_MODE', modeId)
+
+                if ($('#app').outerWidth() < 768) {
+                    this.toggleMenu()
+                }
             },
             setListeners () {
                 let menu = $(".column-left");
