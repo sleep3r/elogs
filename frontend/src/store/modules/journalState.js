@@ -50,9 +50,10 @@ const journalState = {
                 return '';
             }
         },
-        journalVerboseName: state => {
+        journalVerboseName: (state, getters) => {
             if (state.loaded) {
-                return state.journalInfo.journal.name;
+                let plant = getters['plantName']
+                return state.plantsInfo.filter(item => item.name === plant)[0].journals.filter(item => item.name === state.journalInfo.journal.name)[0].verbose_name;
             } else {
                 return '';
             }

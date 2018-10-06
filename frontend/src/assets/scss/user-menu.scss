@@ -23,6 +23,16 @@
     cursor: pointer;
 }
 
+.user-menu-wrapper {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1001;
+    height: 100vh;
+    visibility: hidden;
+}
+
 .user-menu {
     top: 50px;
     right: 0;
@@ -32,7 +42,7 @@
     background-color: #E5E5E5;
     margin: 0;
     padding: 0;
-    z-index: 2;
+    z-index: 1002;
 
     .menu {
         margin: 0;

@@ -1,7 +1,9 @@
 <template>
     <v-popover
             offset="16"
-            :disabled="mode !== 'validate'">
+            :disabled="mode !== 'validate'"
+            style="height: 100%"
+    >
         <input
                 :class="classes"
                 :name="fieldName"
@@ -18,6 +20,7 @@
                 :type="type"
                 v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
+                style="height: 100%"
         >
         <template>
             <datalist>
@@ -320,6 +323,9 @@
             }
 
             this.setPickersListeners()
+
+            let td = $(this.$el).closest('td')
+            setTimeout(() => td.height(td.height()), 0)
         }
     }
 </script>
@@ -434,5 +440,9 @@
             opacity: 1;
             transition: opacity .50s;
         }
+    }
+
+    .v-popover > span.trigger {
+        height: 100%;
     }
 </style>

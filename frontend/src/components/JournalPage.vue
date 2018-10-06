@@ -1,5 +1,6 @@
 <template>
     <main class="journal-page">
+        <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
         <journal-panel></journal-panel>
         <article class="journal-tables">
             <template v-if="$store.getters['journalState/loaded']">
