@@ -13,16 +13,18 @@
       <ul class="list">
         <li class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{$store.getters['journalState/cell'](tableName, fieldName, rowIndex)['value']}}</span></li>
         <li class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{$store.getters['journalState/journalInfo'].date}}</span></li>
-        <li v-if="$store.getters['journalState/fieldDescription'](tableName, fieldName)" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Критические значения от {{minNormal}} {{units}} до {{maxNormal}} {{units}}</span></li>
-        <li class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">Шалкар Иванович Масханов</span></li>
-        <li class="item"><i class="item__icon fas fa-calendar-alt"></i><span class="item__text">29 марта 2019</span></li>
+        <li v-if="$store.getters['journalState/fieldDescription'](tableName, fieldName)" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Критические значения от {{minNormal}} до {{maxNormal}}</span></li>
+        <li class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">{{responsible}}</span></li>
+        <li class="item"><i class="item__icon fas fa-calendar-alt"></i><span class="item__text">..дата создания ячейки..</span></li>
       </ul>
       <ul class="comments">
-        <li>
-          <textarea :value="comment" @input="onInput">
-          </textarea>
+        <li v-for="comment in comments">
+          {{ Object.values(comment.user)[0] }} {{ prettyDate(comment.created) }}: {{ comment.text }}
         </li>
       </ul>
+      <textarea v-model="commentText">
+      </textarea>
+      <button class="btn" @click="addComment">Добавить</button>
       <div class="buttons-panel">
         <!-- <div v-if="graphNotAdded"> -->
             <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
@@ -53,11 +55,18 @@ export default {
   ],
   data: function() {
       return {
+          commentText: '',
           selectedGraphType: "ShiftTimeline",
           graphTypes: ["ShiftTimeline", "ShiftHistogram"]
       }
   },
   computed: {
+    responsible: function () {
+      let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible']
+      if (responsible) {
+        return Object.values(responsible)[0]
+      }
+    },
     minNormal: function () {
       return this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName)['min_normal'];
     },
@@ -67,21 +76,25 @@ export default {
     units: function () {
       return this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName)['units'];
     },
-    comment: {
-      get: function () {
-        return this.$store.getters['journalState/cellComment'](this.tableName, this.fieldName, this.rowIndex);
-      },
-      set: function (val) {
-        this.$store.commit('journalState/SAVE_CELL_COMMENT', {
-          tableName: this.tableName,
-          fieldName: this.fieldName,
-          index: this.rowIndex,
-          comment: val
-        });
-      }
+    comments: function () {
+        return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex);
     },
   },
   methods: {
+    prettyDate(date) {
+      date = new Date(date);
+      return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+    },
+    addComment() {
+      let date = new Date();
+      this.$store.commit('journalState/SAVE_CELL_COMMENT', {
+        tableName: this.tableName,
+        fieldName: this.fieldName,
+        index: this.rowIndex,
+        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/username']}}
+      });
+      this.send();
+    },
     send() {
       this.$socket.sendObj({
         'type': 'messages',
@@ -92,7 +105,7 @@ export default {
           'index': this.rowIndex
         },
         'message': {
-          'text': this.comment,
+          'text': this.commentText,
           'link': 'lalala',
           'type': 'comment'
         },
@@ -114,10 +127,6 @@ export default {
             },
             {withCredentials: true}
         )
-    },
-    onInput(e) {
-      this.comment = e.target.value;
-      this.send();
     },
   }
 }

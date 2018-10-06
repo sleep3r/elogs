@@ -25,7 +25,7 @@
             </datalist>
         </template>
         <i
-                v-if="$store.getters['journalState/cellComment'](tableName, fieldName, rowIndex)"
+                v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
                 class="far fa-envelope comment-notification"></i>
         <template slot="popover">
             <CellComment
