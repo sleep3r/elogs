@@ -255,7 +255,7 @@ class Comment(models.Model):
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, related_name='comments',related_query_name='comment')
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
 
