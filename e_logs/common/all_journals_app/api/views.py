@@ -43,7 +43,7 @@ class ShiftAPI(View):
                           Prefetch('group_cells',
                                    queryset=Cell.objects.select_related('field', 'field__table',
                                                                         'responsible__user').
-                                   filter(group_id=id)
+                                   filter(group_id=id).prefetch_related('comments')
                                   )).get(id=id)
 
         plant = qs.journal.plant
@@ -101,7 +101,8 @@ class ShiftAPI(View):
             if cell.table == table and cell.field == field:
                 res[cell.index] = {"id":cell.id,
                                    "value":cell.value,
-                                   "responsible":{str(cell.responsible.user):cell.responsible.name}}
+                                   "responsible":{str(cell.responsible.user):cell.responsible.name},
+                                   "comments":[comment.text for comment in cell.comments.all()]}
 
         return res
 
