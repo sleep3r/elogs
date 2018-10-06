@@ -46,10 +46,12 @@
                             <template v-else>
                                 <div class="row field-item" v-for="(item, index) in currentAddingMode.fields" :key="index">
                                     <div class="col">
+                                        <!--@input="(e) => onInputChange('table', e.target.value, index)"-->
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                @input="(e) => onInputChange('table', e.target.value, index)"
+                                                v-model="item['table_name']"
+
                                                 placeholder="Таблица"
                                                 :list='index'>
                                         <datalist :id='index'>
@@ -57,10 +59,12 @@
                                         </datalist>
                                     </div>
                                     <div class="col">
+                                        <!--@input="(e) => onInputChange('field', e.target.value, index)"-->
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                @input="(e) => onInputChange('field', e.target.value, index)"
+                                                v-model="item['name']"
+
                                                 placeholder="Ячейка"
                                                 :list='index'>
                                         <datalist :id='index'>
