@@ -99,9 +99,13 @@ class ShiftAPI(View):
         res = {}
         for cell in cells:
             if cell.table == table and cell.field == field:
-                res[cell.index] = {"id":cell.id,
-                                   "value":cell.value,
-                                   "responsible":{str(cell.responsible.user):cell.responsible.name}}
+                if cell.responsible:
+                    responsible = {str(cell.responsible.user): cell.responsible.name}
+                else:
+                    responsible = {}
+                res[cell.index] = {"id": cell.id,
+                                   "value": cell.value,
+                                   "responsible": responsible}
 
         return res
 
