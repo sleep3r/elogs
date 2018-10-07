@@ -132,11 +132,11 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def add_comment_query(self, cell, text):
-        Comment.objects.update_or_create(
+        Comment.objects.create(
             content_type=ContentType.objects.get_for_model(cell),
             object_id=cell.id,
-            defaults={'text': text,
-                      'employee': self.scope['user'].employee})
+            text=text,
+            employee=self.scope['user'].employee)
 
     @database_sync_to_async
     def get_cell_from_dict(self, cell_dict: dict) -> Cell:

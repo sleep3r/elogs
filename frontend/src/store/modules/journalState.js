@@ -50,9 +50,10 @@ const journalState = {
                 return '';
             }
         },
-        journalVerboseName: state => {
+        journalVerboseName: (state, getters) => {
             if (state.loaded) {
-                return state.journalInfo.journal.name;
+                let plant = getters['plantName']
+                return state.plantsInfo.filter(item => item.name === plant)[0].journals.filter(item => item.name === state.journalInfo.journal.name)[0].verbose_name;
             } else {
                 return '';
             }
@@ -100,25 +101,25 @@ const journalState = {
                 }
             }
         },
-        cellComment: (state) => (tableName, fieldName, rowIndex) => {
+        cellComments: (state) => (tableName, fieldName, rowIndex) => {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
                     // console.log('WARNING! Trying to get cell comment of unexistent field: ' + fieldName);
-                    return '';
+                    return [];
                 }
                 let cells = fields[fieldName].cells;
                 if (Object.keys(cells).length !== 0) {
                     if (rowIndex in cells) {
-                        return cells[rowIndex].comment;
+                        return cells[rowIndex].comments || [];
                     }
                     else {
                         // console.log('WARNING! Trying to get cell comment with unexistent index: ' + fieldName + ' ' + rowIndex);
-                        return '';
+                        return [];
                     }
                 }
                 else {
-                    return '';
+                    return [];
                 }
             }
         },
@@ -258,13 +259,16 @@ const journalState = {
                 let cells = fields[payload.fieldName].cells;
                 if (payload.comment) {
                     if (payload.index in cells) {
-                        // update cell
-                        Vue.set(cells[payload.index], 'comment', payload.comment);
+                        // update
+                        if (!('comments' in cells[payload.index])) {
+                            Vue.set(cells[payload.index], 'comments', []);
+                        }
+                        cells[payload.index]['comments'].push(payload.comment);
                     }
                     else {
                         // create cell
-                        Vue.set(cells, payload.index, {});
-                        Vue.set(cells[payload.index], 'comment', payload.comment);
+                        Vue.set(cells, payload.index, {'comments': []});
+                        cells[payload.index]['comments'].push(payload.comment);
                     }
                 }
                 else {

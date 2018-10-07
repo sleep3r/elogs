@@ -4,7 +4,7 @@
 @import "variables";
 
 .column-left.menu__hidden {
-    .menu.menu--left, .menu__sub-title {
+    .menu.menu--left, .menu__sub-title, .menu__logo{
         opacity: 0;
     }
 }
@@ -162,7 +162,7 @@
 }
 
 @media (max-width: 677.98px) {
-    .menu.menu--left, .menu__sub-title {
+    .menu.menu--left, .menu__sub-title, .menu__logo {
         opacity: 1 !important;
     }
 }
