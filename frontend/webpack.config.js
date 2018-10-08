@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const BundleTracker = require('webpack-bundle-tracker');
-const Cleaner = require('webpack-cleanup-plugin');
+// const Cleaner = require('webpack-cleanup-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -11,9 +11,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     mode: 'development',
-    entry: {
-        main: './src/main.js',
-    },
+    entry: './src/main.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public')
@@ -62,19 +60,11 @@ module.exports = {
                 },
             },
             {
-                test: /\.(html|htm)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-
-                },
-            },
-            {
                 test: /bootstrap\/dist\/js\/umd\//, use: 'imports-loader?jQuery=jquery'
             },
             {
                 test: /\.(gif|png|jpe?g|svg|ico)$/i,
-                loader: 'file-loader',
+                loader: 'url-loader',
                 // loader: 'file-loader',
                 options: {
                     name: '[name].[ext]',
@@ -117,8 +107,7 @@ module.exports = {
                 preset: ['default', {discardComments: {removeAll: true}}],
             },
             canPrint: true
-        }),
-        new Cleaner(),
+        })
     ],
     devtool: "inline-source-map",
     devServer: {

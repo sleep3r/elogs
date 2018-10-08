@@ -7,9 +7,6 @@ import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
 
-// import './index.html';  // this guarantees that files will be copied
-// import './images/favicon.ico';
-
 Vue.config.productionTip = false;
 
 

@@ -6,7 +6,7 @@ module.exports = {
         module: {
             rules: [
                 {
-                    test: /\.(pdf|html|ico)$/,
+                    test: /\.(pdf)$/,
                     loader: 'file-loader',
                 },
             ]
