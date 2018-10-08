@@ -11,7 +11,7 @@ import SettingsPage from './components/settings-page/SettingsPage.vue'
 import ModesPage from './components/ModesPage.vue'
 import AddJournal from './components/AddJournal.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
     mode: 'history',

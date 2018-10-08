@@ -113,7 +113,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             if cell:
                 message = data['message'].copy()
                 message['sendee'] = self.scope['user'].employee
-                await self.add_cell_message_query(cell, message, all_users=True)
+                await self.add_cell_message_query(message, cell, all_users=True)
 
         elif data['message']['type'] == "comment":
             message = data['message'].copy()
@@ -123,8 +123,18 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             cell = await self.get_or_create_cell(data['cell_location'])
 
             if cell:
-                await self.add_comment_query(cell, text)
-                await self.add_cell_message_query(cell, message, all_users=True)
+                comment = await self.add_comment_query(cell, text)
+
+                data['created'] = comment.created.isoformat()
+                data['employee'] = {str(comment.employee.user):comment.employee.name}
+                await self.channel_layer.group_send(
+                    self.data_channel,
+                    {
+                        "type": "send_message",
+                        "text": json.dumps(data)
+                    }
+                )
+                await self.add_cell_message_query(message, cell, all_users=True)
 
     @database_sync_to_async
     def get_or_create_cell(self, cell_location):
@@ -132,11 +142,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def add_comment_query(self, cell, text):
-        Comment.objects.create(
+        comment = Comment.objects.create(
             content_type=ContentType.objects.get_for_model(cell),
             object_id=cell.id,
             text=text,
             employee=self.scope['user'].employee)
+
+        return comment
 
     @database_sync_to_async
     def get_cell_from_dict(self, cell_dict: dict) -> Cell:
@@ -148,9 +160,9 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         return Cell.get_by_addr(field_name, table_name, group_id, index)
 
     @database_sync_to_async
-    def add_cell_message_query(self, cell, message, all_users=False, positions=None, uids=None,
+    def add_cell_message_query(self, message, cell, all_users=False, positions=None, uids=None,
                                plant=None):
-        Message.add(cell, message, all_users, positions, uids, plant)
+        Message.add(message, cell, all_users, positions, uids, plant)
 
     @database_sync_to_async
     def update(self, cell):

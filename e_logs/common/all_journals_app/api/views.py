@@ -14,7 +14,7 @@ from django.views import View
 from django.http import JsonResponse
 
 
-from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell
+from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
@@ -41,10 +41,14 @@ class ShiftAPI(View):
                                     queryset=Setting.objects.filter(name='field_description')
                                    ),
                           Prefetch('group_cells',
-                                   queryset=Cell.objects.select_related('field', 'field__table',
-                                                                        'responsible__user').
-                                   filter(group_id=id).prefetch_related('comments')
-                                  )).get(id=id)
+                                   queryset=Cell.objects.select_related('field',
+                                                                        'field__table',
+                                                                        'responsible__user',
+                                                                        'responsible').
+                                   filter(group_id=id).prefetch_related(
+                          Prefetch('comments', queryset=Comment.objects.all().
+                                                         select_related('employee__user',
+                                                                        'employee'))))).get(id=id)
 
         plant = qs.journal.plant
         res = {
@@ -55,9 +59,11 @@ class ShiftAPI(View):
                 "closed":qs.closed,
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
+                "responsibles": [{str(e.user): str(e)} for e in qs.employee_set.all()],
                 "permissions": [permission.codename for permission
                     in Permission.objects.filter(user=user)],
                 "journal": self.journal_serializer(qs)}
+
         return JsonResponse(res, safe=False)
 
     def journal_serializer(self, qs):
