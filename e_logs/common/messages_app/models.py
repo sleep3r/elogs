@@ -6,9 +6,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
+from pywebpush import webpush, WebPushException
 
 from e_logs.common.login_app.models import Employee
-from e_logs.common.messages_app.views import push_notification
 from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none
 
 
@@ -91,8 +91,38 @@ class Message(StrAsDictMixin, models.Model):
                             'sendee': message['sendee'].name if message['sendee'] else 'E-LOGS',
                             'text': text})})
 
-                push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
+                Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
 
+    @staticmethod
+    def push_notification(title, body, user_id):
+        user_subscriptions = UserSubscription.objects.filter(user_id=user_id)
+        for subscription in user_subscriptions:
+            data = json.dumps({
+                'title': title,
+                'body': body,
+            })
+            try:
+                print(subscription.subscription)
+                webpush(
+                    subscription_info=json.loads(subscription.subscription),
+                    data=data,
+                    vapid_private_key='./private_key.pem',
+                    vapid_claims={
+                        'sub': 'mailto:inframine@inframine.io',
+                    }
+                )
+            except WebPushException as ex:
+                print('I can\'t do that: {}'.format(repr(ex)))
+                print(ex)
+                # Mozilla returns additional information in the body of the response.
+                if ex.response and ex.response.json():
+                    extra = ex.response.json()
+                    print('Remote service replied with a {}:{}, {}',
+                          extra.code,
+                          extra.errno,
+                          extra.message
+                          )
+    
     @staticmethod
     def update(cell):
         messages = filter_or_none(Message, cell=cell)
@@ -109,24 +139,6 @@ class Message(StrAsDictMixin, models.Model):
             models.Index(fields=['addressee']),
             models.Index(fields=['created']),
         ]
-
-    @staticmethod
-    def get_addressees(all_users=False, positions=None, eids=None, plant=None):
-        """Отдает список адресатов"""
-
-        res = []
-        if all_users:
-            return Employee.objects.only('user')
-        if positions:
-            for p in positions:
-                emp = Employee.objects.filter(plant=plant, position=p).cache()
-                res.extend(emp)
-        if eids:
-            for eid in eids:
-                emp = Employee.objects.get(id=eid)
-                res.append(emp)
-
-        return res
 
     @staticmethod
     def get_unread(employee) -> QuerySet:
