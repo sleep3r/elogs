@@ -8,6 +8,7 @@ from django.db.models import QuerySet
 from django.utils import timezone
 
 from e_logs.common.login_app.models import Employee
+from e_logs.common.messages_app.views import push_notification
 from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none
 
 
@@ -31,16 +32,7 @@ class Message(StrAsDictMixin, models.Model):
     link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#", null=True)
 
     @staticmethod
-    def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
-        """
-        TODO: add builder class
-        'message': {
-                    'text': "some text",
-                    'link': Optional[URI],
-                    'type': "message type",
-                    'sendee': Employee or None,
-                }
-        """
+    def get_recepients(message, all_users=False, positions=None, uids=None, plant=None):
 
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError
@@ -55,13 +47,28 @@ class Message(StrAsDictMixin, models.Model):
         if positions:
             recipients = []
             for p in positions:
-                recipients.\
-                    extend(Employee.objects.
+                recipients.extend(Employee.objects.
                            filter(plant=plant if plant else None, position=p).
                            exclude(name=message['sendee']).cache())
         if all_users:
             recipients = []
             recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
+
+        return recipients
+
+
+    @staticmethod
+    def add(message, cell=None, all_users=False, positions=None, uids=None, plant=None):
+        """
+        TODO: add builder class
+        'message': {
+                    'text': "some text",
+                    'link': Optional[URI],
+                    'type': "message type",
+                    'sendee': Employee or None,
+                }
+        """
+        recipients = Message.get_recepients(message, all_users, positions, uids, plant)
 
         text = message.pop('text', '')
 
@@ -76,11 +83,15 @@ class Message(StrAsDictMixin, models.Model):
             else:
                 Message.objects.create(**message, addressee=emp, cell=cell, text=text)
                 async_to_sync(layer.group_send)\
-                    (f'user_{emp.id}', {"type": "message.send",
-                                       "text": json.dumps({
-                                           'cell': cell.field.name if cell else None,
-                                           'sendee': message['sendee'].name if message['sendee'] else '',
-                                           'text': text})})
+                    (f'user_{emp.id}',
+                     {"type": "send_message",
+                      "text": json.dumps(
+                          {
+                            'cell': cell.field.name if cell else None,
+                            'sendee': message['sendee'].name if message['sendee'] else 'E-LOGS',
+                            'text': text})})
+
+                push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
 
     @staticmethod
     def update(cell):

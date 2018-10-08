@@ -15,19 +15,19 @@ class MessagesSubscription(LoginRequiredMixin, View):
     def post(self, request):
         sub_info = json.loads(request.body)
         if sub_info:
-            UserSubscription.objects.create(user=request.user.employee,
-                                            subscription=json.dumps(sub_info))
+            UserSubscription.objects.update_or_create(user=request.user.employee,
+                                                defaults={"subscription":json.dumps(sub_info)})
             return JsonResponse({"status":1})
         else:
             return JsonResponse({"status":0})
 
 
-def push_notification(user_id):
+def push_notification(title, body, user_id):
     user_subscriptions = UserSubscription.objects.filter(user_id=user_id)
     for subscription in user_subscriptions:
         data = json.dumps({
-        'title': 'Hello',
-        'body': 'World!',
+        'title': title,
+        'body': body,
         })
         try:
             print(subscription.subscription)
