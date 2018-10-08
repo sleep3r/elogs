@@ -22,7 +22,7 @@
             }
         },
         mounted() {
-
+            this.tabs[0].isActive = true;
         },
         created() {
           this.tabs = this.$children;
