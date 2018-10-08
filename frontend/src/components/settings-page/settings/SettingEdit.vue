@@ -1,6 +1,6 @@
 <template>
     <div class="field-description">
-        <tabs :items="items">
+        <tabs :items="items" first=1>
             <tab id="1" >
                 <div class="model_value">
                     <field-prop-edit section="value" name="type" :value="model.value.type" ></field-prop-edit>

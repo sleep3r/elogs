@@ -1,8 +1,8 @@
 <template>
     <section class="tabs">
         <ul class="nav nav-tabs">
-            <li v-for="item in items" :key="item.id" role="presentation" :class="getClasses(item.id)" @click="selectTab(item.id)">
-                <a href="javascript:;">{{item.title}}</a>
+            <li v-for="item in items" :key="item.id"  class="nav-item" @click="selectTab(item.id)">
+                <a href="#" :class="getClasses(item.id)" >{{item.title}}</a>
             </li>
         </ul>
         <slot/>
@@ -13,7 +13,8 @@
     export default {
         name: "tabs",
         props: [
-            'items'
+            'items',
+            'first'
         ],
         data: function () {
             return {
@@ -22,17 +23,19 @@
             }
         },
         mounted() {
-            this.tabs[0].isActive = true;
+            console.log("mounted");
+            this.selectTab(this.first);
         },
         created() {
           this.tabs = this.$children;
+          console.log("created");
         },
         methods: {
             getClasses(id) {
-              if (this.activeIndex === id ) {
-                  return 'active';
+              if (this.activeIndex === (id*1) ) {
+                  return 'nav-link active';
               } else {
-                  return '';
+                  return 'nav-link ';
               }
             },
             selectTab: function(id) {
@@ -41,9 +44,8 @@
                 let selectedTab = this.tabs.find( tab => { return (tab.id === sid) });
                 console.log(" selected: ", selectedTab);
                 selectedTab.isActive = true;
-                this.activeIndex = id;
-
-                    this.tabs.forEach(tab => {
+                this.activeIndex = +id;
+                this.tabs.forEach(tab => {
                     tab.isActive = (tab.id === sid);
                 });
             }
