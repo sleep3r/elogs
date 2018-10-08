@@ -1,5 +1,6 @@
 import json
 import pickle
+from datetime import timedelta
 from urllib.parse import parse_qs
 
 from cacheops import cached_as
@@ -60,11 +61,27 @@ class ShiftAPI(View):
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
                 "responsibles": [{str(e.user): str(e)} for e in qs.employee_set.all()],
-                "permissions": [permission.codename for permission
-                    in Permission.objects.filter(user=user)],
+                "permissions": self.get_permissions(request, qs),
                 "journal": self.journal_serializer(qs)}
 
         return JsonResponse(res, safe=False)
+
+    def get_permissions(self, request, qs):
+        shift = qs
+        assignment_time = qs.date - timedelta(**Setting.of(shift)['shift_assignment_time'])
+        assignment_time = assignment_time.isoformat()
+        not_assignment_time = qs.date + timedelta(**Setting.of(shift)['shift_edition_time'])
+        not_assignment_time = not_assignment_time.isoformat()
+
+        res = {
+            "superuser": request.user.is_superuser,
+            "permissions": [permission.codename for permission
+                            in Permission.objects.filter(user=request.user)],
+            "time": (assignment_time, not_assignment_time),
+            "allowed_positions": Setting.of(shift)["allowed_positions"]
+        }
+
+        return res
 
     def journal_serializer(self, qs):
         journal = qs.journal
@@ -121,6 +138,7 @@ class ShiftAPI(View):
                                     }
 
         return res
+
 
 class PlantsAPI(LoginRequiredMixin ,View):
     def get(self, request):

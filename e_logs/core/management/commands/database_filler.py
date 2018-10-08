@@ -246,6 +246,17 @@ class DatabaseFiller:
             gr.save()
 
     @staticmethod
+    def bl_create():
+        Setting.objects.create(name='shift_assignment_time',
+                               value=Setting._dumps({"hours": 1}))
+
+        Setting.objects.create(name='shift_edition_time',
+                               value=Setting._dumps({"hours": 12}))
+
+        Setting.objects.create(name='allowed_positions',
+                               value=Setting._dumps(("boss", "laborant")))
+
+    @staticmethod
     def create_tables_lists():
         stdout_logger.info('Adding table lists for each journal...')
         fill_tables_lists()
