@@ -43,6 +43,8 @@ class ModeApi(LoginRequiredMixin, View):
             "id":mode.id,
             "is_active": mode.is_active,
             "message": mode.message,
+            "journal":{mode.journal.name:mode.journal.verbose_name},
+            "plant": {mode.journal.plant.name:mode.journal.plant.verbose_name},
             "fields": [{
                         "name":constraint.field.name,
                         "table_name": constraint.field.table.name,
