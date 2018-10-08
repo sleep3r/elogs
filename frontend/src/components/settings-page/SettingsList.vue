@@ -118,7 +118,7 @@
         }
     }
 </script>
-<style  lang="scss">
+<style  lang="scss" scoped>
     $color-border: #548CB7;
     .settings {
         border: 1px solid $color-border;
