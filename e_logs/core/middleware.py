@@ -61,12 +61,23 @@ class CustomAuthenticationMiddleware(MiddlewareMixin):
 
     def user_from_asgi_request(self, request):
         if not hasattr(request, '_cached_user'):
-            headers = dict(request.scope['headers'])
+            print(request.__dict__)
+            print(request.__dict__.keys())
+            print(request.COOKIES['Authorization'])
             try:
-                auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
+                try:
+                    # if it is wsgi request
+                    auth_token = request.COOKIES['Authorization']
+                except:
+                    # if it is asgi request
+                    headers = dict(request.scope['headers'])
+                    auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
                 request._cached_user = Token.objects.get(key=auth_token).user
             except:
-                request._cached_user = AnonymousUser
+                try: 
+                    request._cached_user = request.user
+                except:
+                    request._cached_user = AnonymousUser
         return request._cached_user
 
     def process_request(self, request):

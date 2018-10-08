@@ -65,7 +65,7 @@
         },
         mounted() {
             let self = this;
-            let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name;
+            let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
             axios.get(templateUrl)
                 .then(function (response) {
                     self.template = response.data;
