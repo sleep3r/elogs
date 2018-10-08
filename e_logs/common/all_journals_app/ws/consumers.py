@@ -123,6 +123,10 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             cell = await self.get_or_create_cell(data['cell_location'])
 
             if cell:
+                comment = await self.add_comment_query(cell, text)
+
+                data['created'] = comment.created.isoformat()
+                data['employee'] = {str(comment.employee.user):comment.employee.name}
                 await self.channel_layer.group_send(
                     self.data_channel,
                     {
@@ -130,7 +134,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                         "text": json.dumps(data)
                     }
                 )
-                await self.add_comment_query(cell, text)
                 await self.add_cell_message_query(message, cell, all_users=True)
 
     @database_sync_to_async
@@ -139,11 +142,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def add_comment_query(self, cell, text):
-        Comment.objects.create(
+        comment = Comment.objects.create(
             content_type=ContentType.objects.get_for_model(cell),
             object_id=cell.id,
             text=text,
             employee=self.scope['user'].employee)
+
+        return comment
 
     @database_sync_to_async
     def get_cell_from_dict(self, cell_dict: dict) -> Cell:
