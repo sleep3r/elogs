@@ -24,7 +24,7 @@
                                     placeholder="Введите название цеха"
                                     list="plantList">
                             <datalist id="plantList">
-                                <option v-for="item in plantList" :value="item.verboseName" :key="item.name"></option>
+                                <option v-for="item in plantList" :value="item.verboseName" :key="'plant-' + item.name"></option>
                             </datalist>
                         </div>
                         <div class="form-group" id="journal" v-if="currentAddingMode.plant">
@@ -37,7 +37,7 @@
                                     placeholder="Введите название журнала"
                                     list="journalList">
                             <datalist id="journalList">
-                                <option v-for="item in journalList" :value="item.verboseName" :key="item.name"></option>
+                                <option v-for="item in journalList" :value="item.verboseName" :key="'journal-' + item.name"></option>
                             </datalist>
                         </div>
                         <div class="form-group fields-container" id="fields" v-if="currentAddingMode.plant && currentAddingMode.journal">
@@ -46,29 +46,27 @@
                             <template v-else>
                                 <div class="row field-item" v-for="(item, index) in currentAddingMode.fields" :key="index">
                                     <div class="col">
-                                        <!--@input="(e) => onInputChange('table', e.target.value, index)"-->
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                v-model="item['table_name']"
-
+                                                v-model="item.verbose_table_name"
+                                                @input="(e) => onInputChange('table', e.target.value, index)"
                                                 placeholder="Таблица"
-                                                :list='index'>
-                                        <datalist :id='index'>
-                                            <option v-for="item in tableList" :value="item.verboseName" :key="item.name"></option>
+                                                :list='"table-" + index'>
+                                        <datalist :id='"table-" + index'>
+                                            <option v-for="item in tableList" :value="item.name" :key="'table-' + item.name + '-' + index"></option>
                                         </datalist>
                                     </div>
                                     <div class="col">
-                                        <!--@input="(e) => onInputChange('field', e.target.value, index)"-->
                                         <input
                                                 type="text"
                                                 class="form-control"
-                                                v-model="item['name']"
-
+                                                v-model="item.verbose_name"
+                                                @input="(e) => onInputChange('field', e.target.value, index)"
                                                 placeholder="Ячейка"
-                                                :list='index'>
-                                        <datalist :id='index'>
-                                            <option v-for="item in fieldList" :value="item.verboseName" :key="item.name"></option>
+                                                :list='"cell-" + index'>
+                                        <datalist :id='"cell-" + index' v-if="item['table_name']">
+                                            <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name + '-' + index"></option>
                                         </datalist>
                                     </div>
                                     <div class="col">
@@ -94,6 +92,7 @@
 
 <script>
     import axios from 'axios'
+    import shortid from 'shortid'
 
     export default {
         name: "AddModeModal",
@@ -103,6 +102,7 @@
                 journalList: [],
                 tableList: [],
                 fieldList: [],
+                randomIds: [],
                 currentAddingMode: {
                     message: '',
                     plant: '',
@@ -111,10 +111,10 @@
                 }
             }
         },
-        computed: {
-
-        },
         methods: {
+            getRandomId (index) {
+                return this.randomIds.filter(item => item.index === index)[0].id
+            },
             onAddMode () {
                 this.$store.dispatch('modesState/addMode', { mode: this.currentAddingMode })
                     .then(() => {
@@ -127,13 +127,27 @@
             onAddField () {
                 this.currentAddingMode.fields.push({
                     table_name: '',
+                    verbose_table_name: '',
                     name: '',
+                    verbose_name: '',
                     min_normal: '',
                     max_normal: ''
                 })
+
+                this.tableList = []
+                this.fieldList = []
             },
             onDeleteField (fieldIndex) {
                 this.currentAddingMode.fields = this.currentAddingMode.fields.filter((item, index) => index !== fieldIndex)
+            },
+            getExistingName (listType, value) {
+                let currentItem = this[listType].filter(item => item.name === value)[0]
+                if (currentItem) {
+                    return currentItem.name
+                }
+                else {
+                    return undefined
+                }
             },
             getNameByVerboseName (listType, value) {
                 let currentPlant = this[listType].filter(item => item.verboseName === value)[0]
@@ -175,7 +189,7 @@
                 else if (propType === 'table') {
                     this.getTables(this.currentAddingMode.plant, this.currentAddingMode.journal)
                         .then(() => {
-                            if (this.getNameByVerboseName('tableList', value)) {
+                            if (this.getExistingName('tableList', value)) {
                                 this.currentAddingMode.fields[index].table_name = value
                             }
                             else {
@@ -184,10 +198,10 @@
                             }
                         })
                 }
-                else if (propType === 'field') {
+                else if (propType === 'field' && this.currentAddingMode.fields[index].table_name) {
                     this.getFields(this.currentAddingMode.plant, this.currentAddingMode.journal, this.currentAddingMode.fields[index].table_name)
                         .then(() => {
-                            if (this.getNameByVerboseName('fieldList', value)) {
+                            if (this.getExistingName('fieldList', value)) {
                                 this.currentAddingMode.fields[index].name = value
                             }
                             else {
@@ -221,19 +235,19 @@
                     })
             },
             getTables (plant, journal) {
-                return axios.get(window.HOSTNAME + `/api/journals/?plant=${plant}&journal=${journal}`,
+                return axios.get(window.HOSTNAME + `/api/tables/?plant=${plant}&journal=${journal}`,
                     {
                         withCredentials: true
                     })
                     .then(response => {
-                        this.journalList = response.data
+                        this.tableList = response.data
                     })
                     .catch(e => {
                         console.log(e)
                     })
             },
             getFields (plant, journal, table) {
-                return axios.get(window.HOSTNAME + `/api/journals/?plant=${plant}&journal=${journal}&table=${table}`,
+                return axios.get(window.HOSTNAME + `/api/fields/?plant=${plant}&journal=${journal}&table=${table}`,
                     {
                         withCredentials: true
                     })
@@ -244,6 +258,14 @@
                         console.log(e)
                     })
             }
+        },
+        mounted () {
+            this.currentAddingMode.fields.map((item, index) => {
+                this.randomIds.push({
+                    index: index,
+                    id: shortid.generate()
+                })
+            })
         }
     }
 </script>
