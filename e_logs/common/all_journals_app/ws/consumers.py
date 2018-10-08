@@ -123,6 +123,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             cell = await self.get_or_create_cell(data['cell_location'])
 
             if cell:
+                await self.channel_layer.group_send(
+                    self.data_channel,
+                    {
+                        "type": "send_message",
+                        "text": json.dumps(data)
+                    }
+                )
                 await self.add_comment_query(cell, text)
                 await self.add_cell_message_query(cell, message, all_users=True)
 
