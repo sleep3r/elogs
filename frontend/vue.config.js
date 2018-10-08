@@ -6,9 +6,9 @@ module.exports = {
         module: {
             rules: [
                 {
-                    test: /\.pdf$/,
+                    test: /\.(pdf|html|ico)$/,
                     loader: 'file-loader',
-                }
+                },
             ]
         },
         // plugins: [
