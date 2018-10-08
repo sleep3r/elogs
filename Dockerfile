@@ -44,6 +44,8 @@ RUN . ./nvm.sh \
   && npm i \
   && npm run build
 
+WORKDIR /srv
+
 ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
 ENV DOCKER yes
 ENV DEBUG False
