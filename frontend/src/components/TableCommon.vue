@@ -60,7 +60,9 @@
                     },
                     components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },
                     mounted() {
-
+                        $('td').each(function () {
+                            setTimeout(() => $(this).height($(this).height()), 0)
+                        })
                     }
                 })
             }
@@ -71,7 +73,11 @@
             axios.get(templateUrl)
                 .then(function (response) {
                     let $mainElement = $("<div />").append(($(response.data).clone()))
-                    $mainElement.find('table').wrap("<div style='overflow-x: auto; margin-bottom: 20px;'></div>")
+                    $mainElement.find('table').each(function () {
+                        if ($(this).parent().is('div')) {
+                            $(this).wrap("<div style='overflow-x: auto; margin-bottom: 20px;'></div>")
+                        }
+                    })
                     self.template = $mainElement[0].outerHTML
                 })
                 .catch(function (error) {
