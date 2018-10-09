@@ -1,50 +1,50 @@
 <ul class="nav nav-tabs" style="overflow-x: auto; display: -webkit-box; margin-bottom: 10px;">
 
     <li class="nav-item">
-        <a data-toggle="tab" href="#January_table" class="nav-link active" aria-controls="January_table">Январь</a>
+        <a data-toggle="tab" href="#January_table" class="nav-link " aria-controls="January_table">Январь</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#February_table" class="nav-link" aria-controls="February_table">Февраль</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#March_table" class="nav-link" aria-controls="March_table">Март</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#April_table" class="nav-link" aria-controls="April_table">Апрель</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#May_table" class="nav-link" aria-controls="May_table">Май</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#June_table" class="nav-link" aria-controls="June_table">Июнь</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#July_table" class="nav-link" aria-controls="July_table">Июль</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#August_table" class="nav-link" aria-controls="August_table">Август</a>
     </li>
 
-    <li class="active">
+    <li class="nav-item">
         <a data-toggle="tab" href="#September_table" class="nav-link" aria-controls="September_table">Сентябрь</a>
     </li>
 
-    <li class="">
-        <a data-toggle="tab" href="#October_table" class="nav-link" aria-controls="October_table">Октябрь</a>
+    <li class="nav-item">
+        <a data-toggle="tab" href="#October_table" class="nav-link active" aria-controls="October_table">Октябрь</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#November_table" class="nav-link" aria-controls="November_table">Ноябрь</a>
     </li>
 
-    <li class="">
+    <li class="nav-item">
         <a data-toggle="tab" href="#December_table" class="nav-link" aria-controls="December_table">Декабрь</a>
     </li>
 
@@ -123,17 +123,15 @@
             <input class="index-input" hidden="" name="index" value="0">
             <table class="table table-bordered elog-journal-table">
                 <thead>
-                <tr>
-                    <th> Конц. смт (по плану)</th>
-                    <th> Zn (по плану)</th>
-                    <th> Соотношение (по плану)</th>
-                </tr>
+                    <tr>
+                        <th> Конц. смт (по плану)</th>
+                        <th> Zn (по плану)</th>
+                        <th> Соотношение (по плану)</th>
+                    </tr>
                 </thead>
                 <tbody>
 
-
                 <tr v-for="(value, index) in rowsCount">
-
                     <td>
                         <cell field-name="concentrate__plan__February" :row-index="index"></cell>
                     </td>
