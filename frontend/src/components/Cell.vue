@@ -324,8 +324,8 @@
 
             this.setPickersListeners()
 
-            let td = $(this.$el).closest('td')
-            setTimeout(() => td.height(td.height()), 0)
+            // let td = $(this.$el).closest('td')
+            // setTimeout(() => td.height(td.height()), 0)
         }
     }
 </script>
