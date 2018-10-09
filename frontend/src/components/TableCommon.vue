@@ -8,6 +8,8 @@
     import tableComment from './TableComment.vue'
     import ToggleButton from 'vue-js-toggle-button'
     import store from '../store/store';
+    import tab from './Tabs/tab.vue';
+    import tabs from './Tabs/tabs.vue';
 
     Vue.use(ToggleButton);
     Vue.component('cell', cell);
@@ -56,7 +58,7 @@
                             return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
                         }
                     },
-                    components: { 'cell': cell, 'table-comment': tableComment },
+                    components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },
                     mounted() {
 
                     }
