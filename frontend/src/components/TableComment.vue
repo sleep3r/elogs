@@ -34,7 +34,7 @@
             },
             onChange() {
                 axios
-                    .post('/common/save_cell/', {
+                    .post(window.HOSTNAME+'/common/save_cell/', {
                         'cell_location': {
                             'group_id': this.$store.getters['journalState/journalInfo'].id,
                             'table_name': this.tableName,
@@ -42,6 +42,8 @@
                             'index': this.rowIndex
                         },
                         'value': this.text
+                    }, {
+                        withCredentials: true
                     })
                     .then(response => {
                         if (response.data.status !== 1) {
