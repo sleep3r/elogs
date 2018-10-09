@@ -39,6 +39,8 @@ body {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
+
+
 }
 
 .journal-tables {
@@ -245,10 +247,18 @@ footer {
         width: 100%;
     }
 
-    .mode-buttons .btn{
-        width: 100%;
-        margin-top: 10px;
-        margin-left: 0 !important;
+    .panel-buttons {
+        display: block !important;
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+            margin-left: 0 !important;
+        }
+
+        .btn-xlsx {
+            margin-top: 25px;
+        }
     }
 
     .journal__panel {
@@ -265,8 +275,9 @@ footer {
         flex-direction: column;
     }
 
-    .mode-buttons {
+    .panel-buttons {
         margin-top: 10px;
+        justify-content: space-between !important;
     }
 }
 
