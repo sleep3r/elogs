@@ -225,8 +225,6 @@ const journalState = {
                     if (data[i].index in cells) {
                         // update cell
                         cells[data[i].index]['value'] = data[i].value;
-                        console.log('setting responsible')
-                        console.log(data[i].responsible)
                         Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
                         if (data[i].notSynchronized) {
                             cells[data[i].index]['notSynchronized'] = data[i].notSynchronized;
