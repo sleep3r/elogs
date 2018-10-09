@@ -270,8 +270,10 @@ class CellAPI(View):
 class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
-        if name:
-            return JsonResponse([emp.name for emp in Employee.objects.filter(name__contains=name)],
-                                safe=False)
+        plant = request.GET.get('plant', None)
+        if name and plant:
+            return JsonResponse([emp.name for emp in
+                                 Employee.objects.filter(name__contains=name,
+                                        user__groups__name__contains=plant.title())], safe=False)
         else:
             return JsonResponse([], safe=False)
