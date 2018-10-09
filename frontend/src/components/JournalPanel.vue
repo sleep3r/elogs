@@ -97,7 +97,7 @@
         methods: {
             changeMode(mode) {
                 let permission = mode + '_cells';
-                let permissions = this.$store.getters['journalState/journalInfo'].permissions;
+                let permissions = this.$store.getters['journalState/journalInfo'].permissions.permissions;
                 for (let i = 0; i < permissions.length; i++) {
                     if (permission === permissions[i]) {
                         this.$store.commit('journalState/SET_PAGE_MODE', mode);
