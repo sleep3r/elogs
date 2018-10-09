@@ -81,7 +81,7 @@ body {
     align-items: center;
     background-color: $color-header;
     transition: 0.2s;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .main-container {
@@ -98,7 +98,7 @@ body {
     margin: 0;
     align-self: flex-start;
     transition: 0.2s;
-    z-index: 100;
+    z-index: 4;
 }
 
 .column-left.menu__hidden {
