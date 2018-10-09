@@ -50,22 +50,35 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            let commitData = {'cells': []}
-            for (let i in data['cells']) {
-                let cellData = data['cells'][i]
-                // if received cell value is inputed by this user,
-                // store has it already
-                if (!(this.store.getters['userState/username'] in cellData['responsible'])) {
-                    commitData['cells'].push({
-                        tableName: cellData['cell_location']['table_name'],
-                        fieldName: cellData['cell_location']['field_name'],
-                        index: cellData['cell_location']['index'],
-                        responsible: cellData['responsible'],
-                        value: cellData['value']
-                    })
+            if (data['type'] == 'shift_data') {
+                let commitData = {'cells': []}
+                for (let i in data['cells']) {
+                    let cellData = data['cells'][i]
+                    // if received cell value is inputed by this user,
+                    // store has it already
+                    if (!(this.store.getters['userState/username'] in cellData['responsible'])) {
+                        commitData['cells'].push({
+                            tableName: cellData['cell_location']['table_name'],
+                            fieldName: cellData['cell_location']['field_name'],
+                            index: cellData['cell_location']['index'],
+                            responsible: cellData['responsible'],
+                            value: cellData['value']
+                        })
+                    }
+                }
+                this.store.commit('journalState/SAVE_CELLS', commitData)
+            }
+            if (data['type'] == 'messages') {
+                console.log(data)
+                if (!(this.store.getters['userState/username'] in data['employee'])) {
+                    this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                      tableName: data['cell_location']['table_name'],
+                      fieldName: data['cell_location']['field_name'],
+                      index: data['cell_location']['index'],
+                      comment: {'text': data['message']['text'], 'created': Date.parse(data['created']), 'user': data['employee']}
+                    });
                 }
             }
-            this.store.commit('journalState/SAVE_CELLS', commitData)
         }
         else {
             return
