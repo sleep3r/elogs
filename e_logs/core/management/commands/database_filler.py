@@ -270,7 +270,7 @@ class DatabaseFiller:
                 'concentrate_report': 'Журнал рапортов о проделанной работе по'
                                       ' складам концентратов',
                 'technological_tasks': 'Журнал сменных производственных, тех. заданий',
-                'reports_furnace_area': 'Журнал печного участка',
+                'reports_furnace_area': 'Технологический журнал процесса производства огарка',
                 'furnace_repair': 'Журнал по ремонту',
                 'report_income_outcome_schieht': 'Поступление, расходы и остатки Zn концентратов',
                 'metals_compute': 'Рассчёт металлов',

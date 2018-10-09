@@ -33,6 +33,12 @@ const userState = {
                             .then(() => {
                                 res()
                             })
+                            .catch(err => {
+                                rej(err)
+                            })
+                    })
+                    .catch(err => {
+                        rej(err)
                     })
             })
         },

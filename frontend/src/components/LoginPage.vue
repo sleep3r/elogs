@@ -62,13 +62,23 @@
             onSubmit () {
                 let username = $('input[name="username"]').val()
                 let password = $('input[name="password"]').val()
-                this.login(username, password)
-                // this.$router.push('/')
+                if (username && password) {
+                    this.errorText = ''
+                    this.login(username, password)
+                }
+                else {
+                    this.errorText = 'Введите все данные!'
+                }
             },
             login (username, password) {
                 this.$store.dispatch('userState/login', { username, password })
                     .then(() => {
                         this.$router.push('/')
+                    })
+                    .catch(err => {
+                        if (err.response.status === 400) {
+                            this.errorText = 'Данные некорректны!'
+                        }
                     })
             }
         }
