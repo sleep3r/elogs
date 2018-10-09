@@ -1,36 +1,51 @@
-
-
-
-Ремонты по Обжиговому цеху
-
-
-        <table class="table table-bordered elog-journal-table">
-            <thead>
-                <tr>
-                    <th>№ позиции по титульному списку СУД</th>
-                    <th>№ п/п</th>
-                    <th>Подразделение</th>
-                    <th>Наименование объекта</th>
-                    <th>№ инв</th>
-                    <th>Группа значимости</th>
-                    <th>Рабоч центр</th>
-                    <th>№ налоговой группы</th>
-                    <th>Описание работ</th>
-                    <th>Исполнитель</th>
-                </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(value, index) in rowsCount" class="indexed-line">
-                  <td><cell field-name="position_number" :row-index="index"></cell></td>
-                  <td><cell field-name="pp" :row-index="index"></cell></td>
-                  <td><cell field-name="department" :row-index="index"></cell></td>
-                  <td><cell field-name="name_of_object" :row-index="index"></cell></td>
-                  <td><cell field-name="inv_number" :row-index="index"></cell></td>
-                  <td><cell field-name="group" :row-index="index"></cell></td>
-                  <td><cell field-name="work_center" :row-index="index"></cell></td>
-                  <td><cell field-name="tax_group" :row-index="index"></cell></td>
-                  <td><cell field-name="description" :row-index="index"></cell></td>
-                  <td><cell field-name="executor" :row-index="index"></cell></td>
-              </tr>
-            </tbody>
-        </table>
+<div class="table__title">Ремонты по Обжиговому цеху</div>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th>№ позиции по титульному списку СУД</th>
+        <th>№ п/п</th>
+        <th>Подразделение</th>
+        <th>Наименование объекта</th>
+        <th>№ инв</th>
+        <th>Группа значимости</th>
+        <th>Рабоч центр</th>
+        <th>№ налоговой группы</th>
+        <th>Описание работ</th>
+        <th>Исполнитель</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(value, index) in rowsCount" class="indexed-line">
+        <td>
+            <cell field-name="position_number" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="pp" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="department" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="name_of_object" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="inv_number" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="group" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="work_center" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="tax_group" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="description" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell field-name="executor" :row-index="index"></cell>
+        </td>
+    </tr>
+    </tbody>
+</table>
