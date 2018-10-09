@@ -157,7 +157,8 @@ const journalState = {
                     for (let index in fields[field].cells) {
                         index = parseInt(index);
                         // find only non empty cells
-                        if (fields[field].cells[index].value) {
+                        // table comment is stored s cell, but shouldn't be counted as cell
+                        if ((fields[field].cells[index].value)&&(field !== '__table__comment')) {
                             max = (max < index) ? index : max;
                         }
                     }
@@ -218,8 +219,8 @@ const journalState = {
                     if (!(data[i].fieldName in fields)) {
                         // console.log('WARNING! Trying to save value of unexistent field: ' + payload.fieldName);
                         // console.log('  Creating field ' + payload.fieldName + '...');
-                        fields[data[i].fieldName] = {};
-                        fields[data[i].fieldName]['cells'] = {};
+                        Vue.set(fields, data[i].fieldName, {});
+                        Vue.set(fields[data[i].fieldName], 'cells', {});
                     }
                     let cells = fields[data[i].fieldName].cells;
                     if (data[i].index in cells) {

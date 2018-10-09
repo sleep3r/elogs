@@ -22,15 +22,20 @@
         props: [ 'tableName' ],
         data() {
             return {
-                rowIndex: '-1',
+                rowIndex: '0',
                 isCollapsed: true,
                 fieldName: '__table__comment'
+            }
+        },
+        watch: {
+            text (value) {
+                this.isCollapsed = value ? false : true
             }
         },
         computed: {
             text: {
                 get: function () {
-                    return this.text = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']
+                    return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']
                 },
                 set: function (val) {
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
