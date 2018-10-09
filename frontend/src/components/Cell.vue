@@ -5,7 +5,7 @@
             style="height: 100%"
     >
         <input
-                :class="classes"
+                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '']"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"

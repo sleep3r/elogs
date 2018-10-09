@@ -18,6 +18,13 @@ const journalState = {
         loaded: state => state.loaded,
         journalInfo: state =>  state.journalInfo,
         events: state =>  state.events,
+        currentMode: state => {
+            if (state.loaded) {
+                return state.journalInfo.journal.mode;
+            } else {
+                return '';
+            }
+        },
         tables: state => {
             if (state.loaded) {
                 return Object.keys(state.journalInfo.journal.tables);

@@ -101,11 +101,14 @@ input[type="number"].general-value {
     height: 36px;
     min-height: 30px;
     word-break: break-word;
-    background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
 
     [readonly] {
         background: white;
     }
+}
+
+.form-control__edit {
+    background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
 }
 
 .journaltablewrapper .form-control[readonly]:focus {
