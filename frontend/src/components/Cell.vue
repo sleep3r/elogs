@@ -102,9 +102,7 @@
             },
             value: {
                 get: function () {
-                    return window.parser.parse(
-                        this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex)
-                    ).result;
+                    return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex)
                 },
                 set: function (val) {
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)

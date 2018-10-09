@@ -85,10 +85,15 @@ const journalState = {
                     // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
                     return '';
                 }
-                let cells = fields[fieldName].cells;
+                let field = fields[fieldName]
+                let cells = field.cells;
                 if (Object.keys(cells).length !== 0) {
                     if (rowIndex in cells) {
-                        return cells[rowIndex].value;
+                        if (isNaN(field.formula)) {
+                            return window.parser.parse(field.formula).result
+                        } else {
+                            return cells[rowIndex].value;
+                        }
                     }
                     else {
                         // console.log('WARNING! Trying to get cell value with unexistent index: ' + fieldName + ' ' + rowIndex);
