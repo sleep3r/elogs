@@ -19,6 +19,7 @@
     </thead>
     <tbody>
         <tr v-for="(value, index) in rowsCount" class="indexed-line">
+            <td><cell field-name="ConcName" :row-index="index"></cell></td>
             <td><cell field-name="cmt" :row-index="index"></cell></td>
             <td><cell field-name="znp" :row-index="index"></cell></td>
             <td><cell field-name="SodZn" :row-index="index"></cell></td>
@@ -28,8 +29,8 @@
             <td><cell field-name="SodCu" :row-index="index"></cell></td>
             <td><cell field-name="Cd_" :row-index="index"></cell></td>
             <td><cell field-name="SodCd" :row-index="index"></cell></td>
-            <td><cell field-name="Au" :row-index="index"></cell></td>
-            <td><cell field-name="Ag" :row-index="index"></cell></td>
+            <td><cell field-name="SodAu" :row-index="index"></cell></td>
+            <td><cell field-name="SodAg" :row-index="index"></cell></td>
         </tr>
     </tbody>
 </table>
