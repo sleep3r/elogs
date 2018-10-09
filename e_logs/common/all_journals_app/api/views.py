@@ -196,7 +196,12 @@ class SettingsAPI(View):
                          "verbose_name": s.verbose_name,
                          "value":pickle.loads(s.value),
                          "content_type": ContentType.objects.get_for_model(s.scope).id,
-                         "scope":model_to_dict(s.scope)} for s in qs],
+                         "scope":model_to_dict(s.scope)} for s in qs if s.content_type],
+
+            "global_settings":[{"id": s.id,
+                                "name":s.name,
+                                "verbose_name": s.verbose_name,
+                                "value":pickle.loads(s.value)} for s in qs.filter(content_type=None)]
         })
 
     def post(self, request):
