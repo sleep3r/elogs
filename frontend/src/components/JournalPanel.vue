@@ -12,27 +12,29 @@
                    data-target="#myModal"
             >
         </div>
-        <div class="mode-buttons">
-            <img style="height: 30px; width: 30px;"
-                 :title="employeeFormatted"
-                 src="../assets/images/no-avatar.png">
-            <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
-                    @click="changeMode('view')">
-                Просмотр
-            </button>
-            <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
-                    @click="changeMode('edit')">
-                Редактирование
-            </button>
-            <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
-                    @click="changeMode('validate')">
-                Валидация
+        <div class="panel-buttons">
+            <div class="mode-buttons">
+                <img style="height: 30px; width: 30px;"
+                     :title="employeeFormatted"
+                     src="../assets/images/no-avatar.png">
+                <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
+                        @click="changeMode('view')">
+                    Просмотр
+                </button>
+                <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                        @click="changeMode('edit')">
+                    Редактирование
+                </button>
+                <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                        @click="changeMode('validate')">
+                    Валидация
+                </button>
+            </div>
+            <button :class="['btn', 'btn-xlsx', 'float-right']"
+                    @click="download_xlsx()">
+                XLSX
             </button>
         </div>
-        <button :class="['btn', 'btn-xlsx', 'float-right']"
-                @click="download_xlsx()">
-            XLSX
-        </button>
         <modal v-show="showCalendar" @close="showCalendar = false">
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
         </modal>
@@ -135,8 +137,5 @@
     }
 </script>
 <style>
-    .btn-xlsx {
-        margin-left: auto;
-        margin-right: 20px;
-    }
+
 </style>

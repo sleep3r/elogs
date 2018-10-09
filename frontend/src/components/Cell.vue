@@ -22,6 +22,7 @@
                 @contextmenu.prevent="$refs.menu.open"
                 style="height: 100%"
         >
+        <div class="widthCell"></div>
         <template>
             <datalist>
                 <option v-for="item in personsList" :value="item"></option>
@@ -81,7 +82,8 @@
                 showTooltip: false,
                 personsList: null,
                 tooltipContent: '',
-                fontWeight: 'lighter'
+                fontWeight: 'lighter',
+                minWidth: 0
             }
         },
         watch: {
@@ -215,7 +217,14 @@
                 });
             },
             onInput(e) {
+                setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
+                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || e.target.value.length < this.value.length) {
+                    console.log('mw', ($(this.$el).find('input').css('min-width')))
+                    setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
+                }
+
                 this.value = e.target.value;
+
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
                     this.getPersons(e.target.value)
                         .then((resp) => {
@@ -227,6 +236,8 @@
             },
             onChanged(e) {
                 e.preventDefault()
+                setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
+                setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
             },
             filterInput(e) {
                 if (this.type === 'number') {
@@ -323,9 +334,14 @@
             }
 
             this.setPickersListeners()
+            console.log($(this.$el).find('input').outerWidth())
+            setTimeout(() => {
+                $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
+                    this.minWidth = $(this.$el).find('input').outerWidth()
+                    : this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
+            }, 0)
 
-            // let td = $(this.$el).closest('td')
-            // setTimeout(() => td.height(td.height()), 0)
+            setTimeout(() => $(this.$el).find('input').css({'min-width': this.minWidth + 'px'}), 0)
         }
     }
 </script>

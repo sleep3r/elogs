@@ -18,6 +18,16 @@
     }
 }
 
+.widthCell {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: nowrap;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+}
+
 .general-value {
     background-color: transparent !important;
     /*background: white;*/
