@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="setting-item">
         <td>
             <!--<i @click="markAsFavorite" :class="{ marked: isFavorite, 'material-icons': true }">star_rate</i>-->
         </td>
@@ -55,9 +55,9 @@
     }
 </script>
 
-<style lang="scss">
-    th:first-child, td:first-child {
-        width: 30px;
+<style scoped>
+    .setting-item th:first-child, td:first-child {
+        width: 130px;
     }
 
     label {
@@ -67,5 +67,4 @@
     .marked {
         color: #FF0000;
     }
-
 </style>

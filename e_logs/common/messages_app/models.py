@@ -89,9 +89,11 @@ class Message(StrAsDictMixin, models.Model):
                      {"type": "send_message",
                       "text": json.dumps(
                           {
+                            'type': 'messages',
                             'cell': cell.field.name if cell else None,
-                            'sendee': message['sendee'].name if message['sendee'] else 'E-LOGS',
-                            'text': text})})
+                            'sendee': {str(message['sendee'].user):message['sendee'].name} if message['sendee'] else 'E-LOGS',
+                            'text': text}
+                      )})
 
                 Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
 

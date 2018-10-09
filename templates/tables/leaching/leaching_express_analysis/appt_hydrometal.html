@@ -1,66 +1,61 @@
+<div class="table__title">Аппаратчик - гидрометаллург</div>
 
-
-
-
-Аппаратчик - гидрометаллург
-
-
-    <table class="table table-bordered elog-journal-table">
-        <thead>
-        <tr>
-            <th colspan="4" class="th-common">1 Манн</th>
-            <th colspan="5" class="th-common">4 Манн</th>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th colspan="4" class="th-common">1 Манн</th>
+        <th colspan="5" class="th-common">4 Манн</th>
+    </tr>
+    <tr>
+        <th>pH</th>
+        <th>Кислотность <i class='units'>г/л</i></th>
+        <th>Fe двухвал. <i class='units'>мг/л</i></th>
+        <th>Fe Общее <i class='units'>мг/л</i></th>
+        <th>pH</th>
+        <th>Медь <i class='units'>мг/л</i></th>
+        <th>Fe <i class='units'>мг/л</i></th>
+        <th>Сурьма ,<br>мг/л</th>
+        <th>Отстои</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, index) in rowsCount" class="indexed-line">
+            <td><cell field-name="mann1_pH" :row-index="index"></cell></td>
+            <td><cell field-name="mann1_acid" :row-index="index"></cell></td>
+            <td><cell field-name="mann1_Fe2" :row-index="index"></cell></td>
+            <td><cell field-name="mann1_Fe" :row-index="index"></cell></td>
+            <td><cell field-name="mann4_pH" :row-index="index"></cell></td>
+            <td><cell field-name="mann4_Cu" :row-index="index"></cell></td>
+            <td><cell field-name="mann4_Fe" :row-index="index"></cell></td>
+            <td><cell field-name="mann4_Sb" :row-index="index"></cell></td>
+            <td><cell field-name="mann4_ots" :row-index="index"></cell></td>
         </tr>
-        <tr>
-            <th>pH</th>
-            <th>Кислотность <i class='units'>г/л</i></th>
-            <th>Fe двухвал. <i class='units'>мг/л</i></th>
-            <th>Fe Общее <i class='units'>мг/л</i></th>
-            <th>pH</th>
-            <th>Медь <i class='units'>мг/л</i></th>
-            <th>Fe <i class='units'>мг/л</i></th>
-            <th>Сурьма ,<br>мг/л</th>
-            <th>Отстои</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(value, index) in rowsCount" class="indexed-line">
-                <td><cell field-name="mann1_pH" :row-index="index"></cell></td>
-                <td><cell field-name="mann1_acid" :row-index="index"></cell></td>
-                <td><cell field-name="mann1_Fe2" :row-index="index"></cell></td>
-                <td><cell field-name="mann1_Fe" :row-index="index"></cell></td>
-                <td><cell field-name="mann4_pH" :row-index="index"></cell></td>
-                <td><cell field-name="mann4_Cu" :row-index="index"></cell></td>
-                <td><cell field-name="mann4_Fe" :row-index="index"></cell></td>
-                <td><cell field-name="mann4_Sb" :row-index="index"></cell></td>
-                <td><cell field-name="mann4_ots" :row-index="index"></cell></td>
-            </tr>
-        </tbody>
-        <tbody>
-    </table>
+    </tbody>
+    <tbody>
+</table>
 
-    <table class="table table-bordered elog-journal-table">
-        <tbody>
-        <tr>
-            <th colspan="1">Ситовой огарка<i class='units'>мм</i></th>
-            <td><cell field-name="sit_cinder1" row-index="0"></cell></td>
-            <td><cell field-name="sit_cinder2" row-index="0"></cell></td>
-            <td><cell field-name="sit_cinder3" row-index="0"></cell></td>
-            <td><cell field-name="sit_cinder4" row-index="0"></cell></td>
-            <td><cell field-name="sit_cinder5" row-index="0"></cell></td>
-            <td><cell field-name="sit_cinder6" row-index="0"></cell></td>
-        </tr>
-        <tr>
-            <th colspan="1">Ситовой средн.<i class='units'>мм</i></th>
-            <td colspan="6"><cell field-name="sit_cinder_avg" row-index="0"></cell></td>
-        </tr>
-        <tr>
-            <th colspan="1">Общее Fe среднее <i class='units'>мм</i></th>
-            <td colspan="6"><cell field-name="fe_avg" row-index="0"></cell></td>
-        </tr>
-        <tr>
-            <th colspan="1">Fe стружка Fe <i class='units'>мг/л</i></th>
-            <td colspan="6"><cell field-name="fe_shave" row-index="0"></cell></td>
-        </tr>
-        </tbody>
-    </table>
+<table class="table table-bordered elog-journal-table">
+    <tbody>
+    <tr>
+        <th colspan="1">Ситовой огарка<i class='units'>мм</i></th>
+        <td><cell field-name="sit_cinder1" row-index="0"></cell></td>
+        <td><cell field-name="sit_cinder2" row-index="0"></cell></td>
+        <td><cell field-name="sit_cinder3" row-index="0"></cell></td>
+        <td><cell field-name="sit_cinder4" row-index="0"></cell></td>
+        <td><cell field-name="sit_cinder5" row-index="0"></cell></td>
+        <td><cell field-name="sit_cinder6" row-index="0"></cell></td>
+    </tr>
+    <tr>
+        <th colspan="1">Ситовой средн.<i class='units'>мм</i></th>
+        <td colspan="6"><cell field-name="sit_cinder_avg" row-index="0"></cell></td>
+    </tr>
+    <tr>
+        <th colspan="1">Общее Fe среднее <i class='units'>мм</i></th>
+        <td colspan="6"><cell field-name="fe_avg" row-index="0"></cell></td>
+    </tr>
+    <tr>
+        <th colspan="1">Fe стружка Fe <i class='units'>мг/л</i></th>
+        <td colspan="6"><cell field-name="fe_shave" row-index="0"></cell></td>
+    </tr>
+    </tbody>
+</table>

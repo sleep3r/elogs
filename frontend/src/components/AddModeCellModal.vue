@@ -11,12 +11,32 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="table_name" class="col-form-label">Таблица:</label>
-                            <input type="text" class="form-control bordered" id="table_name" placeholder="Введите название таблицы">
+                            <label for="table_name" class="col-form-label">Таблица</label>
+                            <input
+                                    type="text"
+                                    class="form-control bordered"
+                                    id="table_name"
+                                    placeholder="Введите название таблицы"
+                                    @input="(e) => onInputChange('table', e.target.value)"
+                                    list="table"
+                            >
+                            <datalist id="table">
+                                <option v-for="item in tableList" :value="item.name" :key="'table-' + item.name"></option>
+                            </datalist>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Ячейка:</label>
-                            <input type="text" class="form-control bordered" id="name" placeholder="Введите название ячейки">
+                            <label for="name" class="col-form-label">Ячейка</label>
+                            <input
+                                    type="text"
+                                    class="form-control bordered"
+                                    id="name"
+                                    placeholder="Введите название ячейки"
+                                    @input="(e) => onInputChange('field', e.target.value)"
+                                    list="field"
+                            >
+                            <datalist id="field" v-if="table_name">
+                                <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name + '-' + index"></option>
+                            </datalist>
                         </div>
                     </form>
                 </div>
@@ -31,8 +51,26 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: "AddModeCellModal",
+        data () {
+            return {
+                table_name: '',
+                name: '',
+                tableList: [],
+                fieldList: []
+            }
+        },
+        computed: {
+            getCurrentPlant () {
+                return this.$store.getters['modesState/currentMode'].plant
+            },
+            getCurrentJournal () {
+                return this.$store.getters['modesState/currentMode'].journal
+            }
+        },
         methods: {
             onAddCell () {
                 this.$store.commit('modesState/ADD_NEW_CELL', {
@@ -42,6 +80,64 @@
 
                 $('#AddModeCellModal button.close').trigger('click')
                 this.$emit('on-add-cell')
+            },
+            getExistingName (listType, value) {
+                let currentItem = this[listType].filter(item => item.name === value)[0]
+                if (currentItem) {
+                    return currentItem.name
+                }
+                else {
+                    return undefined
+                }
+            },
+            onInputChange(propType, value, index) {
+                if (propType === 'table') {
+                    this.getTables(this.getCurrentPlant, this.getCurrentJournal)
+                        .then(() => {
+                            if (this.getExistingName('tableList', value)) {
+                                this.table_name = value
+                            }
+                            else {
+                                this.table_name = ''
+                                this.fieldList = []
+                            }
+                        })
+                }
+                else if (propType === 'field' && this.table_name) {
+                    this.getFields(this.getCurrentPlant, this.getCurrentJournal, this.table_name)
+                        .then(() => {
+                            if (this.getExistingName('fieldList', value)) {
+                                this.name = value
+                            }
+                            else {
+                                this.name = ''
+                            }
+                        })
+                }
+            },
+            getTables (plant, journal) {
+                return axios.get(window.HOSTNAME + `/api/tables/?plant=${plant}&journal=${journal}`,
+                    {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        this.tableList = response.data
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+            },
+            getFields (plant, journal, table) {
+                return axios.get(window.HOSTNAME + `/api/fields/?plant=${plant}&journal=${journal}&table=${table}`,
+                    {
+                        withCredentials: true
+                    })
+                    .then(response => {
+                        this.fieldList = response.data
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
             }
         }
     }

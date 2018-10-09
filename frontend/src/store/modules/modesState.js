@@ -78,7 +78,19 @@ const modesState = {
                 });
         },
         addMode ({ commit, state, getters }, payload) {
-            return axios.post(window.HOSTNAME+'/bl/modes_api/', payload.mode, {
+            return axios.post(window.HOSTNAME+'/bl/modes_api/', {
+                message: payload.mode.message,
+                plant: payload.mode.plant,
+                journal: payload.mode.journal,
+                fields: payload.mode.fields.map(item => {
+                    return {
+                        table_name: item.table_name,
+                        name: item.name,
+                        min_normal: item.min_normal,
+                        max_normal: item.max_normal
+                    }
+                })
+            }, {
                 withCredentials: true
             })
                 .catch(e => {

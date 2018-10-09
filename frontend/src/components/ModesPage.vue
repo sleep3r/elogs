@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(item, index) in currentMode.fields" :key="item.name">
+                    <tr v-for="(item, index) in currentMode.fields" :key="item.name + '-' + index">
                         <td data-target="table_name"><div>{{item.table_name}}</div></td>
                         <td data-target="name"><div>{{item.name}}</div></td>
                         <td data-target="min_normal">

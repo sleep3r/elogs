@@ -67,6 +67,8 @@ class Command(BaseCommand):
             df.fill_employees()
             stdout_logger.info("Adding shifts...")
             df.create_shifts()
+            stdout_logger.info("Create BL...")
+            df.bl_create()
 
             if dashboard:
                 stdout_logger.info("Adding sample dashboard data...")
