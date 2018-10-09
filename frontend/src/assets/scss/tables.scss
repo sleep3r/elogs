@@ -95,9 +95,17 @@ h2.table-title {
     }
 
     thead {
+         th {
+             padding: 12px 4px 12px 3px !important;
+             background-color: $base_gray;
+             color: white;
+         }
+     }
+
+    tbody {
         th {
             padding: 12px 4px 12px 3px !important;
-            background-color: $base_gray;
+            background-color: lighten($base_gray, 25%);
             color: white;
         }
     }
