@@ -5,8 +5,7 @@
 
 .general-value {
     /*important because it's really important and to override bootstrap*/
-    padding-left: 3px !important;
-    padding-right: 3px !important;
+    padding: 8px 14px;
     border-radius: 0 !important;
     border: none !important;
     outline: none;
@@ -121,6 +120,15 @@ input[type="number"].general-value {
 
 .active-comment {
     background: radial-gradient(white 80%, $accent-green)
+}
+
+
+
+
+@media (max-width: 1172px) {
+    .general-value {
+        padding: 8px 4px !important;
+    }
 }
 
 // --------------------------------------- DELETING ARROWS --------------------------------------

@@ -96,7 +96,7 @@ h2.table-title {
 
     thead {
          th {
-             padding: 12px 4px 12px 3px !important;
+             padding: 8px 14px;
              background-color: $base_gray;
              color: white;
          }
@@ -104,7 +104,7 @@ h2.table-title {
 
     tbody {
         th {
-            padding: 12px 4px 12px 3px !important;
+            padding: 8px 14px;
             background-color: lighten($base_gray, 25%);
             color: white;
         }
@@ -227,6 +227,22 @@ h2.table-title {
 .insidetable tr:last-child > th
 {
     border-bottom: none !important;
+}
+
+@media (max-width: 1172px) {
+    .elog-journal-table { // the table itself
+        thead {
+            th {
+                padding: 8px 4px !important;
+            }
+        }
+
+        tbody {
+            th {
+                padding: 8px 4px !important;
+            }
+        }
+    }
 }
 
 @import "comment";
