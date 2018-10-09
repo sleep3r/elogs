@@ -5,7 +5,7 @@
             style="height: 100%"
     >
         <input
-                :class="classes"
+                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '']"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
@@ -88,7 +88,7 @@
         },
         watch: {
             mode (value) {
-                this.setPickersListeners()
+                setTimeout(() => this.setPickersListeners(), 1)
             },
             value: function (val) {
                 if (this.responsible) {
@@ -219,7 +219,6 @@
             onInput(e) {
                 setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
                 if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || e.target.value.length < this.value.length) {
-                    console.log('mw', ($(this.$el).find('input').css('min-width')))
                     setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
                 }
 
@@ -333,8 +332,8 @@
                 this.send();
             }
 
-            this.setPickersListeners()
-            console.log($(this.$el).find('input').outerWidth())
+            setTimeout(() => this.setPickersListeners(), 1)
+
             setTimeout(() => {
                 $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
                     this.minWidth = $(this.$el).find('input').outerWidth()

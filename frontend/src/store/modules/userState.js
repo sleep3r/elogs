@@ -28,7 +28,7 @@ const userState = {
                                 commit('SET_USER', userData.data)
                             })
                             .then(() => {
-                                VueCookies.set('Authorization', resp.data.auth_token)
+                                VueCookies.set('Authorization', resp.data.auth_token, Infinity)
                             })
                             .then(() => {
                                 res()
