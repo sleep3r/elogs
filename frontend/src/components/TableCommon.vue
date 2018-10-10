@@ -18,9 +18,10 @@
 
     export default {
         name: 'TableCommon',
-        props: {
-            name: String,
-        },
+        props: [
+            'name',
+            'index'
+        ],
         data: function () {
             return {
                 fact: false,
@@ -44,7 +45,7 @@
         },
         render: function (createElement) {
             if (!this.template) {
-                return createElement('div', 'Loading...');
+                return createElement({template: '<div class="spinner-container"><i class="spinner"></i></div>'});
             } else {
                 return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
                         this.template + "<table-comment table-name=\"" + this.name + "\"></table-comment></div>",
@@ -80,6 +81,7 @@
         },
         mounted() {
             let self = this;
+
             let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
             axios.get(templateUrl)
                 .then(function (response) {
@@ -90,6 +92,7 @@
                         }
                     })
                     self.template = $mainElement[0].outerHTML
+
                 })
                 .catch(function (error) {
                     console.log('error: ', error);

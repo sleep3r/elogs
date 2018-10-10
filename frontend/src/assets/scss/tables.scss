@@ -37,6 +37,15 @@ input[hidden] {
     };
 }
 
+.spinner-container {
+    height: 220px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 input[class$="-cell"] {
     border: none;
     min-width: 0;

@@ -108,10 +108,15 @@ body {
 }
 
 .column-content {
-    margin-left: 230px;
-    padding-top: 50px;
-    width: calc(100% - 230px);
-    transition: 0.2s;
+     position: relative;
+     margin-left: 230px;
+     padding-top: 50px;
+     width: calc(100% - 230px);
+     transition: 0.2s;
+ }
+
+.column-content__blur {
+    filter: blur(5px);
 }
 
 .column-content.menu__hidden {
