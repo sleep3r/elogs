@@ -60,7 +60,7 @@ class ShiftAPI(View):
                 "closed":qs.closed,
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
-                "responsibles": [{str(e.user): str(e)} for e in qs.employee_set.all()],
+                "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
                 "permissions": self.get_permissions(request, qs),
                 "journal": self.journal_serializer(qs)}
 

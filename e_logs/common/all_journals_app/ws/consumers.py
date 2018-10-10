@@ -104,7 +104,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     @database_sync_to_async
     def add_shift_resonsible(self, shift_id):
         shift = Shift.objects.get(id=shift_id)
-        shift.employee_set.add(self.scope['user'].employee)
+        shift.responsibles.add(self.scope['user'].employee)
 
     # ----------------------------------MESSAGES----------------------------------
     async def add_cell_message(self, data):

@@ -75,7 +75,7 @@ def get_tables_paths(journal):
 def add_permissions(context, page, request):
     # err_logger.info('page_mode=' + str(context.page_mode))
     context.page_mode = get_page_mode(request, page)
-    context.employee_list = page.employee_set.all()
+    context.employee_list = page.responsibles.all()
     context.has_edited = has_edited(request, page)
     context.has_plant_perm = plant_permission(request)
     context.superuser = request.user.is_superuser

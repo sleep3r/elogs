@@ -115,7 +115,7 @@ def send_deferred_message(type, text, ids):
                 uids=ids)
 
 @app.task
-def end_of_mode(mode_id):
+def finish_mode(mode_id):
     mode = get_or_none(Mode, id=mode_id)
     if mode:
         mode.is_active = False

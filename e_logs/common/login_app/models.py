@@ -23,7 +23,6 @@ class Employee(StrAsDictMixin, models.Model):
                                                  ('electrolysis', 'Электролиз'),
                                                  ))
     csrf = models.CharField(max_length=settings.CSRF_LENGTH, default=' ')
-    owned_shifts = models.ManyToManyField(Shift, blank=True)
 
     @property
     def position_verbose(self):
