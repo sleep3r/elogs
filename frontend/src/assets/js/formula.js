@@ -39,7 +39,7 @@ window.parser.setFunction('FUNC', function(params) {
     return result
 })
 
-getCellFromVariable = function(variable) {
+var getCellFromVariable = function(variable) {
     var params = variable.split("(")[1].replace(/(\s)|(")|(\))/g, "").split(",")
     const journal = params[0];
     const table = params[1];
@@ -49,7 +49,7 @@ getCellFromVariable = function(variable) {
     return {journal: journal, table: table, field: field, index: index, shift: shift}
 }
 
-getCellsFromFormula = function(formula) {
+var getCellsFromFormula = function(formula) {
     var re = /FUNC\([^\)]*\)/g;
     var variables = [];
     do {
@@ -61,7 +61,7 @@ getCellsFromFormula = function(formula) {
     return variables.map(getCellFromVariable)
 }
 
-getCellValue = function(cell) {
+var getCellValue = function(cell) {
     var res = request("GET", "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(cell.journal, cell.table, cell.field, cell.shift))
     let json = JSON.parse(res.getBody())
     return json.value
@@ -104,6 +104,7 @@ function containsObject(obj, list) {
     return false;
 }
 
+// true when formula creates cycle
 function checkFormula(formula, cell) {
     var cells = getCellsFromFormula(formula)
     if (containsObject(cell, cells)) {
