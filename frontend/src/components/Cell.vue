@@ -87,6 +87,23 @@
             }
         },
         watch: {
+            critical (value) {
+                this.$socket.sendObj({
+                    'type': 'messages',
+                    'cell': {
+                        'field_name': this.fieldName,
+                        'table_name': this.tableName,
+                        'group_id': this.$store.getters['journalState/journalInfo'].id,
+                        'index': this.rowIndex
+                    },
+                    'crud': "add",
+                    'message': {
+                        'text': this.value,
+                        'link': 'lalala',
+                        'type': 'critical_value'
+                    },
+                });
+            },
             mode (value) {
                 setTimeout(() => this.setPickersListeners(), 1)
             },
