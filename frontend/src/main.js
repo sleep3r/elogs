@@ -50,6 +50,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
+            console.log(data)
             if (data['type'] == 'shift_data') {
                 let commitData = {'cells': []}
                 for (let i in data['cells']) {
@@ -66,7 +67,10 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         })
                     }
                 }
-                this.store.commit('journalState/SAVE_CELLS', commitData)
+                console.log(commitData)
+                if (commitData['cells'].length !== 0) {
+                    this.store.commit('journalState/SAVE_CELLS', commitData)
+                }
             }
             if (data['type'] == 'messages') {
                 console.log(data)
