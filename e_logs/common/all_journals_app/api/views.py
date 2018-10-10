@@ -14,7 +14,7 @@ from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
 
-
+from e_logs.business_logic import services
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
@@ -66,19 +66,48 @@ class ShiftAPI(View):
 
         return JsonResponse(res, safe=False)
 
-    def get_permissions(self, request, qs):
-        shift = qs
-        assignment_time = qs.date - timedelta(**Setting.of(shift)['shift_assignment_time'])
-        assignment_time = assignment_time.isoformat()
-        not_assignment_time = qs.date + timedelta(**Setting.of(shift)['shift_edition_time'])
-        not_assignment_time = not_assignment_time.isoformat()
+
+    def get_permissions(self, request, shift):
+        def get_time(shift):
+            assignment_time = shift.end_time - timedelta(**Setting.of(shift)['shift_assignment_time'])
+            assignment_time = assignment_time.isoformat()
+            not_assignment_time = shift.end_time + timedelta(**Setting.of(shift)['shift_edition_time'])
+            not_assignment_time = not_assignment_time.isoformat()
+            return [assignment_time, not_assignment_time]
+
+        PERMISSIONS = ['view']
+        APP = 'all_journals_app'
+        VALIDATE_CELLS = APP + ".validate_cells"
+        EDIT_CELLS = APP + ".edit_cells"
+        PLANT_PERM = APP + ".modify_{plant}"
+
+        user_groups = [g.name for g in request.user.groups.all()]
+
+        if request.user.is_superuser or \
+           {"Boss", shift.journal.plant.name.title()}.issubset(set(user_groups)) or \
+            "Big boss" in user_groups:
+                PERMISSIONS = ['view', 'edit', 'validate']
+
+        elif {"Laborant", shift.journal.plant.name.title()}.issubset(set(user_groups)):
+            if shift.closed:
+                limited_emp_id_list = Setting.of(shift)["limited_access_employee_id_list"]
+                if limited_emp_id_list and request.user.id in limited_emp_id_list:
+                    PERMISSIONS = ['view', 'edit']
+
+            elif services.CheckRole.execute({"employee":request.user.employee, "page":shift}) and \
+                services.CheckTime.execute({"employee": request.user.employee, "page": shift}):
+                PERMISSIONS = ['view', 'edit']
+
+        if 'edit' not in PERMISSIONS or 'validate' not in PERMISSIONS and \
+            request.user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)):
+                 if request.user.has_perm(EDIT_CELLS):
+                     PERMISSIONS += 'edit'
+                 if request.user.has_perm(VALIDATE_CELLS):
+                     PERMISSIONS += 'validate'
 
         res = {
-            "superuser": request.user.is_superuser,
-            "permissions": [permission.codename for permission
-                            in Permission.objects.filter(user=request.user)],
-            "time": (assignment_time, not_assignment_time),
-            "allowed_positions": Setting.of(shift)["allowed_positions"]
+            "permissions": PERMISSIONS,
+            "time": get_time(shift),
         }
 
         return res
