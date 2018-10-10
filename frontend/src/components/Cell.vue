@@ -87,23 +87,6 @@
             }
         },
         watch: {
-            critical (value) {
-                this.$socket.sendObj({
-                    'type': 'messages',
-                    'cell': {
-                        'field_name': this.fieldName,
-                        'table_name': this.tableName,
-                        'group_id': this.$store.getters['journalState/journalInfo'].id,
-                        'index': this.rowIndex
-                    },
-                    'crud': "add",
-                    'message': {
-                        'text': this.value,
-                        'link': 'lalala',
-                        'type': 'critical_value'
-                    },
-                });
-            },
             mode (value) {
                 setTimeout(() => this.setPickersListeners(), 1)
             },
@@ -254,6 +237,23 @@
                 e.preventDefault()
                 setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
                 setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
+                if (this.critical) {
+                    this.$socket.sendObj({
+                    'type': 'messages',
+                    'cell': {
+                        'field_name': this.fieldName,
+                        'table_name': this.tableName,
+                        'group_id': this.$store.getters['journalState/journalInfo'].id,
+                        'index': this.rowIndex
+                    },
+                    'crud': "add",
+                    'message': {
+                        'text': this.value,
+                        'link': 'lalala',
+                        'type': 'critical_value'
+                    },
+                });
+                }
             },
             filterInput(e) {
                 if (this.type === 'number') {
