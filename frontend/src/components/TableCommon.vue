@@ -53,6 +53,15 @@
                         data: this.$data,
                         props: this.$props
                     }},
+                    watch: {
+                        rowsCount (value) {
+                            setTimeout(() => {
+                                $('.elog-journal-table td').each(function () {
+                                    $(this).height($(this).height())
+                                })
+                            }, 0)
+                        }
+                    },
                     computed: {
                         rowsCount: function () {
                             return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
@@ -60,9 +69,11 @@
                     },
                     components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },
                     mounted() {
-                        $('td').each(function () {
-                            setTimeout(() => $(this).height($(this).height()), 0)
-                        })
+                        setTimeout(() => {
+                            $('.elog-journal-table td').each(function () {
+                                $(this).height($(this).height())
+                            })
+                        }, 0)
                     }
                 })
             }

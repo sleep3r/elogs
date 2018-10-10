@@ -218,7 +218,7 @@
             },
             onInput(e) {
                 setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
-                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || e.target.value.length < this.value.length) {
+                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || (e.target.value && this.value && $(this.$el).find('input').width() > $(this.$el).find('input').css('min-width') && e.target.value.length < this.value.length)) {
                     setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
                 }
 
