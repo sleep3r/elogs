@@ -197,7 +197,21 @@ const journalState = {
             else {
                 return ''
             }
+        },
+        fieldFormula: (state) => (tableName, fieldName) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields;
+                if (!(fieldName in fields)) {
+                    // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+                    return {};
+                }
+                return fields[fieldName].formula || ''
+            }
+            else {
+                return ''
+            }
         }
+
     },
     mutations: {
         SET_SYNCHRONIZED (state, isSynchronized) {

@@ -12,7 +12,7 @@
                 @change="onChanged"
                 @input="onInput"
                 @blur="showCellTypeTooltip=false"
-                :readonly="mode !== 'edit'"
+                :readonly="mode !== 'edit' && !hasFormula"
                 :placeholder="placeholder"
                 :style="{ color: activeColor }"
                 :type="type"
@@ -114,6 +114,13 @@
                         notSynchronized: !navigator.onLine
                     });
                 }
+            },
+            fieldFormula: function() {
+                return Boolean(
+                    this.$store.getters['journalState/fieldFormula'](
+                        this.tableName, this.fieldName,
+                    )
+                )
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
