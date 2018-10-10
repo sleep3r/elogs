@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && terser dist/bundle.js -c -m -o dist/bundle.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -131,6 +131,7 @@
     "scss-loader": "0.0.1",
     "serviceworker-webpack-plugin": "^1.0.1",
     "style-loader": "^0.23.0",
+    "terser-webpack-plugin": "^1.1.0",
     "transfer-webpack-plugin": "^0.1.4",
     "uglify-js": "^3.4.9",
     "uglifyjs-webpack-plugin": "^2.0.1",
