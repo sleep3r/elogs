@@ -255,7 +255,7 @@ class DatabaseFiller:
                                value=Setting._dumps({"hours": 12}))
 
         Setting.objects.create(name='allowed_positions',
-                               value=Setting._dumps(("boss", "laborant")))
+                               value=Setting._dumps({"boss":2, "laborant":2}))
 
     @staticmethod
     def create_tables_lists():
