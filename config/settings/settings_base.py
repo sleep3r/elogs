@@ -17,6 +17,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
+AUTH_USER_MODEL = 'core.CustomUser'
 LOGIN_URL = '/auth/login_page'
 LOGOUT_URL = '/auth/logout'
 ADMIN_URL = 'admin/'

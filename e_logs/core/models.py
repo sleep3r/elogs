@@ -5,6 +5,9 @@ from typing import Optional
 
 from cacheops import cached_as
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import UserManager
+from django.db.models import Q
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.base import ModelBase
@@ -12,6 +15,20 @@ from django.db.models.base import ModelBase
 from e_logs.common.all_journals_app.models import Field, Table, Journal, Plant
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import StrAsDictMixin, logged
+
+
+
+class CustomUserManager(UserManager):
+
+    def get_by_natural_key(self, username):
+        return self.get(
+            Q(**{self.model.USERNAME_FIELD: username}) |
+            Q(**{self.model.EMAIL_FIELD: username})
+        )
+
+
+class CustomUser(AbstractUser):
+    objects = CustomUserManager()
 
 
 class SettingsMeta(ModelBase):
