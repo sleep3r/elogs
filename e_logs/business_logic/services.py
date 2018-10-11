@@ -100,10 +100,10 @@ class CheckRole(Service):
         position = self.data['employee'].position
         allowed_positions = Setting.of(page)["allowed_positions"]
         if position in allowed_positions and \
-           page.employee_set.filter(position=position).count() < allowed_positions[position]:
+           page.responsibles.filter(position=position).count() < allowed_positions[position]:
                 return True
 
-        if self.data['employee'] in page.employee_set.all():
+        if self.data['employee'] in page.responsibles.all():
             return True
 
         return False
@@ -124,7 +124,7 @@ class CheckTime(Service):
         assignment_time = Setting.of(page)['shift_assignment_time']
 
         if timezone.now() > page.end_time - timedelta(**assignment_time) and \
-                employee not in page.employee_set.all():
+                employee not in page.responsibles.all():
             return False
 
         if timezone.now() > page.end_time + timedelta(hours=12):
