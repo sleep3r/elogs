@@ -12,6 +12,10 @@
                    data-target="#myModal"
             >
         </div>
+        <div>
+          <h4 v-if="shiftIsActive"> Смена открыта для редактирования. До закрытия: {{ msToTime(remainingEditTime) }}</h4>
+          <h4 v-else>Смена закрыта для редактирования</h4>
+        </div>
         <div class="panel-buttons">
             <div class="mode-buttons">
                 <img style="height: 30px; width: 30px;"
@@ -50,6 +54,7 @@
         name: 'journal-panel',
         data() {
             return {
+                now: new Date(),
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
@@ -80,6 +85,18 @@
             }
         },
         computed: {
+            remainingEditTime() {
+                return this.editingEndTime - this.now
+            },
+            shiftIsActive() {
+                return !this.$store.getters['journalState/journalInfo'].closed
+            },
+            editingStartTime() {
+                return Date.parse(this.$store.getters['journalState/journalInfo'].permissions.time[0])
+            },
+            editingEndTime() {
+                return Date.parse(this.$store.getters['journalState/journalInfo'].permissions.time[1])
+            },
             events() {
                 return this.$store.getters['journalState/events'];
             },
@@ -104,12 +121,7 @@
               return false
             },
             editIsAllowed() {
-                // period of time when shift can be edited
-                let editTime = this.$store.getters['journalState/journalInfo'].permissions.time
-                var d = new Date();
-                var n = d.toISOString();
-                console.log(Date.parse(editTime[0]) + ' < ' + Date.parse(n) + ' < ' + Date.parse(editTime[1]))
-                return ((Date.parse(editTime[0]) <= Date.now()) && (Date.now() <= Date.parse(editTime[1])))
+                return ((this.editingStartTime <= this.now) && (this.now <= this.editingEndTime))
             },
             validateIsAllowed() {
                 for (let perm of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
@@ -139,6 +151,16 @@
 
                 XLSX.writeFile(new_workbook, 'journal.xlsx');
             },
+            msToTime(s) {
+                var ms = s % 1000;
+                s = (s - ms) / 1000;
+                var secs = s % 60;
+                s = (s - secs) / 60;
+                var mins = s % 60;
+                var hrs = (s - mins) / 60;
+
+                return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
+            }
         },
         mounted() {
             let self = this;
@@ -150,6 +172,9 @@
         components: {
             modal,
             FullCalendar
+        },
+        created() {
+            setInterval(() => this.now = (new Date()).getTime(), 1000)
         }
     }
 </script>
