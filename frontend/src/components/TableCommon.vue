@@ -64,6 +64,9 @@
                         }
                     },
                     computed: {
+                        shiftOrder: function() {
+                            return this.$store.getters['journalState/shiftOrder'];
+                        },
                         rowsCount: function () {
                             return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
                         }
