@@ -129,6 +129,7 @@ class ShiftAPI(View):
                 res[cell.index] = {"id":cell.id,
                                    "value":cell.value,
                                    "responsible":responsible,
+                                   "created": cell.created,
                                    "comments":[{
                                         'text': comment.text,
                                         'user': {str(comment.employee.user): str(comment.employee)},

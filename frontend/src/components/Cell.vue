@@ -238,6 +238,7 @@
                 setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
                 setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
                 if (this.critical) {
+                  console.log('critical')
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -253,6 +254,19 @@
                         'type': 'critical_value'
                     },
                 });
+                }
+                else {
+                  console.log('non critical')
+                    this.$socket.sendObj({
+                        'type': 'messages',
+                        'cell': {
+                            'field_name': this.fieldName,
+                            'table_name': this.tableName,
+                            'group_id': this.$store.getters['journalState/journalInfo'].id,
+                            'index': this.rowIndex
+                        },
+                        "crud":"update",
+                    });
                 }
             },
             filterInput(e) {
