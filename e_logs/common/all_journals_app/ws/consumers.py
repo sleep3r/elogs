@@ -28,20 +28,23 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             )
 
             await self.accept()
+
         else:
             await self.close()
-            raise StopConsumer()
 
     async def websocket_disconnect(self, event):
-        await self.channel_layer.group_discard(
-            self.user_channel,
-            self.channel_name,
-        )
+        try:
+            await self.channel_layer.group_discard(
+                self.user_channel,
+                self.channel_name,
+            )
 
-        await self.channel_layer.group_discard(
-            self.data_channel,
-            self.channel_name,
-        )
+            await self.channel_layer.group_discard(
+                self.data_channel,
+                self.channel_name,
+            )
+        except:
+            pass
 
         await self.close()
         raise StopConsumer()

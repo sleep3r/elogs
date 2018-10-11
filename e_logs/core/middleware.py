@@ -37,12 +37,8 @@ class TokenAuthMiddleware:
             try:
                 token = Token.objects.get(key=auth_header)
                 scope['user'] = token.user
-            except (InvalidSignatureError, KeyError, ExpiredSignatureError, DecodeError):
-                traceback.print_exc()
-                pass
-            except Exception as e:  # NoQA
-                logger.error(scope)
-                traceback.print_exc()
+            except:
+                scope['user'] = AnonymousUser()
 
         return self.inner(scope)
 
@@ -77,7 +73,7 @@ class CustomAuthenticationMiddleware(MiddlewareMixin):
                 try: 
                     request._cached_user = request.user
                 except:
-                    request._cached_user = AnonymousUser
+                    request._cached_user = AnonymousUser()
         return request._cached_user
 
     def process_request(self, request):
