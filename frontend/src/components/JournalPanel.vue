@@ -17,15 +17,15 @@
                 <img style="height: 30px; width: 30px;"
                      :title="employeeFormatted"
                      src="../assets/images/no-avatar.png">
-                <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
+                <button v-if="viewIsAllowed" :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
                         @click="changeMode('view')">
                     Просмотр
                 </button>
-                <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                <button v-if="editIsAllowed" :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
                 </button>
-                <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                <button v-if="validateIsAllowed" :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
                         @click="changeMode('validate')">
                     Валидация
                 </button>
@@ -94,19 +94,36 @@
             },
             shiftOrder() {
                 return this.$store.getters['journalState/journalInfo'].order;
+            },
+            viewIsAllowed() {
+              for (let perm of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
+                  if (perm == 'view') {
+                      return true
+                  }
+              }
+              return false
+            },
+            editIsAllowed() {
+                // period of time when shift can be edited
+                let editTime = this.$store.getters['journalState/journalInfo'].permissions.time
+                var d = new Date();
+                var n = d.toISOString();
+                console.log(Date.parse(editTime[0]) + ' < ' + Date.parse(n) + ' < ' + Date.parse(editTime[1]))
+                return ((Date.parse(editTime[0]) <= Date.now()) && (Date.now() <= Date.parse(editTime[1])))
+            },
+            validateIsAllowed() {
+                for (let perm of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
+                    if (perm == 'validate') {
+                        return true
+                    }
+                }
+                return false
             }
         },
         methods: {
             changeMode(mode) {
-                let permission = mode + '_cells';
-                let permissions = this.$store.getters['journalState/journalInfo'].permissions.permissions;
-                for (let i = 0; i < permissions.length; i++) {
-                    if (permission === permissions[i]) {
-                        this.$store.commit('journalState/SET_PAGE_MODE', mode);
-                    }
-                }
+                this.$store.commit('journalState/SET_PAGE_MODE', mode);
             },
-
             download_xlsx() {
                 let elt = $('.elog-journal-table').clone();
                 elt.find("td").replaceWith(function () {
