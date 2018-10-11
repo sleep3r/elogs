@@ -106,7 +106,7 @@ class AddGraphView(View):
     @logged
     def post(self, request):
         user = request.user
-        # user = User.objects.get(username="inframine")
+        # user = CustomUser.objects.get(username="inframine")
         employee = Employee.objects.get(user=user)
         print(request.body)
         data = json.loads(request.body)
