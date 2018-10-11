@@ -3,151 +3,90 @@
     <thead>
         <tr>
             <th rowspan="2" colspan="2"> Параметры </th>
-            <th colspan="12" class="th-common"> Время замеров </th>
+            <th colspan="6" class="th-common"> Время замеров </th>
             <th rowspan="2"> Несоотвествия </th>
             <th rowspan="2"> Принятые меры </th>
         </tr>
-        <tr>
-            <th>08-00</th>
-            <th>09-00</th>
-            <th>10-00</th>
-            <th>11-00</th>
-            <th>12-00</th>
-            <th>13-00</th>
-            <th>14-00</th>
-            <th>15-00</th>
-            <th>16-00</th>
-            <th>17-00</th>
-            <th>18-00</th>
-            <th>19-00</th>
+        <tr v-if="shiftOrder === 1">
+            <th> 8:00</th>
+            <th> 9:00</th>
+            <th> 10:00</th>
+            <th> 11:00</th>
+            <th> 12:00</th>
+            <th> 13:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 2">
+            <th> 14:00</th>
+            <th> 15:00</th>
+            <th> 16:00</th>
+            <th> 17:00</th>
+            <th> 18:00</th>
+            <th> 19:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 3">
+            <th> 20:00</th>
+            <th> 21:00</th>
+            <th> 22:00</th>
+            <th> 23:00</th>
+            <th> 00:00</th>
+            <th> 01:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 4">
+            <th> 02:00</th>
+            <th> 03:00</th>
+            <th> 04:00</th>
+            <th> 05:00</th>
+            <th> 06:00</th>
+            <th> 07:00</th>
         </tr>
     </thead>
     <tbody>
             <tr>
                 <th colspan="2"> Zn, г/л отр./смесь </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="zn" :row-index="hourNumber" /></td>
+                <td><cell field-name="znmismatches" row-index="0" /></td>
+                <td><cell field-name="znmeasures" row-index="0" /></td>
             </tr>
             <tr>
                 <th colspan="2"> H2SO4, г/л в отр. </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="h2so4" :row-index="hourNumber" /></td>
+                <td><cell field-name="h2so4n" row-index="0" /></td>
+                <td><cell field-name="h2so4p" row-index="0" /></td>
             </tr>
             <tr>
                 <th rowspan="3"> t0C </th>
                 <th> смесь </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="tmix" :row-index="hourNumber" /></td>
+                <td><cell field-name="tmixn" row-index="0" /></td>
+                <td><cell field-name="tmixp" row-index="0" /></td>
             </tr>
             <tr>
                 <th> в ваннах </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="vv" :row-index="hourNumber" /></td>
+                <td><cell field-name="vvn" row-index="0" /></td>
+                <td><cell field-name="vvp" row-index="0" /></td>
             </tr>
             <tr>
                 <th> нейтр. (град.) </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="ng" :row-index="hourNumber" /></td>
+                <td><cell field-name="ngn" row-index="0" /></td>
+                <td><cell field-name="ngp" row-index="0" /></td>
             </tr>
             <tr>
                 <th rowspan="2"> I, кА </th>
                 <th> I c. </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="s1s" :row-index="hourNumber" /></td>
+                <td><cell field-name="i1s" row-index="0" /></td>
+                <td><cell field-name="pm1s" row-index="0" /></td>
             </tr>
             <tr>
                 <th> II c. </th>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
-                <td><cell field-name="" row-index="0"></cell></td>
+                <td v-for="hourNumber of 6"><cell field-name="s2s" :row-index="hourNumber" /></td>
+                <td><cell field-name="i2s" row-index="0" /></td>
+                <td><cell field-name="pm2s" row-index="0" /></td>
             </tr>
     </tbody>
 </table>
-
-
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
