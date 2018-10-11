@@ -14,7 +14,7 @@
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit' && !hasFormula"
+                :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="{ color: activeColor, fontWeight: fontWeight }"
                 :type="type"
@@ -126,6 +126,7 @@
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
             value: {
+                cache: false,
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
@@ -140,7 +141,7 @@
                     }]});
                 }
             },
-            fieldFormula: function() {
+            hasFormula: function() {
                 return Boolean(
                     this.$store.getters['journalState/fieldFormula'](
                         this.tableName, this.fieldName,
@@ -261,6 +262,7 @@
                     },
                 });
                 }
+                this._updateCells()
             },
             filterInput(e) {
                 if (this.type === 'number') {
@@ -335,6 +337,17 @@
                             nextTd.children[0].children[0].children[0].select();
                         }
                         break;
+                }
+            },
+            _updateCells() {
+                let journalComponent = this.$parent.$parent.$parent
+                for (let commonTableComponentIndex in journalComponent.$children) {
+                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
+                    let tableComponent = commonTableComponent.$children[0]
+                    for (let cellComponentIndex in tableComponent.$children) {
+                        let cellComponent = tableComponent.$children[cellComponentIndex]
+                        cellComponent.$forceUpdate()
+                    }
                 }
             }
         },

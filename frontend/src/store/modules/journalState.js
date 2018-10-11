@@ -93,10 +93,11 @@ const journalState = {
                     // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
                     return {};
                 }
-                let field = fields[fieldName]
+                let field = fields[fieldName];
                 if (field.formula) {
-                    console.log(field)
-                    return window.parser.parse(field.formula).result
+                    return {
+                        value: window.parser.parse(field.formula).result
+                    };
                 }
 
                 let cells = field.cells;
