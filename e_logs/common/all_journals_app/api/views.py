@@ -56,7 +56,7 @@ class ShiftAPI(View):
                 "id": qs.id ,
                 "plant":{"name":plant.name},
                 "order": qs.order,
-                "date": qs.date,
+                "date": qs.date.isoformat(),
                 "closed":qs.closed,
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
@@ -75,7 +75,7 @@ class ShiftAPI(View):
             not_assignment_time = not_assignment_time.isoformat()
             return [assignment_time, not_assignment_time]
 
-        PERMISSIONS = ['view']
+        PERMISSIONS = ["view"]
         APP = 'all_journals_app'
         VALIDATE_CELLS = APP + ".validate_cells"
         EDIT_CELLS = APP + ".edit_cells"
@@ -86,24 +86,24 @@ class ShiftAPI(View):
         if request.user.is_superuser or \
            {"Boss", shift.journal.plant.name.title()}.issubset(set(user_groups)) or \
             "Big boss" in user_groups:
-                PERMISSIONS = ['view', 'edit', 'validate']
+                PERMISSIONS = ["view", "edit", "validate"]
 
         elif {"Laborant", shift.journal.plant.name.title()}.issubset(set(user_groups)):
             if shift.closed:
                 limited_emp_id_list = Setting.of(shift)["limited_access_employee_id_list"]
                 if limited_emp_id_list and request.user.id in limited_emp_id_list:
-                    PERMISSIONS = ['view', 'edit']
+                    PERMISSIONS = ["view", "edit"]
 
             elif services.CheckRole.execute({"employee":request.user.employee, "page":shift}) and \
                 services.CheckTime.execute({"employee": request.user.employee, "page": shift}):
-                PERMISSIONS = ['view', 'edit']
+                PERMISSIONS = ["view", "edit"]
 
         if 'edit' not in PERMISSIONS or 'validate' not in PERMISSIONS and \
             request.user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)):
                  if request.user.has_perm(EDIT_CELLS):
-                     PERMISSIONS += 'edit'
+                     PERMISSIONS.append("edit")
                  if request.user.has_perm(VALIDATE_CELLS):
-                     PERMISSIONS += 'validate'
+                     PERMISSIONS.append("validate")
 
         res = {
             "permissions": PERMISSIONS,
