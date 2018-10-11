@@ -14,8 +14,8 @@
         </div>
         <div class="panel-buttons">
             <div class="mode-buttons">
-                <img style="height: 30px; width: 30px;"
-                     :title="employeeFormatted"
+                <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
+                     :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
                 <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
                         @click="changeMode('view')">
@@ -80,6 +80,9 @@
             }
         },
         computed: {
+            responsibles() {
+                return this.$store.getters['journalState/journalInfo'].responsibles
+            },
             events() {
                 return this.$store.getters['journalState/events'];
             },
