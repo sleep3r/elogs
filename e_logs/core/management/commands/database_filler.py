@@ -4,6 +4,7 @@ import random
 from typing import List, Optional
 
 from django.contrib.auth.models import User, Group, Permission
+from e_logs.core.models import CustomUser
 from django.db import connection
 from django.db.models import Model
 from slugify import slugify
@@ -90,7 +91,7 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
-        user = User.objects.create_user('shaukenov-shalkar', password='qwerty')
+        user = CustomUser.objects.create_user('shaukenov-shalkar', password='qwerty')
         user.first_name = "Шалкар"
         user.last_name = "Шаукенов"
         user.is_superuser = False
@@ -122,16 +123,16 @@ class DatabaseFiller:
         Setting.of(obj=reports_furn)['number_of_shifts'] = 3
 
     @staticmethod
-    def add_user(user_dict: dict) -> Optional[User]:
+    def add_user(user_dict: dict) -> Optional[CustomUser]:
         user_name = (user_dict['en']['last_name']
                      + "-" + user_dict['en']['first_name']
                      + "-" + user_dict['en']['second_name']).strip('-')
 
-        if User.objects.filter(username=user_name).exists():
+        if CustomUser.objects.filter(username=user_name).exists():
             err_logger.warning(f'user `{user_name}` already exists')
             return None
         else:
-            user = User.objects.create_user(user_name, password='qwerty')
+            user = CustomUser.objects.create_user(user_name, password='qwerty')
             user.first_name = user_dict['ru']['first_name']
             user.last_name = user_dict['ru']['last_name']
             user.is_superuser = False
@@ -214,7 +215,7 @@ class DatabaseFiller:
 
     @staticmethod
     def create_superuser():
-        superuser = User.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
+        superuser = CustomUser.objects.create_superuser("inframine", "admin@admin.com", "Singapore2017")
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
@@ -352,7 +353,7 @@ class DatabaseFiller:
         Deletes all database models
         :return: None
         """
-        exception_models = [User, Model]
+        exception_models = [CustomUser, Model]
         db_models = []
 
         for name, obj in inspect.getmembers(famodels):
@@ -362,7 +363,7 @@ class DatabaseFiller:
 
         db_models.extend([Permission, Setting, Employee, CellGroup, Cell, Plant, Group])
 
-        for u in User.objects.all():  # delete user
+        for u in CustomUser.objects.all():  # delete user
             u.delete()
 
         for t in db_models:

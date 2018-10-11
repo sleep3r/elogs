@@ -1,4 +1,6 @@
 from django.contrib import admin
+
+from e_logs.core.models import CustomUser
 from .models import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -38,6 +40,6 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 
 # Re-register UserAdmin
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+# admin.site.unregister(User)
+admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Employee, EmployeeAdmin)

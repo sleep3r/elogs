@@ -118,7 +118,7 @@ def save_cell(request):
 
         if cell.journal.type == 'shift':
             shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
-            shift.employee_set.add(request.user.employee)
+            shift.responsibles.add(request.user.employee)
 
         return {"status": 1}
 
@@ -170,7 +170,7 @@ def get_shifts(request, plant_name: str, journal_name: str,
     plant = Plant.objects.get(name=plant_name)
     journal = Journal.objects.get(plant=plant, name=journal_name)
     employee = user.employee
-    owned_shifts = employee.owned_shifts.all()
+    owned_shifts = employee.shift_set.all()
 
     if journal.type == 'shift':
         shifts = Shift.objects.select_related('journal', 'journal__plant').\

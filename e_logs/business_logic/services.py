@@ -8,7 +8,7 @@ from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Field, Shift, Journal, Plant
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.tasks import end_of_mode, end_of_limited_access, \
+from e_logs.common.all_journals_app.tasks import finish_mode, end_of_limited_access, \
     send_deferred_message
 from e_logs.core.utils.webutils import get_or_none
 
@@ -47,7 +47,6 @@ class SetMode(Service):
                              'text':self.cleaned_data['message'],
                              'sendee':self.data['sendee']},
                     all_users=True)
-
 
         return mode
 
@@ -100,10 +99,10 @@ class CheckRole(Service):
         position = self.data['employee'].position
         allowed_positions = Setting.of(page)["allowed_positions"]
         if position in allowed_positions if allowed_positions else ('boss', 'laborant',):
-            if page.employee_set.filter(position=position).\
+            if page.responsibles.filter(position=position).\
                     count() < int(Setting.of(page)[f"number_of_{position}"] or 1):
                 return True
-        if self.data['employee'] in page.employee_set.all():
+        if self.data['employee'] in page.responsibles.all():
             return True
 
         return False
@@ -124,14 +123,14 @@ class CheckTime(Service):
         assignment_time = Setting.of(page)['shift_assignment_time']
 
         if timezone.now() > page.end_time - timedelta(**assignment_time if \
-           assignment_time else {"hours":1}) and employee not in page.employee_set.all():
+           assignment_time else {"hours":1}) and employee not in page.responsibles.all():
             return False
 
         if timezone.now() > page.end_time + timedelta(hours=12):
             return False
 
         shift = get_or_none(Shift, date=page.date, order=int(page.order-1), journal=page.journal)
-        if shift and not shift.ended and employee not in page.employee_set.all():
+        if shift and not shift.ended and employee not in page.responsibles.all():
             return False
 
         return True

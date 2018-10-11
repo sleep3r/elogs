@@ -63,7 +63,7 @@ def check_mode_permissions(employee: Employee, page, page_mode: str) -> bool:
 
 @login_required
 def has_edited(request, page) -> bool:
-    return page in list(request.user.employee.owned_shifts.all())
+    return page in list(request.user.employee.shift_set.all())
 
 
 #@login_required

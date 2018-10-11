@@ -14,7 +14,7 @@ class Employee(StrAsDictMixin, models.Model):
                          ('admin', 'Админ'),
                          ('boss', 'Начальник цеха'),)
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
     position = models.CharField(max_length=128, blank=True, choices=POSITION_CHOICES)
     plant = models.CharField(max_length=128, verbose_name='Цех',
@@ -23,7 +23,6 @@ class Employee(StrAsDictMixin, models.Model):
                                                  ('electrolysis', 'Электролиз'),
                                                  ))
     csrf = models.CharField(max_length=settings.CSRF_LENGTH, default=' ')
-    owned_shifts = models.ManyToManyField(Shift, blank=True)
 
     @property
     def position_verbose(self):

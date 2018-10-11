@@ -2,37 +2,47 @@
   <div class="cell-popup tooltip-content">
     <div class="header"><i v-close-popover class="btn--close fas fa-times"></i>
       <div class="title">
-        Цех: {{$store.getters['journalState/plantVerboseName']}},
-        журнал: {{$store.getters['journalState/journalVerboseName']}},
-        таблица: {{$store.getters['journalState/tableVerboseName'](tableName)}},
-        поле: {{$store.getters['journalState/fieldVerboseName'](tableName, fieldName)}}
+        <!-- {{$store.getters['journalState/plantVerboseName']}}
+      </br>
+        {{$store.getters['journalState/journalVerboseName']}}
+      </br> -->
+        {{$store.getters['journalState/tableVerboseName'](tableName)}}
+      </br>
+        {{$store.getters['journalState/fieldVerboseName'](tableName, fieldName)}}
       </div>
       <div class="header__icon"><i class="fas fa-receipt"></i></div>
     </div>
     <div class="body">
       <ul class="list">
-        <li class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{$store.getters['journalState/cell'](tableName, fieldName, rowIndex)['value']}}</span></li>
-        <li class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{$store.getters['journalState/journalInfo'].date}}</span></li>
-        <li v-if="$store.getters['journalState/fieldDescription'](tableName, fieldName)" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Критические значения от {{minNormal}} до {{maxNormal}}</span></li>
-        <li class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">{{responsible}}</span></li>
-        <li class="item"><i class="item__icon fas fa-calendar-alt"></i><span class="item__text">..дата создания ячейки..</span></li>
+        <li v-if="cellValue" class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{ cellValue }}</span></li>
+        <li v-if="cellCreatedTime" class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{cellCreatedTime}}</span></li>
+        <li v-if="((minNormal)||(maxNormal))" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Допустимые значения <template v-if="minNormal">от {{minNormal}} </template>  <template v-if="maxNormal"> до {{maxNormal}}</template> </span></li>
+        <li v-if="responsible" class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">{{responsible}}</span></li>
+        <li v-if="cellCreatedDate" class="item"><i class="item__icon fas fa-calendar-alt"></i><span class="item__text">{{ cellCreatedDate }}</span></li>
       </ul>
       <ul class="comments">
         <li v-for="comment in comments">
-          {{ Object.values(comment.user)[0] }} {{ prettyDate(comment.created) }}: {{ comment.text }}
+          <div style="float: left"><b>{{ Object.values(comment.user)[0] }}</b> ({{ prettyDate(comment.created) }}):</div> {{ comment.text }}
         </li>
       </ul>
-      <textarea v-model="commentText">
+      <textarea style="width: 80%" v-model="commentText">
       </textarea>
-      <button class="btn" @click="addComment">Добавить</button>
+    </br>
+      <button class="btn" @click="addComment">Добавить комментарий</button>
+    </br>
+    </br>
       <div class="buttons-panel">
         <!-- <div v-if="graphNotAdded"> -->
-            <div class="btn" @click="addToDashboard"><i class="fas fa-chart-line"></i><span>Построить график</span></div>
-            <select v-model="selectedGraphType">
-                <option v-for="graphType in graphTypes">
-                    {{ graphType }}
-                </option>
-            </select>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-chart-line"></i>
+                Построить график
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" @click="addToDashboard('ShiftTimeline')" href="#">ShiftTimeline</a>
+                <a class="dropdown-item" @click="addToDashboard('ShiftHistogram')" href="#">ShiftHistogram</a>
+              </div>
+            </div>
         <!-- </div> -->
         <!-- <div v-else>
             График добавлен в панель аналитики
@@ -56,15 +66,39 @@ export default {
   data: function() {
       return {
           commentText: '',
-          selectedGraphType: "ShiftTimeline",
-          graphTypes: ["ShiftTimeline", "ShiftHistogram"]
       }
   },
   computed: {
+    cellValue: function () {
+        return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']
+    },
+    cellCreatedDate: function () {
+        let created = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['created']
+        if (created) {
+            let date = new Date(created);
+            return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+        }
+        else {
+            return ''
+        }
+    },
+    cellCreatedTime: function () {
+        let created = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['created']
+        if (created) {
+            let date = new Date(created);
+            return date.getHours() + ':' + (date.getMinutes()<10?'0':'') + date.getMinutes();
+        }
+        else {
+            return ''
+        }
+    },
     responsible: function () {
       let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible']
       if (responsible) {
         return Object.values(responsible)[0]
+      }
+      else {
+        return ''
       }
     },
     minNormal: function () {
@@ -112,7 +146,7 @@ export default {
         'crud': 'add'
       });
     },
-    addToDashboard() {
+    addToDashboard(selectedGraphType) {
         axios.post(
             window.HOSTNAME+"/dashboard/add-graph",
             {
@@ -122,7 +156,7 @@ export default {
                     'field_name': this.fieldName,
                 },
                 'graph_info': {
-                    'type': this.selectedGraphType
+                    'type': selectedGraphType
                 },
             },
             {withCredentials: true}
@@ -177,7 +211,6 @@ $color-bg: #548CB7;
       color: #ffffff !important;
       position: relative !important;
       top: -20px;
-      left: $popup-width - 20;
       cursor: pointer;
     }
 

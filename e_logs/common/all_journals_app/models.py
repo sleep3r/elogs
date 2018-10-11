@@ -8,7 +8,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.timezone import make_aware
 from django_extensions.db.models import TimeStampedModel
-from e_logs.core.utils.webutils import StrAsDictMixin, none_if_error, logged, default_if_error, \
+
+from e_logs.core.utils.webutils import none_if_error, logged, default_if_error, \
     max_cache
 
 
@@ -137,6 +138,7 @@ class Shift(CellGroup):
     date = models.DateField(verbose_name='Дата начала смены')
     closed = models.BooleanField(default=False)
     ended = models.BooleanField(default=False)
+    responsibles = models.ManyToManyField('login_app.Employee')
 
     class Meta:
         verbose_name = 'Смена'
