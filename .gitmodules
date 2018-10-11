@@ -1,0 +1,3 @@
+[submodule "e-logs-constructor"]
+  path = e-logs-constructor
+  url = https://github.com/inframine/e-logs-constructor
