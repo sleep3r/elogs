@@ -5,8 +5,7 @@
 
 .general-value {
     /*important because it's really important and to override bootstrap*/
-    padding-left: 3px !important;
-    padding-right: 3px !important;
+    padding: 8px 14px;
     border-radius: 0 !important;
     border: none !important;
     outline: none;
@@ -16,6 +15,16 @@
         weight: 300;
         size: 14px;
     }
+}
+
+.widthCell {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: nowrap;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
 }
 
 .general-value {
@@ -91,11 +100,14 @@ input[type="number"].general-value {
     height: 36px;
     min-height: 30px;
     word-break: break-word;
-    background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
 
     [readonly] {
         background: white;
     }
+}
+
+.form-control__edit {
+    background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
 }
 
 .journaltablewrapper .form-control[readonly]:focus {
@@ -108,6 +120,15 @@ input[type="number"].general-value {
 
 .active-comment {
     background: radial-gradient(white 80%, $accent-green)
+}
+
+
+
+
+@media (max-width: 1172px) {
+    .general-value {
+        padding: 8px 4px !important;
+    }
 }
 
 // --------------------------------------- DELETING ARROWS --------------------------------------

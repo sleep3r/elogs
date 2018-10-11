@@ -12,32 +12,39 @@
                    data-target="#myModal"
             >
         </div>
-        <div class="mode-buttons">
-            <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
-                    @click="changeMode('view')">
-                Просмотр
+        <div class="panel-buttons">
+            <div class="mode-buttons">
+                <img style="height: 30px; width: 30px;"
+                     :title="employeeFormatted"
+                     src="../assets/images/no-avatar.png">
+                <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
+                        @click="changeMode('view')">
+                    Просмотр
+                </button>
+                <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                        @click="changeMode('edit')">
+                    Редактирование
+                </button>
+                <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                        @click="changeMode('validate')">
+                    Валидация
+                </button>
+            </div>
+            <button :class="['btn', 'btn-xlsx', 'float-right']"
+                    @click="download_xlsx()">
+                XLSX
             </button>
-            <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
-                    @click="changeMode('edit')">
-                Редактирование
-            </button>
-            <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
-                    @click="changeMode('validate')">
-                Валидация
-            </button>
-            <img style="height: 30px; width: 30px;"
-                 :title="employeeFormatted"
-                 src="../assets/images/no-avatar.png">
         </div>
-        <modal v-show="showCalendar" @close="showCalendar = false" >
-            <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar" />
+        <modal v-show="showCalendar" @close="showCalendar = false">
+            <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
         </modal>
     </div>
 </template>
 <script>
-    import axios from 'axios'
-    import { FullCalendar } from 'vue-full-calendar'
+    import $ from 'jquery'
+    import {FullCalendar} from 'vue-full-calendar'
     import modal from "./Modal.vue"
+    let XLSX = require('xlsx');
 
     export default {
         name: 'journal-panel',
@@ -49,11 +56,11 @@
                 fullCalendarConfig: {
                     locale: 'ru',
                     buttonText: {
-                        today:    'Сегодня',
-                        month:    'Месяц',
-                        week:     'Неделя',
-                        day:      'День',
-                        list:     'Список'
+                        today: 'Сегодня',
+                        month: 'Месяц',
+                        week: 'Неделя',
+                        day: 'День',
+                        list: 'Список'
                     },
                     timeFormat: 'H(:mm)',
                     header: {
@@ -73,7 +80,7 @@
             }
         },
         computed: {
-            events () {
+            events() {
                 return this.$store.getters['journalState/events'];
             },
             employeeFormatted() {
@@ -91,18 +98,37 @@
         },
         methods: {
             changeMode(mode) {
-                let permission = mode + '_cells'
-                let permissions = this.$store.getters['journalState/journalInfo'].permissions
-                for (let i=0; i<permissions.length; i++) {
+                let permission = mode + '_cells';
+                let permissions = this.$store.getters['journalState/journalInfo'].permissions.permissions;
+                for (let i = 0; i < permissions.length; i++) {
                     if (permission === permissions[i]) {
                         this.$store.commit('journalState/SET_PAGE_MODE', mode);
                     }
                 }
             },
+
+            download_xlsx() {
+                let elt = $('.elog-journal-table').clone();
+                elt.find("td").replaceWith(function () {
+                    return '<td>' + $(this).find("input.general-value").val() + '</td>';
+                });
+                let tables = elt.get();
+
+                const new_workbook = XLSX.utils.book_new();
+                for (let i = 0; i < tables.length; i++) {
+                    let ws = XLSX.utils.table_to_sheet(tables[i]);
+                    XLSX.utils.book_append_sheet(new_workbook, ws, "table" + i);
+                }
+
+                XLSX.writeFile(new_workbook, 'journal.xlsx');
+            },
         },
-        mounted () {
+        mounted() {
             let self = this;
-            this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
+            this.$store.dispatch('journalState/loadShifts', {
+                plant: this.$route.params.plant,
+                journal: this.$route.params.journal
+            })
         },
         components: {
             modal,
@@ -111,4 +137,5 @@
     }
 </script>
 <style>
+
 </style>

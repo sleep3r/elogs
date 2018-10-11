@@ -1,5 +1,6 @@
 import json
 import pickle
+from datetime import timedelta
 from urllib.parse import parse_qs
 
 from cacheops import cached_as
@@ -14,7 +15,7 @@ from django.views import View
 from django.http import JsonResponse
 
 
-from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell
+from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
@@ -35,13 +36,21 @@ class ShiftAPI(View):
             id = kwargs['id']
         qs = Shift.objects\
         .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__tables', 'journal__tables__fields',
+        .prefetch_related('journal__tables',
+                          'journal__tables__fields',
                           Prefetch('journal__tables__fields__settings',
-                                    queryset=Setting.objects.filter(name='field_description')),
+                                    queryset=Setting.objects.filter(name='field_description')
+                                   ),
                           Prefetch('group_cells',
-                                   queryset=Cell.objects.select_related('field', 'field__table').
-                                   filter(group_id=id)),
-                          ).get(id=id)
+                                   queryset=Cell.objects.select_related('field',
+                                                                        'field__table',
+                                                                        'responsible__user',
+                                                                        'responsible').
+                                   filter(group_id=id).prefetch_related(
+                          Prefetch('comments', queryset=Comment.objects.all().
+                                                         select_related('employee__user',
+                                                                        'employee'))))).get(id=id)
+
         plant = qs.journal.plant
         res = {
                 "id": qs.id ,
@@ -51,10 +60,28 @@ class ShiftAPI(View):
                 "closed":qs.closed,
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
-                "permissions": [permission.codename for permission
-                    in Permission.objects.filter(user=user)],
+                "responsibles": [{str(e.user): str(e)} for e in qs.employee_set.all()],
+                "permissions": self.get_permissions(request, qs),
                 "journal": self.journal_serializer(qs)}
+
         return JsonResponse(res, safe=False)
+
+    def get_permissions(self, request, qs):
+        shift = qs
+        assignment_time = qs.date - timedelta(**Setting.of(shift)['shift_assignment_time'])
+        assignment_time = assignment_time.isoformat()
+        not_assignment_time = qs.date + timedelta(**Setting.of(shift)['shift_edition_time'])
+        not_assignment_time = not_assignment_time.isoformat()
+
+        res = {
+            "superuser": request.user.is_superuser,
+            "permissions": [permission.codename for permission
+                            in Permission.objects.filter(user=request.user)],
+            "time": (assignment_time, not_assignment_time),
+            "allowed_positions": Setting.of(shift)["allowed_positions"]
+        }
+
+        return res
 
     def journal_serializer(self, qs):
         journal = qs.journal
@@ -96,24 +123,38 @@ class ShiftAPI(View):
         res = {}
         for cell in cells:
             if cell.table == table and cell.field == field:
-                res[cell.index] = {"id":cell.id, "value":cell.value}
+                if cell.responsible:
+                    responsible = {str(cell.responsible.user): cell.responsible.name}
+                else:
+                    responsible = {}
+                res[cell.index] = {"id":cell.id,
+                                   "value":cell.value,
+                                   "responsible":responsible,
+                                   "comments":[{
+                                        'text': comment.text,
+                                        'user': {str(comment.employee.user): str(comment.employee)},
+                                        'created': comment.created.isoformat()}
+                                         for comment in cell.comments.all()
+                                         ]
+                                    }
 
         return res
 
-class PlantAPI(LoginRequiredMixin ,View):
+
+class PlantsAPI(LoginRequiredMixin ,View):
     def get(self, request):
         queryset = Plant.objects.all()
-        res = [{plant.name:plant.verbose_name} for plant in queryset]
+        res = [{"name":plant.name, "verboseName":plant.verbose_name} for plant in queryset]
         return JsonResponse(res, safe=False)
 
 
-class JournalAPI(View):
+class JournalsAPI(View):
     def get(self, request):
         queryset = Journal.objects.all()
         plant = request.GET.get('plant', None)
         if plant:
             queryset = Journal.objects.filter(plant__name=plant)
-        res = [{journal.name:journal.verbose_name} for journal in queryset]
+        res = [{"name":journal.name, "verboseName":journal.verbose_name} for journal in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -156,7 +197,12 @@ class SettingsAPI(View):
                          "verbose_name": s.verbose_name,
                          "value":pickle.loads(s.value),
                          "content_type": ContentType.objects.get_for_model(s.scope).id,
-                         "scope":model_to_dict(s.scope)} for s in qs],
+                         "scope":model_to_dict(s.scope)} for s in qs if s.content_type],
+
+            "global_settings":[{"id": s.id,
+                                "name":s.name,
+                                "verbose_name": s.verbose_name,
+                                "value":pickle.loads(s.value)} for s in qs.filter(content_type=None)]
         })
 
     def post(self, request):
@@ -169,14 +215,18 @@ class SettingsAPI(View):
             content_type=ContentType.objects.get(id=int(setting_data['content_type']))
                 if setting_data.get('scope', None) else None)
 
+        return JsonResponse({"status": 1})
+
     def put(self, request):
         setting_data = json.loads(request.body)
-        setting = Setting.objects.get(id=setting_data['id'])
+        setting = Setting.objects.get(id=int(setting_data['id']))
         setting.verbose_name = setting_data.get('value', setting.verbose_name)
-        setting.value = setting_data.get('value', setting.value)
+        setting.value = Setting._dumps(setting_data['value'])
         setting.save()
 
-class TableAPI(View):
+        return JsonResponse({"status":1})
+
+class TablesAPI(View):
     def get(self, request):
         queryset = Table.objects.all()
         plant = request.GET.get('plant', None)
@@ -186,11 +236,11 @@ class TableAPI(View):
         elif plant and journal:
             queryset = Table.objects.filter(journal__plant__name=plant, journal__name = journal)
 
-        res = [{table.name:table.verbose_name} for table in queryset]
+        res = [{"name":table.name, "verboseName":table.verbose_name} for table in queryset]
         return JsonResponse(res, safe=False)
 
 
-class FieldAPI(View):
+class FieldsAPI(View):
     def get(self, request):
         queryset = Field.objects.all()
         plant = request.GET.get('plant', None)
@@ -200,7 +250,7 @@ class FieldAPI(View):
             queryset = Field.objects.filter(table__journal__plant__name=plant,
                                             table__journal__name=journal,
                                             table__name=table)
-        res = [{field.name:field.verbose_name} for field in queryset]
+        res = [{"name":field.name, "verboseName":field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -226,8 +276,10 @@ class CellAPI(View):
 class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
-        if name:
-            return JsonResponse([emp.name for emp in Employee.objects.filter(name__contains=name)],
-                                safe=False)
+        plant = request.GET.get('plant', None)
+        if name and plant:
+            return JsonResponse([emp.name for emp in
+                                 Employee.objects.filter(name__contains=name,
+                                        user__groups__name__contains=plant.title())], safe=False)
         else:
             return JsonResponse([], safe=False)

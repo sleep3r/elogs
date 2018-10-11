@@ -1,9 +1,11 @@
 <template>
     <v-popover
             offset="16"
-            :disabled="mode !== 'validate'">
+            :disabled="mode !== 'validate'"
+            style="height: 100%"
+    >
         <input
-                :class="classes"
+                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '']"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
@@ -11,21 +13,23 @@
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
-                @blur="showCellTypeTooltip=false"
+                @blur="showTooltip=false"
                 :readonly="mode !== 'edit' && !hasFormula"
                 :placeholder="placeholder"
-                :style="{ color: activeColor }"
+                :style="{ color: activeColor, fontWeight: fontWeight }"
                 :type="type"
-                v-tooltip="{content: 'Введите число', show: showCellTypeTooltip, trigger: 'manual'}"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
+                style="height: 100%"
         >
+        <div class="widthCell"></div>
         <template>
             <datalist>
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
         <i
-                v-if="$store.getters['journalState/cellComment'](tableName, fieldName, rowIndex)"
+                v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
                 class="far fa-envelope comment-notification"></i>
         <template slot="popover">
             <CellComment
@@ -75,13 +79,31 @@
                 maxValue: null,
                 type: null,
                 placeholder: '',
-                showCellTypeTooltip: false,
+                showTooltip: false,
                 personsList: null,
+                tooltipContent: '',
+                fontWeight: 'lighter',
+                minWidth: 0
             }
         },
         watch: {
             mode (value) {
-                this.setPickersListeners()
+                setTimeout(() => this.setPickersListeners(), 1)
+            },
+            value: function (val) {
+                if (this.responsible) {
+                    if (!(this.$store.getters['userState/username'] in this.responsible)) {
+                        // this.$root.$emit('addTypingUser', this.responsible)
+                        this.fontWeight = 'bold'
+                        this.tooltipContent = Object.values(this.responsible)[0] + ' печатает...'
+                        this.showTooltip = true;
+                        var self = this
+                        setTimeout(function() {
+                            self.showTooltip = false;
+                            self.fontWeight = 'lighter'
+                        }, 1500);
+                    }
+                }
             }
         },
         computed: {
@@ -100,19 +122,22 @@
                 return (this.minValue && (this.value < this.minValue)) ||
                     (this.maxValue && (this.value > this.maxValue));
             },
+            responsible: function () {
+                return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
+            },
             value: {
                 get: function () {
-                    return this.$store.getters['journalState/cellValue'](this.tableName, this.fieldName, this.rowIndex)
+                    return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
                 set: function (val) {
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
-                    this.$store.commit('journalState/SAVE_CELL_VALUE', {
+                    this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         index: this.rowIndex,
                         value: val,
                         notSynchronized: !navigator.onLine
-                    });
+                    }]});
                 }
             },
             fieldFormula: function() {
@@ -128,17 +153,16 @@
         },
         methods: {
             deleteRow() {
-                console.log('delete row')
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
-                this.$root.$emit('send');
+                this.$store.dispatch('journalState/sendJournalData');
             },
             addRow() {
                 this.$store.commit('journalState/INSERT_EMPTY_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
-                this.$root.$emit('send');
+                this.$store.dispatch('journalState/sendJournalData');
             },
             flushRow() {
                 this.$store.commit('journalState/FLUSH_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
-                this.$root.$emit('send');
+                this.$store.dispatch('journalState/sendJournalData');
             },
             setPickersListeners () {
                 if (this.type === 'time') {
@@ -188,17 +212,25 @@
             send() {
                 this.$socket.sendObj({
                     'type': 'shift_data',
-                    'cell_location': {
-                        'group_id': this.$store.getters['journalState/journalInfo'].id,
-                        'table_name': this.tableName,
-                        'field_name': this.fieldName,
-                        'index': this.rowIndex
-                    },
-                    'value': this.value
+                    'cells': [{
+                        'cell_location': {
+                            'group_id': this.$store.getters['journalState/journalInfo'].id,
+                            'table_name': this.tableName,
+                            'field_name': this.fieldName,
+                            'index': this.rowIndex
+                        },
+                        'value': this.value
+                    }]
                 });
             },
             onInput(e) {
+                setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
+                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || (e.target.value && this.value && $(this.$el).find('input').width() > $(this.$el).find('input').css('min-width') && e.target.value.length < this.value.length)) {
+                    setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
+                }
+
                 this.value = e.target.value;
+
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
                     this.getPersons(e.target.value)
                         .then((resp) => {
@@ -210,6 +242,25 @@
             },
             onChanged(e) {
                 e.preventDefault()
+                setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
+                setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
+                if (this.critical) {
+                    this.$socket.sendObj({
+                    'type': 'messages',
+                    'cell': {
+                        'field_name': this.fieldName,
+                        'table_name': this.tableName,
+                        'group_id': this.$store.getters['journalState/journalInfo'].id,
+                        'index': this.rowIndex
+                    },
+                    'crud': "add",
+                    'message': {
+                        'text': this.value,
+                        'link': 'lalala',
+                        'type': 'critical_value'
+                    },
+                });
+                }
             },
             filterInput(e) {
                 if (this.type === 'number') {
@@ -217,15 +268,15 @@
                     // if non number character was pressed
                     if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
                         || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        this.showCellTypeTooltip = true;
+                        this.tooltipContent = 'Введите число'
+                        this.showTooltip = true;
                         event.preventDefault();
                     }
                     else {
-                        this.showCellTypeTooltip = false;
+                        this.showTooltip = false;
                     }
                 }
             },
-
             changeFocus(e) {
                 function getIndex(tds, focusedTd) {
                     let index = 0
@@ -305,7 +356,15 @@
                 this.send();
             }
 
-            this.setPickersListeners()
+            setTimeout(() => this.setPickersListeners(), 1)
+
+            setTimeout(() => {
+                $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
+                    this.minWidth = $(this.$el).find('input').outerWidth()
+                    : this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
+            }, 0)
+
+            setTimeout(() => $(this.$el).find('input').css({'min-width': this.minWidth + 'px'}), 0)
         }
     }
 </script>
@@ -412,13 +471,17 @@
         &[aria-hidden='true'] {
             visibility: hidden;
             opacity: 0;
-            transition: opacity .15s, visibility .15s;
+            transition: opacity .50s, visibility .15s;
         }
 
         &[aria-hidden='false'] {
             visibility: visible;
             opacity: 1;
-            transition: opacity .15s;
+            transition: opacity .50s;
         }
+    }
+
+    .v-popover > span.trigger {
+        height: 100%;
     }
 </style>

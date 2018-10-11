@@ -91,7 +91,7 @@ class Field(models.Model):
 
     name = models.CharField(max_length=128, verbose_name='Столбец')
     formula = models.CharField(max_length=4000, verbose_name='Формула', null=True, default="")
-    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца', null=True)
+    verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='setting_field', related_name='setting_fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
@@ -256,7 +256,7 @@ class Comment(models.Model):
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, related_name='comments',related_query_name='comment')
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
 

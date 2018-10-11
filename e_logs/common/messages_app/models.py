@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
+from pywebpush import webpush, WebPushException
 
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none
@@ -31,16 +32,7 @@ class Message(StrAsDictMixin, models.Model):
     link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#", null=True)
 
     @staticmethod
-    def add(cell, message, all_users=False, positions=None, uids=None, plant=None):
-        """
-        TODO: add builder class
-        'message': {
-                    'text': "some text",
-                    'link': Optional[URI],
-                    'type': "message type",
-                    'sendee': Employee or None,
-                }
-        """
+    def get_recepients(message, all_users=False, positions=None, uids=None, plant=None):
 
         if not all_users and positions is None and uids is None and plant is None:
             raise ValueError
@@ -55,13 +47,30 @@ class Message(StrAsDictMixin, models.Model):
         if positions:
             recipients = []
             for p in positions:
-                recipients.\
-                    extend(Employee.objects.
+                recipients.extend(Employee.objects.
                            filter(plant=plant if plant else None, position=p).
                            exclude(name=message['sendee']).cache())
         if all_users:
             recipients = []
             recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
+
+        return recipients
+
+
+    @staticmethod
+    def add(message, cell=None, all_users=False, positions=None, uids=None, plant=None):
+        """
+        TODO: add builder class
+        'message': {
+                    'text': "some text",
+                    'link': Optional[URI],
+                    'type': "message type",
+                    'sendee': Employee or None,
+                }
+        """
+        print(message)
+        recipients = Message.get_recepients(message, all_users, positions, uids, plant)
+
 
         text = message.pop('text', '')
 
@@ -76,12 +85,48 @@ class Message(StrAsDictMixin, models.Model):
             else:
                 Message.objects.create(**message, addressee=emp, cell=cell, text=text)
                 async_to_sync(layer.group_send)\
-                    (f'user_{emp.id}', {"type": "message.send",
-                                       "text": json.dumps({
-                                           'cell': cell.field.name if cell else None,
-                                           'sendee': message['sendee'].name if message['sendee'] else '',
-                                           'text': text})})
+                    (f'user_{emp.id}',
+                     {"type": "send_message",
+                      "text": json.dumps(
+                          {
+                            'type': 'messages',
+                            'cell': cell.field.name if cell else None,
+                            'sendee': {str(message['sendee'].user):message['sendee'].name} if message['sendee'] else 'E-LOGS',
+                            'text': text}
+                      )})
 
+                Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
+
+    @staticmethod
+    def push_notification(title, body, user_id):
+        user_subscriptions = UserSubscription.objects.filter(user_id=user_id)
+        for subscription in user_subscriptions:
+            data = json.dumps({
+                'title': title,
+                'body': body,
+            })
+            try:
+                print(subscription.subscription)
+                webpush(
+                    subscription_info=json.loads(subscription.subscription),
+                    data=data,
+                    vapid_private_key='./private_key.pem',
+                    vapid_claims={
+                        'sub': 'mailto:inframine@inframine.io',
+                    }
+                )
+            except WebPushException as ex:
+                print('I can\'t do that: {}'.format(repr(ex)))
+                print(ex)
+                # Mozilla returns additional information in the body of the response.
+                if ex.response and ex.response.json():
+                    extra = ex.response.json()
+                    print('Remote service replied with a {}:{}, {}',
+                          extra.code,
+                          extra.errno,
+                          extra.message
+                          )
+    
     @staticmethod
     def update(cell):
         messages = filter_or_none(Message, cell=cell)
@@ -98,24 +143,6 @@ class Message(StrAsDictMixin, models.Model):
             models.Index(fields=['addressee']),
             models.Index(fields=['created']),
         ]
-
-    @staticmethod
-    def get_addressees(all_users=False, positions=None, eids=None, plant=None):
-        """Отдает список адресатов"""
-
-        res = []
-        if all_users:
-            return Employee.objects.only('user')
-        if positions:
-            for p in positions:
-                emp = Employee.objects.filter(plant=plant, position=p).cache()
-                res.extend(emp)
-        if eids:
-            for eid in eids:
-                emp = Employee.objects.get(id=eid)
-                res.append(emp)
-
-        return res
 
     @staticmethod
     def get_unread(employee) -> QuerySet:

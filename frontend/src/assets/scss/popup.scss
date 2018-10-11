@@ -154,12 +154,13 @@ $color-popup-arrow: black;
 }
 
 .modal-wrapper {
+  padding: 0 10px;
   display: table-cell;
   vertical-align: middle;
 }
 
 .modal-container {
-  width: 1024px;
+  width: 100%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -203,4 +204,18 @@ $color-popup-arrow: black;
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+@media (max-width: 469.98px) {
+  .modal-container {
+    padding: 0;
+  }
+  
+  .fc-toolbar .fc-left {
+    margin-bottom: 10px;
+  }
+
+  .fc-toolbar .fc-right {
+    float: left;
+  }
 }

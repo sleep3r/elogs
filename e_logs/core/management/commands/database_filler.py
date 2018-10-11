@@ -105,8 +105,8 @@ class DatabaseFiller:
 
     @staticmethod
     def fill_plants():
-        plant_names = ['furnace', 'electrolysis', 'leaching']
-        Plant.objects.bulk_create([Plant(name=n) for n in plant_names])
+        plant_names = {'furnace':"Обжиг", 'electrolysis':"Электролиз", 'leaching':"Выщелачивание"}
+        Plant.objects.bulk_create([Plant(name=name, verbose_name=verbose_name) for name, verbose_name in plant_names.items()])
 
     @staticmethod
     @logged
@@ -246,6 +246,17 @@ class DatabaseFiller:
             gr.save()
 
     @staticmethod
+    def bl_create():
+        Setting.objects.create(name='shift_assignment_time',
+                               value=Setting._dumps({"hours": 1}))
+
+        Setting.objects.create(name='shift_edition_time',
+                               value=Setting._dumps({"hours": 12}))
+
+        Setting.objects.create(name='allowed_positions',
+                               value=Setting._dumps(("boss", "laborant")))
+
+    @staticmethod
     def create_tables_lists():
         stdout_logger.info('Adding table lists for each journal...')
         fill_tables_lists()
@@ -259,7 +270,7 @@ class DatabaseFiller:
                 'concentrate_report': 'Журнал рапортов о проделанной работе по'
                                       ' складам концентратов',
                 'technological_tasks': 'Журнал сменных производственных, тех. заданий',
-                'reports_furnace_area': 'Журнал печного участка',
+                'reports_furnace_area': 'Технологический журнал процесса производства огарка',
                 'furnace_repair': 'Журнал по ремонту',
                 'report_income_outcome_schieht': 'Поступление, расходы и остатки Zn концентратов',
                 'metals_compute': 'Рассчёт металлов',

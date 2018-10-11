@@ -1,43 +1,10 @@
 <template>
-    <div>
-        <!--<form action="journal_upload/" method="post" enctype="multipart/form-data">-->
-        <form>
-            <h3>Загрузить журнал:</h3>
-            <span v-if="errorText" style="color: red">{{errorText}}</span>
-            <p><input accept=".journal" id="journal_upload_button" type="file" value="Обзор" name="journal_file" /></p>
-            <p>
-                <select name="plant">
-                    <option disabled selected>Выберите цех</option>
-                    <option value="furnace">Обжиг</option>
-                    <option value="leaching">Выщелачивание</option>
-                    <option value="electrolysis">Электролиз</option>
-                </select>
-            </p>
-            <p>
-                <select name="type">
-                    <option disabled selected>Выберите тип журнала</option>
-                    <option value="shift">Смена</option>
-                    <option value="equipment">Оборудование</option>
-                    <option value="measurement">Измерение</option>
-                </select>
-            </p>
-            <p><input class="btn" type="submit" value="Загрузить"/></p>
-        </form>
-
-        <!--{% if user.is_superuser or user|in_group:"Big boss" or user|in_group:"Boss" %}-->
-        <!--{#<h2>Настройки системы</h2>#}-->
-        <!--{% endif %}-->
-    </div>
+    <div>Settings Page</div>
 </template>
 
 <script>
     export default {
-        name: "SettingsPage",
-        data () {
-            return {
-                errorText: ''
-            }
-        }
+        name: "SettingsPage"
     }
 </script>
 

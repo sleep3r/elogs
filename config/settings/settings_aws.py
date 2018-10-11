@@ -53,11 +53,11 @@ DATABASES = {
 
 DEBUG = False
 
-MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
+#MIDDLEWARE.insert(1, 'django.middleware.gzip.GZipMiddleware')
 
-MIDDLEWARE = [] + MIDDLEWARE + \
-             [
-                 'htmlmin.middleware.HtmlMinifyMiddleware',
-                 'htmlmin.middleware.MarkRequestMiddleware',
-             ]
-HTML_MINIFY = True
+#MIDDLEWARE = [] + MIDDLEWARE + \
+#             [
+#                 'htmlmin.middleware.HtmlMinifyMiddleware',
+#                 'htmlmin.middleware.MarkRequestMiddleware',
+#             ]
+#HTML_MINIFY = True

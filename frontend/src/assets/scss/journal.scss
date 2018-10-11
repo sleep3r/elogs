@@ -33,11 +33,16 @@
     }
 }
 
-.mode-buttons {
-    margin-left: 20px;
+.panel-buttons {
+    display: flex;
+    justify-content: flex-start;
 
     .btn {
-        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .btn-xlsx {
+        margin-left: 30px;
     }
 }
 

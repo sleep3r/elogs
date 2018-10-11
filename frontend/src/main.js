@@ -3,11 +3,12 @@ import App from './App.vue'
 import router from './router';
 import store from './store/store';
 import VueNativeSock from 'vue-native-websocket';
-
 import './register-sw'
 import './assets/js/index'
+import VueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
+
 
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 window.HOSTNAME =  "http://localhost:8000";
@@ -49,12 +50,39 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            this.store.commit('journalState/SAVE_CELL_VALUE', {
-                tableName: data['cell_location']['table_name'],
-                fieldName: data['cell_location']['field_name'],
-                index: data['cell_location']['index'],
-                value: data['value']
-            })
+            console.log(data)
+            if (data['type'] == 'shift_data') {
+                let commitData = {'cells': []}
+                for (let i in data['cells']) {
+                    let cellData = data['cells'][i]
+                    // if received cell value is inputed by this user,
+                    // store has it already
+                    if (!(this.store.getters['userState/username'] in cellData['responsible'])) {
+                        commitData['cells'].push({
+                            tableName: cellData['cell_location']['table_name'],
+                            fieldName: cellData['cell_location']['field_name'],
+                            index: cellData['cell_location']['index'],
+                            responsible: cellData['responsible'],
+                            value: cellData['value']
+                        })
+                    }
+                }
+                console.log(commitData)
+                if (commitData['cells'].length !== 0) {
+                    this.store.commit('journalState/SAVE_CELLS', commitData)
+                }
+            }
+            if (data['type'] == 'messages') {
+                console.log(data)
+                if (!(this.store.getters['userState/username'] in data['employee'])) {
+                    this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                      tableName: data['cell_location']['table_name'],
+                      fieldName: data['cell_location']['field_name'],
+                      index: data['cell_location']['index'],
+                      comment: {'text': data['message']['text'], 'created': Date.parse(data['created']), 'user': data['employee']}
+                    });
+                }
+            }
         }
         else {
             return
@@ -62,6 +90,12 @@ Vue.use(VueNativeSock, dataEndpoint, {
 
     }
 });
+
+store.subscribe((mutation, state) => {
+    if (!VueCookies.get('Authorization')) {
+        router.push('/login')
+    }
+})
 
 window.mv = new Vue({
     el: '#app',

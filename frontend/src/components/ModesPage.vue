@@ -16,8 +16,9 @@
             </template>
         </div>
         <div class="mode-content__body">
-            <table class="table table-bordered elog-journal-table" v-if="currentMode">
-                <thead>
+            <div class="table-container">
+                <table class="table table-bordered elog-journal-table" v-if="currentMode">
+                    <thead>
                     <tr>
                         <th>Таблица</th>
                         <th>Ячейка</th>
@@ -25,9 +26,9 @@
                         <th>Максимальное значение</th>
                         <th style="width: 36px"></th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in currentMode.fields" :key="item.name">
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item, index) in currentMode.fields" :key="item.name + '-' + index">
                         <td data-target="table_name"><div>{{item.table_name}}</div></td>
                         <td data-target="name"><div>{{item.name}}</div></td>
                         <td data-target="min_normal">
@@ -50,8 +51,9 @@
                             <div class="delete-icon" @click="onDeleteCell(item.table_name, item.name)"><i class="fas fa-times"></i></div>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             <div class="mode-content__title__mode-edit-btns" v-if="currentMode">
                 <button class="btn" data-toggle="modal" data-target="#AddModeCellModal">Добавить ячейку</button>
                 <div v-if="needsToSave">
@@ -170,18 +172,5 @@
 </script>
 
 <style>
-    .mode-content table {
-        table-layout: fixed !important;
-    }
 
-    .mode-content table td div {
-        padding: 0.375rem 3px !important;
-    }
-
-    .mode-content table .form-control {
-        height: 36px;
-        border-radius: 0;
-        padding-left: 3px;
-        padding-right: 3px;
-    }
 </style>
