@@ -316,6 +316,30 @@ class DatabaseFiller:
                 cell.value = str(random.randint(0, 100))
                 cell.save()
 
+    @staticmethod
+    def create_formula_sample_data():
+        journal = Journal.objects.get(name="concentrate_report")
+        table = Table.objects.get(name="small", journal=journal)
+        cellgroups = CellGroup.objects.filter(journal=journal)
+        shifts = Shift.objects.filter(cellgroup_ptr__in=cellgroups).order_by("date")
+        group_ids = shifts[:14].values_list("cellgroup_ptr", flat=True)
+
+        table_name = "small"
+        field_names = ["residue_empty_containers11", "residue_empty_containers21"]
+        formula_field_names = ["residue_defective_containers1"]
+
+        for field_name in formula_field_names:
+            field = Field.objects.get(name=field_name, table=table)
+            field.formula = "FUNC('concentrate_report','small', 'residue_empty_containers11', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers21', 0, CURRENT_SHIFT)"
+            field.save()
+        for group_id in group_ids:
+            for field_name in field_names:
+                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                    field_name=field_name, index=0)
+                cell.value = str(random.randint(0, 100))
+                cell.save()
+
+
 
     @staticmethod
     def create_fields_descriptions():

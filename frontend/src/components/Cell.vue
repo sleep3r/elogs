@@ -14,7 +14,7 @@
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit'"
+                :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="{ color: activeColor, fontWeight: fontWeight }"
                 :type="type"
@@ -126,6 +126,7 @@
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
             value: {
+                cache: false,
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
@@ -139,6 +140,13 @@
                         notSynchronized: !navigator.onLine
                     }]});
                 }
+            },
+            hasFormula: function() {
+                return Boolean(
+                    this.$store.getters['journalState/fieldFormula'](
+                        this.tableName, this.fieldName,
+                    )
+                )
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
@@ -254,8 +262,7 @@
                         'type': 'critical_value'
                     },
                 });
-                }
-                else {
+                } else {
                   console.log('non critical')
                     this.$socket.sendObj({
                         'type': 'messages',
@@ -267,6 +274,7 @@
                         },
                         "crud":"update",
                     });
+                this._updateCells()
                 }
             },
             filterInput(e) {
@@ -342,6 +350,17 @@
                             nextTd.children[0].children[0].children[0].select();
                         }
                         break;
+                }
+            },
+            _updateCells() {
+                let journalComponent = this.$parent.$parent.$parent
+                for (let commonTableComponentIndex in journalComponent.$children) {
+                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
+                    let tableComponent = commonTableComponent.$children[0]
+                    for (let cellComponentIndex in tableComponent.$children) {
+                        let cellComponent = tableComponent.$children[cellComponentIndex]
+                        cellComponent.$forceUpdate()
+                    }
                 }
             }
         },

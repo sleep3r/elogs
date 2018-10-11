@@ -110,6 +110,7 @@ class ShiftAPI(View):
         res = {field.name: {
                         "id": field.id,
                         "name": field.name,
+                        "formula": field.formula,
                         "field_description": pickle.loads(list(field.settings.all())[-1].value)
                                 if field.settings.all() else '',
                         "cells": self.cell_serializer(qs, table, field)}
