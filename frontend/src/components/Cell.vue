@@ -9,7 +9,7 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
-                :readonly="mode !== 'edit'"
+                :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="['height: 100%', { color: activeColor, fontWeight: fontWeight }]"
                 :type="type"
@@ -127,6 +127,7 @@
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
             value: {
+                cache: false,
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
@@ -140,6 +141,13 @@
                         notSynchronized: !navigator.onLine
                     }]});
                 }
+            },
+            hasFormula: function() {
+                return Boolean(
+                    this.$store.getters['journalState/fieldFormula'](
+                        this.tableName, this.fieldName,
+                    )
+                )
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
@@ -239,6 +247,7 @@
                 setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
                 setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
                 if (this.critical) {
+                  console.log('critical')
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -254,6 +263,19 @@
                         'type': 'critical_value'
                     },
                 });
+                } else {
+                  console.log('non critical')
+                    this.$socket.sendObj({
+                        'type': 'messages',
+                        'cell': {
+                            'field_name': this.fieldName,
+                            'table_name': this.tableName,
+                            'group_id': this.$store.getters['journalState/journalInfo'].id,
+                            'index': this.rowIndex
+                        },
+                        "crud":"update",
+                    });
+                this._updateCells()
                 }
             },
             filterInput(e) {
@@ -329,6 +351,17 @@
                             nextTd.children[0].children[0].children[0].select();
                         }
                         break;
+                }
+            },
+            _updateCells() {
+                let journalComponent = this.$parent.$parent.$parent
+                for (let commonTableComponentIndex in journalComponent.$children) {
+                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
+                    let tableComponent = commonTableComponent.$children[0]
+                    for (let cellComponentIndex in tableComponent.$children) {
+                        let cellComponent = tableComponent.$children[cellComponentIndex]
+                        cellComponent.$forceUpdate()
+                    }
                 }
             }
         },

@@ -106,7 +106,6 @@
                     }
                 }
             },
-
             download_xlsx() {
                 let elt = $('.elog-journal-table').clone();
                 elt.find("td").replaceWith(function () {
@@ -128,6 +127,19 @@
             this.$store.dispatch('journalState/loadShifts', {
                 plant: this.$route.params.plant,
                 journal: this.$route.params.journal
+            })
+
+            $( window ).resize(function() {
+                console.log('resize')
+                setTimeout(() => {
+                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+                }, 100)
+            })
+
+            $('.fc-toolbar.fc-header-toolbar button').click(function () {
+                setTimeout(() => {
+                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+                }, 1)
             })
         },
         components: {
