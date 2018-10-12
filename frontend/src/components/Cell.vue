@@ -226,10 +226,8 @@
                 });
             },
             onInput(e) {
-                setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
-                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || (e.target.value && this.value && $(this.$el).find('input').width() > $(this.$el).find('input').css('min-width') && e.target.value.length < this.value.length)) {
-                    setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
-                }
+                $(this.$el).find('.widthCell').text(e.target.value)
+                $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').outerWidth()})
 
                 this.value = e.target.value;
 
@@ -244,8 +242,6 @@
             },
             onChanged(e) {
                 e.preventDefault()
-                setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
-                setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
                 if (this.critical) {
                   console.log('critical')
                     this.$socket.sendObj({
@@ -383,15 +379,9 @@
                 this.send();
             }
 
+            setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
+
             setTimeout(() => this.setPickersListeners(), 1)
-
-            setTimeout(() => {
-                $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
-                    this.minWidth = $(this.$el).find('input').outerWidth()
-                    : this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
-            }, 0)
-
-            setTimeout(() => $(this.$el).find('input').css({'min-width': this.minWidth + 'px'}), 0)
         }
     }
 </script>

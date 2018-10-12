@@ -3,7 +3,7 @@
 \*------------------------------------*/
 @import "variables";
 
-.general-value {
+.general-value, .widthCell {
     /*important because it's really important and to override bootstrap*/
     padding: 8px 14px;
     border-radius: 0 !important;
@@ -18,13 +18,11 @@
 }
 
 .widthCell {
+    display: none;
     position: absolute;
     top: -1000px;
     left: -1000px;
     visibility: hidden;
-    white-space: nowrap;
-    padding-left: 3px !important;
-    padding-right: 3px !important;
 }
 
 .general-value {
@@ -93,7 +91,7 @@ input[type="number"].general-value {
 
 /* -------------------------- BACKGROUND COLOR SHIT --------------------------------- */
 
-.form-control {
+.form-control, .widthCell {
     border: none;
     min-width: 0;
     line-height: 1.42857143 !important;
@@ -126,7 +124,7 @@ input[type="number"].general-value {
 
 
 @media (max-width: 1172px) {
-    .general-value {
+    .general-value, .widthCell {
         padding: 8px 4px !important;
     }
 }
