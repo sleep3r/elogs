@@ -3,6 +3,8 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -80,7 +82,6 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
-    'raven.contrib.django.raven_compat',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
@@ -112,7 +113,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -182,10 +182,6 @@ if DEBUG:
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'root': {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -206,11 +202,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'sentry': {
-            'level': 'ERROR',  # To capture more than ERROR, change to WARNING, INFO, etc.
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {'custom-tag': 'x'},
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -500,16 +491,11 @@ USE_ETAGS = True
 
 # ------------------------- Sentry Shit ---------------------------------------------------------
 
-import sentry_sdk
-import raven
-from sentry_sdk.integrations.django import DjangoIntegration
-
-RAVEN_CONFIG = {
-    'dsn': 'https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999',
-    'release': raven.fetch_git_sha(os.path.abspath(os.pardir) + '/e-logs'),
-}
-
-# sentry_sdk.init(
-#     dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
-#     integrations=[DjangoIntegration()]
-# )
+sentry_sdk.init(
+    dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
+    integrations=[DjangoIntegration()],
+    send_default_pii=True,
+    request_bodies='medium',
+    with_locals=True,
+    server_name=env('SENTRY_SERVERNAME'),
+)

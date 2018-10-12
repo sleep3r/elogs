@@ -19,11 +19,11 @@ from django.db.models import Model, QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from raven.contrib.django.models import client
 from rest_framework.authtoken.models import Token
 
 from django.conf import settings
 from rest_framework_rapidjson.renderers import RapidJSONRenderer
+from sentry_sdk import capture_exception
 
 from e_logs.core.utils.errors import SemanticError, AccessError
 from e_logs.core.utils.loggers import err_logger
@@ -69,16 +69,16 @@ def handle_exceptions(view):
         except SemanticError as e:
             response = HttpResponse(str(e))
             err_logger.error('Processed SemanticError')
-            client.captureException()
+            capture_exception(e)
         except AccessError as e:
             response = HttpResponse(str(e))
             err_logger.error('Processed AccessError')
-            client.captureException()
+            capture_exception(e)
         except Exception as e:
             err_logger.error(e)
             print_exc()
             response = {"error": "fatal"}
-            client.captureException()
+            capture_exception(e)
 
         return response
 
@@ -200,7 +200,8 @@ def default_if_error(value):
         def wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-            except:
+            except Exception as e:
+                capture_exception(e)
                 return value
 
         return wrapper
