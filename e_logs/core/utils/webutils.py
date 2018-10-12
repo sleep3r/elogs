@@ -19,6 +19,7 @@ from django.db.models import Model, QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from raven.contrib.django.models import client
 from rest_framework.authtoken.models import Token
 
 from django.conf import settings
@@ -68,13 +69,16 @@ def handle_exceptions(view):
         except SemanticError as e:
             response = HttpResponse(str(e))
             err_logger.error('Processed SemanticError')
+            client.captureException()
         except AccessError as e:
             response = HttpResponse(str(e))
             err_logger.error('Processed AccessError')
+            client.captureException()
         except Exception as e:
             err_logger.error(e)
             print_exc()
             response = {"error": "fatal"}
+            client.captureException()
 
         return response
 

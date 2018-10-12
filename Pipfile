@@ -46,6 +46,8 @@ django-cors-headers = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
 pywebpush = "*"
+sentry-sdk = "*"
+raven = "*"
 
 [dev-packages]
 icecream = "*"
