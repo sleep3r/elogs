@@ -9,22 +9,21 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                :readonly="mode !== 'edit' || hasFormula"
+                :placeholder="placeholder"
+                :style="['height: 100%', { color: activeColor, fontWeight: fontWeight }]"
+                :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit'"
-                :placeholder="placeholder"
-                :style="{ color: activeColor, fontWeight: fontWeight }"
-                :type="type"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
-                style="height: 100%"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
         >
         <div class="widthCell"></div>
         <template>
-            <datalist>
+            <datalist v-if="personsList">
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -37,8 +36,6 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
-
-        <!-- Menu to create, delete and flush a row -->
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -116,7 +113,11 @@
                 }
             },
             activeColor: function () {
-                return this.critical ? 'red' : '';
+                if (this.type === 'number') {
+                    return this.critical ? 'red' : '';
+                } else {
+                    return '';
+                }
             },
             critical: function () {
                 return (this.minValue && (this.value < this.minValue)) ||
@@ -126,6 +127,7 @@
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
             value: {
+                cache: false,
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
@@ -139,6 +141,13 @@
                         notSynchronized: !navigator.onLine
                     }]});
                 }
+            },
+            hasFormula: function() {
+                return Boolean(
+                    this.$store.getters['journalState/fieldFormula'](
+                        this.tableName, this.fieldName,
+                    )
+                )
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
@@ -254,8 +263,7 @@
                         'type': 'critical_value'
                     },
                 });
-                }
-                else {
+                } else {
                   console.log('non critical')
                     this.$socket.sendObj({
                         'type': 'messages',
@@ -267,6 +275,7 @@
                         },
                         "crud":"update",
                     });
+                this._updateCells()
                 }
             },
             filterInput(e) {
@@ -342,6 +351,17 @@
                             nextTd.children[0].children[0].children[0].select();
                         }
                         break;
+                }
+            },
+            _updateCells() {
+                let journalComponent = this.$parent.$parent.$parent
+                for (let commonTableComponentIndex in journalComponent.$children) {
+                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
+                    let tableComponent = commonTableComponent.$children[0]
+                    for (let cellComponentIndex in tableComponent.$children) {
+                        let cellComponent = tableComponent.$children[cellComponentIndex]
+                        cellComponent.$forceUpdate()
+                    }
                 }
             }
         },

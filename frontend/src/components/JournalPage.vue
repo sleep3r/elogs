@@ -1,6 +1,11 @@
 <template>
     <main class="journal-page">
-        <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+        <div class="journal-title">
+            <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+            <button class="btn btn-outline" @click="openConstructor">
+                Открыть в конструкторе
+            </button>
+        </div>
         <journal-panel></journal-panel>
         <article class="journal-tables">
             <template v-if="$store.getters['journalState/loaded']">
@@ -25,10 +30,15 @@ export default {
     },
     updated () {
     },
+    methods: {
+        openConstructor () {
+            window.open('http://192.168.1.247:8085', '_blank')
+        }
+    },
     mounted () {
         console.log('mounted')
         this.$connect();
-
+        window.parser.setVariable("CURRENT_SHIFT", this.$route.params.shift_id)
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
                 .then((id) => {
