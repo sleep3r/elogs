@@ -11,7 +11,7 @@
                 :value="value"
                 :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
-                :style="['height: 100%', { color: activeColor, fontWeight: fontWeight }]"
+                :style="[{ color: activeColor, fontWeight: fontWeight }]"
                 :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
