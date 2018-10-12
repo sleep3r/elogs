@@ -3,7 +3,7 @@
     /* eslint no-console: "error" */
 
     import Vue from 'vue/dist/vue.esm.js'
-    import axios from 'axios'
+    import ajax from '../axios.config'
     import cell from './Cell.vue'
     import tableComment from './TableComment.vue'
     import ToggleButton from 'vue-js-toggle-button'
@@ -86,7 +86,7 @@
             let self = this;
 
             let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
-            axios.get(templateUrl)
+            ajax.get(templateUrl)
                 .then(function (response) {
                     let $mainElement = $("<div />").append(($(response.data).clone()))
                     $mainElement.find('table').each(function () {

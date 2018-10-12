@@ -1,5 +1,4 @@
 import formulaParser from 'hot-formula-parser'
-import axios from 'axios'
 var FormulaParser = require('hot-formula-parser').Parser;
 var request = require('sync-request');
 

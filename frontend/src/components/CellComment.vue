@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ajax from '../axios.config'
 
 export default {
   name: 'CellComment',
@@ -147,7 +147,7 @@ export default {
       });
     },
     addToDashboard(selectedGraphType) {
-        axios.post(
+        ajax.post(
             window.HOSTNAME+"/dashboard/add-graph",
             {
                 'cell_info': {

@@ -50,7 +50,8 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            console.log(data)
+            console.log('data', JSON.parse(event.data))
+            console.log('event', event)
             if (data['type'] == 'shift_data') {
                 let commitData = {'cells': []}
                 for (let i in data['cells']) {

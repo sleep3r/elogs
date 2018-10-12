@@ -48,7 +48,7 @@
 
 <script>
     import Vue from 'vue/dist/vue.esm.js'
-    import axios from 'axios'
+    import ajax from '../axios.config'
     import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
@@ -204,7 +204,7 @@
                 }
             },
             getPersons(name) {
-                return axios.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
+                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
                     withCredentials: true
                 })
                     .catch(err => {

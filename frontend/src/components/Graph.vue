@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ajax from '../axios.config'
 import $ from 'jquery'
 import VueGridLayout from 'vue-grid-layout';
 import Plotly from 'plotly.js-dist'
@@ -40,7 +40,7 @@ export default {
                 type: this.type
             }
             console.log(data)
-            axios.post(
+            ajax.post(
                 window.HOSTNAME+"/dashboard/get-graph-data/",
                 data,
                 {withCredentials: true}

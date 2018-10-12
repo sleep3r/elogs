@@ -1,4 +1,4 @@
-import axios from 'axios'
+import ajax from './axios.config'
 import VueCookies from "vue-cookies";
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
@@ -25,7 +25,7 @@ function subscribeUser(serviceWorkerRegistration) {
         applicationServerKey: urlB64ToUint8Array(appServerKey)
     })
         .then(function(subscription) {
-            axios.post(window.HOSTNAME+'/common/messages/subscribe/', subscription, {
+            ajax.post(window.HOSTNAME+'/common/messages/subscribe/', subscription, {
                 withCredentials: true,
                 headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
             })

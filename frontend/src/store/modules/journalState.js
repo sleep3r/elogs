@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ajax from '../../axios.config'
 import VueCookies from 'vue-cookies'
 
 const journalState = {
@@ -414,9 +414,8 @@ const journalState = {
         },
         loadJournal: function ({ commit, state, getters }, payload) {
             let id = payload['id'] ? payload['id'] : ''
-            return axios
+            return ajax
                 .get(window.HOSTNAME+'/api/shifts/' + id, {
-                    withCredentials: true,
                     params: {
                         'plantName': payload['plantName'],
                         'journalName': payload['journalName']
@@ -432,17 +431,14 @@ const journalState = {
                 })
         },
         loadPlants: function ({ commit, state, getters }) {
-            axios
+            ajax
                 .get(window.HOSTNAME+'/api/menu_info/')
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
         },
         loadShifts: function ({commit, state, getters}, payload) {
-            return axios.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/',
-                {
-                    withCredentials: true
-                })
+            return ajax.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/')
                 .then(response => {
                     state.events = response.data;
                     $(".fc-month-button").click();

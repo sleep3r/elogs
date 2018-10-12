@@ -1,4 +1,4 @@
-import axios from 'axios'
+import ajax from '../../axios.config'
 
 const NOT_FOUND = -1;
 
@@ -65,7 +65,7 @@ const settingsState = {
       },
       loadSettings: function({ commit, state, getters }, payload) {
         let url = 'http://localhost:8000/api/settings/';
-        return axios.get(url, {withCredentials: true })
+        return ajax.get(url, {withCredentials: true })
              .then((response) => {
                 let settings = response.data.settings;
                 for (let set of settings) {
@@ -81,7 +81,7 @@ const settingsState = {
           console.log("updateSetting", payload, "state: ", state, 'getters', getters);
           let url = 'http://localhost:8000/api/settings/';
 
-          return axios.put(url, payload, {withCredentials: true })
+          return ajax.put(url, payload, {withCredentials: true })
               .then((response) => {
                   console.log(response);
                   // getters.settings.filter((setting) => (setting.id ===  payload.id));
