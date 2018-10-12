@@ -1,4 +1,5 @@
 import telepot
+import telepot.namedtuple
 
 
 class TelegramBot:
@@ -13,4 +14,11 @@ class TelegramBot:
             message,
             parse_mode="HTML",
             disable_web_page_preview=True
+        )
+
+    def send_media(self, files):
+        media = [telepot.namedtuple.InputMediaPhoto(media=file) for file in files]
+        self._bot.sendMediaGroup(
+            self.channel,
+            media,
         )

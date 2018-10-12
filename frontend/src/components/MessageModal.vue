@@ -24,6 +24,10 @@
                             <label for="devs-message-text" class="col-form-label">Сообщение:</label>
                             <textarea class="form-control bordered" id="devs-message-text" placeholder="Не больше 1000 символов" v-model="message"></textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="devs-message-files" class="col-form-label">Изображения:</label>
+                            <input type="file" class="form-control bordered" id="devs-message-files" ref="files" multiple accept="image/*" @change="handleFilesUploads()"></input>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -37,19 +41,41 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         name: "MessageModal",
         data () {
             return {
                 title: '',
-                message: ''
+                message: '',
+                files: '',
             }
         },
         methods: {
             onSendMessage () {
-
+                let formData = new FormData();
+                for( var i = 0; i < this.files.length; i++ ){
+                      let file = this.files[i];
+                      formData.append('file' + i, file);
+                }
+                formData.append("title", this.title)
+                formData.append("message", this.message)
+                formData.append("url", window.location.pathname)
+                axios.post( 'http://localhost:8000/feedback/send-message',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        },
+                        withCredentials: true,
+                    })
+                    .then(function(){console.log('SUCCESS!!');})
+                    .catch(function(){console.log('FAILURE!!');});
+            },
+            handleFilesUploads() {
+                this.files = this.$refs.files.files;
             }
-        }
+        },
     }
 </script>
 

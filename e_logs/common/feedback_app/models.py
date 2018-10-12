@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 from e_logs.core.utils.webutils import StrAsDictMixin
 from .services.telegram_bot import TelegramBot
+import os
 
 
 class Feedback(StrAsDictMixin, models.Model):
@@ -13,7 +14,7 @@ class Feedback(StrAsDictMixin, models.Model):
         <b>Пользователь</b>: {usr}
         <b>Почта</b>: {email}
         <b>Цех</b>: {plant}
-        <b>Журнал</b>: {journal}
+        <b>Путь</b>: {url}
         <b>Тема</b>: {theme}
         <b>Cообщение</b>:
         {text}
@@ -24,11 +25,12 @@ class Feedback(StrAsDictMixin, models.Model):
                       token=settings.FEEDBACK_TG_BOT["token"],
                       proxy_url=settings.FEEDBACK_TG_BOT["url"])
 
-    theme = models.CharField(max_length=200, verbose_name='Тема')
-    text = models.CharField(max_length=1000, verbose_name='Сообщение')
-    plant = models.CharField(max_length=50, verbose_name='Цех')
-    journal = models.CharField(max_length=256, verbose_name="Журнал")
-    email = models.CharField(max_length=200, verbose_name='Почта')
+    theme = models.CharField(max_length=200, verbose_name='Тема', null=True, blank=True)
+    text = models.CharField(max_length=1000, verbose_name='Сообщение', null=True, blank=True)
+    plant = models.CharField(max_length=50, verbose_name='Цех', null=True, blank=True)
+    url = models.CharField(max_length=256, verbose_name="URL")
+    email = models.CharField(max_length=200, verbose_name='Почта', null=True, blank=True)
+    filenames = models.TextField(verbose_name="Имена файлов", default="")
     username = models.CharField(max_length=200, blank=True, null=True, verbose_name='Пользователь')
 
     def send_feedback(self):
@@ -36,9 +38,17 @@ class Feedback(StrAsDictMixin, models.Model):
             usr=self.username,
             email=self.email,
             plant=self.plant,
-            journal=self.journal,
+            url=self.url,
             theme=self.theme,
             text=self.text,
         )
         Feedback.bot.send_message(msg)
+        filenames = self.filenames.split(",")
+        if filenames[0]:
+            files = []
+            for filename in filenames:
+                dirpath = os.path.join(os.path.dirname(__file__), "media")
+                filepath = os.path.join(dirpath, filename)
+                files.append(open(filepath, "rb"))
+            Feedback.bot.send_media(files)
         return self
