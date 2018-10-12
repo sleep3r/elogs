@@ -115,3 +115,6 @@ logs/printed_values
 
 frontend/public/*
 /frontend/public/
+
+# e-logs-constructor
+e-logs-constructor/*
