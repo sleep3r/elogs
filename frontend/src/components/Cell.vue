@@ -9,22 +9,21 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                :readonly="mode !== 'edit'"
+                :placeholder="placeholder"
+                :style="['height: 100%', { color: activeColor, fontWeight: fontWeight }]"
+                :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit'"
-                :placeholder="placeholder"
-                :style="{ color: activeColor, fontWeight: fontWeight }"
-                :type="type"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
-                style="height: 100%"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
         >
         <div class="widthCell"></div>
         <template>
-            <datalist>
+            <datalist v-if="personsList">
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -37,8 +36,6 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
-
-        <!-- Menu to create, delete and flush a row -->
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -116,7 +113,11 @@
                 }
             },
             activeColor: function () {
-                return this.critical ? 'red' : '';
+                if (this.type === 'number') {
+                    return this.critical ? 'red' : '';
+                } else {
+                    return '';
+                }
             },
             critical: function () {
                 return (this.minValue && (this.value < this.minValue)) ||
