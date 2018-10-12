@@ -9,22 +9,21 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                :readonly="mode !== 'edit' || hasFormula"
+                :placeholder="placeholder"
+                :style="['height: 100%', { color: activeColor, fontWeight: fontWeight }]"
+                :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit' || hasFormula"
-                :placeholder="placeholder"
-                :style="{ color: activeColor, fontWeight: fontWeight }"
-                :type="type"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
-                style="height: 100%"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
         >
         <div class="widthCell"></div>
         <template>
-            <datalist>
+            <datalist v-if="personsList">
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -37,8 +36,6 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
-
-        <!-- Menu to create, delete and flush a row -->
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -116,7 +113,11 @@
                 }
             },
             activeColor: function () {
-                return this.critical ? 'red' : '';
+                if (this.type === 'number') {
+                    return this.critical ? 'red' : '';
+                } else {
+                    return '';
+                }
             },
             critical: function () {
                 return (this.minValue && (this.value < this.minValue)) ||
@@ -225,10 +226,8 @@
                 });
             },
             onInput(e) {
-                setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
-                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || (e.target.value && this.value && $(this.$el).find('input').width() > $(this.$el).find('input').css('min-width') && e.target.value.length < this.value.length)) {
-                    setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
-                }
+                $(this.$el).find('.widthCell').text(e.target.value)
+                $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').outerWidth()})
 
                 this.value = e.target.value;
 
@@ -243,8 +242,6 @@
             },
             onChanged(e) {
                 e.preventDefault()
-                setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
-                setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
                 if (this.critical) {
                   console.log('critical')
                     this.$socket.sendObj({
@@ -382,15 +379,9 @@
                 this.send();
             }
 
+            setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
+
             setTimeout(() => this.setPickersListeners(), 1)
-
-            setTimeout(() => {
-                $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
-                    this.minWidth = $(this.$el).find('input').outerWidth()
-                    : this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
-            }, 0)
-
-            setTimeout(() => $(this.$el).find('input').css({'min-width': this.minWidth + 'px'}), 0)
         }
     }
 </script>

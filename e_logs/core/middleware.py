@@ -61,16 +61,10 @@ class CustomAuthenticationMiddleware(MiddlewareMixin):
             print(request.__dict__.keys())
             print(request.COOKIES['Authorization'])
             try:
-                try:
-                    # if it is wsgi request
-                    auth_token = request.COOKIES['Authorization']
-                except:
-                    # if it is asgi request
-                    headers = dict(request.scope['headers'])
-                    auth_token = str_to_dict(headers[b'cookie'].decode())['Authorization']
+                auth_token = request.COOKIES['Authorization']
                 request._cached_user = Token.objects.get(key=auth_token).user
             except:
-                try: 
+                try:
                     request._cached_user = request.user
                 except:
                     request._cached_user = AnonymousUser()
