@@ -47,18 +47,38 @@ class DatabaseFiller:
                                         group=measurement)
 
     @staticmethod
-    def _get_groups(position: str, plant: str) -> List[str]:
+    def _get_groups(position: str, plant: str):
         groups = []
-        if position == " просмотра\"":
-            groups.append("Laborant")
+        if position == "начальник цеха":
+            groups.append("boss")
+        elif position == "технолог цеха":
+            groups.append("technologist")
+        elif position == "старший мастер":
+            groups.append("senior master")
+        elif position == "мастер смены":
+            groups.append("master")
+        elif position == "аппаратчик":
+            groups.append("hydro")
+        elif position == "мастер цеха":
+            groups.append("plant master")
+        elif position == "начальник отделения":
+            groups.append("department director")
+        elif position == "дежурный по электролизу":
+            groups.append("electrolysis duty")
         else:
-            groups.append("Boss")
+            return None
+
+
         if plant == "ОЦ":
-            groups.append("Furnace")
+            groups.append("furnace")
         elif plant == "ЦВЦО":
-            groups.append("Leaching")
+            groups.append("leaching")
+        elif plant == "ЭЦ":
+            groups.append("electrolysis")
         else:
-            groups.append("Electrolysis")
+            return None
+
+
         return groups
 
     @staticmethod
@@ -67,12 +87,13 @@ class DatabaseFiller:
             users_info = csv.reader(csvfile, delimiter=';', quotechar='|')
 
             for row in users_info:
-                info = row[0].split(",")
-                user_fio = info[0]
-                plant = info[-1]
-                position = info[3]
-                user_ru = user_fio.split()
-                user_en = slugify(user_fio).split("-")
+                fio = row[0]
+                user_ru = fio.split()
+                user_en = slugify(fio).split("-")
+                position = row[1]
+                email = row[3]
+                plant = row[4]
+
                 groups = DatabaseFiller._get_groups(position, plant)
                 user = {
                     'ru': {
@@ -87,7 +108,8 @@ class DatabaseFiller:
                         'second_name': user_en[2][0] if len(user_en) > 2 and len(
                             user_en[2]) > 0 else ''
                     },
-                    'groups': groups
+                    'groups': groups,
+                    'email': email,
                 }
                 DatabaseFiller.add_user(user)
 
@@ -96,12 +118,12 @@ class DatabaseFiller:
         user.last_name = "Шаукенов"
         user.is_superuser = False
         user.is_staff = True
-        user.groups.add(Group.objects.get(name="Big boss"))
+        user.groups.add(Group.objects.get(name="senior technologist"))
         for group in user.groups.all():
             for perm in group.permissions.all():
                 user.user_permissions.add(perm)
         user.save()
-        Employee(name="Шалкар Шаукенов", position="Big boss", user=user).save()
+        Employee(name="Шалкар Шаукенов", position="senior technologist", user=user).save()
 
 
     @staticmethod
@@ -124,35 +146,37 @@ class DatabaseFiller:
 
     @staticmethod
     def add_user(user_dict: dict) -> Optional[CustomUser]:
-        user_name = (user_dict['en']['last_name']
-                     + "-" + user_dict['en']['first_name']
-                     + "-" + user_dict['en']['second_name']).strip('-')
+        if user_dict["groups"]:
+            user_name = (user_dict['en']['last_name']
+                         + "-" + user_dict['en']['first_name']
+                         + "-" + user_dict['en']['second_name']).strip('-')
 
-        if CustomUser.objects.filter(username=user_name).exists():
-            err_logger.warning(f'user `{user_name}` already exists')
-            return None
-        else:
-            user = CustomUser.objects.create_user(user_name, password='qwerty')
-            user.first_name = user_dict['ru']['first_name']
-            user.last_name = user_dict['ru']['last_name']
-            user.is_superuser = False
-            user.is_staff = False
-            for group in user_dict["groups"]:
-                user.groups.add(Group.objects.get(name=group))
-            for group in user.groups.all():
-                for perm in group.permissions.all():
-                    user.user_permissions.add(perm)
+            if CustomUser.objects.filter(username=user_name).exists():
+                err_logger.warning(f'user `{user_name}` already exists')
+                return None
+            else:
+                user = CustomUser.objects.create_user(user_name, password='qwerty')
+                user.first_name = user_dict['ru']['first_name']
+                user.last_name = user_dict['ru']['last_name']
+                user.is_superuser = False
+                user.is_staff = False
+                user.email = user_dict['email']
+                for group in user_dict["groups"]:
+                    user.groups.add(Group.objects.get(name=group))
+                for group in user.groups.all():
+                    for perm in group.permissions.all():
+                        user.user_permissions.add(perm)
 
-            e = Employee()
-            e.name = user.first_name + ' ' + user.last_name
-            e.position = user_dict["groups"][0].lower()
-            e.plant = user_dict["groups"][1].lower()
-            e.user = user
+                e = Employee()
+                e.name = user.first_name + ' ' + user.last_name
+                e.position = user_dict["groups"][0].lower()
+                e.plant = user_dict["groups"][1].lower()
+                e.user = user
 
-            e.save()
+                e.save()
 
-            user.save()
-            return user
+                user.save()
+                return user
 
     @staticmethod
     def create_shifts():
@@ -226,11 +250,19 @@ class DatabaseFiller:
                       "Validate Cells", "Edit Cells", "View Cells"]
         perm_codenames = ["modify_leaching", "modify_furnace", "modify_electrolysis",
                           "validate_cells", "edit_cells",  "view_cells"]
-        group_perms = {"Laborant": ("edit_cells", "view_cells",), "Boss": ("validate_cells", "view_cells", "edit_cells"),
-                       "Leaching": ("modify_leaching",), "Furnace": ("modify_furnace",),
-                       "Electrolysis": ("modify_electrolysis",),
-                       "Big boss":("modify_leaching", "modify_furnace", "modify_electrolysis",
-                          "validate_cells", "view_cells", "edit_cells")}
+        group_perms = {"boss": ("validate_cells", "view_cells"),
+                       "leaching": ("modify_leaching",),
+                       "furnace": ("modify_furnace",),
+                       "electrolysis": ("modify_electrolysis",),
+                       "senior technologist":("modify_leaching", "modify_furnace", "modify_electrolysis",
+                          "validate_cells", "view_cells",),
+                       "technologist":("validate_cells", "view_cells",),
+                       "senior master": ("validate_cells", "view_cells", "edit_cells"),
+                       "master": ("view_cells", "edit_cells"),
+                       "hydro": ("view_cells", "edit_cells"),
+                       "plant master": ("validate_cells", "view_cells", "edit_cells"),
+                       "department director": ("validate_cells", "view_cells"),
+                       "electrolysis duty": ("view_cells", "edit_cells")}
 
         content_type = ContentType.objects.get_for_model(Cell)
 

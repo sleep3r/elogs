@@ -14,9 +14,10 @@ from e_logs.business_logic.services import SetMode, UpdateMode
 from e_logs.common.all_journals_app.services.context_creator import get_context
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import logged, get_or_none
+from e_logs.core.views import LoginRequired
 
 
-class ModeView(LoginRequiredMixin, TemplateView):
+class ModeView(LoginRequired, TemplateView):
     template_name = 'modes.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -24,7 +25,7 @@ class ModeView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class ModeApi(LoginRequiredMixin, View):
+class ModeApi(LoginRequired, View):
     def post(self, request):
         data = json.loads(request.body)
         data['sendee'] = request.user.employee

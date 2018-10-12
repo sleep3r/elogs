@@ -8,11 +8,17 @@ from e_logs.common.all_journals_app.models import Shift
 
 
 class Employee(StrAsDictMixin, models.Model):
-    POSITION_CHOICES = ( ('master', 'Мастер'),
-                         ('laborant', 'Лаборант'),
-                         ('hydro', 'Аппаратчик-гидрометаллург'),
+    POSITION_CHOICES = ( ('master', 'Мастер смены'),
+                         ('hydro', 'Аппаратчик'),
                          ('admin', 'Админ'),
-                         ('boss', 'Начальник цеха'),)
+                         ('boss', 'Начальник цеха'),
+                         ('technologist', 'Технолог цеха'),
+                         ('senior technologist', 'Главный технолог'),
+                         ('senior master', 'Старший мастер'),
+                         ('plant master', 'Мастер цеха'),
+                         ('department director', 'Начальник отделения'),
+                         ('electrolysis duty', 'Дежурный по электролизу'),
+                         )
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
