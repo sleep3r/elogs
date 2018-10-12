@@ -28,7 +28,7 @@ class Feedback(StrAsDictMixin, models.Model):
     theme = models.CharField(max_length=200, verbose_name='Тема', null=True, blank=True)
     text = models.CharField(max_length=1000, verbose_name='Сообщение', null=True, blank=True)
     plant = models.CharField(max_length=50, verbose_name='Цех', null=True, blank=True)
-    url = models.CharField(max_length=256, verbose_name="URL")
+    url = models.CharField(max_length=256, verbose_name="URL", null=True, blank=True)
     email = models.CharField(max_length=200, verbose_name='Почта', null=True, blank=True)
     filenames = models.TextField(verbose_name="Имена файлов", default="")
     username = models.CharField(max_length=200, blank=True, null=True, verbose_name='Пользователь')
