@@ -7,11 +7,21 @@ import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
 
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({
+    dsn: 'https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999',
+    integrations: [new Sentry.Integrations.Vue({ Vue })],
+});
+Sentry.configureScope((scope) => {
+    scope.setTag("server", "kazzink");
+});
+
 Vue.config.productionTip = false;
 
 
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
-window.HOSTNAME =  "http://localhost:8000";
+window.HOSTNAME = "http://localhost:8000";
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
@@ -73,14 +83,18 @@ Vue.use(VueNativeSock, dataEndpoint, {
                     this.store.commit('journalState/SAVE_CELLS', commitData)
                 }
             }
-            if (data['type'] == 'messages') {
-                console.log(data)
+            if (data['type'] === 'messages') {
+                console.log(data);
                 if (!(this.store.getters['userState/username'] in data['employee'])) {
                     this.store.commit('journalState/SAVE_CELL_COMMENT', {
-                      tableName: data['cell_location']['table_name'],
-                      fieldName: data['cell_location']['field_name'],
-                      index: data['cell_location']['index'],
-                      comment: {'text': data['message']['text'], 'created': Date.parse(data['created']), 'user': data['employee']}
+                        tableName: data['cell_location']['table_name'],
+                        fieldName: data['cell_location']['field_name'],
+                        index: data['cell_location']['index'],
+                        comment: {
+                            'text': data['message']['text'],
+                            'created': Date.parse(data['created']),
+                            'user': data['employee']
+                        }
                     });
                 }
             }
@@ -103,6 +117,6 @@ window.mv = new Vue({
     router,
     store,
     render: h => h(App),
-    mounted () {
+    mounted() {
     }
 });

@@ -4,6 +4,7 @@ from pathlib import Path
 import dj_database_url
 import environ
 import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -493,7 +494,7 @@ USE_ETAGS = True
 
 sentry_sdk.init(
     dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
-    integrations=[DjangoIntegration()],
+    integrations=[DjangoIntegration(), CeleryIntegration()],
     send_default_pii=True,
     request_bodies='medium',
     with_locals=True,
