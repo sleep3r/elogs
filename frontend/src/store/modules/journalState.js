@@ -4,6 +4,7 @@ import VueCookies from 'vue-cookies'
 const journalState = {
     namespaced: true,
     state: {
+        tablesHTML: [],
         plantsInfo: [],
         journalInfo: {},
         events: [],
@@ -223,6 +224,21 @@ const journalState = {
             else {
                 return ''
             }
+        },
+        tableHTML: (state) => (payload) => {
+            if (state.loaded) {
+                let tableItem = state.tablesHTML.filter(item => 
+                    item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+                if (tableItem) {
+                    return tableItem.html
+                }
+                else {
+                    return ''
+                }
+            }
+            else {
+                return ''
+            }
         }
 
     },
@@ -364,6 +380,19 @@ const journalState = {
                     }
                 }
             }
+        },
+        ADD_TABLE_HTML (state, payload) {
+            state.tablesHTML.push({
+                plant: payload.plant,
+                journal: payload.journal,
+                table: payload.table, 
+                html: payload.html
+            })
+        },
+        UPDATE_TABLE_HTML (state, payload) {
+            let table = state.tablesHTML.filter(item => 
+                item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+            table.html = payload.html
         },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget

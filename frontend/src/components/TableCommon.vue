@@ -85,6 +85,13 @@
         mounted() {
             let self = this;
 
+            let currentTable = {
+                plant: self.$store.getters['journalState/plantName'],
+                journal: self.$store.getters['journalState/journalName'],
+                table: self.name
+            }
+            self.template = self.$store.getters['journalState/tableHTML'](currentTable)
+
             let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
             ajax.get(templateUrl)
                 .then(function (response) {
@@ -96,6 +103,12 @@
                     })
                     self.template = $mainElement[0].outerHTML
 
+                    if (!self.$store.getters['journalState/tableHTML'](currentTable)) {
+                        self.$store.commit('journalState/ADD_TABLE_HTML', {...currentTable, html: self.template})
+                    }
+                    else {
+                        self.$store.commit('journalState/UPDATE_TABLE_HTML', {...currentTable, html: self.template})
+                    }
                 })
                 .catch(function (error) {
                     console.log('error: ', error);
