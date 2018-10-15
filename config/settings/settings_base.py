@@ -3,6 +3,9 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -460,7 +463,6 @@ CELERY_TIMEZONE = TIME_ZONE
 CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
 CORS_ALLOW_CREDENTIALS = True  # for cookie
 
-
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8000/',
     '127.0.0.1:8080/',
@@ -487,3 +489,14 @@ CSRF_TRUSTED_ORIGINS = (
 
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
 USE_ETAGS = True
+
+# ------------------------- Sentry Shit ---------------------------------------------------------
+
+sentry_sdk.init(
+    dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
+    integrations=[DjangoIntegration(), CeleryIntegration()],
+    send_default_pii=True,
+    request_bodies='medium',
+    with_locals=True,
+    server_name=env('SENTRY_SERVERNAME'),
+)

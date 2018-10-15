@@ -91,7 +91,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import ajax from '../axios.config'
     import shortid from 'shortid'
 
     export default {
@@ -211,7 +211,7 @@
                 }
             },
             getPlants () {
-                return axios.get(window.HOSTNAME + '/api/plants/',
+                return ajax.get(window.HOSTNAME + '/api/plants/',
                     {
                         withCredentials: true
                     })
@@ -223,7 +223,7 @@
                     })
             },
             getJournals (plant) {
-                return axios.get(window.HOSTNAME + `/api/journals/?plant=${plant}`,
+                return ajax.get(window.HOSTNAME + `/api/journals/?plant=${plant}`,
                     {
                         withCredentials: true
                     })
@@ -235,7 +235,7 @@
                     })
             },
             getTables (plant, journal) {
-                return axios.get(window.HOSTNAME + `/api/tables/?plant=${plant}&journal=${journal}`,
+                return ajax.get(window.HOSTNAME + `/api/tables/?plant=${plant}&journal=${journal}`,
                     {
                         withCredentials: true
                     })
@@ -247,7 +247,7 @@
                     })
             },
             getFields (plant, journal, table) {
-                return axios.get(window.HOSTNAME + `/api/fields/?plant=${plant}&journal=${journal}&table=${table}`,
+                return ajax.get(window.HOSTNAME + `/api/fields/?plant=${plant}&journal=${journal}&table=${table}`,
                     {
                         withCredentials: true
                     })

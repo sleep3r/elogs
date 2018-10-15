@@ -18,8 +18,8 @@
         </div>
         <div class="panel-buttons">
             <div class="mode-buttons">
-                <img style="height: 30px; width: 30px;"
-                     :title="employeeFormatted"
+                <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
+                     :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
                 <template v-if="userHasPerm('edit') && userHasPerm('validate')">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
@@ -116,6 +116,9 @@
                 let time = this.$store.getters['journalState/journalInfo'].permissions.time
                 return time ? Date.parse(['editing_mode_closing']) : null
             },
+            responsibles() {
+                return this.$store.getters['journalState/journalInfo'].responsibles
+            },
             events() {
                 return this.$store.getters['journalState/events'];
             },
@@ -175,6 +178,19 @@
             this.$store.dispatch('journalState/loadShifts', {
                 plant: this.$route.params.plant,
                 journal: this.$route.params.journal
+            })
+
+            $( window ).resize(function() {
+                console.log('resize')
+                setTimeout(() => {
+                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+                }, 100)
+            })
+
+            $('.fc-toolbar.fc-header-toolbar button').click(function () {
+                setTimeout(() => {
+                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+                }, 1)
             })
         },
         components: {

@@ -4,6 +4,18 @@
 
 @import "variables";
 
+.journal-title {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 4px;
+
+    h4 {
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
+}
+
 .journal__panel {
     margin-top: 20px;
 }
@@ -60,8 +72,36 @@
 
 }
 
+.btn-outline {
+    background-color: transparent;
+    color: #212529;
+    border: 1px solid $color-main;
+
+    &:hover {
+        border-color: darken($color-main, 15);
+    }
+}
+
 .btn--active {
     background-color: #386486;
 }
 
 
+
+@media (max-width: 767.98px) {
+    .journal-title {
+        .btn.btn-outline {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 991.98px) {
+    .journal-title {
+        display: block;
+
+        .btn.btn-outline {
+            margin-top: 4px;
+        }
+    }
+}

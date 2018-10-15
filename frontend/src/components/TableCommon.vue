@@ -3,7 +3,7 @@
     /* eslint no-console: "error" */
 
     import Vue from 'vue/dist/vue.esm.js'
-    import axios from 'axios'
+    import ajax from '../axios.config'
     import cell from './Cell.vue'
     import tableComment from './TableComment.vue'
     import ToggleButton from 'vue-js-toggle-button'
@@ -64,6 +64,9 @@
                         }
                     },
                     computed: {
+                        shiftOrder: function() {
+                            return this.$store.getters['journalState/shiftOrder'];
+                        },
                         rowsCount: function () {
                             return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
                         }
@@ -82,8 +85,15 @@
         mounted() {
             let self = this;
 
+            let currentTable = {
+                plant: self.$store.getters['journalState/plantName'],
+                journal: self.$store.getters['journalState/journalName'],
+                table: self.name
+            }
+            self.template = self.$store.getters['journalState/tableHTML'](currentTable)
+
             let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
-            axios.get(templateUrl)
+            ajax.get(templateUrl)
                 .then(function (response) {
                     let $mainElement = $("<div />").append(($(response.data).clone()))
                     $mainElement.find('table').each(function () {
@@ -93,6 +103,12 @@
                     })
                     self.template = $mainElement[0].outerHTML
 
+                    if (!self.$store.getters['journalState/tableHTML'](currentTable)) {
+                        self.$store.commit('journalState/ADD_TABLE_HTML', {...currentTable, html: self.template})
+                    }
+                    else {
+                        self.$store.commit('journalState/UPDATE_TABLE_HTML', {...currentTable, html: self.template})
+                    }
                 })
                 .catch(function (error) {
                     console.log('error: ', error);

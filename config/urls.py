@@ -1,13 +1,17 @@
 from django.contrib import admin
 from django.conf.urls import include
+from django.shortcuts import render
 from django.urls import path, re_path
 
 from rest_framework_swagger.views import get_swagger_view
 
 from django.conf import settings
+from sentry_sdk import last_event_id
+
 from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
+
 schema_view = get_swagger_view(title='E-LOGS API')
 
 urlpatterns = [
@@ -28,7 +32,8 @@ urlpatterns = [
     re_path(r'^api/', include('e_logs.common.messages_app.api.urls')),
     path('bl/', include('e_logs.business_logic.modes.urls')),
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
-    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/', get_table_template),
+    path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/',
+         get_table_template),
     path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
     path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(),
          name='journal_view'),

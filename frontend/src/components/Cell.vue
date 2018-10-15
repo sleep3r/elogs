@@ -9,22 +9,21 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                :readonly="mode !== 'edit' || hasFormula"
+                :placeholder="placeholder"
+                :style="[{ color: activeColor, fontWeight: fontWeight }]"
+                :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
                 @change="onChanged"
                 @input="onInput"
                 @blur="showTooltip=false"
-                :readonly="mode !== 'edit'"
-                :placeholder="placeholder"
-                :style="{ color: activeColor, fontWeight: fontWeight }"
-                :type="type"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
                 @contextmenu.prevent="$refs.menu.open"
-                style="height: 100%"
+                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
         >
         <div class="widthCell"></div>
         <template>
-            <datalist>
+            <datalist v-if="personsList">
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -37,8 +36,6 @@
                     :field-name="fieldName"
                     :row-index="rowIndex"/>
         </template>
-
-        <!-- Menu to create, delete and flush a row -->
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -51,7 +48,7 @@
 
 <script>
     import Vue from 'vue/dist/vue.esm.js'
-    import axios from 'axios'
+    import ajax from '../axios.config'
     import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
@@ -116,7 +113,11 @@
                 }
             },
             activeColor: function () {
-                return this.critical ? 'red' : '';
+                if (this.type === 'number') {
+                    return this.critical ? 'red' : '';
+                } else {
+                    return '';
+                }
             },
             critical: function () {
                 return (this.minValue && (this.value < this.minValue)) ||
@@ -126,6 +127,7 @@
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
             value: {
+                cache: false,
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
@@ -139,6 +141,13 @@
                         notSynchronized: !navigator.onLine
                     }]});
                 }
+            },
+            hasFormula: function() {
+                return Boolean(
+                    this.$store.getters['journalState/fieldFormula'](
+                        this.tableName, this.fieldName,
+                    )
+                )
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
@@ -195,7 +204,7 @@
                 }
             },
             getPersons(name) {
-                return axios.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
+                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
                     withCredentials: true
                 })
                     .catch(err => {
@@ -217,10 +226,8 @@
                 });
             },
             onInput(e) {
-                setTimeout(() => $(this.$el).find('.widthCell').text(e.target.value), 0)
-                if ($(this.$el).find('input').width() < $(this.$el).find('.widthCell').outerWidth() || (e.target.value && this.value && $(this.$el).find('input').width() > $(this.$el).find('input').css('min-width') && e.target.value.length < this.value.length)) {
-                    setTimeout(() => $(this.$el).find('input').width($(this.$el).find('.widthCell').outerWidth()), 0)
-                }
+                $(this.$el).find('.widthCell').text(e.target.value)
+                $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').outerWidth()})
 
                 this.value = e.target.value;
 
@@ -235,9 +242,8 @@
             },
             onChanged(e) {
                 e.preventDefault()
-                setTimeout(() => $(this.$el).find('input').css({'min-width': `${$(this.$el).find('input').width()}px`}), 0)
-                setTimeout(() => $(this.$el).find('input').css({'width': ''}), 0)
                 if (this.critical) {
+                  console.log('critical')
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -253,6 +259,19 @@
                         'type': 'critical_value'
                     },
                 });
+                } else {
+                  console.log('non critical')
+                    this.$socket.sendObj({
+                        'type': 'messages',
+                        'cell': {
+                            'field_name': this.fieldName,
+                            'table_name': this.tableName,
+                            'group_id': this.$store.getters['journalState/journalInfo'].id,
+                            'index': this.rowIndex
+                        },
+                        "crud":"update",
+                    });
+                this._updateCells()
                 }
             },
             filterInput(e) {
@@ -329,6 +348,17 @@
                         }
                         break;
                 }
+            },
+            _updateCells() {
+                let journalComponent = this.$parent.$parent.$parent
+                for (let commonTableComponentIndex in journalComponent.$children) {
+                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
+                    let tableComponent = commonTableComponent.$children[0]
+                    for (let cellComponentIndex in tableComponent.$children) {
+                        let cellComponent = tableComponent.$children[cellComponentIndex]
+                        cellComponent.$forceUpdate()
+                    }
+                }
             }
         },
         mounted() {
@@ -349,15 +379,9 @@
                 this.send();
             }
 
+            setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
+
             setTimeout(() => this.setPickersListeners(), 1)
-
-            setTimeout(() => {
-                $(this.$el).find('.widthCell').text(this.value).outerWidth() < $(this.$el).find('input').outerWidth() ?
-                    this.minWidth = $(this.$el).find('input').outerWidth()
-                    : this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
-            }, 0)
-
-            setTimeout(() => $(this.$el).find('input').css({'min-width': this.minWidth + 'px'}), 0)
         }
     }
 </script>

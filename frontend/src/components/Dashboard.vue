@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ajax from '../axios.config'
 import $ from 'jquery'
 import VueGridLayout from 'vue-grid-layout';
 import Graph from './Graph.vue'
@@ -66,7 +66,7 @@ export default {
   methods: {
       layoutUpdatedEvent: function(newLayout) {
           console.log(newLayout)
-          axios.post(
+          ajax.post(
               window.HOSTNAME+"/dashboard/update-config",
               newLayout, {withCredentials: true}
           )
@@ -81,7 +81,7 @@ export default {
       },
       deleteGraph: function(id) {
           console.log("deleting " + id)
-          axios.post(
+          ajax.post(
               window.HOSTNAME+"/dashboard/delete-graph",
               {id: id},
               {withCredentials: true},
@@ -97,7 +97,7 @@ export default {
       let self = this;
       // this.$store.commit("UPDATE_JOURNAL_INFO", {plant: {name: "Панель аналитики"}})
       // console.log(this.$store)
-      axios.get(
+      ajax.get(
           'http://' + window.location.hostname + ':8000/dashboard/get-config',
           {withCredentials: true},
       ).then(function (response) {

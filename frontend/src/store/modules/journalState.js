@@ -1,9 +1,10 @@
-import axios from 'axios';
+import ajax from '../../axios.config'
 import VueCookies from 'vue-cookies'
 
 const journalState = {
     namespaced: true,
     state: {
+        tablesHTML: [],
         plantsInfo: [],
         journalInfo: {},
         events: [],
@@ -93,7 +94,14 @@ const journalState = {
                     // console.log('WARNING! Trying to get cell value of unexistent field: ' + fieldName);
                     return {};
                 }
-                let cells = fields[fieldName].cells;
+                let field = fields[fieldName];
+                if (field.formula) {
+                    return {
+                        value: window.parser.parse(field.formula).result
+                    };
+                }
+
+                let cells = field.cells;
                 if (Object.keys(cells).length !== 0) {
                     if (rowIndex in cells) {
                         return cells[rowIndex];
@@ -203,7 +211,36 @@ const journalState = {
             else {
                 return ''
             }
+        },
+        fieldFormula: (state) => (tableName, fieldName) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields;
+                if (!(fieldName in fields)) {
+                    // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+                    return {};
+                }
+                return fields[fieldName].formula || ''
+            }
+            else {
+                return ''
+            }
+        },
+        tableHTML: (state) => (payload) => {
+            if (state.loaded) {
+                let tableItem = state.tablesHTML.filter(item => 
+                    item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+                if (tableItem) {
+                    return tableItem.html
+                }
+                else {
+                    return ''
+                }
+            }
+            else {
+                return ''
+            }
         }
+
     },
     mutations: {
         SET_SYNCHRONIZED (state, isSynchronized) {
@@ -344,6 +381,19 @@ const journalState = {
                 }
             }
         },
+        ADD_TABLE_HTML (state, payload) {
+            state.tablesHTML.push({
+                plant: payload.plant,
+                journal: payload.journal,
+                table: payload.table, 
+                html: payload.html
+            })
+        },
+        UPDATE_TABLE_HTML (state, payload) {
+            let table = state.tablesHTML.filter(item => 
+                item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+            table.html = payload.html
+        },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget
             state.socket.isConnected = true
@@ -393,9 +443,8 @@ const journalState = {
         },
         loadJournal: function ({ commit, state, getters }, payload) {
             let id = payload['id'] ? payload['id'] : ''
-            return axios
+            return ajax
                 .get(window.HOSTNAME+'/api/shifts/' + id, {
-                    withCredentials: true,
                     params: {
                         'plantName': payload['plantName'],
                         'journalName': payload['journalName']
@@ -411,17 +460,14 @@ const journalState = {
                 })
         },
         loadPlants: function ({ commit, state, getters }) {
-            axios
+            ajax
                 .get(window.HOSTNAME+'/api/menu_info/')
                 .then(response => {
                     commit('UPDATE_PLANTS_INFO', response.data.plants);
                 })
         },
         loadShifts: function ({commit, state, getters}, payload) {
-            return axios.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/',
-                {
-                    withCredentials: true
-                })
+            return ajax.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/')
                 .then(response => {
                     state.events = response.data;
                     $(".fc-month-button").click();

@@ -65,7 +65,10 @@ class JournalView(LoginRequiredMixin, View):
     def get_context(request, page) -> DeepDict:
         return get_context(request, page)
 
+
 journal_view = JournalView.as_view()
+
+
 # journal_view = cached_view_as(Cell)(journal_view)
 
 
@@ -73,7 +76,7 @@ def get_current_shift(journal):
     number_of_shifts = Shift.get_number_of_shifts(journal)
     assert number_of_shifts > 0, "<= 0 number of shifts"
 
-    shifts = Shift.objects.cache()\
+    shifts = Shift.objects.cache() \
         .filter(journal=journal, date__lte=timezone.now().date()).order_by('-date', '-order')
     for shift in shifts:
         if shift.is_active:
@@ -81,7 +84,8 @@ def get_current_shift(journal):
 
     assert True, "No active shifts!"
 
-#-------------------Пропала кнопка СМЕНУ СДАЛ---------------------------------
+
+# -------------------Пропала кнопка СМЕНУ СДАЛ---------------------------------
 @csrf_exempt
 def end_shift(request):
     if request.method == 'POST':
@@ -90,7 +94,8 @@ def end_shift(request):
             shift = Shift.objects.get(id=int(shift_id))
             shift.ended = True
             shift.save()
-            return JsonResponse({"status":1})
+            return JsonResponse({"status": 1})
+
 
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
@@ -102,7 +107,8 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
     return HttpResponseForbidden(
         template.render(request=request, context={'exception': str(exception)}))
 
-#----------------------------------------Будет убрана-----------------------------------------------
+
+# ----------------------------------------Будет убрана---------------------------------------------
 @csrf_exempt
 @process_json_view(auth_required=False)
 # @logged
@@ -142,7 +148,7 @@ def get_menu_info(request):
                         'verbose_name': journal.verbose_name,
                         'current_shift_id': get_current_shift(journal).id
                     }
-                for journal in Journal.objects.filter(plant=plant)
+                    for journal in Journal.objects.filter(plant=plant)
                 ]
             }
             for plant in Plant.objects.all()
@@ -212,7 +218,7 @@ class ConstructorView(LoginRequiredMixin, View):
 
                 return redirect('/common/settings/')
             else:
-                return render(self.request, 'settings.html', {'form_errors':'Выберите цех и тип!'})
+                return render(self.request, 'settings.html', {'form_errors': 'Выберите цех и тип!'})
 
         return render(self.request, 'settings.html', {'form_errors': 'Выберите файл журнала!'})
 
@@ -240,7 +246,7 @@ class JournalBuilder():
 
     def create(self):
         tables_path = settings.BASE_DIR / \
-                    f"e_logs/common/all_journals_app/templates/tables/{self.plant.name}/{self.name}"
+                      f"e_logs/common/all_journals_app/templates/tables/{self.plant.name}/{self.name}"
 
         new_journal = self.__create_journal(tables_path)
 
@@ -279,8 +285,8 @@ class JournalBuilder():
                           {'form_errors': f'Две таблицы с одинаковым именем {table["name"]}!'})
         else:
             new_table = Table.objects.create(name=table['name'],
-                                        journal=journal,
-                                        verbose_name=table.get('title', None))
+                                             journal=journal,
+                                             verbose_name=table.get('title', None))
             return new_table
 
     def __create_field(self, table, field):
@@ -307,6 +313,6 @@ class JournalBuilder():
 
     def __set_tables_order(self, journal):
         tables_list = []
-        for table in sorted(self.tables, key=lambda t:t['order']):
+        for table in sorted(self.tables, key=lambda t: t['order']):
             tables_list.append(f"tables/{self.plant.name}/{self.name}/{table.name}.html")
         Setting.of(journal)['tables_list'] = tables_list

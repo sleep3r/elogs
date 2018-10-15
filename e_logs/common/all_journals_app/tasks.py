@@ -6,6 +6,7 @@ from config import settings_setup
 from celery import Celery
 from celery.schedules import crontab
 
+from django.core.management import call_command
 from django.utils import timezone
 
 from e_logs.business_logic.modes.models import Mode
@@ -52,6 +53,10 @@ app.conf.beat_schedule = {
     'create-shifts': {
         'task': 'e_logs.common.all_journals_app.tasks.create_shifts',
         'schedule': crontab(hour='0', minute=0),
+    },
+    'dump_db': {
+        'task': 'e_logs.common.all_journals_app.tasks.dump_db',
+        'schedule': crontab(hour='4', minute=20),
     },
 }
 
@@ -120,3 +125,9 @@ def finish_mode(mode_id):
     if mode:
         mode.is_active = False
         mode.save()
+
+@app.task
+def dump_db():
+    output = open(f'dumps/{timezone.now().date()}.json','w')
+    call_command('dumpdata', stdout=output)
+    output.close()
