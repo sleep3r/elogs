@@ -109,11 +109,11 @@ module.exports = {
             },
             canPrint: true
         }),
-        new SentryWebpackPlugin({
-            include: '.',
-            ignore: ['node_modules', 'webpack.config.js'],
-            configFile: 'sentry.properties'
-        })
+        // new SentryWebpackPlugin({
+        //     include: '.',
+        //     ignore: ['node_modules', 'webpack.config.js'],
+        //     configFile: 'sentry.properties',
+        // })
     ],
     devtool: "inline-source-map",
     devServer: {
