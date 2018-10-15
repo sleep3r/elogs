@@ -44,6 +44,7 @@
 </template>
 <script>
     import $ from 'jquery'
+    import EventBus from '../EventBus'
     import {FullCalendar} from 'vue-full-calendar'
     import modal from "./Modal.vue"
     let XLSX = require('xlsx');
@@ -137,13 +138,6 @@
         },
         methods: {
             userHasPerm(perm) {
-                // if (mode === 'edit') {
-                //     $('.resp-modal').addClass('resp-modal__open')
-                //     $('.resp-modal').click(function() {
-                //         $('.resp-modal').removeClass('resp-modal__open')
-                //     })
-                // }
-                
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
                     if (p == perm) {
                         return true
@@ -152,6 +146,11 @@
               return false
             },
             changeMode(mode) {
+                if (mode === 'edit') {
+                    $('.resp-modal').addClass('resp-modal__open')
+                    EventBus.$emit('open-resp-modal')
+                }
+
                 this.$store.commit('journalState/SET_PAGE_MODE', mode);
             },
             download_xlsx() {
