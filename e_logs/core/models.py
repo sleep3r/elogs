@@ -17,7 +17,6 @@ from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import StrAsDictMixin, logged
 
 
-
 class CustomUserManager(UserManager):
 
     def get_by_natural_key(self, username):
@@ -125,7 +124,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
             else:  # case of global setting
                 try:
                     found_setting = Setting.objects.get(name=name, employee=employee)
-                    return pickle.loads(found_setting.value)
+                    return found_setting.val()
                 except:  # if haven't found, we'll search father
                     pass
 
@@ -156,6 +155,9 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     @staticmethod
     def _dumps(value):
         return pickletools.optimize(pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL))
+
+    def val(self):
+        return pickle.loads(self.value)
 
     @staticmethod
     @logged

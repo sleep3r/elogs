@@ -6,11 +6,6 @@ options.add_argument('--log-level=3')
 
 # driver = webdriver.Chrome("C:/Chromedriver/chromedriver.exe")
 browser = Browser("chrome")
-browser.visit("http://88.99.2.149:1337/furnace/fractional")
-if browser.is_element_present_by_id("loginform", 2):
-    browser.fill("username", "inframine")
-    browser.fill("password", "Singapore2017")
-    browser.find_by_css("input.btn").click()
 
 button = browser.find_by_text("Добавить измерение").first.click()
 

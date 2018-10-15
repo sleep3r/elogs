@@ -1,3 +1,4 @@
+import json
 from datetime import time, datetime, timedelta, date
 
 from cacheops import cached_as, cached
@@ -94,9 +95,24 @@ class Field(models.Model):
     formula = models.CharField(max_length=4000, verbose_name='Формула', null=True, default="")
     verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
-    settings = GenericRelation('core.Setting', related_query_name='setting_field', related_name='setting_fields')
+    settings = GenericRelation('core.Setting', related_query_name='setting_field',
+                               related_name='setting_fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
                                related_name='comment_fields')
+
+    @cached_property
+    def type(self):
+        return self.settings.get(name='field_description').val()['type']
+
+    @cached_property
+    @default_if_error('')
+    def units(self):
+        return self.settings.get(name='field_description').val()['units']
+
+    @cached_property
+    @default_if_error([])
+    def options(self):
+        return self.settings.get(name='field_description').val()['options']
 
     @cached_property
     def plant(self):
@@ -249,8 +265,12 @@ class Cell(TimeStampedModel):
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
-    def get_comments_text(self, cell):
-        return ''.join(c.get_text() for c in Comment.objects.filter(cell=cell))
+    def get_comments_text(self):
+        return ''.join(c.get_text() for c in Comment.objects.filter(cell=self))
+
+    @default_if_error(value='')
+    def get_responsible_name(self: "Cell"):
+        return self.responsible.name
 
 
 class Comment(models.Model):
@@ -258,7 +278,8 @@ class Comment(models.Model):
     employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, related_name='comments',related_query_name='comment')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True,
+                                     related_name='comments',related_query_name='comment')
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
 

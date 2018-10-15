@@ -1,3 +1,4 @@
+import os
 import re
 import datetime
 import logging
@@ -10,6 +11,7 @@ from json import JSONEncoder
 from pprint import pformat
 from traceback import print_exc
 from typing import Optional
+from zipfile import ZipFile
 
 from cacheops import cached
 from dateutil.parser import parse as parse_date
@@ -252,3 +254,14 @@ class StrAsDictMixin:
     # def __str__(self: Model):
     #     return str(self.__class__.__name__) + format(model_to_representation(self))
     pass
+
+
+def zipdir(basedir, archivename):
+    assert os.path.isdir(basedir)
+    with ZipFile(archivename, "w") as z:
+        for root, dirs, files in os.walk(basedir):
+            #NOTE: ignore empty directories
+            for fn in files:
+                absfn = os.path.join(root, fn)
+                zfn = absfn[len(basedir)+len(os.sep):] #XXX: relative path
+                z.write(absfn, zfn)
