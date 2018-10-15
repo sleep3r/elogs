@@ -13,7 +13,7 @@
             >
         </div>
         <div>
-          <h4 v-if="shiftIsActive"> Смена открыта для редактирования. До закрытия: {{ msToTime(remainingEditTime) }}</h4>
+          <h4 v-if="((!shiftIsClosed)&&(shiftClosingTime))"> Смена открыта для редактирования {{ msToTime(remainingTime) }}</h4>
           <h4 v-else>Смена закрыта для редактирования</h4>
         </div>
         <div class="panel-buttons">
@@ -21,18 +21,16 @@
                 <img style="height: 30px; width: 30px;"
                      :title="employeeFormatted"
                      src="../assets/images/no-avatar.png">
-                <button v-if="viewIsAllowed" :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
-                        @click="changeMode('view')">
-                    Просмотр
-                </button>
-                <button v-if="editIsAllowed" :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                <template v-if="userHasPerm('edit') && userHasPerm('validate')">
+                <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
                 </button>
-                <button v-if="validateIsAllowed" :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
                         @click="changeMode('validate')">
                     Валидация
                 </button>
+              </template>
             </div>
             <button :class="['btn', 'btn-xlsx', 'float-right']"
                     @click="download_xlsx()">
@@ -85,17 +83,38 @@
             }
         },
         computed: {
-            remainingEditTime() {
-                return this.editingEndTime - this.now
+            remainingTime() {
+                if (!(this.shiftClosingTime)) {
+                    return -1;
+                }
+                console.log('shift closing time ' + this.shiftClosingTime)
+                console.log('now ' + this.now)
+                let remainingTime = this.shiftClosingTime - this.now
+                if (remainingTime < 0) {
+                  for (let perm of ['validate', 'view']) {
+                      if (this.userHasPerm(perm)) {
+                          this.$store.commit('journalState/SET_PAGE_MODE', perm)
+                          break
+                      }
+                  }
+                }
+                return ((remainingTime) && (remainingTime > 0)) ? remainingTime : 0
             },
-            shiftIsActive() {
-                return !this.$store.getters['journalState/journalInfo'].closed
+            shiftIsClosed() {
+                if (this.remainingTime == 0) {
+                    return true
+                }
+                else {
+                    return this.$store.getters['journalState/journalInfo'].closed
+                }
             },
-            editingStartTime() {
-                return Date.parse(this.$store.getters['journalState/journalInfo'].permissions.time[0])
+            shiftClosingTime() {
+                let time = this.$store.getters['journalState/journalInfo'].permissions.time
+                return time ? Date.parse(time['shift_closing']) : null
             },
-            editingEndTime() {
-                return Date.parse(this.$store.getters['journalState/journalInfo'].permissions.time[1])
+            editingModeClosingTime() {
+                let time = this.$store.getters['journalState/journalInfo'].permissions.time
+                return time ? Date.parse(['editing_mode_closing']) : null
             },
             events() {
                 return this.$store.getters['journalState/events'];
@@ -112,27 +131,16 @@
             shiftOrder() {
                 return this.$store.getters['journalState/journalInfo'].order;
             },
-            viewIsAllowed() {
-              for (let perm of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
-                  if (perm == 'view') {
-                      return true
-                  }
-              }
-              return false
-            },
-            editIsAllowed() {
-                return ((this.editingStartTime <= this.now) && (this.now <= this.editingEndTime))
-            },
-            validateIsAllowed() {
-                for (let perm of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
-                    if (perm == 'validate') {
+        },
+        methods: {
+            userHasPerm(perm) {
+                for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
+                    if (p == perm) {
                         return true
                     }
                 }
-                return false
-            }
-        },
-        methods: {
+              return false
+            },
             changeMode(mode) {
                 this.$store.commit('journalState/SET_PAGE_MODE', mode);
             },
