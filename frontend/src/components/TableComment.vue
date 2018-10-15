@@ -1,5 +1,6 @@
 <template>
     <div class="table__comment">
+        <div v-if="mode==='edit'">
         <a href="javascript:;" @click="onClick">Комментарий </a>
         <i class="fas fa-envelope ico-comment"></i>
         <div :class="['comment__text', { collapse: isCollapsed }]">
@@ -10,6 +11,10 @@
                   :value="text"
                   @input="onInput">
           </textarea>
+        </div>
+      </div>
+        <div v-else>
+          Комментарий: {{ text }}
         </div>
     </div>
 </template>
@@ -32,6 +37,9 @@
             }
         },
         computed: {
+            mode() {
+                return this.$store.state.journalState.journalInfo.mode;
+            },
             text: {
                 get: function () {
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']

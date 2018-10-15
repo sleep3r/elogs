@@ -12,15 +12,16 @@
                    data-target="#myModal"
             >
         </div>
+        <div>
+          <h4 v-if="((!shiftIsClosed)&&(shiftClosingTime))"> Смена открыта для редактирования {{ msToTime(remainingTime) }}</h4>
+          <h4 v-else>Смена закрыта для редактирования</h4>
+        </div>
         <div class="panel-buttons">
             <div class="mode-buttons">
                 <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
                      :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
-                <button :class="['btn', 'btn-view', { 'btn--active': mode==='view' }]"
-                        @click="changeMode('view')">
-                    Просмотр
-                </button>
+                <template v-if="userHasPerm('edit') && userHasPerm('validate')">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
@@ -29,6 +30,7 @@
                         @click="changeMode('validate')">
                     Валидация
                 </button>
+              </template>
             </div>
             <button :class="['btn', 'btn-xlsx', 'float-right']"
                     @click="download_xlsx()">
@@ -50,6 +52,7 @@
         name: 'journal-panel',
         data() {
             return {
+                now: new Date(),
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
@@ -80,6 +83,39 @@
             }
         },
         computed: {
+            remainingTime() {
+                if (!(this.shiftClosingTime)) {
+                    return -1;
+                }
+                console.log('shift closing time ' + this.shiftClosingTime)
+                console.log('now ' + this.now)
+                let remainingTime = this.shiftClosingTime - this.now
+                if (remainingTime < 0) {
+                  for (let perm of ['validate', 'view']) {
+                      if (this.userHasPerm(perm)) {
+                          this.$store.commit('journalState/SET_PAGE_MODE', perm)
+                          break
+                      }
+                  }
+                }
+                return ((remainingTime) && (remainingTime > 0)) ? remainingTime : 0
+            },
+            shiftIsClosed() {
+                if (this.remainingTime == 0) {
+                    return true
+                }
+                else {
+                    return this.$store.getters['journalState/journalInfo'].closed
+                }
+            },
+            shiftClosingTime() {
+                let time = this.$store.getters['journalState/journalInfo'].permissions.time
+                return time ? Date.parse(time['shift_closing']) : null
+            },
+            editingModeClosingTime() {
+                let time = this.$store.getters['journalState/journalInfo'].permissions.time
+                return time ? Date.parse(['editing_mode_closing']) : null
+            },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
             },
@@ -97,24 +133,26 @@
             },
             shiftOrder() {
                 return this.$store.getters['journalState/journalInfo'].order;
-            }
+            },
         },
         methods: {
-            changeMode(mode) {
+            userHasPerm(perm) {
                 // if (mode === 'edit') {
                 //     $('.resp-modal').addClass('resp-modal__open')
                 //     $('.resp-modal').click(function() {
                 //         $('.resp-modal').removeClass('resp-modal__open')
                 //     })
                 // }
-
-                let permission = mode + '_cells';
-                let permissions = this.$store.getters['journalState/journalInfo'].permissions.permissions;
-                for (let i = 0; i < permissions.length; i++) {
-                    if (permission === permissions[i]) {
-                        this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                
+                for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
+                    if (p == perm) {
+                        return true
                     }
                 }
+              return false
+            },
+            changeMode(mode) {
+                this.$store.commit('journalState/SET_PAGE_MODE', mode);
             },
             download_xlsx() {
                 let elt = $('.elog-journal-table').clone();
@@ -131,6 +169,16 @@
 
                 XLSX.writeFile(new_workbook, 'journal.xlsx');
             },
+            msToTime(s) {
+                var ms = s % 1000;
+                s = (s - ms) / 1000;
+                var secs = s % 60;
+                s = (s - secs) / 60;
+                var mins = s % 60;
+                var hrs = (s - mins) / 60;
+
+                return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
+            }
         },
         mounted() {
             let self = this;
@@ -155,6 +203,9 @@
         components: {
             modal,
             FullCalendar
+        },
+        created() {
+            setInterval(() => this.now = (new Date()).getTime(), 1000)
         }
     }
 </script>

@@ -1,14 +1,6 @@
-from django.shortcuts import render
-from cacheops import cached_view_as
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.views import View
 from django.views.generic import TemplateView
-from django.views.generic.list import ListView
-from django.views.decorators.csrf import csrf_exempt
-from e_logs.core.utils.webutils import process_json_view
-from e_logs.common.messages_app.models import Message
 from e_logs.common.all_journals_app.services.context_creator import get_menu_data
 from e_logs.core.models import Setting
 from e_logs.common.login_app.models import Employee
@@ -23,6 +15,8 @@ import json
 
 
 # Create your views here.
+from e_logs.core.views import LoginRequired
+
 
 def get_data(field, employee=None, period=7):
     cells = Cell.objects.filter(field=field)
@@ -43,7 +37,7 @@ def get_data(field, employee=None, period=7):
     return values, shifts
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
+class DashboardView(LoginRequired, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -53,7 +47,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class DashboardConfigView(LoginRequiredMixin, View):
+class DashboardConfigView(LoginRequired, View):
     @staticmethod
     def config2list(config):
         res = []
@@ -73,7 +67,7 @@ class DashboardConfigView(LoginRequiredMixin, View):
             return JsonResponse({"config": {}})
 
 
-class DashboardConfigUpdateView(LoginRequiredMixin, View):
+class DashboardConfigUpdateView(LoginRequired, View):
     def post(self, request):
         layout = json.loads(request.body)
         employee = Employee.objects.get(user=request.user)
@@ -87,7 +81,7 @@ class DashboardConfigUpdateView(LoginRequiredMixin, View):
         return JsonResponse({"result": 1})
 
 
-class GraphView(LoginRequiredMixin, View):
+class GraphView(LoginRequired, View):
     @logged
     def post(self, request):
         body = json.loads(request.body)
@@ -102,7 +96,7 @@ class GraphView(LoginRequiredMixin, View):
         return HttpResponse(graph_data, content_type='application/json; charset=utf8')
 
 
-class AddGraphView(View):
+class AddGraphView(LoginRequired, View):
     @logged
     def post(self, request):
         user = request.user
@@ -128,7 +122,7 @@ class AddGraphView(View):
         return JsonResponse({"result": 1})
 
 
-class DeleteGraphView(LoginRequiredMixin, View):
+class DeleteGraphView(LoginRequired, View):
     def post(self, request):
         user = request.user
         employee = Employee.objects.get(user=user)

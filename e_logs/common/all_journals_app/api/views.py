@@ -14,15 +14,16 @@ from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
 
-
+from e_logs.business_logic import services
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
+from e_logs.core.views import LoginRequired
 
 
-class ShiftAPI(View):
+class ShiftAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
         if not kwargs.get('id', None):
@@ -56,7 +57,7 @@ class ShiftAPI(View):
                 "id": qs.id ,
                 "plant":{"name":plant.name},
                 "order": qs.order,
-                "date": qs.date,
+                "date": qs.date.isoformat(),
                 "closed":qs.closed,
                 "ended": qs.ended,
                 "mode": get_page_mode(user=user, plant=plant),
@@ -66,19 +67,52 @@ class ShiftAPI(View):
 
         return JsonResponse(res, safe=False)
 
-    def get_permissions(self, request, qs):
-        shift = qs
-        assignment_time = qs.date - timedelta(**Setting.of(shift)['shift_assignment_time'])
-        assignment_time = assignment_time.isoformat()
-        not_assignment_time = qs.date + timedelta(**Setting.of(shift)['shift_edition_time'])
-        not_assignment_time = not_assignment_time.isoformat()
+
+    def get_permissions(self, request, shift):
+        def get_time(shift):
+            if request.user.has_perm(EDIT_CELLS):
+                assignment_time = shift.end_time - timedelta(**Setting.of(shift)['shift_assignment_time'])
+                assignment_time = assignment_time.isoformat()
+                not_assignment_time = shift.end_time + timedelta(**Setting.of(shift)['shift_edition_time'])
+                not_assignment_time = not_assignment_time.isoformat()
+                return {"shift_closing":assignment_time, "editing_mode_closing":not_assignment_time}
+            else:
+                return None
+
+        PERMISSIONS = []
+        APP = 'all_journals_app'
+        VALIDATE_CELLS = APP + ".validate_cells"
+        EDIT_CELLS = APP + ".edit_cells"
+        PLANT_PERM = APP + ".modify_{plant}"
+
+        user = request.user
+
+        if user.is_superuser:
+            PERMISSIONS = ["edit", "validate"]
+
+        elif user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
+            user.has_perm(VALIDATE_CELLS):
+                PERMISSIONS.append("validate")
+                if user.has_perm(EDIT_CELLS):
+                    PERMISSIONS.append("edit")
+
+        else:
+            if shift.closed:
+                limited_emp_id_list = Setting.of(shift)["limited_access_employee_id_list"]
+                if limited_emp_id_list and user.id in limited_emp_id_list:
+                    PERMISSIONS = ["edit"]
+
+            elif services.CheckRole.execute({"employee":user.employee, "page":shift}) and \
+                services.CheckTime.execute({"employee": user.employee, "page": shift}):
+
+                if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
+                    user.has_perm(EDIT_CELLS):
+                         PERMISSIONS.append("edit")
+
 
         res = {
-            "superuser": request.user.is_superuser,
-            "permissions": [permission.codename for permission
-                            in Permission.objects.filter(user=request.user)],
-            "time": (assignment_time, not_assignment_time),
-            "allowed_positions": Setting.of(shift)["allowed_positions"]
+            "permissions": PERMISSIONS,
+            "time": get_time(shift),
         }
 
         return res
@@ -142,7 +176,7 @@ class ShiftAPI(View):
         return res
 
 
-class PlantsAPI(LoginRequiredMixin ,View):
+class PlantsAPI(View):
     def get(self, request):
         queryset = Plant.objects.all()
         res = [{"name":plant.name, "verboseName":plant.verbose_name} for plant in queryset]
@@ -180,7 +214,7 @@ class MenuInfoAPI(View):
         })
 
 
-class SettingsAPI(View):
+class SettingsAPI(LoginRequired, View):
     def get(self, request):
         user = request.user.employee
         qs = Setting.objects.select_related('employee').prefetch_related('scope')
@@ -274,7 +308,7 @@ class CellAPI(View):
         return JsonResponse(res, safe=False)
 
 
-class AutocompleteAPI(View):
+class AutocompleteAPI(LoginRequired, View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)
