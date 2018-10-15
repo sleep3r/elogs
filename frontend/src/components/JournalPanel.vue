@@ -101,6 +101,13 @@
         },
         methods: {
             changeMode(mode) {
+                if (mode === 'edit') {
+                    $('.resp-modal').addClass('resp-modal__open')
+                    $('.resp-modal').click(function() {
+                        $('.resp-modal').removeClass('resp-modal__open')
+                    })
+                }
+
                 let permission = mode + '_cells';
                 let permissions = this.$store.getters['journalState/journalInfo'].permissions.permissions;
                 for (let i = 0; i < permissions.length; i++) {

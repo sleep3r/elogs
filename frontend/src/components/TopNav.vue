@@ -99,28 +99,25 @@
             },
             onSettingsClick() {
                 this.$router.push('/settings')
-                this.hideUserMenu();
+                // this.hideUserMenu();
             },
             onAddJournal() {
                 this.$router.push('/addjournal');
-                this.hideUserMenu();
+                // this.hideUserMenu();
             },
             onMessagesClick() {
                 this.$router.push('/messages');
-                this.hideUserMenu()
+                // this.hideUserMenu()
             },
             onModesClick() {
                 this.$router.push('/modes');
-                this.hideUserMenu()
+                // this.hideUserMenu()
             }
         },
         mounted () {
             let _this = this
             $('.header .user-menu-wrapper').click(function () {
                 _this.hideUserMenu()
-            })
-            $('.header .user-menu').click(function (e) {
-                e.stopPropagation()
             })
         }
     }
