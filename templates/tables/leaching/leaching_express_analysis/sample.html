@@ -20,24 +20,3 @@
         </tr>
     </tbody>
 </table>
-<table class="table table-bordered elog-journal-table">
-    <thead>
-        <tr>
-            <th>Время</th>
-            <th> Cd<i class='units'>мг/л</i></th>
-            <th> Cu<i class='units'>мг/л</i></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr v-for="(value, index) in 5">
-            <td><cell field-name="time" :row-index="index"></cell></td>
-            <td><cell field-name="Cd" :row-index="index"></cell></td>
-            <td><cell field-name="Cu" :row-index="index"></cell></td>
-        </tr>
-        <tr>
-            <th>ВИУ</th>
-            <td><cell field-name="VIU1" :row-index="5"></cell></td>
-        </tr>
-    </tbody>
-</table>
-
