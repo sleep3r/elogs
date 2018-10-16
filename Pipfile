@@ -47,6 +47,7 @@ djoser = "*"
 djangorestframework-jwt = "*"
 pywebpush = "*"
 sentry-sdk = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 icecream = "*"
