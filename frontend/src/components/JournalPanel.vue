@@ -81,7 +81,7 @@
                     select: function (start, end, allDay) {
                     },
                     eventClick: function (calEvent, jsEvent, view) {
-                        console.log("event click");
+                        // console.log("event click");
                     },
                     editable: false,
                 }
@@ -92,8 +92,8 @@
                 if (!(this.shiftClosingTime)) {
                     return -1;
                 }
-                console.log('shift closing time ' + this.shiftClosingTime)
-                console.log('now ' + this.now)
+                // console.log('shift closing time ' + this.shiftClosingTime)
+                // console.log('now ' + this.now)
                 let remainingTime = this.shiftClosingTime - this.now
                 if (remainingTime < 0) {
                   for (let perm of ['validate', 'view']) {
@@ -191,7 +191,7 @@
             })
 
             $( window ).resize(function() {
-                console.log('resize')
+                // console.log('resize')
                 setTimeout(() => {
                     $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
                 }, 100)

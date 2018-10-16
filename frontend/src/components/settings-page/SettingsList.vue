@@ -87,7 +87,6 @@
               let model = this.currentModel;
               this.$store.dispatch('settingsState/updateSetting', model)
                   .then((model) => {
-                        console.log("current model", model);
                         this.isEditing = false;
                         this.$store.commit('settingsState/SET_CURRENT_MODEL', null);
                   });
