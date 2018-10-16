@@ -19,7 +19,7 @@ from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, 
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
-from e_logs.core.models import Setting
+from e_logs.core.models import Setting, CustomUser
 from e_logs.core.views import LoginRequired
 
 
@@ -291,7 +291,6 @@ class FieldsAPI(View):
 
 class CellAPI(View):
     def get(self, request):
-        print("getting cell")
         shift = int(request.GET.get('shift', None))
         journal_name = request.GET.get('journal', None)
         table_name = request.GET.get('table', None)
@@ -306,6 +305,30 @@ class CellAPI(View):
             "value": cell.value
         }
         return JsonResponse(res, safe=False)
+
+
+class SettingAPI(View):
+    def get(self, request):
+        # DEBUG
+        # user = CustomUser.objects.get(username="inframine")
+        # employee = Employee.objects.get(user=user)
+
+        employee = request.user.employee
+        name = request.GET.get("name", None)
+        value = Setting.get_value(name=name, employee=employee)
+
+        return JsonResponse({"defaultPage": value if value else ""}, safe=False)
+
+    def post(self, request):
+        # DEBUG
+        # user = CustomUser.objects.get(username="inframine")
+        # employee = Employee.objects.get(user=user)
+
+        employee = request.user.employee
+        setting_data = json.loads(request.body)
+        Setting.set_value(name=setting_data["name"], value=setting_data["value"],
+            employee=employee,)
+        return JsonResponse({"status": 1})
 
 
 class AutocompleteAPI(LoginRequired, View):

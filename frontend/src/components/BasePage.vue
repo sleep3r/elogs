@@ -21,6 +21,7 @@
     import ModesMenu from './ModesMenu.vue'
     import Footer from './Footer.vue'
     import Popup from './Popup.vue';
+    import ajax from '../axios.config'
 
     export default {
         name: "BasePage",
@@ -32,9 +33,7 @@
             'popup': Popup,
         },
         methods: {},
-        mounted() {
-
-        }
+        mounted() {}
     }
 </script>
 

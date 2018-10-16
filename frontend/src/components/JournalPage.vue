@@ -65,6 +65,7 @@ export default {
         console.log('mounted')
         this.$connect();
         window.parser.setVariable("CURRENT_SHIFT", this.$route.params.shift_id)
+        console.log(this.$route.params)
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
                 .then((id) => {

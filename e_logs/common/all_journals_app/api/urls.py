@@ -12,6 +12,7 @@ urlpatterns = [
     path('shifts/<int:id>', ShiftAPI.as_view()),
     path('menu_info/', MenuInfoAPI.as_view()),
     path('settings/', csrf_exempt(SettingsAPI.as_view())),
+    path('setting/', csrf_exempt(SettingAPI.as_view())),
     path('autocomplete/', AutocompleteAPI.as_view()),
     path('cell/', CellAPI.as_view()),
 ]
