@@ -1,12 +1,15 @@
 FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python3.6 python3-pip python3-dev git vim nginx curl npm
+RUN apt-get install -y python3.6 python3-pip python3-dev wget git vim nginx curl npm
 
+RUN wget https://github.com/mholt/caddy/releases/download/v0.11.0/caddy_v0.11.0_linux_amd64.tar.gz
+RUN tar -xzf caddy*.tar.gz caddy
+RUN mv ./caddy /usr/local/bin
 
 RUN mkdir /srv/media /srv/static
 
-EXPOSE 80 8000
+EXPOSE 80 8000 443
 
 VOLUME ["/srv/media/"]
 
@@ -25,17 +28,20 @@ COPY ./Pipfile /srv
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV PYTHONUNBUFFERED 1
+RUN pipenv lock
 RUN pipenv install --deploy --system --ignore-pipfile
 
-COPY . /srv
+COPY ./frontend /srv/frontend
 
 # RUN ./node_modules/.bin/webpack
 WORKDIR /srv/frontend
 RUN git clone https://github.com/creationix/nvm.git .nvm
 WORKDIR ./.nvm
 RUN git checkout v0.33.11
-RUN ls
 ENV NODE_OPTIONS --max_old_space_size=4096
+RUN ls /srv/
+RUN ls /srv/frontend/src
+RUN cat /srv/frontend/src/main.js
 RUN . ./nvm.sh \
   && nvm install 8.9.1 \
   && cd /srv/frontend \
@@ -44,9 +50,11 @@ RUN . ./nvm.sh \
   && npm i \
   && npm run build
 
+COPY . /srv
 WORKDIR /srv
 
 ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
 ENV DOCKER yes
 ENV DEBUG False
 
+RUN apt-get install -y lsof 
