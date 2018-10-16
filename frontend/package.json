@@ -43,6 +43,7 @@
     "popper.js": "^1.14.4",
     "promise-polyfill": "8.1.0",
     "reconnecting-websocket": "^4.1.6",
+    "sentry": "^0.1.2",
     "sheetjs": "^1.0.21",
     "shim": "^0.6.0",
     "shortid": "^2.2.13",
@@ -74,7 +75,6 @@
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-unicode-regex": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
-    "@sentry/webpack-plugin": "^1.6.1",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-pwa": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
@@ -175,6 +175,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not ie <= 9"
   ]
 }
