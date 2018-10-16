@@ -19,7 +19,7 @@ Sentry.configureScope((scope) => {
 
 Vue.config.productionTip = false;
 
-
+// 
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 window.HOSTNAME = "http://" + window.location.hostname + ":8000";
 Vue.use(VueNativeSock, dataEndpoint, {
