@@ -32,7 +32,7 @@ echo Starting Gunicorn...
 
 exec gunicorn config.wsgi:application \
     --name e-logs \
-    --bind unix:/srv/DigitalLogs.sock \
+    --bind "127.0.0.1:8002" \
     --workers 5 \
     --log-level=info \
     --log-file=/srv/logs/gunicorn.log \
@@ -41,5 +41,10 @@ exec gunicorn config.wsgi:application \
 # exec celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info &
 # exec celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info &
 
-echo Starting nginx...
-exec service nginx start
+# lsof -i :8000
+
+echo Starting caddy...
+cd /srv
+exec caddy -log stderr
+# lsof -i :8000
+
