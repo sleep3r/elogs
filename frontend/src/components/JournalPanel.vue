@@ -17,16 +17,20 @@
                 <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
                      :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
-                <template v-if="userHasPerm('edit') && userHasPerm('validate')">
+
+                <template v-if="userHasPerm('edit')">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
                 </button>
+                </template>
+
+                <template v-if="userHasPerm('validate')">
                 <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
                         @click="changeMode('validate')">
                     Валидация
                 </button>
-              </template>
+                </template>
             </div>
             <button :class="['btn', 'btn-xlsx', 'float-right']"
                     @click="download_xlsx()">
