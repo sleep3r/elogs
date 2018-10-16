@@ -1,0 +1,24 @@
+3.120.145.186:8000 {
+    tls self_signed
+
+    root /srv
+    proxy / 127.0.0.1:8002 {
+        transparent
+        except /static
+    }
+    
+    proxy /e-logs 127.0.0.1:8001 {
+        websocket
+    }
+}
+
+3.120.145.186:80 {
+    tls self_signed
+
+    root /srv/frontend/dist
+}
+
+3.120.145.186:443 {
+    tls self_signed
+    root /srv/frontend/dist
+}
