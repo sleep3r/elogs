@@ -57,9 +57,9 @@ class CustomAuthenticationMiddleware(MiddlewareMixin):
 
     def user_from_asgi_request(self, request):
         if not hasattr(request, '_cached_user'):
-            print(request.__dict__)
-            print(request.__dict__.keys())
-            print(request.COOKIES['Authorization'])
+            # print(request.__dict__)
+            # print(request.__dict__.keys())
+            # print(request.COOKIES['Authorization'])
             try:
                 auth_token = request.COOKIES['Authorization']
                 request._cached_user = Token.objects.get(key=auth_token).user
