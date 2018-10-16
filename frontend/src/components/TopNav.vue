@@ -12,6 +12,7 @@
         <div class="header__user">
             <i class="fas fa-envelope user-messages-badge" @click="onMsgClick"></i>
             <i class="fas fa-bell"></i>
+            <i class="fas fa-dice-d6" @click="makeDefaultPage"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
@@ -68,6 +69,7 @@
 </template>
 
 <script>
+    import ajax from '../axios.config'
     export default {
         name: "TopNav",
         methods: {
@@ -112,7 +114,18 @@
             onModesClick() {
                 this.$router.push('/modes');
                 this.hideUserMenu()
-            }
+            },
+            makeDefaultPage() {
+                var path = window.location.pathname
+                console.log(path)
+                ajax.post(
+                    "http://localhost:8000/api/setting/",
+                    {
+                        "name": "defaultpage",
+                        "value": path,
+                    }
+                )
+            },
         },
         mounted () {
             let _this = this

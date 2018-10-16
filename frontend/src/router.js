@@ -10,6 +10,8 @@ import MessagesPage from './components/MessagesPage.vue'
 import SettingsPage from './components/settings-page/SettingsPage.vue'
 import ModesPage from './components/ModesPage.vue'
 import AddJournal from './components/AddJournal.vue'
+import ajax from './axios.config.js'
+import store from './store/store.js'
 
 Vue.use(Router);
 
@@ -67,7 +69,34 @@ router.beforeEach((to, from, next) => {
     }
     else {
         console.dir(VueCookies.get('Authorization'))
-        next()
+        console.log(to)
+        if (to.path == "/") {
+            ajax.get("http://localhost:8000/api/setting?name=defaultpage", {withCredentials: true })
+                .then((response) => {
+                    console.log("default url", response.data.defaultPage)
+                    if (response.data.defaultPage) {
+                        next(response.data.defaultPage)
+                        var temp = response.data.defaultPage.split("/")
+                        var plantName = temp[1]
+                        var journalName = temp[2]
+                        var id = temp[3]
+                        if (store.getters['journalState/isSynchronized']) {
+                            store.dispatch('journalState/loadJournal', {
+                              'plantName': plantName,
+                              'journalName': journalName,
+                            })
+                                .then((id) => {
+                                    next('/' + plantName + '/' + journalName + '/' + id)
+                                    this.setActiveItem()
+                                    store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
+                                })
+                        }
+                    }
+                })
+        }
+        else {
+            next()
+        }
     }
 })
 
