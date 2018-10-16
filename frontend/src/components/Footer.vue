@@ -10,6 +10,7 @@
         <scheme-modal></scheme-modal>
         <add-mode-modal></add-mode-modal>
         <resp-modal></resp-modal>
+        <graph-modal></graph-modal>
     </div>
 </template>
 
@@ -18,6 +19,7 @@
     import SchemeModal from './SchemeModal.vue';
     import AddModeModal from './AddModeModal.vue';
     import ResponsibleModal from './ResponsibleModal.vue';
+    import GraphModal from './GraphModal.vue';
 
     export default {
         name: "Footer",
@@ -25,7 +27,8 @@
             'message-modal': MessageModal,
             'schemeModal': SchemeModal,
             'add-mode-modal': AddModeModal,
-            'resp-modal': ResponsibleModal
+            'resp-modal': ResponsibleModal,
+            'graph-modal': GraphModal
         }
     }
 </script>
