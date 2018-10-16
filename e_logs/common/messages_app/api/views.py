@@ -7,9 +7,10 @@ from django.views import View
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.errors import AccessError
 from e_logs.core.utils.webutils import model_to_dict, logged
+from e_logs.core.views import LoginRequired
 
 
-class MessagesAPI(LoginRequiredMixin, View):
+class MessagesAPI(LoginRequired, View):
     @logged
     def get(self, request):
         res = {}
@@ -36,7 +37,7 @@ class MessagesAPI(LoginRequiredMixin, View):
         return JsonResponse({"status": 0})
 
 
-class MessagesList(LoginRequiredMixin, View):
+class MessagesList(LoginRequired, View):
     def get(self, request):
         res = {}
         qs = Message.objects.filter(addressee=request.user.employee).order_by("-created")

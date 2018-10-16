@@ -52,12 +52,19 @@
         display: block;
         position: relative;
         line-height: 20px;
-        padding: 10px;
+        padding: 0;
         border-bottom: 1px solid $color-border;
         color: $color-menu-text;
         background-color: #E5E5E5;
+        
         .caption {
             margin-left: 10px;
+        }
+        
+        a {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
         }
     }
 

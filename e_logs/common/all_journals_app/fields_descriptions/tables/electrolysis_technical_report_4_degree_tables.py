@@ -40,24 +40,24 @@ rows_names_for_view = [
     "Температура точки 7 ВИУ, ᵒC"
 ]
 
-lt.row_names = [{"db": db, "view": view} for db, view in
+row_names = [{"db": db, "view": view} for db, view in
                 zip(rows_names_for_db, rows_names_for_view)]
 
 field_infos_for_rows = [gl_default] * 3 + [gsm3_default] * 2 + [temperature_default] * 3 +\
                        [pa_default] * 2 + [
     dict(type="number", units="Рh")] + [temperature_default] * 3
 
-lt.times = [
+times = [
     ":".join(str(time(hour=hour % 24)).split(":")[:-1])
     for hour in range(20, 20 + 12)
 ]
 
-lt.last_headers = ["mismatches", "measures"]
+last_headers = ["mismatches", "measures"]
 for row_name, desc in zip(rows_names_for_db, field_infos_for_rows):
-    for time in lt.times:
+    for time in times:
         field_name = row_name + time
         lt[field_name] = desc
-    for last in lt.last_headers:
+    for last in last_headers:
         field_name = row_name + last
         lt[field_name] = text_default
 

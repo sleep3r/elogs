@@ -39,8 +39,10 @@
                 Построить график
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" @click="addToDashboard('ShiftTimeline')" href="#">ShiftTimeline</a>
-                <a class="dropdown-item" @click="addToDashboard('ShiftHistogram')" href="#">ShiftHistogram</a>
+                <!-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftTimeline')">ShiftTimeline</a>
+                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftHistogram')">ShiftHistogram</a> -->
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">ShiftTimeline</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">ShiftHistogram</a>
               </div>
             </div>
         <!-- </div> -->
@@ -48,13 +50,15 @@
             График добавлен в панель аналитики
         </div> -->
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
 import ajax from '../axios.config'
+import GraphModal from './GraphModal.vue'
+import EventBus from '../EventBus'
+import { setTimeout } from 'timers';
 
 export default {
   name: 'CellComment',
@@ -66,6 +70,7 @@ export default {
   data: function() {
       return {
           commentText: '',
+          graphs: []
       }
   },
   computed: {
@@ -119,6 +124,11 @@ export default {
       date = new Date(date);
       return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
     },
+    showGraphModal (type) {
+      this.getConfig()
+      $('.tooltip.popover').css({'visibility': 'hidden'})
+      $('#GraphModal').attr('data-type', type)
+    },
     addComment() {
       let date = new Date();
       this.$store.commit('journalState/SAVE_CELL_COMMENT', {
@@ -161,7 +171,29 @@ export default {
             },
             {withCredentials: true}
         )
+        .then(() => {
+          $('.tooltip.popover').css({'visibility': 'hidden'})
+        })
     },
+    getConfig () {
+      let self = this;
+      ajax.get(
+          'http://' + window.location.hostname + ':8000/dashboard/get-config',
+          {withCredentials: true},
+      )
+        .then(function (response) {
+            let config = response.data.config
+            for (var id in config) {
+                self.graphs.push(id)
+            }
+        })
+    }
+  },
+  mounted () {
+      EventBus.$on('add-to-dashboard', (type) => {
+        console.log(1232131313)
+        this.addToDashboard(type)
+      })
   }
 }
 </script>

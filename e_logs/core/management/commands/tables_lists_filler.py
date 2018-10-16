@@ -64,14 +64,6 @@ def fill_tables_lists():
         ),
         Setting(
             scope=Journal.objects.get(
-                plant=Plant.objects.get(name='furnace'),
-                name='fractional'
-            ),
-            name='tables_list',
-            value=pickle.dumps([])
-        ),
-        Setting(
-            scope=Journal.objects.get(
                 plant=Plant.objects.get(name='electrolysis'),
                 name='masters_report'
             ),

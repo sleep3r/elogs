@@ -1,17 +1,13 @@
 import json
 
-from pywebpush import webpush, WebPushException
-from cacheops import cached_view_as
-
-from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views import View
 
 from e_logs.common.messages_app.models import  UserSubscription
+from e_logs.core.views import LoginRequired
 
 
-class MessagesSubscription(LoginRequiredMixin, View):
+class MessagesSubscription(LoginRequired, View):
     def post(self, request):
         sub_info = json.loads(request.body)
         if sub_info:

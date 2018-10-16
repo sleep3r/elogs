@@ -442,6 +442,7 @@ const journalState = {
             window.mv.$socket.sendObj(data)
         },
         loadJournal: function ({ commit, state, getters }, payload) {
+            commit('SET_LOADED', false);
             let id = payload['id'] ? payload['id'] : ''
             return ajax
                 .get(window.HOSTNAME+'/api/shifts/' + id, {

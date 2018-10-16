@@ -1,6 +1,7 @@
 <template>
     <main class="journal-page">
-        <div class="journal-title">
+        <template v-if="$store.getters['journalState/loaded']">
+            <div class="journal-title">
             <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
             <button class="btn btn-outline" @click="openConstructor">
                 Открыть в конструкторе
@@ -15,6 +16,10 @@
                 <span>Нет данных</span>
             </template>
         </article>
+        </template>
+        <template v-else >
+            <div class="spinner-container"><i class="spinner"></i></div>
+        </template>
     </main>
 </template>
 
@@ -22,20 +27,41 @@
 import TableCommon from './TableCommon.vue';
 import JournalPanel from './JournalPanel.vue';
 
+
 export default {
     name: "JournalPage",
     components: {
         'tablecommon': TableCommon,
         'journal-panel': JournalPanel
     },
-    updated () {
+    updated() {
+      for (let perm of ['validate', 'edit', 'view']) {
+          console.log(perm)
+          if (this.userHasPerm(perm)) {
+              this.$store.commit('journalState/SET_PAGE_MODE', perm)
+              break
+          }
+      }
+    },
+    methods: {
+      userHasPerm (perm) {
+          if (perm == 'view') {
+              return true
+          }
+          for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
+              if (p == perm) {
+                  return true
+              }
+          }
+          return false
+      }
     },
     methods: {
         openConstructor () {
             window.open('http://127.0.0.1:8085', '_blank')
         }
     },
-    mounted () {
+    mounted() {
         console.log('mounted')
         this.$connect();
         window.parser.setVariable("CURRENT_SHIFT", this.$route.params.shift_id)
