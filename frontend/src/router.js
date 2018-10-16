@@ -92,6 +92,9 @@ router.beforeEach((to, from, next) => {
                                 })
                         }
                     }
+                    else {
+                        next("/dashboard")
+                    }
                 })
         }
         else {
