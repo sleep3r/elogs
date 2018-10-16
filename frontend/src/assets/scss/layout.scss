@@ -39,8 +39,13 @@ body {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 
-
+    .exp-time {
+        margin-top: 10px;
+        width: 100%;
+        font-size: 18px;
+    }
 }
 
 .journal-tables {

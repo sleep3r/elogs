@@ -21,7 +21,7 @@ Vue.config.productionTip = false;
 
 // 
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
-window.HOSTNAME = "http://localhost:8000";
+window.HOSTNAME = "http://" + window.location.hostname + ":8000";
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',

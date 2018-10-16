@@ -12,10 +12,6 @@
                    data-target="#myModal"
             >
         </div>
-        <div>
-          <h4 v-if="((!shiftIsClosed)&&(shiftClosingTime))"> Смена открыта для редактирования {{ msToTime(remainingTime) }}</h4>
-          <h4 v-else>Смена закрыта для редактирования</h4>
-        </div>
         <div class="panel-buttons">
             <div class="mode-buttons">
                 <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
@@ -37,6 +33,10 @@
                 XLSX
             </button>
         </div>
+        <div class="exp-time">
+          <span v-if="((!shiftIsClosed)&&(shiftClosingTime))"> Смена открыта для редактирования {{ msToTime(remainingTime) }}</span>
+          <span v-else>Смена закрыта для редактирования</span>
+        </div>
         <modal v-show="showCalendar" @close="showCalendar = false">
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
         </modal>
@@ -44,6 +44,7 @@
 </template>
 <script>
     import $ from 'jquery'
+    import EventBus from '../EventBus'
     import {FullCalendar} from 'vue-full-calendar'
     import modal from "./Modal.vue"
     let XLSX = require('xlsx');
@@ -145,6 +146,11 @@
               return false
             },
             changeMode(mode) {
+                if (mode === 'edit') {
+                    $('.resp-modal').addClass('resp-modal__open')
+                    EventBus.$emit('open-resp-modal')
+                }
+
                 this.$store.commit('journalState/SET_PAGE_MODE', mode);
             },
             download_xlsx() {

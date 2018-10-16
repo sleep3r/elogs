@@ -18,34 +18,9 @@ from e_logs.core.management.commands.tables_lists_filler import fill_tables_list
 from e_logs.core.models import Setting
 from e_logs.core.utils.loggers import stdout_logger, err_logger
 from e_logs.core.utils.webutils import logged
-from e_logs.furnace.fractional_app import models as famodels
 
 
 class DatabaseFiller:
-    @staticmethod
-    def fill_fractional_app(n: int):
-        def randomize_array(a) -> List[float]:
-            return [c + random.uniform(0, 2) for c in a]
-
-        for i in range(n):
-            cinder_masses = randomize_array([1, 2, 4, 7, 8, 6.5, 3, 2.5, 0.5])
-            schieht_masses = randomize_array([1, 2, 4, 7, 8, 7, 4, 3, 2, 0.5])
-            cinder_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
-            schieht_sizes = randomize_array([0.0, 2.0, 5.0, 10.0, 20.0, 25.0, 33.0, 44.0, 50.0])
-
-            journal = Journal.objects.get(name="fractional")
-            measurement = Measurement.objects.create(time=timezone.now(), journal=journal)
-            table = Table.objects.get_or_create(journal=journal, name='measurements')[0]
-
-            arr_name_pairs = [(cinder_masses, 'cinder_mass'), (cinder_sizes, 'cinder_size'),
-                              (schieht_masses, 'schieht_mass'), (schieht_sizes, 'schieht_size')]
-
-            for arr, name in arr_name_pairs:
-                for j, m_value in enumerate(arr):
-                    field = Field.objects.get_or_create(name=name, table=table)[0]
-                    Cell.objects.create(field=field, index=j, value=round(m_value, 2),
-                                        group=measurement)
-
     @staticmethod
     def _get_groups(position: str, plant: str):
         groups = []
@@ -129,7 +104,8 @@ class DatabaseFiller:
     @staticmethod
     def fill_plants():
         plant_names = {'furnace':"Обжиг", 'electrolysis':"Электролиз", 'leaching':"Выщелачивание"}
-        Plant.objects.bulk_create([Plant(name=name, verbose_name=verbose_name) for name, verbose_name in plant_names.items()])
+        Plant.objects.bulk_create([Plant(name=name, verbose_name=verbose_name)
+                                   for name, verbose_name in plant_names.items()])
 
     @staticmethod
     @logged
@@ -200,7 +176,7 @@ class DatabaseFiller:
         plant_to_journal = {
             'furnace': ['furnace_changed_fraction', 'concentrate_report', 'technological_tasks',
                         'reports_furnace_area', 'furnace_repair',
-                        'report_income_outcome_schieht', 'metals_compute', 'fractional'],
+                        'report_income_outcome_schieht', 'metals_compute'],
             'leaching': ['leaching_repair_equipment', 'leaching_express_analysis'],
             'electrolysis': ['masters_report', 'electrolysis_technical_report_3_degree',
                              'electrolysis_technical_report_4_degree',
@@ -307,7 +283,6 @@ class DatabaseFiller:
                 'furnace_repair': 'Журнал по ремонту',
                 'report_income_outcome_schieht': 'Поступление, расходы и остатки Zn концентратов',
                 'metals_compute': 'Рассчёт металлов',
-                'fractional': 'Ситовой анализ огарка и шихты',
             },
             'electrolysis': {
                 'masters_report': 'Журнал рапортов мастеров смен',
@@ -387,11 +362,6 @@ class DatabaseFiller:
         """
         exception_models = [CustomUser, Model]
         db_models = []
-
-        for name, obj in inspect.getmembers(famodels):
-            if inspect.isclass(obj) and issubclass(obj, models.Model) \
-                    and obj not in exception_models:
-                db_models.append(obj)
 
         db_models.extend([Permission, Setting, Employee, CellGroup, Cell, Plant, Group])
 

@@ -80,18 +80,14 @@ def add_permissions(context, page, request):
     context.has_plant_perm = plant_permission(request)
     context.superuser = request.user.is_superuser
 
-@default_if_error(value='')
-def get_responsible_name(cell: Cell):
-    return cell.responsible.name
-
 
 def get_cells_data(page: CellGroup) -> dict:
     def cell_desc(cell):
         return {
             'value': cell.value,
             'id': cell.id,
-            'comment': cell.get_comments_text(cell),
-            'responsible': get_responsible_name(cell)
+            'comment': cell.get_comments_text(),
+            'responsible': cell.get_responsible_name()
         }
 
     def table_desc(table):

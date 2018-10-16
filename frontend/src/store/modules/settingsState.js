@@ -64,7 +64,7 @@ const settingsState = {
 
       },
       loadSettings: function({ commit, state, getters }, payload) {
-        let url = 'http://localhost:8000/api/settings/';
+        let url = window.HOSTNAME + '/api/settings/';
         return ajax.get(url, {withCredentials: true })
              .then((response) => {
                 let settings = response.data.settings;
@@ -79,7 +79,7 @@ const settingsState = {
       },
       updateSetting: function ({commit, state, getters}, payload) {
           console.log("updateSetting", payload, "state: ", state, 'getters', getters);
-          let url = 'http://localhost:8000/api/settings/';
+          let url = window.HOSTNAME + '/api/settings/';
 
           return ajax.put(url, payload, {withCredentials: true })
               .then((response) => {

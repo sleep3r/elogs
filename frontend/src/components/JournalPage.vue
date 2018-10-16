@@ -1,6 +1,7 @@
 <template>
     <main class="journal-page">
-        <div class="journal-title">
+        <template v-if="$store.getters['journalState/loaded']">
+            <div class="journal-title">
             <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
             <button class="btn btn-outline" @click="openConstructor">
                 Открыть в конструкторе
@@ -15,6 +16,10 @@
                 <span>Нет данных</span>
             </template>
         </article>
+        </template>
+        <template v-else >
+            <div class="spinner-container"><i class="spinner"></i></div>
+        </template>
     </main>
 </template>
 

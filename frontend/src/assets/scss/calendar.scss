@@ -178,3 +178,7 @@
 .modal-header {
     display: block;
 }
+
+.datepicker .datepicker-days .day.disabled {
+    color: #cecdcd;
+}
