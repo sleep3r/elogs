@@ -43,14 +43,14 @@
     <tbody>
     <tr>
         <th> Zn в отр., г/л</th>
-        <td v-for="hourNumber of 6"><cell field-name="zn20:00" :row-index="hourNumber"></cell></td>
+        <td v-for="hourNumber of 6"><cell field-name="zn" :row-index="hourNumber"></cell></td>
         <td><cell field-name="znmismatches" row-index="0"></cell></td>
         <td><cell field-name="znmeasures" row-index="0"></cell></td>
     </tr>
     <tr>
         <th> Смеси, г/л</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="zn_mix20:00" :row-index="hourNumber"></cell>
+            <cell field-name="zn_mix" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="zn_mixmismatches" row-index="0"></cell>
@@ -62,7 +62,7 @@
     <tr>
         <th> H₂SO₄ отр., г/л</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="h2so420:00" :row-index="hourNumber"></cell>
+            <cell field-name="h2so4" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2so4mismatches" row-index="0">
@@ -76,7 +76,7 @@
     <tr>
         <th> Удельный вес хол-го раствора, г/см³</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="solute120:00" :row-index="hourNumber"></cell>
+            <cell field-name="solute1" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="solute1mismatches" row-index="0">
@@ -90,7 +90,7 @@
     <tr>
         <th> Удельный вес отр-го раствора, г/см³</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="solute220:00" :row-index="hourNumber">
+            <cell field-name="solute2" :row-index="hourNumber">
             </cell>
         </td>
         <td>
@@ -105,7 +105,7 @@
     <tr>
         <th> Температура смеси, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="mixture_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="mixture_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="mixture_tempmismatches" row-index="0">
@@ -118,7 +118,7 @@
     <tr>
         <th> Температура в ваннах, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="bath_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="bath_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="bath_tempmismatches" row-index="0">
@@ -131,7 +131,7 @@
     <tr>
         <th> Температура H₂O, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="h2o_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="h2o_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2o_tempmismatches" row-index="0"></cell>
@@ -145,7 +145,7 @@
     <tr>
         <th> Давление H₂O, Па</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="h2o_pressure20:00" :row-index="hourNumber"></cell>
+            <cell field-name="h2o_pressure" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2o_pressuremismatches" row-index="0">
@@ -159,7 +159,7 @@
     <tr>
         <th> Давление пара, Па</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="gas_pressure20:00" :row-index="0"></cell>
+            <cell field-name="gas_pressure" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="gas_pressuremismatches" row-index="0"></cell>
@@ -172,7 +172,7 @@
     <tr>
         <th> Сточные воды, Рh</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="wastewater20:00" :row-index="0"></cell>
+            <cell field-name="wastewater" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="wastewatermismatches" row-index="0">
@@ -186,7 +186,7 @@
     <tr>
         <th> Температура точки 5 ВИУ, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="point5_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="point5_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point5_tempmismatches" row-index="0">
@@ -200,7 +200,7 @@
     <tr>
         <th> Температура точки 6 ВИУ, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="point6_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="point6_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point6_tempmismatches" row-index="0">
@@ -214,7 +214,7 @@
     <tr>
         <th> Температура точки 7 ВИУ, ᵒC</th>
         <td v-for="hourNumber of 6">
-            <cell field-name="point7_temp20:00" :row-index="hourNumber"></cell>
+            <cell field-name="point7_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point7_tempmismatches" row-index="0">
