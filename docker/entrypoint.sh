@@ -45,6 +45,6 @@ exec gunicorn config.wsgi:application \
 
 echo Starting caddy...
 cd /srv
-exec caddy -log stderr
+exec caddy -log -quic stderr
 # lsof -i :8000
 
