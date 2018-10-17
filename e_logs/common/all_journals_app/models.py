@@ -246,7 +246,6 @@ class Cell(TimeStampedModel):
     @staticmethod
     @none_if_error
     def get_by_addr(field_name, table_name, group_id, index):
-        # fixme: not sure if we need this manager
         manager = Cell.objects.select_related('field', 'field__table').cache()
         res = manager.get(field__name=field_name, field__table__name=table_name,
                           group_id=group_id, index=index)
