@@ -44,7 +44,10 @@ export default {
       }
     },
     methods: {
-      userHasPerm (perm) {
+        openConstructor () {
+            window.open('http://127.0.0.1:8085', '_blank')
+        },
+        userHasPerm (perm) {
           if (perm == 'view') {
               return true
           }
@@ -55,11 +58,6 @@ export default {
           }
           return false
       }
-    },
-    methods: {
-        openConstructor () {
-            window.open('http://127.0.0.1:8085', '_blank')
-        }
     },
     mounted() {
         // console.log('mounted')
