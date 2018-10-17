@@ -1,13 +1,12 @@
 import json
 import os
-from shutil import copytree, rmtree, make_archive
-from zipfile import ZipFile
+from shutil import copytree, rmtree
 
 from django.core.management.base import BaseCommand
 
 from e_logs.core.utils.deep_dict import DeepDict
-from loggers import err_logger
-from webutils import zipdir
+from e_logs.core.utils.loggers import err_logger
+from e_logs.core.utils.webutils import zipdir
 from .database_filler import Journal
 
 
