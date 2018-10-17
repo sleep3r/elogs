@@ -5,7 +5,7 @@ from zipfile import ZipFile
 
 from django.core.management.base import BaseCommand
 
-from deep_dict import DeepDict
+from e_logs.core.utils.deep_dict import DeepDict
 from loggers import err_logger
 from webutils import zipdir
 from .database_filler import Journal
