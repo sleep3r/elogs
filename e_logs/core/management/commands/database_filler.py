@@ -307,6 +307,77 @@ class DatabaseFiller:
 
 
     @staticmethod
+    def create_tables_verbose_names():
+        tables_verbose_names = {
+            'furnace': {
+                'furnace_changed_fraction': {'main': 'Изменение фракции'},
+                'concentrate_report': {'big': 'Поступление/отгрузка/остаток',
+                                       'small': 'Учёт контейнеров', 'upper': 'Состав смены'},
+                'technological_tasks': {'main': 'Технологические задания'},
+                'reports_furnace_area': {'main': 'Печной участок',
+                                         'udel':'Удельная производительность печей',
+                                         'area_class_cinder':'Участок классификаци огарка',
+                                         'electrofilter':'Участок электрофильтров',
+                                         'warehouse_concentrates': 'Склад концентратов',
+                                         'airmachines':'Участок воздуходувных машин',
+                                         'fences':'Ограждения',
+                                         'concentration_by_time':'Концентрация по времени',
+                                         'places_of_sampling':'Места отбора пробы',
+                                         'corrective_actions':'Корректирующие действия',
+                                         'self_protection':'Самоохрана', 'worth':'Мат. Тех. Ценности'},
+                'furnace_repair': {'repair': 'Ремонты по Обжиговому цеху'},
+                'report_income_outcome_schieht': {'main': '', 'summary': 'НЗП и склады',
+                                    'supply_of_zinc_concentrates': 'Поставка цинковых концентратов',
+                                    'year_plan_schieht': 'Расчет годового плана шихты'},
+                'metals_compute': {'avg_month': 'Среднее содержание за месяц',
+                                   'cinder_conc': 'Огарок', 'concentrat': 'Концентрат',
+                                   'contain_zn': 'Содержание в', 'gof': 'ГОФ таблица',
+                                   'main': 'Среднее содержание за месяц', 'sgok': 'СГОК таблица',
+                                   'sns': 'СНС'},
+            },
+            'electrolysis': {
+                'masters_report': {'last': 'Последняя таблица',
+                                   'melt_area1': 'Плавильный участок-1',
+                                   'melt_area2': 'Плавильный участок-2', 'params': 'Параметры',
+                                   'seria1': '1-я 2-я серия', 'seria3': '3-я серия',
+                                   'seria4': '4-я серия', 'zinc': 'Цинк товарный'},
+                'electrolysis_technical_report_3_degree':
+                    {'left': 'Время замеров и работа оборудования',
+                     'right': 'Технологический режим, ПАВ и кристаллизаторы'},
+                'electrolysis_technical_report_4_degree':
+                    {'left': 'Время замеров и работа оборудования',
+                     'right': 'Технологический режим, ПАВ и кристаллизаторы'},
+                'electrolysis_technical_report_12_degree':
+                    {'left': 'Время замеров и работа оборудования',
+                     'right': 'Технологический режим, ПАВ и кристаллизаторы'},
+                'electrolysis_repair_report_tables': {'main': 'Ремонт'},
+            },
+            'leaching': {
+                'leaching_repair_equipment': {'repair': 'Журнал ремонтов'},
+                'leaching_express_analysis': {'agitators': 'Агитаторы очистки',
+                                              'appt_hydrometal': 'Аппаратчик - гидрометаллург',
+                                              'cinder': 'Огарок', 'loads': 'Нагрузки',
+                                              'neutral': 'Нейтральный раствор',
+                                              'neutral_thickeners': 'Нейтральные сгуситители',
+                                              'reagents': 'Реагенты',
+                                              'sample': 'Пробник', 'self_protection': 'Самоохрана',
+                                              'shift_info': 'Смена',
+                                              'tanks_availability': 'Свободные ёмкости',
+                                              'tanks_for_finished_products': 'Баки готовой продукции',
+                                              'thickeners': 'Сгустители', 'vsns': 'BCHC',
+                                              'zinc_pulp': 'Цинковая пульпа'},
+            }
+        }
+
+        for plant in tables_verbose_names:
+            for journal in tables_verbose_names[plant]:
+                for table, table_title in tables_verbose_names[plant][journal].items():
+                    t = Table.objects.get(journal__name=journal, name=table)
+                    t.verbose_name = table_title
+                    t.save()
+
+
+    @staticmethod
     def create_dashboard_sample_data():
         journal = Journal.objects.get(name="concentrate_report")
         cellgroups = CellGroup.objects.filter(journal=journal)
