@@ -109,6 +109,10 @@ input[type="number"].general-value {
     background: linear-gradient(-45deg, $accent-green 0%, transparent 10px, transparent 100%);
 }
 
+.formula-cell {
+    background: linear-gradient(-45deg, $accent-yellow 0%, transparent 10px, transparent 100%);
+}
+
 .journaltablewrapper .form-control[readonly]:focus {
     background: white;
 }
