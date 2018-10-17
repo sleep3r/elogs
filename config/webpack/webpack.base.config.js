@@ -133,7 +133,7 @@ module.exports = (opts) => {
                 moment: 'moment',
                 Vue: ['vue/dist/vue.esm.js', 'default'],
                 $: 'jquery',
-                _: 'underscore',
+                _: 'lodash',
                 jQuery: 'jquery',
                 'window.jQuery': 'jquery',
                 tether: 'tether',

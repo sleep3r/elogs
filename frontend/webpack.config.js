@@ -6,7 +6,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -109,11 +108,6 @@ module.exports = {
             },
             canPrint: true
         }),
-        // new SentryWebpackPlugin({
-        //     include: '.',
-        //     ignore: ['node_modules', 'webpack.config.js'],
-        //     configFile: 'sentry.properties',
-        // })
     ],
     devtool: "inline-source-map",
     devServer: {

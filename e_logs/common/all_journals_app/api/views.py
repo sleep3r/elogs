@@ -133,6 +133,7 @@ class ShiftAPI(LoginRequired, View):
                 table.name: {
                     "id": table.id,
                     "name": table.name,
+                    "title": table.verbose_name,
                     "fields": self.field_serializer(qs, table),}
             for table in tables}
 
