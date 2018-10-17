@@ -1,6 +1,5 @@
 3.120.145.186:8000 {
     tls self_signed
-
     root /srv
     proxy / 127.0.0.1:8002 {
         transparent
@@ -13,8 +12,11 @@
 }
 
 3.120.145.186:80 {
+    redir {
+        if {scheme} is http
+        / https://{host}{uri}
+    }
     tls self_signed
-
     root /srv/frontend/dist
 }
 
