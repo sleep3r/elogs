@@ -3,14 +3,9 @@ import pickle
 from datetime import timedelta
 from urllib.parse import parse_qs
 
-from cacheops import cached_as
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-from django.db import transaction
 from django.db.models import Prefetch
 from django.forms import model_to_dict
-from django.shortcuts import render_to_response
 from django.views import View
 from django.http import JsonResponse
 
@@ -19,7 +14,7 @@ from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, 
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
-from e_logs.core.models import Setting, CustomUser
+from e_logs.core.models import Setting
 from e_logs.core.views import LoginRequired
 
 
@@ -35,47 +30,50 @@ class ShiftAPI(LoginRequired, View):
                 id = Shift.objects.latest('date').id
         else:
             id = kwargs['id']
-        qs = Shift.objects\
-        .select_related('journal', 'journal__plant') \
-        .prefetch_related('journal__tables',
-                          'journal__tables__fields',
-                          Prefetch('journal__tables__fields__settings',
-                                    queryset=Setting.objects.filter(name='field_description')
-                                   ),
-                          Prefetch('group_cells',
-                                   queryset=Cell.objects.select_related('field',
-                                                                        'field__table',
-                                                                        'responsible__user',
-                                                                        'responsible').
-                                   filter(group_id=id).prefetch_related(
-                          Prefetch('comments', queryset=Comment.objects.all().
-                                                         select_related('employee__user',
-                                                                        'employee'))))).get(id=id)
+
+        qs = Shift.objects \
+            .select_related('journal', 'journal__plant') \
+            .prefetch_related('journal__tables',
+                              'journal__tables__fields',
+                              Prefetch('journal__tables__fields__settings',
+                                       queryset=Setting.objects.filter(name='field_description')
+                                       ),
+                              Prefetch('group_cells',
+                                       queryset=Cell.objects.select_related('field',
+                                                                            'field__table',
+                                                                            'responsible__user',
+                                                                            'responsible').
+                                       filter(group_id=id).prefetch_related(
+                                           Prefetch('comments', queryset=Comment.objects.all().
+                                                    select_related('employee__user',
+                                                                   'employee'))))).get(id=id)
 
         plant = qs.journal.plant
         res = {
-                "id": qs.id ,
-                "plant":{"name":plant.name},
-                "order": qs.order,
-                "date": qs.date.isoformat(),
-                'start_time': qs.start_time.isoformat(),
-                "closed":qs.closed,
-                "mode": get_page_mode(user=user, plant=plant),
-                "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
-                "permissions": self.get_permissions(request, qs),
-                "journal": self.journal_serializer(qs)}
+            "id": qs.id,
+            "plant": {"name": plant.name},
+            "order": qs.order,
+            "date": qs.date.isoformat(),
+            'start_time': qs.start_time.isoformat(),
+            "closed": qs.closed,
+            "mode": get_page_mode(user=user, plant=plant),
+            "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
+            "permissions": self.get_permissions(request, qs),
+            "journal": self.journal_serializer(qs)}
 
         return JsonResponse(res, safe=False)
-
 
     def get_permissions(self, request, shift):
         def get_time(shift):
             if request.user.has_perm(EDIT_CELLS):
-                assignment_time = shift.end_time - timedelta(**Setting.of(shift)['shift_assignment_time'])
+                assignment_time = shift.end_time - timedelta(
+                    **Setting.of(shift)['shift_assignment_time'])
                 assignment_time = assignment_time.isoformat()
-                not_assignment_time = shift.end_time + timedelta(**Setting.of(shift)['shift_edition_time'])
+                not_assignment_time = shift.end_time + timedelta(
+                    **Setting.of(shift)['shift_edition_time'])
                 not_assignment_time = not_assignment_time.isoformat()
-                return {"editing_mode_closing":assignment_time, "shift_closing":not_assignment_time}
+                return {"editing_mode_closing": assignment_time,
+                        "shift_closing": not_assignment_time}
             else:
                 return None
 
@@ -91,10 +89,10 @@ class ShiftAPI(LoginRequired, View):
             PERMISSIONS = ["edit", "validate"]
 
         elif user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-            user.has_perm(VALIDATE_CELLS):
-                PERMISSIONS.append("validate")
-                if user.has_perm(EDIT_CELLS):
-                    PERMISSIONS.append("edit")
+                user.has_perm(VALIDATE_CELLS):
+            PERMISSIONS.append("validate")
+            if user.has_perm(EDIT_CELLS):
+                PERMISSIONS.append("edit")
 
         else:
             if shift.closed:
@@ -102,13 +100,12 @@ class ShiftAPI(LoginRequired, View):
                 if limited_emp_id_list and user.id in limited_emp_id_list:
                     PERMISSIONS = ["edit"]
 
-            elif services.CheckRole.execute({"employee":user.employee, "page":shift}) and \
-                services.CheckTime.execute({"employee": user.employee, "page": shift}):
+            elif services.CheckRole.execute({"employee": user.employee, "page": shift}) and \
+                    services.CheckTime.execute({"employee": user.employee, "page": shift}):
 
                 if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                    user.has_perm(EDIT_CELLS):
-                         PERMISSIONS.append("edit")
-
+                        user.has_perm(EDIT_CELLS):
+                    PERMISSIONS.append("edit")
 
         res = {
             "permissions": PERMISSIONS,
@@ -120,21 +117,21 @@ class ShiftAPI(LoginRequired, View):
     def journal_serializer(self, qs):
         journal = qs.journal
         res = {
-                "id": journal.id,
-                "name": journal.name,
-                "type": journal.type,
-                "tables": self.table_serializer(qs)
+            "id": journal.id,
+            "name": journal.name,
+            "type": journal.type,
+            "tables": self.table_serializer(qs)
         }
         return res
 
     def table_serializer(self, qs):
         tables = qs.journal.tables.all()
         res = {
-                table.name: {
-                    "id": table.id,
-                    "name": table.name,
-                    "title": table.verbose_name,
-                    "fields": self.field_serializer(qs, table),}
+            table.name: {
+                "id": table.id,
+                "name": table.name,
+                "title": table.verbose_name,
+                "fields": self.field_serializer(qs, table), }
             for table in tables}
 
         return res
@@ -143,13 +140,13 @@ class ShiftAPI(LoginRequired, View):
         fields = table.fields.all()
 
         res = {field.name: {
-                        "id": field.id,
-                        "name": field.name,
-                        "formula": field.formula,
-                        "field_description": pickle.loads(list(field.settings.all())[-1].value)
-                                if field.settings.all() else '',
-                        "cells": self.cell_serializer(qs, table, field)}
-            for field in fields }
+            "id": field.id,
+            "name": field.name,
+            "formula": field.formula,
+            "field_description": pickle.loads(list(field.settings.all())[-1].value)
+            if field.settings.all() else '',
+            "cells": self.cell_serializer(qs, table, field)}
+            for field in fields}
 
         return res
 
@@ -162,17 +159,17 @@ class ShiftAPI(LoginRequired, View):
                     responsible = {str(cell.responsible.user): cell.responsible.name}
                 else:
                     responsible = {}
-                res[cell.index] = {"id":cell.id,
-                                   "value":cell.value,
-                                   "responsible":responsible,
+                res[cell.index] = {"id": cell.id,
+                                   "value": cell.value,
+                                   "responsible": responsible,
                                    "created": cell.created,
-                                   "comments":[{
-                                        'text': comment.text,
-                                        'user': {str(comment.employee.user): str(comment.employee)},
-                                        'created': comment.created.isoformat()}
-                                         for comment in cell.comments.all()
-                                         ]
-                                    }
+                                   "comments": [{
+                                       'text': comment.text,
+                                       'user': {str(comment.employee.user): str(comment.employee)},
+                                       'created': comment.created.isoformat()}
+                                       for comment in cell.comments.all()
+                                   ]
+                                   }
 
         return res
 
@@ -180,7 +177,7 @@ class ShiftAPI(LoginRequired, View):
 class PlantsAPI(View):
     def get(self, request):
         queryset = Plant.objects.all()
-        res = [{"name":plant.name, "verboseName":plant.verbose_name} for plant in queryset]
+        res = [{"name": plant.name, "verboseName": plant.verbose_name} for plant in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -190,13 +187,14 @@ class JournalsAPI(View):
         plant = request.GET.get('plant', None)
         if plant:
             queryset = Journal.objects.filter(plant__name=plant)
-        res = [{"name":journal.name, "verboseName":journal.verbose_name} for journal in queryset]
+        res = [{"name": journal.name, "verboseName": journal.verbose_name} for journal in queryset]
         return JsonResponse(res, safe=False)
 
 
 class MenuInfoAPI(View):
     def get(self, request):
-        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
+        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз',
+                        'leaching': 'Выщелачивание'}
         return JsonResponse({
             'plants': [
                 {
@@ -207,7 +205,7 @@ class MenuInfoAPI(View):
                             'name': journal.name,
                             'verbose_name': journal.verbose_name,
                         }
-                    for journal in Journal.objects.filter(plant=plant)
+                        for journal in Journal.objects.filter(plant=plant)
                     ]
                 }
                 for plant in Plant.objects.all()
@@ -221,24 +219,25 @@ class SettingsAPI(LoginRequired, View):
         qs = Setting.objects.select_related('employee').prefetch_related('scope')
 
         return JsonResponse({
-            "user_settings": [{"id":s.id,
-                               "name":s.name,
-                               "verbose_name":s.verbose_name,
-                               "value":pickle.loads(s.value),
-                               "content_type":ContentType.objects.get_for_model(s.scope).id,
-                               "scope":model_to_dict(s.scope)} for s in qs.filter(employee=user)],
+            "user_settings": [{"id": s.id,
+                               "name": s.name,
+                               "verbose_name": s.verbose_name,
+                               "value": pickle.loads(s.value),
+                               "content_type": ContentType.objects.get_for_model(s.scope).id,
+                               "scope": model_to_dict(s.scope)} for s in qs.filter(employee=user)],
 
-            "settings":[{"id": s.id,
-                         "name":s.name,
-                         "verbose_name": s.verbose_name,
-                         "value":pickle.loads(s.value),
-                         "content_type": ContentType.objects.get_for_model(s.scope).id,
-                         "scope":model_to_dict(s.scope)} for s in qs if s.content_type],
+            "settings": [{"id": s.id,
+                          "name": s.name,
+                          "verbose_name": s.verbose_name,
+                          "value": pickle.loads(s.value),
+                          "content_type": ContentType.objects.get_for_model(s.scope).id,
+                          "scope": model_to_dict(s.scope)} for s in qs if s.content_type],
 
-            "global_settings":[{"id": s.id,
-                                "name":s.name,
-                                "verbose_name": s.verbose_name,
-                                "value":pickle.loads(s.value)} for s in qs.filter(content_type=None)]
+            "global_settings": [{"id": s.id,
+                                 "name": s.name,
+                                 "verbose_name": s.verbose_name,
+                                 "value": pickle.loads(s.value)} for s in
+                                qs.filter(content_type=None)]
         })
 
     def post(self, request):
@@ -249,7 +248,7 @@ class SettingsAPI(LoginRequired, View):
             employee=request.user.employee,
             object_id=int(setting_data['scope']['id']) if setting_data.get('scope', None) else None,
             content_type=ContentType.objects.get(id=int(setting_data['content_type']))
-                if setting_data.get('scope', None) else None)
+            if setting_data.get('scope', None) else None)
 
         return JsonResponse({"status": 1})
 
@@ -260,7 +259,8 @@ class SettingsAPI(LoginRequired, View):
         setting.value = Setting._dumps(setting_data['value'])
         setting.save()
 
-        return JsonResponse({"status":1})
+        return JsonResponse({"status": 1})
+
 
 class TablesAPI(View):
     def get(self, request):
@@ -270,9 +270,9 @@ class TablesAPI(View):
         if plant and journal is None:
             queryset = Table.objects.filter(journal__plant__name=plant)
         elif plant and journal:
-            queryset = Table.objects.filter(journal__plant__name=plant, journal__name = journal)
+            queryset = Table.objects.filter(journal__plant__name=plant, journal__name=journal)
 
-        res = [{"name":table.name, "verboseName":table.verbose_name} for table in queryset]
+        res = [{"name": table.name, "verboseName": table.verbose_name} for table in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -286,7 +286,7 @@ class FieldsAPI(View):
             queryset = Field.objects.filter(table__journal__plant__name=plant,
                                             table__journal__name=journal,
                                             table__name=table)
-        res = [{"name":field.name, "verboseName":field.verbose_name} for field in queryset]
+        res = [{"name": field.name, "verboseName": field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
 
 
@@ -328,7 +328,7 @@ class SettingAPI(View):
         employee = request.user.employee
         setting_data = json.loads(request.body)
         Setting.set_value(name=setting_data["name"], value=setting_data["value"],
-            employee=employee,)
+                          employee=employee, )
         return JsonResponse({"status": 1})
 
 
@@ -339,6 +339,7 @@ class AutocompleteAPI(LoginRequired, View):
         if name and plant:
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,
-                                        user__groups__name__contains=plant.title())], safe=False)
+                                                         user__groups__name__contains=plant.title())],
+                                safe=False)
         else:
             return JsonResponse([], safe=False)
