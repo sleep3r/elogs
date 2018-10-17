@@ -22,7 +22,7 @@ from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, T
 from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
 from e_logs.core.models import Setting
 from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, get_or_none
+from e_logs.core.utils.webutils import process_json_view, logged, get_or_none, current_date
 from e_logs.core.views import LoginRequired
 
 env = environ.Env(DEBUG=(bool, False))
@@ -77,7 +77,7 @@ def get_current_shift(journal):
     assert number_of_shifts > 0, "<= 0 number of shifts"
 
     shifts = Shift.objects.cache() \
-        .filter(journal=journal, date__lte=timezone.now().date()).order_by('-date', '-order')
+        .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
     for shift in shifts:
         if shift.is_active:
             return shift
@@ -158,8 +158,8 @@ def get_menu_info(request):
 
 class GetShifts(LoginRequired ,View):
     def get(self, request, plant_name: str, journal_name: str,
-                   from_date=timezone.now().date() - timedelta(days=30),
-                   to_date=timezone.now().date()):
+                   from_date=current_date() - timedelta(days=30),
+                   to_date=current_date()):
         """Creates shifts for speficied period of time"""
 
         def shift_event(shift, is_owned):

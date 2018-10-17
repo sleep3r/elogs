@@ -249,6 +249,8 @@ def model_to_representation(model: Model):
             model._meta.get_fields(include_parents=False)
             if is_printable(f)}
 
+def current_date():
+    return timezone.get_current_timezone().normalize(timezone.now()).date()
 
 class StrAsDictMixin:
     # def __str__(self: Model):

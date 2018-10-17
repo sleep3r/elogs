@@ -161,7 +161,7 @@ class DatabaseFiller:
             for n in range(int((end_date - start_date).days)):
                 yield start_date + timedelta(n)
 
-        now_date = timezone.now().date()
+        now_date = current_date()
         for journal in Journal.objects.all():
             if journal.type == 'shift':
                 number_of_shifts = Shift.get_number_of_shifts(journal)

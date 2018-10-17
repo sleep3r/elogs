@@ -13,8 +13,7 @@ from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell, Journal
 from e_logs.common.messages_app.models import Message
-from e_logs.core.utils.webutils import get_or_none
-
+from e_logs.core.utils.webutils import get_or_none, current_date
 
 if os.environ.get('DOCKER') == 'yes':
     app = Celery('tasks', broker="redis://redis:6379")
@@ -67,7 +66,7 @@ def create_shifts():
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
 
-    now_date = timezone.now().date()
+    now_date = current_date()
     for journal in Journal.objects.all():
         if journal.type == 'shift':
             number_of_shifts = Shift.get_number_of_shifts(journal)
@@ -128,6 +127,6 @@ def finish_mode(mode_id):
 
 @app.task
 def dump_db():
-    output = open(f'dumps/{timezone.now().date()}.json','w')
+    output = open(f'dumps/{current_date()}.json','w')
     call_command('dumpdata', stdout=output)
     output.close()
