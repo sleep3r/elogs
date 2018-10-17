@@ -3,6 +3,7 @@ import os
 from shutil import copytree, rmtree
 
 from django.core.management.base import BaseCommand
+from django.conf import settings
 
 from e_logs.core.utils.deep_dict import DeepDict
 from e_logs.core.utils.loggers import err_logger
@@ -15,6 +16,7 @@ def compress_journal(journal: Journal):
     jd.version = '0.1'
     jd.name = journal.name
     jd.title = journal.verbose_name
+    jd.type = journal.type
 
     jd.tables = []
     for t in journal.tables.all():
@@ -48,7 +50,7 @@ def compress_journal(journal: Journal):
     temp_zip_templates_dir = os.path.join(temp_zip_dir, 'templates')
 
     real_zip_path = os.path.join('resources', 'journals', journal.plant.name)
-    real_zip_filename = os.path.join(real_zip_path, journal.name + '.zip')
+    real_zip_filename = os.path.join(real_zip_path, journal.name + f'.{settings.JOURNAL_EXTENSION}')
 
     meta_file = os.path.join(temp_zip_dir, 'meta.json')
 
