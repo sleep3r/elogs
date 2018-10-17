@@ -38,8 +38,14 @@
             </button>
         </div>
         <div class="exp-time">
-          <span v-if="((!shiftIsClosed)&&(shiftClosingTime))"> Смена открыта для редактирования {{ msToTime(remainingTime) }}</span>
-          <span v-else>Смена закрыта для редактирования</span>
+          <span v-if="(!timeLimits)&&(userHasPerm('edit'))"> Смена открыта для редактирования </span>
+          <span v-else-if="(!timeLimits)&&(!userHasPerm('edit'))"> Вы не можете редактировать эту смену </span>
+          <span v-else-if="!shiftIsStarted">Смена ещё не началась. Редактирование невозможно</span>
+          <span v-else-if="shiftIsClosed"> Смена закрыта для редактирования. Обратитесь к администратору </span>
+          <span v-else-if="(!userIsResponsible)&&(now>editingModeClosingTime)"> Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было) </span>
+          <span v-else-if="(userIsResponsible)&&(now>shiftClosingTime)"> Смена закрыта для редактирования (прошло 12 часов с конца смены) </span>
+          <span v-else-if="!userHasPerm('edit')"> Вы не можете редактировать эту смену </span>
+          <span v-else-if="remainingTime&&userHasPerm('edit')"> Смена открыта для редактирования ещё  {{ msToTime(remainingTime) }} </span>
         </div>
         <modal v-show="showCalendar" @close="showCalendar = false">
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
@@ -89,12 +95,15 @@
         },
         computed: {
             remainingTime() {
-                if (!(this.shiftClosingTime)) {
-                    return -1;
+                // time before shift editing will be closed
+                let deadline
+                if (this.userIsResponsible) {
+                    deadline = this.shiftClosingTime
                 }
-                // console.log('shift closing time ' + this.shiftClosingTime)
-                // console.log('now ' + this.now)
-                let remainingTime = this.shiftClosingTime - this.now
+                else {
+                    deadline = this.editingModeClosingTime
+                }
+                let remainingTime = deadline - this.now
                 if (remainingTime < 0) {
                   for (let perm of ['validate', 'view']) {
                       if (this.userHasPerm(perm)) {
@@ -106,23 +115,37 @@
                 return ((remainingTime) && (remainingTime > 0)) ? remainingTime : 0
             },
             shiftIsClosed() {
-                if (this.remainingTime == 0) {
-                    return true
-                }
-                else {
-                    return this.$store.getters['journalState/journalInfo'].closed
-                }
+                return this.$store.getters['journalState/journalInfo'].closed
+            },
+            shiftStartTime() {
+                return Date.parse(this.$store.getters['journalState/journalInfo']['start_time'])
+            },
+            shiftIsStarted() {
+                return (this.now - this.shiftStartTime) > 0 ? true : false
             },
             shiftClosingTime() {
-                let time = this.$store.getters['journalState/journalInfo'].permissions.time
-                return time ? Date.parse(time['shift_closing']) : null
+                return Date.parse(this.timeLimits['shift_closing'])
+            },
+            timeLimits() {
+                return this.$store.getters['journalState/journalInfo'].permissions.time
             },
             editingModeClosingTime() {
-                let time = this.$store.getters['journalState/journalInfo'].permissions.time
-                return time ? Date.parse(['editing_mode_closing']) : null
+                return Date.parse(this.timeLimits['editing_mode_closing'])
             },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
+            },
+            userIsResponsible() {
+                let responsibles = this.responsibles
+                for (let i in responsibles) {
+                    if (responsibles[i][this.userName] !== 'undefined') {
+                        return true
+                    }
+                }
+                return false
+            },
+            userName() {
+                return this.$store.getters['userState/username']
             },
             events() {
                 return this.$store.getters['journalState/events'];
@@ -202,6 +225,10 @@
                     $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
                 }, 1)
             })
+
+            // if (this.userIsResponsible) {
+            //     console.log('awdawd')
+            // }
         },
         components: {
             modal,

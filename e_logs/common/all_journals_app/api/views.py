@@ -75,7 +75,7 @@ class ShiftAPI(LoginRequired, View):
                 assignment_time = assignment_time.isoformat()
                 not_assignment_time = shift.end_time + timedelta(**Setting.of(shift)['shift_edition_time'])
                 not_assignment_time = not_assignment_time.isoformat()
-                return {"shift_closing":assignment_time, "editing_mode_closing":not_assignment_time}
+                return {"editing_mode_closing":assignment_time, "shift_closing":not_assignment_time}
             else:
                 return None
 
