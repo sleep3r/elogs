@@ -45,7 +45,7 @@
                 this.$parent.isEditing = true;
             },
             markAsFavorite(){
-                console.log("mark as favorite");
+                // console.log("mark as favorite");
                 this.model.isFavorite = !this.model.isFavorite;
             },
         },

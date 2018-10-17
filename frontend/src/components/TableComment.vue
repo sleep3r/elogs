@@ -1,9 +1,9 @@
 <template>
     <div class="table__comment">
         <div v-if="mode==='edit'">
-        <a href="javascript:;" @click="onClick">Комментарий </a>
-        <i class="fas fa-envelope ico-comment"></i>
-        <div :class="['comment__text', { collapse: isCollapsed }]">
+            <a href="javascript:;" @click="onClick">Комментарий </a>
+            <i class="fas fa-envelope ico-comment"></i>
+            <div :class="['comment__text', { collapse: isCollapsed }]">
           <textarea
                   class="table-comment"
                   placeholder="Комментарий..."
@@ -11,10 +11,12 @@
                   :value="text"
                   @input="onInput">
           </textarea>
+            </div>
         </div>
-      </div>
         <div v-else>
-          Комментарий: {{ text }}
+            <template v-if="text">
+                <b>Комментарий:</b> {{ text }}
+            </template>
         </div>
     </div>
 </template>
@@ -23,7 +25,7 @@
 
     export default {
         name: 'table-comment',
-        props: [ 'tableName' ],
+        props: ['tableName'],
         data() {
             return {
                 rowIndex: '0',
@@ -32,8 +34,8 @@
             }
         },
         watch: {
-            text (value) {
-                this.isCollapsed = value ? false : true
+            text(value) {
+                this.isCollapsed = !value
             }
         },
         computed: {
@@ -45,12 +47,14 @@
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']
                 },
                 set: function (val) {
-                    this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
-                        tableName: this.tableName,
-                        fieldName: this.fieldName,
-                        index: this.rowIndex,
-                        value: val,
-                    }]});
+                    this.$store.commit('journalState/SAVE_CELLS', {
+                        'cells': [{
+                            tableName: this.tableName,
+                            fieldName: this.fieldName,
+                            index: this.rowIndex,
+                            value: val,
+                        }]
+                    });
                 }
             }
         },

@@ -376,7 +376,7 @@
             if (this.linked) {
                 // auto fill cell
                 this.value = this.$store.getters['journalState/' + this.linked];
-                this.send();
+                // this.send();
             }
 
             setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)

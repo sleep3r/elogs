@@ -217,7 +217,7 @@ const journalState = {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
                 if (!(fieldName in fields)) {
                     // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
-                    return {};
+                    return '';
                 }
                 return fields[fieldName].formula || ''
             }

@@ -23,12 +23,12 @@
             }
         },
         mounted() {
-            console.log("mounted");
+            // console.log("mounted");
             this.selectTab(this.first);
         },
         created() {
           this.tabs = this.$children;
-          console.log("created");
+          // console.log("created");
         },
         methods: {
             getClasses(id) {
@@ -39,10 +39,10 @@
               }
             },
             selectTab: function(id) {
-                console.log(id);
+                // console.log(id);
                 let sid = "" + id;
                 let selectedTab = this.tabs.find( tab => { return (tab.id === sid) });
-                console.log(" selected: ", selectedTab);
+                // console.log(" selected: ", selectedTab);
                 selectedTab.isActive = true;
                 this.activeIndex = +id;
                 this.tabs.forEach(tab => {

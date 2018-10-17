@@ -36,7 +36,7 @@ export default {
     },
     updated() {
       for (let perm of ['validate', 'edit', 'view']) {
-          console.log(perm)
+          // console.log(perm)
           if (this.userHasPerm(perm)) {
               this.$store.commit('journalState/SET_PAGE_MODE', perm)
               break
@@ -62,9 +62,10 @@ export default {
         }
     },
     mounted() {
-        console.log('mounted')
+        // console.log('mounted')
         this.$connect();
         window.parser.setVariable("CURRENT_SHIFT", this.$route.params.shift_id)
+        // console.log(this.$route.params)
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
                 .then((id) => {

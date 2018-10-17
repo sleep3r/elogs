@@ -1,10 +1,8 @@
 <template>
     <div>
         <div class="menu__panel">
-            <div class="menu__title">Список цехов</div>
             <i class="menu__toggle fas fa-bars" @click="toggleMenu"></i>
         </div>
-        <div class="menu__logo"><i class="fas fa-sitemap"></i></div>
         <ul class="menu menu--left">
             <li class="menu__item" @click="onDashboardClick" style="padding-bottom: 10px">
                 <span data-url="/dashboard" class="menu-item__link">
@@ -59,10 +57,10 @@
                 .then(() => {
                     setTimeout(() => this.setListeners(), 0)
                     if (location.pathname !== '/dashboard') {
-                        setTimeout(() => this.setActiveItem(), 0)    
+                        setTimeout(() => this.setActiveItem(), 0)
                     }
                     else {
-                        setTimeout(() => this.onDashboardClick(), 0)   
+                        setTimeout(() => this.onDashboardClick(), 0)
                     }
                 })
         },
