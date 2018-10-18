@@ -13,7 +13,7 @@
       <div class="header__icon"><i class="fas fa-receipt"></i></div>
     </div>
     <div class="body">
-      <ul class="list">
+      <ul class="list" v-if="!onlyChat">
         <li v-if="cellValue" class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{ cellValue }}</span></li>
         <li v-if="cellCreatedTime" class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{cellCreatedTime}}</span></li>
         <li v-if="((minNormal)||(maxNormal))" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Допустимые значения <template v-if="minNormal">от {{minNormal}} </template>  <template v-if="maxNormal"> до {{maxNormal}}</template> </span></li>
@@ -31,7 +31,7 @@
       <button class="btn" @click="addComment">Добавить комментарий</button>
     </br>
     </br>
-      <div class="buttons-panel">
+      <div class="buttons-panel"  v-if="!onlyChat">
         <!-- <div v-if="graphNotAdded"> -->
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -65,7 +65,8 @@ export default {
   props: [
     'tableName',
     'fieldName',
-    'rowIndex'
+    'rowIndex',
+    'onlyChat'
   ],
   data: function() {
       return {

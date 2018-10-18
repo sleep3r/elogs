@@ -30,9 +30,24 @@
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
-        <i
+        <v-popover
+            offset="16"
+            :disabled="mode === 'validate'"
+            style="position: absolute; top: 0; left: 0;"
+        >
+            <i
                 v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
-                class="far fa-envelope comment-notification"></i>
+                class="far fa-envelope comment-notification"
+            ></i>
+            <template slot="popover">
+                <CellComment
+                    :table-name="tableName"
+                    :field-name="fieldName"
+                    :row-index="rowIndex"
+                    :onlyChat="true"
+                />
+            </template>
+        </v-popover>
         <template slot="popover">
             <CellComment
                     :table-name="tableName"

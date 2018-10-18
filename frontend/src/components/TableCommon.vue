@@ -114,7 +114,7 @@
                     let $mainElement = $("<div />").append(($(response.data).clone()))
                     $mainElement.find('table').each(function () {
                         if ($(this).parent().is('div')) {
-                            $(this).wrap("<div style='overflow-x: auto; margin-bottom: 20px;'></div>")
+                            $(this).wrap("<div style='overflow-x: auto; overflow-y: hidden; margin-bottom: 20px;'></div>")
                         }
                     })
                     self.template = $mainElement[0].outerHTML
