@@ -8,7 +8,8 @@ const userState = {
     },
     getters: {
         user: state => state.user,
-        username: state => state.user ? state.user.username : ''
+        username: state => state.user ? state.user.username : '',
+        isSuperuser: state => state.user.is_superuser,
     },
     mutations: {
         SET_USER (state, user) {

@@ -18,14 +18,14 @@
                      :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
 
-                <template v-if="userHasPerm('edit')">
+                <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
                 </button>
                 </template>
 
-                <template v-if="userHasPerm('validate')">
+                <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
                         @click="changeMode('validate')">
                     Валидация
@@ -130,7 +130,7 @@
             userIsResponsible() {
                 let responsibles = this.responsibles
                 for (let i in responsibles) {
-                    if (responsibles[i][this.userName] !== 'undefined') {
+                    if (typeof responsibles[i][this.userName] != 'undefined') {
                         return true
                     }
                 }
@@ -176,7 +176,7 @@
                         EventBus.$emit('open-resp-modal')
                     }
                     else {
-                        this.$store.commit('journalState/SET_PAGE_MODE', 'edit');  
+                        this.$store.commit('journalState/SET_PAGE_MODE', 'edit');
                     }
                 }
                 else {
@@ -184,7 +184,7 @@
                 }
             },
             updateShiftMode() {
-                if ((!this.timeLimits) && this.userHasPerm('edit')) {
+                if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {
                     this.shiftMessage = 'Смена открыта для редактирования'
                 }
                 else if ((!this.userHasPerm('edit'))) {
