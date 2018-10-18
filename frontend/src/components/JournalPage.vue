@@ -44,7 +44,7 @@ export default {
       }
     },
     methods: {
-        userHasPerm (perm) {
+      userHasPerm(perm) {
           if (perm == 'view') {
               return true
           }
@@ -55,7 +55,7 @@ export default {
           }
           return false
         },
-        openConstructor () {
+        openConstructor() {
             window.open(`http://${window.location.hostname === 'localhost' ?
                 '127.0.0.1'
                 : window.location.hostname}:8085/journal/${this.$route.params.journal}?imported=true`,
