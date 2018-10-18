@@ -65,10 +65,10 @@
         },
         computed: {
             getCurrentPlant () {
-                return this.$store.getters['modesState/currentMode'].plant
+                return Object.keys(this.$store.getters['modesState/currentMode'].plant)[0]
             },
             getCurrentJournal () {
-                return this.$store.getters['modesState/currentMode'].journal
+                return Object.keys(this.$store.getters['modesState/currentMode'].journal)[0]
             }
         },
         methods: {
@@ -92,6 +92,7 @@
             },
             onInputChange(propType, value, index) {
                 if (propType === 'table') {
+                    console.log(this.getCurrentPlant, this.getCurrentJournal)
                     this.getTables(this.getCurrentPlant, this.getCurrentJournal)
                         .then(() => {
                             if (this.getExistingName('tableList', value)) {

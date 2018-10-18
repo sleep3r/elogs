@@ -216,7 +216,7 @@
                         withCredentials: true
                     })
                     .then(response => {
-                        this.plantList = response.data
+                        this.plantList = response.data.filter(item => this.$store.getters['userState/hasPerm'](`modify_${item.name}`) || this.$store.getters['userState/isSuperuser'])
                     })
                     .catch(e => {
                         console.log(e)

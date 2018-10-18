@@ -8,7 +8,7 @@
                 </h3>
             </div>
             <template v-if="currentMode">
-                <div class="mode-content__title__mode-btns">
+                <div class="mode-content__title__mode-btns" v-if="hasPerms || $store.getters['userState/isSuperuser']">
                     <button class="btn" v-if="currentMode.is_active" value="off" @click.prevent="toggleMode(0)">Выключить</button>
                     <button class="btn" v-else value="on" @click.prevent="toggleMode(1)">Включить</button>
                     <button class="btn" data-target="mode-delete" @click.prevent="onDeleteMode">Удалить</button>
@@ -24,7 +24,7 @@
                         <th>Ячейка</th>
                         <th>Минимальное значение</th>
                         <th>Максимальное значение</th>
-                        <th style="width: 36px"></th>
+                        <th style="width: 36px" v-if="currentMode && (hasPerms || $store.getters['userState/isSuperuser'])"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +37,7 @@
                                     class="form-control"
                                     :value="item.min_normal"
                                     @input="(e) => onChangeCellValue('min_normal', item.table_name, item.name, e.target.value)"
+                                    :disabled="currentMode && !(hasPerms || $store.getters['userState/isSuperuser'])"
                             >
                         </td>
                         <td data-target="max_normal">
@@ -45,16 +46,17 @@
                                     class="form-control"
                                     :value="item.max_normal"
                                     @input="(e) => onChangeCellValue('max_normal', item.table_name, item.name, e.target.value)"
+                                    :disabled="currentMode && !(hasPerms || $store.getters['userState/isSuperuser'])"
                             >
                         </td>
-                        <td>
+                        <td v-if="currentMode && (hasPerms || $store.getters['userState/isSuperuser'])">
                             <div class="delete-icon" @click="onDeleteCell(item.table_name, item.name)"><i class="fas fa-times"></i></div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mode-content__title__mode-edit-btns" v-if="currentMode">
+            <div class="mode-content__title__mode-edit-btns" v-if="currentMode && (hasPerms || $store.getters['userState/isSuperuser'])">
                 <button class="btn" data-toggle="modal" data-target="#AddModeCellModal">Добавить ячейку</button>
                 <div v-if="needsToSave">
                     <button class="btn" data-target="mode-cancel" @click.prevent="onCancelMode" style="margin-right: 10px">Отмена</button>
@@ -87,7 +89,10 @@
                 set (value) {
                     this.$store.commit('modesState/SET_CURRENT_MODE', value)
                 }
-            }
+            },
+            hasPerms () {
+                return this.$store.getters['userState/hasPerm'](`modify_${Object.keys(this.currentMode.plant)[0]}`)
+            },
         },
         methods: {
             onDeleteCell (tableName, name) {
@@ -158,6 +163,10 @@
             this.currentMode = null
         },
         mounted () {
+            if (!this.$store.getters['userState/hasPerm']('validate_cells') || this.$store.getters['userState/isSuperuser']) {
+                this.$router.back()
+                return
+            }
             this.$store.dispatch('modesState/getModes')
                 .then(() => {
                     if (this.getURLParameter('modeId')) {

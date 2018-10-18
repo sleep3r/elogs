@@ -19,9 +19,12 @@
 
 .menu__panel {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 10px 20px;
+}
+
+.menu__panel--modes {
+    justify-content: space-between;
 }
 
 .menu__title {
