@@ -27,9 +27,12 @@ input[hidden] {
 }
 
 .table__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     line-height: 40px;
     margin-bottom: 10px;
-    padding-left: 10px;
+    padding: 2px 4px;
     background-color: $color-bg1;
     font: {
         family: $roboto-font;

@@ -68,7 +68,13 @@ const journalState = {
         },
         tableVerboseName: (state) => (tableName) => {
             if (state.loaded) {
-                return tableName;
+                let table = state.journalInfo.journal.tables[tableName]
+                if (table) {
+                    return table.title
+                }
+                else {
+                    return ''
+                }
             } else {
                 return '';
             }

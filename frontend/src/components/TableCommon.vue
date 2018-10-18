@@ -24,6 +24,7 @@
         ],
         data: function () {
             return {
+                title: '',
                 fact: false,
                 template: null,
                 rowsCount: 1,
@@ -48,12 +49,26 @@
                 return createElement({template: '<div class="spinner-container"><i class="spinner"></i></div>'});
             } else {
                 return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
-                        this.template + "<table-comment table-name=\"" + this.name + "\"></table-comment></div>",
+                                                    '<div class="table__title">' + 
+                                                        '<span>' + this.title + '</span>' + 
+                                                        '<button class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' + 
+                                                    '</div>' + 
+                                                    this.template +
+                                                    "<table-comment table-name=\"" + this.name + "\"></table-comment>" + 
+                                                "</div>",
                     name: 'table-' + this.name,
                     data: () => { return {
                         data: this.$data,
                         props: this.$props
                     }},
+                    methods: {
+                        openConstructor () {
+                            window.open(`http://${window.location.hostname === 'localhost' ?
+                                '127.0.0.1'
+                                : window.location.hostname}:8085/journal/${this.$route.params.journal}/table/create?table=${this.props.name}&imported=true`,
+                            '_blank')
+                        }
+                    },
                     watch: {
                         rowsCount (value) {
                             setTimeout(() => {
@@ -90,6 +105,7 @@
                 journal: self.$store.getters['journalState/journalName'],
                 table: self.name
             }
+            self.title = self.$store.getters['journalState/tableVerboseName'](currentTable.table)
             self.template = self.$store.getters['journalState/tableHTML'](currentTable)
 
             let templateUrl = window.HOSTNAME+'/templates/tables/' + this.$store.getters['journalState/plantName'] + '/' + this.$store.getters['journalState/journalName'] + '/' + this.name + '/';
