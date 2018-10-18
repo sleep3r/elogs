@@ -5,7 +5,8 @@ const ajax = axios.create({
 });
 
 ajax.interceptors.response.use(undefined, (error) => {
-    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+    if (error.response && (error.response.status === 401 || error.response.status === 403) && mv.$route.name !== 'loginPage') {
+        $('.modal-backdrop').css({'display': 'none'})
         router.push('/login')
     }
     return Promise.reject(error.response.data);

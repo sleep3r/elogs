@@ -65,6 +65,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     if (!VueCookies.get('Authorization') && to.name !== 'loginPage') {
+        $('.modal-backdrop').css({'display': 'none'})
         next('/login')
     }
     else {

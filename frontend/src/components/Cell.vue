@@ -56,7 +56,6 @@
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
     import { VueContext } from 'vue-context';
-    import 'clockpicker/dist/bootstrap-clockpicker.min'
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -170,21 +169,6 @@
                 this.$store.dispatch('journalState/sendJournalData');
             },
             setPickersListeners () {
-                if (this.type === 'time') {
-                    if (this.mode === 'edit') {
-                        $(this.$el).find('input').clockpicker({
-                            autoclose: true,
-                            'default': 'now',
-                            donetext: false,
-                            afterDone: () => {
-                                this.value = $(this.$el).find('input').val();
-                            }
-                        })
-                    }
-                    else {
-                        $(this.$el).find('input').clockpicker('remove')
-                    }
-                }
                 if (this.type === 'date') {
                     if (this.mode === 'edit') {
                         $(this.$el).find('input').datepicker({
