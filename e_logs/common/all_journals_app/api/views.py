@@ -335,6 +335,7 @@ class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)
+        print(name, plant)
         if name and plant:
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,
