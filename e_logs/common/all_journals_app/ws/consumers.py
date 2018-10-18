@@ -53,26 +53,22 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         text = event.get('text', None)
         if text is not None:
             data = json.loads(text)
-            # print(data)
+            print(data)
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 
             elif data['type'] == 'messages':
                 await self.messages_receive(data)
 
+            elif data['type'] == 'make_responsible':
+                await self.add_shift_resonsible(shift_id=int(data['group_id']))
+
     async def send_message(self, event):
         await self.send(event['text'])
 
     async def shift_receive(self, data):
+
         for cell_data in data['cells']:
-            print(cell_data)
-            cell = await self.get_or_create_cell(cell_data['cell_location'])
-            value = cell_data['value']
-            await self.update_cell(cell, value)
-
-            if cell.journal.type == 'shift':
-                await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
-
             employee = self.scope['user'].employee
             cell_data['responsible'] = {str(employee.user):employee.name}
 
@@ -83,6 +79,14 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 "text": json.dumps(data)
             }
         )
+
+        for cell_data in data['cells']:
+            cell = await self.get_or_create_cell(cell_data['cell_location'])
+            value = cell_data['value']
+            await self.update_cell(cell, value)
+
+            if cell.journal.type == 'shift':
+                await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
 
 
     async def messages_receive(self, data):

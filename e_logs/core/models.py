@@ -28,6 +28,11 @@ class CustomUserManager(UserManager):
 
 class CustomUser(AbstractUser):
     objects = CustomUserManager()
+    REQUIRED_FIELDS = ['email', 'is_superuser', 'user_groups']
+
+    @property
+    def user_groups(self):
+        return [group.name for group in self.groups.all()]
 
 
 class SettingsMeta(ModelBase):

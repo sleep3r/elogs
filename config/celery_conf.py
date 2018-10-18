@@ -1,5 +1,7 @@
 import os
 
+import environ
+
 from config import settings_setup
 
 from celery import Celery
@@ -9,11 +11,13 @@ if os.environ.get('DOCKER') == 'yes':
 else:
     app = Celery('main', broker="redis://localhost:6379")
 
+env = environ.Env(DEBUG=(bool, False))
+
 app.conf.update(
     task_serializer='json',
     accept_content=['json'],  # Ignore other content
     result_serializer='json',
-    timezone='Europe/Moscow',  # TODO: take from settings
+    timezone=env("TIMEZONE"),  # TODO: take from settings
 )
 
 @app.task(bind=True)

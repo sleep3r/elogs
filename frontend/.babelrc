@@ -1,5 +1,5 @@
 {
-    "presets": ["@babel/preset-env", "@vue/app"],
+    "presets": ["@babel/preset-env"],
     "env": {
         "production": {
             "presets": ["minify"]

@@ -8,7 +8,7 @@
             <span v-if="hasFormula" class="formula-marker"><b><i>F</i></i></b></span>
         </template>
         <input
-                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '']"
+                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '', hasFormula ? 'formula-cell' : '']"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"

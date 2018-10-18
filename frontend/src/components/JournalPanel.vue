@@ -18,14 +18,14 @@
                      :title="Object.values(employee)[0]"
                      src="../assets/images/no-avatar.png">
 
-                <template v-if="userHasPerm('edit')">
+                <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
                     Редактирование
                 </button>
                 </template>
 
-                <template v-if="userHasPerm('validate')">
+                <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
                         @click="changeMode('validate')">
                     Валидация
@@ -38,14 +38,7 @@
             </button>
         </div>
         <div class="exp-time">
-          <span v-if="(!timeLimits)&&(userHasPerm('edit'))"> Смена открыта для редактирования </span>
-          <span v-else-if="(!timeLimits)&&(!userHasPerm('edit'))"> Вы не можете редактировать эту смену </span>
-          <span v-else-if="!shiftIsStarted">Смена ещё не началась. Редактирование невозможно</span>
-          <span v-else-if="shiftIsClosed"> Смена закрыта для редактирования. Обратитесь к администратору </span>
-          <span v-else-if="(!userIsResponsible)&&(now>editingModeClosingTime)"> Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было) </span>
-          <span v-else-if="(userIsResponsible)&&(now>shiftClosingTime)"> Смена закрыта для редактирования (прошло 12 часов с конца смены) </span>
-          <span v-else-if="!userHasPerm('edit')"> Вы не можете редактировать эту смену </span>
-          <span v-else-if="remainingTime&&userHasPerm('edit')"> Смена открыта для редактирования ещё  {{ msToTime(remainingTime) }} </span>
+          <span> {{ shiftMessage }} </span>
         </div>
         <modal v-show="showCalendar" @close="showCalendar = false">
             <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
@@ -64,6 +57,7 @@
         data() {
             return {
                 now: new Date(),
+                shiftMessage: '',
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
@@ -93,6 +87,11 @@
                 }
             }
         },
+        watch: {
+            now (value) {
+                this.updateShiftMode();
+            },
+        },
         computed: {
             remainingTime() {
                 // time before shift editing will be closed
@@ -104,14 +103,7 @@
                     deadline = this.editingModeClosingTime
                 }
                 let remainingTime = deadline - this.now
-                if (remainingTime < 0) {
-                  for (let perm of ['validate', 'view']) {
-                      if (this.userHasPerm(perm)) {
-                          this.$store.commit('journalState/SET_PAGE_MODE', perm)
-                          break
-                      }
-                  }
-                }
+
                 return ((remainingTime) && (remainingTime > 0)) ? remainingTime : 0
             },
             shiftIsClosed() {
@@ -138,7 +130,7 @@
             userIsResponsible() {
                 let responsibles = this.responsibles
                 for (let i in responsibles) {
-                    if (responsibles[i][this.userName] !== 'undefined') {
+                    if (typeof responsibles[i][this.userName] != 'undefined') {
                         return true
                     }
                 }
@@ -172,13 +164,52 @@
                 }
               return false
             },
+            removePerm(perm) {
+                if (this.userHasPerm(perm)) {
+                    this.$store.commit('journalState/REMOVE_PERMISSION', perm)
+                }
+            },
             changeMode(mode) {
                 if (mode === 'edit') {
-                    $('.resp-modal').addClass('resp-modal__open')
-                    EventBus.$emit('open-resp-modal')
+                    if (!this.userIsResponsible) {
+                        $('.resp-modal').addClass('resp-modal__open')
+                        EventBus.$emit('open-resp-modal')
+                    }
+                    else {
+                        this.$store.commit('journalState/SET_PAGE_MODE', 'edit');
+                    }
                 }
-
-                this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                else {
+                    this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                }
+            },
+            updateShiftMode() {
+                if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {
+                    this.shiftMessage = 'Смена открыта для редактирования'
+                }
+                else if ((!this.userHasPerm('edit'))) {
+                    this.shiftMessage = 'Вы не можете редактировать эту смену'
+                    this.removePerm('edit')
+                }
+                else if (!this.shiftIsStarted) {
+                    this.shiftMessage = 'Смена ещё не началась. Редактирование невозможно'
+                    this.removePerm('edit')
+                }
+                else if (this.shiftIsClosed) {
+                    this.shiftMessage = 'Смена закрыта для редактирования. Обратитесь к администратору'
+                    this.removePerm('edit')
+                }
+                else if ((!this.userIsResponsible) && (this.now > this.editingModeClosingTime)) {
+                    this.shiftMessage = 'Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было)'
+                    this.removePerm('edit')
+                }
+                else if ((this.userIsResponsible) && (this.now > this.shiftClosingTime)) {
+                    this.shiftMessage = 'Смена закрыта для редактирования (прошло 12 часов с конца смены)'
+                    this.removePerm('edit')
+                }
+                else if (this.remainingTime && this.userHasPerm('edit')) {
+                    this.shiftMessage = 'Смена открыта для редактирования ещё ' + this.msToTime(this.remainingTime)
+                }
             },
             download_xlsx() {
                 let elt = $('.elog-journal-table').clone();
@@ -212,6 +243,8 @@
                 plant: this.$route.params.plant,
                 journal: this.$route.params.journal
             })
+
+            this.updateShiftMode()
 
             $( window ).resize(function() {
                 // console.log('resize')

@@ -18,7 +18,7 @@ import VueCookies from "vue-cookies";
 
 Vue.config.productionTip = false;
 
-// 
+//
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 window.HOSTNAME = "http://" + window.location.hostname + ":8000";
 Vue.use(VueNativeSock, dataEndpoint, {
@@ -65,6 +65,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                 let commitData = {'cells': []}
                 for (let i in data['cells']) {
                     let cellData = data['cells'][i]
+                    this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible'])
                     // if received cell value is inputed by this user,
                     // store has it already
                     if (!(this.store.getters['userState/username'] in cellData['responsible'])) {

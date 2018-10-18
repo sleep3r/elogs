@@ -116,6 +116,8 @@ logs/printed_values
 
 frontend/public/*
 /frontend/public/
+/frontend/dist/
+frontend/dist/*
 
 # e-logs-constructor
 e-logs-constructor

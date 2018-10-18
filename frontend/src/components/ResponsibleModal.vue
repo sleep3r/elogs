@@ -36,9 +36,20 @@
                 this.timer = clearInterval(this.timer)
             },
             onOkClick () {
-                this.onCancelClick()
+                this.$socket.sendObj({
+                    'type': 'make_responsible',
+                    'group_id': this.$store.getters['journalState/journalInfo'].id
+                });
+                this.$store.commit('journalState/SET_PAGE_MODE', 'edit')
+                let payload = {}
+                payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
+                this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
+                this.closeModal()
             },
             onCancelClick () {
+                this.closeModal()
+            },
+            closeModal () {
                 $('.resp-modal').removeClass('resp-modal__open')
                 this.stopTicking()
                 this.expTime = 60

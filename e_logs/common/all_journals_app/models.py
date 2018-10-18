@@ -11,7 +11,7 @@ from django.utils.timezone import make_aware
 from django_extensions.db.models import TimeStampedModel
 
 from e_logs.core.utils.webutils import none_if_error, logged, default_if_error, \
-    max_cache
+    max_cache, current_date
 
 
 class Plant(models.Model):
@@ -164,8 +164,8 @@ class Shift(CellGroup):
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // number_of_shifts)) % 24
-        shift_time = time(hour=shift_hour)
-        return make_aware(datetime.combine(self.date, shift_time))
+        shift_time = time(hour=shift_hour, tzinfo=timezone.get_current_timezone())
+        return datetime.combine(self.date, shift_time)
 
     @property
     def end_time(self) -> timezone.datetime:
@@ -207,7 +207,7 @@ class Shift(CellGroup):
             for shift_order in range(1, number_of_shifts + 1):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
-                                                    date=timezone.now().date())[0]
+                                                    date=current_date())[0]
                 if shift.is_active:
                     break
 
@@ -246,7 +246,6 @@ class Cell(TimeStampedModel):
     @staticmethod
     @none_if_error
     def get_by_addr(field_name, table_name, group_id, index):
-        # fixme: not sure if we need this manager
         manager = Cell.objects.select_related('field', 'field__table').cache()
         res = manager.get(field__name=field_name, field__table__name=table_name,
                           group_id=group_id, index=index)

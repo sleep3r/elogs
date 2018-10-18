@@ -159,7 +159,7 @@ WEBPACK_LOADER = {
 
 CSRF_LENGTH = 32
 LANGUAGE_CODE = 'ru-RU'
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = env("TIMEZONE")
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
@@ -361,7 +361,8 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': False,
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://test.localhost/']
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://test.localhost/'],
+    'SERIALIZERS': {},
 }
 
 JWT_AUTH = {
@@ -498,3 +499,10 @@ sentry_sdk.init(
     with_locals=True,
     server_name=env('SENTRY_SERVERNAME'),
 )
+
+# ------------------------- Journals compressor ------------------------------------------------
+
+JOURNALS_DIR = Path('resources/journals').resolve()
+TEMP_DIR = Path('resources/temp').resolve()
+JOURNAL_TEMPLATES_DIR = Path('templates/tables').resolve()
+JOURNAL_EXTENSION = 'jrn'

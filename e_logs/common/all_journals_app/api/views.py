@@ -330,7 +330,7 @@ class SettingAPI(View):
         return JsonResponse({"status": 1})
 
 
-class AutocompleteAPI(LoginRequired, View):
+class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)

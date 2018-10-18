@@ -54,10 +54,13 @@ export default {
               }
           }
           return false
-      },
-      openConstructor() {
-            window.open('http://127.0.0.1:8085', '_blank')
-      }
+        },
+        openConstructor() {
+            window.open(`http://${window.location.hostname === 'localhost' ?
+                '127.0.0.1'
+                : window.location.hostname}:8085/journal/${this.$route.params.journal}?imported=true`,
+            '_blank')
+        }
     },
     mounted() {
         // console.log('mounted')

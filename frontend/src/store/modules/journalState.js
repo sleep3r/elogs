@@ -227,7 +227,7 @@ const journalState = {
         },
         tableHTML: (state) => (payload) => {
             if (state.loaded) {
-                let tableItem = state.tablesHTML.filter(item => 
+                let tableItem = state.tablesHTML.filter(item =>
                     item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
                 if (tableItem) {
                     return tableItem.html
@@ -254,6 +254,18 @@ const journalState = {
         },
         SET_LOADED (state, loaded) {
             state.loaded = loaded;
+        },
+        ADD_RESPONSIBLE (state, payload) {
+            let currentResp = state.journalInfo.responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0]
+            if (!currentResp) {
+              state.journalInfo.responsibles.push(payload)
+            }
+        },
+        REMOVE_PERMISSION (state, payload) {
+            var permissions = state.journalInfo.permissions.permissions
+            var index = permissions.indexOf(payload);
+            console.log('index of permission: ' + index)
+            if (index !== -1) permissions.splice(index, 1);
         },
         SAVE_CELLS (state, payload) {
             if (state.loaded) {
@@ -385,12 +397,12 @@ const journalState = {
             state.tablesHTML.push({
                 plant: payload.plant,
                 journal: payload.journal,
-                table: payload.table, 
+                table: payload.table,
                 html: payload.html
             })
         },
         UPDATE_TABLE_HTML (state, payload) {
-            let table = state.tablesHTML.filter(item => 
+            let table = state.tablesHTML.filter(item =>
                 item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
             table.html = payload.html
         },
