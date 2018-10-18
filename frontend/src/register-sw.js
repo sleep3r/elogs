@@ -49,15 +49,17 @@ function subscribeUser(serviceWorkerRegistration) {
 let registration;
 
 if ('serviceWorker' in navigator) {
-    registration = runtime.register()
-    // navigator.serviceWorker.register('/e-logs-sw.js')
+    setTimeout(() => {
+        registration = runtime.register()
+        // navigator.serviceWorker.register('/e-logs-sw.js')
          .then(function(registration) {
              // Регистрация успешна
              console.log('ServiceWorker registration successful with scope: ', registration.scope);
-             subscribeUser(registration)
+             setTimeout(() => subscribeUser(registration), 5000)
          })
          .catch(function(err) {
              // Регистрация не успешна
              console.log('ServiceWorker registration failed: ', err);
          });
+    }, 5000)
 }
