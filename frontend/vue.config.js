@@ -1,5 +1,5 @@
-// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
-// const path = require('path');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
@@ -15,19 +15,20 @@ module.exports = {
                 },
             ]
         },
+        
         // optimization: {
         //     minimizer: [new UglifyJsPlugin(
         //     )]
         // },
         // plugins: [
         // ]
-        // plugins: [
-        //     new ServiceWorkerWebpackPlugin({
-        //         entry: path.join(__dirname, 'src/sw2.js'),
-        //         excludes: [],
-        //         includes: ['**/.*', '**/*.map']
-        //     }),
-        // ]
+        plugins: [
+            new ServiceWorkerWebpackPlugin({
+                entry: path.join(__dirname, 'src/e-logs-sw.js'),
+                excludes: [],
+                includes: ['**/.*', '**/*.map']
+            }),
+        ]
         // plugins : process.env.NODE_ENV === 'production' ?
         //     (module.exports.plugins || []).concat([
         //     new webpack.DefinePlugin({
