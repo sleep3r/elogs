@@ -138,6 +138,7 @@ export default {
         comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/username']}}
       });
       this.send();
+      this.commentText = ''
     },
     send() {
       this.$socket.sendObj({
