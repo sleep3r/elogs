@@ -8,7 +8,11 @@
             <span v-if="hasFormula" class="formula-marker"><b><i>F</i></i></b></span>
         </template>
         <input
-                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '', hasFormula ? 'formula-cell' : '']"
+                :class="['general-value', 'number-cell', 'form-control',
+                        mode === 'edit' ? 'form-control__edit' : '',
+                        hasFormula ? 'formula-cell' : '',
+                        mode === 'view' ? 'no-shadow' : '',
+                        ]"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
@@ -356,7 +360,7 @@
                 let journalComponent = this.$parent.$parent.$parent
                 for (let commonTableComponentIndex in journalComponent.$children) {
                     let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
-                    if (journalComponentChildren.$options.name == "TableCommon") {
+                    if (journalComponentChildren.$options.name === "TableCommon") {
                         let tableComponent = journalComponentChildren.$children[0]
                         for (let cellComponentIndex in tableComponent.$children) {
                             let cellComponent = tableComponent.$children[cellComponentIndex]
@@ -501,6 +505,10 @@
             opacity: 1;
             transition: opacity .50s;
         }
+    }
+
+    .no-shadow.no-shadow {
+        box-shadow: none;
     }
 
     .v-popover > span.trigger {
