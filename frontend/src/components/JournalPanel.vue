@@ -89,40 +89,7 @@
         },
         watch: {
             now (value) {
-                let perm = 'view'
-                if ((!this.timeLimits) && this.userHasPerm('edit')) {
-                    this.shiftMessage = 'Смена открыта для редактирования'
-                    perm = 'edit'
-                }
-                else if ((!this.timeLimits) && (!this.userHasPerm('edit'))) {
-                    this.shiftMessage = 'Вы не можете редактировать эту смену'
-                }
-                else if (!this.shiftIsStarted) {
-                    this.shiftMessage = 'Смена ещё не началась. Редактирование невозможно'
-                }
-                else if (this.shiftIsClosed) {
-                    this.shiftMessage = 'Смена закрыта для редактирования. Обратитесь к администратору'
-                }
-                else if ((!this.userIsResponsible) && (this.now>this.editingModeClosingTime)) {
-                    this.shiftMessage = 'Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было)'
-                }
-                else if ((this.userIsResponsible) && (this.now > this.shiftClosingTime)) {
-                    this.shiftMessage = 'Смена закрыта для редактирования (прошло 12 часов с конца смены)'
-                }
-                else if (!this.userHasPerm('edit')) {
-                    this.shiftMessage = 'Вы не можете редактировать эту смену'
-                }
-                else if (this.remainingTime && this.userHasPerm('edit')) {
-                    this.shiftMessage = 'Смена открыта для редактирования ещё ' + this.msToTime(this.remainingTime)
-                    perm = 'edit'
-                }
-
-                if ((perm == 'view') && (this.mode !== 'view')) {
-                    this.$store.commit('journalState/SET_PAGE_MODE', 'view')
-                }
-                else if ((perm == 'edit') && (this.mode == 'view')) {
-                    this.$store.commit('journalState/SET_PAGE_MODE', 'edit')
-                }
+                this.updateShiftMode();
             },
         },
         computed: {
@@ -197,13 +164,52 @@
                 }
               return false
             },
+            removePerm(perm) {
+                if (this.userHasPerm(perm)) {
+                    this.$store.commit('journalState/REMOVE_PERMISSION', perm)
+                }
+            },
             changeMode(mode) {
                 if (mode === 'edit') {
-                    $('.resp-modal').addClass('resp-modal__open')
-                    EventBus.$emit('open-resp-modal')
+                    if (!this.userIsResponsible) {
+                        $('.resp-modal').addClass('resp-modal__open')
+                        EventBus.$emit('open-resp-modal')
+                    }
+                    else {
+                        this.$store.commit('journalState/SET_PAGE_MODE', 'edit');  
+                    }
                 }
-
-                this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                else {
+                    this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                }
+            },
+            updateShiftMode() {
+                if ((!this.timeLimits) && this.userHasPerm('edit')) {
+                    this.shiftMessage = 'Смена открыта для редактирования'
+                }
+                else if ((!this.userHasPerm('edit'))) {
+                    this.shiftMessage = 'Вы не можете редактировать эту смену'
+                    this.removePerm('edit')
+                }
+                else if (!this.shiftIsStarted) {
+                    this.shiftMessage = 'Смена ещё не началась. Редактирование невозможно'
+                    this.removePerm('edit')
+                }
+                else if (this.shiftIsClosed) {
+                    this.shiftMessage = 'Смена закрыта для редактирования. Обратитесь к администратору'
+                    this.removePerm('edit')
+                }
+                else if ((!this.userIsResponsible) && (this.now > this.editingModeClosingTime)) {
+                    this.shiftMessage = 'Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было)'
+                    this.removePerm('edit')
+                }
+                else if ((this.userIsResponsible) && (this.now > this.shiftClosingTime)) {
+                    this.shiftMessage = 'Смена закрыта для редактирования (прошло 12 часов с конца смены)'
+                    this.removePerm('edit')
+                }
+                else if (this.remainingTime && this.userHasPerm('edit')) {
+                    this.shiftMessage = 'Смена открыта для редактирования ещё ' + this.msToTime(this.remainingTime)
+                }
             },
             download_xlsx() {
                 let elt = $('.elog-journal-table').clone();
@@ -237,6 +243,8 @@
                 plant: this.$route.params.plant,
                 journal: this.$route.params.journal
             })
+
+            this.updateShiftMode()
 
             $( window ).resize(function() {
                 // console.log('resize')

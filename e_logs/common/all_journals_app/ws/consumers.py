@@ -60,6 +60,9 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             elif data['type'] == 'messages':
                 await self.messages_receive(data)
 
+            elif data['type'] == 'make_responsible':
+                await self.add_shift_resonsible(shift_id=int(data['group_id']))
+
     async def send_message(self, event):
         await self.send(event['text'])
 

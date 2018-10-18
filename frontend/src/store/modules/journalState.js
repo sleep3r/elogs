@@ -261,6 +261,12 @@ const journalState = {
               state.journalInfo.responsibles.push(payload)
             }
         },
+        REMOVE_PERMISSION (state, payload) {
+            var permissions = state.journalInfo.permissions.permissions
+            var index = permissions.indexOf(payload);
+            console.log('index of permission: ' + index)
+            if (index !== -1) permissions.splice(index, 1);
+        },
         SAVE_CELLS (state, payload) {
             if (state.loaded) {
                 let data = payload['cells']
