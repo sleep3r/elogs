@@ -118,28 +118,28 @@
 
             },
             setListeners () {
-                let menu = $(".column-left");
-                let menuLogo = $('.menu__logo');
-                let lastScrollTop = 0;
-                let menuHeaderHeight = $('.menu__panel').outerHeight() + menuLogo.outerHeight()
-                let headerHeight = $('.header').outerHeight()
+                // let menu = $(".column-left");
+                // let menuLogo = $('.menu__logo');
+                // let lastScrollTop = 0;
+                // let menuHeaderHeight = $('.menu__panel').outerHeight() + menuLogo.outerHeight()
+                // let headerHeight = $('.header').outerHeight()
 
-                $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+                // $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
 
-                $(window).scroll(function (event) {
-                    let st = $(this).scrollTop();
-                    if (st < 100) {
-                        menu.css({top: '50px'})
-                    }
-                    if ((lastScrollTop - st > 2) && (st > 100)) {
-                        menu.css({top: '50px'})
-                        $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
-                    } else if ((st - lastScrollTop > 10) && (st > 100)) {
-                        menu.css({top: '0px'})
-                        $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
-                    }
-                    lastScrollTop = st;
-                });
+                // $(window).scroll(function (event) {
+                //     let st = $(this).scrollTop();
+                //     if (st < 100) {
+                //         menu.css({top: '50px'})
+                //     }
+                //     if ((lastScrollTop - st > 2) && (st > 100)) {
+                //         menu.css({top: '50px'})
+                //         $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+                //     } else if ((st - lastScrollTop > 10) && (st > 100)) {
+                //         menu.css({top: '0px'})
+                //         $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
+                //     }
+                //     lastScrollTop = st;
+                // });
             },
             setActiveItem() {
                 this.closeAllItems()

@@ -47,6 +47,7 @@
 }
 
 .menu {
+    height: calc(100vh - 94px);
     list-style: none;
     background-color: $color-normal;
     padding: 0;
