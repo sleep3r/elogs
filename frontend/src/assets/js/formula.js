@@ -30,9 +30,13 @@ window.parser.setFunction('FUNC', function(params) {
     var res = request("GET", "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
     let json = JSON.parse(res.getBody())
     let result = null
-    if (isNumeric(json.value)) {
+    if (json.value == null) {
+        result = undefined
+    }
+    else if (isNumeric(json.value)) {
         result = Number(json.value)
-    } else {
+    }
+    else {
         result = window.parser.parse(json.value)
     }
     return result

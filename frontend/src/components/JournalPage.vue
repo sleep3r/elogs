@@ -44,7 +44,7 @@ export default {
       }
     },
     methods: {
-      userHasPerm (perm) {
+      userHasPerm(perm) {
           if (perm == 'view') {
               return true
           }
@@ -54,12 +54,10 @@ export default {
               }
           }
           return false
-      }
-    },
-    methods: {
-        openConstructor () {
+      },
+      openConstructor() {
             window.open('http://127.0.0.1:8085', '_blank')
-        }
+      }
     },
     mounted() {
         // console.log('mounted')
