@@ -1,5 +1,4 @@
 3.120.145.186:8000 {
-    gzip
     tls self_signed
     root /srv
     proxy / 127.0.0.1:8002 {
@@ -22,6 +21,7 @@
 }
 
 3.120.145.186:443 {
+    push
     gzip
     tls self_signed
     root /srv/frontend/dist

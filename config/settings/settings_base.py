@@ -505,4 +505,4 @@ sentry_sdk.init(
 JOURNALS_DIR = Path('resources/journals').resolve()
 TEMP_DIR = Path('resources/temp').resolve()
 JOURNAL_TEMPLATES_DIR = Path('templates/tables').resolve()
-JOURNAL_EXTENSION = '.jrn'
+JOURNAL_EXTENSION = 'jrn'

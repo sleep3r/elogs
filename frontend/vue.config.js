@@ -1,7 +1,7 @@
 // const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 // const path = require('path');
-// const webpack = require('webpack');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
 
@@ -11,10 +11,16 @@ module.exports = {
             rules: [
                 {
                     test: /\.(pdf)$/,
-                    loader: 'file-loader',
-                }
+                    loader: 'file-loader'
+                },
             ]
         },
+        // optimization: {
+        //     minimizer: [new UglifyJsPlugin(
+        //     )]
+        // },
+        // plugins: [
+        // ]
         // plugins: [
         //     new ServiceWorkerWebpackPlugin({
         //         entry: path.join(__dirname, 'src/sw2.js'),
@@ -29,10 +35,6 @@ module.exports = {
         //             'NODE_ENV': JSON.stringify('production')
         //         }
         //     }),
-        //     // new UglifyJsPlugin({
-        //     //     include: /\.js$/, cache: true, parallel: true,
-        //     //     extractComments: true, sourceMap: true
-        //     // }),
         //     new CompressionPlugin({
         //         algorithm: "gzip",
         //         test: /\.js$|\.css$|\.html$/,
@@ -41,5 +43,13 @@ module.exports = {
         //     })
         // ])
         //     : (module.exports.plugins || [])
-    }
-}
+    },
+
+    baseUrl: undefined,
+    outputDir: undefined,
+    assetsDir: undefined,
+    runtimeCompiler: true,
+    productionSourceMap: undefined,
+    parallel: undefined,
+    css: undefined
+};
