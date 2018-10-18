@@ -78,6 +78,7 @@
     "ajv": "^6.5.4",
     "autoprefixer": "^9.2.1",
     "axios": "^0.18.0",
+    "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",

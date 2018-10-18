@@ -43,16 +43,16 @@ class Message(StrAsDictMixin, models.Model):
             recipients = []
             for uid in uids:
                 recipients.extend(Employee.objects.get(id=uid).
-                                  exclude(name=message['sendee']).cache())
+                                  exclude(name=message['sendee']))
         if positions:
             recipients = []
             for p in positions:
                 recipients.extend(Employee.objects.
                            filter(plant=plant if plant else None, position=p).
-                           exclude(name=message['sendee']).cache())
+                           exclude(name=message['sendee']))
         if all_users:
             recipients = []
-            recipients.extend(Employee.objects.all().exclude(name=message['sendee']).cache())
+            recipients.extend(Employee.objects.all().exclude(name=message['sendee']))
 
         return recipients
 

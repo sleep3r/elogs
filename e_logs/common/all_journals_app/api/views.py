@@ -1,6 +1,7 @@
 import json
 import pickle
 from datetime import timedelta
+from shutil import copyfile
 from urllib.parse import parse_qs
 
 from django.contrib.contenttypes.models import ContentType
@@ -334,6 +335,7 @@ class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)
+        print(name, plant)
         if name and plant:
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,
@@ -341,3 +343,18 @@ class AutocompleteAPI(View):
                                 safe=False)
         else:
             return JsonResponse([], safe=False)
+
+
+class OpenInConstructor(View):
+    def get(self, request):
+        journal = request.GET.get('journal', None)
+        plant = request.GET.get('plant', None)
+        if journal and plant:
+            try:
+                copyfile(f'resources/journals/{plant}/{journal}.jrn',
+                         f'e-logs-constructor/backend/media/journals/{journal}.jrn')
+
+                return JsonResponse({"status":1})
+            except:
+                return JsonResponse({"status": 0})
+

@@ -212,7 +212,7 @@ export default {
 }
 
 $popup-width: 450px;
-$color-bg: #548CB7;
+$color-bg: #008BB9;
 
 .v-popover {
   span {
@@ -261,7 +261,7 @@ $color-bg: #548CB7;
       width: 40px;
       height: 40px;
       border-radius: 20px;
-      background-color: #548CB7;
+      background-color: #008BB9;
       text-align: center;
       position: absolute;
       top: 60px;

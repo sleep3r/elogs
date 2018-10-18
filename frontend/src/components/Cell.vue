@@ -205,8 +205,8 @@
                     $(this.$el).find('datalist').attr('id', currentId)
                 }
             },
-            getPersons(name) {
-                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
+            getPersons(name, plant) {
+                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}&plant=${plant}`, {
                     withCredentials: true
                 })
                     .catch(err => {
@@ -234,7 +234,8 @@
                 this.value = e.target.value;
 
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
-                    this.getPersons(e.target.value)
+                    let plant = this.$store.getters['journalState/plantName'];
+                    this.getPersons(e.target.value, plant)
                         .then((resp) => {
                             this.personsList = resp.data
                         })
@@ -479,7 +480,7 @@
             .popover-inner {
                 background: $color;
                 color: black;
-                padding: 0px;
+                padding: 0;
                 border-radius: 5px;
                 box-shadow: 0 5px 30px rgba(black, .1);
             }
