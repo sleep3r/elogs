@@ -24,7 +24,7 @@ export default {
 </script>
 <style scoped lang="scss">
   .settings-page {
-    border: 1px solid #548CB7;
+    border: 1px solid #008BB9;
     vertical-align: middle;
     min-height: 400px;
     padding: 20px;
