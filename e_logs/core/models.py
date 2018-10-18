@@ -5,7 +5,7 @@ from typing import Optional
 
 from cacheops import cached_as
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Permission
 from django.contrib.auth.models import UserManager
 from django.db.models import Q
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -28,11 +28,19 @@ class CustomUserManager(UserManager):
 
 class CustomUser(AbstractUser):
     objects = CustomUserManager()
-    REQUIRED_FIELDS = ['email', 'is_superuser', 'user_groups']
+    REQUIRED_FIELDS = ['email', 'is_superuser', 'user_groups', 'is_boss']
 
     @property
     def user_groups(self):
         return [group.name for group in self.groups.all()]
+
+    @property
+    def is_boss(self):
+        if 'validate_cells' in [perm.codename for perm in Permission.objects.filter(user=self)]:
+            return [perm.codename for perm in Permission.objects.filter(user=self)]
+        else:
+            return None
+            
 
 
 class SettingsMeta(ModelBase):
