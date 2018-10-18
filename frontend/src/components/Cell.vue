@@ -4,6 +4,9 @@
             :disabled="mode !== 'validate'"
             style="height: 100%"
     >
+        <template>
+            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></i></b></span>
+        </template>
         <input
                 :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '']"
                 :name="fieldName"
@@ -271,8 +274,8 @@
                         },
                         "crud":"update",
                     });
-                this._updateCells()
                 }
+                this._updateCells()
             },
             filterInput(e) {
                 if (this.type === 'number') {
@@ -352,11 +355,13 @@
             _updateCells() {
                 let journalComponent = this.$parent.$parent.$parent
                 for (let commonTableComponentIndex in journalComponent.$children) {
-                    let commonTableComponent = journalComponent.$children[commonTableComponentIndex]
-                    let tableComponent = commonTableComponent.$children[0]
-                    for (let cellComponentIndex in tableComponent.$children) {
-                        let cellComponent = tableComponent.$children[cellComponentIndex]
-                        cellComponent.$forceUpdate()
+                    let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
+                    if (journalComponentChildren.$options.name == "TableCommon") {
+                        let tableComponent = journalComponentChildren.$children[0]
+                        for (let cellComponentIndex in tableComponent.$children) {
+                            let cellComponent = tableComponent.$children[cellComponentIndex]
+                            cellComponent.$forceUpdate()
+                        }
                     }
                 }
             }

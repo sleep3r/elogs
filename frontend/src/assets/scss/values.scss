@@ -121,6 +121,14 @@ input[type="number"].general-value {
     background: radial-gradient(white 80%, $accent-green)
 }
 
+.formula-marker {
+    position: absolute;
+    top: calc(50% - 12px);
+    color: grey;
+    padding-left: 10px;
+    font-weight: 500;
+}
+
 
 
 
