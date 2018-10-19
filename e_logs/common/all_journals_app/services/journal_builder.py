@@ -6,26 +6,25 @@ from shutil import move, rmtree
 import environ
 from django.conf import settings
 
-from e_logs.common.all_journals_app.models import Journal, Table, Field
+from e_logs.common.all_journals_app.models import Journal, Table, Field, Plant
 from e_logs.core.models import Setting
+from e_logs.core.utils.errors import SemanticError
 from e_logs.core.utils.webutils import get_or_none
-from errors import SemanticError
 
 
 class JournalBuilder:
-    def __init__(self, file, plant):
+    def __init__(self, file, plant_name):
         env = environ.Env(DEBUG=(bool, False))
         required_version = env('CONSTRUCTOR_VERSION')
-        print(file)
         self.file = zipfile.ZipFile(file)
 
         try:
-            meta = json.loads(self.file.read(f'{file.name.split(".")[0]}/meta.json'))
+            meta = json.loads(self.file.read(f'meta.json'))
         except:
             raise SemanticError(message='Ошибка структуры файла')
 
-        if meta['version'] == float(required_version):
-            self.plant = plant
+        if float(meta['version']) == float(required_version):
+            self.plant = Plant.objects.get_or_create(name=plant_name)[0]
             self.type = meta['type']
             self.name = meta['name']
             self.title = meta['title']
@@ -35,30 +34,31 @@ class JournalBuilder:
                 message=f"Некорректная версия, требуется не ниже v{required_version}")
 
     def create(self):
-        journal_rel_dir = self.plant
+        journal_rel_dir = self.plant.name
 
-        tables_path = settings.JOURNAL_TEMPLATES_DIR / journal_rel_dir
+        tables_path = settings.JOURNAL_TEMPLATES_DIR / journal_rel_dir / self.name
 
         new_journal = self.__create_journal(tables_path)
 
         for table in self.tables:
-            new_table = self.__create_table(journal=new_journal, table=table)
+            new_table = self.__create_table(journal=new_journal, table_meta=table)
 
             for field in table['fields']:
-                new_field = self.__create_field(table=new_table, field=field)
-                self.__set_field_settings(field=new_field, meta=field)
+                new_field = self.__create_field(table=new_table, field_meta=field)
 
         self.__extract_tables(tables_path)
 
-        self.__set_tables_order(journal=new_journal)
 
-    def __create_journal(self, tables_path, rewrite=False):
+    def __create_journal(self, tables_path, rewrite=True):
+        # plant = Plant.objects.get_or_create(name=self.plant)[0]
         journal = get_or_none(Journal, name=self.name, plant=self.plant, type=self.type)
 
-        if journal and rewrite:
-            journal.delete()
-        if os.path.exists(tables_path) and rewrite:
-            rmtree(tables_path)
+        if rewrite==True:
+            if journal:
+                journal.delete()
+                journal = None
+            if os.path.exists(tables_path):
+                rmtree(tables_path)
 
         if journal or os.path.exists(tables_path):
             raise SemanticError(message='Журнал с таким именем уже существует!')
@@ -68,42 +68,36 @@ class JournalBuilder:
 
             return new_journal
 
-    def __create_table(self, journal, table):
-        table = get_or_none(Table, name=table['name'], journal=journal)
+    def __create_table(self, journal, table_meta):
+        table = get_or_none(Table, name=table_meta['name'], journal=journal)
 
         if table:
             journal.delete()
-            raise SemanticError(message=f'Две таблицы с одинаковым именем {table["name"]}!')
+            raise SemanticError(message=f'Две таблицы с одинаковым именем {table.name}!')
         else:
-            new_table = Table.objects.create(name=table['name'],
+            new_table = Table.objects.create(name=table_meta['name'],
                                              journal=journal,
-                                             verbose_name=table.get('title', None))
+                                             verbose_name=table_meta.get('title', ''))
             return new_table
 
-    def __create_field(self, table, field: dict):
-        field = get_or_none(Field, name=field['name'], table=table)
+    def __create_field(self, table, field_meta: dict):
+        field = get_or_none(Field, name=field_meta['name'], table=table)
 
         if field:
+            print(field)
             table.journal.delete()
-            raise SemanticError(message=f'Две столбца с одинаковым именем {field["name"]}!')
+            raise SemanticError(message=f'Две столбца с одинаковым именем {field.name}!')
         else:
-            new_field = Field.objects.create(name=field.pop('name'),
+            new_field = Field.objects.create(name=field_meta.pop('name'),
                                              table=table,
-                                             verbose_name=field.get('title', None),
-                                             formula=field.pop('formula', ''))
+                                             type=field_meta.get('type', None),
+                                             units=field_meta.get('units', None),
+                                             verbose_name=field_meta.get('title', ''),
+                                             formula=field_meta.pop('formula', ''))
             return new_field
-
-    def __set_field_settings(self, field, meta):
-        Setting.of(field)["field_description"] = meta
 
     def __extract_tables(self, tables_path):
         for table in self.file.infolist():
             if table.filename.endswith('.html'):
                 table.filename = os.path.basename(table.filename)
                 self.file.extract(table, tables_path)
-
-    def __set_tables_order(self, journal):
-        tables_list = []
-        for table in sorted(self.tables, key=lambda t: t['order']):
-            tables_list.append(f"tables/{self.plant.name}/{self.name}/{table.name}.html")
-        Setting.of(journal)['tables_list'] = tables_list

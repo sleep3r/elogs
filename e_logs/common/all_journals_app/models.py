@@ -94,20 +94,22 @@ class Field(models.Model):
     name = models.CharField(max_length=128, verbose_name='Столбец')
     formula = models.CharField(max_length=4000, verbose_name='Формула', null=True, default="")
     verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
+    type = models.CharField(max_length=128, default="")
+    units = models.CharField(max_length=128, default="")
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='setting_field',
                                related_name='setting_fields')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
                                related_name='comment_fields')
 
-    @cached_property
-    def type(self):
-        return self.settings.get(name='field_description').val()['type']
-
-    @cached_property
-    @default_if_error('')
-    def units(self):
-        return self.settings.get(name='field_description').val()['units']
+    # @cached_property
+    # def type(self):
+    #     return self.settings.get(name='field_description').val()['type']
+    #
+    # @cached_property
+    # @default_if_error('')
+    # def units(self):
+    #     return self.settings.get(name='field_description').val()['units']
 
     @cached_property
     @default_if_error([])
