@@ -163,7 +163,7 @@
             this.currentMode = null
         },
         mounted () {
-            if (!this.$store.getters['userState/hasPerm']('validate_cells') || this.$store.getters['userState/isSuperuser']) {
+            if (!this.$store.getters['userState/hasPerm']('validate_cells') && !this.$store.getters['userState/isSuperuser']) {
                 this.$router.back()
                 return
             }

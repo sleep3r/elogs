@@ -103,7 +103,6 @@
                 this.$store.dispatch('settingsState/loadSettings')
                     .then(() => {
                         console.log('load settings');
-                        // this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
                     });
             }
         },
