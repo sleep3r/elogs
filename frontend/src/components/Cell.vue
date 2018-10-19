@@ -209,8 +209,8 @@
                     $(this.$el).find('datalist').attr('id', currentId)
                 }
             },
-            getPersons(name, plant) {
-                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}&plant=${plant}`, {
+            getPersons(name) {
+                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}`, {
                     withCredentials: true
                 })
                     .catch(err => {
@@ -304,7 +304,9 @@
                         if (td === focusedTd) {
                             break;
                         }
-                        index += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        if (td.tagName === 'TD') {
+                            index += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        }
                     }
                     return index;
                 }
@@ -313,10 +315,12 @@
                     let nextRowIndex = 0
                     for (let i = 0; i < tds.length; i++) {
                         let td = tds[i];
-                        if (nextRowIndex === index) {
+                        if ((nextRowIndex === index)&&(td.tagName === 'TD')) {
                             return td;
                         }
-                        nextRowIndex += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        if (td.tagName === 'TD') {
+                            nextRowIndex += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        }
                     }
                 }
 
