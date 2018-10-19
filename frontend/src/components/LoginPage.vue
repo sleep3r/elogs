@@ -71,11 +71,15 @@
             },
             login (username, password) {
                 this.$store.dispatch('userState/login', { username, password })
-                    .then(() => {
+                    .then((res) => {
+                        if (res.non_field_errors) {
+                            this.errorText = 'Данные некорректны!'
+                            return
+                        }
                         this.$router.push('/')
                     })
                     .catch(err => {
-                        if (err.response.status === 400) {
+                        if (err.non_field_errors) {
                             this.errorText = 'Данные некорректны!'
                         }
                     })

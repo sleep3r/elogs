@@ -19,30 +19,30 @@ const userState = {
     },
     actions: {
         login ({ commit, state, getters }, payload) {
-            return new Promise((res, rej) => {
-                ajax.post(window.HOSTNAME + '/api/auth/token/login/', {
-                    username: payload.username,
-                    password: payload.password
-                })
-                    .then((resp) => {
-                        ajax.get(window.HOSTNAME + '/api/auth/users/me', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
-                            .then((userData) => {
-                                commit('SET_USER', userData.data)
-                            })
-                            .then(() => {
-                                VueCookies.set('Authorization', resp.data.auth_token, Infinity)
-                            })
-                            .then(() => {
-                                res()
-                            })
-                            .catch(err => {
-                                rej(err)
-                            })
-                    })
-                    .catch(err => {
-                        rej(err)
-                    })
+            return ajax.post(window.HOSTNAME + '/api/auth/token/login/', {
+                username: payload.username,
+                password: payload.password
             })
+                .then((resp) => {
+                    return ajax.get(window.HOSTNAME + '/api/auth/users/me', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
+                        .then((userData) => {
+                            commit('SET_USER', userData.data)
+                            return userData
+                        })
+                        .then((res) => {
+                            VueCookies.set('Authorization', resp.data.auth_token, Infinity)
+                            return res
+                        })
+                        .then((res) => {
+                            return res
+                        })
+                        .catch(err => {
+                            return err
+                        })
+                })
+                .catch(err => {
+                    return err
+                })
         },
         logout ({ commit, state, getters }, payload) {
             return new Promise((res, rej) => {
