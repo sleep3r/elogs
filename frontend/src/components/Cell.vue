@@ -30,7 +30,7 @@
         >
         <div class="widthCell"></div>
         <template>
-            <datalist v-if="personsList">
+            <datalist>
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -98,7 +98,7 @@
                 type: null,
                 placeholder: '',
                 showTooltip: false,
-                personsList: null,
+                personsList: ['a', 'b', 'c'],
                 tooltipContent: '',
                 fontWeight: 'lighter',
                 minWidth: 0
@@ -209,10 +209,13 @@
                     $(this.$el).find('datalist').attr('id', currentId)
                 }
             },
-            getPersons(name) {
-                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}`, {
+            getPersons(name, plantName) {
+                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
-                })
+                })  .then((response) => {
+                        console.log(response);
+                        this.personsList = response.data
+                    })
                     .catch(err => {
                         console.log(err)
                     })
@@ -237,12 +240,10 @@
 
                 this.value = e.target.value;
 
+                console.log('oninput')
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
-                    let plant = this.$store.getters['journalState/plantName'];
-                    this.getPersons(e.target.value, plant)
-                        .then((resp) => {
-                            this.personsList = resp.data
-                        })
+                    let plantName = this.$store.getters['journalState/plantName'];
+                    this.getPersons(e.target.value, plantName)
                 }
 
                 this.send();
