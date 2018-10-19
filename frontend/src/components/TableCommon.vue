@@ -83,7 +83,13 @@
                             return this.$store.getters['journalState/shiftOrder'];
                         },
                         rowsCount: function () {
-                            return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
+                            let maxRowIndex = this.$store.getters['journalState/maxRowIndex'](this.props.name)
+                            if (this.$store.getters['journalState/journalInfo'].mode === 'edit') {
+                                return maxRowIndex + 1;
+                            }
+                            else {
+                                return maxRowIndex || 1
+                            }
                         }
                     },
                     components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },
