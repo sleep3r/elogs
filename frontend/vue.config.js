@@ -2,8 +2,11 @@ const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
+
+const PUBLIC_PATH = 'https://elogs.club/';
 
 module.exports = {
     configureWebpack: {
@@ -22,13 +25,13 @@ module.exports = {
         // },
         // plugins: [
         // ]
-        plugins: [
-            new ServiceWorkerWebpackPlugin({
-                entry: path.join(__dirname, 'src/e-logs-sw.js'),
-                excludes: [],
-                includes: ['**/.*', '**/*.map']
-            }),
-        ]
+        // plugins: [
+        //     new ServiceWorkerWebpackPlugin({
+        //         entry: path.join(__dirname, 'src/e-logs-sw.js'),
+        //         excludes: [],
+        //         includes: ['**/.*', '**/*.map']
+        //     }),
+        // ]
         // plugins : process.env.NODE_ENV === 'production' ?
         //     (module.exports.plugins || []).concat([
         //     new webpack.DefinePlugin({
@@ -44,6 +47,20 @@ module.exports = {
         //     })
         // ])
         //     : (module.exports.plugins || [])
+        plugins: [
+            new SWPrecacheWebpackPlugin(
+                {
+                    cacheId: 'e-logs',
+                    dontCacheBustUrlsMatching: /\.\w{8}\./,
+                    staticFileGlobs: ['dist/**/*.{js,html,css}'],
+                    stripPrefix: 'dist/',
+                    filename: 'service-worker.js',
+                    minify: true,
+                    navigateFallback: PUBLIC_PATH + 'index.html',
+                    staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+                }
+            ),
+        ],
     },
 
     baseUrl: undefined,

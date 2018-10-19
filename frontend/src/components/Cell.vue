@@ -378,6 +378,7 @@
         mounted() {
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
+            // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
             this.minValue = desc['min_normal'] || null;
             this.maxValue = desc['max_normal'] || null;
