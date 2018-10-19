@@ -36,9 +36,6 @@ class ShiftAPI(LoginRequired, View):
             .select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables',
                               'journal__tables__fields',
-                              Prefetch('journal__tables__fields__settings',
-                                       queryset=Setting.objects.filter(name='field_description')
-                                       ),
                               Prefetch('group_cells',
                                        queryset=Cell.objects.select_related('field',
                                                                             'field__table',
@@ -144,8 +141,8 @@ class ShiftAPI(LoginRequired, View):
             "id": field.id,
             "name": field.name,
             "formula": field.formula,
-            "field_description": pickle.loads(list(field.settings.all())[-1].value)
-            if field.settings.all() else '',
+            "field_description": {"type":field.type,
+                                  "units":field.units},
             "cells": self.cell_serializer(qs, table, field)}
             for field in fields}
 

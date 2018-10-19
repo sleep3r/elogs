@@ -157,7 +157,7 @@ def get_menu_info(request):
     }
 
 
-class GetShifts(LoginRequired, View):
+class GetShifts(View):
     def get(self, request, plant_name: str, journal_name: str,
             from_date=current_date() - timedelta(days=30),
             to_date=current_date()):
