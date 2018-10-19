@@ -206,8 +206,10 @@ const journalState = {
             return 'Заголовок таблицы'
         },
         fieldDescription: (state) => (tableName, fieldName) => {
+            // console.log('fieldName', fieldName)
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
+                // console.log('fields', fields)
                 if (!(fieldName in fields)) {
                     // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
                     return {};
