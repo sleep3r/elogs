@@ -1,4 +1,4 @@
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -50,7 +50,7 @@ module.exports = {
         plugins: [
             new SWPrecacheWebpackPlugin(
                 {
-                    cacheId: 'e-logs',
+                    cacheId: 'e-logs-cache-v1',
                     dontCacheBustUrlsMatching: /\.\w{8}\./,
                     staticFileGlobs: ['dist/**/*.{js,html,css}'],
                     stripPrefix: 'dist/',
@@ -58,6 +58,11 @@ module.exports = {
                     minify: true,
                     navigateFallback: PUBLIC_PATH + 'index.html',
                     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+                    importScripts: [
+                        {
+                          filename: './src/e-logs-sw.js'
+                        }
+                    ]
                 }
             ),
         ],
