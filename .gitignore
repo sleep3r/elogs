@@ -115,7 +115,9 @@ e_logs_tests/screens/*
 logs/printed_values
 
 frontend/public/*
+!frontend/public/manifest.json
 /frontend/public/
+!/frontend/public/manifest.json
 /frontend/dist/
 frontend/dist/*
 
