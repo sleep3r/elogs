@@ -60,7 +60,7 @@ module.exports = {
                     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
                     importScripts: [
                         {
-                          filename: './src/e-logs-sw.js'
+                          filename: './public/e-logs-sw.js'
                         }
                     ]
                 }
