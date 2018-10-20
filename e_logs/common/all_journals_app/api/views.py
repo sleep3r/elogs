@@ -74,8 +74,8 @@ class ShiftAPI(LoginRequired, View):
                 field = constraint.field
                 desc = res['journal']['tables'][field.table.name]['fields'][field.name][
                     'field_description']
-                desc['min_value'] = constraint.min_normal
-                desc['max_value'] = constraint.max_normal
+                desc['min_normal'] = constraint.min_normal
+                desc['max_normal'] = constraint.max_normal
 
 
     def get_permissions(self, request, shift):
