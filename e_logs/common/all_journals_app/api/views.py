@@ -11,6 +11,7 @@ from django.views import View
 from django.http import JsonResponse
 
 from e_logs.business_logic import services
+from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
@@ -36,9 +37,6 @@ class ShiftAPI(LoginRequired, View):
             .select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables',
                               'journal__tables__fields',
-                              Prefetch('journal__tables__fields__settings',
-                                       queryset=Setting.objects.filter(name='field_description')
-                                       ),
                               Prefetch('group_cells',
                                        queryset=Cell.objects.select_related('field',
                                                                             'field__table',
@@ -62,7 +60,23 @@ class ShiftAPI(LoginRequired, View):
             "permissions": self.get_permissions(request, qs),
             "journal": self.journal_serializer(qs)}
 
+        self.add_constraints(qs, res)
+
         return JsonResponse(res, safe=False)
+
+    def add_constraints(self, qs, res):
+        modes = Mode.objects.filter(is_active=True, journal=qs.journal).order_by('beginning')
+        if modes.exists():
+            mode = modes.last()
+            constraints = FieldConstraints.objects.filter(mode=mode)
+
+            for constraint in constraints:
+                field = constraint.field
+                desc = res['journal']['tables'][field.table.name]['fields'][field.name][
+                    'field_description']
+                desc['min_value'] = constraint.min_normal
+                desc['max_value'] = constraint.max_normal
+
 
     def get_permissions(self, request, shift):
         def get_time(shift):
@@ -144,8 +158,8 @@ class ShiftAPI(LoginRequired, View):
             "id": field.id,
             "name": field.name,
             "formula": field.formula,
-            "field_description": pickle.loads(list(field.settings.all())[-1].value)
-            if field.settings.all() else '',
+            "field_description": {"type":field.type,
+                                  "units":field.units},
             "cells": self.cell_serializer(qs, table, field)}
             for field in fields}
 
@@ -335,6 +349,7 @@ class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)
+        print(name, plant)
         if name and plant:
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,

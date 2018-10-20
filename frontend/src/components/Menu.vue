@@ -95,8 +95,7 @@
                             .then((id) => {
                                 this.$router.push('/' + plantName + '/' + journalName + '/' + id)
                                 this.setActiveItem()
-                                this.$store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
-
+                                
                                 if ($('#app').outerWidth() < 768) {
                                     this.toggleMenu()
                                 }

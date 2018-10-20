@@ -1,5 +1,8 @@
+from cacheops import invalidate_all
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
+from e_logs.core.management.commands.decompress_journals import decompress_journals
 from e_logs.core.utils.loggers import stdout_logger
 from .database_filler import DatabaseFiller
 
@@ -44,8 +47,8 @@ class Command(BaseCommand):
         dashboard = options["dashboard"]
         formula = options["formula"]
         if options["clean"] or options["recreate"]:
-            stdout_logger.info("Cleaning db")
-            df.clean_database()
+            stdout_logger.info("INVALIDATE THAT FUCKING SUKABLYAT' CACHE")
+            invalidate_all()
 
         if options["create"] or options["recreate"]:
             stdout_logger.info("Creating db")
@@ -55,28 +58,33 @@ class Command(BaseCommand):
             stdout_logger.info("Adding permissions...")
             df.create_permissions_and_groups()
 
+            stdout_logger.info("Adding Employees...")
+            df.fill_employees()
+            stdout_logger.info("Create BL...")
+            df.bl_create()
+
             stdout_logger.info("Adding plants...")
             df.fill_plants()
-            stdout_logger.info("Adding journals...")
-            df.fill_journals()
-            stdout_logger.info("Adding tables...")
-            df.fill_tables()
-            stdout_logger.info("Adding fields...")
-            df.fill_fields()
+
+            stdout_logger.info("Decompress Journals...")
+            decompress_journals()
+
+            stdout_logger.info("Adding shifts...")
+            df.create_number_of_shifts()
+            df.create_shifts()
 
             stdout_logger.info("Adding settings...")
-            df.create_tables_lists()
-            df.create_fields_descriptions()
-            df.create_number_of_shifts()
             df.create_journals_verbose_names()
             df.create_tables_verbose_names()
 
-            stdout_logger.info("Adding Employees...")
-            df.fill_employees()
-            stdout_logger.info("Adding shifts...")
-            df.create_shifts()
-            stdout_logger.info("Create BL...")
-            df.bl_create()
+            # df.create_fields_descriptions()
+
+            # stdout_logger.info("Adding journals...")
+            # df.fill_journals()
+            # stdout_logger.info("Adding tables...")
+            # df.fill_tables()
+            # stdout_logger.info("Adding fields...")
+            # df.fill_fields()
 
             if dashboard:
                 stdout_logger.info("Adding sample dashboard data...")

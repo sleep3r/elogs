@@ -78,12 +78,12 @@
     border: 1px solid $color-main;
 
     &:hover {
-        border-color: darken($color-main, 15);
+        border-color: darken($color-main, 10);
     }
 }
 
 .btn--active {
-    background-color: #386486;
+    background-color: darken($color-main, 12);
 }
 
 

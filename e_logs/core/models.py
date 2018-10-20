@@ -28,7 +28,11 @@ class CustomUserManager(UserManager):
 
 class CustomUser(AbstractUser):
     objects = CustomUserManager()
-    REQUIRED_FIELDS = ['email', 'is_superuser', 'user_groups', 'is_boss']
+    REQUIRED_FIELDS = ['email', 'is_superuser', 'user_groups', 'is_boss', 'full_name']
+
+    @property
+    def full_name(self):
+        return Employee.objects.get(user=self).name
 
     @property
     def user_groups(self):
@@ -40,7 +44,7 @@ class CustomUser(AbstractUser):
             return [perm.codename for perm in Permission.objects.filter(user=self)]
         else:
             return None
-            
+
 
 
 class SettingsMeta(ModelBase):

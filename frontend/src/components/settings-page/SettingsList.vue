@@ -103,7 +103,6 @@
                 this.$store.dispatch('settingsState/loadSettings')
                     .then(() => {
                         console.log('load settings');
-                        // this.$store.dispatch('journalState/loadShifts', { plant: this.$route.params.plant, journal: this.$route.params.journal })
                     });
             }
         },
@@ -118,7 +117,7 @@
     }
 </script>
 <style  lang="scss" scoped>
-    $color-border: #548CB7;
+    $color-border: #008BB9;
     .settings {
         border: 1px solid $color-border;
         padding: 10px;

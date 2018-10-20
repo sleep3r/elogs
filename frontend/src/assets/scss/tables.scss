@@ -16,11 +16,11 @@ input[hidden] {
     border: 1px solid gray;
     margin-bottom: 5px;
     table-layout: fixed;
-
+    
     td {
         padding: 0;
     }
-
+    
     span {
         margin-right: 0 !important;
     }
@@ -33,11 +33,12 @@ input[hidden] {
     line-height: 40px;
     margin-bottom: 10px;
     padding: 2px 4px;
-    background-color: $color-bg1;
+    background-color: $color-bg2;
     font: {
         family: $roboto-font;
         size: 24px;
-    };
+    }
+;
 }
 
 .spinner-container {
@@ -86,42 +87,44 @@ h2.table-title {
     table-layout: auto !important; // test fixed layout
     width: auto;
     margin-bottom: 0 !important;
-
+    
     font: {
         family: 'Roboto Condensed', sans-serif;
         weight: 300;
         style: normal;
     }
-
+    
     border: {
         collapse: collapse !important;
     }
-
+    
     tr:nth-child(even) {
         background-color: $tr-even-background;
     }
-
+    
     td, th {
         border: 1px solid $table-borders !important;
         vertical-align: middle !important;
+        font-size: 14px;
     }
-
+    
     thead {
-         th {
-             padding: 8px 14px;
-             background-color: $base_gray;
-             color: white;
-         }
-     }
-
-    tbody {
         th {
             padding: 8px 14px;
-            background-color: lighten($base_gray, 25%);
+            background-color: $base_gray;
             color: white;
         }
     }
-
+    
+    tbody {
+        th {
+            padding: 8px 14px;
+            background-color: white;
+            color: $th-text-color;
+            font-weight: bold;
+        }
+    }
+    
     th {
         font: {
             family: 'Roboto Condensed', sans-serif;
@@ -132,17 +135,17 @@ h2.table-title {
         hyphens: auto;
         padding-top: 6px;
         padding-bottom: 6px;
-
+        
         input {
-            background-color: #e9ecef !important;
+            background-color: #E9ECEF !important;
             border-radius: 2px !important;
         }
     }
-
+    
     .th-number {
         text-align: right !important;
     }
-
+    
     .th-common { // class for th common for several columns
         text-align: center !important;
     }
@@ -150,35 +153,35 @@ h2.table-title {
     .th-mul-row {
         vertical-align: middle !important;
     }
-
+    
     td {
         padding: 0 !important; /* to have inputs inside cells*/
         position: relative;
     }
-
+    
     // ------------------------- UNITS SHIT ------------------------
     .units {
         white-space: nowrap;
     }
-
+    
     .units:not(.no-before)::before {
         content: ", "; // Comma before units
         white-space: pre-line;
     }
-
+    
     // -------------------------- COMMENTS BUTTON --------------------
-
+    
     // Indicator on comments button, overrides bootstrap
     .table-comment-button {
         .badge {
             color: white;
             background-color: $base-blue;
         }
-
+        
         :hover {
             text-decoration: underline
         }
-
+        
         :active {
             color: $accent-green;
         }
@@ -190,9 +193,10 @@ h2.table-title {
     border-top: none;
 }
 
-
-
-
+.table__title__text {
+    font-size: 18px;
+    text-transform: uppercase;
+}
 
 /*------------------------------------*\
   # INSIDE TABLES
@@ -236,8 +240,7 @@ h2.table-title {
 }
 
 .insidetable tr:last-child > td,
-.insidetable tr:last-child > th
-{
+.insidetable tr:last-child > th {
     border-bottom: none !important;
 }
 
@@ -248,7 +251,7 @@ h2.table-title {
                 padding: 8px 4px !important;
             }
         }
-
+        
         tbody {
             th {
                 padding: 8px 4px !important;

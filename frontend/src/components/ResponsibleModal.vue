@@ -72,7 +72,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #548CB7;
+    background-color: #008BB9;
     color: white;
     padding: 200px 10px;
     visibility: hidden;

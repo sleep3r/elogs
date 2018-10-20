@@ -13,7 +13,7 @@
 
     Vue.use(ToggleButton);
     Vue.component('cell', cell);
-    Vue.component('Cell', cell);
+    Vue.component(  'Cell', cell);
     Vue.component('table-comment', tableComment);
 
     export default {
@@ -49,12 +49,12 @@
                 return createElement({template: '<div class="spinner-container"><i class="spinner"></i></div>'});
             } else {
                 return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
-                                                    '<div class="table__title">' + 
-                                                        '<span>' + this.title + '</span>' + 
-                                                        '<button class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' + 
-                                                    '</div>' + 
+                                                    '<div class="table__title">' +
+                                                        '<span class="table__title__text">' + this.title + '</span>' +
+                                                        '<button class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' +
+                                                    '</div>' +
                                                     this.template +
-                                                    "<table-comment table-name=\"" + this.name + "\"></table-comment>" + 
+                                                    "<table-comment table-name=\"" + this.name + "\"></table-comment>" +
                                                 "</div>",
                     name: 'table-' + this.name,
                     data: () => { return {
@@ -65,7 +65,7 @@
                         openConstructor () {
                             window.open(`http://${window.location.hostname === 'localhost' ?
                                 '127.0.0.1'
-                                : window.location.hostname}:8085/journal/${this.$route.params.journal}/table/create?table=${this.props.name}&imported=true`,
+                                : window.location.hostname}:8085/journal/${this.$route.params.journal}/table/create?plant=${this.$route.params.plant}&table=${this.props.name}&imported=true`,
                             '_blank')
                         }
                     },
@@ -83,7 +83,13 @@
                             return this.$store.getters['journalState/shiftOrder'];
                         },
                         rowsCount: function () {
-                            return this.$store.getters['journalState/maxRowIndex'](this.props.name) + 1;
+                            let maxRowIndex = this.$store.getters['journalState/maxRowIndex'](this.props.name)
+                            if (this.$store.getters['journalState/journalInfo'].mode === 'edit') {
+                                return maxRowIndex + 1;
+                            }
+                            else {
+                                return maxRowIndex || 1
+                            }
                         }
                     },
                     components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },

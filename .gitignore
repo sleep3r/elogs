@@ -114,10 +114,12 @@ desktop.ini
 e_logs_tests/screens/*
 logs/printed_values
 
-frontend/public/*
-/frontend/public/
 /frontend/dist/
 frontend/dist/*
+
+frontend/public/bundle.js
+frontend/public/fonts/*
+frontend/public/images/*
 
 # e-logs-constructor
 e-logs-constructor

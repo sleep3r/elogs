@@ -30,7 +30,7 @@
                                 <span class="caption">Добавить журнал</span>
                             </a>
                         </li>
-                        <li class="user-menu__item">
+                        <li class="user-menu__item" v-if="$store.getters['userState/hasPerm']('validate_cells') || $store.getters['userState/isSuperuser']">
                             <a href="" @click.prevent="onModesClick">
                                 <i class="fas fa-sliders-h"></i>
                                 <span class="caption">Режимы</span>

@@ -89,7 +89,6 @@ router.beforeEach((to, from, next) => {
                                 .then((id) => {
                                     next('/' + plantName + '/' + journalName + '/' + id)
                                     this.setActiveItem()
-                                    store.dispatch('journalState/loadShifts', { plant: plantName, journal: journalName })
                                 })
                         }
                     }

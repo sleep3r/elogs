@@ -63,7 +63,7 @@
                                                 class="form-control"
                                                 v-model="item.verbose_name"
                                                 @input="(e) => onInputChange('field', e.target.value, index)"
-                                                placeholder="Ячейка"
+                                                placeholder="Столбец"
                                                 :list='"cell-" + index'>
                                         <datalist :id='"cell-" + index' v-if="item['table_name']">
                                             <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name + '-' + index"></option>
@@ -216,7 +216,7 @@
                         withCredentials: true
                     })
                     .then(response => {
-                        this.plantList = response.data
+                        this.plantList = response.data.filter(item => this.$store.getters['userState/hasPerm'](`modify_${item.name}`) || this.$store.getters['userState/isSuperuser'])
                     })
                     .catch(e => {
                         console.log(e)

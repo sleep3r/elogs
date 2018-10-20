@@ -5,10 +5,14 @@
             style="height: 100%"
     >
         <template>
-            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></i></b></span>
+            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></b></span>
         </template>
         <input
-                :class="['general-value', 'number-cell', 'form-control', mode === 'edit' ? 'form-control__edit' : '', hasFormula ? 'formula-cell' : '']"
+                :class="['general-value', 'number-cell', 'form-control',
+                        mode === 'edit' ? 'form-control__edit' : '',
+                        hasFormula ? 'formula-cell' : '',
+                        mode === 'view' ? 'no-shadow' : '',
+                        ]"
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
@@ -22,11 +26,12 @@
                 @input="onInput"
                 @blur="showTooltip=false"
                 @contextmenu.prevent="$refs.menu.open"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
+                v-tooltip="{content: tooltipContent, show: showTooltip,
+                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
         >
         <div class="widthCell"></div>
         <template>
-            <datalist v-if="personsList">
+            <datalist>
                 <option v-for="item in personsList" :value="item"></option>
             </datalist>
         </template>
@@ -77,6 +82,9 @@
     Vue.component('v-popover', VPopover);
     Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
+    Vue.directive('tooltip', VTooltip.VTooltip);
+    Vue.directive('close-popover', VTooltip.VClosePopover);
+    Vue.component('v-popover', VTooltip.VPopover);
 
 
     export default {
@@ -94,7 +102,7 @@
                 type: null,
                 placeholder: '',
                 showTooltip: false,
-                personsList: null,
+                personsList: ['a', 'b', 'c'],
                 tooltipContent: '',
                 fontWeight: 'lighter',
                 minWidth: 0
@@ -121,6 +129,9 @@
             }
         },
         computed: {
+            getBody () {
+                return $('body').get()
+            },
             tableName: function () {
                 if (typeof this.$parent.props !== 'undefined') {
                     return this.$parent.props.name;
@@ -205,10 +216,13 @@
                     $(this.$el).find('datalist').attr('id', currentId)
                 }
             },
-            getPersons(name) {
-                return ajax.get(`http://127.0.0.1:8000/api/autocomplete/?name=${name}`, {
+            getPersons(name, plantName) {
+                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
-                })
+                })  .then((response) => {
+                        console.log(response);
+                        this.personsList = response.data
+                    })
                     .catch(err => {
                         console.log(err)
                     })
@@ -233,11 +247,10 @@
 
                 this.value = e.target.value;
 
+                console.log('oninput')
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
-                    this.getPersons(e.target.value)
-                        .then((resp) => {
-                            this.personsList = resp.data
-                        })
+                    let plantName = this.$store.getters['journalState/plantName'];
+                    this.getPersons(e.target.value, plantName)
                 }
 
                 this.send();
@@ -299,7 +312,9 @@
                         if (td === focusedTd) {
                             break;
                         }
-                        index += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        if (td.tagName === 'TD') {
+                            index += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        }
                     }
                     return index;
                 }
@@ -308,10 +323,12 @@
                     let nextRowIndex = 0
                     for (let i = 0; i < tds.length; i++) {
                         let td = tds[i];
-                        if (nextRowIndex === index) {
+                        if ((nextRowIndex === index)&&(td.tagName === 'TD')) {
                             return td;
                         }
-                        nextRowIndex += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        if (td.tagName === 'TD') {
+                            nextRowIndex += (parseInt(td.getAttribute('colspan'), 10) || 1);
+                        }
                     }
                 }
 
@@ -355,7 +372,7 @@
                 let journalComponent = this.$parent.$parent.$parent
                 for (let commonTableComponentIndex in journalComponent.$children) {
                     let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
-                    if (journalComponentChildren.$options.name == "TableCommon") {
+                    if (journalComponentChildren.$options.name === "TableCommon") {
                         let tableComponent = journalComponentChildren.$children[0]
                         for (let cellComponentIndex in tableComponent.$children) {
                             let cellComponent = tableComponent.$children[cellComponentIndex]
@@ -368,6 +385,7 @@
         mounted() {
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
+            // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
             this.minValue = desc['min_normal'] || null;
             this.maxValue = desc['max_normal'] || null;
@@ -479,7 +497,7 @@
             .popover-inner {
                 background: $color;
                 color: black;
-                padding: 0px;
+                padding: 0;
                 border-radius: 5px;
                 box-shadow: 0 5px 30px rgba(black, .1);
             }
@@ -500,6 +518,10 @@
             opacity: 1;
             transition: opacity .50s;
         }
+    }
+
+    .no-shadow.no-shadow {
+        box-shadow: none;
     }
 
     .v-popover > span.trigger {
