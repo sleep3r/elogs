@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
 
@@ -48,6 +49,12 @@ module.exports = {
         // ])
         //     : (module.exports.plugins || [])
         plugins: [
+            new CopyWebpackPlugin([
+                {
+                  from: path.resolve(__dirname, './src/e-logs-sw.js'),
+                  to: path.resolve(__dirname, './public/e-logs-sw.js')
+                }
+            ]),
             new SWPrecacheWebpackPlugin(
                 {
                     cacheId: 'e-logs-cache-v1',
