@@ -1,0 +1,16 @@
+{
+    "short_name": "E-logs",
+    "name": "E-logs",
+    "icons": [
+      {
+        "src": "./images/favicon.ico",
+        "type": "image/x-icon",
+        "sizes": "48x48"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#FFFFFF",
+    "theme_color": "#008BB9",
+    "display": "standalone",
+    "orientation": "landscape"
+  }
