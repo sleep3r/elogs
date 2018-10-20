@@ -52,7 +52,7 @@ module.exports = {
             new CopyWebpackPlugin([
                 {
                   from: path.resolve(__dirname, './src/e-logs-sw.js'),
-                  to: path.resolve(__dirname, './public/e-logs-sw.js')
+                  to: path.resolve(__dirname, './dist/e-logs-sw.js')
                 }
             ]),
             new SWPrecacheWebpackPlugin(
@@ -67,7 +67,7 @@ module.exports = {
                     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
                     importScripts: [
                         {
-                            filename: path.resolve(__dirname, '/e-logs-sw.js')
+                            filename: path.resolve(__dirname, './e-logs-sw.js')
                         }
                     ]
                 }
