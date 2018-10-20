@@ -19,11 +19,33 @@
     visibility: visible !important;
 }
 
-.user-name {
+.user-name, .user-notify {
+    position: relative;
     cursor: pointer;
 }
 
-.user-menu-wrapper {
+.user-notify .notify-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #d41919;
+    min-width: 18px;
+    font-size: 14px;
+    height: auto;
+    padding: 2px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+}
+
+.user-menu-wrapper, .notify-menu-wrapper {
     position: absolute;
     width: 100%;
     left: 0;
@@ -33,7 +55,7 @@
     visibility: hidden;
 }
 
-.user-menu {
+.user-menu, .notify-menu {
     top: 50px;
     right: 0;
     width: 274px;
@@ -74,44 +96,37 @@
 
 }
 
-.user-menu::after {
+.user-menu::after, .notify-menu::after {
     content: " ";
     position: absolute;
     width: 0;
     height: 0;
     border-left: 8px solid #0000;
     border-right: 8px solid #0000;
-    border-bottom: 17px solid #E5E5E5;
+    border-bottom: 10px solid #E5E5E5;
     right: 30%;
     bottom: 100%;
 }
 
-.user-notifications {
-    display: none;
-    list-style: none;
-    position: relative;
-    top: 0;
-    right: 0;
-    padding: 0;
-    border: 1px solid #343434;
-    z-index: 1;
-
-    li {
-        margin: 0;
-        line-height: 25px;
-        color: #000;
-        padding-left: 10px;
-        font-size: 12px;
-        height: 23px;
-        background-color: #e5e5e5;
-        border: 1px dotted #e5e5e5;
-    }
-
-    .notification-text {
-
-    }
+.notify-menu::after {
+    right: 53%;
 }
 
 .user-messages-badge {
     cursor: pointer;
+}
+
+.notify-menu {
+    .msg-container {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+
+    .no-msg-container {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        text-align: center;
+        color: #6d6d6d;
+    }
 }

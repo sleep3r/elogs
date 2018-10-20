@@ -10,8 +10,30 @@
             <!--</template>-->
         </div>
         <div class="header__user">
-            <i class="fas fa-envelope user-messages-badge" @click="onMsgClick"></i>
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-envelope user-messages-badge" @click="onMessagesClick"></i>
+            <i class="fas fa-bell user-notify" @click="onNotifyClick">
+                <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
+            </i>
+            <div class="notify-menu-wrapper">
+                <div class="notify-menu">
+                    <template v-if="getUnreadedMessages.length">
+                        <div class="msg-container">
+                            <ul class="menu">
+                                <li class="user-menu__item" v-for="item in getUnreadedMessages" :key="item.id">
+                                    <a href="" @click.prevent="onMessagesClick">
+                                        <span class="caption">Текст сообщения</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="no-msg-container">
+                            <span>Сообщений нет</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
             <i class="fas fa-dice-d6" @click="makeDefaultPage"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
@@ -30,16 +52,16 @@
                                 <span class="caption">Добавить журнал</span>
                             </a>
                         </li>
+                        <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
+                            <a href="" @click.prevent="onOpenConstructor">
+                                <i class="fas fa-atom"></i>
+                                <span class="caption">Открыть конструктор</span>
+                            </a>
+                        </li>
                         <li class="user-menu__item" v-if="$store.getters['userState/hasPerm']('validate_cells') || $store.getters['userState/isSuperuser']">
                             <a href="" @click.prevent="onModesClick">
                                 <i class="fas fa-sliders-h"></i>
                                 <span class="caption">Режимы</span>
-                            </a>
-                        </li>
-                        <li class="user-menu__item">
-                            <a href="" @click.prevent="onMessagesClick">
-                                <i class="fa fa-envelope"></i>
-                                <span class="caption">Список сообщений </span>
                             </a>
                         </li>
                         <li class="user-menu__item">
@@ -72,12 +94,39 @@
     import ajax from '../axios.config'
     export default {
         name: "TopNav",
+        computed: {
+            getUnreadedMessages () {
+                return this.$store.getters['messagesState/unreadedMessages']
+            }
+        },
         methods: {
             onLogout() {
                 this.$store.dispatch('userState/logout')
                     .then(() => {
                         this.$router.push('/login')
                     })
+            },
+            onNotifyClick() {
+                if ($('.header .notify-menu').hasClass('visible')) {
+                    this.hideNotifyMenu()
+                }
+                else {
+                    this.showNotifyMenu()
+                }
+            },
+            onOpenConstructor () {
+                window.open(`http://${window.location.hostname === 'localhost' ?
+                    '127.0.0.1'
+                    : window.location.hostname}:8085`,
+                '_blank')
+            },
+            showNotifyMenu () {
+                $('.header .notify-menu').addClass('visible')
+                $('.header .notify-menu-wrapper').addClass('visible')
+            },
+            hideNotifyMenu () {
+                $('.header .notify-menu').removeClass('visible')
+                $('.header .notify-menu-wrapper').removeClass('visible')
             },
             onUsernameClick() {
                 if ($('.header .user-menu').hasClass('visible')) {
@@ -131,6 +180,9 @@
             let _this = this
             $('.header .user-menu-wrapper').click(function () {
                 _this.hideUserMenu()
+            })
+            $('.header .notify-menu-wrapper').click(function () {
+                _this.hideNotifyMenu()
             })
         }
     }

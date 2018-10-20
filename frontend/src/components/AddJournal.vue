@@ -21,6 +21,14 @@
                     <option value="measurement">Измерение</option>
                 </select>
             </p>
+            <p>
+                <select name="number-of-shifts" v-model="shifts">
+                    <option disabled selected value="">Выберите количество смен</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </p>
             <p style="text-align: right;"><input class="btn" type="submit" value="Загрузить" @click.prevent="onLoadJournal"/></p>
         </form>
 
@@ -38,6 +46,7 @@
                 errorText: '',
                 plant: '',
                 journal: '',
+                shifts: '',
                 file: null
             }
         },
