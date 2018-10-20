@@ -48,6 +48,7 @@ djangorestframework-jwt = "*"
 pywebpush = "*"
 sentry-sdk = "*"
 django-debug-toolbar = "*"
+django-proxy = "*"
 
 [dev-packages]
 icecream = "*"

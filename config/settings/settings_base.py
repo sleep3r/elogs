@@ -93,6 +93,7 @@ LOCAL_APPS = [
     'e_logs.common.feedback_app.apps.FeedbackAppConfig',
     'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
     'e_logs.common.settings_app.apps.SettingsAppConfig',
+    'e_logs.common.constructor_app.apps.ConstructorAppConfig',
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
     'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',

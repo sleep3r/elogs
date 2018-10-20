@@ -9,6 +9,7 @@ from django.conf import settings
 from sentry_sdk import last_event_id
 
 from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template
+from e_logs.common.constructor_app.views import constructor_proxy
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
     path('dashboard/', include('e_logs.common.data_visualization_app.urls')),
+    path('constructor/<str:path>/', constructor_proxy),
 
     re_path(r'^api/auth/', include('djoser.urls.base')),
     re_path(r'^api/auth/', include('djoser.urls.authtoken')),
