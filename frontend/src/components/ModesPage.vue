@@ -21,7 +21,7 @@
                     <thead>
                     <tr>
                         <th>Таблица</th>
-                        <th>Ячейка</th>
+                        <th>Столбец</th>
                         <th>Минимальное значение</th>
                         <th>Максимальное значение</th>
                         <th style="width: 36px" v-if="currentMode && (hasPerms || $store.getters['userState/isSuperuser'])"></th>
@@ -57,7 +57,7 @@
                 </table>
             </div>
             <div class="mode-content__title__mode-edit-btns" v-if="currentMode && (hasPerms || $store.getters['userState/isSuperuser'])">
-                <button class="btn" data-toggle="modal" data-target="#AddModeCellModal">Добавить ячейку</button>
+                <button class="btn" data-toggle="modal" data-target="#AddModeCellModal">Добавить столбец</button>
                 <div v-if="needsToSave">
                     <button class="btn" data-target="mode-cancel" @click.prevent="onCancelMode" style="margin-right: 10px">Отмена</button>
                     <button class="btn" data-target="mode-save" @click.prevent="onSaveMode">Сохранить</button>

@@ -63,7 +63,7 @@
                                                 class="form-control"
                                                 v-model="item.verbose_name"
                                                 @input="(e) => onInputChange('field', e.target.value, index)"
-                                                placeholder="Ячейка"
+                                                placeholder="Столбец"
                                                 :list='"cell-" + index'>
                                         <datalist :id='"cell-" + index' v-if="item['table_name']">
                                             <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name + '-' + index"></option>

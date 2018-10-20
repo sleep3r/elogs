@@ -25,7 +25,7 @@
                             </datalist>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Ячейка</label>
+                            <label for="name" class="col-form-label">Столбец</label>
                             <input
                                     type="text"
                                     class="form-control bordered"

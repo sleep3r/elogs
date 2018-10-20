@@ -11,6 +11,7 @@ from django.views import View
 from django.http import JsonResponse
 
 from e_logs.business_logic import services
+from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
@@ -59,7 +60,23 @@ class ShiftAPI(LoginRequired, View):
             "permissions": self.get_permissions(request, qs),
             "journal": self.journal_serializer(qs)}
 
+        self.add_constraints(qs, res)
+
         return JsonResponse(res, safe=False)
+
+    def add_constraints(self, qs, res):
+        modes = Mode.objects.filter(is_active=True, journal=qs.journal).order_by('beginning')
+        if modes.exists():
+            mode = modes.last()
+            constraints = FieldConstraints.objects.filter(mode=mode)
+
+            for constraint in constraints:
+                field = constraint.field
+                desc = res['journal']['tables'][field.table.name]['fields'][field.name][
+                    'field_description']
+                desc['min_value'] = constraint.min_normal
+                desc['max_value'] = constraint.max_normal
+
 
     def get_permissions(self, request, shift):
         def get_time(shift):
