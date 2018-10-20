@@ -7,6 +7,9 @@ import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
 
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip);
+
 // import * as Sentry from '@sentry/browser';
 // Sentry.init({
 //     dsn: 'https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999',

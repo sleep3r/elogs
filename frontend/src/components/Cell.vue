@@ -26,7 +26,8 @@
                 @input="onInput"
                 @blur="showTooltip=false"
                 @contextmenu.prevent="$refs.menu.open"
-                v-tooltip="{content: tooltipContent, show: showTooltip, trigger: 'manual'}"
+                v-tooltip="{content: tooltipContent, show: showTooltip,
+                 trigger: 'manual', placement: 'top', boundariesElement: $('body').get()}"
         >
         <div class="widthCell"></div>
         <template>
@@ -81,6 +82,9 @@
     Vue.component('v-popover', VPopover);
     Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
+    Vue.directive('tooltip', VTooltip.VTooltip);
+    Vue.directive('close-popover', VTooltip.VClosePopover);
+    Vue.component('v-popover', VTooltip.VPopover);
 
 
     export default {

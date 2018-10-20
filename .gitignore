@@ -117,5 +117,9 @@ logs/printed_values
 /frontend/dist/
 frontend/dist/*
 
+frontend/public/bundle.js
+frontend/public/fonts/*
+frontend/public/images/*
+
 # e-logs-constructor
 e-logs-constructor
