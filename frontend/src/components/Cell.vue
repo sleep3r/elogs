@@ -5,7 +5,7 @@
             style="height: 100%"
     >
         <template>
-            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></i></b></span>
+            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></b></span>
         </template>
         <input
                 :class="['general-value', 'number-cell', 'form-control',
@@ -27,7 +27,7 @@
                 @blur="showTooltip=false"
                 @contextmenu.prevent="$refs.menu.open"
                 v-tooltip="{content: tooltipContent, show: showTooltip,
-                 trigger: 'manual', placement: 'top', boundariesElement: $('body').get()}"
+                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
         >
         <div class="widthCell"></div>
         <template>
@@ -129,6 +129,9 @@
             }
         },
         computed: {
+            getBody () {
+                return $('body').get()
+            },
             tableName: function () {
                 if (typeof this.$parent.props !== 'undefined') {
                     return this.$parent.props.name;
