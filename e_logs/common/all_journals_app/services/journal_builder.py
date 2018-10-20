@@ -48,6 +48,7 @@ class JournalBuilder:
 
         self.__extract_tables(tables_path)
 
+        return new_journal
 
     def __create_journal(self, tables_path, rewrite=True):
         # plant = Plant.objects.get_or_create(name=self.plant)[0]
