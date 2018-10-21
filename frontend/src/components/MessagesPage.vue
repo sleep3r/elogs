@@ -69,6 +69,8 @@
             }
         },
         mounted() {
+            this.$store.dispatch('messagesState/loadMessages')
+            
             // let infinite = new Waypoint.Infinite({
             //     element: $('.notifs')[0],
             //     onBeforePageLoad: function () {

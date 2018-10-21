@@ -9,10 +9,12 @@ from django.db.models import Prefetch
 from django.forms import model_to_dict
 from django.views import View
 from django.http import JsonResponse
+from django.conf import settings
 
 from e_logs.business_logic import services
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
+from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
@@ -74,8 +76,8 @@ class ShiftAPI(LoginRequired, View):
                 field = constraint.field
                 desc = res['journal']['tables'][field.table.name]['fields'][field.name][
                     'field_description']
-                desc['min_value'] = constraint.min_normal
-                desc['max_value'] = constraint.max_normal
+                desc['min_normal'] = constraint.min_normal
+                desc['max_normal'] = constraint.max_normal
 
 
     def get_permissions(self, request, shift):
@@ -378,3 +380,23 @@ class OpenInConstructor(View):
                 return JsonResponse({"status":1})
             except:
                 return JsonResponse({"status": 0})
+
+
+class LoadJournalAPI(View):
+    def post(self, request):
+        if request.FILES.get('journal_file', None):
+            journal = request.FILES['journal_file']
+            plant_name = request.POST.get('plant', None)
+            type = request.POST.get('type', None)
+            number_of_shifts = request.POST.get('number_of_shifts', None)
+            if plant_name and type and number_of_shifts:
+                try:
+                    copyfile(journal, f'resources/journals/{plant_name}/{journal.name}.jrn',)
+                    journal = JournalBuilder(journal, plant_name)
+                    new_journal = journal.create()
+                    Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
+                except:
+                    return JsonResponse({"status": 0})
+
+                return JsonResponse({"status": 1})
+            return JsonResponse({"status": 0})
