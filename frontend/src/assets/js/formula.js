@@ -37,7 +37,7 @@ window.parser.setFunction('FUNC', function(params) {
         result = Number(json.value)
     }
     else {
-        result = window.parser.parse(json.value)
+        result = window.parser.parse(json.value).result
     }
     return result
 })

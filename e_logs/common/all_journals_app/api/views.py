@@ -307,16 +307,23 @@ class FieldsAPI(View):
 
 class CellAPI(View):
     def get(self, request):
+
         shift = int(request.GET.get('shift', None))
         journal_name = request.GET.get('journal', None)
         table_name = request.GET.get('table', None)
         field_name = request.GET.get('field', None)
+
         journal = Journal.objects.filter(name=journal_name).first()
         table = Table.objects.filter(name=table_name, journal=journal).first()
         field = Field.objects.filter(name=field_name, table=table).first()
+
+        field_formula = field.formula if field else None
         field_id = field.id if field else None
-        cell = Cell.objects.filter(group=shift, field=field_id).first()
-        value = cell.value if cell else None
+        if field_formula:
+            value = field_formula
+        else:
+            cell = Cell.objects.filter(group=shift, field=field_id).first()
+            value = cell.value if cell else None
         res = {"value": value}
         return JsonResponse(res, safe=False)
 
@@ -371,4 +378,3 @@ class OpenInConstructor(View):
                 return JsonResponse({"status":1})
             except:
                 return JsonResponse({"status": 0})
-
