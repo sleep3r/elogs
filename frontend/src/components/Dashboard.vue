@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div class="dashboard">
         <span v-if="config_flag"> {{ message }} </span>
         <grid-layout v-else
                      :layout="layout"
@@ -23,7 +23,7 @@
                        @resized="resizedEvent"
                     >
                 <Graph :idx="item.i" :type="item.type"></Graph>
-                <button v-show="!config_flag" class="delete-btn" @click="deleteGraph(item.i)">Delete</button>
+                <button v-show="!config_flag" class="delete-btn" @click="deleteGraph(item.i)">Удалить</button>
             </grid-item>
         </grid-layout>
     </div>
@@ -50,7 +50,7 @@ export default {
       return {
           classes: 'dashboard',
           config: null,
-          message: "Loading dashboard config...",
+          message: "Загрузка данных...",
           config_flag: true,
           draggable: true,
           resizable: true,
@@ -88,7 +88,7 @@ export default {
           )
           Vue.delete(this.config, id);
           if ($.isEmptyObject(this.config)) {
-              this.message = "There is no data"
+              this.message = "Данных нет"
               this.config_flag = true
           }
       }
@@ -103,7 +103,7 @@ export default {
       ).then(function (response) {
             console.log(response.data)
             if ($.isEmptyObject(response.data.config)) {
-                self.message = "There is no data"
+                self.message = "Данных нет"
             }
             else {
                 self.config = response.data.config

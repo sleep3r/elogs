@@ -72,33 +72,38 @@
 
     .menu {
         margin: 0;
-    }
 
-    .user-menu__item {
-        display: block;
-        position: relative;
-        line-height: 20px;
-        padding: 0;
-        border-bottom: 1px solid $color-border;
-        color: $color-menu-text;
-        background-color: #fff;
-        
-        .caption {
-            margin-left: 10px;
+        .user-menu__item {
+            display: block;
+            position: relative;
+            line-height: 20px;
+            padding: 0;
+            border-bottom: 1px solid $color-border;
+            color: $color-menu-text;
+            background-color: #fff;
+    
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .caption {
+                margin-left: 10px;
+            }
+    
+            a {
+                display: inline-block;
+                width: 100%;
+                padding: 10px;
+            }
         }
-
-        a {
-            display: inline-block;
-            width: 100%;
-            padding: 10px;
+    
+        .user-menu__item:hover {
+            background-color: #F5F5F5;
         }
     }
-
-    .user-menu__item:hover {
-        background-color: #F5F5F5;
-    }
-
 }
+
+
 
 // .user-menu::after, .notify-menu::after {
 //     content: " ";

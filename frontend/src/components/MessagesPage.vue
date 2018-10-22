@@ -2,7 +2,7 @@
     <div class="messages">
         <ul class="messages__list">
             <h1 v-if="!getMessages.length" style="text-align: center">Нет сообщений</h1>
-            <template v-else>
+            <div class="messages__container" v-else>
                 <li class="message" v-for="message in getMessages" :key="message.id">
                     <div v-if="message.sendee" class="message__title__container">
                         <img class="message__image" src="../assets/images/no-avatar.png">
@@ -23,13 +23,13 @@
                     </template>
                     <div class="message__is-read" v-if="!message.is_read" @click="setAsRead(message.id)"></div>
                 </li>
-            </template>
+            </div>
         </ul>
-        <div class="loading" style="display: none;text-align: center">
+        <!-- <div class="loading" style="display: none;text-align: center">
             ЗАГРУЗКА...
-        </div>
+        </div> -->
         <!--{% if page_obj.has_next %}-->
-        <!--<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>-->
+        <!-- <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a> -->
         <!--{% endif %}-->
     </div>
 </template>
@@ -61,14 +61,14 @@
             this.$store.dispatch('messagesState/loadMessages')
             
             // let infinite = new Waypoint.Infinite({
-            //     element: $('.notifs')[0],
+            //     element: $('.messages__container')[0],
             //     onBeforePageLoad: function () {
             //         $('.loading').show();
             //     },
             //     onAfterPageLoad: function () {
             //         $('.loading').hide();
             //     },
-            //     items: ".notifs",
+            //     items: ".message",
             // });
         }
     }
