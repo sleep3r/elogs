@@ -15,12 +15,6 @@ touch /srv/logs/gunicorn.log
 touch /srv/logs/access.log
 tail -n 0 -f /srv/logs/*.log &
 
-cp /srv/docker/django_nginx.conf /etc/nginx/sites-available/
-ln -s /etc/nginx/sites-available/django_nginx.conf /etc/nginx/sites-enabled
-echo "daemon off;" >> /etc/nginx/nginx.conf
-# Fix nginx errors (delete one bad line)
-sed -i '/listen \[\:\:\]\:80 default_server;/d' /etc/nginx/sites-available/default
-
 echo Starting Daphne...
 
 exec daphne config.asgi:application \
@@ -45,6 +39,8 @@ exec gunicorn config.wsgi:application \
 
 echo Starting caddy...
 cd /srv
-exec caddy -log -quic stderr
+mv /srv/caddy /root/.caddy
+exec caddy 
+# -log -quic stderr
 # lsof -i :8000
 

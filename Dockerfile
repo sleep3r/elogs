@@ -1,17 +1,14 @@
 FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python3.6 python3-pip python3-dev wget git vim nginx curl npm
+RUN apt-get install -y python3.6 python3-pip python3-dev wget git vim curl npm
 
+# Install caddy
 RUN wget https://github.com/mholt/caddy/releases/download/v0.11.0/caddy_v0.11.0_linux_amd64.tar.gz
 RUN tar -xzf caddy*.tar.gz caddy
 RUN mv ./caddy /usr/local/bin
 
-RUN mkdir /srv/media /srv/static
-
 EXPOSE 80 8000 443
-
-VOLUME ["/srv/media/"]
 
 COPY ./docker/pyodbc_mssql_driver.sh /srv/docker/
 # installs ubuntu odbc drivers and pip django odbc packets
@@ -33,21 +30,20 @@ RUN pipenv install --deploy --system --ignore-pipfile
 
 COPY ./frontend /srv/frontend
 
-# RUN ./node_modules/.bin/webpack
 WORKDIR /srv/frontend
 RUN git clone https://github.com/creationix/nvm.git .nvm
 WORKDIR ./.nvm
 RUN git checkout v0.33.11
 ENV NODE_OPTIONS --max_old_space_size=4096
-RUN ls /srv/
-RUN ls /srv/frontend/src
-RUN cat /srv/frontend/src/main.js
+# RUN ls /srv/
+# RUN ls /srv/frontend/src
+# RUN cat /srv/frontend/src/main.js
 RUN . ./nvm.sh \
   && nvm install 8.9.1 \
   && cd /srv/frontend \
   && npm --version \
-  && npm install npm -g \
-  && npm i \
+  && npm install npm -g \ 
+  && npm i \ 
   && npm run build
 
 COPY . /srv
