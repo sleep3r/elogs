@@ -1,22 +1,36 @@
 import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.views import View
 
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.errors import AccessError
-from e_logs.core.utils.webutils import model_to_dict, logged
+from e_logs.core.utils.webutils import logged
 from e_logs.core.views import LoginRequired
 
 
 class MessagesAPI(LoginRequired, View):
     @logged
     def get(self, request):
-        res = {}
-        for m in self.request.user.employee.unread_messages():
-            res[m.id] = model_to_dict(m)
-        return JsonResponse(res)
+        res = [{
+            "id": m.id,
+            "created": m.created,
+            "is_read": m.is_read,
+            "sendee": m.sendee.name,
+            "type": m.type,
+            "text": m.text,
+            "link": m.link,
+            "cell": {"plant":m.cell.journal.plant.name,
+                     "journal": m.cell.journal.name,
+                     "table":m.cell.field.table.name,
+                     "field": m.cell.field.name,
+                     "index": m.cell.index
+                     } if m.cell else None,
+        } for m in self.request.user.employee.unread_messages()]
+
+        return JsonResponse(res, safe=False)
 
     @logged
     def put(self, request):
@@ -39,9 +53,21 @@ class MessagesAPI(LoginRequired, View):
 
 class MessagesList(LoginRequired, View):
     def get(self, request):
-        res = {}
         qs = Message.objects.filter(addressee=request.user.employee).order_by("-created")
-        for message in qs:
-            res[message.id] = model_to_dict(message)
+        res = [{
+            "id": m.id,
+            "created": m.created,
+            "is_read": m.is_read,
+            "sendee": m.sendee.name,
+            "type": m.type,
+            "text": m.text,
+            "link": m.link,
+            "cell": {"plant": m.cell.journal.plant.name,
+                     "journal": m.cell.journal.name,
+                     "table": m.cell.field.table.name,
+                     "field": m.cell.field.name,
+                     "index": m.cell.index
+                     } if m.cell else None,
+        } for m in qs]
 
-        return JsonResponse(res)
+        return JsonResponse(res, safe=False)
