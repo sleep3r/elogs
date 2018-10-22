@@ -34,21 +34,21 @@
         mounted() {
             this.$store.dispatch('modesState/getModes')
                 .then(() => {
-                    setTimeout(() => this.setListeners(), 0)
+                    setTimeout(() => this.setListeners(), 0);
                     setTimeout(() => this.setActiveItem(), 0)
                 })
         },
         methods: {
             toggleMenu () {
-                $('.column-left').toggleClass('menu__hidden')
+                $('.column-left').toggleClass('menu__hidden');
                 $('.column-content').toggleClass('menu__hidden')
             },
             onMenuItemClick (modeId) {
                 event.preventDefault();
 
-                this.$router.push('/modes?modeId=' + modeId)
-                this.setActiveItem()
-                this.$store.commit('modesState/SET_CURRENT_MODE', modeId)
+                this.$router.push('/modes?modeId=' + modeId);
+                this.setActiveItem();
+                this.$store.commit('modesState/SET_CURRENT_MODE', modeId);
 
                 if ($('#app').outerWidth() < 768) {
                     this.toggleMenu()
@@ -57,10 +57,10 @@
             setListeners () {
                 let menu = $(".column-left");
                 let lastScrollTop = 0;
-                let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__sub-title').outerHeight()
-                let headerHeight = $('.header').outerHeight()
+                let menuHeaderHeight = $('.menu__panel').outerHeight() + $('.menu__sub-title').outerHeight();
+                let headerHeight = $('.header').outerHeight();
 
-                $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
+                $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`});
 
                 $(window).scroll(function (event) {
                     let st = $(this).scrollTop();
@@ -68,19 +68,19 @@
                         menu.css({top: '50px'})
                     }
                     if ((lastScrollTop - st > 2) && (st > 100)) {
-                        menu.css({top: '50px'})
+                        menu.css({top: '50px'});
                         $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
                     } else if ((st - lastScrollTop > 10) && (st > 100)) {
-                        menu.css({top: '0px'})
+                        menu.css({top: '0px'});
                         $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
                     }
                     lastScrollTop = st;
                 });
             },
             setActiveItem() {
-                this.closeAllItems()
-                let currentModeId = this.getURLParameter('modeId')
-                let currentMode = document.getElementById(currentModeId)
+                this.closeAllItems();
+                let currentModeId = this.getURLParameter('modeId');
+                let currentMode = document.getElementById(currentModeId);
                 currentMode ? currentMode.classList.add("open") : null
             },
             closeAllItems() {
@@ -106,7 +106,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

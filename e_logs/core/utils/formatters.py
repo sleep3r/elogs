@@ -29,10 +29,9 @@ class ColorsFormatter(logging.Formatter):
         return message
 
 
-
 class MkdirTimedRotatingFileHandler(TimedRotatingFileHandler):
     def __init__(self, filename, when='h', interval=1, backupCount=0, encoding=None, delay=False,
                  utc=False, atTime=None):
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         TimedRotatingFileHandler.__init__(self, filename, when, interval, backupCount, encoding, delay,
-                                     utc, atTime)
+                                          utc, atTime)

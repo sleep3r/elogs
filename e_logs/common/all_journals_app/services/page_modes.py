@@ -14,7 +14,6 @@ PLANT_PERM = APP + ".modify_{plant}"
 
 #@login_required
 def plant_permission(user, plant):
-    employee = Employee.objects.get(user=user)
     return user.has_perm(PLANT_PERM.format(plant=plant))
 
 

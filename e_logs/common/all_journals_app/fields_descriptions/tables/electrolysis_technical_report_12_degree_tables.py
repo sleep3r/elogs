@@ -31,7 +31,7 @@ rows_names_for_view = [
 ]
 
 row_names = [{"db": db, "view": view} for db, view in
-                zip(rows_names_for_db, rows_names_for_view)]
+             zip(rows_names_for_db, rows_names_for_view)]
 
 field_infos_for_rows = [gl_default] * 3 + [temperature_default] * 3 + [amperage_default] * 2
 
