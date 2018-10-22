@@ -16,7 +16,7 @@ const messagesState = {
             state.messages = messages
         },
         SET_UNREADED_MESSAGES (state, messages) {
-            state.unreadedMessages = unreadedMessages
+            state.unreadedMessages = messages
         },
         ADD_MESSAGE (state, msg) {
             state.messages.push(msg)
@@ -41,7 +41,7 @@ const messagesState = {
                 })
         },
         readMessage ({ commit, state, getters }, payload) {
-            return ajax.put(window.HOSTNAME + '/api/messages?id=' + payload.id, null, {
+            return ajax.put(window.HOSTNAME + '/api/messages/?id=' + payload.id, null, {
                 headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
             })
                 .then((res) => {

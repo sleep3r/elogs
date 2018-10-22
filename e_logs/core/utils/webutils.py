@@ -183,6 +183,11 @@ def model_to_dict(model: Model) -> dict:
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}
 
 
+def date_range(start_date, end_date):
+    for n in range(int((end_date - start_date).days)):
+        yield start_date + datetime.timedelta(n)
+
+
 def set_cookie(response, key: str, value: str, days_expire=7):
     if days_expire is None:
         max_age = 365 * 24 * 60 * 60  # one year
