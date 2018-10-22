@@ -1,9 +1,11 @@
-// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
 
@@ -18,6 +20,11 @@ module.exports = {
                     loader: 'file-loader'
                 },
             ]
+        },
+        optimization: {
+            splitChunks: {
+                chunks: 'all'
+            }
         },
 
         // optimization: {
@@ -55,12 +62,32 @@ module.exports = {
                 _: 'lodash'
                 // Popper: ['popper.js', 'default'],
             }),
+            new webpack.DefinePlugin({ PRODUCTION: JSON.stringify(false) }),
             new CopyWebpackPlugin([
                 {
                     from: path.resolve(__dirname, './src/e-logs-sw.js'),
                     to: path.resolve(__dirname, './dist/e-logs-sw.js')
                 }
             ]),
+            new HtmlWebpackPlugin({
+                inject: false,
+                template: require('html-webpack-template'),
+                appMountId: 'app',
+                title: 'e-logs',
+                favicon: "./public/images/favicon.ico",
+                meta: [
+                    {name: "viewport", content: "width=device-width,initial-scale=1.0"},
+                    {name: "description", content: "The worlds best electronic journaling system"},
+                    {name: "keywords", content: "journals, e-logs"},
+                ],
+                links: [
+
+                    {rel: "manifest", href: "/manifest.json"},
+                ],
+                lang: 'en-US',
+                bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>",
+                publicPath: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
+            }),
             new SWPrecacheWebpackPlugin(
                 {
                     cacheId: 'e-logs-cache-v1',
@@ -75,13 +102,14 @@ module.exports = {
                         {
                             filename: path.resolve(__dirname, './e-logs-sw.js')
                         }
-                    ]
+                    ],
                 }
             ),
+            new ResourceHintWebpackPlugin(),
         ],
     },
 
-    baseUrl: undefined,
+    baseUrl: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,
     runtimeCompiler: true,

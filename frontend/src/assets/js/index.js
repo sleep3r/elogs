@@ -8,7 +8,7 @@ import 'vue'; import Vue from 'vue/dist/vue.esm.js'; window.Vue = Vue;
 import 'bootstrap';
 import 'promise-polyfill/src/polyfill';
 
-import 'fullcalendar';
+import('fullcalendar');
 import 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min'
 import 'bootstrap-datepicker'
 import 'bootstrap-grid';
@@ -26,7 +26,7 @@ import '@fortawesome/fontawesome-free-brands';
 // ---------------------------------- Modules -------------------------------------
 // import '../scss/index.scss';
 
-import './feedback';
+import('./feedback');
 import './header';
 import './vue-env';
 import './formula'

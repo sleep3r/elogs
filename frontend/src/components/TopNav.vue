@@ -33,7 +33,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-dice-d6" @click="makeDefaultPage"></i>
+            <i class="fas fa-home default-page-badge" @click="makeDefaultPage"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
@@ -157,9 +157,11 @@
                 this.$router.push('/modes');
                 this.hideUserMenu()
             },
-            makeDefaultPage() {
+            makeDefaultPage(event) {
                 var path = window.location.pathname
-                console.log(path)
+                console.log(event.target)
+                // event.target.classList.remove("fa-home")
+                // event.target.classList.add("fa-check-circle")
                 ajax.post(
                     "http://localhost:8000/api/setting/",
                     {

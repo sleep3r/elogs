@@ -10,6 +10,9 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div :style="{display: errorText ? 'block' : 'none'}" class="alert alert-danger">
+                            {{errorText}}
+                        </div>
                         <div class="form-group">
                             <label for="table_name" class="col-form-label">Таблица</label>
                             <input
@@ -35,7 +38,7 @@
                                     list="field"
                             >
                             <datalist id="field" v-if="table_name">
-                                <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name + '-' + index"></option>
+                                <option v-for="item in fieldList" :value="item.name" :key="'field-' + item.name"></option>
                             </datalist>
                         </div>
                     </form>
@@ -60,7 +63,8 @@
                 table_name: '',
                 name: '',
                 tableList: [],
-                fieldList: []
+                fieldList: [],
+                errorText: ''
             }
         },
         computed: {
@@ -73,13 +77,20 @@
         },
         methods: {
             onAddCell () {
-                this.$store.commit('modesState/ADD_NEW_CELL', {
-                    tableName: $('input[id=table_name]').val(),
-                    name: $('input[id=name]').val()
-                })
+                if (this.table_name && this.name) {
+                    this.errorText = ''
 
-                $('#AddModeCellModal button.close').trigger('click')
-                this.$emit('on-add-cell')
+                    this.$store.commit('modesState/ADD_NEW_CELL', {
+                        tableName: $('input[id=table_name]').val(),
+                        name: $('input[id=name]').val()
+                    })
+
+                    $('#AddModeCellModal button.close').trigger('click')
+                    this.$emit('on-add-cell')
+                }
+                else {
+                    this.errorText = 'Введите данные полностью!'
+                }
             },
             getExistingName (listType, value) {
                 let currentItem = this[listType].filter(item => item.name === value)[0]
@@ -90,13 +101,14 @@
                     return undefined
                 }
             },
-            onInputChange(propType, value, index) {
+            onInputChange(propType, value) {
                 if (propType === 'table') {
                     console.log(this.getCurrentPlant, this.getCurrentJournal)
                     this.getTables(this.getCurrentPlant, this.getCurrentJournal)
                         .then(() => {
                             if (this.getExistingName('tableList', value)) {
                                 this.table_name = value
+                                this.getFields(this.getCurrentPlant, this.getCurrentJournal, this.table_name)
                             }
                             else {
                                 this.table_name = ''
@@ -140,6 +152,9 @@
                         console.log(e)
                     })
             }
+        },
+        mounted () {
+            this.getTables(this.getCurrentPlant, this.getCurrentJournal)
         }
     }
 </script>

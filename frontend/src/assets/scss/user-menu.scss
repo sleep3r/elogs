@@ -78,11 +78,11 @@
         border-bottom: 1px solid $color-border;
         color: $color-menu-text;
         background-color: #E5E5E5;
-        
+
         .caption {
             margin-left: 10px;
         }
-        
+
         a {
             display: inline-block;
             width: 100%;
@@ -109,11 +109,16 @@
 }
 
 .notify-menu::after {
-    right: 53%;
+    right: 76%;
 }
 
-.user-messages-badge {
+.user-messages-badge, .default-page-badge {
     cursor: pointer;
+}
+
+.default-page-badge:active {
+    text-shadow: 1px 1px 2px black;
+    transition: 0.2s;
 }
 
 .notify-menu {
