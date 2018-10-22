@@ -180,7 +180,7 @@ export default {
     getConfig () {
       let self = this;
       ajax.get(
-          'http://' + window.location.hostname + ':8000/dashboard/get-config',
+          window.HOSTNAME + '/dashboard/get-config',
           {withCredentials: true},
       )
         .then(function (response) {

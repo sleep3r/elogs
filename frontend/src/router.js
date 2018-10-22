@@ -72,7 +72,7 @@ router.beforeEach((to, from, next) => {
         console.dir(VueCookies.get('Authorization'))
         console.log(to)
         if (to.path == "/") {
-            ajax.get("http://localhost:8000/api/setting?name=defaultpage", {withCredentials: true })
+            ajax.get(window.HOSTNAME + "/api/setting?name=defaultpage", {withCredentials: true })
                 .then((response) => {
                     console.log("default url", response.data.defaultPage)
                     if (response.data.defaultPage) {

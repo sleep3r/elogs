@@ -162,7 +162,7 @@
                 var path = window.location.pathname
                 console.log(path)
                 ajax.post(
-                    "http://localhost:8000/api/setting/",
+                    "https://localhost:8000/api/setting/",
                     {
                         "name": "defaultpage",
                         "value": path,
