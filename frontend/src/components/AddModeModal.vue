@@ -10,6 +10,9 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div :style="{display: errorText ? 'block' : 'none'}" class="alert alert-danger">
+                            {{errorText}}
+                        </div>
                         <div class="form-group">
                             <label for="message">Сообщение</label>
                             <input type="text" class="form-control" id="message" v-model="currentAddingMode.message" placeholder="Введите сообщение">
@@ -70,10 +73,10 @@
                                         </datalist>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" v-model="item['min_normal']" placeholder="Мин. значение">
+                                        <input type="number" class="form-control" v-model="item['min_normal']" placeholder="Мин. значение">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" v-model="item['max_normal']" placeholder="Макс. значение">
+                                        <input type="number" class="form-control" v-model="item['max_normal']" placeholder="Макс. значение">
                                     </div>
                                     <div class="delete-icon" @click="onDeleteField(index)"><i class="fas fa-times"></i></div>
                                 </div>
@@ -98,6 +101,7 @@
         name: "AddModeModal",
         data () {
             return {
+                errorText: '',
                 plantList: [],
                 journalList: [],
                 tableList: [],
@@ -107,7 +111,15 @@
                     message: '',
                     plant: '',
                     journal: '',
-                    fields: []
+                    fields: [
+                    {
+                        table_name: '',
+                        verbose_table_name: '',
+                        name: '',
+                        verbose_name: '',
+                        min_normal: '',
+                        max_normal: ''
+                    }]
                 }
             }
         },
@@ -116,13 +128,22 @@
                 return this.randomIds.filter(item => item.index === index)[0].id
             },
             onAddMode () {
-                this.$store.dispatch('modesState/addMode', { mode: this.currentAddingMode })
-                    .then(() => {
-                        $('#addModeModal button.close').trigger('click')
-                    })
-                    .then(() => {
-                        this.$store.dispatch('modesState/getModes')
-                    })
+                if (this.currentAddingMode.message 
+                    && this.currentAddingMode.fields.every(item => item['min_normal'] !== '') 
+                        && this.currentAddingMode.fields.every(item => item['max_normal'] !== '')) {
+                            this.errorText = ''
+
+                            this.$store.dispatch('modesState/addMode', { mode: this.currentAddingMode })
+                            .then(() => {
+                                $('#addModeModal button.close').trigger('click')
+                            })
+                            .then(() => {
+                                this.$store.dispatch('modesState/getModes')
+                            })
+                }
+                else {
+                    this.errorText = 'Введите данные полностью!'
+                }
             },
             onAddField () {
                 this.currentAddingMode.fields.push({
@@ -134,8 +155,8 @@
                     max_normal: ''
                 })
 
-                this.tableList = []
-                this.fieldList = []
+                // this.tableList = []
+                // this.fieldList = []
             },
             onDeleteField (fieldIndex) {
                 this.currentAddingMode.fields = this.currentAddingMode.fields.filter((item, index) => index !== fieldIndex)
@@ -164,6 +185,7 @@
                         .then(() => {
                             if (this.getNameByVerboseName('plantList', value)) {
                                 this.currentAddingMode.plant = this.getNameByVerboseName('plantList', value)
+                                this.getJournals(this.currentAddingMode.plant)
                             }
                             else {
                                 this.currentAddingMode.plant = ''
@@ -178,6 +200,7 @@
                         .then(() => {
                             if (this.getNameByVerboseName('journalList', value)) {
                                 this.currentAddingMode.journal = this.getNameByVerboseName('journalList', value)
+                                this.getTables(this.currentAddingMode.plant, this.currentAddingMode.journal)
                             }
                             else {
                                 this.currentAddingMode.journal = ''
@@ -191,6 +214,7 @@
                         .then(() => {
                             if (this.getExistingName('tableList', value)) {
                                 this.currentAddingMode.fields[index].table_name = value
+                                this.getFields(this.currentAddingMode.plant, this.currentAddingMode.journal, this.currentAddingMode.fields[index].table_name)
                             }
                             else {
                                 this.currentAddingMode.fields[index].table_name = ''
@@ -260,6 +284,8 @@
             }
         },
         mounted () {
+            this.getPlants()
+            
             this.currentAddingMode.fields.map((item, index) => {
                 this.randomIds.push({
                     index: index,

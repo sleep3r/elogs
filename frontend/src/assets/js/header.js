@@ -1,4 +1,4 @@
-$(document).ready( function(event) {
+// $(document).ready( function(event) {
 //   let header = $(".header");
 //   let lastScrollTop = 0;
 //   $(window).scroll(function(event){
@@ -13,4 +13,4 @@ $(document).ready( function(event) {
 //      }
 //      lastScrollTop = currentScrollTop;
 //   });
-});
+// });
