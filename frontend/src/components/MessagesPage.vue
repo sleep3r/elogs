@@ -1,22 +1,27 @@
 <template>
     <div class="messages">
         <ul class="messages__list">
-            <h1 v-if="!messages.length" style="text-align: center">Нет сообщений</h1>
+            <h1 v-if="!getMessages.length" style="text-align: center">Нет сообщений</h1>
             <template v-else>
-                <li class="message" v-for="message in messages" :key="message.id">
-                    <template v-if="message.sendee">
+                <li class="message" v-for="message in getMessages" :key="message.id">
+                    <div v-if="message.sendee" class="message__title__container">
                         <img class="message__image" src="../assets/images/no-avatar.png">
-                        <span class="message__author-name">{{ message.user_name }}</span>
+                        <!-- <span class="message__author-name">{{ message.user_name }}</span> -->
                         <strong class="message__title">
-                            <a class="sendee" href="#">{{message.sendee}}</a>
-                            <span class="message__info"></span>
-                            <a :href="message.link">{{message.cell.field.name}}</a>
+                            <span class="sendee">{{message.sendee}}</span>
                         </strong>
-                    </template>
-                    <template v-else>
+                        <strong class="message__title">
+                            <span class="message__info">{{message.type}}</span>
+                        </strong>
+                        <strong class="message__title">
+                            <a :href="message.link">{{message.cell ? message.cell.field.name : null}}</a>
+                        </strong>
+                    </div>
+                    <template>
                         <p :class="['message__text', message.type]">{{message.text}}</p>
-                        <span class="message__created">{{message.created}}</span>
+                        <span class="message__created">{{new Date(message.created).toLocaleString()}}</span>
                     </template>
+                    <div class="message__is-read" v-if="!message.is_read" @click="setAsRead(message.id)"></div>
                 </li>
             </template>
         </ul>
@@ -36,36 +41,20 @@
         name: "MessagesPage",
         data() {
             return {
-                messages: [
-                    // {
-                    //     id: 1,
-                    //     user_name: 'dfsfs',
-                    //     sendee: 'esdad',
-                    //     link: 'dadsasd',
-                    //     cell: {
-                    //         field: {
-                    //             name: 'csadas'
-                    //         }
-                    //     },
-                    //     type: 'dsa',
-                    //     text: 'sadas',
-                    //     created:'dasdad'
-                    // },
-                    // {
-                    //     id: 2,
-                    //     user_name: 'dfsfs',
-                    //     sendee: 'esdad',
-                    //     link: 'dadsasd',
-                    //     cell: {
-                    //         field: {
-                    //             name: 'csadas'
-                    //         }
-                    //     },
-                    //     type: 'dsa',
-                    //     text: 'sadas',
-                    //     created:'dasdad'
-                    // }
-                ]
+                
+            }
+        },
+        computed: {
+            getMessages () {
+                return this.$store.getters['messagesState/messages']
+            }
+        },
+        methods: {
+            setAsRead (id) {
+                this.$store.dispatch('messagesState/readMessage', {id})
+                    .then(() => {
+                        this.$store.dispatch('messagesState/loadMessages')
+                    })
             }
         },
         mounted() {
