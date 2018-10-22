@@ -1,7 +1,6 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo" @click.prevent="$router.push('/')"><i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
-        </div>
+        <div class="header__logo" @click.prevent="$router.push('/')"><b>E-LOGS</b></div>
         <div class="header__title">
             <!--<span class="plant_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/plantVerboseName']}}</span>-->
             <!--<template v-if="$route.params.journal && $route.name !== 'modesPage'">-->

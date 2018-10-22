@@ -14,19 +14,22 @@ from e_logs.core.utils.webutils import get_or_none
 
 # noinspection PyMethodMayBeStatic
 class JournalBuilder:
-    def __init__(self, file, plant_name):
+    def __init__(self, file, plant_name, type=None):
         env = environ.Env(DEBUG=(bool, False))
         required_version = env('CONSTRUCTOR_VERSION')
         self.file = zipfile.ZipFile(file)
 
         try:
-            meta = json.loads(self.file.read(f'meta.json'))
+            meta = json.loads(self.file.read('meta.json'))
         except:
             raise SemanticError(message='Ошибка структуры файла')
 
         if float(meta['version']) == float(required_version):
+            if not type:
+                self.type = meta['type']
+            else:
+                self.type = type
             self.plant = Plant.objects.get_or_create(name=plant_name)[0]
-            self.type = meta['type']
             self.name = meta['name']
             self.title = meta['title']
             self.tables = meta['tables']
