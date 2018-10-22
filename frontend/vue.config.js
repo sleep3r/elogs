@@ -19,7 +19,7 @@ module.exports = {
                 },
             ]
         },
-        
+
         // optimization: {
         //     minimizer: [new UglifyJsPlugin(
         //     )]
@@ -49,10 +49,16 @@ module.exports = {
         // ])
         //     : (module.exports.plugins || [])
         plugins: [
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+                _: 'lodash'
+                // Popper: ['popper.js', 'default'],
+            }),
             new CopyWebpackPlugin([
                 {
-                  from: path.resolve(__dirname, './src/e-logs-sw.js'),
-                  to: path.resolve(__dirname, './dist/e-logs-sw.js')
+                    from: path.resolve(__dirname, './src/e-logs-sw.js'),
+                    to: path.resolve(__dirname, './dist/e-logs-sw.js')
                 }
             ]),
             new SWPrecacheWebpackPlugin(
