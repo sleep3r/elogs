@@ -85,7 +85,8 @@ module.exports = {
                     {rel: "manifest", href: "/manifest.json"},
                 ],
                 lang: 'en-US',
-                bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>"
+                bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>",
+                publicPath: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
             }),
             new SWPrecacheWebpackPlugin(
                 {
@@ -108,7 +109,7 @@ module.exports = {
         ],
     },
 
-    baseUrl: undefined,
+    baseUrl: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,
     runtimeCompiler: true,
