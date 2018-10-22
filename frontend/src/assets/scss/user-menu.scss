@@ -86,7 +86,7 @@
         .caption {
             margin-left: 10px;
         }
-        
+
         a {
             display: inline-block;
             width: 100%;
@@ -116,8 +116,13 @@
     right: 76%;
 }
 
-.user-messages-badge {
+.user-messages-badge, .default-page-badge {
     cursor: pointer;
+}
+
+.default-page-badge:active {
+    text-shadow: 1px 1px 2px black;
+    transition: 0.2s;
 }
 
 .notify-menu {

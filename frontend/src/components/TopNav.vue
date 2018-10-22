@@ -1,7 +1,6 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo" @click.prevent="$router.push('/')"><i class="fab fa-font-awesome"></i><span>&nbsp;E-Logs</span>
-        </div>
+        <div class="header__logo" @click.prevent="$router.push('/')"><b>E-LOGS</b></div>
         <div class="header__title">
             <!--<span class="plant_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/plantVerboseName']}}</span>-->
             <!--<template v-if="$route.params.journal && $route.name !== 'modesPage'">-->
@@ -46,7 +45,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home" @click="makeDefaultPage"></i>
+            <i class="fas fa-home default-page-badge" @click="makeDefaultPage"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
@@ -170,9 +169,11 @@
                 this.$router.push('/modes');
                 this.hideUserMenu()
             },
-            makeDefaultPage() {
+            makeDefaultPage(event) {
                 var path = window.location.pathname
-                console.log(path)
+                console.log(event.target)
+                // event.target.classList.remove("fa-home")
+                // event.target.classList.add("fa-check-circle")
                 ajax.post(
                     "http://localhost:8000/api/setting/",
                     {

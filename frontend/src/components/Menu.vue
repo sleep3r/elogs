@@ -39,6 +39,7 @@
 
 <script>
     import $ from 'jquery'
+    import EventBus from '../EventBus'
 
     export default {
         name: "Menu",
@@ -53,6 +54,11 @@
             }
         },
         mounted() {
+            EventBus.$on("set-menu-item", () => {
+                this.setActiveItem()
+            })
+
+
             this.$store.dispatch('journalState/loadPlants')
                 .then(() => {
                     setTimeout(() => this.setListeners(), 0)
@@ -95,7 +101,7 @@
                             .then((id) => {
                                 this.$router.push('/' + plantName + '/' + journalName + '/' + id)
                                 this.setActiveItem()
-                                
+
                                 if ($('#app').outerWidth() < 768) {
                                     this.toggleMenu()
                                 }

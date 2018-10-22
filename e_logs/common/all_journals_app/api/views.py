@@ -1,10 +1,12 @@
 import json
+import os
 import pickle
 from datetime import timedelta
 from shutil import copyfile
 from urllib.parse import parse_qs
 
 from django.contrib.contenttypes.models import ContentType
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Prefetch
 from django.forms import model_to_dict
 from django.views import View
@@ -386,17 +388,20 @@ class LoadJournalAPI(View):
     def post(self, request):
         if request.FILES.get('journal_file', None):
             journal = request.FILES['journal_file']
-            plant_name = request.POST.get('plant', None)
-            type = request.POST.get('type', None)
-            number_of_shifts = request.POST.get('number_of_shifts', None)
+            plant_name = request.POST['plant']
+            type = request.POST['type']
+            number_of_shifts = int(request.POST['number_of_shifts'])
             if plant_name and type and number_of_shifts:
                 try:
-                    copyfile(journal, f'resources/journals/{plant_name}/{journal.name}.jrn',)
-                    journal = JournalBuilder(journal, plant_name)
-                    new_journal = journal.create()
+                    os.remove(f'resources/journals/{plant_name}/{journal.name}')
+                except OSError:
+                    pass
+                fs = FileSystemStorage(location=f'resources/journals/{plant_name}/')
+                filename = fs.save(journal.name, journal)
+                journal = JournalBuilder(journal, plant_name, type)
+                new_journal = journal.create()
+                if new_journal.type == 'shift':
                     Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
-                except:
-                    return JsonResponse({"status": 0})
 
                 return JsonResponse({"status": 1})
         return JsonResponse({"status": 0})
