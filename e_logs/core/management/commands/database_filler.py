@@ -138,8 +138,6 @@ class DatabaseFiller:
                                 FieldConstraints.objects.create(min_normal=desc.get('min_normal'),
                                                                 max_normal=desc.get('max_normal'),
                                                                 field=field, mode=mode)
-                                print(plant.name, journal.name, table.name, field.name,
-                                      desc.get('min_normal', None), desc.get('max_normal', None))
                         except:
                             pass
 

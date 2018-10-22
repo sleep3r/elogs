@@ -28,7 +28,7 @@
                     <option value="4">4</option>
                 </select>
             </p>
-            <p style="text-align: right;"><input class="btn" type="submit" value="Загрузить" @click.prevent="onLoadJournal()"/></p>
+            <p style="text-align: right;"><input class="btn" type="submit" value="Загрузить" @click="onLoadJournal()"/></p>
         </form>
     </div>
 </template>
