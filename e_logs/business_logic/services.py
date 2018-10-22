@@ -36,7 +36,8 @@ class SetMode(Service):
 
         for f in self.data['fields']:
             field = Field.objects.get(name=f['name'],
-                                      table__name=f['table_name'],)
+                                      table__name=f['table_name'],
+                                      table__journal__name=self.cleaned_data['journal'])
 
             FieldConstraints.objects.create(min_normal=f['min_normal'],
                                             max_normal=f['max_normal'],
