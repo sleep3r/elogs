@@ -98,7 +98,7 @@ export default {
       // this.$store.commit("UPDATE_JOURNAL_INFO", {plant: {name: "Панель аналитики"}})
       // console.log(this.$store)
       ajax.get(
-          'http://' + window.location.hostname + ':8000/dashboard/get-config',
+          window.HOSTNAME + '/dashboard/get-config',
           {withCredentials: true},
       ).then(function (response) {
             console.log(response.data)

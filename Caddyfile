@@ -1,28 +1,24 @@
-3.120.145.186:8000 {
-    tls self_signed
+http://elogs.club {
+    redir {
+        if {scheme} is http
+        / https://{host}{uri}
+    }
+}
+
+https://elogs.club/vueapp {
+    root /srv/frontend/dist
+    errors {
+	404 index.html
+    }  
+}
+
+https://elogs.club {
     root /srv
     proxy / 127.0.0.1:8002 {
         transparent
-        except /static
-    }
-    
+    }    
     proxy /e-logs 127.0.0.1:8001 {
         websocket
     }
 }
 
-3.120.145.186:80 {
-    redir {
-        if {scheme} is http
-        / https://{host}{uri}
-    }
-    tls self_signed
-    root /srv/frontend/dist
-}
-
-3.120.145.186:443 {
-    push
-    gzip
-    tls self_signed
-    root /srv/frontend/dist
-}
