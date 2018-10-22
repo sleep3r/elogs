@@ -241,7 +241,7 @@ class SettingsAPI(LoginRequired, View):
                                "verbose_name": s.verbose_name,
                                "value": pickle.loads(s.value),
                                "content_type": ContentType.objects.get_for_model(s.scope).id,
-                               "scope": model_to_dict(s.scope)} for s in qs.filter(employee=user)],
+                               "scope": model_to_dict(s.scope)} for s in qs.filter(employee=user) if s.content_type],
 
             "settings": [{"id": s.id,
                           "name": s.name,
@@ -399,4 +399,4 @@ class LoadJournalAPI(View):
                     return JsonResponse({"status": 0})
 
                 return JsonResponse({"status": 1})
-            return JsonResponse({"status": 0})
+        return JsonResponse({"status": 0})

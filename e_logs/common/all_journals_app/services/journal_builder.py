@@ -12,6 +12,7 @@ from e_logs.core.utils.errors import SemanticError
 from e_logs.core.utils.webutils import get_or_none
 
 
+# noinspection PyMethodMayBeStatic
 class JournalBuilder:
     def __init__(self, file, plant_name):
         env = environ.Env(DEBUG=(bool, False))
@@ -44,7 +45,7 @@ class JournalBuilder:
             new_table = self.__create_table(journal=new_journal, table_meta=table)
 
             for field in table['fields']:
-                new_field = self.__create_field(table=new_table, field_meta=field)
+                self.__create_field(table=new_table, field_meta=field)
 
         self.__extract_tables(tables_path)
 

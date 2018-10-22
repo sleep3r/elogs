@@ -47,15 +47,17 @@ def get_page(journal, request):
         raise NotImplementedError()
     return page
 
+
 def get_menu_data():
     return {
-            "furnace":{f'/furnace/{journal.name}':journal.verbose_name
-                       for journal in Journal.objects.filter(plant__name="furnace")},
-            "leaching":{f'/leaching/{journal.name}':journal.verbose_name
-                        for journal in Journal.objects.filter(plant__name="leaching")},
-            "electrolysis":{f'/electrolysis/{journal.name}':journal.verbose_name
-                            for journal in Journal.objects.filter(plant__name="electrolysis")}
-            }
+        "furnace": {f'/furnace/{journal.name}': journal.verbose_name
+                    for journal in Journal.objects.filter(plant__name="furnace")},
+        "leaching": {f'/leaching/{journal.name}': journal.verbose_name
+                     for journal in Journal.objects.filter(plant__name="leaching")},
+        "electrolysis": {f'/electrolysis/{journal.name}': journal.verbose_name
+                         for journal in Journal.objects.filter(plant__name="electrolysis")}
+    }
+
 
 def add_page_info(context, plant, journal, page):
     context.page_type = journal.type
@@ -92,7 +94,8 @@ def get_cells_data(page: CellGroup) -> dict:
 
     def table_desc(table):
         cells = table.cells(page)
-        desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for cell in cells}
+        desc = {cell.name: {c.index: cell_desc(c) for c in cells.filter(field__name=cell.name)} for
+                cell in cells}
         return desc
 
     desc = {table.name: table_desc(table) for table in page.tables()}

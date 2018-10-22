@@ -4,12 +4,15 @@ import random
 from typing import List, Optional
 
 from django.contrib.auth.models import User, Group, Permission
+
+from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.models import CustomUser
 from django.db import connection
 from django.db.models import Model
 from slugify import slugify
 
 from e_logs.common.all_journals_app.models import *
+from e_logs.common.all_journals_app.fields_descriptions.fields_info import fields_info_desc
 from e_logs.common.login_app.models import Employee
 from e_logs.core.management.commands.fields_descriptions_filler import fill_fields_descriptions
 from e_logs.core.management.commands.fields_filler import fill_fields
@@ -119,6 +122,26 @@ class DatabaseFiller:
         # overriding number of shifts for furnace plant
         reports_furn = Journal.objects.get(plant__name='furnace', name='reports_furnace_area')
         Setting.of(obj=reports_furn)['number_of_shifts'] = 3
+
+    @staticmethod
+    def create_modes():
+        for plant in Plant.objects.all():
+            for journal in Journal.objects.filter(plant=plant).cache():
+                for table in Table.objects.filter(journal=journal).cache():
+                    for field in Field.objects.filter(table=table).cache():
+                        try:
+                            desc = fields_info_desc[journal.name][table.name][field.name]
+                            if 'min_normal' in desc.keys():
+                                mode = Mode.objects.get_or_create(is_active=True,
+                                                                  message=f'Основной режим: {journal.verbose_name}',
+                                                                  journal=journal)[0]
+                                FieldConstraints.objects.create(min_normal=desc.get('min_normal'),
+                                                                max_normal=desc.get('max_normal'),
+                                                                field=field, mode=mode)
+                                print(plant.name, journal.name, table.name, field.name,
+                                      desc.get('min_normal', None), desc.get('max_normal', None))
+                        except:
+                            pass
 
     @staticmethod
     def add_user(user_dict: dict) -> Optional[CustomUser]:

@@ -76,6 +76,7 @@ class Command(BaseCommand):
             stdout_logger.info("Adding settings...")
             df.create_journals_verbose_names()
             df.create_tables_verbose_names()
+            df.create_modes()
 
             # df.create_fields_descriptions()
 
