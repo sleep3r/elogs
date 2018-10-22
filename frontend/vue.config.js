@@ -62,6 +62,7 @@ module.exports = {
                 _: 'lodash'
                 // Popper: ['popper.js', 'default'],
             }),
+            new webpack.DefinePlugin({ PRODUCTION: JSON.stringify(false) }),
             new CopyWebpackPlugin([
                 {
                     from: path.resolve(__dirname, './src/e-logs-sw.js'),
