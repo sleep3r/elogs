@@ -15,8 +15,9 @@
     visibility: visible;
 }
 
-.visible {
+.menu-visible {
     visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .user-name, .user-notify {
@@ -61,10 +62,13 @@
     width: 274px;
     visibility: collapse;
     position: absolute;
-    background-color: #E5E5E5;
+    background-color: #fff;
+    box-shadow: -2px 2px 20px -4px #676767bf;
     margin: 0;
     padding: 0;
     z-index: 1002;
+    opacity: 0;
+    transition: 0.2s;
 
     .menu {
         margin: 0;
@@ -77,7 +81,7 @@
         padding: 0;
         border-bottom: 1px solid $color-border;
         color: $color-menu-text;
-        background-color: #E5E5E5;
+        background-color: #fff;
         
         .caption {
             margin-left: 10px;
@@ -96,17 +100,17 @@
 
 }
 
-.user-menu::after, .notify-menu::after {
-    content: " ";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 8px solid #0000;
-    border-right: 8px solid #0000;
-    border-bottom: 10px solid #E5E5E5;
-    right: 30%;
-    bottom: 100%;
-}
+// .user-menu::after, .notify-menu::after {
+//     content: " ";
+//     position: absolute;
+//     width: 0;
+//     height: 0;
+//     border-left: 8px solid #0000;
+//     border-right: 8px solid #0000;
+//     border-bottom: 10px solid #fff;
+//     right: 30%;
+//     bottom: 100%;
+// }
 
 .notify-menu::after {
     right: 76%;
@@ -129,4 +133,15 @@
         text-align: center;
         color: #6d6d6d;
     }
+}
+
+.message {
+    position: relative;
+    padding: 10px;
+
+    .message__title .sendee { color: #008BB9; margin-right: 20px;}
+    .message__author-name { color: #a5a5a5; font-size: 12px;}
+    .message__text { margin: 0; }
+    .message__text.critical_value { color: #ff9966; }
+    .message__created { color: #707070; font-size: 12px; }
 }

@@ -19,9 +19,21 @@
                     <template v-if="getUnreadedMessages.length">
                         <div class="msg-container">
                             <ul class="menu">
-                                <li class="user-menu__item" v-for="item in getUnreadedMessages" :key="item.id">
+                                <li class="user-menu__item message" v-for="message in getUnreadedMessages" :key="message.id">
                                     <a href="" @click.prevent="onMessagesClick">
-                                        <span class="caption">Текст сообщения</span>
+                                        <div v-if="message.sendee" class="message__title__container">
+                                            <!-- <span class="message__author-name">{{ message.user_name }}</span> -->
+                                            <strong class="message__title">
+                                                <span class="sendee">{{message.sendee}}</span>
+                                            </strong>
+                                            <strong class="message__title">
+                                                <span class="message__info">{{message.type}}</span>
+                                            </strong>
+                                        </div>
+                                        <template>
+                                            <p :class="['message__text', message.type]">{{message.text}}</p>
+                                            <span class="message__created">{{new Date(message.created).toLocaleString()}}</span>
+                                        </template>
                                     </a>
                                 </li>
                             </ul>
@@ -34,7 +46,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-dice-d6" @click="makeDefaultPage"></i>
+            <i class="fas fa-home" @click="makeDefaultPage"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
@@ -101,7 +113,7 @@
                     })
             },
             onNotifyClick() {
-                if ($('.header .notify-menu').hasClass('visible')) {
+                if ($('.header .notify-menu').hasClass('menu-visible')) {
                     this.hideNotifyMenu()
                 }
                 else {
@@ -115,15 +127,15 @@
                 '_blank')
             },
             showNotifyMenu () {
-                $('.header .notify-menu').addClass('visible')
-                $('.header .notify-menu-wrapper').addClass('visible')
+                $('.header .notify-menu').addClass('menu-visible')
+                $('.header .notify-menu-wrapper').addClass('menu-visible')
             },
             hideNotifyMenu () {
-                $('.header .notify-menu').removeClass('visible')
-                $('.header .notify-menu-wrapper').removeClass('visible')
+                $('.header .notify-menu').removeClass('menu-visible')
+                $('.header .notify-menu-wrapper').removeClass('menu-visible')
             },
             onUsernameClick() {
-                if ($('.header .user-menu').hasClass('visible')) {
+                if ($('.header .user-menu').hasClass('menu-visible')) {
                     this.hideUserMenu()
                 }
                 else {
@@ -131,12 +143,12 @@
                 }
             },
             showUserMenu () {
-                $('.header .user-menu').addClass('visible')
-                $('.header .user-menu-wrapper').addClass('visible')
+                $('.header .user-menu').addClass('menu-visible')
+                $('.header .user-menu-wrapper').addClass('menu-visible')
             },
             hideUserMenu () {
-                $('.header .user-menu').removeClass('visible')
-                $('.header .user-menu-wrapper').removeClass('visible')
+                $('.header .user-menu').removeClass('menu-visible')
+                $('.header .user-menu-wrapper').removeClass('menu-visible')
             },
             onMsgClick() {
                 let element = document.querySelector('.user-notifications');
@@ -172,6 +184,9 @@
         },
         mounted () {
             let _this = this
+
+            this.$store.dispatch('messagesState/loadUnreadedMessages')
+
             $('.header .user-menu-wrapper').click(function () {
                 _this.hideUserMenu()
             })
