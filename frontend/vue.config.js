@@ -1,9 +1,10 @@
-// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
 
@@ -18,6 +19,11 @@ module.exports = {
                     loader: 'file-loader'
                 },
             ]
+        },
+        optimization: {
+            splitChunks: {
+                chunks: 'all'
+            }
         },
 
         // optimization: {
@@ -61,6 +67,23 @@ module.exports = {
                     to: path.resolve(__dirname, './dist/e-logs-sw.js')
                 }
             ]),
+            new HtmlWebpackPlugin({
+                inject: false,
+                template: require('html-webpack-template'),
+                appMountId: 'app',
+                title: 'e-logs',
+                meta: [
+                    {name: "viewport", content: "width=device-width,initial-scale=1.0"},
+                    {name: "description", content: "The worlds best electronic journaling system"},
+                    {name: "keywords", content: "journals, e-logs"},
+                ],
+                links: [
+                    {rel: "icon", href: "./favicon.ico"},
+                    {rel: "manifest", href: "/manifest.json"},
+                ],
+                lang: 'en-US',
+                bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>"
+            }),
             new SWPrecacheWebpackPlugin(
                 {
                     cacheId: 'e-logs-cache-v1',
