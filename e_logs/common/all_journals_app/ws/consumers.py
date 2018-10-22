@@ -13,7 +13,7 @@ from e_logs.common.messages_app.models import Message
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        if self.scope['user'].is_authenticated:
+        try:
             self.data_channel = 'data'
             self.user_channel = f"user_{self.scope['user'].employee.id}"
 
@@ -29,7 +29,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
             await self.accept()
 
-        else:
+        except:
             await self.close()
 
     async def websocket_disconnect(self, event):
