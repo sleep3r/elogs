@@ -58,7 +58,8 @@
 }
 
 .mode-content__title__mode-info {
-  word-break: break-all;
+  word-break: normal;
+  width: 50%;
   margin-right: 20px;
 
   h3 {
@@ -126,6 +127,10 @@ td .delete-icon {
 
 .delete-icon:hover {
   opacity: 1;
+}
+
+#AddModeCellModal .alert-danger, #addModeModal .alert-danger {
+
 }
 
 @media all and (min-width: 576px) {
