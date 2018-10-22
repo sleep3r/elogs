@@ -399,4 +399,4 @@ class LoadJournalAPI(View):
                     return JsonResponse({"status": 0})
 
                 return JsonResponse({"status": 1})
-            return JsonResponse({"status": 0})
+        return JsonResponse({"status": 0})
