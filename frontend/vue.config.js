@@ -4,6 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 // const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 // const TerserPlugin = require('terser-webpack-plugin');
@@ -72,13 +73,14 @@ module.exports = {
                 template: require('html-webpack-template'),
                 appMountId: 'app',
                 title: 'e-logs',
+                favicon: "./public/images/favicon.ico",
                 meta: [
                     {name: "viewport", content: "width=device-width,initial-scale=1.0"},
                     {name: "description", content: "The worlds best electronic journaling system"},
                     {name: "keywords", content: "journals, e-logs"},
                 ],
                 links: [
-                    {rel: "icon", href: "./favicon.ico"},
+
                     {rel: "manifest", href: "/manifest.json"},
                 ],
                 lang: 'en-US',
@@ -98,9 +100,10 @@ module.exports = {
                         {
                             filename: path.resolve(__dirname, './e-logs-sw.js')
                         }
-                    ]
+                    ],
                 }
             ),
+            new ResourceHintWebpackPlugin(),
         ],
     },
 
