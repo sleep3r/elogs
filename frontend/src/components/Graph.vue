@@ -7,8 +7,7 @@
 <script>
 import ajax from '../axios.config'
 import $ from 'jquery'
-import VueGridLayout from 'vue-grid-layout';
-import Plotly from 'plotly.js-dist'
+const Plotly = import(/* webpackPrefetch: true */ 'plotly.js-dist');
 
 export default {
     name: 'Graph',

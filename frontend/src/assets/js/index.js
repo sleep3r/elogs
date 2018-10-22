@@ -26,7 +26,7 @@ import '@fortawesome/fontawesome-free-brands';
 // ---------------------------------- Modules -------------------------------------
 // import '../scss/index.scss';
 
-import './feedback';
+import('./feedback');
 import './header';
 import './vue-env';
 import './formula'
