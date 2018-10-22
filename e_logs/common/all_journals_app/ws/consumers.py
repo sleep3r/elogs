@@ -70,7 +70,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
         for cell_data in data['cells']:
             employee = self.scope['user'].employee
-            cell_data['responsible'] = {str(employee.user):employee.name}
+            cell_data['responsible'] = {str(employee.user): employee.name}
 
         await self.channel_layer.group_send(
             self.data_channel,
@@ -87,7 +87,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
             if cell.journal.type == 'shift':
                 await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
-
 
     async def messages_receive(self, data):
         if data['crud'] == 'add':
@@ -133,7 +132,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 comment = await self.add_comment_query(cell, text)
 
                 data['created'] = comment.created.isoformat()
-                data['employee'] = {str(comment.employee.user):comment.employee.name}
+                data['employee'] = {str(comment.employee.user): comment.employee.name}
                 await self.channel_layer.group_send(
                     self.data_channel,
                     {

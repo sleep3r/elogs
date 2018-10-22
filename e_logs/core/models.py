@@ -1,7 +1,7 @@
 import pickle
 import pickletools
 
-from typing import Optional
+from typing import Optional, Any
 
 from cacheops import cached_as
 from django.db import models
@@ -46,10 +46,9 @@ class CustomUser(AbstractUser):
             return None
 
 
-
 class SettingsMeta(ModelBase):
     @logged
-    def __getitem__(self, name: str) -> str:
+    def __getitem__(self, name: str) -> Any:
         return Setting.get_value(name)
 
     @logged
@@ -65,7 +64,7 @@ class TargetedSetting:
         self.employee = employee
 
     @logged
-    def __getitem__(self, name: str) -> str:
+    def __getitem__(self, name: str) -> Any:
         return Setting.get_value(name, obj=self.obj, employee=self.employee)
 
     @logged
@@ -110,7 +109,7 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
 
     @staticmethod
     @logged
-    def get_value(name: str, obj=None, employee: Optional[Employee] = None) -> str:
+    def get_value(name: str, obj=None, employee: Optional[Employee] = None) -> Any:
         """
         Returns setting value for object.
 

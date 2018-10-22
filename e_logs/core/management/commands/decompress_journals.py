@@ -14,13 +14,13 @@ from .database_filler import Journal
 
 def decompress_journals():
     for plant_name in os.listdir(settings.JOURNALS_DIR):
-        if plant_name[0] != '.':
-            if os.path.isdir(settings.JOURNALS_DIR / plant_name):
-                for file_name in os.listdir(settings.JOURNALS_DIR / plant_name):
-                    if file_name.endswith(f'.{settings.JOURNAL_EXTENSION}'):
-                        stdout_logger.info(file_name)
-                        journal = JournalBuilder(settings.JOURNALS_DIR / plant_name / file_name, plant_name)
-                        journal.create()
+        if plant_name[0] != '.' and os.path.isdir(settings.JOURNALS_DIR / plant_name):
+            for file_name in os.listdir(settings.JOURNALS_DIR / plant_name):
+                if file_name.endswith(f'.{settings.JOURNAL_EXTENSION}'):
+                    stdout_logger.info(file_name)
+                    journal = JournalBuilder(
+                        settings.JOURNALS_DIR / plant_name / file_name, plant_name)
+                    journal.create()
 
 
 class Command(BaseCommand):

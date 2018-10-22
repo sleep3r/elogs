@@ -71,12 +71,6 @@
                             </a>
                         </li>
                         <li class="user-menu__item">
-                            <a href="javascript:;" data-toggle="modal" data-target="#MessageToDevelopersModal" @click="hideUserMenu">
-                                <i class="fas fa-user-edit"></i><span
-                                    class="caption">Оставить отзыв разработчикам</span>
-                            </a>
-                        </li>
-                        <li class="user-menu__item">
                             <a href="" @click.prevent="onLogout">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span class="caption">Выйти из системы</span>

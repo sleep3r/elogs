@@ -10,7 +10,7 @@ class FeedBack {
         let journal = document.URL.split("?")[0].split("/")[4];
         let data = {
             "theme": theme, "text": text,
-            "user": backend.user.username, "email": backend.user.email,
+            // "user": backend.user.username, "email": backend.user.email, //TODO: WTF was that??
             "plant": plant, "journal": journal,
         };
         if (text && theme && text.length < 1000 && theme.length < 200) {
