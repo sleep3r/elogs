@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm.js'
 import Router from 'vue-router'
 import VueCookies from 'vue-cookies'
+import EventBus from './EventBus'
 
 import BasePage from './components/BasePage.vue'
 import Dashboard from './components/Dashboard.vue'
@@ -12,6 +13,7 @@ import ModesPage from './components/ModesPage.vue'
 import AddJournal from './components/AddJournal.vue'
 import ajax from './axios.config.js'
 import store from './store/store.js'
+
 
 Vue.use(Router);
 
@@ -77,7 +79,8 @@ router.beforeEach((to, from, next) => {
                     console.log("default url", response.data.defaultPage)
                     if (response.data.defaultPage) {
                         var temp = response.data.defaultPage.split("/")
-                        if (temp.lenght > 2) {
+                        console.log(temp.length)
+                        if (temp.length > 2) {
                             var plantName = temp[1]
                             var journalName = temp[2]
                             var id = temp[3]
@@ -88,7 +91,7 @@ router.beforeEach((to, from, next) => {
                                 })
                                     .then((id) => {
                                         next('/' + plantName + '/' + journalName + '/' + id)
-                                        this.setActiveItem()
+                                        EventBus.$emit("set-menu-item")
                                     })
                             }
                         }
