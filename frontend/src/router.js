@@ -76,20 +76,24 @@ router.beforeEach((to, from, next) => {
                 .then((response) => {
                     console.log("default url", response.data.defaultPage)
                     if (response.data.defaultPage) {
-                        next(response.data.defaultPage)
                         var temp = response.data.defaultPage.split("/")
-                        var plantName = temp[1]
-                        var journalName = temp[2]
-                        var id = temp[3]
-                        if (store.getters['journalState/isSynchronized']) {
-                            store.dispatch('journalState/loadJournal', {
-                              'plantName': plantName,
-                              'journalName': journalName,
-                            })
-                                .then((id) => {
-                                    next('/' + plantName + '/' + journalName + '/' + id)
-                                    this.setActiveItem()
+                        if (temp.lenght > 2) {
+                            var plantName = temp[1]
+                            var journalName = temp[2]
+                            var id = temp[3]
+                            if (store.getters['journalState/isSynchronized']) {
+                                store.dispatch('journalState/loadJournal', {
+                                  'plantName': plantName,
+                                  'journalName': journalName,
                                 })
+                                    .then((id) => {
+                                        next('/' + plantName + '/' + journalName + '/' + id)
+                                        this.setActiveItem()
+                                    })
+                            }
+                        }
+                        else {
+                            next(response.data.defaultPage)
                         }
                     }
                     else {
