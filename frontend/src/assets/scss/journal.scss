@@ -4,11 +4,28 @@
 
 @import "variables";
 
-.journal-title {
+.journal_title_container {
+    position: sticky;
+    background-color: #fff;
     display: flex;
-    width: 100%;
+    top: 50px;
+    padding: 20px;
+    margin: -20px;
+    transition: 0.4s;
+    width: calc(100% + 40px);
     justify-content: space-between;
-    margin-bottom: 4px;
+    flex-wrap: wrap;
+    z-index: 3;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+
+    &.hidden {
+        transform: translate3d(0, -100%, 0)
+    }
+
+    &.sticky {
+        transform: translate3d(0, 0, 0)
+    }
 
     h4 {
         margin-right: 20px;
@@ -89,7 +106,7 @@
 
 
 @media (max-width: 767.98px) {
-    .journal-title {
+    .journal_title_container {
         .btn.btn-outline {
             width: 100%;
         }
@@ -97,7 +114,7 @@
 }
 
 @media (max-width: 991.98px) {
-    .journal-title {
+    .journal_title_container {
         display: block;
 
         .btn.btn-outline {

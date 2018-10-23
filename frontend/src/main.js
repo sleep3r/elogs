@@ -91,7 +91,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
             }
             if (data['type'] === 'messages') {
                 console.log(data);
-                if (!(this.store.getters['userState/username'] in data['employee'])) {
+                if (!(this.store.getters['userState/username'] in data['sendee'])) {
                     this.store.commit('journalState/SAVE_CELL_COMMENT', {
                         tableName: data['cell_location']['table_name'],
                         fieldName: data['cell_location']['field_name'],

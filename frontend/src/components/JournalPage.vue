@@ -1,21 +1,21 @@
 <template>
     <main class="journal-page">
         <template v-if="$store.getters['journalState/loaded']">
-            <div class="journal-title">
-            <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
-            <button class="btn btn-outline" @click="openConstructor">
-                Открыть в конструкторе
-            </button>
-        </div>
-        <journal-panel></journal-panel>
-        <article class="journal-tables">
-            <template v-if="$store.getters['journalState/loaded']">
-                <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
-            </template>
-            <template v-else >
-                <span>Нет данных</span>
-            </template>
-        </article>
+            <div class="journal_title_container">
+                <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+                <button class="btn btn-outline" @click="openConstructor">
+                    Открыть в конструкторе
+                </button>
+                <journal-panel></journal-panel>
+            </div>
+            <article class="journal-tables">
+                <template v-if="$store.getters['journalState/loaded']">
+                    <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
+                </template>
+                <template v-else >
+                    <span>Нет данных</span>
+                </template>
+            </article>
         </template>
         <template v-else >
             <div class="spinner-container"><i class="spinner"></i></div>
@@ -35,13 +35,13 @@ export default {
         'journal-panel': JournalPanel
     },
     updated() {
-      for (let perm of ['validate', 'edit', 'view']) {
-          // console.log(perm)
-          if (this.userHasPerm(perm)) {
-              this.$store.commit('journalState/SET_PAGE_MODE', perm)
-              break
-          }
-      }
+        for (let perm of ['validate', 'edit', 'view']) {
+            // console.log(perm)
+            if (this.userHasPerm(perm)) {
+                this.$store.commit('journalState/SET_PAGE_MODE', perm)
+                break
+            }
+        }
     },
     methods: {
       userHasPerm(perm) {
@@ -82,6 +82,7 @@ export default {
                     this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
                 })
         }
+
     }
 }
 </script>

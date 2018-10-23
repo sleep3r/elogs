@@ -235,10 +235,31 @@
                 var hrs = (s - mins) / 60;
 
                 return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
+            },
+            setListeners () {
+                let self = this
+                let journalTitleContainer = $(".journal_title_container");
+                let lastScrollTop = 0;
+
+                $(window).scroll(function(event){
+                    let currentScrollTop = $(this).scrollTop();
+                    if(currentScrollTop < 100){
+                        journalTitleContainer.removeClass("hidden").addClass("sticky")
+                    }
+                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > 100)) {
+                        journalTitleContainer.removeClass("hidden").addClass("sticky");
+                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > 100)) {
+                        journalTitleContainer.removeClass("sticky").addClass("hidden");
+                    }
+                    lastScrollTop = currentScrollTop;
+                });
             }
         },
         mounted() {
             let self = this;
+
+            this.setListeners()
+
             this.$store.dispatch('journalState/loadShifts', {
                 plant: this.$route.params.plant,
                 journal: this.$route.params.journal
