@@ -500,13 +500,15 @@ const journalState = {
         sendUnsyncCell: function ({ commit, state, getters }, payload) {
             window.mv.$socket.sendObj({
                 'type': 'shift_data',
+                'unsync':true,
+                'cells':[{
                 'cell_location': {
                     'group_id': getters.journalInfo.id,
                     'table_name': payload.tableName,
                     'field_name': payload.fieldName,
                     'index': payload.index
-                },
-                'value': payload.value
+                    },
+                'value': payload.value }],
             })
         },
     }

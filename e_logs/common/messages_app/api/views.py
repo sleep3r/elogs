@@ -1,4 +1,5 @@
 import json
+from urllib.parse import parse_qs
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import model_to_dict
@@ -34,9 +35,9 @@ class MessagesAPI(LoginRequired, View):
 
     @logged
     def put(self, request):
-        msg_ids = request.POST.get('id')
-        if msg_ids:
-            msg_ids = msg_ids.split(',')
+        qs = parse_qs(request.META['QUERY_STRING'])
+        if qs:
+            msg_ids = qs['id'][0].split(',')
             for id in msg_ids:
                 msg = Message.objects.get(id=int(id))
                 if msg.addressee == request.user.employee:

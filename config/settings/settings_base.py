@@ -104,7 +104,8 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     # 'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.humanize',  # Handy template tags
+    'django.contrib.humanize',
+    'e_logs.core.apps.SuitConfig',# Handy template tags
     'django.contrib.admin',
     'django.contrib.staticfiles',
 ]
