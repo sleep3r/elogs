@@ -22,8 +22,8 @@ Vue.use(VTooltip);
 Vue.config.productionTip = false;
 
 //
-const dataEndpoint = 'wss://elogs.club/e-logs/';
-window.HOSTNAME = "https://elogs.club";
+const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
+window.HOSTNAME = "http://" + window.location.hostname + ":8000";
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
