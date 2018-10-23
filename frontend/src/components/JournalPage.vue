@@ -26,6 +26,7 @@
 <script>
 import TableCommon from './TableCommon.vue';
 import JournalPanel from './JournalPanel.vue';
+import ajax from "../axios.config"
 
 
 export default {
@@ -65,7 +66,15 @@ export default {
     mounted() {
         // console.log('mounted')
         this.$connect();
-        window.parser.setVariable("CURRENT_SHIFT", this.$route.params.shift_id)
+        let shift_id = this.$route.params.shift_id;
+        window.parser.setVariable("CURRENT_SHIFT", shift_id)
+        ajax.get(`http://localhost:8000/api/prev-shift/?shift_id=${shift_id}`,
+            {
+                withCredentials: true
+            }).then(
+            (res) => {
+                window.parser.setVariable("PREV_SHIFT", res.data)
+            })
         // console.log(this.$route.params)
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
