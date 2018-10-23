@@ -25,7 +25,7 @@ function subscribeUser(serviceWorkerRegistration) {
         applicationServerKey: urlB64ToUint8Array(appServerKey)
     })
         .then(function(subscription) {
-            ajax.post(window.HOSTNAME+'/common/messages/subscribe/', subscription, {
+            ajax.post(window.HOSTNAME+'/api/common/messages/subscribe/', subscription, {
                 withCredentials: true,
                 headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
             })
