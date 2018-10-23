@@ -35,7 +35,7 @@ DATABASES = {
         'HOST': '192.168.22.129',
         'PORT': '',
         'USER': 'admin',
-         'PASSWORD': 'Moscow2018',
+        'PASSWORD': 'Moscow2018',
         'OPTIONS': {
             'driver': 'ODBC Driver 13 for SQL Server',
         },
