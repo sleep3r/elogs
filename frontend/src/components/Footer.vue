@@ -11,6 +11,7 @@
         <add-mode-modal></add-mode-modal>
         <resp-modal></resp-modal>
         <graph-modal></graph-modal>
+        <full-calendar-modal></full-calendar-modal>
     </div>
 </template>
 
@@ -20,6 +21,7 @@
     import AddModeModal from './AddModeModal.vue';
     import ResponsibleModal from './ResponsibleModal.vue';
     import GraphModal from './GraphModal.vue';
+    import FullCalendarModal from './FullCalendarModal.vue';
 
     export default {
         name: "Footer",
@@ -28,7 +30,8 @@
             'schemeModal': SchemeModal,
             'add-mode-modal': AddModeModal,
             'resp-modal': ResponsibleModal,
-            'graph-modal': GraphModal
+            'graph-modal': GraphModal,
+            'full-calendar-modal': FullCalendarModal
         }
     }
 </script>
