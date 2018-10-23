@@ -193,7 +193,6 @@ export default {
   },
   mounted () {
       EventBus.$on('add-to-dashboard', (type) => {
-        console.log(1232131313)
         this.addToDashboard(type)
       })
   }

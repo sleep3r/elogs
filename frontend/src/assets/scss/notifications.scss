@@ -68,3 +68,38 @@
   }
 
 }
+
+
+.vue-notification {
+    padding: 10px;
+    font-size: 14px !important;
+   
+    color: #ffffff;
+    background: $color-main !important;
+    border-left: 5px solid darken($color-main, 10) !important;
+
+    &.warn {
+      background: $accent-orange !important;
+      border-left-color: darken($accent-orange, 10) !important;
+    }
+   
+    &.error {
+      background: $color-acent !important;
+      border-left-color: darken($color-acent, 10) !important;
+    }
+   
+    &.success {
+      background: $accent-green !important;
+      border-left-color: darken($accent-green, 10) !important;
+    }
+  }
+
+  .notifications {
+      span {
+        .notification-wrapper {
+            &:first-child {
+                margin-top: 50px !important;
+            }
+        }
+      }
+  }

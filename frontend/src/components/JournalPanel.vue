@@ -240,15 +240,16 @@
                 let self = this
                 let journalTitleContainer = $(".journal_title_container");
                 let lastScrollTop = 0;
+                let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 1012 ? 200 : 100
 
                 $(window).scroll(function(event){
                     let currentScrollTop = $(this).scrollTop();
-                    if(currentScrollTop < 100){
+                    if(currentScrollTop < startedScrollHeight){
                         journalTitleContainer.removeClass("hidden").addClass("sticky")
                     }
-                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > 100)) {
+                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
                         journalTitleContainer.removeClass("hidden").addClass("sticky");
-                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > 100)) {
+                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
                         journalTitleContainer.removeClass("sticky").addClass("hidden");
                     }
                     lastScrollTop = currentScrollTop;

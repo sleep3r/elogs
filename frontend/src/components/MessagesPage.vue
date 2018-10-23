@@ -3,6 +3,7 @@
         <ul class="messages__list">
             <h1 v-if="!getMessages.length" style="text-align: center">Нет сообщений</h1>
             <div class="messages__container" v-else>
+                <h4>Сообщения</h4>
                 <li class="message" v-for="message in getMessages" :key="message.id">
                     <div v-if="message.sendee" class="message__title__container">
                         <img class="message__image" src="../assets/images/no-avatar.png">
@@ -51,10 +52,6 @@
         },
         methods: {
             setAsRead (id) {
-                // this.$notify({
-                //     title: 'Important message',
-                //     text: 'Hello user! This is a notification!'
-                // });
                 this.$store.dispatch('messagesState/readMessage', {id})
                     .then(() => {
                         this.$store.dispatch('messagesState/loadMessages')

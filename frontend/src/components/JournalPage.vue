@@ -82,7 +82,6 @@ export default {
                     this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
                 })
         }
-
     }
 }
 </script>

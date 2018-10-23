@@ -187,6 +187,15 @@
             let _this = this
 
             this.$store.dispatch('messagesState/loadUnreadedMessages')
+                .then(() => {
+                    if (this.getUnreadedMessages.length) {
+                        this.$notify({
+                            title: 'Новые сообщения',
+                            text: `У вас ${this.getUnreadedMessages.length} новых сообщений!`,
+                            duration: 5000
+                        })
+                    }
+                })
 
             $('.header .user-menu-wrapper').click(function () {
                 _this.hideUserMenu()
