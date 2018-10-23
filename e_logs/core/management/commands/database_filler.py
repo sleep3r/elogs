@@ -91,7 +91,7 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
-        user = CustomUser.objects.create_user('shaukenov-shalkar', password='qwerty')
+        user = CustomUser.objects.create_user('shaukenov-s-s', password='qwerty')
         user.first_name = "Шалкар"
         user.last_name = "Шаукенов"
         user.is_superuser = False
