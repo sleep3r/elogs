@@ -488,7 +488,7 @@ const journalState = {
                 })
         },
         loadShifts: function ({commit, state, getters}, payload) {
-            return ajax.get(window.HOSTNAME+'/' + payload.plant + '/' + payload.journal +'/get_shifts/')
+            return ajax.get(window.HOSTNAME + '/api/' + payload.plant + '/' + payload.journal +'/get_shifts/')
                 .then(response => {
                     state.events = response.data;
                     $(".fc-month-button").click();

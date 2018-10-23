@@ -16,8 +16,8 @@
                 <select name="type" v-model="type">
                     <option disabled selected value="">Выберите тип журнала</option>
                     <option value="shift">Смена</option>
-                    <option value="equipment">Оборудование</option>
-                    <option value="measurement">Измерение</option>
+                    <option disabled value="equipment">Оборудование</option>
+                    <option disabled value="measurement">Измерение</option>
                 </select>
             </p>
             <p>

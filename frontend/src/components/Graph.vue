@@ -41,7 +41,7 @@ export default {
             }
             console.log(data)
             ajax.post(
-                window.HOSTNAME+"/dashboard/get-graph-data/",
+                window.HOSTNAME + "/api/dashboard/get-graph-data/",
                 data,
                 {withCredentials: true}
              )

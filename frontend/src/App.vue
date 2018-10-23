@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <router-view></router-view>
+        <notifications classes='vue-notification'/>
     </div>
 </template>
 

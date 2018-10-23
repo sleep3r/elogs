@@ -38,7 +38,6 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
     flex-wrap: wrap;
 
     .exp-time {
@@ -113,7 +112,6 @@ body {
 }
 
 .column-content {
-     position: relative;
      margin-left: 230px;
      padding-top: 50px;
      width: calc(100% - 230px);

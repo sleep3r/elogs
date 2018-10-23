@@ -61,7 +61,7 @@
                 formData.append("title", this.title)
                 formData.append("message", this.message)
                 formData.append("url", window.location.pathname)
-                axios.post( 'http://localhost:8000/feedback/send-message',
+                axios.post( window.HOSTNAME + '/api/feedback/send-message',
                     formData,
                     {
                         headers: {

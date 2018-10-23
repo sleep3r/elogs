@@ -4,7 +4,5 @@ from django.conf.urls import url
 from e_logs.common.all_journals_app import views
 
 urlpatterns = [
-    url(r'save_cell/$', views.save_cell),
-    url(r'end_shift/$', views.end_shift),
-    url(r'journal_upload/$', views.ConstructorView.as_view()),
+
 ]

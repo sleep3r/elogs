@@ -22,13 +22,12 @@ class Employee(StrAsDictMixin, models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=64)
-    position = models.CharField(max_length=128, blank=True, choices=POSITION_CHOICES)
+    position = models.CharField(max_length=128, blank=True, choices=POSITION_CHOICES, verbose_name='Должность')
     plant = models.CharField(max_length=128, verbose_name='Цех',
                              null=True, choices=(('furnace', 'Обжиг'),
                                                  ('leaching', 'Выщелачивание'),
                                                  ('electrolysis', 'Электролиз'),
                                                  ))
-    csrf = models.CharField(max_length=settings.CSRF_LENGTH, default=' ')
 
     @property
     def position_verbose(self):
@@ -38,8 +37,8 @@ class Employee(StrAsDictMixin, models.Model):
         return f'{self.name}'
 
     class Meta:
-        verbose_name = 'Рабочий'
-        verbose_name_plural = 'Рабочие'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
         indexes = [
             models.Index(fields=['plant', 'position']),
             models.Index(fields=['plant']),

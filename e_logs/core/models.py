@@ -93,6 +93,8 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
 
     class Meta:
         # equivalent to unique_together = [name, employee, scope], but this works
+        verbose_name = 'Настройка'
+        verbose_name_plural = 'Настройки'
         unique_together = (('name', 'employee', 'content_type', 'object_id'),)
         indexes = [
             models.Index(fields=['name', 'employee']),
