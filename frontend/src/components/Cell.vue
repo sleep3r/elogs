@@ -391,13 +391,13 @@
             this.maxValue = desc['max_normal'] || null;
             this.type = desc['type'] || 'text';
 
-            this.$root.$on('send', () => {
-                this.send();
-            })
+            // this.$root.$on('send', () => {
+            //     this.send();
+            // })
 
             if (this.linked) {
                 // auto fill cell
-                this.value = this.$store.getters['journalState/' + this.linked];
+                // this.value = this.$store.getters['journalState/' + this.linked];
                 // this.send();
             }
 
