@@ -195,7 +195,7 @@ class ShiftAPI(LoginRequired, View):
         return res
 
 
-class PrevShiftAPI(LoginRequired, View):
+class PrevShiftAPI(View):
     def get(self, request):
         shift_id = request.GET.get("shift_id", None)
         shift = Shift.objects.filter(id=shift_id).first()
