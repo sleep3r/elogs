@@ -41,8 +41,8 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <!-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftTimeline')">ShiftTimeline</a>
                 <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftHistogram')">ShiftHistogram</a> -->
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">ShiftTimeline</a>
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">ShiftHistogram</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
               </div>
             </div>
         <!-- </div> -->
