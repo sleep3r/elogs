@@ -1,14 +1,12 @@
 from django.contrib import admin
 from django.conf.urls import include
-from django.shortcuts import render
 from django.urls import path, re_path
 
 from rest_framework_swagger.views import get_swagger_view
 
 from django.conf import settings
-from sentry_sdk import last_event_id
 
-from e_logs.common.all_journals_app.views import JournalView, get_shifts, Index, get_table_template
+from e_logs.common.all_journals_app.views import get_shifts, get_table_template
 from e_logs.common.constructor_app.views import constructor_proxy
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
