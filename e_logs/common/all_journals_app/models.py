@@ -94,8 +94,8 @@ class Field(models.Model):
     name = models.CharField(max_length=128, verbose_name='Столбец')
     formula = models.CharField(max_length=4000, verbose_name='Формула', null=True, default="")
     verbose_name = models.CharField(max_length=256, verbose_name='Название столбца')
-    type = models.CharField(max_length=128, default="")
-    units = models.CharField(max_length=128, default="")
+    type = models.CharField(max_length=128, default="", null=True)
+    units = models.CharField(max_length=128, default="", null=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='fields')
     settings = GenericRelation('core.Setting', related_query_name='setting_field',
                                related_name='setting_fields')

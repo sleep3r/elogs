@@ -186,7 +186,6 @@
         mounted () {
             let _this = this
 
-            this.$store.dispatch('messagesState/loadUnreadedMessages')
 
             $('.header .user-menu-wrapper').click(function () {
                 _this.hideUserMenu()
