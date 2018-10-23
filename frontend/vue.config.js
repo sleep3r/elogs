@@ -74,7 +74,7 @@ module.exports = {
                 template: require('html-webpack-template'),
                 appMountId: 'app',
                 title: 'e-logs',
-                // favicon: "./public/images/favicon.ico",
+                favicon: "./public/favicon.ico",
                 meta: [
                     {name: "viewport", content: "width=device-width,initial-scale=1.0"},
                     {name: "description", content: "The worlds best electronic journaling system"},
@@ -108,6 +108,7 @@ module.exports = {
             new ResourceHintWebpackPlugin(),
         ],
     },
+
     baseUrl: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,

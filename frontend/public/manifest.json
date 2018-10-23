@@ -3,7 +3,7 @@
     "name": "E-logs",
     "icons": [
       {
-        "src": "./images/favicon.ico",
+        "src": "./favicon.ico",
         "type": "image/x-icon",
         "sizes": "48x48"
       }
