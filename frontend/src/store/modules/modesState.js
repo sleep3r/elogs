@@ -67,7 +67,7 @@ const modesState = {
     },
     actions: {
         getModes ({ commit, state, getters }, payload) {
-            return ajax.get(window.HOSTNAME+'/bl/modes_api/', {
+            return ajax.get(window.HOSTNAME+'/api/bl/modes_api/', {
                 withCredentials: true
             })
                 .then(response => {
@@ -78,7 +78,7 @@ const modesState = {
                 });
         },
         addMode ({ commit, state, getters }, payload) {
-            return ajax.post(window.HOSTNAME+'/bl/modes_api/', {
+            return ajax.post(window.HOSTNAME+'/api/bl/modes_api/', {
                 message: payload.mode.message,
                 plant: payload.mode.plant,
                 journal: payload.mode.journal,
@@ -98,7 +98,7 @@ const modesState = {
                 });
         },
         toggleMode ({ commit, state, getters }, payload) {
-            return ajax.put(window.HOSTNAME+'/bl/modes_api/', { id: payload.modeId, is_active: payload.isActive }, {
+            return ajax.put(window.HOSTNAME+'/api/bl/modes_api/', { id: payload.modeId, is_active: payload.isActive }, {
                 withCredentials: true
             })
                 .catch(e => {
@@ -106,7 +106,7 @@ const modesState = {
                 });
         },
         deleteMode ({ commit, state, getters }, payload) {
-            return ajax.delete(window.HOSTNAME+`/bl/modes_api/${payload.modeId}`, {
+            return ajax.delete(window.HOSTNAME+`/api/bl/modes_api/${payload.modeId}`, {
                 withCredentials: true
             })
                 .catch(e => {
@@ -114,7 +114,7 @@ const modesState = {
                 });
         },
         updateMode ({ commit, state, getters }, payload) {
-            return ajax.put(window.HOSTNAME+`/bl/modes_api/`, payload, {
+            return ajax.put(window.HOSTNAME+`/api/bl/modes_api/`, payload, {
                 withCredentials: true
             })
                 .catch(e => {

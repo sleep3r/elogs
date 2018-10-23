@@ -67,7 +67,7 @@ export default {
       layoutUpdatedEvent: function(newLayout) {
           console.log(newLayout)
           ajax.post(
-              window.HOSTNAME+"/dashboard/update-config",
+              window.HOSTNAME + "/api/dashboard/update-config",
               newLayout, {withCredentials: true}
           )
       },
@@ -82,7 +82,7 @@ export default {
       deleteGraph: function(id) {
           console.log("deleting " + id)
           ajax.post(
-              window.HOSTNAME+"/dashboard/delete-graph",
+              window.HOSTNAME + "/api/dashboard/delete-graph",
               {id: id},
               {withCredentials: true},
           )
@@ -98,7 +98,7 @@ export default {
       // this.$store.commit("UPDATE_JOURNAL_INFO", {plant: {name: "Панель аналитики"}})
       // console.log(this.$store)
       ajax.get(
-          window.HOSTNAME + '/dashboard/get-config',
+          window.HOSTNAME + '/api/dashboard/get-config',
           {withCredentials: true},
       ).then(function (response) {
             console.log(response.data)

@@ -160,7 +160,7 @@ export default {
     },
     addToDashboard(selectedGraphType) {
         ajax.post(
-            window.HOSTNAME+"/dashboard/add-graph",
+            window.HOSTNAME + "/api/dashboard/add-graph",
             {
                 'cell_info': {
                     'journal_name': this.$store.state.journalState.journalInfo.journal.name,
@@ -180,7 +180,7 @@ export default {
     getConfig () {
       let self = this;
       ajax.get(
-          window.HOSTNAME + '/dashboard/get-config',
+          window.HOSTNAME + '/api/dashboard/get-config',
           {withCredentials: true},
       )
         .then(function (response) {
