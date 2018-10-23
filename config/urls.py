@@ -16,12 +16,8 @@ handler403 = "e_logs.common.all_journals_app.views.permission_denied"
 schema_view = get_swagger_view(title='E-LOGS API')
 
 urlpatterns = [
-    path('', Index.as_view()),
     path('admin/', admin.site.urls),
-    path('auth', include('e_logs.common.login_app.urls')),
-    path('common', include('e_logs.common.all_journals_app.urls')),
     path('common/messages/', include('e_logs.common.messages_app.urls')),
-    path('common/settings/', include('e_logs.common.settings_app.urls')),
     path('feedback/', include('e_logs.common.feedback_app.urls')),
     path('dashboard/', include('e_logs.common.data_visualization_app.urls')),
     path('constructor/<str:path>/', constructor_proxy),
@@ -35,9 +31,6 @@ urlpatterns = [
     path('bl/', include('e_logs.business_logic.blank_shifts.urls')),
     path('templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/',
          get_table_template),
-    path('<str:plant_name>/<str:journal_name>/', JournalView.as_view()),
-    path('<str:plant_name>/<str:journal_name>/<int:page_id>/', JournalView.as_view(),
-         name='journal_view'),
     path('<str:plant_name>/<str:journal_name>/get_shifts/', get_shifts),
 ]
 
