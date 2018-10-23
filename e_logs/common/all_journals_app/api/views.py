@@ -16,6 +16,7 @@ from django.conf import settings
 from e_logs.business_logic import services
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
+from e_logs.common.all_journals_app.models import CellGroup
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.common.all_journals_app.views import get_current_shift
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
@@ -193,6 +194,18 @@ class ShiftAPI(LoginRequired, View):
 
         return res
 
+
+class PrevShiftAPI(LoginRequired, View):
+    def get(self, request):
+        shift_id = request.GET.get("shift_id", None)
+        shift = Shift.objects.filter(id=shift_id).first()
+        cellgroup = CellGroup.objects.filter(id=shift_id).first()
+        journal = cellgroup.journal
+        cellgroups = CellGroup.objects.filter(journal=journal)
+        shifts = [Shift.objects.get(id=x.id) for x in cellgroups]
+        sorted_shifts = sorted(shifts, key=lambda x : (x.date, x.order))
+        prev_shift =sorted_shifts[sorted_shifts.index(shift) - 1]
+        return JsonResponse(prev_shift.id, safe=False)
 
 class PlantsAPI(View):
     def get(self, request):
