@@ -52,10 +52,10 @@
                 <div class="user-menu">
                     <ul class="menu">
                         <li class="user-menu__item">
-                            <a href="" @click.prevent="onSettingsClick">
-                                <i class="fas fa-cogs"></i>
-                                <span class="caption">Настройки</span>
-                            </a>
+                            <!--<a href="" @click.prevent="onSettingsClick">-->
+                                <!--<i class="fas fa-cogs"></i>-->
+                                <!--<span class="caption">Настройки</span>-->
+                            <!--</a>-->
                         </li>
                         <li class="user-menu__item">
                             <a href="" @click.prevent="onAddJournal">
