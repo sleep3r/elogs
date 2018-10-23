@@ -51,6 +51,10 @@
         },
         methods: {
             setAsRead (id) {
+                // this.$notify({
+                //     title: 'Important message',
+                //     text: 'Hello user! This is a notification!'
+                // });
                 this.$store.dispatch('messagesState/readMessage', {id})
                     .then(() => {
                         this.$store.dispatch('messagesState/loadMessages')

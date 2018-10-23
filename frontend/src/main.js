@@ -6,9 +6,12 @@ import VueNativeSock from 'vue-native-websocket';
 import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
+import Notifications from 'vue-notification'
 
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
+
+Vue.use(Notifications)
 
 // import * as Sentry from '@sentry/browser';
 // Sentry.init({
