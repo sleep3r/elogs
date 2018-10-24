@@ -4,7 +4,7 @@
         <div class="btn-close" v-close-popover >&times;</div>
         <div class="title">{{tableName}}</div>
         <div class="subtitle">{{fieldName}}</div>
-        <div class="dash" v-if="responsible">
+        <div class="dash" v-if="!onlyChat">
             <div class="item user-name" v-if="responsible"><i class="material-icons">account_circle</i><span>&nbsp{{ responsible }}</span></div>
             <div class="item time" v-if="cellCreatedTime"><i class="material-icons">watch_later</i><span>&nbsp;{{cellCreatedTime}}</span></div>
             <div class="item units" v-if="maxNormal"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal}} m<sup>2</sup></span></div>
@@ -18,11 +18,11 @@
               <div class="author">{{commentUserName(comment)}}</div>
               <div class="body">{{comment.text}}</div>
             </div>
-            <div class="time">{{comment.created}}</div>
+            <div class="time">{{prettyDate(comment.created)}}</div>
           </div>
         </div>
       </div>
-      <div class="footer">
+      <div class="footer" v-if="!onlyChat">
         <textarea placeholder="Enter text your message" class="comment-text" v-model="commentText"></textarea>
         <div class="btns">
           <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
