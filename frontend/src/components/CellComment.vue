@@ -109,12 +109,8 @@ export default {
   },
   methods: {
     scrollToBottom () {
-      // $('.comments-list').animate({ 
-      //   scrollTop: $('.comments-list')[0].scrollHeight}, 
-      //   200
-      // );
-      // $('.comments-list')[0].scrollTop = $('.comments-list')[0].scrollHeight
-      $('.comments-list').scrollTop($('.comments-list')[0].scrollHeight);
+      let commentList = $('.comments-list')
+      if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
     },
     commentUserName(comment) {
       return Object.values(comment.user)[0];
