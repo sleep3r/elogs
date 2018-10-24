@@ -101,7 +101,7 @@
                 type: null,
                 placeholder: '',
                 showTooltip: false,
-                personsList: ['a', 'b', 'c'],
+                personsList: [],
                 tooltipContent: '',
                 fontWeight: 'lighter',
                 minWidth: 0
