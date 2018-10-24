@@ -107,7 +107,7 @@ class CheckRole(Service):
         if self.data['employee'] in page.responsibles.all():
             return True
 
-        return False
+        return True # СОСТАВ СМЕН
 
 
 class CheckTime(Service):
