@@ -1,7 +1,8 @@
 <template>
-  <div class="cell-popup">
+  <div class="cell-popup-wrapper" @click="closePopover" v-bind:style="{display: show ? 'block' : 'none'}">
+    <div class="cell-popup" @click.stop="() => {}" v-bind:style="{display: show ? 'block' : 'none', left: x + 'px', top: y + 'px'}">
       <div class="header">
-        <div class="btn-close" v-close-popover >&times;</div>
+        <div class="btn-close" @click="closePopover" >&times;</div>
         <div class="title">{{tableName}}</div>
         <div class="subtitle">{{fieldName}}</div>
         <div class="dash" v-if="!onlyChat">
@@ -36,6 +37,7 @@
         </div>
       </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -50,7 +52,10 @@ export default {
     'tableName',
     'fieldName',
     'rowIndex',
-    'onlyChat'
+    'onlyChat',
+    'show',
+    'x',
+    'y'
   ],
   data: function() {
       return {
@@ -108,6 +113,9 @@ export default {
     },
   },
   methods: {
+    closePopover () {
+      EventBus.$emit('close-cell-comment')
+    },
     scrollToBottom () {
       let commentList = $('.comments-list')
       if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
@@ -230,6 +238,14 @@ $color-bg: #008BB9;
   }
 }
 
+.cell-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
 .cell-popup {
    width: $popup-width;
    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
@@ -324,6 +340,7 @@ $color-comment-text: #A5A5A5 ;
   font-size: 11px;
   background-color: white;
   width: 450px;
+  position: absolute;
 
   .header {
     background-color: $color-header;

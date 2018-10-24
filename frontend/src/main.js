@@ -12,6 +12,10 @@ import EventBus from './EventBus'
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
 
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
+
 Vue.use(Notifications)
 
 // import * as Sentry from '@sentry/browser';

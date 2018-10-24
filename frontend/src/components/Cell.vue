@@ -1,63 +1,41 @@
 <template>
-    <v-popover
-            offset="16"
-            :disabled="mode !== 'validate'"
-            style="height: 100%"
-    >
+    <div>
         <template>
             <span v-if="hasFormula" class="formula-marker"><b><i>F</i></b></span>
         </template>
         <input
-                :class="['general-value', 'number-cell', 'form-control',
-                        mode === 'edit' ? 'form-control__edit' : '',
-                        hasFormula ? 'formula-cell' : '',
-                        mode === 'view' ? 'no-shadow' : '',
-                        ]"
-                :name="fieldName"
-                :row-index="rowIndex"
-                :value="value"
-                :readonly="mode !== 'edit' || hasFormula"
-                :placeholder="placeholder"
-                :style="[{ color: activeColor, fontWeight: fontWeight }]"
-                @keypress="filterInput"
-                @keydown="changeFocus"
-                @change="onChanged"
-                @input="onInput"
-                @blur="showTooltip=false"
-                @contextmenu.prevent="$refs.menu.open"
-                v-tooltip="{content: tooltipContent, show: showTooltip,
-                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
+            :class="['general-value', 'number-cell', 'form-control',
+                    mode === 'edit' ? 'form-control__edit' : '',
+                    hasFormula ? 'formula-cell' : '',
+                    mode === 'view' ? 'no-shadow' : '',
+                    ]"
+            :name="fieldName"
+            :row-index="rowIndex"
+            :value="value"
+            :readonly="mode !== 'edit' || hasFormula"
+            :placeholder="placeholder"
+            :style="[{ color: activeColor, fontWeight: fontWeight }]"
+            @keypress="filterInput"
+            @keydown="changeFocus"
+            @change="onChanged"
+            @input="onInput"
+            @click="(e) => showPopover(e, false)"
+            @blur="showTooltip=false"
+            @contextmenu.prevent="$refs.menu.open"
+            v-tooltip="{content: tooltipContent, show: showTooltip,
+                trigger: 'manual', placement: 'top', boundariesElement: getBody}"
         >
         <div class="widthCell"></div>
         <template>
             <datalist>
-                <option v-for="item in personsList" :value="item"></option>
+                <option v-for="person in personsList" :value="person" :key="person"></option>
             </datalist>
         </template>
-        <v-popover
-            offset="16"
-            :disabled="mode === 'validate'"
-            style="position: absolute; top: 0; left: 0;"
-        >
-            <i
-                v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
-                class="far fa-envelope comment-notification"
-            ></i>
-            <template slot="popover">
-                <CellComment
-                    :table-name="tableName"
-                    :field-name="fieldName"
-                    :row-index="rowIndex"
-                    :onlyChat="true"
-                />
-            </template>
-        </v-popover>
-        <template slot="popover">
-            <CellComment
-                    :table-name="tableName"
-                    :field-name="fieldName"
-                    :row-index="rowIndex"/>
-        </template>
+        <i
+            @click="(e) => showPopover(e, true)"
+            v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
+            class="far fa-envelope comment-notification"
+        ></i>
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -65,7 +43,7 @@
                 <li @click="flushRow()">Очистить строку</li>
             </ul>
         </vue-context>
-    </v-popover>
+    </div>
 </template>
 
 <script>
@@ -75,6 +53,7 @@
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
     import { VueContext } from 'vue-context';
+import EventBus from '../EventBus';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -95,6 +74,9 @@
         ],
         data() {
             return {
+                isShowPopover: false,
+                coordX: 0,
+                coordY: 0,
                 classes: 'general-value number-cell form-control',
                 minValue: null,
                 maxValue: null,
@@ -181,6 +163,49 @@
             },
         },
         methods: {
+            showPopover (e, onlyChat) {
+                let x = e.clientX
+                let y = e.clientY
+
+                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450
+                let appWidth = $('#app').outerWidth()
+
+                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 400
+                let appHeight = $('#app').outerHeight()
+
+                if (e.clientX + popUpWidth >= appWidth) {
+                    x = e.clientX - popUpWidth
+                }
+
+                // console.log($('.cell-popup').outerHeight(true), e.clientY + popUpHeight, appHeight)
+
+                if (e.clientY + popUpHeight >= appHeight) {
+                    y = e.clientY - popUpHeight
+                }
+
+                if (this.mode === 'validate') {
+                    EventBus.$emit('show-cell-comment', {
+                        coordX: x,
+                        coordY: y,
+                        show: true,
+                        tableName: this.tableName,
+                        fieldName: this.fieldName,
+                        rowIndex: this.rowIndex,
+                        onlyChat: false
+                    })
+                }
+                else if (this.mode !== 'validate' && onlyChat) {
+                    EventBus.$emit('show-cell-comment', {
+                        coordX: x,
+                        coordY: y,
+                        show: true,
+                        tableName: this.tableName,
+                        fieldName: this.fieldName,
+                        rowIndex: this.rowIndex,
+                        onlyChat: true
+                    })
+                }
+            },
             deleteRow() {
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
                 this.$store.dispatch('journalState/sendJournalData');
