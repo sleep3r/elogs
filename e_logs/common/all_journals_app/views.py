@@ -1,75 +1,19 @@
-import json
-import os
-import zipfile
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import timedelta
 
 import environ
 from cacheops import cached_as
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
-from django.shortcuts import redirect, render_to_response
-from django.shortcuts import render
-from django.template import loader, TemplateDoesNotExist
-from django.utils import timezone
-from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Plant, Table, Field
-from e_logs.common.all_journals_app.services.context_creator import get_context, Equipment
-from e_logs.core.models import Setting
-from e_logs.core.utils.deep_dict import DeepDict
-from e_logs.core.utils.webutils import process_json_view, logged, get_or_none, current_date
-from e_logs.core.views import LoginRequired
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.shortcuts import render_to_response
+from django.template import loader, TemplateDoesNotExist
+from django.views import View
+
+from e_logs.common.all_journals_app.models import Shift, Journal, Plant
+from e_logs.core.utils.webutils import logged, current_date
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
-
-
-class Index(LoginRequiredMixin, TemplateView):
-    def get(self, request, *args, **kwargs):
-        return redirect('/furnace/metals_compute')
-
-
-class JournalView(LoginRequiredMixin, View):
-    """
-    Common view for a journal.
-    Inherit from this class when creating your own journal view.
-    """
-
-    # @has_private_journals
-    def get(self, request, plant_name: str, journal_name: str, page_id=None):
-
-        plant = Plant.objects.get(name=plant_name)
-        journal = Journal.objects.get(plant=plant, name=journal_name)
-        if journal.type == 'shift':
-            if page_id:
-                page = Shift.objects.get(id=page_id)
-            else:
-                page = get_current_shift(journal)
-                return redirect('journal_view', page_id=page.id, plant_name=plant_name,
-                                journal_name=journal_name)
-        elif journal.type == 'equipment':
-            page = Equipment.objects.get_or_create(journal=journal)[0]
-        else:
-            raise NotImplementedError()
-        context = self.get_context(request, page)
-        template = loader.get_template('common.html')
-        return HttpResponse(template.render(context, request))
-
-    @staticmethod
-    @logged
-    def get_context(request, page) -> DeepDict:
-        return get_context(request, page)
-
-
-journal_view = JournalView.as_view()
-
-
-# journal_view = cached_view_as(Cell)(journal_view)
 
 
 def get_current_shift(journal):
@@ -85,18 +29,6 @@ def get_current_shift(journal):
     assert True, "No active shifts!"
 
 
-# -------------------Пропала кнопка СМЕНУ СДАЛ---------------------------------
-@csrf_exempt
-def end_shift(request):
-    if request.method == 'POST':
-        shift_id = request.POST.get('id', None)
-        if shift_id:
-            shift = Shift.objects.get(id=int(shift_id))
-            shift.ended = True
-            shift.save()
-            return JsonResponse({"status": 1})
-
-
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
     """ View for action with denied permission """
@@ -108,53 +40,8 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
-# ----------------------------------------Будет убрана---------------------------------------------
-@csrf_exempt
-@process_json_view(auth_required=False)
-# @logged
-def save_cell(request):
-    if request.method == 'POST':
-        cell_info = json.loads(request.body)
-        cell = Cell.get_or_create_cell(**cell_info['cell_location'])
-        value = cell_info['value']
-        if value != '':
-            cell.responsible = request.user.employee
-            cell.value = value
-            cell.save()
-        else:
-            cell.delete()
-
-        if cell.journal.type == 'shift':
-            shift = Shift.objects.get(id=int(cell_info['cell_location']['group_id']))
-            shift.responsibles.add(request.user.employee)
-
-        return {"status": 1}
-
-
 def get_table_template(request, plant_name, journal_name, table_name):
     return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
-
-
-# @process_json_view(auth_required=False)
-def get_menu_info(request):
-    verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
-    return {
-        'plants': [
-            {
-                'name': plant.name,
-                'verbose_name': verbose_name[plant.name],
-                'journals': [
-                    {
-                        'name': journal.name,
-                        'verbose_name': journal.verbose_name,
-                        'current_shift_id': get_current_shift(journal).id
-                    }
-                    for journal in Journal.objects.filter(plant=plant)
-                ]
-            }
-            for plant in Plant.objects.all()
-        ]
-    }
 
 
 class GetShifts(View):
@@ -199,28 +86,3 @@ class GetShifts(View):
 
 
 get_shifts = cached_as(Plant, Journal, Shift)(GetShifts.as_view())
-
-
-class ConstructorView(LoginRequiredMixin, View):
-    def post(self, request):
-        if request.FILES.get('journal_file', None):
-            journal = request.FILES['journal_file']
-            plant_name = self.request.POST.get('plant', None)
-            type = self.request.POST.get('type', None)
-            if plant_name and type:
-                plant = Plant.objects.get(name=plant_name)
-                try:
-                    log = JournalBuilder(request=self.request, file=journal, plant=plant, type=type)
-                except FileNotFoundError as err:
-                    return render(self.request, 'settings.html',
-                                  {'form_errors': str(err)})
-                except ImportError as err:
-                    return render(self.request, 'settings.html',
-                                  {'form_errors': str(err)})
-                log.create()
-
-                return redirect('/common/settings/')
-            else:
-                return render(self.request, 'settings.html', {'form_errors': 'Выберите цех и тип!'})
-
-        return render(self.request, 'settings.html', {'form_errors': 'Выберите файл журнала!'})

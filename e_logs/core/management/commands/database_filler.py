@@ -91,7 +91,7 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
-        user = CustomUser.objects.create_user('shaukenov-shalkar', password='qwerty')
+        user = CustomUser.objects.create_user('shaukenov-s-s', password='qwerty')
         user.first_name = "Шалкар"
         user.last_name = "Шаукенов"
         user.is_superuser = False
@@ -113,7 +113,7 @@ class DatabaseFiller:
     @staticmethod
     @logged
     def create_number_of_shifts():
-        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 4}
+        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 2}
 
         for pl, num in shift_numbers.items():
             plant = Plant.objects.get(name=pl)

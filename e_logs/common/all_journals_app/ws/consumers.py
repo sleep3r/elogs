@@ -132,7 +132,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 comment = await self.add_comment_query(cell, text)
 
                 data['created'] = comment.created.isoformat()
-                data['employee'] = {str(comment.employee.user): comment.employee.name}
+                data['sendee'] = {str(comment.employee.user): comment.employee.name}
                 await self.channel_layer.group_send(
                     self.data_channel,
                     {

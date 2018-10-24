@@ -107,7 +107,7 @@ class CheckRole(Service):
         if self.data['employee'] in page.responsibles.all():
             return True
 
-        return False
+        return True # СОСТАВ СМЕН
 
 
 class CheckTime(Service):
@@ -131,9 +131,9 @@ class CheckTime(Service):
         if timezone.now() > page.end_time + timedelta(hours=12):
             return False
 
-        shift = get_or_none(Shift, date=page.date, order=int(page.order-1), journal=page.journal)
-        if shift and not shift.ended and employee not in page.responsibles.all():
-            return False
+        # shift = get_or_none(Shift, date=page.date, order=int(page.order-1), journal=page.journal)
+        # if shift and not shift.ended and employee not in page.responsibles.all():
+        #     return False
 
         return True
 

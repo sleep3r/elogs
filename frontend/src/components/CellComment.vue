@@ -41,8 +41,8 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <!-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftTimeline')">ShiftTimeline</a>
                 <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftHistogram')">ShiftHistogram</a> -->
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">ShiftTimeline</a>
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">ShiftHistogram</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
               </div>
             </div>
         <!-- </div> -->
@@ -160,7 +160,7 @@ export default {
     },
     addToDashboard(selectedGraphType) {
         ajax.post(
-            window.HOSTNAME+"/dashboard/add-graph",
+            window.HOSTNAME + "/api/dashboard/add-graph",
             {
                 'cell_info': {
                     'journal_name': this.$store.state.journalState.journalInfo.journal.name,
@@ -180,7 +180,7 @@ export default {
     getConfig () {
       let self = this;
       ajax.get(
-          window.HOSTNAME + '/dashboard/get-config',
+          window.HOSTNAME + '/api/dashboard/get-config',
           {withCredentials: true},
       )
         .then(function (response) {
@@ -193,7 +193,6 @@ export default {
   },
   mounted () {
       EventBus.$on('add-to-dashboard', (type) => {
-        console.log(1232131313)
         this.addToDashboard(type)
       })
   }

@@ -6,9 +6,12 @@ import VueNativeSock from 'vue-native-websocket';
 import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
+import Notifications from 'vue-notification'
 
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
+
+Vue.use(Notifications)
 
 // import * as Sentry from '@sentry/browser';
 // Sentry.init({
@@ -62,12 +65,15 @@ Vue.use(VueNativeSock, dataEndpoint, {
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
-            console.log('data', JSON.parse(event.data))
-            console.log('event', event)
+            // console.log('data', JSON.parse(event.data))
+            // console.log('event', event)
             if (data['type'] == 'shift_data') {
+                console.log('shift_data', data)
+
                 let commitData = {'cells': []}
                 for (let i in data['cells']) {
                     let cellData = data['cells'][i]
+
                     this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible'])
                     // if received cell value is inputed by this user,
                     // store has it already
@@ -88,17 +94,38 @@ Vue.use(VueNativeSock, dataEndpoint, {
             }
             if (data['type'] === 'messages') {
                 console.log(data);
-                if (!(this.store.getters['userState/username'] in data['employee'])) {
-                    this.store.commit('journalState/SAVE_CELL_COMMENT', {
-                        tableName: data['cell_location']['table_name'],
-                        fieldName: data['cell_location']['field_name'],
-                        index: data['cell_location']['index'],
-                        comment: {
-                            'text': data['message']['text'],
-                            'created': Date.parse(data['created']),
-                            'user': data['employee']
-                        }
-                    });
+
+                if (data.cell) {
+                    mv.$notify({
+                        title: data.sendee[Object.keys(data.sendee)[0]],
+                        text: data.cell + ': ' + data.text,
+                        duration: 5000,
+                        type: 'warn'
+                    })
+                    
+                    this.store.dispatch('messagesState/loadUnreadedMessages')
+                    this.store.dispatch('messagesState/loadMessages')
+                }
+                else {
+                    let sendee = data.sendee ? data.sendee : data.employee
+                    if (!(this.store.getters['userState/username'] in Object.keys(sendee))) {
+                        // mv.$notify({
+                        //     title: sendee[Object.keys(sendee)[0]],
+                        //     text: data['cell_location']['field_name'] + ': ' + data.message.text,
+                        //     duration: 5000,
+                        // })
+
+                        this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                            tableName: data['cell_location']['table_name'],
+                            fieldName: data['cell_location']['field_name'],
+                            index: data['cell_location']['index'],
+                            comment: {
+                                'text': data['message']['text'],
+                                'created': Date.parse(data['created']),
+                                'user': sendee
+                            }
+                        });
+                    }
                 }
             }
         }

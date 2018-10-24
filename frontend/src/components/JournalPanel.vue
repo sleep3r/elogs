@@ -9,7 +9,7 @@
                    class="date-selector__date"
                    placeholder="Выберите дату..."
                    data-toggle="modal"
-                   data-target="#myModal"
+                   data-target="#FullCalendarModal"
             >
         </div>
         <div class="panel-buttons">
@@ -40,16 +40,11 @@
         <div class="exp-time">
           <span> {{ shiftMessage }} </span>
         </div>
-        <modal v-show="showCalendar" @close="showCalendar = false">
-            <full-calendar :events="events" :config="fullCalendarConfig" ref="calendar"/>
-        </modal>
     </div>
 </template>
 <script>
     import $ from 'jquery'
     import EventBus from '../EventBus'
-    import {FullCalendar} from 'vue-full-calendar'
-    import modal from "./Modal.vue"
     let XLSX = require('xlsx');
 
     export default {
@@ -60,31 +55,7 @@
                 shiftMessage: '',
                 showCalendar: false,
                 employeeName: 'Employee name',
-                employeePosition: 'position',
-                fullCalendarConfig: {
-                    locale: 'ru',
-                    buttonText: {
-                        today: 'Сегодня',
-                        month: 'Месяц',
-                        week: 'Неделя',
-                        day: 'День',
-                        list: 'Список'
-                    },
-                    timeFormat: 'H(:mm)',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month, listMonth'
-                    },
-                    selectable: true,
-                    selectHelper: true,
-                    select: function (start, end, allDay) {
-                    },
-                    eventClick: function (calEvent, jsEvent, view) {
-                        // console.log("event click");
-                    },
-                    editable: false,
-                }
+                employeePosition: 'position'
             }
         },
         watch: {
@@ -235,14 +206,38 @@
                 var hrs = (s - mins) / 60;
 
                 return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
+            },
+            setListeners () {
+                let self = this
+                let journalTitleContainer = $(".journal_title_container");
+                let lastScrollTop = 0;
+                let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 1012 ? 200 : 100
+
+                $(window).scroll(function(event){
+                    let currentScrollTop = $(this).scrollTop();
+                    if(currentScrollTop < startedScrollHeight){
+                        journalTitleContainer.removeClass("hidden").addClass("sticky")
+                    }
+                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
+                        journalTitleContainer.removeClass("hidden").addClass("sticky");
+                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
+                        journalTitleContainer.removeClass("sticky").addClass("hidden");
+                    }
+                    lastScrollTop = currentScrollTop;
+                });
             }
         },
         mounted() {
             let self = this;
-            this.$store.dispatch('journalState/loadShifts', {
-                plant: this.$route.params.plant,
-                journal: this.$route.params.journal
+
+            setTimeout(() => {
+                this.$store.dispatch('journalState/loadShifts', {
+                    plant: this.$route.params.plant,
+                    journal: this.$route.params.journal
+                }), 0
             })
+
+            this.setListeners()
 
             this.updateShiftMode()
 
@@ -262,10 +257,6 @@
             // if (this.userIsResponsible) {
             //     console.log('awdawd')
             // }
-        },
-        components: {
-            modal,
-            FullCalendar
         },
         created() {
             setInterval(() => this.now = (new Date()).getTime(), 1000)

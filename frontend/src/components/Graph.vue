@@ -7,7 +7,8 @@
 <script>
 import ajax from '../axios.config'
 import $ from 'jquery'
-const Plotly = import(/* webpackPrefetch: true */ 'plotly.js-dist');
+const Plotly = require('plotly.js-dist');
+window.plotly = Plotly
 
 export default {
     name: 'Graph',
@@ -40,7 +41,7 @@ export default {
             }
             console.log(data)
             ajax.post(
-                window.HOSTNAME+"/dashboard/get-graph-data/",
+                window.HOSTNAME + "/api/dashboard/get-graph-data/",
                 data,
                 {withCredentials: true}
              )

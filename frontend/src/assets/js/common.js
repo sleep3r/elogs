@@ -4,7 +4,7 @@ import $ from 'jquery'
 let Notifications = {
     markAsRead_: function(ids) {
         jQuery.ajax({
-            url: '/common/messages/read/',
+            url: '/api/common/messages/read/',
             data: { ids: ids },
             method: 'POST',
             //contentType: 'application/json',
