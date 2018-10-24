@@ -34,7 +34,7 @@
         },
         watch: {
             text(value) {
-                this.isCollapsed = !value
+             
             }
         },
         computed: {
