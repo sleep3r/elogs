@@ -226,8 +226,10 @@ class JournalsAPI(View):
 
 class MenuInfoAPI(View):
     def get(self, request):
-        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз',
-                        'leaching': 'Выщелачивание'}
+        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
+        qs = Journal.objects.all()
+        if str(request.user) not in ['shaukenov-s-s', 'makagonov-s-n'] and not request.user.is_superuser:
+            qs = qs.exclude(name__in=['metals_compute', 'report_income_outcome_schieht'])
         return JsonResponse({
             'plants': [
                 {
@@ -238,7 +240,7 @@ class MenuInfoAPI(View):
                             'name': journal.name,
                             'verbose_name': journal.verbose_name,
                         }
-                        for journal in Journal.objects.filter(plant=plant)
+                        for journal in qs.filter(plant=plant)
                     ]
                 }
                 for plant in Plant.objects.all()
