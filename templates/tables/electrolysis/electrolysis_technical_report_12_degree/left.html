@@ -2,47 +2,43 @@
     <thead>
     <tr>
         <th rowspan="2" colspan="2"> Параметры</th>
-        <th colspan="6" class="th-common"> Время замеров</th>
+        <th colspan="12" class="th-common"> Время замеров</th>
         <th rowspan="2"> Несоотвествия</th>
         <th rowspan="2"> Принятые меры</th>
     </tr>
     <tr v-if="shiftOrder === 1">
-        <th class="th-number">8:00</th>
-        <th class="th-number">9:00</th>
-        <th class="th-number">10:00</th>
-        <th class="th-number">11:00</th>
-        <th class="th-number">12:00</th>
-        <th class="th-number">13:00</th>
-    </tr>
-    <tr v-if="shiftOrder === 2">
-        <th class="th-number">14:00</th>
-        <th class="th-number">15:00</th>
-        <th class="th-number">16:00</th>
-        <th class="th-number">17:00</th>
-        <th class="th-number">18:00</th>
-        <th class="th-number">19:00</th>
-    </tr>
-    <tr v-if="shiftOrder === 3">
-        <th class="th-number">20:00</th>
-        <th class="th-number">21:00</th>
-        <th class="th-number">22:00</th>
-        <th class="th-number">23:00</th>
-        <th class="th-number">00:00</th>
-        <th class="th-number">01:00</th>
-    </tr>
-    <tr v-if="shiftOrder === 4">
-        <th class="th-number">02:00</th>
-        <th class="th-number">03:00</th>
-        <th class="th-number">04:00</th>
-        <th class="th-number">05:00</th>
-        <th class="th-number">06:00</th>
-        <th class="th-number">07:00</th>
-    </tr>
+            <th class="th-number">8:00</th>
+            <th class="th-number">9:00</th>
+            <th class="th-number">10:00</th>
+            <th class="th-number">11:00</th>
+            <th class="th-number">12:00</th>
+            <th class="th-number">13:00</th>
+            <th class="th-number">14:00</th>
+            <th class="th-number">15:00</th>
+            <th class="th-number">16:00</th>
+            <th class="th-number">17:00</th>
+            <th class="th-number">18:00</th>
+            <th class="th-number">19:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 2">
+            <th class="th-number">20:00</th>
+            <th class="th-number">21:00</th>
+            <th class="th-number">22:00</th>
+            <th class="th-number">23:00</th>
+            <th class="th-number">00:00</th>
+            <th class="th-number">01:00</th>
+            <th class="th-number">02:00</th>
+            <th class="th-number">03:00</th>
+            <th class="th-number">04:00</th>
+            <th class="th-number">05:00</th>
+            <th class="th-number">06:00</th>
+            <th class="th-number">07:00</th>
+        </tr>
     </thead>
     <tbody>
     <tr>
         <th colspan="2"> Zn, г/л отр./смесь</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="zn" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -54,7 +50,7 @@
     </tr>
     <tr>
         <th colspan="2"> H2SO4, г/л в отр.</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="h2so4" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -67,7 +63,7 @@
     <tr>
         <th rowspan="3"> t<sub>0</sub>C</th>
         <th> смесь</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="tmix" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -79,7 +75,7 @@
     </tr>
     <tr>
         <th> в ваннах</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="vv" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -91,7 +87,7 @@
     </tr>
     <tr>
         <th> нейтр. (град.)</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="ng" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -104,7 +100,7 @@
     <tr>
         <th rowspan="2"> I, кА</th>
         <th> I c.</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="s1s" :row-index="hourNumber"></cell>
         </td>
         <td>
@@ -116,7 +112,7 @@
     </tr>
     <tr>
         <th> II c.</th>
-        <td v-for="hourNumber of 6">
+        <td v-for="hourNumber of 12">
             <cell field-name="s2s" :row-index="hourNumber"></cell>
         </td>
         <td>
