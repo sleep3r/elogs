@@ -7,6 +7,7 @@ import './register-sw'
 import './assets/js/index'
 import VueCookies from "vue-cookies";
 import Notifications from 'vue-notification'
+import EventBus from './EventBus'
 
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
@@ -108,7 +109,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                 }
                 else {
                     let sendee = data.sendee ? data.sendee : data.employee
-                    if (!(this.store.getters['userState/username'] in Object.keys(sendee))) {
+                    if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
                         // mv.$notify({
                         //     title: sendee[Object.keys(sendee)[0]],
                         //     text: data['cell_location']['field_name'] + ': ' + data.message.text,
@@ -125,6 +126,8 @@ Vue.use(VueNativeSock, dataEndpoint, {
                                 'user': sendee
                             }
                         });
+
+                        EventBus.$emit('scroll-to-bottom')
                     }
                 }
             }

@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="footer" v-if="!onlyChat">
-        <textarea placeholder="Enter text your message" class="comment-text" v-model="commentText"></textarea>
+        <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
         <div class="btns">
           <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
           <div class="btn btn-graph dropdown dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,6 +108,14 @@ export default {
     },
   },
   methods: {
+    scrollToBottom () {
+      // $('.comments-list').animate({ 
+      //   scrollTop: $('.comments-list')[0].scrollHeight}, 
+      //   200
+      // );
+      // $('.comments-list')[0].scrollTop = $('.comments-list')[0].scrollHeight
+      $('.comments-list').scrollTop($('.comments-list')[0].scrollHeight);
+    },
     commentUserName(comment) {
       return Object.values(comment.user)[0];
     },
@@ -130,6 +138,7 @@ export default {
       });
       this.send();
       this.commentText = ''
+      setTimeout(() => this.scrollToBottom(), 0)
     },
     send() {
       this.$socket.sendObj({
@@ -182,8 +191,14 @@ export default {
     }
   },
   mounted () {
+      setTimeout(() => this.scrollToBottom(), 0)
+
       EventBus.$on('add-to-dashboard', (type) => {
         this.addToDashboard(type)
+      })
+
+      EventBus.$on('scroll-to-bottom', () => {
+        setTimeout(() => this.scrollToBottom(), 0)
       })
   }
 }
@@ -367,7 +382,7 @@ $color-comment-text: #A5A5A5 ;
   }
   .comments {
     .date {
-      margin-top: 10px;
+      padding: 4px;
       font-size: 10px;
       font-style: italic;
       color: $color-comment-text;
@@ -379,9 +394,8 @@ $color-comment-text: #A5A5A5 ;
       overflow-y: scroll;
       min-height:101%;
 
-      margin-top: 20px;
       padding-right: 20px;
-      padding-left: 120px;
+      padding-left: 100px;
 
       .comment {
         display: flex;
@@ -393,6 +407,7 @@ $color-comment-text: #A5A5A5 ;
           font-size: 9px;
         }
         .comment-cloud {
+          width: 84%;
           background-color: $color-comment;
           padding: 5px;
           text-align: left;
