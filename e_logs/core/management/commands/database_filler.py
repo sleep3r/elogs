@@ -113,7 +113,7 @@ class DatabaseFiller:
     @staticmethod
     @logged
     def create_number_of_shifts():
-        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 4}
+        shift_numbers = {'furnace': 2, 'leaching': 3, 'electrolysis': 2}
 
         for pl, num in shift_numbers.items():
             plant = Plant.objects.get(name=pl)
