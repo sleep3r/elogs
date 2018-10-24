@@ -175,7 +175,7 @@
                 // event.target.classList.remove("fa-home")
                 // event.target.classList.add("fa-check-circle")
                 ajax.post(
-                    "https://localhost:8000/api/setting/",
+                    "http://localhost:8000/api/setting/",
                     {
                         "name": "defaultpage",
                         "value": path,

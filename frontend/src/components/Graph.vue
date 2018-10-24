@@ -7,7 +7,8 @@
 <script>
 import ajax from '../axios.config'
 import $ from 'jquery'
-const Plotly = import(/* webpackPrefetch: true */ 'plotly.js-dist');
+const Plotly = require('plotly.js-dist');
+window.plotly = Plotly
 
 export default {
     name: 'Graph',

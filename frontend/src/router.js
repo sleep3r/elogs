@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
                         if (temp.length > 2) {
                             var plantName = temp[1]
                             var journalName = temp[2]
-                            var id = temp[3]
+                            // var id = temp[3]
                             if (store.getters['journalState/isSynchronized']) {
                                 store.dispatch('journalState/loadJournal', {
                                   'plantName': plantName,
