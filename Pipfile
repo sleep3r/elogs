@@ -50,6 +50,7 @@ sentry-sdk = "*"
 django-debug-toolbar = "*"
 django-proxy = "*"
 "6210100" = {file = "https://github.com/darklow/django-suit/tarball/v2"}
+"osisoft.pidevclub.piwebapi" = "*"
 
 [dev-packages]
 icecream = "*"
