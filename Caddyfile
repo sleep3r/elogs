@@ -5,20 +5,33 @@ http://elogs.club {
     }
 }
 
-https://elogs.club/vueapp {
-    root /srv/frontend/dist
-    errors {
-	404 index.html
-    }  
+https://elogs.club/admin {
+    proxy / 127.0.0.1:8002/admin {
+        transparent
+    }
+}
+
+https://elogs.club/api {
+    proxy / 127.0.0.1:8002/api {
+        transparent
+    }
+}
+
+wss://elogs.club/e-logs {
+    proxy / 127.0.0.1:8001/e-logs {
+        websocket
+    }
 }
 
 https://elogs.club {
-    root /srv
-    proxy / 127.0.0.1:8002 {
-        transparent
-    }    
-    proxy /e-logs 127.0.0.1:8001 {
-        websocket
+    root /srv/frontend/dist
+    rewrite {
+        regexp .*
+        to {path} /
+    }
+    errors {
+	404 index.html
+        500 index.html
     }
 }
 
