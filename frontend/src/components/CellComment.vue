@@ -1,6 +1,6 @@
 <template>
-  <div class="cell-popup-wrapper" @click="closePopover" v-bind:style="{display: show ? 'block' : 'none'}">
-    <div class="cell-popup" @click.stop="() => {}" v-bind:style="{display: show ? 'block' : 'none', left: x + 'px', top: y + 'px'}">
+  <div class="cell-popup-wrapper" @click="closePopover">
+    <div class="cell-popup" @click.stop="() => {}" v-bind:style="{left: x + 'px', top: y + 'px'}">
       <div class="header">
         <div class="btn-close" @click="closePopover" >&times;</div>
         <div class="title">{{tableName}}</div>
@@ -23,11 +23,11 @@
           </div>
         </div>
       </div>
-      <div class="footer" v-if="!onlyChat">
+      <div class="footer">
         <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
         <div class="btns">
           <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
-          <div class="btn btn-graph dropdown dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
@@ -53,7 +53,6 @@ export default {
     'fieldName',
     'rowIndex',
     'onlyChat',
-    'show',
     'x',
     'y'
   ],
@@ -250,6 +249,7 @@ $color-bg: #008BB9;
   left: 0;
   width: 100%;
   height: 100vh;
+  z-index: 100;
 }
 
 .cell-popup {
@@ -338,6 +338,7 @@ $color-comment-text: #A5A5A5 ;
   font-size: 11px;
   background-color: white;
   width: 450px;
+  height: 386px;
   position: absolute;
 
   .header {
@@ -453,6 +454,7 @@ $color-comment-text: #A5A5A5 ;
       }
       .btns {
         display: flex;
+        justify-content: space-evenly;
         padding-top: 10px;
 
           .btn {

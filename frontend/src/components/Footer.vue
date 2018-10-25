@@ -13,13 +13,13 @@
         <graph-modal></graph-modal>
         <full-calendar-modal></full-calendar-modal>
         <cell-comment
+            v-if="cellComment.isShowPopover"
             :table-name="cellComment.tableName"
             :field-name="cellComment.fieldName"
             :row-index="cellComment.rowIndex"
             :onlyChat="cellComment.onlyChat"
             :x="cellComment.coordX" 
             :y="cellComment.coordY" 
-            :show="cellComment.isShowPopover"
         />
     </div>
 </template>
@@ -61,6 +61,9 @@
         },
         mounted () {
             EventBus.$on('show-cell-comment', (props) => {
+
+                $('body').css({'overflow': 'hidden'})
+
                 this.cellComment.tableName = props.tableName,
                 this.cellComment.fieldName = props.fieldName,
                 this.cellComment.rowIndex = props.rowIndex,
@@ -68,12 +71,14 @@
                 this.cellComment.coordX = props.coordX,
                 this.cellComment.coordY = props.coordY,
                 this.cellComment.isShowPopover = props.show
-
+            
                 if (props.show) {
                     EventBus.$emit('scroll-to-bottom')
                 }
             })
             EventBus.$on('close-cell-comment', () => {
+                $('body').css({'overflow': ''})
+
                 this.cellComment.isShowPopover = false
             })
         }
