@@ -56,7 +56,7 @@ class JournalBuilder:
 
     def __create_journal(self, tables_path, rewrite=True):
         # plant = Plant.objects.get_or_create(name=self.plant)[0]
-        journal = get_or_none(Journal, name=self.name, plant=self.plant, type=self.type)
+        journal = get_or_none(Journal, name=self.name, plant=self.plant)
 
         if rewrite==True:
             if journal:

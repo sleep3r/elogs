@@ -1,56 +1,40 @@
 <template>
-  <div class="cell-popup tooltip-content">
-    <div class="header"><i v-close-popover class="btn--close fas fa-times"></i>
-      <div class="title">
-        <!-- {{$store.getters['journalState/plantVerboseName']}}
-      </br>
-        {{$store.getters['journalState/journalVerboseName']}}
-      </br> -->
-        {{$store.getters['journalState/tableVerboseName'](tableName)}}
-      </br>
-        {{$store.getters['journalState/fieldVerboseName'](tableName, fieldName)}}
+  <div class="cell-popup">
+      <div class="header">
+        <div class="btn-close" v-close-popover >&times;</div>
+        <div class="title">{{tableName}}</div>
+        <div class="subtitle">{{fieldName}}</div>
+        <div class="dash" v-if="!onlyChat">
+            <div class="item user-name" v-if="responsible"><i class="material-icons">account_circle</i><span>&nbsp{{ responsible }}</span></div>
+            <div class="item time" v-if="cellCreatedTime"><i class="material-icons">watch_later</i><span>&nbsp;{{cellCreatedTime}}</span></div>
+            <div class="item units" v-if="maxNormal"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal}} m<sup>2</sup></span></div>
+        </div>
       </div>
-      <div class="header__icon"><i class="fas fa-receipt"></i></div>
-    </div>
-    <div class="body">
-      <ul class="list" v-if="!onlyChat">
-        <li v-if="cellValue" class="item"><i class="item__icon fas fa-pencil-alt"></i><span class="item__text">{{ cellValue }}</span></li>
-        <li v-if="cellCreatedTime" class="item"><i class="item__icon far fa-clock"></i><span class="item__text">{{cellCreatedTime}}</span></li>
-        <li v-if="((minNormal)||(maxNormal))" class="item"><i class="item__icon fas fa-info-circle"></i><span class="item__text">Допустимые значения <template v-if="minNormal">от {{minNormal}} </template>  <template v-if="maxNormal"> до {{maxNormal}}</template> </span></li>
-        <li v-if="responsible" class="item"><i class="item__icon fas fa-user-tie"></i><span class="item__text">{{responsible}}</span></li>
-        <li v-if="cellCreatedDate" class="item"><i class="item__icon fas fa-calendar-alt"></i><span class="item__text">{{ cellCreatedDate }}</span></li>
-      </ul>
-      <ul class="comments">
-        <li v-for="comment in comments">
-          <div style="float: left"><b>{{ Object.values(comment.user)[0] }}</b> ({{ prettyDate(comment.created) }}):</div> {{ comment.text }}
-        </li>
-      </ul>
-      <textarea style="width: 80%" v-model="commentText">
-      </textarea>
-    </br>
-      <button class="btn" @click="addComment">Добавить комментарий</button>
-    </br>
-    </br>
-      <div class="buttons-panel"  v-if="!onlyChat">
-        <!-- <div v-if="graphNotAdded"> -->
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-chart-line"></i>
-                Построить график
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <!-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftTimeline')">ShiftTimeline</a>
-                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#GraphModal" @click.prevent="showGraphModal('ShiftHistogram')">ShiftHistogram</a> -->
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
-                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
-              </div>
+      <div class="comments">
+        <div class="date">{{currentDate}}</div>
+        <div class="comments-list">
+          <div class="comment" v-for="comment in comments">
+            <div class="comment-cloud" v-if="comment.text">
+              <div class="author">{{commentUserName(comment)}}</div>
+              <div class="body">{{comment.text}}</div>
             </div>
-        <!-- </div> -->
-        <!-- <div v-else>
-            График добавлен в панель аналитики
-        </div> -->
+            <div class="time">{{prettyDate(comment.created)}}</div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="footer" v-if="!onlyChat">
+        <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
+        <div class="btns">
+          <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
+          <div class="btn btn-graph dropdown dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
+              <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -75,6 +59,9 @@ export default {
       }
   },
   computed: {
+    currentDate: function() {
+      return this.cellCreatedDate;
+    },
     cellValue: function () {
         return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value']
     },
@@ -121,13 +108,20 @@ export default {
     },
   },
   methods: {
+    scrollToBottom () {
+      let commentList = $('.comments-list')
+      if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
+    },
+    commentUserName(comment) {
+      return Object.values(comment.user)[0];
+    },
     prettyDate(date) {
       date = new Date(date);
       return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
     },
     showGraphModal (type) {
-      this.getConfig()
-      $('.tooltip.popover').css({'visibility': 'hidden'})
+      this.getConfig();
+      $('.tooltip.popover').css({'visibility': 'hidden'});
       $('#GraphModal').attr('data-type', type)
     },
     addComment() {
@@ -140,6 +134,7 @@ export default {
       });
       this.send();
       this.commentText = ''
+      setTimeout(() => this.scrollToBottom(), 0)
     },
     send() {
       this.$socket.sendObj({
@@ -192,8 +187,14 @@ export default {
     }
   },
   mounted () {
+      setTimeout(() => this.scrollToBottom(), 0)
+
       EventBus.$on('add-to-dashboard', (type) => {
         this.addToDashboard(type)
+      })
+
+      EventBus.$on('scroll-to-bottom', () => {
+        setTimeout(() => this.scrollToBottom(), 0)
       })
   }
 }
@@ -238,7 +239,7 @@ $color-bg: #008BB9;
     position: relative;
     background-color: $color-bg;
     box-shadow: 0 3px 4px #e5e5e5;
-    min-height: 80px;
+    min-height: 95px;
 
     .btn--close {
       color: #ffffff !important;
@@ -246,32 +247,8 @@ $color-bg: #008BB9;
       top: -20px;
       cursor: pointer;
     }
-
-    .title {
-      color: #FFFFFF;
-      position: relative;
-      top: 0px;
-      left: 63px;
-      width: 300px;
-    }
-
-    .header__icon {
-      color: #ffffff;
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      background-color: #008BB9;
-      text-align: center;
-      position: absolute;
-      top: 60px;
-      left: 30px;
-      box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.42), 0 3px 5px -1px rgba(0,0,0,0.2);
-
-      i {
-        line-height: 40px;
-      }
-    }
   }
+
 
   .body {
     padding-bottom: 20px;
@@ -334,5 +311,146 @@ $color-bg: #008BB9;
 
   }
 
+}
+
+/* ---------------------------------------- */
+$color-header: #218DBA;
+$color-footer: #E6E6E6;
+$color-comment: #f5f5f5;
+$color-comment-text: #A5A5A5 ;
+
+.cell-popup {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 13px;
+  background-color: white;
+  width: 450px;
+
+  .header {
+    background-color: $color-header;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .btn-close {
+        text-align: right;
+        font-weight: bold;
+        font-size: 20px;
+        position: absolute;
+        right: 10px;
+        top: 1px;
+        cursor: pointer;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 13px;
+    }
+
+    .dash {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-evenly;
+      height: 30px;
+
+      .item {
+        line-height: 20px;
+        span, sup {
+          vertical-align: top;
+          line-height: 24px;
+        }
+      }
+
+      .user-name {
+      }
+
+      .time {
+      }
+
+      .units {
+
+      }
+    }
+  }
+  .comments {
+    .date {
+      padding: 4px;
+      font-size: 10px;
+      font-style: italic;
+      color: $color-comment-text;
+
+    }
+    .comments-list {
+      height: 150px;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+      min-height:101%;
+
+      padding-right: 20px;
+      padding-left: 100px;
+
+      .comment {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 20px;
+        .time {
+          color: $color-comment-text;
+          margin-right: 10px;
+          font-size: 11px;
+        }
+        .comment-cloud {
+          width: 84%;
+          background-color: $color-comment;
+          padding: 5px;
+          text-align: left;
+
+          .author {
+              color: $color-comment-text;
+              font-style: italic;
+            }
+
+          .body {
+              color: #353535;
+
+            }
+        }
+
+      }
+    }
+
+  }
+  .footer {
+      background-color: $color-footer;
+      padding: 10px;
+      textarea.comment-text {
+        color: #151515;
+        width: 100%;
+        border: none;
+        resize: none;
+        height: 60px;
+        padding: 5px;
+        font-size: 13px;
+      }
+      .btns {
+        display: flex;
+        padding-top: 10px;
+
+          .btn {
+            background-color: $color-header;
+            color: white;
+            width: 50%;
+
+          }
+          .btn-add {
+            margin-right: 10px;
+          }
+          .btn-graph {
+          }
+      }
+    }
 }
 </style>

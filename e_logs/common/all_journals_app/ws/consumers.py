@@ -53,7 +53,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         text = event.get('text', None)
         if text is not None:
             data = json.loads(text)
-            print(data)
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 

@@ -19,7 +19,6 @@
                 :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="[{ color: activeColor, fontWeight: fontWeight }]"
-                :type="type"
                 @keypress="filterInput"
                 @keydown="changeFocus"
                 @change="onChanged"
@@ -102,7 +101,7 @@
                 type: null,
                 placeholder: '',
                 showTooltip: false,
-                personsList: ['a', 'b', 'c'],
+                personsList: [],
                 tooltipContent: '',
                 fontWeight: 'lighter',
                 minWidth: 0
@@ -295,9 +294,11 @@
                     // if non number character was pressed
                     if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
                         || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        this.tooltipContent = 'Введите число'
-                        this.showTooltip = true;
-                        event.preventDefault();
+                        if (keycode !== 47) {
+                            this.tooltipContent = 'Введите число'
+                            this.showTooltip = true;
+                            event.preventDefault();
+                        }
                     }
                     else {
                         this.showTooltip = false;

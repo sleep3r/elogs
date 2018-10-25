@@ -77,9 +77,9 @@ class Message(StrAsDictMixin, models.Model):
         layer = get_channel_layer()
 
         for emp in recipients:
-            msg = get_or_none(Message, **message,
-                              addressee=emp, cell=cell, type__in=('comment', 'critical_value'))
-            if msg:
+            msg = filter_or_none(Message, **message,
+                              addressee=emp, cell=cell, type__in=('comment', 'critical_value')).first()
+            if msg and msg.type == 'critical_value':
                 msg.text = text
                 msg.save()
             else:
