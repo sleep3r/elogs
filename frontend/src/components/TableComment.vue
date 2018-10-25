@@ -4,13 +4,13 @@
             <a href="javascript:;" @click="onClick">Комментарий </a>
             <i class="fas fa-envelope ico-comment"></i>
             <div :class="['comment__text', { collapse: isCollapsed }]">
-          <textarea
-                  class="table-comment"
-                  placeholder="Комментарий..."
-                  title=""
-                  :value="text"
-                  @input="onInput">
-          </textarea>
+              <textarea
+                      class="table-comment"
+                      placeholder="Комментарий..."
+                      title=""
+                      :value="text"
+                      @input="onInput">
+              </textarea>
             </div>
         </div>
         <div v-else>

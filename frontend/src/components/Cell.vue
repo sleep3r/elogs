@@ -53,7 +53,7 @@
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
     import { VueContext } from 'vue-context';
-import EventBus from '../EventBus';
+    import EventBus from '../EventBus';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);

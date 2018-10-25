@@ -258,7 +258,6 @@ $color-bg: #008BB9;
     min-height: 95px;
   }
 
-
   .body {
     padding-bottom: 20px;
 
@@ -392,14 +391,14 @@ $color-comment-text: #A5A5A5 ;
       font-size: 10px;
       font-style: italic;
       color: $color-comment-text;
-
+      text-align: center;
     }
+
     .comments-list {
       height: 150px;
+      min-height: 101%;
       overflow: -moz-scrollbars-vertical;
       overflow-y: scroll;
-      min-height:101%;
-
       padding-right: 20px;
       padding-left: 100px;
 
@@ -407,11 +406,13 @@ $color-comment-text: #A5A5A5 ;
         display: flex;
         flex-direction: row-reverse;
         margin-bottom: 20px;
+
         .time {
           color: $color-comment-text;
           margin-right: 10px;
           font-size: 9px;
         }
+
         .comment-cloud {
           width: 84%;
           background-color: $color-comment;
