@@ -15,6 +15,8 @@ urlpatterns = [
     path('setting/', csrf_exempt(SettingAPI.as_view())),
     path('autocomplete/', AutocompleteAPI.as_view()),
     path('load_journal/', csrf_exempt(LoadJournalAPI.as_view())),
+    path('constructor/hash/', csrf_exempt(ConstructorHashAPI.as_view())),
+    path('constructor/upload/', csrf_exempt(ConstructorUploadAPI.as_view())),
     path('cell/', CellAPI.as_view()),
     path('prev-shift/', PrevShiftAPI.as_view()),
 ]

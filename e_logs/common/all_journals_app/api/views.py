@@ -1,6 +1,7 @@
 import json
 import os
 import pickle
+import hashlib
 from datetime import timedelta
 from shutil import copyfile
 from urllib.parse import parse_qs
@@ -376,7 +377,6 @@ class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         plant = request.GET.get('plant', None)
-        print(name, plant)
         if name and plant:
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,
@@ -419,14 +419,51 @@ class LoadJournalAPI(View):
                 new_journal = journal.create()
 
                 if new_journal.type == 'shift':
-                    self.__add_shifts(new_journal, number_of_shifts)
+                    self.add_shifts(new_journal, number_of_shifts)
 
                 return JsonResponse({"status": 1})
         return JsonResponse({"status": 0})
 
-    def __add_shifts(self, new_journal, number_of_shifts):
+    def add_shifts(self, new_journal, number_of_shifts):
         Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
         now_date = current_date()
         for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
             for shift_order in range(1, number_of_shifts + 1):
                 Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
+
+
+class ConstructorHashAPI(View):
+    def post(self, request):
+        journal = request.FILES['journal_file']
+
+        fs = FileSystemStorage(location=f'resources/temp/')
+        filename = fs.save(journal.name, journal)
+
+        hasher = hashlib.md5()
+        with open(f'resources/temp/{filename}', 'rb') as afile:
+            buf = afile.read()
+            hasher.update(buf)
+        journal_hash = hasher.hexdigest()
+        os.rename(f'resources/temp/{filename}', f'resources/temp/{journal_hash}.jrn')
+
+        return JsonResponse({"hash":journal_hash})
+
+
+class ConstructorUploadAPI(View):
+    def post(self, request):
+        hash = request.POST['hash']
+        plant = request.POST['plant']
+        type = request.POST['type']
+        number_of_shifts = int(request.POST['number_of_shifts'])
+
+        copyfile(f'resources/temp/{hash}.jrn',
+                 f'resources/journals/{plant}/{hash}.jrn')
+
+        journal = JournalBuilder(f'resources/journals/{plant}/{hash}.jrn', plant, type)
+        new_journal = journal.create()
+
+        if new_journal.type == 'shift':
+            LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
+
+        return JsonResponse({"status": 1})
+

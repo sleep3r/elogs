@@ -1,9 +1,8 @@
 <template>
     <div class="table__comment">
         <div v-if="mode==='edit'">
-            <a href="javascript:;" @click="onClick">Комментарий </a>
-            <i class="fas fa-envelope ico-comment"></i>
-            <div :class="['comment__text', { collapse: isCollapsed }]">
+          <a href="javascript:;" @click="onClick">Комментарий<i class="fas fa-envelope ico-comment"></i></a>
+          <div :class="['comment__text', { collapse: isCollapsed }]">
               <textarea
                       class="table-comment"
                       placeholder="Комментарий..."
@@ -11,7 +10,7 @@
                       :value="text"
                       @input="onInput">
               </textarea>
-            </div>
+          </div>
         </div>
         <div v-else>
             <template v-if="text">
@@ -35,7 +34,7 @@
         },
         watch: {
             text(value) {
-                this.isCollapsed = !value
+
             }
         },
         computed: {
@@ -60,7 +59,7 @@
         },
         methods: {
             onInput(e) {
-                this.text = e.target.value
+                this.text = e.target.value;
                 this.send()
             },
             onClick() {
@@ -88,3 +87,8 @@
         }
     }
 </script>
+<style scoped>
+    .ico-comment {
+        margin-left: 5px;
+    }
+</style>

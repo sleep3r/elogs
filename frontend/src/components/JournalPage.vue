@@ -68,7 +68,7 @@ export default {
         this.$connect();
         let shift_id = this.$route.params.shift_id;
         window.parser.setVariable("CURRENT_SHIFT", shift_id)
-        var res = request("GET", `http://localhost:8000/api/prev-shift/?shift_id=${shift_id}`)
+        var res = request("GET", window.HOSTNAME + `/api/prev-shift/?shift_id=${shift_id}`)
         let json = JSON.parse(res.getBody())
         window.parser.setVariable("PREV_SHIFT", json)
         // ajax.get(`http://localhost:8000/api/prev-shift/?shift_id=${shift_id}`).then(
