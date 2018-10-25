@@ -256,13 +256,6 @@ $color-bg: #008BB9;
     background-color: $color-bg;
     box-shadow: 0 3px 4px #e5e5e5;
     min-height: 95px;
-
-    .btn--close {
-      color: #ffffff !important;
-      position: relative !important;
-      top: -20px;
-      cursor: pointer;
-    }
   }
 
 
