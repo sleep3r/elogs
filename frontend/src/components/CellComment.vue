@@ -19,7 +19,7 @@
               <div class="author">{{commentUserName(comment)}}</div>
               <div class="body">{{comment.text}}</div>
             </div>
-            <div class="time">{{prettyDate(comment.created)}}</div>
+            <div class="time">{{prettyTime(comment.created)}}</div>
           </div>
         </div>
       </div>
@@ -91,9 +91,9 @@ export default {
         }
     },
     responsible: function () {
-      let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible']
+      let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
       if (responsible) {
-        return Object.values(responsible)[0]
+        return Object.values(responsible)[0];
       }
       else {
         return ''
@@ -121,11 +121,17 @@ export default {
       if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
     },
     commentUserName(comment) {
-      return Object.values(comment.user)[0];
+      console.log("CComment: ", comment);
+      let name = Object.values(comment.user)[0];
+      return name;
     },
     prettyDate(date) {
       date = new Date(date);
       return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+    },
+    prettyTime(date) {
+      date = new Date(date);
+      return date.getHours() +':' + date.getMinutes();
     },
     showGraphModal (type) {
       this.getConfig();
@@ -138,10 +144,10 @@ export default {
         tableName: this.tableName,
         fieldName: this.fieldName,
         index: this.rowIndex,
-        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/username']}}
+        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/fullname']}}
       });
       this.send();
-      this.commentText = ''
+      this.commentText = '';
       setTimeout(() => this.scrollToBottom(), 0)
     },
     send() {
@@ -195,11 +201,11 @@ export default {
     }
   },
   mounted () {
-      setTimeout(() => this.scrollToBottom(), 0)
+      setTimeout(() => this.scrollToBottom(), 0);
 
       EventBus.$on('add-to-dashboard', (type) => {
         this.addToDashboard(type)
-      })
+      });
 
       EventBus.$on('scroll-to-bottom', () => {
         setTimeout(() => this.scrollToBottom(), 0)
