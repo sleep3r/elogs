@@ -419,12 +419,12 @@ class LoadJournalAPI(View):
                 new_journal = journal.create()
 
                 if new_journal.type == 'shift':
-                    self.__add_shifts(new_journal, number_of_shifts)
+                    self.add_shifts(new_journal, number_of_shifts)
 
                 return JsonResponse({"status": 1})
         return JsonResponse({"status": 0})
 
-    def __add_shifts(self, new_journal, number_of_shifts):
+    def add_shifts(self, new_journal, number_of_shifts):
         Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
         now_date = current_date()
         for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
@@ -452,11 +452,18 @@ class ConstructorHashAPI(View):
 class ConstructorUploadAPI(View):
     def post(self, request):
         hash = request.POST['hash']
-        plant_name = request.POST['plant']
+        plant = request.POST['plant']
         type = request.POST['type']
         number_of_shifts = int(request.POST['number_of_shifts'])
 
+        copyfile(f'resources/temp/{hash}.jrn',
+                 f'resources/journals/{plant}/{hash}.jrn')
 
+        journal = JournalBuilder(f'resources/journals/{plant}/{hash}.jrn', plant, type)
+        new_journal = journal.create()
 
-        return JsonResponse({})
+        if new_journal.type == 'shift':
+            LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
+
+        return JsonResponse({"status": 1})
 
