@@ -37,6 +37,10 @@ def send_message(request):
         theme=data["title"],
         text=data["message"]
     )
-    fb.send_feedback()
+
+    try:
+        fb.send_feedback()
+    except Exception as e:
+        print(e)
     fb.save()
     return {"result": 1}

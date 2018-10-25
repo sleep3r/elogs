@@ -20,10 +20,11 @@ class Feedback(StrAsDictMixin, models.Model):
         {text}
         """
     )
+    print(settings.FEEDBACK_TG_BOT["proxy"])
 
     bot = TelegramBot(channel=settings.FEEDBACK_TG_BOT["channel"],
                       token=settings.FEEDBACK_TG_BOT["token"],
-                      proxy_url=settings.FEEDBACK_TG_BOT["url"])
+                      proxy=settings.FEEDBACK_TG_BOT["proxy"])
 
     theme = models.CharField(max_length=200, verbose_name='Тема', null=True, blank=True)
     text = models.CharField(max_length=1000, verbose_name='Сообщение', null=True, blank=True)
