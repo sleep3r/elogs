@@ -335,7 +335,7 @@ $color-comment-text: #A5A5A5 ;
 
 .cell-popup {
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   background-color: white;
   width: 450px;
   height: 386px;
@@ -417,7 +417,7 @@ $color-comment-text: #A5A5A5 ;
         .time {
           color: $color-comment-text;
           margin-right: 10px;
-          font-size: 9px;
+          font-size: 11px;
         }
 
         .comment-cloud {
@@ -451,6 +451,7 @@ $color-comment-text: #A5A5A5 ;
         resize: none;
         height: 60px;
         padding: 5px;
+        font-size: 13px;
       }
       .btns {
         display: flex;

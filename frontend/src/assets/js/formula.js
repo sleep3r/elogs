@@ -27,7 +27,7 @@ window.parser.setFunction('FUNC', function(params) {
     const index = params[3];
     const shift = params[4];
 
-    var res = request("GET", "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
+    var res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
     let json = JSON.parse(res.getBody())
     let result = null
     if (json.value == null) {
@@ -65,7 +65,7 @@ var getCellsFromFormula = function(formula) {
 }
 
 var getCellValue = function(cell) {
-    var res = request("GET", "http://localhost:8000/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(cell.journal, cell.table, cell.field, cell.shift))
+    var res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(cell.journal, cell.table, cell.field, cell.shift))
     let json = JSON.parse(res.getBody())
     return json.value
 }

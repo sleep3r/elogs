@@ -38,7 +38,11 @@ FEEDBACK_TG_BOT = {
     "token": env("TG_TOKEN"),
     "channel": env("TG_CHANNEL"),
     "channel_name": env("TG_CHANNEL_NAME"),
-    "url": env("TG_PROXY_URL"),
+    "proxy": {
+        "url": env("TG_PROXY_URL"),
+        "username": env("TG_PROXY_USERNAME"),
+        "password": env("TG_PROXY_PASSWORD")
+    }
 }
 
 DATABASE_URL = env('DATABASE_URL')

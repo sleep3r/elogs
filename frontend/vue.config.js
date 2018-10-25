@@ -86,7 +86,7 @@ module.exports = {
                 ],
                 lang: 'en-US',
                 bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>",
-                publicPath: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
+                publicPath: (process.env.NODE_ENV === 'production') ? '/' : undefined,
             }),
             new SWPrecacheWebpackPlugin(
                 {
@@ -100,7 +100,7 @@ module.exports = {
                     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
                     importScripts: [
                         {
-                            filename: path.resolve(__dirname, './e-logs-sw.js')
+                            filename: path.resolve(__dirname, '/vueapp/e-logs-sw.js')
                         }
                     ],
                 }
@@ -109,7 +109,7 @@ module.exports = {
         ],
     },
 
-    baseUrl: (process.env.NODE_ENV === 'production') ? '/vueapp/' : undefined,
+    baseUrl: (process.env.NODE_ENV === 'production') ? '/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,
     runtimeCompiler: true,
