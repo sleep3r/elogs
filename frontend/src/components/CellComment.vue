@@ -245,6 +245,7 @@ $color-bg: #008BB9;
 }
 
 .cell-popup-wrapper {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
