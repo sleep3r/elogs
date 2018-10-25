@@ -1,6 +1,7 @@
 <template>
-  <div class="cell-popup-wrapper" @click="closePopover">
-    <div class="cell-popup" @click.stop="() => {}" v-bind:style="{left: x + 'px', top: y + 'px'}">
+  <div>
+    <div class="cell-popup-wrapper" @click="closePopover"></div>
+    <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
       <div class="header">
         <div class="btn-close" @click="closePopover" >&times;</div>
         <div class="title">{{tableName}}</div>
@@ -14,7 +15,7 @@
       <div class="comments">
         <div class="date">{{currentDate}}</div>
         <div class="comments-list">
-          <div class="comment" v-for="comment in comments">
+          <div class="comment" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
             <div class="comment-cloud" v-if="comment.text">
               <div class="author">{{commentUserName(comment)}}</div>
               <div class="body">{{comment.text}}</div>
@@ -27,16 +28,16 @@
         <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
         <div class="btns">
           <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
-          <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="graphMenuButton">
               <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
               <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
             </div>
           </div>
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -182,7 +183,11 @@ export default {
             {withCredentials: true}
         )
         .then(() => {
-          $('.tooltip.popover').css({'visibility': 'hidden'})
+            this.$notify({
+                text: 'График успешно создан!',
+                duration: 3000,
+                type: 'success'
+            })
         })
     },
     getConfig () {
@@ -340,6 +345,7 @@ $color-comment-text: #A5A5A5 ;
   width: 450px;
   height: 386px;
   position: absolute;
+  z-index: 101;
 
   .header {
     background-color: $color-header;

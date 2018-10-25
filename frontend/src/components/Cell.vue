@@ -33,7 +33,7 @@
         </template>
         <i
             @click="(e) => showPopover(e, true)"
-            v-if="$store.getters['journalState/cellComments'](tableName, fieldName, rowIndex).length"
+            v-if="cellComments.length"
             class="far fa-envelope comment-notification"
         ></i>
         <vue-context ref="menu">
@@ -112,6 +112,9 @@
         computed: {
             getBody () {
                 return $('body').get()
+            },
+            cellComments () {
+                return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)
             },
             tableName: function () {
                 if (typeof this.$parent.props !== 'undefined') {
