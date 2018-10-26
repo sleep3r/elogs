@@ -89,14 +89,14 @@ class JournalBuilder:
         field_name = field_meta.get("name", field_meta.get("field_name", None))
         if not field_name:
             raise SemanticError(message=f'В таблице {table} есть поле без имени!')
-        field = get_or_none(Field, name=field_meta['name'], table=table)
+        field = get_or_none(Field, name=field_name, table=table)
 
         if field:
             print(field)
             table.journal.delete()
             raise SemanticError(message=f'Две столбца с одинаковым именем {field.name}!')
         else:
-            new_field = Field.objects.create(name=field_meta.pop('name'),
+            new_field = Field.objects.create(name=field_name,
                                              table=table,
                                              type=field_meta.get('type', None),
                                              units=field_meta.get('units', None),
