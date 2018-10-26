@@ -16,6 +16,7 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                 :type="type == 'number' ? '' : type"
                 :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="[{ color: activeColor, fontWeight: fontWeight }]"
