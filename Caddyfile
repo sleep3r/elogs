@@ -23,6 +23,14 @@ wss://elogs.club/e-logs {
     }
 }
 
+https://elogs.club:8085 {
+    root /srv/e-logs-constructor/frontend/dist 
+    rewrite {
+        regexp .*
+        to {path} /
+    }
+}
+
 https://elogs.club {
     root /srv/frontend/dist
     rewrite {
