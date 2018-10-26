@@ -7,7 +7,7 @@ from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.contenttypes.models import ContentType
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Comment
+from e_logs.common.all_journals_app.models import Cell, Shift, Comment, Plant
 from e_logs.common.messages_app.models import Message
 
 
@@ -118,7 +118,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             if cell:
                 message = data['message'].copy()
                 message['sendee'] = self.scope['user'].employee
-                await self.add_cell_message_query(message, cell, all_users=True)
+                await self.add_cell_message_query(message, cell, shift_id=data['cell_location']['group_id'])
 
         elif data['message']['type'] == "comment":
             message = data['message'].copy()
@@ -139,7 +139,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                         "text": json.dumps(data)
                     }
                 )
-                await self.add_cell_message_query(message, cell, all_users=True)
+                await self.add_cell_message_query(message, cell, shift_id=data['cell_location']['group_id'])
 
     @database_sync_to_async
     def get_or_create_cell(self, cell_location):
@@ -166,8 +166,14 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def add_cell_message_query(self, message, cell, all_users=False, positions=None, uids=None,
-                               plant=None):
-        Message.add(message, cell, all_users, positions, uids, plant)
+                               shift_id=None):
+        print(shift_id)
+        if shift_id:
+            plant_name = Shift.objects.get(id=shift_id).journal.plant.name
+        else:
+            plant_name = None
+
+        Message.add(message, cell, all_users, positions, uids, plant_name)
 
     @database_sync_to_async
     def update(self, cell):
