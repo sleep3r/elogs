@@ -120,7 +120,6 @@ export default {
       if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
     },
     commentUserName(comment) {
-      console.log("CComment: ", comment);
       let name = Object.values(comment.user)[0];
       return name;
     },
