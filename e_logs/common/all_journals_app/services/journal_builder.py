@@ -86,6 +86,9 @@ class JournalBuilder:
             return new_table
 
     def __create_field(self, table, field_meta: dict):
+        field_name = field_meta.get("name", field_meta.get("field_name", None))
+        if not field_name:
+            raise SemanticError(message=f'В таблице {table} есть поле без имени!')
         field = get_or_none(Field, name=field_meta['name'], table=table)
 
         if field:
