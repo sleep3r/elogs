@@ -3,7 +3,7 @@
         <template v-if="$store.getters['journalState/loaded']">
             <div class="journal_title_container">
                 <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
-                <button class="btn btn-outline" @click="openConstructor">
+                <button v-if="$store.getters['userState/isBoss']" class="btn btn-outline" @click="openConstructor">
                     Открыть в конструкторе
                 </button>
                 <journal-panel></journal-panel>

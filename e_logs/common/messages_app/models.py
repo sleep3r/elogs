@@ -4,7 +4,7 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.utils import timezone
 from pywebpush import webpush, WebPushException
 
@@ -32,24 +32,27 @@ class Message(StrAsDictMixin, models.Model):
     link = models.URLField(max_length=1024, verbose_name='Ссылка на ячейку', default="#", null=True)
 
     @staticmethod
-    def get_recepients(message, all_users=False, positions=None, uids=None, plant=None):
+    def get_recepients(message, all_users=False, positions=None, uids=None, plant_name=None):
 
-        if not all_users and positions is None and uids is None and plant is None:
-            raise ValueError
+        # if not all_users and positions is None and uids is None and plant is None:
+        #     raise ValueError
 
         recipients = []
 
         if uids:
             recipients = []
-            for uid in uids:
-                recipients.extend(Employee.objects.get(id=uid).
-                                  exclude(name=message['sendee']))
+            recipients.extend(Employee.objects.filter(id__in=uids).exclude(name=message['sendee']))
+
         if positions:
             recipients = []
             for p in positions:
                 recipients.extend(Employee.objects.
-                           filter(plant=plant if plant else None, position=p).
+                           filter(plant=plant_name if plant_name else None, position=p).
                            exclude(name=message['sendee']))
+        if plant_name:
+            recipients = []
+            recipients.extend(Employee.objects.filter(Q(plant=plant_name) | Q(plant=None)).exclude(name=message['sendee']))
+
         if all_users:
             recipients = []
             recipients.extend(Employee.objects.all().exclude(name=message['sendee']))
@@ -58,7 +61,7 @@ class Message(StrAsDictMixin, models.Model):
 
 
     @staticmethod
-    def add(message, cell=None, all_users=False, positions=None, uids=None, plant=None):
+    def add(message, cell=None, all_users=False, positions=None, uids=None, plant_name=None):
         """
         TODO: add builder class
         'message': {
@@ -69,7 +72,7 @@ class Message(StrAsDictMixin, models.Model):
                 }
         """
         print(message)
-        recipients = Message.get_recepients(message, all_users, positions, uids, plant)
+        recipients = Message.get_recepients(message, all_users, positions, uids, plant_name)
 
 
         text = message.pop('text', '')

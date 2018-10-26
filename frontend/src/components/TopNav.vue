@@ -46,7 +46,7 @@
                 </div>
             </div>
             <i class="fas fa-home default-page-badge" @click="makeDefaultPage"></i>
-            <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/username']}}</span>
+            <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/fullname']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
                 <div class="user-menu">

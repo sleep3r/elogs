@@ -24,9 +24,10 @@ class Employee(StrAsDictMixin, models.Model):
     name = models.CharField(max_length=64)
     position = models.CharField(max_length=128, blank=True, choices=POSITION_CHOICES, verbose_name='Должность')
     plant = models.CharField(max_length=128, verbose_name='Цех',
-                             null=True, choices=(('furnace', 'Обжиг'),
+                             null=True, blank=True, choices=(('furnace', 'Обжиг'),
                                                  ('leaching', 'Выщелачивание'),
                                                  ('electrolysis', 'Электролиз'),
+                                                 (None, '-')
                                                  ))
 
     @property
