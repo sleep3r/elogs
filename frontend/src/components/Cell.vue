@@ -16,6 +16,7 @@
                 :name="fieldName"
                 :row-index="rowIndex"
                 :value="value"
+                 :type="type == 'number' ? '' : type"
                 :readonly="mode !== 'edit' || hasFormula"
                 :placeholder="placeholder"
                 :style="[{ color: activeColor, fontWeight: fontWeight }]"
@@ -48,7 +49,7 @@
                     :table-name="tableName"
                     :field-name="fieldName"
                     :row-index="rowIndex"
-                    :onlyChat="true"
+                    :onlyChat="userIsResponsible ? false : true"
                 />
             </template>
         </v-popover>
@@ -149,6 +150,21 @@
             critical: function () {
                 return (this.minValue && (this.value < this.minValue)) ||
                     (this.maxValue && (this.value > this.maxValue));
+            },
+            responsibles() {
+                return this.$store.getters['journalState/journalInfo'].responsibles
+            },
+            userIsResponsible() {
+                let responsibles = this.responsibles
+                for (let i in responsibles) {
+                    if (typeof responsibles[i][this.userName] != 'undefined') {
+                        return true
+                    }
+                }
+                return false
+            },
+            userName() {
+                return this.$store.getters['userState/username']
             },
             responsible: function () {
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];

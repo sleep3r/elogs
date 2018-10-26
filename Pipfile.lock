@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4059bec9be6e3c0c14d71f41774c8c136fe6672786e1827d4f03a9f311a2d9a7"
+            "sha256": "8750aca4d75ba9ac6f1ea75f8b929320c6001ee5b55f28c2ad459a0f150488ea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -531,9 +531,9 @@
         },
         "future": {
             "hashes": [
-                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+                "sha256:eb6d4df04f1fb538c99f69c9a28b255d1ee4e825d479b9c62fc38c0cf38065a4"
             ],
-            "version": "==0.16.0"
+            "version": "==0.17.0"
         },
         "gunicorn": {
             "hashes": [
@@ -918,6 +918,13 @@
             "index": "pypi",
             "version": "==18.0.0"
         },
+        "pysocks": {
+            "hashes": [
+                "sha256:3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672"
+            ],
+            "index": "pypi",
+            "version": "==1.6.8"
+        },
         "python-crontab": {
             "hashes": [
                 "sha256:d28583dc5b2f37f707ad37221f390933cc24ee4f350a641fdc3cf84ba22a9dec"
@@ -926,11 +933,11 @@
         },
         "python-dateutil": {
             "hashes": [
-                "sha256:1adb80e7a782c12e52ef9a8182bebeb73f1d7e24e374397af06fb4956c8dc5c0",
-                "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
+                "sha256:2f13d3ea236aeb237e7258d5729c46eafe1506fd7f8507f34730734ed8b37454",
+                "sha256:f7cde3aecf8a797553d6ec49b65f0fbcffe7ffb971ccac452d181c28fd279936"
             ],
             "index": "pypi",
-            "version": "==2.7.3"
+            "version": "==2.7.4"
         },
         "python-rapidjson": {
             "hashes": [

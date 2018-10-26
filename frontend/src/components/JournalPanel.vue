@@ -13,11 +13,8 @@
             >
         </div>
         <div class="panel-buttons">
-            <div class="mode-buttons">
-                <img v-for="employee of responsibles" style="height: 30px; width: 30px;"
-                     :title="Object.values(employee)[0]"
-                     src="../assets/images/no-avatar.png">
 
+            <div class="mode-buttons">
                 <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
                         @click="changeMode('edit')">
@@ -39,6 +36,13 @@
         </div>
         <div class="exp-time">
           <span> {{ shiftMessage }} </span>
+        </div>
+        <div>
+          Ответственные за смену:
+          <label v-for="employee of responsibles">
+            <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->
+            {{ Object.values(employee)[0] }} &emsp;
+          </label>
         </div>
     </div>
 </template>
