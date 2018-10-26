@@ -11,6 +11,7 @@ const userState = {
         username: state => state.user ? state.user.username : '',
         fullname: state => state.user ? state.user.full_name: '',
         isSuperuser: state => state.user ? state.user.is_superuser : false,
+        isBoss: state => state.user ? state.user.is_boss : false,
         hasPerm: state => perm => state.user && state.user.is_boss ? state.user.is_boss.includes(perm) : false
     },
     mutations: {

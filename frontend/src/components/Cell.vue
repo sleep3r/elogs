@@ -12,7 +12,8 @@
             :name="fieldName"
             :row-index="rowIndex"
             :value="value"
-            :readonly="mode !== 'edit' || hasFormula"
+            :type="type == 'number' ? '' : type"
+                :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
             :style="[{ color: activeColor, fontWeight: fontWeight }]"
             @keypress="filterInput"
@@ -135,6 +136,21 @@
                 return (this.minValue && (this.value < this.minValue)) ||
                     (this.maxValue && (this.value > this.maxValue));
             },
+            responsibles() {
+                return this.$store.getters['journalState/journalInfo'].responsibles
+            },
+            userIsResponsible() {
+                let responsibles = this.responsibles
+                for (let i in responsibles) {
+                    if (typeof responsibles[i][this.userName] != 'undefined') {
+                        return true
+                    }
+                }
+                return false
+            },
+            userName() {
+                return this.$store.getters['userState/username']
+            },
             responsible: function () {
                 return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
             },
@@ -171,7 +187,7 @@
                 let y = e.clientY
 
                 let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
-                
+
                 let inputOffset = 4
 
                 let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450

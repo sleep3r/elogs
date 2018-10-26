@@ -32,7 +32,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn" @click.prevent="onSendMessage">Отправить</button>
+                    <button type="button" class="btn" data-dismiss="modal" @click.prevent="onSendMessage">Отправить</button>
                 </div>
             </div>
         </div>
