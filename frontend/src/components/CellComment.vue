@@ -1,7 +1,9 @@
 <template>
-  <div class="cell-popup">
+  <div>
+    <div class="cell-popup-wrapper" @click="closePopover"></div>
+    <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
       <div class="header">
-        <div class="btn-close" v-close-popover >&times;</div>
+        <div class="btn-close" @click="closePopover" >&times;</div>
         <div class="title">{{tableName}}</div>
         <div class="subtitle">{{fieldName}}</div>
         <div class="dash" v-if="!onlyChat">
@@ -13,28 +15,29 @@
       <div class="comments">
         <div class="date">{{currentDate}}</div>
         <div class="comments-list">
-          <div class="comment" v-for="comment in comments">
+          <div class="comment" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
             <div class="comment-cloud" v-if="comment.text">
               <div class="author">{{commentUserName(comment)}}</div>
               <div class="body">{{comment.text}}</div>
             </div>
-            <div class="time">{{prettyDate(comment.created)}}</div>
+            <div class="time">{{prettyTime(comment.created)}}</div>
           </div>
         </div>
       </div>
-      <div class="footer" v-if="!onlyChat">
+      <div class="footer">
         <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
         <div class="btns">
           <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
-          <div class="btn btn-graph dropdown dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="graphMenuButton">
               <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
               <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -50,7 +53,9 @@ export default {
     'tableName',
     'fieldName',
     'rowIndex',
-    'onlyChat'
+    'onlyChat',
+    'x',
+    'y'
   ],
   data: function() {
       return {
@@ -86,9 +91,9 @@ export default {
         }
     },
     responsible: function () {
-      let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible']
+      let responsible = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['responsible'];
       if (responsible) {
-        return Object.values(responsible)[0]
+        return Object.values(responsible)[0];
       }
       else {
         return ''
@@ -108,16 +113,24 @@ export default {
     },
   },
   methods: {
+    closePopover () {
+      EventBus.$emit('close-cell-comment')
+    },
     scrollToBottom () {
       let commentList = $('.comments-list')
       if (commentList.length) commentList.scrollTop(commentList[0].scrollHeight);
     },
     commentUserName(comment) {
-      return Object.values(comment.user)[0];
+      let name = Object.values(comment.user)[0];
+      return name;
     },
     prettyDate(date) {
       date = new Date(date);
       return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+    },
+    prettyTime(date) {
+      date = new Date(date);
+      return date.getHours() +':' + date.getMinutes();
     },
     showGraphModal (type) {
       this.getConfig();
@@ -130,10 +143,10 @@ export default {
         tableName: this.tableName,
         fieldName: this.fieldName,
         index: this.rowIndex,
-        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/username']}}
+        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/fullname']}}
       });
       this.send();
-      this.commentText = ''
+      this.commentText = '';
       setTimeout(() => this.scrollToBottom(), 0)
     },
     send() {
@@ -169,7 +182,11 @@ export default {
             {withCredentials: true}
         )
         .then(() => {
-          $('.tooltip.popover').css({'visibility': 'hidden'})
+            this.$notify({
+                text: 'График успешно создан!',
+                duration: 3000,
+                type: 'success'
+            })
         })
     },
     getConfig () {
@@ -187,11 +204,11 @@ export default {
     }
   },
   mounted () {
-      setTimeout(() => this.scrollToBottom(), 0)
+      setTimeout(() => this.scrollToBottom(), 0);
 
       EventBus.$on('add-to-dashboard', (type) => {
         this.addToDashboard(type)
-      })
+      });
 
       EventBus.$on('scroll-to-bottom', () => {
         setTimeout(() => this.scrollToBottom(), 0)
@@ -230,6 +247,15 @@ $color-bg: #008BB9;
   }
 }
 
+.cell-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+}
+
 .cell-popup {
    width: $popup-width;
    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
@@ -240,15 +266,7 @@ $color-bg: #008BB9;
     background-color: $color-bg;
     box-shadow: 0 3px 4px #e5e5e5;
     min-height: 95px;
-
-    .btn--close {
-      color: #ffffff !important;
-      position: relative !important;
-      top: -20px;
-      cursor: pointer;
-    }
   }
-
 
   .body {
     padding-bottom: 20px;
@@ -324,6 +342,9 @@ $color-comment-text: #A5A5A5 ;
   font-size: 13px;
   background-color: white;
   width: 450px;
+  height: 386px;
+  position: absolute;
+  z-index: 101;
 
   .header {
     background-color: $color-header;
@@ -382,14 +403,14 @@ $color-comment-text: #A5A5A5 ;
       font-size: 10px;
       font-style: italic;
       color: $color-comment-text;
-
+      text-align: center;
     }
+
     .comments-list {
       height: 150px;
+      min-height: 101%;
       overflow: -moz-scrollbars-vertical;
       overflow-y: scroll;
-      min-height:101%;
-
       padding-right: 20px;
       padding-left: 100px;
 
@@ -397,11 +418,13 @@ $color-comment-text: #A5A5A5 ;
         display: flex;
         flex-direction: row-reverse;
         margin-bottom: 20px;
+
         .time {
           color: $color-comment-text;
           margin-right: 10px;
           font-size: 11px;
         }
+
         .comment-cloud {
           width: 84%;
           background-color: $color-comment;
@@ -437,6 +460,7 @@ $color-comment-text: #A5A5A5 ;
       }
       .btns {
         display: flex;
+        justify-content: space-evenly;
         padding-top: 10px;
 
           .btn {

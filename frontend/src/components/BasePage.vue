@@ -11,7 +11,6 @@
                 <main-footer></main-footer>
             </div>
         </div>
-        <popup></popup>
     </div>
 </template>
 
