@@ -183,17 +183,17 @@
         },
         methods: {
             showPopover (e, onlyChat) {
-                let x = e.clientX
-                let y = e.clientY
+                let x = e.clientX;
+                let y = e.clientY;
 
                 let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
-                let inputOffset = 4
+                let inputOffset = 4;
 
-                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450
+                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450;
                 let appWidth = $('#app').outerWidth()
 
-                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 386
+                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 386;
                 let appHeight = $('#app').outerHeight()
 
                 if (e.clientX + popUpWidth >= appWidth) {

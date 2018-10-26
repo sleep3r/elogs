@@ -1,38 +1,39 @@
 <template>
   <div>
-    <div class="cell-popup-wrapper" @click="closePopover"></div>
-    <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
-      <div class="header">
-        <div class="btn-close" @click="closePopover" >&times;</div>
-        <div class="title">{{tableName}}</div>
-        <div class="subtitle">{{fieldName}}</div>
-        <div class="dash" v-if="!onlyChat">
-            <div class="item user-name" v-if="responsible"><i class="material-icons">account_circle</i><span>&nbsp{{ responsible }}</span></div>
-            <div class="item time" v-if="cellCreatedTime"><i class="material-icons">watch_later</i><span>&nbsp;{{cellCreatedTime}}</span></div>
-            <div class="item units" v-if="maxNormal"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal}} m<sup>2</sup></span></div>
-        </div>
-      </div>
-      <div class="comments">
-        <div class="date">{{currentDate}}</div>
-        <div class="comments-list">
-          <div class="comment" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
-            <div class="comment-cloud" v-if="comment.text">
-              <div class="author">{{commentUserName(comment)}}</div>
-              <div class="body">{{comment.text}}</div>
-            </div>
-            <div class="time">{{prettyTime(comment.created)}}</div>
+    <div class="cell-popup-wrapper" @click="closePopover">
+      <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
+        <div class="header">
+          <div class="btn-close" @click="closePopover" >&times;</div>
+          <div class="title">{{tableName}}</div>
+          <div class="subtitle">{{fieldName}}</div>
+          <div class="dash" v-if="!onlyChat">
+              <div class="item user-name" v-if="responsible"><i class="material-icons">account_circle</i><span>&nbsp{{ responsible }}</span></div>
+              <div class="item time" v-if="cellCreatedTime"><i class="material-icons">watch_later</i><span>&nbsp;{{cellCreatedTime}}</span></div>
+              <div class="item units" v-if="maxNormal"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal}} m<sup>2</sup></span></div>
           </div>
         </div>
-      </div>
-      <div class="footer">
-        <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
-        <div class="btns">
-          <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
-          <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
-            <div class="dropdown-menu" aria-labelledby="graphMenuButton">
-              <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
-              <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
+        <div class="comments">
+          <div class="date">{{currentDate}}</div>
+          <div class="comments-list">
+            <div class="comment" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
+              <div class="comment-cloud" v-if="comment.text">
+                <div class="author">{{commentUserName(comment)}}</div>
+                <div class="body">{{comment.text}}</div>
+              </div>
+              <div class="time">{{prettyTime(comment.created)}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
+          <div class="btns">
+            <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
+            <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
+              <div class="dropdown-menu" aria-labelledby="graphMenuButton">
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
+                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
+              </div>
             </div>
           </div>
         </div>
@@ -113,8 +114,10 @@ export default {
     },
   },
   methods: {
-    closePopover () {
-      EventBus.$emit('close-cell-comment')
+    closePopover (e) {
+        if (e.target.className === 'cell-popup-wrapper' || e.target.className ===  'btn-close' ) {
+            EventBus.$emit('close-cell-comment')
+        }
     },
     scrollToBottom () {
       let commentList = $('.comments-list')
@@ -196,7 +199,7 @@ export default {
           {withCredentials: true},
       )
         .then(function (response) {
-            let config = response.data.config
+            let config = response.data.config;
             for (var id in config) {
                 self.graphs.push(id)
             }
