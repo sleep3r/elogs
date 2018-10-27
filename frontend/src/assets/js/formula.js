@@ -1,4 +1,5 @@
 import formulaParser from 'hot-formula-parser'
+import store from '../../store/store'
 var FormulaParser = require('hot-formula-parser').Parser;
 var request = require('sync-request');
 
@@ -26,18 +27,29 @@ window.parser.setFunction('FUNC', function(params) {
     const field = params[2];
     const index = params[3];
     const shift = params[4];
-
-    var res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
-    let json = JSON.parse(res.getBody())
+    const current_journal = window.location.pathname.split("/")[2]
+    const current_shift = window.location.pathname.split("/")[3]
+    let res = 0;
     let result = null
-    if (json.value == null) {
-        result = undefined
-    }
-    else if (isNumeric(json.value)) {
-        result = Number(json.value)
-    }
-    else {
-        result = window.parser.parse(json.value).result
+    if (journal == current_journal && shift == current_shift) {
+        let formula = store.getters['journalState/fieldFormula'](table, field)
+        if (formula) {
+            result =  window.parser.parse(formula)
+        } else {
+            result = store.getters['journalState/cell'](table, field, index)['value']
+        }
+    } else {
+        res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
+        let json = JSON.parse(res.getBody())
+        if (json.value == null) {
+            result = undefined
+        }
+        else if (isNumeric(json.value)) {
+            result = Number(json.value)
+        }
+        else {
+            result = window.parser.parse(json.value).result
+        }
     }
     return result
 })
