@@ -8,6 +8,11 @@
 <script>
     export default {
         name: 'app',
+        mounted () {
+            if (this.$store.getters['userState/user']) {
+                this.$connect()
+            }
+        }
     }
 </script>
 

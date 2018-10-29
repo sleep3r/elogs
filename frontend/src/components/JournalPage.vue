@@ -65,7 +65,6 @@ export default {
     },
     mounted() {
         // console.log('mounted')
-        this.$connect();
         let shift_id = this.$route.params.shift_id;
         window.parser.setVariable("CURRENT_SHIFT", shift_id)
         var res = request("GET", window.HOSTNAME + `/api/prev-shift/?shift_id=${shift_id}`)

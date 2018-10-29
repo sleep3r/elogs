@@ -108,6 +108,9 @@
             onLogout() {
                 this.$store.dispatch('userState/logout')
                     .then(() => {
+                        this.$disconnect()
+                    })
+                    .then(() => {
                         this.$router.push('/login')
                     })
             },

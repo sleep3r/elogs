@@ -78,6 +78,9 @@
                         }
                         this.$router.push('/')
                     })
+                    .then(() => {
+                        this.$connect();
+                    })
                     .catch(err => {
                         if (err.non_field_errors) {
                             this.errorText = 'Данные некорректны!'
