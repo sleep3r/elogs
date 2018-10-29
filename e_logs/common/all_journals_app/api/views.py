@@ -450,24 +450,24 @@ class ConstructorHashAPI(View):
         journal_hash = hasher.hexdigest()
         os.rename(f'resources/temp/{filename}', f'resources/temp/{journal_hash}.jrn')
 
-        return JsonResponse({"hash":journal_hash})
+        return JsonResponse({"hash": journal_hash})
 
 
 class ConstructorUploadAPI(View):
     def post(self, request):
         print(request.POST)
-        hash = request.POST['hash']
-        plant = request.POST['plant']
-        type = request.POST['type']
-        number_of_shifts = int(request.POST['number_of_shifts'])
+        hash = request.POS.get('hash', None)
+        plant = request.POST.get('plant', None)
+        type = request.POST.get('type', None)
+        number_of_shifts = request.POST.get('number_of_shifts', None)
 
-        # copyfile(f'resources/temp/{hash}.jrn',
-        #          f'resources/journals/{plant}/{hash}.jrn')
+        if not hash or not plant:
+            return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
         journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
         new_journal = journal.create()
 
-        if new_journal.type == 'shift':
+        if new_journal.type == 'shift' and number_of_shifts:
             LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
 
         compress_journal(journal)
