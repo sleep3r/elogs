@@ -25,6 +25,7 @@ from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 from e_logs.core.utils.webutils import current_date, date_range
 from e_logs.core.views import LoginRequired
+from e_logs.core.management.commands.compress_journals import compress_journal
 
 
 class ShiftAPI(LoginRequired, View):
@@ -469,5 +470,5 @@ class ConstructorUploadAPI(View):
         if new_journal.type == 'shift':
             LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
 
+        compress_journal(journal)
         return JsonResponse({"status": 1})
-
