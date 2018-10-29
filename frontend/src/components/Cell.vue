@@ -342,6 +342,7 @@
                     });
                 }
                 // setTimeout(this._updateCells(), 0)
+                this.send()
             },
             filterInput(e) {
                 if (this.type === 'number') {

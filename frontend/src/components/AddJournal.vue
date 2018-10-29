@@ -78,7 +78,11 @@
                             this.hash = res.data.hash
                         })
                         .catch(err => {
-                            console.log(err)
+                            this.$notify({
+                                text: 'Не удалось загрузить файл!',
+                                duration: 3000,
+                                type: 'error'
+                            })
                         })
                 }
                 else {
@@ -109,10 +113,19 @@
                     }
                 )
                     .then((res) => {
-                        console.log(res)
+                        this.$notify({
+                            text: `Журнал успешно загружен! 
+                            Обновите страницу.`,
+                            duration: 3000,
+                            type: 'success'
+                        })
                     })
                     .catch(err => {
-                        console.log(err)
+                        this.$notify({
+                            text: 'Не удалось загрузить журнал!',
+                            duration: 3000,
+                            type: 'error'
+                        })
                     })
             },
             handleFileUpload(e){

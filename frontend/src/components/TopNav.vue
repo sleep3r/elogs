@@ -57,7 +57,7 @@
                                 <!--<span class="caption">Настройки</span>-->
                             <!--</a>-->
                         </li>
-                        <li class="user-menu__item">
+                        <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
                             <a href="" @click.prevent="onAddJournal">
                                 <i class="fas fa-journal-whills"></i>
                                 <span class="caption">Добавить журнал</span>

@@ -456,7 +456,7 @@ class ConstructorHashAPI(View):
 class ConstructorUploadAPI(View):
     def post(self, request):
         print(request.POST)
-        hash = request.POS.get('hash', None)
+        hash = request.POST.get('hash', None)
         plant = request.POST.get('plant', None)
         type = request.POST.get('type', None)
         number_of_shifts = request.POST.get('number_of_shifts', None)
@@ -468,7 +468,7 @@ class ConstructorUploadAPI(View):
         new_journal = journal.create()
 
         if new_journal.type == 'shift' and number_of_shifts:
-            LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
+            LoadJournalAPI.add_shifts(new_journal, int(number_of_shifts))
 
-        compress_journal(journal)
+        compress_journal(new_journal)
         return JsonResponse({"status": 1})

@@ -28,12 +28,14 @@ Vue.config.productionTip = false;
 //
 const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
 window.HOSTNAME = "http://" + window.location.hostname + ":8000";
+window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
     reconnection: true,
     connectManually: true,
     passToStoreHandler: function (eventName, event) {
+        console.log('event', event)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
             console.log('unsyncCells', unsyncCells)
