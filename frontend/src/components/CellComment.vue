@@ -28,7 +28,7 @@
           <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
           <div class="btns">
             <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
-            <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat && isNumber" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
               <div class="dropdown-menu" aria-labelledby="graphMenuButton">
                 <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной ряд</a>
@@ -55,6 +55,7 @@ export default {
     'fieldName',
     'rowIndex',
     'onlyChat',
+    'isNumber',
     'x',
     'y'
   ],

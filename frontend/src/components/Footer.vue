@@ -18,6 +18,7 @@
             :field-name="cellComment.fieldName"
             :row-index="cellComment.rowIndex"
             :onlyChat="cellComment.onlyChat"
+            :isNumber="cellComment.isNumber"
             :x="cellComment.coordX" 
             :y="cellComment.coordY" 
         />
@@ -53,6 +54,7 @@
                     fieldName: null,
                     rowIndex: null,
                     onlyChat: false,
+                    isNumber: false,
                     coordX: null,
                     coordY: null,
                     isShowPopover: false
@@ -61,12 +63,12 @@
         },
         mounted () {
             EventBus.$on('show-cell-comment', (props) => {
-
                 $('body').css({'overflow': 'hidden'})
 
                 this.cellComment.tableName = props.tableName,
                 this.cellComment.fieldName = props.fieldName,
                 this.cellComment.rowIndex = props.rowIndex,
+                this.cellComment.isNumber = props.isNumber,
                 this.cellComment.onlyChat = props.onlyChat,
                 this.cellComment.coordX = props.coordX,
                 this.cellComment.coordY = props.coordY,

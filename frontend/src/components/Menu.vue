@@ -156,7 +156,7 @@
                 }
 
                 let link = document.querySelector(
-                    `.menu__item a[data-journal-name="${this.$route.params.journal}"]`)
+                    `.menu__item a[data-plant-name="${this.$route.params.plant}"][data-journal-name="${this.$route.params.journal}"]`)
                 if (!link) return;
 
                 let currentItem = link.parentNode;

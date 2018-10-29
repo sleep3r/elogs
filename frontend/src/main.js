@@ -36,7 +36,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
     passToStoreHandler: function (eventName, event) {
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
-
+            console.log('unsyncCells', unsyncCells)
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })

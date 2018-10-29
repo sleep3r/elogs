@@ -166,6 +166,7 @@
                         fieldName: this.fieldName,
                         index: this.rowIndex,
                         value: val,
+                        responsible: {[this.$store.getters['userState/username']]: this.$store.getters['userState/fullname']},
                         notSynchronized: !navigator.onLine
                     }]});
                 }
@@ -218,7 +219,8 @@
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         rowIndex: this.rowIndex,
-                        onlyChat: false
+                        onlyChat: false,
+                        isNumber: this.type === 'number'
                     })
                 }
                 else if (this.mode !== 'validate' && onlyChat) {
@@ -229,7 +231,8 @@
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         rowIndex: this.rowIndex,
-                        onlyChat: true
+                        onlyChat: true,
+                        isNumber: this.type === 'number'
                     })
                 }
             },

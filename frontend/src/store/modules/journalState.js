@@ -303,6 +303,9 @@ const journalState = {
                         Vue.set(cells, data[i].index, {});
                         Vue.set(cells[data[i].index], 'value', data[i].value);
                         Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
+                        Vue.set(cells[data[i].index], 'fieldName', data[i].fieldName);
+                        Vue.set(cells[data[i].index], 'tableName', data[i].tableName);
+                        Vue.set(cells[data[i].index], 'index', data[i].index);
                         if (data[i].notSynchronized) {
                             Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
                         }
@@ -498,6 +501,7 @@ const journalState = {
                 });
         },
         sendUnsyncCell: function ({ commit, state, getters }, payload) {
+            console.log('unsyncCell', payload)
             window.mv.$socket.sendObj({
                 'type': 'shift_data',
                 'unsync':true,
