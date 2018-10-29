@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%;">
         <template>
-            <span v-if="hasFormula" class="formula-marker"><b><i>F</i></b></span>
+            <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
         </template>
         <input
             :class="['general-value', 'number-cell', 'form-control',
