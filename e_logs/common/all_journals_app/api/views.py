@@ -461,10 +461,10 @@ class ConstructorUploadAPI(View):
         type = request.POST['type']
         number_of_shifts = int(request.POST['number_of_shifts'])
 
-        copyfile(f'resources/temp/{hash}.jrn',
-                 f'resources/journals/{plant}/{hash}.jrn')
+        # copyfile(f'resources/temp/{hash}.jrn',
+        #          f'resources/journals/{plant}/{hash}.jrn')
 
-        journal = JournalBuilder(f'resources/journals/{plant}/{hash}.jrn', plant, type)
+        journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
         new_journal = journal.create()
 
         if new_journal.type == 'shift':
