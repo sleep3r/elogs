@@ -341,7 +341,7 @@
                         "crud":"update",
                     });
                 }
-                this._updateCells()
+                // setTimeout(this._updateCells(), 0)
             },
             filterInput(e) {
                 if (this.type === 'number') {
@@ -425,6 +425,7 @@
                 }
             },
             _updateCells() {
+                console.log("updating cells")
                 let journalComponent = this.$parent.$parent.$parent
                 for (let commonTableComponentIndex in journalComponent.$children) {
                     let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
