@@ -53,6 +53,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         text = event.get('text', None)
         if text is not None:
             data = json.loads(text)
+            print(data)
             if data['type'] == 'shift_data':
                 await self.shift_receive(data)
 
@@ -118,7 +119,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             if cell:
                 message = data['message'].copy()
                 message['sendee'] = self.scope['user'].employee
-                await self.add_cell_message_query(message, cell, shift_id=data['cell_location']['group_id'])
+                await self.add_cell_message_query(message, cell, shift_id=data['cell']['group_id'])
 
         elif data['message']['type'] == "comment":
             message = data['message'].copy()
@@ -167,7 +168,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     @database_sync_to_async
     def add_cell_message_query(self, message, cell, all_users=False, positions=None, uids=None,
                                shift_id=None):
-        print(shift_id)
         if shift_id:
             plant_name = Shift.objects.get(id=shift_id).journal.plant.name
         else:
