@@ -9,10 +9,11 @@
             <!--</template>-->
         </div>
         <div class="header__user">
-            <i class="fas fa-envelope user-messages-badge" @click="onMessagesClick"></i>
-            <i class="fas fa-bell user-notify" @click="onNotifyClick">
+            <div @click="onNotifyClick" class="user-notify-container">
+                <i class="fas fa-bell user-notify">
                 <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
+            </div>
             <div class="notify-menu-wrapper">
                 <div class="notify-menu">
                     <template v-if="getUnreadedMessages.length">
@@ -40,7 +41,15 @@
                     </template>
                     <template v-else>
                         <div class="no-msg-container">
-                            <span>Сообщений нет</span>
+                            <div style="margin-bottom: 8px;">Новых сообщений нет</div>
+                            <ul class="menu">
+                                <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
+                                    <a href=""  @click.prevent="onMessagesClick">
+                                        <i class="fas fa-envelope user-messages-badge"></i>
+                                        <span class="caption">Все сообщения</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </template>
                 </div>
@@ -51,12 +60,12 @@
             <div class="user-menu-wrapper">
                 <div class="user-menu">
                     <ul class="menu">
-                        <li class="user-menu__item">
+                        <!-- <li class="user-menu__item"> -->
                             <!--<a href="" @click.prevent="onSettingsClick">-->
                                 <!--<i class="fas fa-cogs"></i>-->
                                 <!--<span class="caption">Настройки</span>-->
                             <!--</a>-->
-                        </li>
+                        <!-- </li> -->
                         <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
                             <a href="" @click.prevent="onAddJournal">
                                 <i class="fas fa-journal-whills"></i>

@@ -24,4 +24,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    .notifications {
+        z-index: 4 !important;
+    }
 </style>
