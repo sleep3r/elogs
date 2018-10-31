@@ -64,7 +64,7 @@ class SettingsAdmin(admin.ModelAdmin):
         return form
 
     def pickled_value(self, obj):
-        value = pickle.loads(obj.value)
+        value = pickle.loads(obj.value) if obj else None
         return value
     pickled_value.short_description = "Значение"
 
