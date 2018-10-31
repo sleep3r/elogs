@@ -54,7 +54,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" @click="makeDefaultPage"></i>
+            <i class="fas fa-home default-page-badge" @click="onHomeClick"></i>
             <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/fullname']}}</span>
             <i class="fas fa-user-circle" style="margin-right: 0"></i>
             <div class="user-menu-wrapper">
@@ -106,6 +106,8 @@
 
 <script>
     import ajax from '../axios.config'
+    import EventBus from '../EventBus'
+    
     export default {
         name: "TopNav",
         computed: {
@@ -181,11 +183,15 @@
                 this.$router.push('/modes');
                 this.hideUserMenu()
             },
+            onHomeClick() {
+                EventBus.$emit('open-alert', {
+                    onOk: this.makeDefaultPage, 
+                    text: 'Текущая страница будет вашей домашней'
+                })
+            },
             makeDefaultPage(event) {
                 var path = window.location.pathname
-                console.log(event.target)
-                // event.target.classList.remove("fa-home")
-                // event.target.classList.add("fa-check-circle")
+
                 ajax.post(
                     window.HOSTNAME + "/api/setting/",
                     {

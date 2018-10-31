@@ -9,7 +9,7 @@
         <message-modal></message-modal>
         <scheme-modal></scheme-modal>
         <add-mode-modal></add-mode-modal>
-        <resp-modal></resp-modal>
+        <alert-modal></alert-modal>
         <graph-modal></graph-modal>
         <full-calendar-modal></full-calendar-modal>
         <cell-comment
@@ -29,7 +29,7 @@
     import MessageModal from './MessageModal.vue';
     import SchemeModal from './SchemeModal.vue';
     import AddModeModal from './AddModeModal.vue';
-    import ResponsibleModal from './ResponsibleModal.vue';
+    import AlertModal from './AlertModal.vue';
     import GraphModal from './GraphModal.vue';
     import FullCalendarModal from './FullCalendarModal.vue';
     import CellComment from './CellComment.vue'
@@ -42,7 +42,7 @@
             'message-modal': MessageModal,
             'schemeModal': SchemeModal,
             'add-mode-modal': AddModeModal,
-            'resp-modal': ResponsibleModal,
+            'alert-modal': AlertModal,
             'graph-modal': GraphModal,
             'full-calendar-modal': FullCalendarModal,
             'cell-comment': CellComment

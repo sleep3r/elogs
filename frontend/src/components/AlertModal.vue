@@ -1,10 +1,10 @@
 <template>
-    <div class="resp-modal">
-        <div class="resp-modal-content">
-            <h2 class="resp-modal-title">Продолжить?</h2>
-            <p class="resp-modal-sub-title">Вы будете назначены ответственным за этот журнал после начала его редактирования</p>
-            <div class="resp-modal-btns">
-                <button class="btn" @click="onOkClick">Да</button>
+    <div class="alert-modal">
+        <div class="alert-modal-content">
+            <h2 class="alert-modal-title">Продолжить?</h2>
+            <p class="alert-modal-sub-title">{{text}}</p>
+            <div class="alert-modal-btns">
+                <button class="btn" @click="() => {onOk(); closeModal()}">Да</button>
                 <button class="btn" @click="onCancelClick">Нет ( {{expTime}} )</button>
             </div>
         </div>
@@ -15,56 +15,53 @@
     import EventBus from '../EventBus'
 
     export default {
-        name: "ResponsibleModal",
+        name: "AlertModal",
         data () {
             return {
                 timer: null,
-                expTime: 60
+                expTime: 60,
+                text: '',
+                onOk: () => {}
             }
         },
         methods: {
             startTicking () {
                 this.timer = setInterval(() => {
-                    if (this.expTime === 0) {
+                    if (!this.expTime) {
                         this.onCancelClick()
                     }
-
-                    this.expTime--
+                    else this.expTime--
                 }, 1000)
             },
             stopTicking () {
                 this.timer = clearInterval(this.timer)
             },
-            onOkClick () {
-                this.$socket.sendObj({
-                    'type': 'make_responsible',
-                    'group_id': this.$store.getters['journalState/journalInfo'].id
-                });
-                this.$store.commit('journalState/SET_PAGE_MODE', 'edit')
-                let payload = {}
-                payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
-                this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
-                this.closeModal()
-            },
             onCancelClick () {
                 this.closeModal()
             },
             closeModal () {
-                $('.resp-modal').removeClass('resp-modal__open')
+                console.log('closed', this.expTime, this.timer)
+                $('.alert-modal').removeClass('alert-modal__open')
                 this.stopTicking()
-                this.expTime = 60
+                setTimeout(() => this.expTime = 60, 200)
             }
         },
         mounted () {
-            EventBus.$on('open-resp-modal', () => {
+            EventBus.$on('open-alert', ({text, onOk}) => {
+                $('.alert-modal').addClass('alert-modal__open')
+                this.text = text
+                this.onOk = onOk
                 this.startTicking()
+            })
+            EventBus.$on('close-alert', () => {
+                this.closeModal()
             })
         }
     }
 </script>
 
 <style lang='scss' scoped>
-.resp-modal {
+.alert-modal {
     display: flex;
     justify-content: center;
     position: fixed;
@@ -81,30 +78,30 @@
     z-index: 100;
 }
 
-.resp-modal__open {
+.alert-modal__open {
     visibility: visible;
     opacity: 0.9;
 }
 
-.resp-modal-content {
+.alert-modal-content {
     max-width: 600px;
     text-align: center;
 }
 
-.resp-modal-title {
+.alert-modal-title {
     margin-bottom: 30px;
 }
 
-.resp-modal-sub-title {
+.alert-modal-sub-title {
     font-size: 20px;
 }
 
-.resp-modal-btns {
+.alert-modal-btns {
     display: flex;
     justify-content: center;
 }
 
-.resp-modal-btns .btn {
+.alert-modal-btns .btn {
     min-width: 120px;
     background-color: #386486;
 

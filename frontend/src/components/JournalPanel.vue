@@ -131,6 +131,16 @@
             },
         },
         methods: {
+            onAgreeResponsibleClick () {
+                this.$socket.sendObj({
+                    'type': 'make_responsible',
+                    'group_id': this.$store.getters['journalState/journalInfo'].id
+                });
+                this.$store.commit('journalState/SET_PAGE_MODE', 'edit')
+                let payload = {}
+                payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
+                this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
+            },
             userHasPerm(perm) {
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
                     if (p == perm) {
@@ -147,8 +157,10 @@
             changeMode(mode) {
                 if (mode === 'edit') {
                     if (!this.userIsResponsible) {
-                        $('.resp-modal').addClass('resp-modal__open')
-                        EventBus.$emit('open-resp-modal')
+                        EventBus.$emit('open-alert', {
+                            onOk: this.onAgreeResponsibleClick, 
+                            text: 'Вы будете назначены ответственным за этот журнал после начала его редактирования'
+                        })
                     }
                     else {
                         this.$store.commit('journalState/SET_PAGE_MODE', 'edit');
