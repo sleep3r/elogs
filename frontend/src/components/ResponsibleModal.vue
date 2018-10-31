@@ -44,6 +44,8 @@
                 let payload = {}
                 payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
                 this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
+                let shift_event = document.querySelector(`a[href='${window.location.pathname}/'].fc-event`)
+                shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85")
                 this.closeModal()
             },
             onCancelClick () {
