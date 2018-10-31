@@ -34,7 +34,8 @@
                 }, 1000)
             },
             stopTicking () {
-                this.timer = clearInterval(this.timer)
+                clearInterval(this.timer)
+                this.timer = null
             },
             onCancelClick () {
                 this.closeModal()
