@@ -1,32 +1,22 @@
-<table class="table table-bordered elog-journal-table" >
-    <thead>
-        <tr>
-            <th > Номер вагона </th>
-            <th  > Наиме&shy;нование концен&shy;трата </th>
-            <th  > Время подачи </th>
-
-            <th > Время плано&shy;вой уборки </th>
-            <th > Время факти&shy;ческой уборки </th>
-
-            <th class="th-number"> Время перепростоя </th>
-            <th class="th-number"> Поступило контей&shy;неров<i class='units'>шт</i> </th>
-            <th class="th-number"> Поступило поддонов<i class='units'>шт</i> </th>
-            <th class="th-number"> Поступило упоров<i class='units'>шт</i> </th>
-            <th class="th-number"> Поступило скоб<i class='units'>шт</i> </th>
-        </tr>
-    </thead>
-    <tbody>
-          <tr v-for="(value, index) in rowsCount">
-              <td><cell  field-name="wagon_num" :row-index="index"></cell></td>
-              <td><cell  field-name="conc_num" :row-index="index"></cell></td>
-              <td><cell  field-name="supply_time" :row-index="index"></cell></td>
-              <td><cell  field-name="plan_cleaning_time" :row-index="index"></cell></td>
-              <td><cell  field-name="fact_cleaning_time" :row-index="index"></cell></td>
-              <td><cell  field-name="downtime" :row-index="index"></cell></td>
-              <td><cell  field-name="recieved_conc" :row-index="index"></cell></td>
-              <td><cell  field-name="recieved_beds" :row-index="index"></cell></td>
-              <td><cell  field-name="recieved_stops" :row-index="index"></cell></td>
-              <td><cell  field-name="recieved_braces" :row-index="index"></cell></td>
-          </tr>
-    </tbody>
+<table class="table table-bordered elog-journal-table" id="redipsTable">
+	<thead>
+		<tr>
+			<th id="Vd7wOnNO5v">Номер вагона</th>
+			<th id="pTJXfa3Qk6">Наиме­нование концен­трата</th>
+			<th id="ZoTJGk5Tzc">Время подачи</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="(value, index) in rowsCount">
+			<td>
+				<cell  id="6dRjbcOuy" field-name="fdsfsdf" :row-index="index">fdsfsdf</cell>
+			</td>
+			<td>
+				<cell class="cell selected" id="dMeg0tIvk9" field-name="ffff" :row-index="index">ffff</cell>
+			</td>
+			<td>
+				<cell  id="MqBxIcQQ_P" field-name="ddddd" :row-index="index">ddddd</cell>
+			</td>
+		</tr>
+	</tbody>
 </table>

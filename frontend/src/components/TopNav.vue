@@ -1,15 +1,16 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo" @click.prevent="$router.push('/')"><b>E-LOGS</b></div>
+        <div class="header__logo" @click.prevent="$router.push('/')" data-toggle="tooltip" title="Вернуться на домашнюю страницу"><b>E-LOGS</b></div>
         <div class="header__title">
             <!--<span class="plant_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/plantVerboseName']}}</span>-->
             <!--<template v-if="$route.params.journal && $route.name !== 'modesPage'">-->
                 <!--<i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color: #ca0000"> Синхронизация...</i>-->
                 <!--<i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color: #36d686"> Синхронизировано</i>-->
             <!--</template>-->
+            <div class="offline-warn" v-if="isOffline">Внимание, вы работаете в оффлайн режиме!</div>
         </div>
         <div class="header__user">
-            <div @click="onNotifyClick" class="user-notify-container">
+            <div @click="onNotifyClick" class="user-notify-container" data-toggle="tooltip" title="Сообщения">
                 <i class="fas fa-bell user-notify">
                 <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
@@ -54,9 +55,8 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" @click="onHomeClick"></i>
-            <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/fullname']}}</span>
-            <i class="fas fa-user-circle" style="margin-right: 0"></i>
+            <i class="fas fa-home default-page-badge" @click="onHomeClick" data-toggle="tooltip" title="Сделать домашней страницей"></i>
+            <span class="user-name" @click="onUsernameClick" data-toggle="tooltip" title="Профиль пользователя">{{$store.getters['userState/fullname']}}</span>
             <div class="user-menu-wrapper">
                 <div class="user-menu">
                     <ul class="menu">
@@ -107,15 +107,36 @@
 <script>
     import ajax from '../axios.config'
     import EventBus from '../EventBus'
-    
+
     export default {
         name: "TopNav",
+        data () {
+            return {
+                onlineTimer: null,
+                isOffline: false
+            }
+        },
         computed: {
             getUnreadedMessages () {
                 return this.$store.getters['messagesState/unreadedMessages']
             }
         },
         methods: {
+            startCheckingOffline () {
+                this.onlineTimer = setInterval(() => {
+                    console.log(this.isOffline, this.onlineTimer)
+                    if (window.navigator.onLine) {
+                        this.isOffline = false 
+                    }
+                    else {
+                        this.isOffline = true
+                    }
+                }, 1000)
+            },
+            stopCheckingOffline () {
+                clearInterval(this.onlineTimer)
+                this.onlineTimer = null
+            },
             onLogout() {
                 this.$store.dispatch('userState/logout')
                     .then(() => {
@@ -204,6 +225,10 @@
         mounted () {
             let _this = this
 
+            this.startCheckingOffline()
+
+            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
+
             this.$store.dispatch('messagesState/loadUnreadedMessages')
                 .then(() => {
                     if (this.getUnreadedMessages.length) {
@@ -221,6 +246,9 @@
             $('.header .notify-menu-wrapper').click(function () {
                 _this.hideNotifyMenu()
             })
+        },
+        beforeDestroy () {
+            this.stopCheckingOffline()
         }
     }
 </script>

@@ -6,10 +6,10 @@
           <div class="btn-close" @click="closePopover" >&times;</div>
           <div class="title">{{tableName}}</div>
           <div class="subtitle">{{fieldName}}</div>
-          <div class="dash" v-if="!onlyChat">
-              <div class="item user-name" v-if="responsible"><i class="material-icons">account_circle</i><span>&nbsp{{ responsible }}</span></div>
-              <div class="item time" v-if="cellCreatedTime"><i class="material-icons">watch_later</i><span>&nbsp;{{cellCreatedTime}}</span></div>
-              <div class="item units" v-if="maxNormal"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal}} m<sup>2</sup></span></div>
+          <div class="dash">
+              <div class="item user-name"><i class="material-icons">account_circle</i><span>&nbsp;{{ responsible ? responsible : '&mdash;' }}</span></div>
+              <div class="item time"><i class="material-icons">watch_later</i><span>&nbsp;{{ cellCreatedTime ? cellCreatedTime : '&mdash;' }}</span></div>
+              <!-- <div class="item units"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal ? maxNormal : '&mdash;' }} m<sup>2</sup></span></div> -->
           </div>
         </div>
         <div class="comments">
@@ -345,7 +345,7 @@ $color-comment-text: #A5A5A5 ;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 13px;
   background-color: white;
-  width: 450px;
+  width: 280px;
   height: 386px;
   position: absolute;
   z-index: 101;
@@ -416,7 +416,7 @@ $color-comment-text: #A5A5A5 ;
       overflow: -moz-scrollbars-vertical;
       overflow-y: scroll;
       padding-right: 20px;
-      padding-left: 100px;
+      padding-left: 10px;
 
       .comment {
         display: flex;
@@ -463,20 +463,18 @@ $color-comment-text: #A5A5A5 ;
         font-size: 13px;
       }
       .btns {
-        display: flex;
-        justify-content: space-evenly;
-        padding-top: 10px;
-
+          margin-top: 5px;
           .btn {
             background-color: $color-header;
             color: white;
-            width: 50%;
-
+            width: 100%;
           }
           .btn-add {
-            margin-right: 10px;
+            // margin-right: 10px;
+            margin-bottom: 5px;
           }
           .btn-graph {
+
           }
       }
     }
