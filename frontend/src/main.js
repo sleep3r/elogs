@@ -25,9 +25,17 @@ Vue.use(Notifications)
 
 Vue.config.productionTip = false;
 
-//
-const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
-window.HOSTNAME = "http://" + window.location.hostname + ":8000";
+
+if (process.env.NODE_ENV == 'production') {
+    var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
+    window.HOSTNAME = 'https://' + window.location.hostname
+}
+else {
+    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
+    window.HOSTNAME = "http://" + window.location.hostname + ":8000";
+}
+
+
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
@@ -103,7 +111,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         duration: 5000,
                         type: 'warn'
                     })
-                    
+
                     this.store.dispatch('messagesState/loadUnreadedMessages')
                     this.store.dispatch('messagesState/loadMessages')
                 }
