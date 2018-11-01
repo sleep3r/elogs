@@ -122,3 +122,65 @@
         }
     }
 }
+
+@media print {
+    .column-left {
+        display: none;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .column-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .journal_title_container {
+        position: initial;
+        flex-wrap: initial;
+        // transform: translate3d(0, 0, 0) !important;
+
+        .responsibles {
+            margin-top: -30px;
+        }
+    }
+
+    .date-selector {
+        margin-top: 5px;
+
+        label {
+            display: none;
+        }
+    }
+
+    .exp-time {
+        display: none;
+    }
+
+    .elog-journal-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .btn {
+        display: none;
+    }
+
+    input::-webkit-input-placeholder {
+        color:transparent !important;
+    }
+    
+    input:-moz-placeholder {
+        color:transparent !important; 
+    }
+    
+    input::-moz-placeholder {
+        color:transparent !important; 
+    }
+    
+    input:-ms-input-placeholder {  
+        color:transparent !important;
+    }
+}

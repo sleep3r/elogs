@@ -37,7 +37,7 @@
         <div class="exp-time">
           <span> {{ shiftMessage }} </span>
         </div>
-        <div>
+        <div class="responsibles">
           Ответственные за смену:
           <label v-for="employee of responsibles">
             <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->

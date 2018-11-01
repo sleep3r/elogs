@@ -91,6 +91,12 @@
                             </a>
                         </li>
                         <li class="user-menu__item">
+                            <a href="" @click.prevent="onPrint">
+                                <i class="fas fa-print"></i>
+                                <span class="caption">Печать</span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item">
                             <a href="" @click.prevent="onLogout">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span class="caption">Выйти из системы</span>
@@ -124,7 +130,6 @@
         methods: {
             startCheckingOffline () {
                 this.onlineTimer = setInterval(() => {
-                    console.log(this.isOffline, this.onlineTimer)
                     if (window.navigator.onLine) {
                         this.isOffline = false 
                     }
@@ -136,6 +141,9 @@
             stopCheckingOffline () {
                 clearInterval(this.onlineTimer)
                 this.onlineTimer = null
+            },
+            onPrint () {
+                window.print()
             },
             onLogout() {
                 this.$store.dispatch('userState/logout')
