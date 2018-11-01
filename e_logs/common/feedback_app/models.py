@@ -34,6 +34,10 @@ class Feedback(StrAsDictMixin, models.Model):
     filenames = models.TextField(verbose_name="Имена файлов", default="")
     username = models.CharField(max_length=200, blank=True, null=True, verbose_name='Пользователь')
 
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
     def send_feedback(self):
         msg = Feedback.MESSAGE.format(
             usr=self.username,

@@ -2,7 +2,7 @@ from collections import defaultdict
 from datetime import timedelta
 
 import environ
-from cacheops import cached_as
+from cacheops import cached_as, invalidate_obj, invalidate_model
 
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render_to_response
@@ -10,6 +10,7 @@ from django.template import loader, TemplateDoesNotExist
 from django.views import View
 
 from e_logs.common.all_journals_app.models import Shift, Journal, Plant
+from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import logged, current_date
 
 env = environ.Env(DEBUG=(bool, False))
@@ -63,6 +64,7 @@ class GetShifts(View):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         employee = user.employee
+        invalidate_model(Shift)
         owned_shifts = employee.shift_set.all()
 
         if journal.type == 'shift':
@@ -85,4 +87,4 @@ class GetShifts(View):
             raise TypeError('Attempt to get shifts for non-shift journal')
 
 
-get_shifts = cached_as(Plant, Journal, Shift)(GetShifts.as_view())
+get_shifts = cached_as(Plant, Journal, Shift, Employee)(GetShifts.as_view())

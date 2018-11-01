@@ -71,7 +71,6 @@ class Message(StrAsDictMixin, models.Model):
                     'sendee': Employee or None,
                 }
         """
-        print(message)
         recipients = Message.get_recepients(message, all_users, positions, uids, plant_name)
 
 
