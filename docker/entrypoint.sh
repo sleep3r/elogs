@@ -37,6 +37,9 @@ exec gunicorn config.wsgi:application \
 
 # lsof -i :8000
 
+echo Starting node...
+exec npm start --prefix /srv/e-logs-constructor/backend &
+
 echo Starting caddy...
 cd /srv
 mv /srv/caddy /root/.caddy
