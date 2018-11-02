@@ -14,9 +14,9 @@ class ShiftAdmin(admin.ModelAdmin):
     search_fields = ['name', 'equipment']
     list_display = ['plant_name', 'order', 'date', 'id']
 
-    @staticmethod
-    def plant_name(obj):
+    def plant_name(self, obj):
         return obj.journal.plant.verbose_name
+    plant_name.short_description = "Цех"
 
 
 class CellValueAdmin(admin.ModelAdmin):
@@ -26,19 +26,17 @@ class CellValueAdmin(admin.ModelAdmin):
     list_display_links = ['field_name']
     list_display = ['id','plant_name','journal_name', 'field_name', 'index', 'value']
 
-
-    @staticmethod
-    def journal_name(obj):
+    def journal_name(self, obj):
         return obj.group.journal.verbose_name
+    journal_name.short_description = "Журнал"
 
-    @staticmethod
-    def plant_name(obj):
+    def plant_name(self, obj):
         return obj.group.journal.plant.verbose_name
+    plant_name.short_description = "Цех"
 
-    @staticmethod
-    def field_name(obj):
+    def field_name(self, obj):
         return obj.field.name
-
+    field_name.short_description = "Поле"
 
 admin.site.register(Cell, CellValueAdmin)
 admin.site.register(Shift, ShiftAdmin)

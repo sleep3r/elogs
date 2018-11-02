@@ -20,9 +20,9 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['full_name', 'username', 'plant_name', 'position']
     list_display_links = ['full_name']
 
-    @staticmethod
-    def full_name(obj):
+    def full_name(self, obj):
         return obj.first_name + " " + obj.last_name
+    full_name.short_description = "Рабочий "
 
     @staticmethod
     def plant_name(obj):
