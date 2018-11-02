@@ -1,26 +1,46 @@
-<table class="table table-bordered elog-journal-table">
-    <thead>
-        <tr>
-            <th rowspan="2">Дата</th>
-            <th rowspan="2">Номер смены</th>
-            <th colspan="2" class="th-common">Масса навески<i class="units">г</i></th>
-            <th>Определяемый параметр</th>
-            <th rowspan="2">Исполнитель</th>
-        </tr>
-        <tr>
-            <th>Огарка<i class="units">г</i></th>
-            <th>Остаток на сите<i class="units">г</i></th>
-            <th>Фракция +0,25 мм X<i class="units">%</i></th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(value, index) in rowsCount" class="indexed-line">
-          <td><cell field-name="date_start" :row-index="index"></cell></td>
-          <td><cell field-name="shift_number" :row-index="index"></cell></td>
-          <td><cell field-name="massa_fur" :row-index="index"></cell></td>
-          <td><cell field-name="massa_sit" :row-index="index"></cell></td>
-          <td><cell field-name="fraction" :row-index="index"></cell></td>
-          <td><cell field-name="executer" :row-index="index"></cell></td>
-      </tr>
-    </tbody>
+<table class="table table-bordered elog-journal-table" id="redipsTable">
+	<thead>
+		<tr>
+			<th rowspan="2" id="CRq2SBYCaC">Дата</th>
+			<th rowspan="2" id="hTB89NxVyF">Номер смены</th>
+			<th colspan="2" class="th-common" id="nPwz3uHmVg">
+				Масса навески
+				<i class="units">г</i>
+			</th>
+			<th id="BTlenag19_">Определяемый параметр</th>
+		</tr>
+		<tr>
+			<th id="_QqbE_XjID">
+				Огарка
+				<i class="units">г</i>
+			</th>
+			<th id="yPC4cHCBQM">
+				Остаток на сите
+				<i class="units">г</i>
+			</th>
+			<th id="BQeupnG4cm">
+				Фракция +0,25 мм X
+				<i class="units">%</i>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="(value, index) in rowsCount" class="indexed-line">
+			<td style="">
+				<cell  field-name="1" :row-index="index" id="pw1G4BswI">1</cell>
+			</td>
+			<td>
+				<cell  field-name="2" :row-index="index" id="tehZ4sfZBT">2</cell>
+			</td>
+			<td>
+				<cell  field-name="3" :row-index="index" id="mBsQP6anGU">3</cell>
+			</td>
+			<td>
+				<cell  field-name="4" :row-index="index" id="7nlrspjomN">4</cell>
+			</td>
+			<td>
+				<cell  field-name="5" :row-index="index" id="8NnNcwYQWw">5</cell>
+			</td>
+		</tr>
+	</tbody>
 </table>

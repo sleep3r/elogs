@@ -37,7 +37,7 @@
         <div class="exp-time">
           <span> {{ shiftMessage }} </span>
         </div>
-        <div>
+        <div class="responsibles">
           Ответственные за смену:
           <label v-for="employee of responsibles">
             <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->
@@ -131,6 +131,21 @@
             },
         },
         methods: {
+            onAgreeResponsibleClick () {
+                this.$socket.sendObj({
+                    'type': 'make_responsible',
+                    'group_id': this.$store.getters['journalState/journalInfo'].id
+                });
+                this.$store.commit('journalState/SET_PAGE_MODE', 'edit')
+                let payload = {}
+                payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
+                this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
+                
+                let path = window.location.pathname;
+                if (path.slice(-1) !== '/'){path = path + '/'}
+                let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
+                shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
+            },
             userHasPerm(perm) {
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
                     if (p == perm) {
@@ -147,8 +162,10 @@
             changeMode(mode) {
                 if (mode === 'edit') {
                     if (!this.userIsResponsible) {
-                        $('.resp-modal').addClass('resp-modal__open')
-                        EventBus.$emit('open-resp-modal')
+                        EventBus.$emit('open-alert', {
+                            onOk: this.onAgreeResponsibleClick, 
+                            text: 'Вы будете назначены ответственным за этот журнал после начала его редактирования'
+                        })
                     }
                     else {
                         this.$store.commit('journalState/SET_PAGE_MODE', 'edit');

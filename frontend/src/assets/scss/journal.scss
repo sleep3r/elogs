@@ -33,6 +33,11 @@
     }
 }
 
+.journal_title_container__background {
+    display: none;
+    margin-bottom: 20px;
+}
+
 .journal__panel {
     margin-top: 20px;
 }
@@ -120,5 +125,77 @@
         .btn.btn-outline {
             margin-top: 4px;
         }
+    }
+}
+
+@media print {
+    .column-left {
+        display: none;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .column-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .journal_title_container {
+        display: none;
+    }
+
+    .journal_title_container__background {
+        display: block;
+
+        .responsibles {
+            margin-top: -30px;
+        }
+    }
+
+    .date-selector {
+        margin-top: 5px;
+
+        label {
+            display: none;
+        }
+    }
+
+    .exp-time {
+        display: none;
+    }
+
+    .elog-journal-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .table__comment a {
+        color: #495057 !important;
+    }
+
+    .table__comment a i {
+        display: none;
+    }
+
+    .btn {
+        display: none;
+    }
+
+    input::-webkit-input-placeholder {
+        color:transparent !important;
+    }
+    
+    input:-moz-placeholder {
+        color:transparent !important; 
+    }
+    
+    input::-moz-placeholder {
+        color:transparent !important; 
+    }
+    
+    input:-ms-input-placeholder {  
+        color:transparent !important;
     }
 }

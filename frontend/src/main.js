@@ -25,6 +25,7 @@ Vue.use(Notifications)
 
 Vue.config.productionTip = false;
 
+window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
 
 if (process.env.NODE_ENV == 'production') {
     var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
@@ -35,16 +36,16 @@ else {
     window.HOSTNAME = "http://" + window.location.hostname + ":8000";
 }
 
-
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
     reconnection: true,
     connectManually: true,
     passToStoreHandler: function (eventName, event) {
+        console.log('event', event)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
-
+            console.log('unsyncCells', unsyncCells)
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })

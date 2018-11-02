@@ -18,7 +18,7 @@ urlpatterns = [
     path('api/common/messages/', include('e_logs.common.messages_app.urls')),
     path('api/feedback/', include('e_logs.common.feedback_app.urls')),
     path('api/dashboard/', include('e_logs.common.data_visualization_app.urls')),
-    # path('constructor/<str:path>/', constructor_proxy),
+    path('constructor/<str:path>/', constructor_proxy),
 
     path('api/auth/', include('djoser.urls.base')),
     path('api/auth/', include('djoser.urls.authtoken')),

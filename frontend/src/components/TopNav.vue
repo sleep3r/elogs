@@ -1,18 +1,20 @@
 <template>
     <header class="header sticky">
-        <div class="header__logo" @click.prevent="$router.push('/')"><b>E-LOGS</b></div>
+        <div class="header__logo" @click.prevent="$router.push('/')" data-toggle="tooltip" title="Вернуться на домашнюю страницу"><b>E-LOGS</b></div>
         <div class="header__title">
             <!--<span class="plant_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/plantVerboseName']}}</span>-->
             <!--<template v-if="$route.params.journal && $route.name !== 'modesPage'">-->
                 <!--<i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color: #ca0000"> Синхронизация...</i>-->
                 <!--<i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color: #36d686"> Синхронизировано</i>-->
             <!--</template>-->
+            <div class="offline-warn" v-if="isOffline">Внимание, вы работаете в оффлайн режиме!</div>
         </div>
         <div class="header__user">
-            <i class="fas fa-envelope user-messages-badge" @click="onMessagesClick"></i>
-            <i class="fas fa-bell user-notify" @click="onNotifyClick">
+            <div @click="onNotifyClick" class="user-notify-container" data-toggle="tooltip" title="Сообщения">
+                <i class="fas fa-bell user-notify">
                 <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
+            </div>
             <div class="notify-menu-wrapper">
                 <div class="notify-menu">
                     <template v-if="getUnreadedMessages.length">
@@ -40,24 +42,31 @@
                     </template>
                     <template v-else>
                         <div class="no-msg-container">
-                            <span>Сообщений нет</span>
+                            <div style="margin-bottom: 8px;">Новых сообщений нет</div>
+                            <ul class="menu">
+                                <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
+                                    <a href=""  @click.prevent="onMessagesClick">
+                                        <i class="fas fa-envelope user-messages-badge"></i>
+                                        <span class="caption">Все сообщения</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" @click="makeDefaultPage"></i>
-            <span class="user-name" @click="onUsernameClick">{{$store.getters['userState/fullname']}}</span>
-            <i class="fas fa-user-circle" style="margin-right: 0"></i>
+            <i class="fas fa-home default-page-badge" @click="onHomeClick" data-toggle="tooltip" title="Сделать домашней страницей"></i>
+            <span class="user-name" @click="onUsernameClick" data-toggle="tooltip" title="Профиль пользователя">{{$store.getters['userState/fullname']}}</span>
             <div class="user-menu-wrapper">
                 <div class="user-menu">
                     <ul class="menu">
-                        <li class="user-menu__item">
+                        <!-- <li class="user-menu__item"> -->
                             <!--<a href="" @click.prevent="onSettingsClick">-->
                                 <!--<i class="fas fa-cogs"></i>-->
                                 <!--<span class="caption">Настройки</span>-->
                             <!--</a>-->
-                        </li>
-                        <li class="user-menu__item">
+                        <!-- </li> -->
+                        <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
                             <a href="" @click.prevent="onAddJournal">
                                 <i class="fas fa-journal-whills"></i>
                                 <span class="caption">Добавить журнал</span>
@@ -82,6 +91,12 @@
                             </a>
                         </li>
                         <li class="user-menu__item">
+                            <a href="" @click.prevent="onPrint">
+                                <i class="fas fa-print"></i>
+                                <span class="caption">Печать</span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item">
                             <a href="" @click.prevent="onLogout">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span class="caption">Выйти из системы</span>
@@ -97,16 +112,44 @@
 
 <script>
     import ajax from '../axios.config'
+    import EventBus from '../EventBus'
+
     export default {
         name: "TopNav",
+        data () {
+            return {
+                onlineTimer: null,
+                isOffline: false
+            }
+        },
         computed: {
             getUnreadedMessages () {
                 return this.$store.getters['messagesState/unreadedMessages']
             }
         },
         methods: {
+            startCheckingOffline () {
+                this.onlineTimer = setInterval(() => {
+                    if (window.navigator.onLine) {
+                        this.isOffline = false 
+                    }
+                    else {
+                        this.isOffline = true
+                    }
+                }, 1000)
+            },
+            stopCheckingOffline () {
+                clearInterval(this.onlineTimer)
+                this.onlineTimer = null
+            },
+            onPrint () {
+                window.print()
+            },
             onLogout() {
                 this.$store.dispatch('userState/logout')
+                    .then(() => {
+                        this.$disconnect()
+                    })
                     .then(() => {
                         this.$router.push('/login')
                     })
@@ -169,11 +212,15 @@
                 this.$router.push('/modes');
                 this.hideUserMenu()
             },
+            onHomeClick() {
+                EventBus.$emit('open-alert', {
+                    onOk: this.makeDefaultPage, 
+                    text: 'Текущая страница будет вашей домашней'
+                })
+            },
             makeDefaultPage(event) {
                 var path = window.location.pathname
-                console.log(event.target)
-                // event.target.classList.remove("fa-home")
-                // event.target.classList.add("fa-check-circle")
+
                 ajax.post(
                     window.HOSTNAME + "/api/setting/",
                     {
@@ -185,6 +232,10 @@
         },
         mounted () {
             let _this = this
+
+            this.startCheckingOffline()
+
+            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
 
             this.$store.dispatch('messagesState/loadUnreadedMessages')
                 .then(() => {
@@ -203,6 +254,9 @@
             $('.header .notify-menu-wrapper').click(function () {
                 _this.hideNotifyMenu()
             })
+        },
+        beforeDestroy () {
+            this.stopCheckingOffline()
         }
     }
 </script>

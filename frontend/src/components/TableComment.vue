@@ -50,6 +50,7 @@
                         'cells': [{
                             tableName: this.tableName,
                             fieldName: this.fieldName,
+                            responsible: {[this.$store.getters['userState/username']]: this.$store.getters['userState/fullname']},
                             index: this.rowIndex,
                             value: val,
                         }]

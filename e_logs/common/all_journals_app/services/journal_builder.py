@@ -60,7 +60,7 @@ class JournalBuilder:
 
         if rewrite==True:
             if journal:
-                journal.delete()
+                self.__delete_journal(journal)
                 journal = None
             if os.path.exists(tables_path):
                 rmtree(tables_path)
@@ -77,7 +77,7 @@ class JournalBuilder:
         table = get_or_none(Table, name=table_meta['name'], journal=journal)
 
         if table:
-            journal.delete()
+            self.__delete_journal(journal)
             raise SemanticError(message=f'Две таблицы с одинаковым именем {table.name}!')
         else:
             new_table = Table.objects.create(name=table_meta['name'],
@@ -89,14 +89,14 @@ class JournalBuilder:
         field_name = field_meta.get("name", field_meta.get("field_name", None))
         if not field_name:
             raise SemanticError(message=f'В таблице {table} есть поле без имени!')
-        field = get_or_none(Field, name=field_meta['name'], table=table)
+        field = get_or_none(Field, name=field_name, table=table)
 
         if field:
             print(field)
-            table.journal.delete()
+            self.__delete_journal(table.journal)
             raise SemanticError(message=f'Две столбца с одинаковым именем {field.name}!')
         else:
-            new_field = Field.objects.create(name=field_meta.pop('name'),
+            new_field = Field.objects.create(name=field_name,
                                              table=table,
                                              type=field_meta.get('type', None),
                                              units=field_meta.get('units', None),
@@ -109,3 +109,10 @@ class JournalBuilder:
             if table.filename.endswith('.html'):
                 table.filename = os.path.basename(table.filename)
                 self.file.extract(table, tables_path)
+
+    def __delete_journal(self, journal):
+        tables = Table.objects.filter(journal=journal)
+        fields = Field.objects.filter(table__in=tables)
+        fields.delete()
+        tables.delete()
+        journal.delete()

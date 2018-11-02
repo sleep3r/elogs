@@ -45,7 +45,7 @@
         name: "Menu",
         data() {
             return {
-                menuSelector: ".menu--left"
+                menuSelector: ".menu--left",
             }
         },
         computed: {
@@ -123,28 +123,18 @@
 
             },
             setListeners () {
-                // let menu = $(".column-left");
-                // let menuLogo = $('.menu__logo');
-                // let lastScrollTop = 0;
-                // let menuHeaderHeight = $('.menu__panel').outerHeight() + menuLogo.outerHeight()
-                // let headerHeight = $('.header').outerHeight()
+                let menu = $('.menu.menu--left');
+                let lastScrollTop = 0;
 
-                // $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
-
-                // $(window).scroll(function (event) {
-                //     let st = $(this).scrollTop();
-                //     if (st < 100) {
-                //         menu.css({top: '50px'})
-                //     }
-                //     if ((lastScrollTop - st > 2) && (st > 100)) {
-                //         menu.css({top: '50px'})
-                //         $('.menu--left').css({height: `calc(100vh - ${menuHeaderHeight + headerHeight + 16}px)`})
-                //     } else if ((st - lastScrollTop > 10) && (st > 100)) {
-                //         menu.css({top: '0px'})
-                //         $('.menu--left').css({height: `calc(100vh - (${menuHeaderHeight + 16}px))`})
-                //     }
-                //     lastScrollTop = st;
-                // });
+                $(window).scroll(function (event) {
+                    if (lastScrollTop >= $(this).scrollTop()) {
+                        menu.scrollTop(menu.scrollTop() - lastScrollTop + $(this).scrollTop())
+                    }
+                    else {
+                        menu.scrollTop(menu.scrollTop() + $(this).scrollTop() - lastScrollTop)
+                    }
+                    lastScrollTop = $(this).scrollTop()
+                });
             },
             setActiveItem() {
                 this.closeAllItems()
@@ -156,7 +146,7 @@
                 }
 
                 let link = document.querySelector(
-                    `.menu__item a[data-journal-name="${this.$route.params.journal}"]`)
+                    `.menu__item a[data-plant-name="${this.$route.params.plant}"][data-journal-name="${this.$route.params.journal}"]`)
                 if (!link) return;
 
                 let currentItem = link.parentNode;

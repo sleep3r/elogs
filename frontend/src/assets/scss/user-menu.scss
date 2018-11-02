@@ -20,6 +20,11 @@
     opacity: 1 !important;
 }
 
+.user-notify-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 .user-name, .user-notify {
     position: relative;
     cursor: pointer;
@@ -38,6 +43,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     &:before {
         content: "";

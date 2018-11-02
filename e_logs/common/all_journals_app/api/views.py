@@ -25,6 +25,7 @@ from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
 from e_logs.core.utils.webutils import current_date, date_range
 from e_logs.core.views import LoginRequired
+from e_logs.core.management.commands.compress_journals import compress_journal
 
 
 class ShiftAPI(LoginRequired, View):
@@ -33,13 +34,14 @@ class ShiftAPI(LoginRequired, View):
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
             current_shift = get_current_shift(Journal.objects.get(name=journal_name))
+            print(current_shift)
             if current_shift:
                 id = current_shift.id
             else:
                 id = Shift.objects.latest('date').id
         else:
             id = kwargs['id']
-
+        print("shift id", id)
         qs = Shift.objects \
             .select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables',
@@ -53,6 +55,7 @@ class ShiftAPI(LoginRequired, View):
                                            Prefetch('comments', queryset=Comment.objects.all().
                                                     select_related('employee__user',
                                                                    'employee'))))).get(id=id)
+
 
         plant = qs.journal.plant
         res = {
@@ -424,7 +427,8 @@ class LoadJournalAPI(View):
                 return JsonResponse({"status": 1})
         return JsonResponse({"status": 0})
 
-    def add_shifts(self, new_journal, number_of_shifts):
+    @staticmethod
+    def add_shifts(new_journal, number_of_shifts):
         Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
         now_date = current_date()
         for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
@@ -446,24 +450,25 @@ class ConstructorHashAPI(View):
         journal_hash = hasher.hexdigest()
         os.rename(f'resources/temp/{filename}', f'resources/temp/{journal_hash}.jrn')
 
-        return JsonResponse({"hash":journal_hash})
+        return JsonResponse({"hash": journal_hash})
 
 
 class ConstructorUploadAPI(View):
     def post(self, request):
-        hash = request.POST['hash']
-        plant = request.POST['plant']
-        type = request.POST['type']
-        number_of_shifts = int(request.POST['number_of_shifts'])
+        print(request.POST)
+        hash = request.POST.get('hash', None)
+        plant = request.POST.get('plant', None)
+        type = request.POST.get('type', None)
+        number_of_shifts = request.POST.get('number_of_shifts', None)
 
-        copyfile(f'resources/temp/{hash}.jrn',
-                 f'resources/journals/{plant}/{hash}.jrn')
+        if not hash or not plant:
+            return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
-        journal = JournalBuilder(f'resources/journals/{plant}/{hash}.jrn', plant, type)
+        journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
         new_journal = journal.create()
 
-        if new_journal.type == 'shift':
-            LoadJournalAPI.add_shifts(new_journal, number_of_shifts)
+        if new_journal.type == 'shift' and number_of_shifts:
+            LoadJournalAPI.add_shifts(new_journal, int(number_of_shifts))
 
+        compress_journal(new_journal)
         return JsonResponse({"status": 1})
-
