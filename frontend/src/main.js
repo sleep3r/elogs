@@ -25,15 +25,18 @@ Vue.use(Notifications)
 
 Vue.config.productionTip = false;
 
-window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
 
 if (process.env.NODE_ENV == 'production') {
     var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
     window.HOSTNAME = 'https://' + window.location.hostname
+    window.NODE_SERVER = 'https://' + window.location.hostname + ':3000'
+    window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
 }
 else {
-    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
-    window.HOSTNAME = "http://" + window.location.hostname + ":8000";
+    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/'
+    window.HOSTNAME = 'http://' + window.location.hostname + ':8000'
+    window.NODE_SERVER = 'http://' + window.location.hostname + ':3000'
+    window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
 }
 
 Vue.use(VueNativeSock, dataEndpoint, {
