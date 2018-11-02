@@ -81,13 +81,13 @@ class Setting(StrAsDictMixin, models.Model, metaclass=SettingsMeta):
     or any model related to them
     """
     name = models.CharField(max_length=128, verbose_name='Имя')
-    verbose_name = models.CharField(max_length=256, verbose_name='Название')
+    verbose_name = models.CharField(max_length=256, verbose_name='Название', blank=True)
     value = models.BinaryField(max_length=4096, verbose_name='Значение')
-    employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, null=True, on_delete=models.CASCADE, blank=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      null=True, related_name='settings',
-                                     related_query_name='setting')
+                                     related_query_name='setting', blank=True)
     object_id = models.PositiveIntegerField(null=True, blank=True, db_index=True)
     scope = GenericForeignKey('content_type', 'object_id')
 

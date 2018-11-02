@@ -140,6 +140,11 @@
                 let payload = {}
                 payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
                 this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
+                
+                let path = window.location.pathname;
+                if (path.slice(-1) !== '/'){path = path + '/'}
+                let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
+                shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
             },
             userHasPerm(perm) {
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {

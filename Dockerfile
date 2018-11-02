@@ -25,11 +25,16 @@ COPY ./Pipfile /srv
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV PYTHONUNBUFFERED 1
-RUN pipenv lock
+# RUN pipenv lock
 RUN pipenv install --deploy --system --ignore-pipfile
 
 COPY ./frontend /srv/frontend
-COPY ./e-logs-constructor /srv/e-logs-constructor
+
+RUN pwd
+RUN git clone https://tlenbit:cd37654c9db8b59940b94c4caf9dd64922f8e099@github.com/Resolim/e-logs-constructor.git /srv/e-logs-constructor
+WORKDIR /srv/e-logs-constructor
+RUN git checkout develop
+# COPY ./e-logs-constructor /srv/e-logs-constructor
 
 WORKDIR /srv/frontend
 RUN git clone https://github.com/creationix/nvm.git .nvm
@@ -45,7 +50,9 @@ RUN . ./nvm.sh \
   && npm run build \
   && cd /srv/e-logs-constructor/frontend \
   && npm i \
-  && npm run build
+  && npm run build \
+  && cd /srv/e-logs-constructor/backend \
+  && npm i
 
 COPY . /srv
 WORKDIR /srv
@@ -54,4 +61,3 @@ ENV DJANGO_SETTINGS_MODULE config.settings.settings_aws
 ENV DOCKER yes
 ENV DEBUG False
 
-RUN apt-get install -y lsof 
