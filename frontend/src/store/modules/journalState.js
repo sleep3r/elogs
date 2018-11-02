@@ -13,10 +13,12 @@ const journalState = {
             isConnected: false,
             reconnectError: false,
         },
-        isSynchronized: true
+        isSynchronized: true,
+        isForPrint: false
     },
     getters: {
         loaded: state => state.loaded,
+        isForPrint: state => state.isForPrint,
         journalInfo: state =>  state.journalInfo,
         events: state =>  state.events,
         currentMode: state => {
@@ -251,6 +253,9 @@ const journalState = {
 
     },
     mutations: {
+        SET_FOR_PRINT (state, isForPrint) {
+            state.isForPrint = isForPrint
+        },
         SET_SYNCHRONIZED (state, isSynchronized) {
             state.isSynchronized = isSynchronized
         },
