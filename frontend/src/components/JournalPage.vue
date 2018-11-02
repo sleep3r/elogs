@@ -3,9 +3,13 @@
         <template v-if="$store.getters['journalState/loaded']">
             <div class="journal_title_container">
                 <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
-                <button v-if="$store.getters['userState/isBoss']" class="btn btn-outline" @click="openConstructor">
+                <button v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']" class="btn btn-outline" @click="openConstructor">
                     Открыть в конструкторе
                 </button>
+                <journal-panel></journal-panel>
+            </div>
+            <div class="journal_title_container__background">
+                <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                 <journal-panel></journal-panel>
             </div>
             <article class="journal-tables">
@@ -65,7 +69,6 @@ export default {
     },
     mounted() {
         // console.log('mounted')
-        this.$connect();
         let shift_id = this.$route.params.shift_id;
         window.parser.setVariable("CURRENT_SHIFT", shift_id)
         var res = request("GET", window.HOSTNAME + `/api/prev-shift/?shift_id=${shift_id}`)

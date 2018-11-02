@@ -260,4 +260,11 @@ h2.table-title {
     }
 }
 
+@media print {
+    .elog-journal-table {
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+}
+
 @import "comment";

@@ -13,10 +13,12 @@ const journalState = {
             isConnected: false,
             reconnectError: false,
         },
-        isSynchronized: true
+        isSynchronized: true,
+        isForPrint: false
     },
     getters: {
         loaded: state => state.loaded,
+        isForPrint: state => state.isForPrint,
         journalInfo: state =>  state.journalInfo,
         events: state =>  state.events,
         currentMode: state => {
@@ -251,6 +253,9 @@ const journalState = {
 
     },
     mutations: {
+        SET_FOR_PRINT (state, isForPrint) {
+            state.isForPrint = isForPrint
+        },
         SET_SYNCHRONIZED (state, isSynchronized) {
             state.isSynchronized = isSynchronized
         },
@@ -303,6 +308,9 @@ const journalState = {
                         Vue.set(cells, data[i].index, {});
                         Vue.set(cells[data[i].index], 'value', data[i].value);
                         Vue.set(cells[data[i].index], 'responsible', data[i].responsible);
+                        Vue.set(cells[data[i].index], 'fieldName', data[i].fieldName);
+                        Vue.set(cells[data[i].index], 'tableName', data[i].tableName);
+                        Vue.set(cells[data[i].index], 'index', data[i].index);
                         if (data[i].notSynchronized) {
                             Vue.set(cells[data[i].index], 'notSynchronized', data[i].notSynchronized);
                         }
@@ -498,6 +506,7 @@ const journalState = {
                 });
         },
         sendUnsyncCell: function ({ commit, state, getters }, payload) {
+            console.log('unsyncCell', payload)
             window.mv.$socket.sendObj({
                 'type': 'shift_data',
                 'unsync':true,

@@ -1,29 +1,29 @@
-http://elogs.club {
+http://{$CADDY_HOSTNAME} {
     redir {
         if {scheme} is http
         / https://{host}{uri}
     }
 }
 
-https://elogs.club/admin {
+https://{$CADDY_HOSTNAME}/admin {
     proxy / 127.0.0.1:8002/admin {
         transparent
     }
 }
 
-https://elogs.club/api {
+https://{$CADDY_HOSTNAME}/api {
     proxy / 127.0.0.1:8002/api {
         transparent
     }
 }
 
-wss://elogs.club/e-logs {
+wss://{$CADDY_HOSTNAME}/e-logs {
     proxy / 127.0.0.1:8001/e-logs {
         websocket
     }
 }
 
-https://elogs.club:8085 {
+https://{$CADDY_HOSTNAME}:8085 {
     root /srv/e-logs-constructor/frontend/dist 
     rewrite {
         regexp .*
@@ -31,7 +31,7 @@ https://elogs.club:8085 {
     }
 }
 
-https://elogs.club {
+https://{$CADDY_HOSTNAME} {
     root /srv/frontend/dist
     rewrite {
         regexp .*

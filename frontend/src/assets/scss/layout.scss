@@ -150,6 +150,12 @@ body {
 .header {
     color: white;
     vertical-align: middle;
+
+    .offline-warn {
+        background-color: #d41919;
+        padding: 2px 10px;
+        border-radius: 4px;
+    }
 }
 
 .header__logo {
@@ -170,12 +176,10 @@ body {
 }
 
 .header.sticky {
-    //top: 0;
     transform: translate3d(0, 0%, 0);
 }
 
 .header.hidden {
-    //top: -50px;
     transform: translate3d(0, -100%, 0);
 }
 

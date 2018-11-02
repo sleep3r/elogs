@@ -14,11 +14,13 @@ services:
   web:
     build: .
     ports:
-        - "8085:8085"
-        - "8000:8000"
-        - "80:80"
-        - "443:443"
+      - "8085:8085"
+      - "8000:8000"
+      - "80:80"
+      - "443:443"
     command: bash -c "./docker/entrypoint.sh"
+    environment:
+      - CADDY_HOSTNAME=elogs.online
     depends_on:
      - redis
      - db

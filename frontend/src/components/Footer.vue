@@ -9,7 +9,7 @@
         <message-modal></message-modal>
         <scheme-modal></scheme-modal>
         <add-mode-modal></add-mode-modal>
-        <resp-modal></resp-modal>
+        <alert-modal></alert-modal>
         <graph-modal></graph-modal>
         <full-calendar-modal></full-calendar-modal>
         <cell-comment
@@ -18,6 +18,7 @@
             :field-name="cellComment.fieldName"
             :row-index="cellComment.rowIndex"
             :onlyChat="cellComment.onlyChat"
+            :isNumber="cellComment.isNumber"
             :x="cellComment.coordX" 
             :y="cellComment.coordY" 
         />
@@ -28,7 +29,7 @@
     import MessageModal from './MessageModal.vue';
     import SchemeModal from './SchemeModal.vue';
     import AddModeModal from './AddModeModal.vue';
-    import ResponsibleModal from './ResponsibleModal.vue';
+    import AlertModal from './AlertModal.vue';
     import GraphModal from './GraphModal.vue';
     import FullCalendarModal from './FullCalendarModal.vue';
     import CellComment from './CellComment.vue'
@@ -41,7 +42,7 @@
             'message-modal': MessageModal,
             'schemeModal': SchemeModal,
             'add-mode-modal': AddModeModal,
-            'resp-modal': ResponsibleModal,
+            'alert-modal': AlertModal,
             'graph-modal': GraphModal,
             'full-calendar-modal': FullCalendarModal,
             'cell-comment': CellComment
@@ -53,6 +54,7 @@
                     fieldName: null,
                     rowIndex: null,
                     onlyChat: false,
+                    isNumber: false,
                     coordX: null,
                     coordY: null,
                     isShowPopover: false
@@ -61,12 +63,12 @@
         },
         mounted () {
             EventBus.$on('show-cell-comment', (props) => {
-
                 $('body').css({'overflow': 'hidden'})
 
                 this.cellComment.tableName = props.tableName,
                 this.cellComment.fieldName = props.fieldName,
                 this.cellComment.rowIndex = props.rowIndex,
+                this.cellComment.isNumber = props.isNumber,
                 this.cellComment.onlyChat = props.onlyChat,
                 this.cellComment.coordX = props.coordX,
                 this.cellComment.coordY = props.coordY,

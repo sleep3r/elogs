@@ -152,7 +152,7 @@ class Measurement(CellGroup):
 
 
 class Shift(CellGroup):
-    order = models.IntegerField(verbose_name='Номер смены')
+    order = models.IntegerField(verbose_name='Порядок смены')
     date = models.DateField(verbose_name='Дата начала смены')
     closed = models.BooleanField(default=False)
     ended = models.BooleanField(default=False)

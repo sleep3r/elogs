@@ -25,18 +25,30 @@ Vue.use(Notifications)
 
 Vue.config.productionTip = false;
 
-//
-const dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
-window.HOSTNAME = "http://" + window.location.hostname + ":8000";
+
+if (process.env.NODE_ENV == 'production') {
+    var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
+    window.HOSTNAME = 'https://' + window.location.hostname
+    window.NODE_SERVER = 'https://' + window.location.hostname + ':3000'
+    window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
+}
+else {
+    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/'
+    window.HOSTNAME = 'http://' + window.location.hostname + ':8000'
+    window.NODE_SERVER = 'http://' + window.location.hostname + ':3000'
+    window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
+}
+
 Vue.use(VueNativeSock, dataEndpoint, {
     store: store,
     format: 'json',
     reconnection: true,
     connectManually: true,
     passToStoreHandler: function (eventName, event) {
+        console.log('event', event)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
-
+            console.log('unsyncCells', unsyncCells)
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
@@ -103,7 +115,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         duration: 5000,
                         type: 'warn'
                     })
-                    
+
                     this.store.dispatch('messagesState/loadUnreadedMessages')
                     this.store.dispatch('messagesState/loadMessages')
                 }

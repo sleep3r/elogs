@@ -51,7 +51,7 @@
                 return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
                                                     '<div class="table__title">' +
                                                         '<span class="table__title__text">' + this.title + '</span>' +
-                                                        '<button v-if="userIsBoss" class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' +
+                                                        '<button v-if="userIsBoss || $store.getters[`userState/isSuperuser`]" class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' +
                                                     '</div>' +
                                                     this.template +
                                                     "<table-comment table-name=\"" + this.name + "\"></table-comment>" +
@@ -64,8 +64,8 @@
                     methods: {
                         openConstructor () {
                             window.open(`${window.location.hostname === 'localhost' ?
-                                'http://127.0.0.1'
-                                : window.HOSTNAME}:8085/journal/${this.$route.params.journal}/table/create?plant=${this.$route.params.plant}&table=${this.props.name}&imported=true`,
+                                'http://127.0.0.1:8085'
+                                : window.FRONT_CONSTRUCTOR_HOSTNAME}/journal/${this.$route.params.journal}/table/create?plant=${this.$route.params.plant}&table=${this.props.name}&imported=true`,
                             '_blank')
                         }
                     },
@@ -87,11 +87,13 @@
                         },
                         rowsCount: function () {
                             let maxRowIndex = this.$store.getters['journalState/maxRowIndex'](this.props.name)
+                            let isForPrint = this.$store.getters['journalState/isForPrint']
+
                             if (this.$store.getters['journalState/journalInfo'].mode === 'edit') {
-                                return maxRowIndex + 1;
+                                return maxRowIndex + 1 + (isForPrint ? 10 : 0);
                             }
                             else {
-                                return maxRowIndex || 1
+                                return maxRowIndex + 1 + (isForPrint ? 10 : 0) || 1 + (isForPrint ? 10 : 0)
                             }
                         }
                     },
