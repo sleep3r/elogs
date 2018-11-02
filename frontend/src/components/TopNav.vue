@@ -143,7 +143,12 @@
                 this.onlineTimer = null
             },
             onPrint () {
-                window.print()
+                this.$store.commit('journalState/SET_FOR_PRINT', true)
+                setTimeout(() => {
+                    window.print()
+                    this.$store.commit('journalState/SET_FOR_PRINT', false)
+                }, 0)
+                
             },
             onLogout() {
                 this.$store.dispatch('userState/logout')

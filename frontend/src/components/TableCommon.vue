@@ -87,11 +87,13 @@
                         },
                         rowsCount: function () {
                             let maxRowIndex = this.$store.getters['journalState/maxRowIndex'](this.props.name)
+                            let isForPrint = this.$store.getters['journalState/isForPrint']
+
                             if (this.$store.getters['journalState/journalInfo'].mode === 'edit') {
-                                return maxRowIndex + 1;
+                                return maxRowIndex + 1 + (isForPrint ? 10 : 0);
                             }
                             else {
-                                return maxRowIndex || 1
+                                return maxRowIndex + 1 + (isForPrint ? 10 : 0) || 1 + (isForPrint ? 10 : 0)
                             }
                         }
                     },
