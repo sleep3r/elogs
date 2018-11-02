@@ -20,7 +20,7 @@
             @keydown="changeFocus"
             @change="onChanged"
             @input="onInput"
-            @click="(e) => showPopover(e, false)"
+            @click="(e) => showPopover(e, {onlyChat: false})"
             @blur="showTooltip=false"
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
@@ -33,7 +33,7 @@
             </datalist>
         </template>
         <i
-            @click="(e) => showPopover(e, true)"
+            @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
             class="far fa-envelope comment-notification"
         ></i>
@@ -53,6 +53,7 @@
     import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
+    import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
 
@@ -61,6 +62,7 @@
     Vue.component('v-popover', VPopover);
     Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
+    Vue.component('clock-picker', ClockPicker);
     Vue.directive('tooltip', VTooltip.VTooltip);
     Vue.directive('close-popover', VTooltip.VClosePopover);
     Vue.component('v-popover', VTooltip.VPopover);
@@ -183,7 +185,7 @@
             },
         },
         methods: {
-            showPopover (e, onlyChat) {
+            showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
 
@@ -191,10 +193,9 @@
 
                 let inputOffset = 4;
 
-                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450;
+                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 280;
                 let appWidth = $('#app').outerWidth()
-
-                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 386;
+                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 424;
                 let appHeight = $('#app').outerHeight()
 
                 if (e.clientX + popUpWidth >= appWidth) {
@@ -223,7 +224,7 @@
                         isNumber: this.type === 'number'
                     })
                 }
-                else if (this.mode !== 'validate' && onlyChat) {
+                else if (this.mode !== 'validate' && options.onlyChat) {
                     EventBus.$emit('show-cell-comment', {
                         coordX: x,
                         coordY: y,
@@ -235,6 +236,18 @@
                         isNumber: this.type === 'number'
                     })
                 }
+
+                if (this.mode === 'edit' && this.type === 'time' && $(e.srcElement).is('input')) {
+                    this.showClock(e)
+                }
+            },
+            showClock (e) {
+                EventBus.$emit('show-clock-picker', {
+                    event: e,
+                    tableName: this.tableName,
+                    fieldName: this.fieldName,
+                    rowIndex: this.rowIndex,
+                })
             },
             deleteRow() {
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
