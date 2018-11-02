@@ -176,12 +176,10 @@ body {
 }
 
 .header.sticky {
-    //top: 0;
     transform: translate3d(0, 0%, 0);
 }
 
 .header.hidden {
-    //top: -50px;
     transform: translate3d(0, -100%, 0);
 }
 

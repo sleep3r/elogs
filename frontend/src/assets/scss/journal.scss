@@ -33,6 +33,11 @@
     }
 }
 
+.journal_title_container__background {
+    display: none;
+    margin-bottom: 20px;
+}
+
 .journal__panel {
     margin-top: 20px;
 }
@@ -138,9 +143,11 @@
     }
 
     .journal_title_container {
-        position: initial;
-        flex-wrap: initial;
-        // transform: translate3d(0, 0, 0) !important;
+        display: none;
+    }
+
+    .journal_title_container__background {
+        display: block;
 
         .responsibles {
             margin-top: -30px;
@@ -162,6 +169,14 @@
     .elog-journal-table {
         width: 100%;
         table-layout: fixed;
+    }
+
+    .table__comment a {
+        color: #495057 !important;
+    }
+
+    .table__comment a i {
+        display: none;
     }
 
     .btn {

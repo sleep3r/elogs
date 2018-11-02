@@ -8,6 +8,10 @@
                 </button>
                 <journal-panel></journal-panel>
             </div>
+            <div class="journal_title_container__background">
+                <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+                <journal-panel></journal-panel>
+            </div>
             <article class="journal-tables">
                 <template v-if="$store.getters['journalState/loaded']">
                     <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
