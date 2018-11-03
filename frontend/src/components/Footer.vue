@@ -13,7 +13,7 @@
         <graph-modal></graph-modal>
         <full-calendar-modal></full-calendar-modal>
         <cell-comment
-            v-if="cellComment.isShowPopover"
+            v-show="cellComment.isShowPopover"
             :table-name="cellComment.tableName"
             :field-name="cellComment.fieldName"
             :row-index="cellComment.rowIndex"
@@ -22,6 +22,7 @@
             :x="cellComment.coordX" 
             :y="cellComment.coordY" 
         />
+        <clock-picker></clock-picker>
     </div>
 </template>
 
@@ -33,6 +34,7 @@
     import GraphModal from './GraphModal.vue';
     import FullCalendarModal from './FullCalendarModal.vue';
     import CellComment from './CellComment.vue'
+    import ClockPicker from './ClockPicker.vue'
 
     import EventBus from '../EventBus'
 
@@ -45,7 +47,8 @@
             'alert-modal': AlertModal,
             'graph-modal': GraphModal,
             'full-calendar-modal': FullCalendarModal,
-            'cell-comment': CellComment
+            'cell-comment': CellComment,
+            'clock-picker': ClockPicker
         },
         data () {
             return {
