@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="cell-popup-wrapper" @click="closePopover">
-      <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
+    <div class="cell-popup-wrapper" v-if="isShown" @click="closePopover">
+      <div class="cell-popup" v-if="isShown" v-bind:style="{opacity: preshow ? '0' : '1', left: x + 'px', top: y + 'px'}">
         <div class="header">
           <div class="btn-close" @click="closePopover" >&times;</div>
           <div class="title">{{tableName}}</div>
@@ -51,13 +51,15 @@ import { setTimeout } from 'timers';
 export default {
   name: 'CellComment',
   props: [
+    'isShown',
     'tableName',
     'fieldName',
     'rowIndex',
     'onlyChat',
     'isNumber',
     'x',
-    'y'
+    'y',
+    'preshow'
   ],
   data: function() {
       return {

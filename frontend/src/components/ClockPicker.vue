@@ -1,6 +1,6 @@
 <template>
     <div class="clock-picker-wrapper" v-if="isPickerShown" @click="closeClockPicker">
-        <div class="clock-picker" v-if="isPickerShown">
+        <div class="clock-picker" v-if="isPickerShown" :style="{opacity: preopen ? '0' : '1'}">
             <div class="picker-content" :style="{left: `${coordX}px`, top: `${coordY}px`}">
                 <div class="picker-content_header">
 
@@ -51,6 +51,7 @@
 <script>
     import $ from 'jquery'
     import EventBus from '../EventBus'
+import { setTimeout } from 'timers';
 
     export default {
         name: 'ClockPicker',
@@ -68,6 +69,7 @@
         data () {
             return {
                 isPickerShown: false,
+                preopen: false,
                 coordX: null,
                 coordY: null,
                 time: null,
@@ -139,9 +141,10 @@
                 let x = Math.cos((90 - deg) * Math.PI / 180) * (hoursType === 'night' ? this.nightRadius : this.dayRadius)
                 return -x
             },
-            openClockPicker (x, y) {
+            openClockPicker (x, y, preopen) {
                 if (!this.disabled) {
                     $('body').css({'overflow': 'hidden'})
+                    this.preopen = preopen
                     this.isPickerShown = true
                     this.coordX = x
                     this.coordY = y
@@ -164,9 +167,12 @@
                 let x = this.coordX;
                 let y = this.coordY;
                     
-                if (!this.isPickerShown) {
-                    let $currentElement = $(options.event.srcElement)
-                    let inputOffset = 6;
+                this.openClockPicker(x, y, true)
+
+                let $currentElement = $(options.event.srcElement)
+                let inputOffset = 6;
+                
+                setTimeout(() => {
                     let popUpWidth = $('.picker-content').outerWidth() ? $('.picker-content').outerWidth() : 246;
                     let appWidth = $(window).outerWidth()
                     let popUpHeight = $('.picker-content').outerHeight() ? $('.picker-content').outerHeight() : 294;
@@ -186,7 +192,7 @@
                     }
 
                     this.openClockPicker(x, y)
-                }
+                }, 0)
             },
             setTime (time, e) {
                 if (time) {
