@@ -34,14 +34,14 @@
                             v-for="(item, index) in data.minutes" 
                             :key="'minute_' + item" 
                             :style="{top: `calc( 50% + ${getTop(index, 'minutes')}px)`, left: `calc( 50% + ${getLeft(index, 'minutes')}px`}"
-                            @click="currentMinute = item;setTime()"
+                            @click="(e) => {currentMinute = item;setTime(null, e)}"
                         >
                             {{item}}
                         </div>
                     </div>
                 </div>
                 <div class="picker-content_footer">
-                    <button class="btn" @click="setTime(new Date())">Сейчас</button>
+                    <button class="btn" @click="(e) => setTime(new Date(), e)">Сейчас</button>
                 </div>
             </div>
         </div>
@@ -157,6 +157,7 @@
                 }
             },
             onHandleClick (options) {
+                this.tableName = options.tableName
                 this.fieldName = options.fieldName
                 this.rowIndex = options.rowIndex
                 this.currentInput = options.event.srcElement
@@ -187,7 +188,7 @@
                     this.openClockPicker(x, y)
                 }
             },
-            setTime (time) {
+            setTime (time, e) {
                 if (time) {
                     this.time = ((time.getHours() < 10 && time.getHours() !== '00') ? "0" : "") + time.getHours() + ":" + 
                                     ((time.getMinutes() < 10) ? "0" : "") + time.getMinutes()
@@ -195,7 +196,13 @@
                 else {
                     this.time = (this.currentHour < 10 && this.currentHour !== '00' ? '0' : '') + this.currentHour + ':' + this.currentMinute
                 }
-                $(this.currentInput).val(this.time)
+                
+                EventBus.$emit('time-value-changed', {
+                    value: this.time,
+                    tableName: this.tableName,
+                    fieldName: this.fieldName,
+                    rowIndex: this.rowIndex
+                })
                 setTimeout(() => this.closeClockPicker(), 0)
             }
         },

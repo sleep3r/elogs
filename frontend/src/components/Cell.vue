@@ -162,6 +162,7 @@
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
                 set: function (val) {
+                    console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -171,6 +172,9 @@
                         responsible: {[this.$store.getters['userState/username']]: this.$store.getters['userState/fullname']},
                         notSynchronized: !navigator.onLine
                     }]});
+                    if (this.type === 'time' || this.type === 'date') {
+                        this.onChanged()
+                    }
                 }
             },
             hasFormula: function() {
@@ -295,6 +299,7 @@
                     })
             },
             send() {
+                console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
                     'cells': [{
@@ -323,7 +328,8 @@
                 this.send();
             },
             onChanged(e) {
-                e.preventDefault()
+                console.log(this.value)
+                e ? e.preventDefault() : null
                 if (this.critical) {
                   console.log('critical')
                     this.$socket.sendObj({
@@ -475,6 +481,12 @@
             setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
 
             setTimeout(() => this.setPickersListeners(), 1)
+
+            EventBus.$on('time-value-changed', (data) => {
+                if (this.tableName === data.tableName && this.fieldName === data.fieldName && this.rowIndex === data.rowIndex) {
+                    this.value = data.value
+                }
+            })
         }
     }
 </script>
