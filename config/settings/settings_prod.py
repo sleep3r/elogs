@@ -28,3 +28,19 @@ MIDDLEWARE = [] + MIDDLEWARE + \
                  'htmlmin.middleware.MarkRequestMiddleware',
              ]
 HTML_MINIFY = True
+
+# ------------------------- Sentry Shit ---------------------------------------------------------
+
+sentry_sdk.init(
+    dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
+    integrations=[DjangoIntegration(), CeleryIntegration()],
+    send_default_pii=True,
+    request_bodies='medium',
+    with_locals=True,
+    server_name=env('SENTRY_SERVERNAME'),
+)
+
+# ------------------------------------------- SECURITY -----------------------------------
+SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
+# SESSION_COOKIE_SECURE = True  # need this for security, though can break smth
+# SESSION_COOKIE_HTTPONLY = False  # seems like we can uncomment it and use django auth
