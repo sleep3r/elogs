@@ -12,7 +12,7 @@
         <div class="header__user">
             <div @click="onNotifyClick" class="user-notify-container" data-toggle="tooltip" title="Сообщения">
                 <i class="fas fa-bell user-notify">
-                <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
+                <div v-if="getUnreadedMessages > 0" class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
             </div>
             <div class="notify-menu-wrapper">
