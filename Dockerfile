@@ -1,7 +1,7 @@
 FROM ubuntu
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y python3.6 python3-pip python3-dev wget git vim curl npm libkrb5-dev
+RUN apt-get install -y python3.7 python3-pip python3-dev wget git vim curl npm libkrb5-dev
 
 # Install caddy
 RUN wget https://github.com/mholt/caddy/releases/download/v0.11.0/caddy_v0.11.0_linux_amd64.tar.gz
@@ -30,7 +30,6 @@ RUN pipenv install --deploy --system --ignore-pipfile
 
 COPY ./frontend /srv/frontend
 
-RUN pwd
 RUN git clone https://tlenbit:cd37654c9db8b59940b94c4caf9dd64922f8e099@github.com/Resolim/e-logs-constructor.git /srv/e-logs-constructor
 WORKDIR /srv/e-logs-constructor
 RUN git checkout develop
