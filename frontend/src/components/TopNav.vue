@@ -55,7 +55,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" @click="onHomeClick" data-toggle="tooltip" title="Сделать домашней страницей"></i>
+            <i class="fas fa-home default-page-badge" :class="{'is-home': isCurrentPage}" @click="onHomeClick" data-toggle="tooltip" title="Домашняя страница"></i>
             <span class="user-name" @click="onUsernameClick" data-toggle="tooltip" title="Профиль пользователя">{{$store.getters['userState/fullname']}}</span>
             <div class="user-menu-wrapper">
                 <div class="user-menu">
@@ -113,13 +113,20 @@
 <script>
     import ajax from '../axios.config'
     import EventBus from '../EventBus'
+import { setTimeout } from 'timers';
 
     export default {
         name: "TopNav",
         data () {
             return {
                 onlineTimer: null,
-                isOffline: false
+                isOffline: false,
+                isCurrentPage: this.$route.path === this.$store.getters['userState/defaultPage']
+            }
+        },
+        watch: {
+            $route (value) {
+                this.setIsCurrentPage()
             }
         },
         computed: {
@@ -128,6 +135,9 @@
             }
         },
         methods: {
+            setIsCurrentPage () {
+                this.isCurrentPage = this.$route.path === this.$store.getters['userState/defaultPage']
+            },
             startCheckingOffline () {
                 this.onlineTimer = setInterval(() => {
                     if (window.navigator.onLine) {
@@ -218,21 +228,44 @@
                 this.hideUserMenu()
             },
             onHomeClick() {
-                EventBus.$emit('open-alert', {
-                    onOk: this.makeDefaultPage,
-                    text: 'Текущая страница будет вашей домашней'
-                })
+                if (!this.isCurrentPage) {
+                    EventBus.$emit('open-alert', {
+                        onOk: this.makeDefaultPage,
+                        text: 'Текущая страница будет вашей домашней'
+                    })
+                }
+                else if (this.$route.name !== 'dashboard') {
+                    EventBus.$emit('open-alert', {
+                        onOk: this.restoreDefaultPage,
+                        text: 'Домашняя страница будет сброшена'
+                    })
+                }
             },
             makeDefaultPage(event) {
                 var path = window.location.pathname
 
-                ajax.post(
-                    window.HOSTNAME + "/api/setting/",
-                    {
-                        "name": "defaultpage",
-                        "value": path,
-                    }
-                )
+                this.$store.dispatch('userState/setDefaultPage', {
+                    path: path,
+                })
+                    .then(resp => {
+                        this.$store.dispatch('userState/getDefaultPage')
+                        .then(() => {
+                            this.setIsCurrentPage()
+                        })
+                    })
+            },
+            restoreDefaultPage(event) {
+                var path = window.location.pathname
+
+                this.$store.dispatch('userState/setDefaultPage', {
+                    path: '/dashboard',
+                })
+                    .then(resp => {
+                        this.$store.dispatch('userState/getDefaultPage')
+                            .then(() => {
+                                this.setIsCurrentPage()
+                            })
+                    })
             },
         },
         mounted () {
