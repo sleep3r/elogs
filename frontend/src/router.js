@@ -76,28 +76,20 @@ router.beforeEach((to, from, next) => {
         if (to.path == "/") {
             ajax.get(window.HOSTNAME + "/api/setting?name=defaultpage", {withCredentials: true })
                 .then((response) => {
-                    console.log("default url", response.data.defaultPage)
                     if (response.data.defaultPage) {
-                        var temp = response.data.defaultPage.split("/")
-                        console.log(temp.length)
-                        if (temp.length > 2) {
-                            var plantName = temp[1]
-                            var journalName = temp[2]
-                            // var id = temp[3]
-                            if (store.getters['journalState/isSynchronized']) {
-                                store.dispatch('journalState/loadJournal', {
-                                  'plantName': plantName,
-                                  'journalName': journalName,
-                                })
-                                    .then((id) => {
-                                        next('/' + plantName + '/' + journalName + '/' + id)
-                                        EventBus.$emit("set-menu-item")
-                                    })
+                        var location = response.data.defaultPage.split("/")
+
+                        if (location.length > 2) {
+                            var payload = {
+                                "plantName": location[1],
+                                "journalName": location[2],
                             }
+                            EventBus.$emit("set-menu-journal-item", payload)
                         }
-                        else {
-                            next(response.data.defaultPage)
+                        else if (location[1] == "dashboard") {
+                            EventBus.$emit("set-menu-dashboard-item")
                         }
+                        next(response.data.defaultPage)
                     }
                     else {
                         next("/dashboard")

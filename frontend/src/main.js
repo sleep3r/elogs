@@ -12,7 +12,9 @@ import EventBus from './EventBus'
 import VTooltip from 'v-tooltip'
 Vue.use(VTooltip);
 
-Vue.use(Notifications)
+Vue.use(Notifications);
+
+Vue.config.performance = true;
 
 // import * as Sentry from '@sentry/browser';
 // Sentry.init({

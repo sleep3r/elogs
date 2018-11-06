@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="cell-popup-wrapper" @click="closePopover">
-      <div class="cell-popup" v-bind:style="{left: x + 'px', top: y + 'px'}">
+    <div class="cell-popup-wrapper" v-if="isShown" @click="closePopover">
+      <div class="cell-popup" v-if="isShown" v-bind:style="{opacity: preshow ? '0' : '1', left: x + 'px', top: y + 'px'}">
         <div class="header">
           <div class="btn-close" @click="closePopover" >&times;</div>
           <div class="title">{{tableName}}</div>
@@ -51,13 +51,15 @@ import { setTimeout } from 'timers';
 export default {
   name: 'CellComment',
   props: [
+    'isShown',
     'tableName',
     'fieldName',
     'rowIndex',
     'onlyChat',
     'isNumber',
     'x',
-    'y'
+    'y',
+    'preshow'
   ],
   data: function() {
       return {
@@ -232,7 +234,7 @@ export default {
   margin: 150px auto;
 }
 
-$popup-width: 450px;
+$popup-width: 280px;
 $color-bg: #008BB9;
 
 .v-popover {
@@ -262,6 +264,7 @@ $color-bg: #008BB9;
 
 .cell-popup {
    width: $popup-width;
+   height: fit-content;
    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
    font-family: 'Ubuntu', sans-serif;
 
@@ -346,7 +349,7 @@ $color-comment-text: #A5A5A5 ;
   font-size: 13px;
   background-color: white;
   width: 280px;
-  height: 386px;
+  // height: 386px;
   position: absolute;
   z-index: 101;
 

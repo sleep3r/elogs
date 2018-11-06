@@ -61,7 +61,7 @@
         </td>
     </tr>
     <tr>
-        <th rowspan="3"> t<sub>0</sub>C</th>
+        <th rowspan="4"> t<sub>0</sub>C</th>
         <th> смесь</th>
         <td v-for="hourNumber of 12">
             <cell field-name="tmix" :row-index="hourNumber"></cell>
@@ -73,6 +73,20 @@
             <cell field-name="tmixp" row-index="0"></cell>
         </td>
     </tr>
+    <!--  -->
+    <tr>
+        <th> отработ.</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="otr" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="otrn" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="otrp" row-index="0"></cell>
+        </td>
+    </tr>
+    <!--  -->
     <tr>
         <th> в ваннах</th>
         <td v-for="hourNumber of 12">
