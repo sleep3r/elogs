@@ -21,16 +21,6 @@
                     <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
                         <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
-                    <!--{% endfor %}-->
-
-                    <!--{% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}-->
-                    <!--<li class="menu__item">-->
-                    <!--<a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link"><b>{% trans "Поступление, расходы и остатки Zn концентратов"%}</b></a>-->
-                    <!--</li>-->
-                    <!--<li class="menu__item">-->
-                    <!--<a href="" data-url="/furnace/metals_compute" class="menu-item__link"><b>{% trans "Рассчёт металлов" %}</b></a>-->
-                    <!--</li>-->
-                    <!--{% endif %}-->
                 </ul>
             </li>
         </ul>
