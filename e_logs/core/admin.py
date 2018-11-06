@@ -60,16 +60,17 @@ class SettingsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'verbose_name', 'pickled_value']
     list_display_links = ['name']
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            # return ['name', 'employee', 'content_type', 'object_id']
+            return []
+        else:
+            return []
+
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super().get_form(request, obj, change, **kwargs)
         form.base_fields['pickled_value'].initial = self.pickled_value(obj)
 
-        if obj:
-            # form.base_fields['name'].disabled = True
-            # form.base_fields['employee'].disabled = True
-            # form.base_fields['content_type'].disabled = True
-            # form.base_fields['object_id'].disabled = True
-            pass
         return form
 
     def pickled_value(self, obj):
