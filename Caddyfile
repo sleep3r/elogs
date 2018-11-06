@@ -17,6 +17,12 @@ https://{$CADDY_HOSTNAME}/api {
     }
 }
 
+https://{$CADDY_HOSTNAME}:3000 {
+    proxy / 127.0.0.1:3000 {
+        transparent
+    }
+}
+
 wss://{$CADDY_HOSTNAME}/e-logs {
     proxy / 127.0.0.1:8001/e-logs {
         websocket
