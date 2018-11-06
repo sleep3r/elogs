@@ -20,7 +20,7 @@
             @keydown="changeFocus"
             @change="onChanged"
             @input="onInput"
-            @click="(e) => showPopover(e, false)"
+            @click="(e) => showPopover(e, {onlyChat: false})"
             @blur="showTooltip=false"
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
@@ -33,7 +33,7 @@
             </datalist>
         </template>
         <i
-            @click="(e) => showPopover(e, true)"
+            @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
             class="far fa-envelope comment-notification"
         ></i>
@@ -53,14 +53,17 @@
     import shortid from 'shortid'
     import {VTooltip, VPopover, VClosePopover} from 'v-tooltip'
     import CellComment from './CellComment.vue'
+    import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
+import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
     Vue.component('v-popover', VPopover);
     Vue.component('vue-context', VueContext);
     Vue.component('CellComment', CellComment);
+    Vue.component('clock-picker', ClockPicker);
     Vue.directive('tooltip', VTooltip.VTooltip);
     Vue.directive('close-popover', VTooltip.VClosePopover);
     Vue.component('v-popover', VTooltip.VPopover);
@@ -160,6 +163,7 @@
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
                 set: function (val) {
+                    console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -169,6 +173,9 @@
                         responsible: {[this.$store.getters['userState/username']]: this.$store.getters['userState/fullname']},
                         notSynchronized: !navigator.onLine
                     }]});
+                    if (this.type === 'time' || this.type === 'date') {
+                        this.onChanged()
+                    }
                 }
             },
             hasFormula: function() {
@@ -183,58 +190,98 @@
             },
         },
         methods: {
-            showPopover (e, onlyChat) {
+            showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
 
-                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
-                let inputOffset = 4;
-
-                let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 450;
-                let appWidth = $('#app').outerWidth()
-
-                let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 386;
-                let appHeight = $('#app').outerHeight()
-
-                if (e.clientX + popUpWidth >= appWidth) {
-                    x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                }
-                else {
-                    x = e.clientX  - e.offsetX
-                }
-
-                if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
-                    y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                }
-                else {
-                    y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
-                }
-
+                // kostyl'
                 if (this.mode === 'validate') {
-                    EventBus.$emit('show-cell-comment', {
-                        coordX: x,
-                        coordY: y,
+                    EventBus.$emit('preshow-cell-comment', {
                         show: true,
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         rowIndex: this.rowIndex,
                         onlyChat: false,
-                        isNumber: this.type === 'number'
+                        isNumber: this.type === 'number',
+                        preshow: true
                     })
                 }
-                else if (this.mode !== 'validate' && onlyChat) {
-                    EventBus.$emit('show-cell-comment', {
-                        coordX: x,
-                        coordY: y,
+                else if (this.mode !== 'validate' && options.onlyChat) {
+                    EventBus.$emit('preshow-cell-comment', {
                         show: true,
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         rowIndex: this.rowIndex,
                         onlyChat: true,
-                        isNumber: this.type === 'number'
+                        isNumber: this.type === 'number',
+                        preshow: true
                     })
                 }
+
+                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
+
+                let inputOffset = 4;
+
+                setTimeout(() => {
+                    let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 280;
+                    let appWidth = $('#app').outerWidth()
+                    let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 424;
+                    let appHeight = $('#app').outerHeight()
+
+                    if (e.clientX + popUpWidth >= appWidth) {
+                        x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
+                    }
+                    else {
+                        x = e.clientX  - e.offsetX
+                    }
+
+                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
+                        y = e.clientY - popUpHeight - e.offsetY - inputOffset
+                    }
+                    else {
+                        y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
+                    }
+
+                    if (this.mode === 'validate') {
+                        EventBus.$emit('show-cell-comment', {
+                            coordX: x,
+                            coordY: y,
+                            show: true,
+                            tableName: this.tableName,
+                            fieldName: this.fieldName,
+                            rowIndex: this.rowIndex,
+                            onlyChat: false,
+                            isNumber: this.type === 'number',
+                            preshow: false
+                        })
+                    }
+                    else if (this.mode !== 'validate' && options.onlyChat) {
+                        EventBus.$emit('show-cell-comment', {
+                            coordX: x,
+                            coordY: y,
+                            show: true,
+                            tableName: this.tableName,
+                            fieldName: this.fieldName,
+                            rowIndex: this.rowIndex,
+                            onlyChat: true,
+                            isNumber: this.type === 'number',
+                            preshow: false
+                        })
+                    }
+                }, 0)
+
+                if (this.mode === 'edit' && this.type === 'time' && $(e.srcElement).is('input')) {
+                    this.showClock(e)
+                }
+            },
+            showClock (e) {
+                EventBus.$emit('show-clock-picker', {
+                    event: e,
+                    tableName: this.tableName,
+                    fieldName: this.fieldName,
+                    rowIndex: this.rowIndex,
+                })
             },
             deleteRow() {
                 this.$store.commit('journalState/DELETE_TABLE_ROW', {tableName: this.tableName, index: this.rowIndex, maxRowIndex: this.$store.getters['journalState/maxRowIndex'](this.tableName)});
@@ -282,6 +329,7 @@
                     })
             },
             send() {
+                console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
                     'cells': [{
@@ -310,7 +358,8 @@
                 this.send();
             },
             onChanged(e) {
-                e.preventDefault()
+                console.log(this.value)
+                e ? e.preventDefault() : null
                 if (this.critical) {
                   console.log('critical')
                     this.$socket.sendObj({
@@ -462,6 +511,12 @@
             setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
 
             setTimeout(() => this.setPickersListeners(), 1)
+
+            EventBus.$on('time-value-changed', (data) => {
+                if (this.tableName === data.tableName && this.fieldName === data.fieldName && this.rowIndex === data.rowIndex) {
+                    this.value = data.value
+                }
+            })
         }
     }
 </script>

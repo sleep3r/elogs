@@ -13,7 +13,7 @@
         <graph-modal></graph-modal>
         <full-calendar-modal></full-calendar-modal>
         <cell-comment
-            v-if="cellComment.isShowPopover"
+            :isShown="cellComment.isShowPopover"
             :table-name="cellComment.tableName"
             :field-name="cellComment.fieldName"
             :row-index="cellComment.rowIndex"
@@ -21,7 +21,9 @@
             :isNumber="cellComment.isNumber"
             :x="cellComment.coordX" 
             :y="cellComment.coordY" 
+            :preshow="cellComment.preshow"
         />
+        <clock-picker></clock-picker>
     </div>
 </template>
 
@@ -33,6 +35,7 @@
     import GraphModal from './GraphModal.vue';
     import FullCalendarModal from './FullCalendarModal.vue';
     import CellComment from './CellComment.vue'
+    import ClockPicker from './ClockPicker.vue'
 
     import EventBus from '../EventBus'
 
@@ -45,7 +48,8 @@
             'alert-modal': AlertModal,
             'graph-modal': GraphModal,
             'full-calendar-modal': FullCalendarModal,
-            'cell-comment': CellComment
+            'cell-comment': CellComment,
+            'clock-picker': ClockPicker
         },
         data () {
             return {
@@ -57,27 +61,41 @@
                     isNumber: false,
                     coordX: null,
                     coordY: null,
-                    isShowPopover: false
+                    isShowPopover: false,
+                    preshow: false
                 }
             }
         },
         mounted () {
+            EventBus.$on('preshow-cell-comment', (props) => {
+                console.log('preshow')
+                this.cellComment.tableName = props.tableName
+                this.cellComment.fieldName = props.fieldName
+                this.cellComment.rowIndex = props.rowIndex
+                this.cellComment.isNumber = props.isNumber
+                this.cellComment.onlyChat = props.onlyChat
+                this.cellComment.preshow = props.preshow
+                this.cellComment.isShowPopover = props.show
+            })
+
             EventBus.$on('show-cell-comment', (props) => {
                 $('body').css({'overflow': 'hidden'})
-
-                this.cellComment.tableName = props.tableName,
-                this.cellComment.fieldName = props.fieldName,
-                this.cellComment.rowIndex = props.rowIndex,
-                this.cellComment.isNumber = props.isNumber,
-                this.cellComment.onlyChat = props.onlyChat,
-                this.cellComment.coordX = props.coordX,
-                this.cellComment.coordY = props.coordY,
+                console.log('show')
+                this.cellComment.tableName = props.tableName
+                this.cellComment.fieldName = props.fieldName
+                this.cellComment.rowIndex = props.rowIndex
+                this.cellComment.isNumber = props.isNumber
+                this.cellComment.onlyChat = props.onlyChat
+                this.cellComment.coordX = props.coordX
+                this.cellComment.coordY = props.coordY
                 this.cellComment.isShowPopover = props.show
+                this.cellComment.preshow = props.preshow
             
                 if (props.show) {
                     EventBus.$emit('scroll-to-bottom')
                 }
             })
+
             EventBus.$on('close-cell-comment', () => {
                 $('body').css({'overflow': ''})
 

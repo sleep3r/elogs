@@ -54,8 +54,11 @@
             }
         },
         mounted() {
-            EventBus.$on("set-menu-item", () => {
-                this.setActiveItem()
+            EventBus.$on("set-menu-journal-item", (payload) => {
+                this.pushJournalPage(payload.plantName, payload.journalName)
+            })
+           EventBus.$on("set-menu-dashboatd-item", () => {
+                this.onDashboardClick()
             })
 
 
@@ -93,7 +96,13 @@
                 }
 
                 if (url !== null && url !== "" && url !== "#") {
-                    if (this.$store.getters['journalState/isSynchronized']) {
+                    this.pushJournalPage(plantName, journalName)
+                } else {
+                    listItem.classList.toggle("open");
+                }
+            },
+            pushJournalPage(plantName, journalName) {
+                if (this.$store.getters['journalState/isSynchronized']) {
                         this.$store.dispatch('journalState/loadJournal', {
                           'plantName': plantName,
                           'journalName': journalName
@@ -107,9 +116,6 @@
                                 }
                             })
                     }
-                } else {
-                    listItem.classList.toggle("open");
-                }
             },
             onDashboardClick () {
                 const selectorMenuItem = 'li.menu__item';
@@ -120,7 +126,6 @@
                 this.closeAllItems()
                 listItem.classList.toggle("open")
                 this.$router.push('/dashboard')
-
             },
             setListeners () {
                 let menu = $('.menu.menu--left');

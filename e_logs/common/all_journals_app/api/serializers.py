@@ -8,8 +8,6 @@ from e_logs.common.all_journals_app.services.page_modes import get_page_mode, ha
 from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, Field, Shift, \
     CellGroup
 from e_logs.core.models import Setting
-from e_logs.core.api.utils import cached
-
 
 class CellSerializer(serializers.ModelSerializer):
 
