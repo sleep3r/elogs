@@ -26,7 +26,7 @@
                         day: 'День',
                         list: 'Список'
                     },
-                    timeFormat: 'H(:mm)',
+                    timeFormat: 'H:mm',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
