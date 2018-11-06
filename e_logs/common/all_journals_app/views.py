@@ -19,7 +19,7 @@ environ.Env.read_env("config/settings/.env")
 
 def get_current_shift(journal):
     number_of_shifts = Shift.get_number_of_shifts(journal)
-    assert number_of_shifts > 0, "<= 0 number of shifts"
+    assert int(number_of_shifts) > 0, "<= 0 number of shifts"
 
     shifts = Shift.objects.cache() \
         .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
@@ -64,7 +64,7 @@ class GetShifts(View):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         employee = user.employee
-        invalidate_model(Shift)
+        # invalidate_model(Shift)
         owned_shifts = employee.shift_set.all()
 
         if journal.type == 'shift':
@@ -87,4 +87,4 @@ class GetShifts(View):
             raise TypeError('Attempt to get shifts for non-shift journal')
 
 
-get_shifts = cached_as(Plant, Journal, Shift, Employee)(GetShifts.as_view())
+get_shifts = GetShifts.as_view()

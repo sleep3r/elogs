@@ -11,6 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env(DEBUG=(bool, False))
 
+READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(BASE_DIR.path('.env')))
+
 FIXTURE_DIRS = (BASE_DIR / 'fixtures',)
 STATIC_ROOT = str(BASE_DIR / 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -494,17 +499,6 @@ CSRF_TRUSTED_ORIGINS = (
 
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth
 USE_ETAGS = True
-
-# ------------------------- Sentry Shit ---------------------------------------------------------
-
-sentry_sdk.init(
-    dsn="https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999",
-    integrations=[DjangoIntegration(), CeleryIntegration()],
-    send_default_pii=True,
-    request_bodies='medium',
-    with_locals=True,
-    server_name=env('SENTRY_SERVERNAME'),
-)
 
 # ------------------------- Journals compressor ------------------------------------------------
 

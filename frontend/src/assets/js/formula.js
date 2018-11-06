@@ -22,36 +22,57 @@ console.log("Loading formula...")
 var parser = new FormulaParser();
 window.parser = parser
 window.parser.setFunction('FUNC', function(params) {
-    const journal = params[0];
-    const table = params[1];
-    const field = params[2];
-    const index = params[3];
-    const shift = params[4];
-    const current_journal = window.location.pathname.split("/")[2]
-    const current_shift = window.location.pathname.split("/")[3]
-    let res = 0;
-    let result = null
-    if (journal == current_journal && shift == current_shift) {
-        let formula = store.getters['journalState/fieldFormula'](table, field)
-        if (formula) {
-            result =  window.parser.parse(formula)
+    try {
+        const journal = params[0];
+        const table = params[1];
+        const field = params[2];
+        const index = params[3];
+        var shift_delta = params[4];
+        try {
+            shift_delta = -Number(shift_delta)
+        }
+        catch(e) {
+            console.log(e)
+        }
+
+        var shifts = store.getters['journalState/events']
+        const current_journal = store.getters['journalState/journalName']
+        const current_shift = store.getters['journalState/journalInfo'].id
+        const current_shift_start_time = store.getters['journalState/journalInfo'].start_time
+        let res = 0;
+        let result = null
+        if (journal == current_journal && shift_delta == 0) {
+            let formula = store.getters['journalState/fieldFormula'](table, field)
+            if (formula) {
+                result =  window.parser.parse(formula)
+            } else {
+                result = store.getters['journalState/cell'](table, field, index)['value']
+            }
         } else {
-            result = store.getters['journalState/cell'](table, field, index)['value']
+            for (var i in shifts) {
+                if (shifts[i].start == current_shift_start_time) {
+                    var index = i;
+                }
+            }
+            var shift = shifts[(index - shift_delta) % shifts.length].url.split("/")[3]
+            res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
+            let json = JSON.parse(res.getBody())
+            console.log(json)
+            if (json.value == null) {
+                result = undefined
+            }
+            else if (isNumeric(json.value)) {
+                result = Number(json.value)
+            }
+            else {
+                result = window.parser.parse(json.value).result
+            }
         }
-    } else {
-        res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
-        let json = JSON.parse(res.getBody())
-        if (json.value == null) {
-            result = undefined
-        }
-        else if (isNumeric(json.value)) {
-            result = Number(json.value)
-        }
-        else {
-            result = window.parser.parse(json.value).result
-        }
+        return result
     }
-    return result
+    catch(e){
+        console.log(e)
+    }
 })
 
 var getCellFromVariable = function(variable) {

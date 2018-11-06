@@ -61,24 +61,16 @@ export default {
           return false
         },
         openConstructor() {
-            window.open(`http://${window.location.hostname === 'localhost' ?
-                '127.0.0.1'
-                : window.location.hostname}:8085/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true`,
+            window.open(`${window.location.hostname === 'localhost' ?
+                'http://127.0.0.1:8085'
+                : window.FRONT_CONSTRUCTOR_HOSTNAME}/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true`,
             '_blank')
         }
     },
     mounted() {
         // console.log('mounted')
         let shift_id = this.$route.params.shift_id;
-        window.parser.setVariable("CURRENT_SHIFT", shift_id)
-        var res = request("GET", window.HOSTNAME + `/api/prev-shift/?shift_id=${shift_id}`)
-        let json = JSON.parse(res.getBody())
-        window.parser.setVariable("PREV_SHIFT", json)
-        // ajax.get(`http://localhost:8000/api/prev-shift/?shift_id=${shift_id}`).then(
-        //     (res) => {
-        //         window.parser.setVariable("PREV_SHIFT", res.data)
-        //     })
-        // console.log(this.$route.params)
+        window.parser.setVariable("CURRENT_SHIFT", "0")
         if (this.$route.params.shift_id) {
             this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
                 .then((id) => {

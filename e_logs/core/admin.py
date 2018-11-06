@@ -24,7 +24,9 @@ admin.site.unregister(Group)
 class YourModelForm(forms.ModelForm):
     pickled_value = forms.CharField(label='Значение')
 
-    def save(self, commit=True):
+    def _save_m2m(self):
+        super()._save_m2m()
+
         value = self.data.get('pickled_value', None)
         name = self.data.get('name', None)
         employee_id = self.data.get('employee', None)
@@ -32,7 +34,6 @@ class YourModelForm(forms.ModelForm):
         object_id = self.data.get('object_id', None)
 
         if name:
-            print(self.data)
             if content_type_id and object_id:
                 ct = ContentType.objects.get_for_id(content_type_id)
                 object = ct.get_object_for_this_type(pk=object_id)
@@ -44,7 +45,8 @@ class YourModelForm(forms.ModelForm):
                               employee=Employee.objects.get(id=employee_id) if employee_id else None,
                               obj=object if object else None)
 
-        return super().save(commit=commit)
+    def save(self, commit=True):
+        return super().save(commit=False)
 
     class Meta:
         model = Setting
@@ -58,9 +60,17 @@ class SettingsAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'verbose_name', 'pickled_value']
     list_display_links = ['name']
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            # return ['name', 'employee', 'content_type', 'object_id']
+            return []
+        else:
+            return []
+
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super().get_form(request, obj, change, **kwargs)
         form.base_fields['pickled_value'].initial = self.pickled_value(obj)
+
         return form
 
     def pickled_value(self, obj):
