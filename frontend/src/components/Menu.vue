@@ -57,7 +57,7 @@
             EventBus.$on("set-menu-journal-item", (payload) => {
                 this.pushJournalPage(payload.plantName, payload.journalName)
             })
-           EventBus.$on("set-menu-dashboatd-item", () => {
+            EventBus.$on("set-menu-dashboard-item", () => {
                 this.onDashboardClick()
             })
 

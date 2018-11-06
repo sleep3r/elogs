@@ -74,27 +74,27 @@ router.beforeEach((to, from, next) => {
         console.dir(VueCookies.get('Authorization'))
         console.log(to)
         if (to.path == "/") {
-            ajax.get(window.HOSTNAME + "/api/setting?name=defaultpage", {withCredentials: true })
-                .then((response) => {
-                    if (response.data.defaultPage) {
-                        var location = response.data.defaultPage.split("/")
+            let defaultPage = mv.$store.getters['userState/defaultPage']
+            console.log('dp', defaultPage)
+            if (defaultPage) {
+                var location = defaultPage.split("/")
+                console.log('location', location)
 
-                        if (location.length > 2) {
-                            var payload = {
-                                "plantName": location[1],
-                                "journalName": location[2],
-                            }
-                            EventBus.$emit("set-menu-journal-item", payload)
-                        }
-                        else if (location[1] == "dashboard") {
-                            EventBus.$emit("set-menu-dashboard-item")
-                        }
-                        next(response.data.defaultPage)
+                if (location.length > 2) {
+                    var payload = {
+                        "plantName": location[1],
+                        "journalName": location[2],
                     }
-                    else {
-                        next("/dashboard")
-                    }
-                })
+                    EventBus.$emit("set-menu-journal-item", payload)
+                }
+                else if (location[1] == "dashboard") {
+                    EventBus.$emit("set-menu-dashboard-item")
+                }
+                next(defaultPage)
+            }
+            else {
+                next("/dashboard")
+            }
         }
         else {
             next()
