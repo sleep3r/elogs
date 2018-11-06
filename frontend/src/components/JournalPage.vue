@@ -61,9 +61,9 @@ export default {
           return false
         },
         openConstructor() {
-            window.open(`http://${window.location.hostname === 'localhost' ?
-                '127.0.0.1'
-                : window.location.hostname}:8085/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true`,
+            window.open(`${window.location.hostname === 'localhost' ?
+                'http://127.0.0.1:8085'
+                : window.FRONT_CONSTRUCTOR_HOSTNAME}/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true`,
             '_blank')
         }
     },

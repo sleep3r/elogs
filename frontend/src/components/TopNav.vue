@@ -12,7 +12,7 @@
         <div class="header__user">
             <div @click="onNotifyClick" class="user-notify-container" data-toggle="tooltip" title="Сообщения">
                 <i class="fas fa-bell user-notify">
-                <div class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
+                <div v-if="getUnreadedMessages > 0" class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
             </div>
             <div class="notify-menu-wrapper">
@@ -131,7 +131,7 @@
             startCheckingOffline () {
                 this.onlineTimer = setInterval(() => {
                     if (window.navigator.onLine) {
-                        this.isOffline = false 
+                        this.isOffline = false
                     }
                     else {
                         this.isOffline = true
@@ -148,7 +148,7 @@
                     window.print()
                     this.$store.commit('journalState/SET_FOR_PRINT', false)
                 }, 0)
-                
+
             },
             onLogout() {
                 this.$store.dispatch('userState/logout')
@@ -168,9 +168,9 @@
                 }
             },
             onOpenConstructor () {
-                window.open(`http://${window.location.hostname === 'localhost' ?
-                    '127.0.0.1'
-                    : window.location.hostname}:8085`,
+                window.open(`${window.location.hostname === 'localhost' ?
+                    'http://127.0.0.1:8085'
+                    : window.FRONT_CONSTRUCTOR_HOSTNAME}`,
                 '_blank')
             },
             showNotifyMenu () {
@@ -219,7 +219,7 @@
             },
             onHomeClick() {
                 EventBus.$emit('open-alert', {
-                    onOk: this.makeDefaultPage, 
+                    onOk: this.makeDefaultPage,
                     text: 'Текущая страница будет вашей домашней'
                 })
             },
