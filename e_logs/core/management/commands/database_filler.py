@@ -158,11 +158,18 @@ class DatabaseFiller:
                 user.is_superuser = False
                 user.is_staff = False
                 user.email = user_dict['email']
+
                 for group in user_dict["groups"]:
                     user.groups.add(Group.objects.get(name=group))
                 for group in user.groups.all():
                     for perm in group.permissions.all():
                         user.user_permissions.add(perm)
+
+                groups = [group.name for group in user.groups.all()]
+
+                if 'electrolysis' and 'technologist' in groups:
+                    user.user_permissions.add(Permission.objects.get(codename='edit_cells'))
+
 
                 e = Employee()
                 e.name = user.first_name + ' ' + user.last_name
@@ -253,7 +260,7 @@ class DatabaseFiller:
                        "electrolysis": ("modify_electrolysis",),
                        "senior technologist":("modify_leaching", "modify_furnace", "modify_electrolysis",
                           "validate_cells", "view_cells",),
-                       "technologist":("validate_cells", "view_cells",),
+                       "technologist":("validate_cells", "view_cells"),
                        "senior master": ("validate_cells", "view_cells", "edit_cells"),
                        "master": ("view_cells", "edit_cells"),
                        "hydro": ("view_cells", "edit_cells"),

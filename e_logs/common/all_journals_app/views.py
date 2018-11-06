@@ -19,7 +19,7 @@ environ.Env.read_env("config/settings/.env")
 
 def get_current_shift(journal):
     number_of_shifts = Shift.get_number_of_shifts(journal)
-    assert number_of_shifts > 0, "<= 0 number of shifts"
+    assert int(number_of_shifts) > 0, "<= 0 number of shifts"
 
     shifts = Shift.objects.cache() \
         .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
