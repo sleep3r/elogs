@@ -166,7 +166,8 @@
                 {
                     "name": "master",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 }
             ],
             "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"3\">Время</th>\n            <th colspan=\"10\" class=\"th-common\">BCHC</th>\n            <th colspan=\"5\" class=\"th-common\">Ларокс</th>\n            <th colspan=\"7\" class=\"th-common\">Очищенный раствор</th>\n            <th colspan=\"6\" class=\"th-common\">Упр. Несоответствия продукции</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв. после<br>1ст<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH (ВСНС)</th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">As<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв.<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">Уд.<br>вес<i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Выход потоку<i class=\"units\">%</i></th>\n            <th class=\"th-number\"><span>Уд.<br> вес</span><i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Норма<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Факт<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Несоотв.<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Корр.</th>\n            <th>Мастер</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_cobalt\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid_after\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_As\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_current_out\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_norm\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_fact\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_discrepancy\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_correction\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"master\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
@@ -871,13 +872,13 @@
                     "name": "delivery_Zn_dust",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "кюбели"
                 },
                 {
                     "name": "delivery_Mn_ore",
                     "formula": "",
                     "type": "number",
-                    "units": "тн"
+                    "units": "т"
                 },
                 {
                     "name": "delivery_Magnaflok",
@@ -901,13 +902,13 @@
                     "name": "income_Zn_dust",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "кюбели"
                 },
                 {
                     "name": "income_Mn_ore",
                     "formula": "",
                     "type": "number",
-                    "units": "тн"
+                    "units": "т"
                 },
                 {
                     "name": "income_Magnaflok",
@@ -931,31 +932,37 @@
                     "name": "outcome_Zn_1st",
                     "formula": "",
                     "type": "number",
-                    "units": "тонн"
+                    "units": "т"
                 },
                 {
                     "name": "outcome_Zn_2st",
                     "formula": "",
                     "type": "number",
-                    "units": "тонн"
+                    "units": "т"
                 },
                 {
                     "name": "outcome_Zn_3st",
                     "formula": "",
                     "type": "number",
-                    "units": "тонн"
+                    "units": "т"
                 },
                 {
-                    "name": "outcome_Zn_Cd",
+                    "name": "income_Zn_4st",
                     "formula": "",
                     "type": "number",
-                    "units": "тн"
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Zn",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
                 },
                 {
                     "name": "outcome_Mn_ore",
                     "formula": "",
                     "type": "number",
-                    "units": "тн"
+                    "units": "т"
                 },
                 {
                     "name": "outcome_Magnaflok",
@@ -985,7 +992,7 @@
                     "name": "passed_Mn_ore",
                     "formula": "",
                     "type": "number",
-                    "units": "тн"
+                    "units": "т"
                 },
                 {
                     "name": "passed_Magnaflok",
@@ -1387,7 +1394,8 @@
                 {
                     "name": "master_tank3",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "VT_tank3",
@@ -1451,7 +1459,8 @@
                 {
                     "name": "master_tank4",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "VT_tank4",
@@ -1515,7 +1524,8 @@
                 {
                     "name": "master_tank5",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "VT_tank5",
@@ -1604,34 +1614,28 @@
                     "name": "Cd",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "мг/л"
                 },
                 {
                     "name": "Cu",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "мг/л"
                 },
                 {
-                    "name": "VIU1",
+                    "name": "VIU_G",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
-                    "name": "VIU2",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "VIU3",
+                    "name": "VIU_H",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 }
             ],
-            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Время</th>\n            <th class=\"th-number\">Cd<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in 5\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cu\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th>ВИУ</th>\n            <td><cell field-name=\"VIU1\" :row-index=\"5\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Время</th>\n            <th class=\"th-number\">Cd<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in 5\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cu\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-common\" colspan=\"3\">ВИУ</th>\n        </tr>\n        <tr>\n            <th>#</th>\n            <th class=\"th-number\">Г</th>\n            <th class=\"th-number\">Х</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>I</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"0\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>II</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"1\"></cell></td>\n        </tr>\n        <tr>\n            <th>III</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"2\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
         },
         {
             "name": "loads",
@@ -1659,19 +1663,19 @@
                     "name": "bunker_cvco",
                     "formula": "",
                     "type": "number",
-                    "units": "Ампер"
+                    "units": "м"
                 },
                 {
                     "name": "silos",
                     "formula": "",
                     "type": "number",
-                    "units": "Ампер"
+                    "units": "м"
                 },
                 {
                     "name": "bunkers_oc",
                     "formula": "",
                     "type": "number",
-                    "units": "Ампер"
+                    "units": "м"
                 },
                 {
                     "name": "description",
@@ -1679,7 +1683,7 @@
                     "type": "text"
                 }
             ],
-            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"2\"></th>\n        <th class=\"th-number\">I серия, А</th>\n        <th class=\"th-number\">II серия, А</th>\n        <th class=\"th-number\">III серия, А</th>\n        <th class=\"th-number\">IV серия, А</th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\">Нагрузки</th>\n            <th>7<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time7\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th>12<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time12\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Показания счётчика</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"counter\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Бункера ЦВЦО</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunker_cvco\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Силоса ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"silos\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Бункера ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunkers_oc\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"2\"></th>\n        <th class=\"th-number\">I серия, А</th>\n        <th class=\"th-number\">II серия, А</th>\n        <th class=\"th-number\">III серия, А</th>\n        <th class=\"th-number\">IV серия, А</th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\">Нагрузки</th>\n            <th>7<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time7\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th>12<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time12\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Показания счётчика</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"counter\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"table table-bordered elog-journal-table\">\n    <tbody>\n        <tr>\n            <th colspan=\"2\">Бункера ЦВЦО</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunker_cvco\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Силоса ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"silos\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Бункера ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunkers_oc\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
         },
         {
             "name": "neutral",
@@ -1749,12 +1753,14 @@
                 {
                     "name": "this_master",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "next_master",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "out_sol_t",
