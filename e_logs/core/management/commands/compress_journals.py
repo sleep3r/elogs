@@ -12,6 +12,11 @@ from .database_filler import Journal
 
 
 def compress_journal(journal: Journal):
+    templates_dir = os.path.join('templates', 'tables', journal.plant.name, journal.name)
+
+    real_journal_path = os.path.join('resources', 'journals', journal.plant.name)
+    real_journal_filename = os.path.join(real_journal_path, journal.name + f'.{settings.JOURNAL_EXTENSION}')
+
     jd = DeepDict()  # creating metadata json
     jd.version = '0.1'
     jd.name = journal.name
@@ -42,30 +47,16 @@ def compress_journal(journal: Journal):
 
             td.fields += [fd.get_dict()]
 
+        template_filename = os.path.join(templates_dir, t.name + '.html')
+        with open(template_filename) as template_file:
+            td.html = template_file.read()
+
         jd.tables += [td.get_dict()]
 
-    meta_data = json.dumps(jd.get_dict())  # creating paths for everything
+    meta_data = json.dumps(jd.get_dict(), indent=4, ensure_ascii=False)
 
-    templates_dir = os.path.join('templates', 'tables', journal.plant.name, journal.name)
-    temp_zip_dir = os.path.join('resources', 'temp', 'journals', journal.plant.name, journal.name)
-    temp_zip_templates_dir = os.path.join(temp_zip_dir, 'templates')
-
-    real_zip_path = os.path.join('resources', 'journals', journal.plant.name)
-    real_zip_filename = os.path.join(real_zip_path, journal.name + f'.{settings.JOURNAL_EXTENSION}')
-
-    meta_file = os.path.join(temp_zip_dir, 'meta.json')
-
-    os.makedirs(temp_zip_dir, exist_ok=True)  # creating folder with zip archives
-    rmtree(temp_zip_templates_dir, ignore_errors=True)
-    copytree(templates_dir, temp_zip_templates_dir)
-    with open(meta_file, 'w') as meta:
+    with open(real_journal_filename, 'w') as meta:
         meta.write(meta_data)
-
-    rmtree(real_zip_filename, ignore_errors=True)  # creating zip archive
-    os.makedirs(real_zip_path, exist_ok=True)
-    zipdir(temp_zip_dir, real_zip_filename)
-
-    rmtree(temp_zip_dir, ignore_errors=True)  # cleaning up temp folder
 
 
 class Command(BaseCommand):
