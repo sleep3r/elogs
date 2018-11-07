@@ -39,7 +39,7 @@
                     "name": "downtime",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "ч"
                 },
                 {
                     "name": "recieved_conc",
@@ -66,7 +66,7 @@
                     "units": "шт"
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\" >\n    <thead>\n        <tr>\n            <th > Номер вагона </th>\n            <th  > Наиме&shy;нование концен&shy;трата </th>\n            <th  > Время подачи </th>\n\n            <th > Время плано&shy;вой уборки </th>\n            <th > Время факти&shy;ческой уборки </th>\n\n            <th class=\"th-number\"> Время перепростоя </th>\n            <th class=\"th-number\"> Поступило контей&shy;неров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило упоров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило скоб<i class='units'>шт</i> </th>\n        </tr>\n    </thead>\n    <tbody>\n          <tr v-for=\"(value, index) in rowsCount\">\n              <td><cell field-name=\"wagon_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"conc_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"supply_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"plan_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"fact_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"downtime\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_conc\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_beds\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_stops\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_braces\" :row-index=\"index\"></cell></td>\n          </tr>\n    </tbody>\n</table>\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\" >\n    <thead>\n        <tr>\n            <th > Номер вагона </th>\n            <th  > Наиме&shy;нование концен&shy;трата </th>\n            <th  > Время подачи </th>\n\n            <th > Время плано&shy;вой уборки </th>\n            <th > Время факти&shy;ческой уборки </th>\n\n            <th class=\"th-number\"> Время перепростоя<i class='units'>ч</i></th>\n            <th class=\"th-number\"> Поступило контей&shy;неров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило упоров<i class='units'>шт</i> </th>\n        </tr>\n    </thead>\n    <tbody>\n          <tr v-for=\"(value, index) in rowsCount\">\n              <td><cell field-name=\"wagon_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"conc_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"supply_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"plan_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"fact_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"downtime\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_conc\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_beds\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_stops\" :row-index=\"index\"></cell></td>\n          </tr>\n    </tbody>\n</table>\n"
         },
         {
             "name": "small",
@@ -257,29 +257,34 @@
             "title": "Состав смены",
             "fields": [
                 {
+                    "name": "storage",
+                    "formula": "",
+                    "type": "text",
+                    "units": "№"
+                },
+                {
                     "name": "master",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "senior_crane_operator",
                     "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "storage",
-                    "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "crane_operator",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "sling_operator",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "date",
@@ -289,10 +294,11 @@
                 {
                     "name": "shift",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "№"
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Мастер </th>\n            <th> Старший крановщик </th>\n            <th> Склад<i class='units'>№</i> </th>\n            <th> Крановщик </th>\n            <th> Стропальщик </th>\n            <th> Дата </th>\n            <th> Смена </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"master\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"senior_crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"storage\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sling_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"date\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"shift\" row-index=\"0\" linked=\"shiftOrder\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад<i class='units'>№</i> </th>\n            <th> Мастер </th>\n            <th> Старший крановщик </th>\n            <th> Крановщик </th>\n            <th> Стропальщик </th>\n            <th> Дата </th>\n            <th> Смена </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"storage\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"master\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"senior_crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sling_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"date\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"shift\" row-index=\"0\" linked=\"shiftOrder\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
         }
     ]
 }
