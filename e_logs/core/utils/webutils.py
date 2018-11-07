@@ -262,7 +262,6 @@ class StrAsDictMixin:
     #     return str(self.__class__.__name__) + format(model_to_representation(self))
     pass
 
-
 def zipdir(basedir, archivename):
     assert os.path.isdir(basedir)
     with ZipFile(archivename, "w") as z:

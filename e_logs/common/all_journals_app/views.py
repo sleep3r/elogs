@@ -24,7 +24,7 @@ def get_current_shift(journal):
     shifts = Shift.objects.cache() \
         .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
     for shift in shifts:
-        if shift.is_active:
+        if shift.is_active():
             return shift
 
     assert True, "No active shifts!"
