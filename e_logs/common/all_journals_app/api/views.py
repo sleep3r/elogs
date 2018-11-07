@@ -362,7 +362,7 @@ class SettingAPI(View):
         name = request.GET.get("name", None)
         value = Setting.get_value(name=name, employee=employee)
 
-        return JsonResponse({"defaultPage": value if value else ""}, safe=False)
+        return JsonResponse(dict(name=value if value else ""), safe=False)
 
     def post(self, request):
         # DEBUG
@@ -387,20 +387,6 @@ class AutocompleteAPI(View):
                                 safe=False)
         else:
             return JsonResponse([], safe=False)
-
-
-class OpenInConstructor(View):
-    def get(self, request):
-        journal = request.GET.get('journal', None)
-        plant = request.GET.get('plant', None)
-        if journal and plant:
-            try:
-                copyfile(f'resources/journals/{plant}/{journal}.jrn',
-                         f'e-logs-constructor/backend/media/journals/{journal}.jrn')
-
-                return JsonResponse({"status":1})
-            except:
-                return JsonResponse({"status": 0})
 
 
 class LoadJournalAPI(View):
@@ -435,40 +421,3 @@ class LoadJournalAPI(View):
             for shift_order in range(1, number_of_shifts + 1):
                 Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
 
-
-class ConstructorHashAPI(View):
-    def post(self, request):
-        journal = request.FILES['journal_file']
-
-        fs = FileSystemStorage(location=f'resources/temp/')
-        filename = fs.save(journal.name, journal)
-
-        hasher = hashlib.md5()
-        with open(f'resources/temp/{filename}', 'rb') as afile:
-            buf = afile.read()
-            hasher.update(buf)
-        journal_hash = hasher.hexdigest()
-        os.rename(f'resources/temp/{filename}', f'resources/temp/{journal_hash}.jrn')
-
-        return JsonResponse({"hash": journal_hash})
-
-
-class ConstructorUploadAPI(View):
-    def post(self, request):
-        print(request.POST)
-        hash = request.POST.get('hash', None)
-        plant = request.POST.get('plant', None)
-        type = request.POST.get('type', None)
-        number_of_shifts = request.POST.get('number_of_shifts', None)
-
-        if not hash or not plant:
-            return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
-
-        journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
-        new_journal = journal.create()
-
-        if new_journal.type == 'shift' and number_of_shifts:
-            LoadJournalAPI.add_shifts(new_journal, int(number_of_shifts))
-
-        compress_journal(new_journal)
-        return JsonResponse({"status": 1})

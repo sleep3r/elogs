@@ -11,6 +11,7 @@
         mounted () {
             if (this.$store.getters['userState/user']) {
                 this.$connect()
+                this.$store.dispatch('userState/getDefaultPage')
             }
         }
     }

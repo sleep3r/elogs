@@ -71,6 +71,10 @@ class DatabaseFiller:
                 position = row[1]
                 email = row[3]
                 plant = row[4]
+                try:
+                    password = row[5]
+                except:
+                    password = ''
 
                 groups = DatabaseFiller._get_groups(position, plant)
                 user = {
@@ -88,12 +92,13 @@ class DatabaseFiller:
                     },
                     'groups': groups,
                     'email': email,
+                    'password': password
                 }
                 DatabaseFiller.add_user(user)
 
-        user = CustomUser.objects.create_user('shaukenov-s-s', password='qwerty')
-        user.first_name = "Шалкар"
-        user.last_name = "Шаукенов"
+        user = CustomUser.objects.create_user('shuinshin-g-m', password='qwerty')
+        user.first_name = "Галымбек"
+        user.last_name = "Шуиншин"
         user.is_superuser = False
         user.is_staff = True
         user.groups.add(Group.objects.get(name="senior technologist"))
@@ -101,7 +106,7 @@ class DatabaseFiller:
             for perm in group.permissions.all():
                 user.user_permissions.add(perm)
         user.save()
-        Employee(name="Шалкар Шаукенов", position="senior technologist", user=user).save()
+        Employee(name="Галымбек Шуиншин", position="senior technologist", user=user).save()
 
 
     @staticmethod
@@ -152,7 +157,7 @@ class DatabaseFiller:
                 err_logger.warning(f'user `{user_name}` already exists')
                 return None
             else:
-                user = CustomUser.objects.create_user(user_name, password='qwerty')
+                user = CustomUser.objects.create_user(user_name, password=user_dict['password'] or 'qwerty')
                 user.first_name = user_dict['ru']['first_name']
                 user.last_name = user_dict['ru']['last_name']
                 user.is_superuser = False
