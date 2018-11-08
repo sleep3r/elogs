@@ -861,37 +861,37 @@
                 {
                     "name": "col1",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col2",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col3",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col4",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col5",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col6",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
@@ -909,37 +909,37 @@
                 {
                     "name": "col1",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col2",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col3",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col4",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col5",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
                     "name": "col6",
                     "formula": "",
-                    "type": "number",
+                    "type": "text",
                     "units": ""
                 },
                 {
