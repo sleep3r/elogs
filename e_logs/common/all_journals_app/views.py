@@ -24,7 +24,7 @@ def get_current_shift(journal):
     shifts = Shift.objects.cache() \
         .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
     for shift in shifts:
-        if shift.is_active:
+        if shift.is_active():
             return shift
 
     assert True, "No active shifts!"
@@ -64,7 +64,6 @@ class GetShifts(View):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         employee = user.employee
-        # invalidate_model(Shift)
         owned_shifts = employee.shift_set.all()
 
         if journal.type == 'shift':

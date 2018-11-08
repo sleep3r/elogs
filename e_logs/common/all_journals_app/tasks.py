@@ -4,12 +4,10 @@ from datetime import timedelta
 from config import settings_setup
 
 from celery import Celery
-from celery.schedules import crontab
 
 from django.core.management import call_command
 from django.utils import timezone
 
-from e_logs.business_logic.modes.models import Mode
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell, Journal
 from e_logs.common.messages_app.models import Message
@@ -29,37 +27,6 @@ app.conf.update(
     timezone='Europe/Moscow',
 )
 
-app.conf.beat_schedule = {
-    'run-while-furnace-shift-close': {
-        'task': 'e_logs.common.all_journals_app.tasks.check_blank_shift',
-        'schedule': crontab(hour='7,19', minute=59),
-        'args': ("furnace",)
-    },
-    'run-while-OC-shift-close': {
-        'task': 'e_logs.common.all_journals_app.tasks.check_blank_oc_shift',
-        'schedule': crontab(hour='7,15,23', minute=59),
-    },
-    'run-while-leaching-shift-close': {
-        'task': 'e_logs.common.all_journals_app.tasks.check_blank_shift',
-        'schedule': crontab(hour='7,15,23', minute=59),
-        'args': ("leaching",)
-    },
-    'run-while-electrolysis-shift-close': {
-        'task': 'e_logs.common.all_journals_app.tasks.check_blank_shift',
-        'schedule': crontab(hour='1,7,13,19', minute=59),
-        'args': ("electrolysis",)
-    },
-    'create-shifts': {
-        'task': 'e_logs.common.all_journals_app.tasks.create_shifts',
-        'schedule': crontab(hour='0', minute=0),
-    },
-    'dump_db': {
-        'task': 'e_logs.common.all_journals_app.tasks.dump_db',
-        'schedule': crontab(hour='4', minute=20),
-    },
-}
-
-
 @app.task
 def create_shifts():
     def date_range(start_date, end_date):
@@ -75,19 +42,13 @@ def create_shifts():
                     Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
 
 @app.task
-def check_blank_oc_shift(plant="furnace"):
-    for shift in filter(lambda s:s.is_active,
-            list(Shift.objects.filter(journal__plant__name=plant))):
-            check_for_no_cells(plant, shift)
+def check_blank_shifts():
+    for shift in filter(lambda s:s.is_active(),list(Shift.objects.filter(
+            date__range=[current_date() - timedelta(days=1), current_date()]))):
+            if not shift.is_active(time=timezone.now()+timedelta(minutes=1)):
+                check_for_no_cells(shift)
 
-@app.task
-def check_blank_shift(plant):
-    for shift in filter(lambda s:s.is_active,
-            list(Shift.objects.filter(journal__plant__name=plant).
-                         exclude(journal__name="reports_furnace_area"))):
-            check_for_no_cells(plant, shift)
-
-def check_for_no_cells(plant, shift):
+def check_for_no_cells(shift):
     if not Cell.objects.filter(group=shift).exists():
         shift.closed = True
         shift.save()
@@ -96,13 +57,14 @@ def check_for_no_cells(plant, shift):
                     message={'type': 'blank_journal',
                              'text': "Журнал остался незаполнен",
                              'sendee': None},
-                    plant=plant, positions=("Boss",))
+                    plant_name=shift.journal.plant.name,
+                    positions=("boss",))
 
         Message.add(cell=None,
                     message={'type': 'blank_journal',
                              'text': "Журнал остался незаполнен",
                              'sendee': None},
-                    positions=("Big boss",))
+                    positions=("senior technologist",))
 
 @app.task
 def end_of_limited_access(page_id):
@@ -117,13 +79,6 @@ def send_deferred_message(type, text, ids):
                          'text': text,
                          'sendee': None},
                 uids=ids)
-
-@app.task
-def finish_mode(mode_id):
-    mode = get_or_none(Mode, id=mode_id)
-    if mode:
-        mode.is_active = False
-        mode.save()
 
 @app.task
 def dump_db():

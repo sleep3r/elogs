@@ -105,6 +105,7 @@ LOCAL_APPS = [
     'e_logs.common.constructor_app.apps.ConstructorAppConfig',
 
     'e_logs.business_logic.modes.apps.BLModesConfig',
+    'e_logs.business_logic.dictionaries.apps.DictionariesConfig',
     'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',
 ]
 DJANGO_APPS = [
