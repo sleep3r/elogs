@@ -259,32 +259,27 @@
                 {
                     "name": "storage",
                     "formula": "",
-                    "type": "text",
-                    "units": "№"
+                    "type": "text"
                 },
                 {
                     "name": "master",
                     "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
+                    "type": "text"
                 },
                 {
                     "name": "senior_crane_operator",
                     "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
+                    "type": "text"
                 },
                 {
                     "name": "crane_operator",
                     "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
+                    "type": "text"
                 },
                 {
                     "name": "sling_operator",
                     "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
+                    "type": "text"
                 },
                 {
                     "name": "date",
@@ -294,8 +289,7 @@
                 {
                     "name": "shift",
                     "formula": "",
-                    "type": "text",
-                    "units": "№"
+                    "type": "text"
                 }
             ],
             "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад<i class='units'>№</i> </th>\n            <th> Мастер </th>\n            <th> Старший крановщик </th>\n            <th> Крановщик </th>\n            <th> Стропальщик </th>\n            <th> Дата </th>\n            <th> Смена </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"storage\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"master\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"senior_crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sling_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"date\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"shift\" row-index=\"0\" linked=\"shiftOrder\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
