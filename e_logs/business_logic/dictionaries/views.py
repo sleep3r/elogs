@@ -1,31 +1,24 @@
 import json
 
 from django.http import JsonResponse
+from django.urls import URLResolver
+from django.urls.resolvers import RegexPattern
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.schemas import get_schema_view
 
-from . import urls
 from e_logs.common.login_app.models import Employee
-from e_logs.core.utils.webutils import logged, get_or_none
 from e_logs.core.views import LoginRequired
 
 
-def get_resolved_urls(url_patterns):
-    url_patterns_resolved = []
-    for entry in url_patterns:
-        if hasattr(entry, 'url_patterns'):
-            url_patterns_resolved += get_resolved_urls(
-                entry.url_patterns)
-        else:
-            url_patterns_resolved.append(entry)
-    return url_patterns_resolved
-
 class DictionariesApi(LoginRequired, View):
-    def get(self, request, *args, **kwargs):
-        pass
+    def get(self, request):
+        urls = {}
+        resolver = URLResolver(RegexPattern(r'^/'), 'e_logs.business_logic.dictionaries.urls')
+        for url in filter(lambda x: isinstance(x[0], str), list(resolver.reverse_dict.items())):
+            urls[url[0]] = '/api/bl/dicts/' + url[1][0][0][0]
 
-get_schema_view()
+        return JsonResponse(urls)
+
+
 class AutocompleteAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
