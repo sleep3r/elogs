@@ -64,7 +64,6 @@ class GetShifts(View):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
         employee = user.employee
-        # invalidate_model(Shift)
         owned_shifts = employee.shift_set.all()
 
         if journal.type == 'shift':
