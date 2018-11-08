@@ -919,6 +919,85 @@
                 }
             ],
             "html": "<div class=\"row_of_tables\">\n    <table class=\"table table-bordered elog-journal-table\">\n        <thead>\n        <tr>\n            <th colspan=\"3\" class=\"th-common\"> Установленный технологический режим</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th>H<sub>2</sub>SO<sub>4</sub></th>\n            <td colspan=\"2\">\n                <cell field-name=\"h2so4\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th>Zn в отр.<i class=\"units\">г/л</i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"zn\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th></th>\n            <th>Пример смены</th>\n            <th>Сдача смены</th>\n        </tr>\n        <tr>\n            <th>Градирня №1</th>\n            <td>\n                <cell field-name=\"grad1_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"grad1_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Градирня №2</th>\n            <td>\n                <cell field-name=\"grad2_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"grad2_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Напорный бак №1</th>\n            <td>\n                <cell field-name=\"tank1_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"tank1_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Напорные бак №2</th>\n            <td>\n                <cell field-name=\"tank2_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"tank2_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Расход</th>\n            <td>\n                <cell field-name=\"cons1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"cons2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        </tbody>\n        <thead>\n        <tr>\n            <th class=\"th-common\">Примеси<i class=\"units\">мг/л</i></th>\n            <th colspan=\"2\"><i class=\"units no-before\">мг/л</i></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th> Cu</th>\n            <td colspan=\"2\">\n                <cell field-name=\"cu1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Co</th>\n            <td colspan=\"2\">\n                <cell field-name=\"co1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Cd</th>\n            <td colspan=\"2\">\n                <cell field-name=\"cd1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Sb</th>\n            <td colspan=\"2\">\n                <cell field-name=\"sb1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Fe<sup>2+</sup></th>\n            <td colspan=\"2\">\n                <cell field-name=\"fe2p1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> BT %</th>\n            <td colspan=\"2\">\n                <cell field-name=\"bt1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Уд. вес (ЦВМО)<i class=\"units\">г/см<sup>3</sup></i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"weight1_1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Уд. вес (5 чан)<i class=\"units\">г/см<sup>3</sup></i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"weight2_1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        </tbody>\n    </table>\n\n    <table class=\"table table-bordered elog-journal-table\">\n        <thead>\n        <tr>\n            <th colspan=\"4\" class=\"th-common\">\n                Склад растворов\n            </th>\n        </tr>\n        <tr>\n            <th colspan=\"2\"> Насосы на прием смены<i class=\"units\">№</i></th>\n            <th colspan=\"2\"> Насосы на окончание смены<i class=\"units\">№</i></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum1\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum3\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum4\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum5\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum6\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum7\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum8\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum9\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum10\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum11\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum12\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Причина остановки насоса, принятые меры</th>\n        </tr>\n\n        <tr>\n            <td colspan=\"4\">\n                <cell field-name=\"reason1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Зумпфоровые насосы<i class=\"units\">№</i></th>\n        </tr>\n\n        <tr>\n            <th> Зумпфоровый насос</th>\n            <td>\n                <cell field-name=\"zump_pump\" row-index=\"0\"></cell>\n            </td>\n            <th> Шпамовый насос</th>\n            <td>\n                <cell field-name=\"shpam_pump1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Шпамовый насос</th>\n            <td>\n                <cell field-name=\"shpam_pump2\" row-index=\"0\"></cell>\n            </td>\n            <th> Шпамовый насос</th>\n            <td>\n                <cell field-name=\"shpam_pump3\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Причина остановки насоса, принятые меры</th>\n        </tr>\n\n        <tr>\n            <td colspan=\"4\">\n                <cell field-name=\"reason2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        </tbody>\n    </table>\n</div>\n"
+        },
+        {
+            "name": "goods_zinc",
+            "title": "Товарный Zinc",
+            "fields": [
+                {
+                    "name": "Pb0",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Pb8",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Pb16",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Cd0",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Cd8",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Cd16",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Fe0",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Fe8",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Fe16",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "Cu0",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Cu8",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                },
+                {
+                    "name": "Cu16",
+                    "formula": "",
+                    "type": "number",
+                    "units": null
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n\t<thead>\n        <tr>\n\t\t\t<th id=\"BGGl5fR-fp\"></th>\n\t\t\t<th id=\"J0gu89l056\">Pb</th>\n\t\t\t<th id=\"jJcXmKRq9S\">Cd</th>\n\t\t\t<th id=\"hIhmwf4MHR\">Fe</th>\n\t\t\t<th style=\"\" id=\"95H_SoMotBW\">Cu</th>\n\t\t</tr>\n    </thead>\n    <tbody>\n\t\t<tr>\n\t\t\t<th id=\"skQ0eHtlKd1\">С 0</th>\n\t\t\t<td>\n                <cell field-name=\"Pb0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th id=\"a90uu8ajNcq\">С 8</th>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Pb8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th id=\"7zxxwAlgLVB\">С 16</th>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Pb16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>"
         }
     ]
 }
