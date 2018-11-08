@@ -2,7 +2,7 @@
     <main class="journal-page">
         <template v-if="$store.getters['journalState/loaded']">
             <div class="journal_title_container">
-                <div class="exp-time"><span> {{ shiftMessage }} </span></div>
+                <div class="exp-time" :style="{'background-color': canEdit ? '#02a202' : '#d80000'}"><span> {{ shiftMessage }} </span></div>
                 <div style="width: 100%; padding: 20px;">
                     <div class="journal-title">
                         <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
@@ -60,6 +60,10 @@
             },
         },
         computed: {
+            canEdit () {
+                return (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) ||
+                    (this.remainingTime && this.userHasPerm('edit'))
+            },
             remainingTime() {
                 // time before shift editing will be closed
                 let deadline
