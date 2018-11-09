@@ -466,13 +466,13 @@
                     "name": "gold",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "грамм"
                 },
                 {
                     "name": "silver",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "грамм"
                 }
             ],
             "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell  field-name=\"date_cinder\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
@@ -490,13 +490,13 @@
                     "name": "gold",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "грамм"
                 },
                 {
                     "name": "silver",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "грамм"
                 }
             ],
             "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell  field-name=\"date_conc\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
