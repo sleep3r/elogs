@@ -6,6 +6,7 @@ from django.urls.resolvers import RegexPattern
 from django.views import View
 
 from e_logs.common.login_app.models import Employee
+from e_logs.core.models import CustomUser
 from e_logs.core.views import LoginRequired
 
 
@@ -27,6 +28,17 @@ class AutocompleteAPI(View):
             return JsonResponse([emp.name for emp in
                                  Employee.objects.filter(name__contains=name,
                                                          user__groups__name__contains=plant.title())],
-                                safe=False)
+                                    safe=False)
+        else:
+            return JsonResponse([], safe=False)
+
+
+class UsernamesAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([user.username for user in
+                                 CustomUser.objects.filter(username__contains=name)],
+                                    safe=False)
         else:
             return JsonResponse([], safe=False)
