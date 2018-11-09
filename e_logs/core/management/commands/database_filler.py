@@ -97,7 +97,7 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
-        user = CustomUser.objects.create_user('shuinshin-g-m', password='qwerty')
+        user = CustomUser.objects.create_user('шуиншин-г-м', password='8756')
         user.first_name = "Галымбек"
         user.last_name = "Шуиншин"
         user.is_superuser = False
@@ -150,9 +150,10 @@ class DatabaseFiller:
     @staticmethod
     def add_user(user_dict: dict) -> Optional[CustomUser]:
         if user_dict["groups"]:
-            user_name = (user_dict['en']['last_name']
-                         + "-" + user_dict['en']['first_name']
-                         + "-" + user_dict['en']['second_name']).strip('-')
+            last_name = user_dict['ru']['last_name']
+            first_name = user_dict['ru']['first_name'][0]
+            second_name = user_dict['ru']['second_name'][0] if user_dict['ru']['second_name'] else ''
+            user_name = (last_name + '-' + first_name + '-' + second_name).strip('-').lower()
 
             if CustomUser.objects.filter(username=user_name).exists():
                 err_logger.warning(f'user `{user_name}` already exists')
