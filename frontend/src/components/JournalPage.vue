@@ -24,14 +24,14 @@
                 <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                 <journal-panel></journal-panel>
             </div>
-            <article class="journal-tables">
+            <div class="journal-tables">
                 <template v-if="$store.getters['journalState/loaded']">
                     <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
                 </template>
                 <template v-else >
                     <span>Нет данных</span>
                 </template>
-            </article>
+            </div>
         </template>
         <template v-else >
             <div class="spinner-container"><i class="spinner"></i></div>
@@ -42,6 +42,7 @@
 <script>
     import TableCommon from './TableCommon.vue';
     import JournalPanel from './JournalPanel.vue';
+import { setTimeout } from 'timers';
     var request = require('sync-request');
     let XLSX = require('xlsx');
 
@@ -180,6 +181,9 @@
 
                 return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
             }
+        },
+        updated () {
+            setTimeout(() => $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + 10}px`}), 0)
         },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
