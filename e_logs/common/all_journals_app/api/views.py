@@ -66,6 +66,7 @@ class ShiftAPI(LoginRequired, View):
             'start_time': qs.start_time.isoformat(),
             "closed": qs.closed,
             "mode": get_page_mode(user=user, plant=plant),
+            "field_constraints_modes": self.constraint_modes_serializer(qs),
             "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
             "permissions": self.get_permissions(request, qs),
             "journal": self.journal_serializer(qs)}
@@ -74,18 +75,33 @@ class ShiftAPI(LoginRequired, View):
 
         return JsonResponse(res, safe=False)
 
+    def constraint_modes_serializer(self, qs):
+        return {
+            "modes": [{
+                "id":mode.id,
+                "is_active": mode.is_active,
+                "message": mode.message,
+            } for mode in Mode.objects.filter(journal=qs.journal)
+            ]
+        }
+
     def add_constraints(self, qs, res):
         modes = Mode.objects.filter(is_active=True, journal=qs.journal).order_by('beginning')
         if modes.exists():
-            mode = modes.last()
-            constraints = FieldConstraints.objects.filter(mode=mode)
-
-            for constraint in constraints:
-                field = constraint.field
-                desc = res['journal']['tables'][field.table.name]['fields'][field.name][
-                    'field_description']
-                desc['min_normal'] = constraint.min_normal
-                desc['max_normal'] = constraint.max_normal
+            # mode = modes.last()
+            
+            for mode in modes:
+                constraints = FieldConstraints.objects.filter(mode=mode)
+                for constraint in constraints:
+                    field = constraint.field
+                    desc = res['journal']['tables'][field.table.name]['fields'][field.name][
+                        'field_description']
+                    desc['constraints_modes'] = {
+                        mode.id: {
+                            'min_normal': constraint.min_normal,
+                            'max_normal': constraint.max_normal
+                        }
+                    }
 
 
     def get_permissions(self, request, shift):
@@ -420,4 +436,3 @@ class LoadJournalAPI(View):
         for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
             for shift_order in range(1, number_of_shifts + 1):
                 Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
-

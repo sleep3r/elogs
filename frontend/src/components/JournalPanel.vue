@@ -14,6 +14,69 @@
         </div>
         <div class="panel-buttons">
 
+            <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']" class="constraint_modes_button">
+                <button :class="{ 'btn--active': mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <template v-if="mode=='edit_constraints' && $store.getters['journalState/currentConstraintsMode']"> {{ $store.getters['journalState/currentConstraintsMode'].message }} </template>
+                    <template v-else> Ограничения полей </template>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                    <span v-for="mode in constraints_modes"
+                       class="dropdown-item-text"
+                    >
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input :checked="$store.getters['journalState/constraintsModeIsActive'](mode.id)"
+                                           type="checkbox"
+                                           class="big-checkbox"
+                                           @click="toggleConstraintMode($event.target.checked, mode.id)"
+                                    >
+                                </div>
+                            </div>
+                            <a @click="onConstraintsModeClick(mode.id)"
+                               type="text"
+                               class="form-control nav-link"
+                               style="background-color: #e9ecef"
+                               href="#"
+                            >
+                                {{ mode.message }}
+                            </a>
+                            <div class="input-group-append">
+                                <button class="btn"
+                                        @click="deleteConstraintMode(mode.id)"
+                                >
+                                    Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </span>
+
+                    <div class="dropdown-divider"></div>
+
+                    <div class="dropdown-item-text"
+                    >
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn"
+                                        id="inputGroup-sizing-sm"
+                                        @click="createConstraintMode()"
+                                >
+                                    Добавить режим
+                                </button>
+                            </div>
+                            <input v-model="newConstraintModeMessage"
+                                   type="text"
+                                   placeholder="Введите название..."
+                                   class="form-control"
+                                   aria-label="Small"
+                                   aria-describedby="inputGroup-sizing-sm"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mode-buttons">
                 <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
                 <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
@@ -49,6 +112,7 @@
 <script>
     import $ from 'jquery'
     import EventBus from '../EventBus'
+    import ajax from '../axios.config'
     let XLSX = require('xlsx');
 
     export default {
@@ -59,7 +123,8 @@
                 shiftMessage: '',
                 showCalendar: false,
                 employeeName: 'Employee name',
-                employeePosition: 'position'
+                employeePosition: 'position',
+                newConstraintModeMessage: ''
             }
         },
         watch: {
@@ -123,6 +188,9 @@
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;
             },
+            constraints_modes() {
+                return this.$store.getters['journalState/constraintsModes']
+            },
             shiftDate() {
                 return this.$store.getters['journalState/journalInfo'].date;
             },
@@ -131,6 +199,53 @@
             },
         },
         methods: {
+              createConstraintMode() {
+                  var self = this
+                  ajax.post(window.HOSTNAME+'/api/bl/modes_api/', {
+                      message: self.newConstraintModeMessage,
+                      plant: self.$store.getters['journalState/plantName'],
+                      journal: self.$store.getters['journalState/journalName'],
+                      fields: []
+                  }, {
+                      withCredentials: true
+                  })
+                  .then(function (response) {
+                    self.$store.commit('journalState/ADD_CONSTRAINT', {
+                        id: response.data.id,
+                        message: self.newConstraintModeMessage,
+                        is_active: false
+                    });
+                    self.$store.commit('journalState/SET_PAGE_MODE', 'edit_constraints')
+                    self.$store.commit('journalState/SET_CONSTRAINTS_MODE', response.data.id)
+                    this.newConstraintModeMessage = ''
+                  })
+                  .catch(e => {
+                      console.log(e)
+                  });
+            },
+            deleteConstraintMode(modeId) {
+                this.$store.commit('journalState/DELETE_CONSTRAINTS_MODE', {id: modeId})
+                ajax.delete(window.HOSTNAME+`/api/bl/modes_api/${modeId}`, {
+                    withCredentials: true
+                })
+                .catch(e => {
+                    console.log(e)
+                });
+            },
+            toggleConstraintMode(checked, modeId) {
+                this.$store.commit('journalState/TOGGLE_CONSTRAINTS_MODE', {id: modeId, active: checked})
+                ajax.put(window.HOSTNAME+'/api/bl/modes_api/', { id: modeId, is_active: checked ? 1 : 0 }, {
+                    withCredentials: true
+                })
+                .catch(e => {
+                    console.log(e)
+                });
+            },
+            onConstraintsModeClick (id) {
+                this.$store.commit('journalState/SET_PAGE_MODE', 'edit_constraints')
+                // begin editing chosen constraints mode
+                this.$store.commit('journalState/SET_CONSTRAINTS_MODE', id)
+            },
             onAgreeResponsibleClick () {
                 this.$socket.sendObj({
                     'type': 'make_responsible',
@@ -140,7 +255,7 @@
                 let payload = {}
                 payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
                 this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
-                
+
                 let path = window.location.pathname;
                 if (path.slice(-1) !== '/'){path = path + '/'}
                 let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
@@ -163,7 +278,7 @@
                 if (mode === 'edit') {
                     if (!this.userIsResponsible) {
                         EventBus.$emit('open-alert', {
-                            onOk: this.onAgreeResponsibleClick, 
+                            onOk: this.onAgreeResponsibleClick,
                             text: 'Вы будете назначены ответственным за этот журнал после начала его редактирования'
                         })
                     }
@@ -285,5 +400,5 @@
     }
 </script>
 <style>
-
+.big-checkbox {width: 16px; height: 16px;}
 </style>

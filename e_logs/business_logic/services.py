@@ -22,7 +22,7 @@ class SetMode(Service):
     def clean(self):
         super().clean()
 
-        if ('fields' in self.data) and (isinstance(self.data['fields'], list)) is True:
+        if (isinstance(self.data['fields'], list)) is True:
             return self.cleaned_data
         else:
             raise forms.ValidationError('Invalid fields data')

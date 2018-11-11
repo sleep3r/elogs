@@ -1,5 +1,6 @@
 <template>
-    <div style="height: 100%;">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%;">
+      <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
         </template>
@@ -45,6 +46,21 @@
             </ul>
         </vue-context>
     </div>
+
+    <div v-else-if="type=='number'">
+        <label style="width: 10%">от</label>
+        <input class="number-cell general-value"
+               style="width: 40%; border: none"
+               :value="minValue"
+               @input="onMinConstraintInput"
+        >
+        <label style="width: 10%">до</label>
+        <input class="number-cell general-value"
+               style="width: 40%; border: none"
+               :value="maxValue"
+               @input="onMaxConstraintInput"
+        >
+    </div>
 </template>
 
 <script>
@@ -56,7 +72,7 @@
     import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
-import { setTimeout } from 'timers';
+    import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -82,8 +98,6 @@ import { setTimeout } from 'timers';
                 coordX: 0,
                 coordY: 0,
                 classes: 'general-value number-cell form-control',
-                minValue: null,
-                maxValue: null,
                 type: null,
                 placeholder: '',
                 showTooltip: false,
@@ -129,15 +143,11 @@ import { setTimeout } from 'timers';
                 }
             },
             activeColor: function () {
-                if (this.type === 'number') {
-                    return this.critical ? 'red' : '';
-                } else {
-                    return '';
-                }
+                return this.critical ? 'red' : '';
             },
             critical: function () {
-                return (this.minValue && (this.value < this.minValue)) ||
-                    (this.maxValue && (this.value > this.maxValue));
+                return (this.minValue && (parseInt(this.value) < parseInt(this.minValue))) ||
+                    (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)));
             },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
@@ -176,6 +186,77 @@ import { setTimeout } from 'timers';
                     if (this.type === 'time' || this.type === 'date') {
                         this.onChanged()
                     }
+                }
+            },
+            fieldConstraints: function() {
+                if (this.mode == "edit_constraints") {
+                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    // return constraints for particular constraints mode
+                    return this.$store.getters['journalState/fieldConstraints'](this.tableName, this.fieldName, currentMode)
+                }
+                else {
+                    // return active constraints that exist for this field
+                    return this.$store.getters['journalState/fieldConstraints'](this.tableName, this.fieldName, null)
+                }
+            },
+            minValue: {
+                get: function () {
+                    return this.fieldConstraints['min_normal']
+                },
+                set: function (val) {
+                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    this.$store.commit('journalState/SET_CONSTRAINT', {
+                        tableName: this.tableName,
+                        fieldName: this.fieldName,
+                        constraintType: 'min_normal',
+                        constraintValue: val,
+                        mode: this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    })
+                    var payload = {
+                        fields: [{
+                            name: this.fieldName,
+                            table_name: this.tableName,
+                            min_normal: val,
+                            max_normal: this.maxValue
+                        }],
+                        id: currentMode,
+                    }
+                    ajax.put(window.HOSTNAME+`/api/bl/modes_api/`, payload, {
+                        withCredentials: true
+                    })
+                        .catch(e => {
+                            console.log(e)
+                        });
+                }
+            },
+            maxValue: {
+                get: function () {
+                    return this.fieldConstraints['max_normal']
+                },
+                set: function (val) {
+                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    this.$store.commit('journalState/SET_CONSTRAINT', {
+                        tableName: this.tableName,
+                        fieldName: this.fieldName,
+                        constraintType: 'max_normal',
+                        constraintValue: val,
+                        mode: currentMode
+                    })
+                    var payload = {
+                        fields: [{
+                            name: this.fieldName,
+                            table_name: this.tableName,
+                            min_normal: this.minValue,
+                            max_normal: val
+                        }],
+                        id: currentMode,
+                    }
+                    ajax.put(window.HOSTNAME+`/api/bl/modes_api/`, payload, {
+                        withCredentials: true
+                    })
+                        .catch(e => {
+                            console.log(e)
+                        });
                 }
             },
             hasFormula: function() {
@@ -357,6 +438,12 @@ import { setTimeout } from 'timers';
 
                 this.send();
             },
+            onMinConstraintInput(e) {
+                this.minValue = e.target.value
+            },
+            onMaxConstraintInput(e) {
+                this.maxValue = e.target.value
+            },
             onChanged(e) {
                 console.log(this.value)
                 e ? e.preventDefault() : null
@@ -494,8 +581,6 @@ import { setTimeout } from 'timers';
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
             // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
-            this.minValue = desc['min_normal'] || null;
-            this.maxValue = desc['max_normal'] || null;
             this.type = desc['type'] || 'text';
 
             // this.$root.$on('send', () => {

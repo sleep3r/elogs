@@ -29,9 +29,9 @@ class ModeApi(LoginRequired, View):
     def post(self, request):
         data = json.loads(request.body)
         data['sendee'] = request.user.employee
-        SetMode.execute(data)
+        mode = SetMode.execute(data)
 
-        return JsonResponse({"status": 1})
+        return JsonResponse({"status": 1, "id": mode.id})
 
     def put(self, request, *args, **kwargs):
         data = json.loads(request.body)
