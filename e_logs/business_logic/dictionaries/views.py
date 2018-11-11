@@ -5,6 +5,7 @@ from django.urls import URLResolver
 from django.urls.resolvers import RegexPattern
 from django.views import View
 
+from e_logs.business_logic.dictionaries.models import Concentrate, Equipment
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import CustomUser
 from e_logs.core.views import LoginRequired
@@ -39,6 +40,39 @@ class UsernamesAPI(View):
         if name:
             return JsonResponse([user.username for user in
                                  CustomUser.objects.filter(username__contains=name)],
+                                    safe=False)
+        else:
+            return JsonResponse([], safe=False)
+
+
+class ConcentratesAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([concentrate.name for concentrate in
+                                 Concentrate.objects.filter(name__contains=name)],
+                                    safe=False)
+        else:
+            return JsonResponse([], safe=False)
+
+
+class EquipmentAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([equipment.name for equipment in
+                                 Equipment.objects.filter(name__contains=name)],
+                                    safe=False)
+        else:
+            return JsonResponse([], safe=False)
+
+
+class EmailsAPI(View):
+    def get(self, request):
+        name = request.GET.get('name', None)
+        if name:
+            return JsonResponse([user.username for user in
+                                 CustomUser.objects.filter(email__contains=name)],
                                     safe=False)
         else:
             return JsonResponse([], safe=False)
