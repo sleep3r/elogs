@@ -28,20 +28,18 @@ from e_logs.core.views import LoginRequired
 from e_logs.core.management.commands.compress_journals import compress_journal
 
 
-class ShiftAPI(LoginRequired, View):
+class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
             current_shift = get_current_shift(Journal.objects.get(name=journal_name))
-            print(current_shift)
             if current_shift:
                 id = current_shift.id
             else:
                 id = Shift.objects.latest('date').id
         else:
             id = kwargs['id']
-        print("shift id", id)
         qs = Shift.objects \
             .select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables',
