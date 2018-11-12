@@ -1015,7 +1015,7 @@
         },
         {
             "name": "neutral_thickeners",
-            "title": "Нейтральные сгуситители",
+            "title": "Нейтральные сгустители",
             "fields": [
                 {
                     "name": "sediment1",
@@ -1405,7 +1405,7 @@
                     "name": "specific_weight_tank3",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "мг/л"
                 },
                 {
                     "name": "norm_tank3",
@@ -1469,7 +1469,7 @@
                     "name": "specific_weight_tank4",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "мг/л"
                 },
                 {
                     "name": "norm_tank4",
@@ -1533,7 +1533,7 @@
                     "name": "specific_weight_tank5",
                     "formula": "",
                     "type": "number",
-                    "units": ""
+                    "units": "мг/л"
                 },
                 {
                     "name": "norm_tank5",
