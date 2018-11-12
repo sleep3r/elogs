@@ -255,6 +255,10 @@ class DatabaseFiller:
         superuser.save()
         Employee(name="inframine", position="admin", user=superuser).save()
 
+        superuser = CustomUser.objects.create_superuser("trofimov", "sergei.v.trofimov@gmail.com", "Singapore2018")
+        superuser.save()
+        Employee(name="trofimov", position="admin", user=superuser).save()
+
     @staticmethod
     def create_permissions_and_groups():
 
