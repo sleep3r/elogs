@@ -14,15 +14,28 @@
         </div>
         <div class="panel-buttons">
 
-            <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']" class="constraint_modes_button">
-                <button :class="{ 'btn--active': mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <template v-if="mode=='edit_constraints' && $store.getters['journalState/currentConstraintsMode']"> {{ $store.getters['journalState/currentConstraintsMode'].message }} </template>
-                    <template v-else> Ограничения полей </template>
+            <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
+                 class="constraint_modes_button"
+            >
+                <button :class="{ 'btn--active':
+                        mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                  >
+                    <template v-if="mode=='edit_constraints' && $store.getters['journalState/currentConstraintsMode']">
+                        {{ $store.getters['journalState/currentConstraintsMode'].message }}
+                    </template>
+                    <template v-else>
+                        Ограничения полей
+                    </template>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                     <span v-for="mode in constraints_modes"
-                       class="dropdown-item-text"
+                          class="dropdown-item-text"
                     >
                         <div class="input-group input-group-sm mb-3">
                             <div class="input-group-prepend">
@@ -46,6 +59,7 @@
                                 <button class="btn"
                                         @click="deleteConstraintMode(mode.id)"
                                 >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                                     Удалить
                                 </button>
                             </div>
