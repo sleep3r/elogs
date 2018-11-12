@@ -170,7 +170,8 @@
             value: {
                 cache: false,
                 get: function () {
-                    return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
+                    var cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
+                    return typeof cell == "undefined" ? '' : cell['value']
                 },
                 set: function (val) {
                     // console.log('set')
@@ -190,7 +191,7 @@
             },
             fieldConstraints: function() {
                 if (this.mode == "edit_constraints") {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     // return constraints for particular constraints mode
                     return this.$store.getters['journalState/fieldConstraints'](this.tableName, this.fieldName, currentMode)
                 }
@@ -204,13 +205,13 @@
                     return this.fieldConstraints['min_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         constraintType: 'min_normal',
                         constraintValue: val,
-                        mode: this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                        mode: this.$store.getters['journalState/currentConstraintsModeId']
                     })
                     var payload = {
                         fields: [{
@@ -234,7 +235,7 @@
                     return this.fieldConstraints['max_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,

@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
         console.dir(VueCookies.get('Authorization'))
         console.log(to)
         if (to.path == "/") {
-            let defaultPage = mv.$store.getters['userState/defaultPage']
+            let defaultPage = store.getters['userState/defaultPage']
             console.log('dp', defaultPage)
             if (defaultPage) {
                 var location = defaultPage.split("/")
