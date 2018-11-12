@@ -1,3 +1,4 @@
+import locale
 import os
 from pathlib import Path
 
@@ -7,6 +8,7 @@ import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
+locale.resetlocale()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env(DEBUG=(bool, False))
@@ -507,3 +509,18 @@ JOURNALS_DIR = Path('resources/journals').resolve()
 TEMP_DIR = Path('resources/temp').resolve()
 JOURNAL_TEMPLATES_DIR = Path('templates/tables').resolve()
 JOURNAL_EXTENSION = 'jrn'
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = 'localhost'
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = 1025
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+DEFAULT_FROM_EMAIL = 'E-logs notifications <notification-noreply@example.com>'
+# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = '[E-logs]'

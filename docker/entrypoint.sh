@@ -43,7 +43,7 @@ exec npm start --prefix /srv/e-logs-constructor/backend &
 echo Starting caddy...
 cd /srv
 mv /srv/caddy /root/.caddy
-exec caddy 
+exec caddy -quic -agree
 # -log -quic stderr
 # lsof -i :8000
 
