@@ -8,11 +8,11 @@
                         <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                         <div class="actions-icons">
                             <i class="fas fa-file-excel" @click="download_xlsx()" data-toggle="tooltip" title="Скачать xlsx"></i>
-                            <i 
+                            <i
                                 class="fas fa-edit"
                                 v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']"
                                 @click="openConstructor"
-                                data-toggle="tooltip" 
+                                data-toggle="tooltip"
                                 title="Открыть в конструкторе"
                             ></i>
                         </div>
@@ -142,6 +142,11 @@ import { setTimeout } from 'timers';
                 }
 
                 XLSX.writeFile(new_workbook, 'journal.xlsx');
+            },
+            removePerm(perm) {
+                if (this.userHasPerm(perm)) {
+                    this.$store.commit('journalState/REMOVE_PERMISSION', perm)
+                }
             },
             updateShiftMode() {
                 if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {

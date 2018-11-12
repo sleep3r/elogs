@@ -57,7 +57,7 @@ window.parser.setFunction('FUNC', function(params) {
             var shift = shifts[(index - shift_delta) % shifts.length].url.split("/")[3]
             res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
             let json = JSON.parse(res.getBody())
-            console.log(json)
+            // console.log(json)
             if (json.value == null) {
                 result = undefined
             }

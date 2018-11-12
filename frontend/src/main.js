@@ -83,7 +83,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
             if (data['type'] == 'shift_data') {
-                console.log('shift_data', data)
+                // console.log('shift_data', data)
 
                 let commitData = {'cells': []}
                 for (let i in data['cells']) {
@@ -102,13 +102,13 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         })
                     }
                 }
-                console.log(commitData)
+                // console.log(commitData)
                 if (commitData['cells'].length !== 0) {
                     this.store.commit('journalState/SAVE_CELLS', commitData)
                 }
             }
             if (data['type'] === 'messages') {
-                console.log(data);
+                // console.log(data);
 
                 if (data.cell) {
                     mv.$notify({
