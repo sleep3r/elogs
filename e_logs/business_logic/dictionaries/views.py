@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import URLResolver
 from django.urls.resolvers import RegexPattern
@@ -39,7 +40,9 @@ class UsernamesAPI(View):
         name = request.GET.get('name', None)
         if name:
             return JsonResponse([user.username for user in
-                                 CustomUser.objects.filter(username__contains=name)],
+                                 CustomUser.objects.filter(username__contains=name)] +
+                                [user.email for user in
+                                 CustomUser.objects.filter(email__contains=name)],
                                     safe=False)
         else:
             return JsonResponse([], safe=False)
@@ -71,7 +74,7 @@ class EmailsAPI(View):
     def get(self, request):
         name = request.GET.get('name', None)
         if name:
-            return JsonResponse([user.username for user in
+            return JsonResponse([user.email for user in
                                  CustomUser.objects.filter(email__contains=name)],
                                     safe=False)
         else:

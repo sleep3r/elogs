@@ -147,10 +147,6 @@ class CellGroup(models.Model):
         return cached_tables(self)
 
 
-class Measurement(CellGroup):
-    time = models.DateTimeField(blank=True, null=True, verbose_name='Дата начала смены')
-
-
 class Shift(CellGroup):
     order = models.IntegerField(verbose_name='Порядок смены')
     date = models.DateField(verbose_name='Дата начала смены')
@@ -215,8 +211,17 @@ class Shift(CellGroup):
         return shift
 
 
-class Equipment(CellGroup):
+class EquipmentGroup(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
+
+
+class YearGroup(CellGroup):
+    year = models.CharField(max_length=4, verbose_name='Год')
+
+
+class MonthGroup(CellGroup):
+    month = models.CharField(max_length=16, verbose_name='Месяц')
+    year = models.CharField(max_length=4, verbose_name='Год')
 
 
 class Cell(TimeStampedModel):
