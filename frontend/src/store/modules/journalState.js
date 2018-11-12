@@ -81,6 +81,33 @@ const journalState = {
                 return '';
             }
         },
+        constraintsModes: state => {
+            if (state.loaded) {
+                return state.journalInfo.field_constraints_modes.modes
+            }
+        },
+        constraintsModeIsActive: (state) => (id) => {
+            if (state.loaded) {
+                var modes = state.journalInfo.field_constraints_modes.modes
+                for (let i in modes) {
+                    if (modes[i]['id'] == id) {
+                        return modes[i].is_active
+                    }
+                }
+            }
+        },
+        currentConstraintsMode: state => {
+            if (state.loaded) {
+                var id = state.journalInfo.field_constraints_modes.current_mode
+                var modes = state.journalInfo.field_constraints_modes.modes
+                for (let i in modes) {
+                    if (modes[i]['id'] == id) {
+                        return modes[i]
+                    }
+                }
+                return null
+            }
+        },
         fieldVerboseName: (state) => (tableName, fieldName) => {
             if (state.loaded) {
                 return fieldName;
@@ -222,6 +249,43 @@ const journalState = {
                 return ''
             }
         },
+        fieldConstraints: (state) => (tableName, fieldName, constraintsMode) => {
+            if (state.loaded) {
+                let fields = state.journalInfo.journal.tables[tableName].fields;
+                // console.log('fields', fields)
+                if (!(fieldName in fields)) {
+                    // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
+                    return {};
+                }
+                var fieldConstraintsModes = state.journalInfo.field_constraints_modes.modes
+                console.log(fieldConstraintsModes)
+                var fieldConstraints = fields[fieldName].field_description['constraints_modes']
+                if (typeof fieldConstraints == "undefined") {
+                    return {}
+                }
+                console.log(fieldConstraints)
+
+                // if constraintsMode is not null and constraints for this field exist
+                if (constraintsMode) {
+                    return fieldConstraints[constraintsMode] || {}
+                }
+                else {
+                    for (var i in fieldConstraintsModes) {
+                        var mode = fieldConstraintsModes[i]['id']
+                        var modeIsActive = fieldConstraintsModes[i]['is_active']
+                        // if mode is active and field has this mode
+                        console.log(mode, modeIsActive)
+                        if ((modeIsActive) && (typeof fieldConstraints[mode] !== 'undefined')) {
+                            return fieldConstraints[mode]
+                        }
+                    }
+                }
+                return {}
+            }
+            else {
+                return ''
+            }
+        },
         fieldFormula: (state) => (tableName, fieldName) => {
             if (state.loaded) {
                 let fields = state.journalInfo.journal.tables[tableName].fields;
@@ -351,6 +415,64 @@ const journalState = {
             if (state.loaded) {
                 state.journalInfo.mode = mode
             }
+        },
+        SET_CONSTRAINTS_MODE (state, id) {
+            if (state.loaded) {
+                // current mode is mode that user is editing now
+                Vue.set(state.journalInfo.field_constraints_modes, 'current_mode', id)
+            }
+        },
+        SET_CONSTRAINT (state, payload) {
+            if (state.loaded) {
+                var field = state.journalInfo.journal.tables[payload['tableName']].fields[payload.fieldName]
+                if ("constraints_modes" in field.field_description) {
+                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                    if (fieldConstraints) {
+                        Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
+                    }
+                    else {
+                        Vue.set(field.field_description.constraints_modes, payload['mode'], {})
+                        var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                        Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
+                    }
+                }
+                else {
+                    Vue.set(field.field_description, "constraints_modes", {})
+                    Vue.set(field.field_description.constraints_modes, payload['mode'], {})
+                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                    Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
+                }
+
+            }
+        },
+        ADD_CONSTRAINT (state, payload) {
+            if (state.loaded) {
+                state.journalInfo.field_constraints_modes.modes.push({
+                    id: payload.id,
+                    message: payload.message,
+                    is_active: payload.is_active
+                })
+            }
+        },
+        TOGGLE_CONSTRAINTS_MODE (state, payload) {
+            if (state.loaded) {
+                var constraintModes = state.journalInfo.field_constraints_modes.modes
+                for (let i=0; i<constraintModes.length; i++) {
+                    if (constraintModes[i].id == payload.id) {
+                        constraintModes[i]['is_active'] = payload.active
+                    }
+                }
+            }
+        },
+        DELETE_CONSTRAINTS_MODE (state, payload) {
+          if (state.loaded) {
+              var constraintModes = state.journalInfo.field_constraints_modes.modes
+              for (let i=0; i<constraintModes.length; i++) {
+                  if (constraintModes[i].id == payload.id) {
+                      constraintModes.splice(i, 1);
+                  }
+              }
+          }
         },
         DELETE_TABLE_ROW (state, payload) {
             if (state.loaded) {

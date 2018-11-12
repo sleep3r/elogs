@@ -80,7 +80,7 @@
                 return ajax.get(window.HOSTNAME + `/api/bl/dicts/usernames/?name=${name}`, {
                     withCredentials: true
                 })  .then((response) => {
-                        console.log(response);
+                        // console.log(response);
                         this.usersList = response.data
                     })
                     .catch(err => {
