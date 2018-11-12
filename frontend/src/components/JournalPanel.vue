@@ -14,7 +14,7 @@
             </div>
             <div class="panel-buttons">
                 <div class="mode-buttons">
-                    <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
+                    <span v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
                          class="constraint_modes_button"
                     >
                         <button :class="{ 'btn--active':
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </span>
 
                     <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
                     <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
