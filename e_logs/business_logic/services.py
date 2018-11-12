@@ -80,9 +80,11 @@ class UpdateMode(Service):
 
                 constraint = FieldConstraints.objects.get_or_create(field=field, mode=mode)[0]
 
-                constraint.min_normal = fld.get('min_normal', constraint.min_normal)
-                constraint.max_normal = fld.get('max_normal', constraint.max_normal)
+                constraint.min_normal = fld.get('min_normal', constraint.min_normal) or None
+                constraint.max_normal = fld.get('max_normal', constraint.max_normal) or None
+
                 constraint.save()
+
 
         return mode
 
