@@ -42,8 +42,7 @@
 
         .actions-icons {
             display: flex;
-            justify-content: space-between;
-            min-width: 60px;
+            justify-content: flex-end;
 
             i {
                 font-size: 1.5rem;
