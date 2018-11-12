@@ -37,13 +37,13 @@
     </thead>
     <tbody>
     <tr>
-        <th> Zn в отр., г/л</th>
+        <th> Zn в отр., <i>г/л</i> </th>
         <td v-for="hourNumber of 12"><cell field-name="zn" :row-index="hourNumber"></cell></td>
         <td><cell field-name="znmismatches" row-index="0"></cell></td>
         <td><cell field-name="znmeasures" row-index="0"></cell></td>
     </tr>
     <tr>
-        <th> Смеси, г/л</th>
+        <th> Смеси, <i>г/л</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="zn_mix" :row-index="hourNumber"></cell>
         </td>
@@ -55,7 +55,7 @@
         </td>
     </tr>
     <tr>
-        <th> H₂SO₄ отр., г/л</th>
+        <th> H₂SO₄ отр., <i>г/л</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="h2so4" :row-index="hourNumber"></cell>
         </td>
@@ -69,7 +69,7 @@
         </td>
     </tr>
     <tr>
-        <th> Удельный вес хол-го раствора, г/см³</th>
+        <th> Удельный вес хол-го раствора, <i>г/см³</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="solute1" :row-index="hourNumber"></cell>
         </td>
@@ -83,7 +83,7 @@
         </td>
     </tr>
     <tr>
-        <th> Удельный вес отр-го раствора, г/см³</th>
+        <th> Удельный вес отр-го раствора, <i>г/см³</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="solute2" :row-index="hourNumber">
             </cell>
@@ -98,7 +98,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура смеси, ᵒC</th>
+        <th> Температура смеси, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="mixture_temp" :row-index="hourNumber"></cell>
         </td>
@@ -111,7 +111,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура в ваннах, ᵒC</th>
+        <th> Температура в ваннах, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="bath_temp" :row-index="hourNumber"></cell>
         </td>
@@ -124,7 +124,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура H₂O, ᵒC</th>
+        <th> Температура H₂O, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="h2o_temp" :row-index="hourNumber"></cell>
         </td>
@@ -138,7 +138,7 @@
     </tr>
 
     <tr>
-        <th> Давление H₂O, Па</th>
+        <th> Давление H₂O, <i>Па</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="h2o_pressure" :row-index="hourNumber"></cell>
         </td>
@@ -152,7 +152,7 @@
         </td>
     </tr>
     <tr>
-        <th> Давление пара, Па</th>
+        <th> Давление пара, <i>Па</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="gas_pressure" :row-index="hourNumber"></cell>
         </td>
@@ -165,7 +165,7 @@
         </td>
     </tr>
     <tr>
-        <th> Сточные воды, Рh</th>
+        <th> Сточные воды, <i>Рh</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="wastewater" :row-index="hourNumber"></cell>
         </td>
@@ -179,7 +179,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура точки 5 ВИУ, ᵒC</th>
+        <th> Температура точки 5 ВИУ, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="point5_temp" :row-index="hourNumber"></cell>
         </td>
@@ -193,7 +193,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура точки 6 ВИУ, ᵒC</th>
+        <th> Температура точки 6 ВИУ, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="point6_temp" :row-index="hourNumber"></cell>
         </td>
@@ -207,7 +207,7 @@
         </td>
     </tr>
     <tr>
-        <th> Температура точки 7 ВИУ, ᵒC</th>
+        <th> Температура точки 7 ВИУ, <i>ᵒC</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="point7_temp" :row-index="hourNumber"></cell>
         </td>
