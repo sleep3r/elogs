@@ -67,8 +67,8 @@ import { setTimeout } from 'timers';
             },
             remainingTime() {
                 // time before shift editing will be closed
-                let deadline
-                if (this.userIsResponsible) {
+                let deadline = 0
+                if ((this.userIsResponsible)&&(this.timeLimits['editing_mode_closing'])) {
                     deadline = this.shiftClosingTime
                 }
                 else {
@@ -94,7 +94,12 @@ import { setTimeout } from 'timers';
                 return this.$store.getters['journalState/journalInfo'].permissions.time
             },
             editingModeClosingTime() {
-                return Date.parse(this.timeLimits['editing_mode_closing'])
+                if (this.timeLimits) {
+                    return Date.parse(this.timeLimits['editing_mode_closing'])
+                }
+                else {
+                    return null
+                }
             },
         },
         components: {
