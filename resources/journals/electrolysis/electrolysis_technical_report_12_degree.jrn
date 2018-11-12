@@ -109,73 +109,73 @@
                     "name": "zn_mix20:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix21:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix22:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix23:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix00:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix01:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix02:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix03:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix04:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix05:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix06:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mix07:00",
                     "formula": "",
                     "type": "number",
-                    "units": "г/л"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "zn_mixinconsistencies",
@@ -273,73 +273,73 @@
                     "name": "solute120:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute121:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute122:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute123:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute100:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute101:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute102:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute103:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute104:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute105:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute106:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute107:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute1inconsistencies",
@@ -355,73 +355,73 @@
                     "name": "solute220:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute221:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute222:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute223:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute200:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute201:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute202:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute203:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute204:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute205:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute206:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute207:00",
                     "formula": "",
                     "type": "number",
-                    "units": "ᵒC"
+                    "units": "кА"
                 },
                 {
                     "name": "solute2inconsistencies",
@@ -519,73 +519,73 @@
                     "name": "bath_temp20:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp21:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp22:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp23:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp00:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp01:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp02:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp03:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp04:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp05:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp06:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_temp07:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "bath_tempinconsistencies",
@@ -601,73 +601,73 @@
                     "name": "temp120:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp121:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp122:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp123:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp100:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp101:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp102:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp103:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp104:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp105:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp106:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp107:00",
                     "formula": "",
                     "type": "number",
-                    "units": "кА"
+                    "units": "ᵒC"
                 },
                 {
                     "name": "temp1inconsistencies",
