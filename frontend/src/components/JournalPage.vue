@@ -13,6 +13,7 @@
                                 v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']"
                                 @click="openConstructor"
                                 data-toggle="tooltip"
+                                style="margin-left: 18px;"
                                 title="Открыть в конструкторе"
                             ></i> -->
                         </div>

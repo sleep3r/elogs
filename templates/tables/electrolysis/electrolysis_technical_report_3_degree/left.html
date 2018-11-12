@@ -37,7 +37,7 @@
     </thead>
     <tbody>
     <tr>
-        <th> Zn в отр., г/л</th>
+        <th> Zn в отр. <i class="units">г/л</i></th>
         <td v-for="rowNumber of 12">
             <cell field-name="zn" :row-index="rowNumber"></cell>
         </td>
@@ -49,9 +49,9 @@
         </td>
     </tr>
     <tr>
-        <th> Смеси, г/л</th>
+        <th> Смеси <i class="units">г/л</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="zn_mixh2so" :row-index="rowNumber"></cell>
+            <cell field-name="zn_mixh2so4" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="zn_mixh2so4inconsistencies" row-index="0"></cell>
@@ -61,9 +61,9 @@
         </td>
     </tr>
     <tr>
-        <th> H₂SO₄ отр., г/л</th>
+        <th> H₂SO₄ отр. <i class="units">г/л</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="solute120:00" :row-index="rowNumber"></cell>
+            <cell field-name="solute1" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="solute1inconsistencies" row-index="0"></cell>
@@ -73,9 +73,9 @@
         </td>
     </tr>
     <tr>
-        <th> Удельный вес хол-го раствора, г/см³</th>
+        <th> Удельный вес хол-го раствора <i class="units">г/см³</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="solute220:00" :row-index="rowNumber"></cell>
+            <cell field-name="solute2" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="solute2inconsistencies" row-index="0"></cell>
@@ -85,9 +85,9 @@
         </td>
     </tr>
     <tr>
-        <th> Удельный вес отр-го раствора, г/см³</th>
+        <th> Удельный вес отр-го раствора <i class="units">г/см³</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="mixture_temp20:00" :row-index="rowNumber"></cell>
+            <cell field-name="mixture_temp" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="mixture_tempinconsistencies" row-index="0"></cell>
@@ -97,9 +97,9 @@
         </td>
     </tr>
     <tr>
-        <th> Температура смеси, ᵒC</th>
+        <th> Температура смеси <i class="units">ᵒC</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="bath_temp20:00" :row-index="rowNumber"></cell>
+            <cell field-name="bath_temp" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="bath_tempinconsistencies" row-index="0"></cell>
@@ -109,9 +109,9 @@
         </td>
     </tr>
     <tr>
-        <th> Температура в ваннах, ᵒC</th>
+        <th> Температура в ваннах <i class="units">ᵒC</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="temp120:00" :row-index="rowNumber"></cell>
+            <cell field-name="temp1" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="temp1inconsistencies" row-index="0"></cell>
@@ -121,9 +121,9 @@
         </td>
     </tr>
     <tr>
-        <th> Температура 1, ᵒC</th>
+        <th> Температура 1 <i class="units">ᵒC</i></th>
         <td v-for="rowNumber of 12">
-            <cell field-name="temp220:00" :row-index="rowNumber"></cell>
+            <cell field-name="temp2" :row-index="rowNumber"></cell>
         </td>
         <td>
             <cell field-name="temp2inconsistencies" row-index="0"></cell>
