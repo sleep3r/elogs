@@ -42,7 +42,8 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 
 
 def get_table_template(request, plant_name, journal_name, table_name):
-    return render_to_response(f'tables/{plant_name}/{journal_name}/{table_name}.html')
+    with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
+        return HttpResponse(table_file.read())
 
 
 class GetShifts(View):
