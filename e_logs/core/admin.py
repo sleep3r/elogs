@@ -13,7 +13,7 @@ from e_logs.core.models import Setting
 
 
 admin.site.unregister(TaskResult)
-admin.site.unregister(PeriodicTask)
+# admin.site.unregister(PeriodicTask)
 admin.site.unregister(CrontabSchedule)
 admin.site.unregister(IntervalSchedule)
 admin.site.unregister(SolarSchedule)

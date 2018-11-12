@@ -246,7 +246,6 @@ class JournalsAPI(View):
 
 class MenuInfoAPI(View):
     def get(self, request):
-        verbose_name = {'furnace': 'Обжиг', 'electrolysis': 'Электролиз', 'leaching': 'Выщелачивание'}
         qs = Journal.objects.all()
         if str(request.user) not in ['shaukenov-s-s', 'makagonov-s-n'] and not request.user.is_superuser:
             qs = qs.exclude(name__in=['metals_compute', 'report_income_outcome_schieht'])
@@ -254,7 +253,7 @@ class MenuInfoAPI(View):
             'plants': [
                 {
                     'name': plant.name,
-                    'verbose_name': verbose_name[plant.name],
+                    'verbose_name': plant.verbose_name,
                     'journals': [
                         {
                             'name': journal.name,
@@ -390,19 +389,6 @@ class SettingAPI(View):
         Setting.set_value(name=setting_data["name"], value=setting_data["value"],
                           employee=employee, )
         return JsonResponse({"status": 1})
-
-
-class AutocompleteAPI(View):
-    def get(self, request):
-        name = request.GET.get('name', None)
-        plant = request.GET.get('plant', None)
-        if name and plant:
-            return JsonResponse([emp.name for emp in
-                                 Employee.objects.filter(name__contains=name,
-                                                         user__groups__name__contains=plant.title())],
-                                safe=False)
-        else:
-            return JsonResponse([], safe=False)
 
 
 class LoadJournalAPI(View):

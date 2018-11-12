@@ -4,6 +4,7 @@ import random
 from typing import List, Optional
 
 from django.contrib.auth.models import User, Group, Permission
+from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule
 
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.models import CustomUser
@@ -96,7 +97,7 @@ class DatabaseFiller:
                 }
                 DatabaseFiller.add_user(user)
 
-        user = CustomUser.objects.create_user('shuinshin-g-m', password='qwerty')
+        user = CustomUser.objects.create_user('шуиншин-г-м', password='8756')
         user.first_name = "Галымбек"
         user.last_name = "Шуиншин"
         user.is_superuser = False
@@ -149,9 +150,10 @@ class DatabaseFiller:
     @staticmethod
     def add_user(user_dict: dict) -> Optional[CustomUser]:
         if user_dict["groups"]:
-            user_name = (user_dict['en']['last_name']
-                         + "-" + user_dict['en']['first_name']
-                         + "-" + user_dict['en']['second_name']).strip('-')
+            last_name = user_dict['ru']['last_name']
+            first_name = user_dict['ru']['first_name'][0]
+            second_name = user_dict['ru']['second_name'][0] if user_dict['ru']['second_name'] else ''
+            user_name = (last_name + '-' + first_name + '-' + second_name).strip('-').lower()
 
             if CustomUser.objects.filter(username=user_name).exists():
                 err_logger.warning(f'user `{user_name}` already exists')
@@ -202,6 +204,7 @@ class DatabaseFiller:
                     for shift_order in range(1, number_of_shifts + 1):
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
+
     @staticmethod
     def fill_journals():
         """Call after fill_plants"""
@@ -297,6 +300,37 @@ class DatabaseFiller:
 
         Setting.objects.create(name='allowed_positions',
                                value=Setting._dumps({"boss":2, "laborant":2}))
+
+    @staticmethod
+    def tasks_create():
+        per_day_schedule, _ = IntervalSchedule.objects.get_or_create(
+            every = 1,
+            period = IntervalSchedule.DAYS
+        )
+        per_hour_schedule, _ = IntervalSchedule.objects.get_or_create(
+            every = 1,
+            period = IntervalSchedule.HOURS
+        )
+        shift_end_schedule, _ = CrontabSchedule.objects.get_or_create(
+            minute = '59',
+            hour = '1,7,13,15,19,23',
+        )
+
+        PeriodicTask.objects.create(
+            interval = per_day_schedule,
+            name = 'Creating shifts',
+            task = 'e_logs.common.all_journals_app.tasks.create_shifts',
+        )
+        PeriodicTask.objects.create(
+            interval=per_day_schedule,
+            name='DB dump',
+            task='e_logs.common.all_journals_app.tasks.dump_db',
+        )
+        PeriodicTask.objects.create(
+            crontab=shift_end_schedule,
+            name='Check blank shifts',
+            task='e_logs.common.all_journals_app.tasks.check_blank_shift',
+        )
 
     @staticmethod
     def create_tables_lists():

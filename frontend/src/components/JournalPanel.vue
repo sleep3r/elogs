@@ -1,118 +1,111 @@
 <template>
     <div class="journal__panel">
-        <div class="date-selector">
-            <label>Выберите дату и смену</label>
-            <input id="shift_field"
-                   type="text"
-                   :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
-                   @click="showCalendar=true"
-                   class="date-selector__date"
-                   placeholder="Выберите дату..."
-                   data-toggle="modal"
-                   data-target="#FullCalendarModal"
-            >
-        </div>
-        <div class="panel-buttons">
-
-            <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
-                 class="constraint_modes_button"
-            >
-                <button :class="{ 'btn--active':
-                        mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                  >
-                    <template v-if="mode=='edit_constraints' && $store.getters['journalState/currentConstraintsMode']">
-                        {{ $store.getters['journalState/currentConstraintsMode'].message }}
-                    </template>
-                    <template v-else>
-                        Ограничения полей
-                    </template>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                    <span v-for="mode in constraints_modes"
-                          class="dropdown-item-text"
+        <div class="shift-container">
+            <div class="date-selector" data-toggle="tooltip" title="Выберите дату и смену">
+                <input id="shift_field"
+                    type="text"
+                    :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
+                    @click="showCalendar=true"
+                    class="date-selector__date"
+                    placeholder="Выберите дату..."
+                    data-toggle="modal"
+                    data-target="#FullCalendarModal"
+                >
+            </div>
+            <div class="panel-buttons">
+                <div class="mode-buttons">
+                    <div v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
+                         class="constraint_modes_button"
                     >
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input :checked="$store.getters['journalState/constraintsModeIsActive'](mode.id)"
-                                           type="checkbox"
-                                           class="big-checkbox"
-                                           @click="toggleConstraintMode($event.target.checked, mode.id)"
+                        <button :class="{ 'btn--active':
+                                mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                          >
+                            <template v-if="mode=='edit_constraints' && $store.getters['journalState/currentConstraintsMode']">
+                                {{ $store.getters['journalState/currentConstraintsMode'].message }}
+                            </template>
+                            <template v-else>
+                                Ограничения полей
+                            </template>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                            <span v-for="mode in constraints_modes"
+                                  class="dropdown-item-text"
+                            >
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input :checked="$store.getters['journalState/constraintsModeIsActive'](mode.id)"
+                                                   type="checkbox"
+                                                   class="big-checkbox"
+                                                   @click="toggleConstraintMode($event.target.checked, mode.id)"
+                                            >
+                                        </div>
+                                    </div>
+                                    <a @click="onConstraintsModeClick(mode.id)"
+                                       type="text"
+                                       class="form-control nav-link"
+                                       style="background-color: #e9ecef"
+                                       href="#"
+                                    >
+                                        {{ mode.message }}
+                                    </a>
+                                    <div class="input-group-append">
+                                        <button class="btn"
+                                                @click="deleteConstraintMode(mode.id)"
+                                        >
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </div>
+                            </span>
+
+                            <div class="dropdown-divider"></div>
+
+                            <div class="dropdown-item-text"
+                            >
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn"
+                                                id="inputGroup-sizing-sm"
+                                                @click="createConstraintMode()"
+                                        >
+                                            Добавить режим
+                                        </button>
+                                    </div>
+                                    <input v-model="newConstraintModeMessage"
+                                           type="text"
+                                           placeholder="Введите название..."
+                                           class="form-control"
+                                           aria-label="Small"
+                                           aria-describedby="inputGroup-sizing-sm"
                                     >
                                 </div>
                             </div>
-                            <a @click="onConstraintsModeClick(mode.id)"
-                               type="text"
-                               class="form-control nav-link"
-                               style="background-color: #e9ecef"
-                               href="#"
-                            >
-                                {{ mode.message }}
-                            </a>
-                            <div class="input-group-append">
-                                <button class="btn"
-                                        @click="deleteConstraintMode(mode.id)"
-                                >
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                    Удалить
-                                </button>
-                            </div>
-                        </div>
-                    </span>
-
-                    <div class="dropdown-divider"></div>
-
-                    <div class="dropdown-item-text"
-                    >
-                        <div class="input-group input-group-sm mb-3">
-                            <div class="input-group-prepend">
-                                <button class="btn"
-                                        id="inputGroup-sizing-sm"
-                                        @click="createConstraintMode()"
-                                >
-                                    Добавить режим
-                                </button>
-                            </div>
-                            <input v-model="newConstraintModeMessage"
-                                   type="text"
-                                   placeholder="Введите название..."
-                                   class="form-control"
-                                   aria-label="Small"
-                                   aria-describedby="inputGroup-sizing-sm"
-                            >
                         </div>
                     </div>
+
+                    <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
+                    <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                            @click="changeMode('edit')">
+                        Редактирование
+                    </button>
+                    </template>
+
+                    <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
+                        <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                                @click="changeMode('validate')">
+                            Валидация
+                        </button>
+                    </template>
                 </div>
             </div>
-
-            <div class="mode-buttons">
-                <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
-                <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
-                        @click="changeMode('edit')">
-                    Редактирование
-                </button>
-                </template>
-
-                <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
-                <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
-                        @click="changeMode('validate')">
-                    Валидация
-                </button>
-                </template>
-            </div>
-            <button :class="['btn', 'btn-xlsx', 'float-right']"
-                    @click="download_xlsx()">
-                XLSX
-            </button>
-        </div>
-        <div class="exp-time">
-          <span> {{ shiftMessage }} </span>
         </div>
         <div class="responsibles">
           Ответственные за смену:
@@ -133,51 +126,13 @@
         name: 'journal-panel',
         data() {
             return {
-                now: new Date(),
-                shiftMessage: '',
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
                 newConstraintModeMessage: ''
             }
         },
-        watch: {
-            now (value) {
-                this.updateShiftMode();
-            },
-        },
         computed: {
-            remainingTime() {
-                // time before shift editing will be closed
-                let deadline
-                if (this.userIsResponsible) {
-                    deadline = this.shiftClosingTime
-                }
-                else {
-                    deadline = this.editingModeClosingTime
-                }
-                let remainingTime = deadline - this.now
-
-                return ((remainingTime) && (remainingTime > 0)) ? remainingTime : 0
-            },
-            shiftIsClosed() {
-                return this.$store.getters['journalState/journalInfo'].closed
-            },
-            shiftStartTime() {
-                return Date.parse(this.$store.getters['journalState/journalInfo']['start_time'])
-            },
-            shiftIsStarted() {
-                return (this.now - this.shiftStartTime) > 0 ? true : false
-            },
-            shiftClosingTime() {
-                return Date.parse(this.timeLimits['shift_closing'])
-            },
-            timeLimits() {
-                return this.$store.getters['journalState/journalInfo'].permissions.time
-            },
-            editingModeClosingTime() {
-                return Date.parse(this.timeLimits['editing_mode_closing'])
-            },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
             },
@@ -304,64 +259,11 @@
                     this.$store.commit('journalState/SET_PAGE_MODE', mode);
                 }
             },
-            updateShiftMode() {
-                if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {
-                    this.shiftMessage = 'Смена открыта для редактирования'
-                }
-                else if ((!this.userHasPerm('edit'))) {
-                    this.shiftMessage = 'Вы не можете редактировать эту смену'
-                    this.removePerm('edit')
-                }
-                else if (!this.shiftIsStarted) {
-                    this.shiftMessage = 'Смена ещё не началась. Редактирование невозможно'
-                    this.removePerm('edit')
-                }
-                else if (this.shiftIsClosed) {
-                    this.shiftMessage = 'Смена закрыта для редактирования. Обратитесь к администратору'
-                    this.removePerm('edit')
-                }
-                else if ((!this.userIsResponsible) && (this.now > this.editingModeClosingTime)) {
-                    this.shiftMessage = 'Смена закрыта для редактирования (до конца смены меньше часа, а редактирование начато не было)'
-                    this.removePerm('edit')
-                }
-                else if ((this.userIsResponsible) && (this.now > this.shiftClosingTime)) {
-                    this.shiftMessage = 'Смена закрыта для редактирования (прошло 12 часов с конца смены)'
-                    this.removePerm('edit')
-                }
-                else if (this.remainingTime && this.userHasPerm('edit')) {
-                    this.shiftMessage = 'Смена открыта для редактирования ещё ' + this.msToTime(this.remainingTime)
-                }
-            },
-            download_xlsx() {
-                let elt = $('.elog-journal-table').clone();
-                elt.find("td").replaceWith(function () {
-                    return '<td>' + $(this).find("input.general-value").val() + '</td>';
-                });
-                let tables = elt.get();
-
-                const new_workbook = XLSX.utils.book_new();
-                for (let i = 0; i < tables.length; i++) {
-                    let ws = XLSX.utils.table_to_sheet(tables[i]);
-                    XLSX.utils.book_append_sheet(new_workbook, ws, "table" + i);
-                }
-
-                XLSX.writeFile(new_workbook, 'journal.xlsx');
-            },
-            msToTime(s) {
-                var ms = s % 1000;
-                s = (s - ms) / 1000;
-                var secs = s % 60;
-                s = (s - secs) / 60;
-                var mins = s % 60;
-                var hrs = (s - mins) / 60;
-
-                return hrs + ' часов ' + mins + ' минут ' + secs + ' секунд';
-            },
             setListeners () {
                 let self = this
                 let journalTitleContainer = $(".journal_title_container");
                 let lastScrollTop = 0;
-                let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 1012 ? 200 : 100
+                let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 768 ? 200 : 100
 
                 $(window).scroll(function(event){
                     let currentScrollTop = $(this).scrollTop();
@@ -380,6 +282,8 @@
         mounted() {
             let self = this;
 
+            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
+
             setTimeout(() => {
                 this.$store.dispatch('journalState/loadShifts', {
                     plant: this.$route.params.plant,
@@ -388,8 +292,6 @@
             })
 
             this.setListeners()
-
-            this.updateShiftMode()
 
             $( window ).resize(function() {
                 // console.log('resize')
@@ -407,9 +309,6 @@
             // if (this.userIsResponsible) {
             //     console.log('awdawd')
             // }
-        },
-        created() {
-            setInterval(() => this.now = (new Date()).getTime(), 1000)
         }
     }
 </script>

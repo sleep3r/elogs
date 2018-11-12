@@ -175,9 +175,8 @@ class Shift(CellGroup):
         shift_length = timedelta(hours=24 // number_of_shifts)
         return self.start_time + shift_length
 
-    @property
-    def is_active(self) -> bool:
-        return self.start_time <= timezone.now() <= self.end_time
+    def is_active(self, time=timezone.now()) -> bool:
+        return self.start_time <= timezone.localtime(time) <= self.end_time
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
@@ -210,7 +209,7 @@ class Shift(CellGroup):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
                                                     date=current_date())[0]
-                if shift.is_active:
+                if shift.is_active():
                     break
 
         return shift

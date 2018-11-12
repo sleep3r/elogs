@@ -67,6 +67,7 @@
             toggleMenu () {
                 $('.column-left').toggleClass('menu__hidden')
                 $('.column-content').toggleClass('menu__hidden')
+                $('.journal_title_container').toggleClass('menu__hidden')
             },
             onMenuItemClick () {
                 const selectorMenuItem = "li.menu__item";

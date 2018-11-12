@@ -40,10 +40,9 @@ body {
     width: 100%;
     flex-wrap: wrap;
 
-    .exp-time {
+    .responsibles {
         margin-top: 10px;
         width: 100%;
-        font-size: 18px;
     }
 }
 
@@ -52,6 +51,8 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    padding-top: 168px;
+    transition: 1s;
 
     .content {
         width: 100%;
@@ -259,8 +260,17 @@ footer {
         width: 100%;
     }
 
+    .date-selector {
+        width: 100%;
+    }
+
     .panel-buttons {
-        display: block !important;
+        display: flex;
+        width: 100%;
+
+        .mode-buttons {
+            width: 100%;
+        }
 
         .btn {
             width: 100%;
@@ -273,10 +283,6 @@ footer {
         }
     }
 
-    .journal__panel {
-        margin-bottom: 40px;
-    }
-
     footer .btn > span {
         display: none;
     }
@@ -285,11 +291,6 @@ footer {
 @media (max-width: 991.98px) {
     .journal__panel {
         flex-direction: column;
-    }
-
-    .panel-buttons {
-        margin-top: 10px;
-        justify-content: space-between !important;
     }
 }
 

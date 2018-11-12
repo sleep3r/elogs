@@ -1,54 +1,46 @@
 <table class="table table-bordered elog-journal-table">
     <thead>
         <tr>
-            <th>Влага</th>
-            <th>Выдано концнт ВМТ</th>
-            <th>СМТ</th>
-            <th>Огарка</th>
-            <th>Zn конц</th>
-            <th>Pb</th>
-            <th>Cu</th>
-            <th>Cd</th>
-            <th>Fe</th>
-            <th>SiO2</th>
-            <th>Zn огар</th>
-            <th>Znk</th>
-            <th>Znb</th>
-            <th>Pb2</th>
-            <th>Cu2</th>
-            <th>Cd2</th>
-            <th>Fe</th>
-            <th>SiO2</th>
-            <th>S</th>
-            <th>As</th>
-            <th>Sb</th>
-            <th>S_sulf</th>
+            <th class="th-number">Выдано концнт ВМТ</th>
+            <th class="th-number">Выдано концнт СМТ</th>
+            <th class="th-number">Выдано огарка<i class='units'>т</i></th>
+            <th class="th-number">Zn конц<i class='units'>%</i></th>
+            <th class="th-number">Pb<i class='units'>%</i></th>
+            <th class="th-number">Cu<i class='units'>%</i></th>
+            <th class="th-number">Cd,	Fe<i class='units'>%</i></th>
+            <th class="th-number">SiO2<i class='units'>%</i></th>
+            <th class="th-number">Zn огар<i class='units'>%</i></th>
+            <th class="th-number">Pb<i class='units'>%</i></th>
+            <th class="th-number">Cu<i class='units'>%</i></th>
+            <th class="th-number">Cd<i class='units'>%</i></th>
+            <th class="th-number">Fe<i class='units'>%</i></th>
+            <th class="th-number">SiO<sub>2</sub><i class='units'>%</i></th>
+            <th class="th-number">S<i class='units'>%</i></th>
+            <th class="th-number">As<i class='units'>%</i></th>
+            <th class="th-number">Sb<i class='units'>%</i></th>
+            <th class="th-number">S сульф<i class='units'>%</i></th>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(value, index) in rowsCount" >
-            <td><cell  field-name="moisture" :row-index="index" /></td>
-            <td><cell  field-name="issued" :row-index="index" /></td>
-            <td><cell  field-name="SMT" :row-index="index" /></td>
-            <td><cell  field-name="cinder" :row-index="index" /></td>
-            <td><cell  field-name="Zn_conc" :row-index="index" /></td>
-            <td><cell  field-name="Pb" :row-index="index" /></td>
-            <td><cell  field-name="Cu" :row-index="index" /></td>
-            <td><cell  field-name="Cd" :row-index="index" /></td>
-            <td><cell  field-name="Fe" :row-index="index" /></td>
-            <td><cell  field-name="SiO2" :row-index="index" /></td>
-            <td><cell  field-name="Zn_cinder" :row-index="index" /></td>
-            <td><cell  field-name="Znk" :row-index="index" /></td>
-            <td><cell  field-name="Znb" :row-index="index" /></td>
-            <td><cell  field-name="Pb2" :row-index="index" /></td>
-            <td><cell  field-name="Cu2" :row-index="index" /></td>
-            <td><cell  field-name="Cd2" :row-index="index" /></td>
-            <td><cell  field-name="Fe2" :row-index="index" /></td>
-            <td><cell  field-name="SiO2_2" :row-index="index" /></td>
-            <td><cell  field-name="S" :row-index="index" /></td>
-            <td><cell  field-name="As" :row-index="index" /></td>
-            <td><cell  field-name="Sb" :row-index="index" /></td>
-            <td><cell  field-name="S_sulf" :row-index="index" /></td>
-        </tr>
+      <tr v-for="(value, index) in rowsCount" >
+          <td><cell  field-name="vmt" :row-index="index"></cell></td>
+          <td><cell  field-name="cmt" :row-index="index"></cell></td>
+          <td><cell  field-name="zn_end" :row-index="index"></cell></td>
+          <td><cell  field-name="pb" :row-index="index"></cell></td>
+          <td><cell  field-name="cu" :row-index="index"></cell></td>
+          <td><cell  field-name="cd" :row-index="index"></cell></td>
+          <td><cell  field-name="fe" :row-index="index"></cell></td>
+          <td><cell  field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell  field-name="Zn_furn" :row-index="index"></cell></td>
+          <td><cell  field-name="Pb2" :row-index="index"></cell></td>
+          <td><cell  field-name="Cu2" :row-index="index"></cell></td>
+          <td><cell  field-name="Cd2" :row-index="index"></cell></td>
+          <td><cell  field-name="fe2" :row-index="index"></cell></td>
+          <td><cell  field-name="SiO2" :row-index="index"></cell></td>
+          <td><cell  field-name="S" :row-index="index"></cell></td>
+          <td><cell  field-name="As" :row-index="index"></cell></td>
+          <td><cell  field-name="Sb" :row-index="index"></cell></td>
+          <td><cell  field-name="S_sulf" :row-index="index"></cell></td>
+      </tr>
     </tbody>
 </table>

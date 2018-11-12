@@ -26,6 +26,11 @@
             <th colspan="2">Показания счётчика</th>
             <td v-for="(value, index) in 4"><cell field-name="counter" :row-index="index"></cell></td>
         </tr>
+    </tbody>
+</table>
+
+<table class="table table-bordered elog-journal-table">
+    <tbody>
         <tr>
             <th colspan="2">Бункера ЦВЦО</th>
             <td v-for="(value, index) in 4"><cell field-name="bunker_cvco" :row-index="index"></cell></td>

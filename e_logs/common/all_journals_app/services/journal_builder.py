@@ -17,10 +17,10 @@ class JournalBuilder:
     def __init__(self, file, plant_name, type=None):
         env = environ.Env(DEBUG=(bool, False))
         required_version = env('CONSTRUCTOR_VERSION')
-        self.file = zipfile.ZipFile(file)
 
         try:
-            meta = json.loads(self.file.read('meta.json'))
+            with open(file, 'r') as f_in:
+                meta = json.loads(f_in.read())
         except:
             raise SemanticError(message='Ошибка структуры файла')
 
@@ -105,10 +105,12 @@ class JournalBuilder:
             return new_field
 
     def __extract_tables(self, tables_path):
-        for table in self.file.infolist():
-            if table.filename.endswith('.html'):
-                table.filename = os.path.basename(table.filename)
-                self.file.extract(table, tables_path)
+        for table in self.tables:
+            template_filename = os.path.join(tables_path, table['name'] + '.html')
+            os.makedirs(os.path.dirname(template_filename), exist_ok=True)
+
+            with open(template_filename, 'w') as temp_file:
+                temp_file.write(table['html'])
 
     def __delete_journal(self, journal):
         tables = Table.objects.filter(journal=journal)

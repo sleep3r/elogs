@@ -18,8 +18,13 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fa fa-user"></i></div>
                             </div>
-                            <input id="login-username" type="text" class="form-control" name="username" value=""
+                            <input @input="onInput" id="login-username" list="persons" type="text" class="form-control" name="username" value=""
                                    placeholder='Имя пользователя'>
+                            <template>
+                                <datalist id="persons">
+                                    <option v-for="person in usersList" :value="person" :key="person"></option>
+                                </datalist>
+                            </template>
                         </div>
 
                         <div style="margin-bottom: 25px;" class="input-group">
@@ -49,12 +54,14 @@
 
 <script>
     import $ from 'jquery'
+    import ajax from '../axios.config'
 
     export default {
         name: "LoginPage",
         data () {
             return {
-                errorText: ''
+                errorText: '',
+                usersList: [],
             }
         },
         methods: {
@@ -68,6 +75,21 @@
                 else {
                     this.errorText = 'Введите все данные!'
                 }
+            },
+            getUsers(name) {
+                return ajax.get(window.HOSTNAME + `/api/bl/dicts/usernames/?name=${name}`, {
+                    withCredentials: true
+                })  .then((response) => {
+                        console.log(response);
+                        this.usersList = response.data
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+            onInput(e) {
+                this.getUsers(e.target.value);
+
             },
             login (username, password) {
                 this.$store.dispatch('userState/login', { username, password })
