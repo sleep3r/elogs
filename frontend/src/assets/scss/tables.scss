@@ -166,7 +166,7 @@ h2.table-title {
     
     .units:not(.no-before)::before {
         content: ", "; // Comma before units
-        white-space: pre-line;
+        white-space: nowrap;
     }
     
     // -------------------------- COMMENTS BUTTON --------------------
