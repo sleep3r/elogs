@@ -1,4 +1,3 @@
-import locale
 import os
 from pathlib import Path
 
@@ -8,7 +7,6 @@ import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
-locale.resetlocale()
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env(DEBUG=(bool, False))
