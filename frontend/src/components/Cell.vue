@@ -173,7 +173,7 @@
                     return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
                 },
                 set: function (val) {
-                    console.log('set')
+                    // console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -402,7 +402,7 @@
                 return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
                 })  .then((response) => {
-                        console.log(response);
+                        // console.log(response);
                         this.personsList = response.data
                     })
                     .catch(err => {
@@ -410,7 +410,7 @@
                     })
             },
             send() {
-                console.log('socket')
+                // console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
                     'cells': [{
@@ -430,7 +430,7 @@
 
                 this.value = e.target.value;
 
-                console.log('oninput')
+                // console.log('oninput')
                 if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
                     let plantName = this.$store.getters['journalState/plantName'];
                     this.getPersons(e.target.value, plantName)
@@ -445,10 +445,10 @@
                 this.maxValue = e.target.value
             },
             onChanged(e) {
-                console.log(this.value)
+                // console.log(this.value)
                 e ? e.preventDefault() : null
                 if (this.critical) {
-                  console.log('critical')
+                  console.log('critical message recieved')
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -465,7 +465,7 @@
                     },
                 });
                 } else {
-                  console.log('non critical')
+                  console.log('non critical message recieved')
                     this.$socket.sendObj({
                         'type': 'messages',
                         'cell': {
@@ -562,7 +562,7 @@
                 }
             },
             _updateCells() {
-                console.log("updating cells")
+                // console.log("updating cells")
                 let journalComponent = this.$parent.$parent.$parent
                 for (let commonTableComponentIndex in journalComponent.$children) {
                     let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]

@@ -8,13 +8,13 @@
                         <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                         <div class="actions-icons">
                             <i class="fas fa-file-excel" @click="download_xlsx()" data-toggle="tooltip" title="Скачать xlsx"></i>
-                            <i 
+                            <!-- <i
                                 class="fas fa-edit"
                                 v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']"
                                 @click="openConstructor"
-                                data-toggle="tooltip" 
+                                data-toggle="tooltip"
                                 title="Открыть в конструкторе"
-                            ></i>
+                            ></i> -->
                         </div>
                     </div>
                     <journal-panel></journal-panel>
@@ -67,8 +67,8 @@ import { setTimeout } from 'timers';
             },
             remainingTime() {
                 // time before shift editing will be closed
-                let deadline
-                if (this.userIsResponsible) {
+                let deadline = 0
+                if ((this.userIsResponsible)&&(this.timeLimits['editing_mode_closing'])) {
                     deadline = this.shiftClosingTime
                 }
                 else {
@@ -94,7 +94,12 @@ import { setTimeout } from 'timers';
                 return this.$store.getters['journalState/journalInfo'].permissions.time
             },
             editingModeClosingTime() {
-                return Date.parse(this.timeLimits['editing_mode_closing'])
+                if (this.timeLimits) {
+                    return Date.parse(this.timeLimits['editing_mode_closing'])
+                }
+                else {
+                    return null
+                }
             },
         },
         components: {
@@ -142,6 +147,11 @@ import { setTimeout } from 'timers';
                 }
 
                 XLSX.writeFile(new_workbook, 'journal.xlsx');
+            },
+            removePerm(perm) {
+                if (this.userHasPerm(perm)) {
+                    this.$store.commit('journalState/REMOVE_PERMISSION', perm)
+                }
             },
             updateShiftMode() {
                 if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {
