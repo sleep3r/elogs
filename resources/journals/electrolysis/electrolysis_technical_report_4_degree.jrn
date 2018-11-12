@@ -24,7 +24,73 @@
                     "type": null
                 },
                 {
-                    "name": "zn",
+                    "name": "zn20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn07:00",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -40,7 +106,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "zn_mix",
+                    "name": "zn_mix20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix07:00",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -56,7 +188,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "h2so4",
+                    "name": "h2so420:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so421:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so422:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so423:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so400:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so401:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so402:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so403:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so404:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so405:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so406:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "h2so407:00",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -72,7 +270,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "solute1",
+                    "name": "solute120:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute121:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute122:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute123:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute100:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute101:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute102:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute103:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute104:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute105:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute106:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute107:00",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
@@ -88,7 +352,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "solute2",
+                    "name": "solute220:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute221:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute222:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute223:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute200:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute201:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute202:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute203:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute204:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute205:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute206:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute207:00",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
@@ -104,7 +434,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "mixture_temp",
+                    "name": "mixture_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mixture_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -120,7 +516,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "bath_temp",
+                    "name": "bath_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -136,7 +598,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "h2o_temp",
+                    "name": "h2o_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "h2o_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -152,7 +680,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "h2o_pressure",
+                    "name": "h2o_pressure20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "h2o_pressure07:00",
                     "formula": "",
                     "type": "number",
                     "units": "Па"
@@ -168,7 +762,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "gas_pressure",
+                    "name": "gas_pressure20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Па"
+                },
+                {
+                    "name": "gas_pressure07:00",
                     "formula": "",
                     "type": "number",
                     "units": "Па"
@@ -184,7 +844,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "wastewater",
+                    "name": "wastewater20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Рh"
+                },
+                {
+                    "name": "wastewater07:00",
                     "formula": "",
                     "type": "number",
                     "units": "Рh"
@@ -200,7 +926,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "point5_temp",
+                    "name": "point5_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point5_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -216,7 +1008,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "point6_temp",
+                    "name": "point6_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point6_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -232,7 +1090,73 @@
                     "type": "text"
                 },
                 {
-                    "name": "point7_temp",
+                    "name": "point7_temp20:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp21:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp22:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp23:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp00:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp01:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp02:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp03:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp04:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp05:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp06:00",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "point7_temp07:00",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
