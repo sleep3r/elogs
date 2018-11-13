@@ -70,9 +70,10 @@ class Command(BaseCommand):
             stdout_logger.info("Decompress Journals...")
             decompress_journals()
 
-            stdout_logger.info("Adding shifts...")
+            stdout_logger.info("Adding groups...")
             df.create_number_of_shifts()
-            df.create_shifts()
+            df.create_groups()
+
 
             stdout_logger.info("Adding settings...")
             # df.create_journals_verbose_names()

@@ -14,17 +14,22 @@ env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
 
 
-def get_current_shift(journal):
-    number_of_shifts = Shift.get_number_of_shifts(journal)
-    assert int(number_of_shifts) > 0, "<= 0 number of shifts"
+def get_current_group(journal):
+    if journal.type == 'shift':
+        number_of_shifts = Shift.get_number_of_shifts(journal)
+        assert int(number_of_shifts) > 0, "<= 0 number of shifts"
 
-    shifts = Shift.objects.cache() \
-        .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
-    for shift in shifts:
-        if shift.is_active():
-            return shift
+        shifts = Shift.objects.cache() \
+            .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
+        for shift in shifts:
+            if shift.is_active():
+                return shift
 
-    assert True, "No active shifts!"
+        assert True, "No active shifts!"
+    elif journal.type == 'year':
+        year = YearGroup.objects.filter(journal=journal).order_by('year').last()
+        return year
+
 
 
 @logged

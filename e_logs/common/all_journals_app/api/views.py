@@ -19,7 +19,7 @@ from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.models import CellGroup
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
-from e_logs.common.all_journals_app.views import get_current_shift
+from e_logs.common.all_journals_app.views import get_current_group
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
@@ -31,15 +31,8 @@ from e_logs.core.management.commands.compress_journals import compress_journal
 class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        if not kwargs.get('id', None):
-            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
-            current_shift = get_current_shift(Journal.objects.get(name=journal_name))
-            if current_shift:
-                id = current_shift.id
-            else:
-                id = Shift.objects.latest('date').id
-        else:
-            id = kwargs['id']
+        id = self.get_current_group(request, kwargs)
+        print(id)
         qs = Shift.objects \
             .select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables',
@@ -53,7 +46,6 @@ class GroupAPI(LoginRequired, View):
                                            Prefetch('comments', queryset=Comment.objects.all().
                                                     select_related('employee__user',
                                                                    'employee'))))).get(id=id)
-
 
         plant = qs.journal.plant
         res = {
@@ -101,6 +93,18 @@ class GroupAPI(LoginRequired, View):
                         }
                     }
 
+    def get_current_group(self, request, kwargs):
+        if not kwargs.get('id', None):
+            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
+            current_shift = get_current_group(Journal.objects.get(name=journal_name))
+            if current_shift:
+                id = current_shift.id
+            else:
+                id = Shift.objects.latest('date').id
+        else:
+            id = kwargs['id']
+
+        return id
 
     def get_permissions(self, request, shift):
         def get_time(shift):

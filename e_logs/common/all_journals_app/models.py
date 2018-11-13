@@ -216,12 +216,12 @@ class EquipmentGroup(CellGroup):
 
 
 class YearGroup(CellGroup):
-    year = models.CharField(max_length=4, verbose_name='Год')
+    year = models.IntegerField(verbose_name='Год')
 
 
 class MonthGroup(CellGroup):
     month = models.CharField(max_length=16, verbose_name='Месяц')
-    year = models.CharField(max_length=4, verbose_name='Год')
+    year = models.IntegerField(verbose_name='Год')
 
 
 class Cell(TimeStampedModel):
