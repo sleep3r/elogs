@@ -84,10 +84,10 @@ class GroupAPI(LoginRequired, View):
         }
 
     def add_constraints(self, qs, res):
-        modes = Mode.objects.filter(is_active=True, journal=qs.journal).order_by('beginning')
+        modes = Mode.objects.filter(journal=qs.journal).order_by('beginning')
         if modes.exists():
             # mode = modes.last()
-            
+
             for mode in modes:
                 constraints = FieldConstraints.objects.filter(mode=mode)
                 for constraint in constraints:
