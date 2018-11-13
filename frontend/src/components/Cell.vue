@@ -1,5 +1,5 @@
 <template>
-    <div v-if="mode!=='edit_constraints'" style="height: 100%;">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%;" :class="cssClass">
       <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
@@ -14,7 +14,7 @@
             :row-index="rowIndex"
             :value="value"
             :type="type == 'number' ? '' : type"
-                :readonly="mode !== 'edit' || hasFormula"
+            :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
             :style="[{ color: activeColor, fontWeight: fontWeight }]"
             @keypress="filterInput"
@@ -26,13 +26,19 @@
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
+            :list="fieldName"
+
         >
-        <div class="widthCell"></div>
+        <div class="widthCell">
+        </div>
         <template>
             <datalist>
                 <option v-for="person in personsList" :value="person" :key="person"></option>
             </datalist>
         </template>
+        <datalist :id="fieldName" v-if="options">
+            <option v-for="option in options" :value="option" :key="option">{{option}}</option>
+        </datalist>
         <i
             @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
@@ -90,7 +96,10 @@
         props: [
             'fieldName',
             'rowIndex',
-            'linked'
+            'linked',
+            'cssClass',
+            'options'
+
         ],
         data() {
             return {
@@ -608,6 +617,13 @@
 </script>
 
 <style lang="scss">
+    .on-year {
+        display: inline-block;
+        input {
+            width: 60px;
+        }
+    }
+
     .tooltip {
         display: block !important;
         z-index: 10000;
