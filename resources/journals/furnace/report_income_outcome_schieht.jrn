@@ -623,12 +623,6 @@
             "title": "НЗП и склады",
             "fields": [
                 {
-                    "name": "on_year",
-                    "formula": "",
-                    "type": "text",
-                    "units": ""
-                },
-                {
                     "name": "nzp_concentrate",
                     "formula": "",
                     "type": "number",
@@ -663,9 +657,14 @@
                     "formula": "",
                     "type": "number",
                     "units": ""
+                },
+                {
+                    "name": "on_year",
+                    "formula": "",
+                    "type": ""
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th></th>\n            <th colspan=\"2\" class=\"th-common\"><span> На 01.01.<span><cell css-class=\"on-year\" field-name=\"on_year\" row-index=\"0\" /></span> года </span></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>НЗП</th>\n            <td><cell field-name=\"nzp_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"nzp_zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Склады</th>\n            <td><cell field-name=\"sklad_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sklad_zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Итого</th>\n            <td><cell field-name=\"itogo_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"itogo_zn\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th></th>\n            <th colspan=\"2\" class=\"th-common\"><span> На 01.01.<cell css-class=\"on-year\" v-bind:options=\"['2016','2017','2018','2019']\" field-name=\"on_year\" row-index=\"0\" /> года </span></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>НЗП</th>\n            <td><cell field-name=\"nzp_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"nzp_zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Склады</th>\n            <td><cell field-name=\"sklad_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sklad_zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Итого</th>\n            <td><cell field-name=\"itogo_concentrate\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"itogo_zn\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
         }
     ]
 }
