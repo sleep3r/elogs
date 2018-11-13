@@ -17,7 +17,7 @@ https://{$CADDY_HOSTNAME}/api {
     }
 }
 
-https://{$CADDY_HOSTNAME}:3000 {
+https://{$CADDY_HOSTNAME}:3001 {
     proxy / 127.0.0.1:3000 {
         transparent
     }
@@ -30,7 +30,7 @@ wss://{$CADDY_HOSTNAME}/e-logs {
 }
 
 https://{$CADDY_HOSTNAME}:8085 {
-    root /srv/e-logs-constructor/frontend/dist 
+    root /srv/e-logs-constructor/frontend/dist
     rewrite {
         regexp .*
         to {path} /
@@ -48,4 +48,3 @@ https://{$CADDY_HOSTNAME} {
         500 index.html
     }
 }
-

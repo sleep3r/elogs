@@ -31,7 +31,7 @@ Vue.config.productionTip = false;
 if (process.env.NODE_ENV == 'production') {
     var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
     window.HOSTNAME = 'https://' + window.location.hostname
-    window.NODE_SERVER = 'https://' + window.location.hostname + ':3000'
+    window.NODE_SERVER = 'https://' + window.location.hostname + ':3001'
     window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
 }
 else {
