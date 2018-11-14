@@ -26,7 +26,7 @@
                     "units": "№"
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\"> Концентрация O<sub>2</sub> в помещении<i class=\"units\">%</i> </th>\n            <th class=\"th-time\"> Время пуска и остановки воздушных машин </th>\n            <th class=\"th-number\"> В работе воздуходувных машин<i class=\"units\">№</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell   field-name=\"conc_o2\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"time_start\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"cnt_in_process\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\"> Концентрация O<sub>2</sub> в помещении<i class=\"units\">%</i> </th>\n            <th class=\"th-time\"> Время пуска и остановки воздушных машин </th>\n            <th class=\"th-number\"> В работе воздуходувных машин<i class=\"units\">№</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell   field-name=\"conc_o2\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"time_start\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"cnt_in_process\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
         },
         {
             "name": "concentration_by_time",
