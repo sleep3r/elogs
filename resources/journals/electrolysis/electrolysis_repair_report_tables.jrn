@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "electrolysis_repair_report_tables",
     "title": "Журнал по ремонту оборудования",
-    "type": "shift",
+    "type": "equipment",
     "tables": [
         {
             "name": "main",

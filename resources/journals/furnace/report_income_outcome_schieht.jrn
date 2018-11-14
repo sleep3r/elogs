@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "report_income_outcome_schieht",
     "title": "Поступление, расходы и остатки Zn концентратов",
-    "type": "shift",
+    "type": "year",
     "tables": [
         {
             "name": "main",
