@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="footer">
-          <textarea placeholder="Введите текст комментария" class="comment-text" v-model="commentText"></textarea>
+          <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment" v-model="commentText"></textarea>
           <div class="btns">
             <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
             <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat && isNumber" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
