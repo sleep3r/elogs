@@ -29,8 +29,9 @@ def _get_current_group(journal):
         return year
 
     elif journal.type == 'month':
-        month = Month.objects.filter(journal=journal, month_order=timezone.now().month,
-                                     year_date=timezone.now().year)
+        month = Month.objects.get(journal=journal,
+                                  month_order=current_date().month,
+                                  year_date=current_date().year)
         return month
 
     else:
@@ -51,13 +52,25 @@ def get_table_template(request, plant_name, journal_name, table_name):
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
 
+class GetGroups(View):
+    def get(self, request, plant_name: str, journal_name: str):
+        user = request.user
+        plant = Plant.objects.get(name=plant_name)
+        journal = Journal.objects.get(plant=plant, name=journal_name)
 
-class GetShifts(View):
-    def get(self, request, plant_name: str, journal_name: str,
-            from_date=current_date() - timedelta(days=30),
-            to_date=current_date()):
-        """Creates shifts for speficied period of time"""
+        if journal.type == 'shift':
+            return self.get_shifts(user, journal)
 
+        elif journal.type == 'year':
+            return self.get_years(user, journal)
+
+        elif journal.type == 'month':
+            return self.get_months(user, journal)
+
+        else:
+            return self.get_equipment(user, journal)
+
+    def get_shifts(self, user, journal):
         def shift_event(shift, is_owned):
             return {
                 'title': '{} смена'.format(shift.order),
@@ -67,16 +80,13 @@ class GetShifts(View):
             }
 
         result = []
-        user = request.user
-        plant = Plant.objects.get(name=plant_name)
-        journal = Journal.objects.get(plant=plant, name=journal_name)
-        employee = user.employee
-        owned_shifts = employee.shift_set.all()
+        owned_shifts = user.employee.shift_set.all()
+        from_date = current_date() - timedelta(days=30)
+        to_date = current_date()
 
         if journal.type == 'shift':
             shifts = Shift.objects.select_related('journal', 'journal__plant'). \
-                filter(date__range=[from_date, to_date + timedelta(days=1)],
-                       journal=journal)
+                filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal)
             shifts_dict = defaultdict(list)
 
             for shift in shifts:
@@ -90,21 +100,15 @@ class GetShifts(View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get shifts for non-shift journal')
-get_shifts = GetShifts.as_view()
 
-
-class GetYears(View):
-    def get(self, request, plant_name: str, journal_name: str):
-
+    def get_years(self, user, journal):
         def year_event(year):
             return {
-                'title': '{} год'.format(year.year),
+                'title': '{} год'.format(year.year_date),
                 'url': '/{}/{}/{}/'.format(year.journal.plant.name, year.journal.name, year.id),
             }
 
         result = []
-        plant = Plant.objects.get(name=plant_name)
-        journal = Journal.objects.get(plant=plant, name=journal_name)
 
         if journal.type == 'year':
             years = Year.objects.select_related('journal', 'journal__plant'). \
@@ -121,21 +125,15 @@ class GetYears(View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get years for non-year journal')
-get_years = GetYears.as_view()
 
-
-class GetMonths(View):
-    def get(self, request, plant_name: str, journal_name: str):
-
+    def get_months(self, user, journal):
         def month_event(month):
             return {
-                'title': f'{month.month} {month.year} года',
+                'title': f'{month.month_date} {month.year_date} года',
                 'url': '/{}/{}/{}/'.format(month.journal.plant.name, month.journal.name, month.id),
             }
 
         result = []
-        plant = Plant.objects.get(name=plant_name)
-        journal = Journal.objects.get(plant=plant, name=journal_name)
 
         if journal.type == 'month':
             months = Month.objects.select_related('journal', 'journal__plant'). \
@@ -152,12 +150,8 @@ class GetMonths(View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get months for non-month journal')
-get_months = GetMonths.as_view()
 
-
-class GetEquipment(View):
-    def get(self, request, plant_name: str, journal_name: str):
-
+    def get_equipment(self, user, journal):
         def equipment_event(equipment):
             return {
                 'title': f'{equipment.name}',
@@ -167,8 +161,6 @@ class GetEquipment(View):
             }
 
         result = []
-        plant = Plant.objects.get(name=plant_name)
-        journal = Journal.objects.get(plant=plant, name=journal_name)
 
         if journal.type == 'equipment':
             equipment = Equipment.objects.select_related('journal', 'journal__plant'). \
@@ -185,4 +177,4 @@ class GetEquipment(View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get equipment for non-equipment journal')
-get_equipment = GetEquipment.as_view()
+get_groups = GetGroups.as_view()

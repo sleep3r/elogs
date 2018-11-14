@@ -6,8 +6,7 @@ from rest_framework_swagger.views import get_swagger_view
 
 from django.conf import settings
 
-from e_logs.common.all_journals_app.views import get_shifts, get_table_template, \
-    get_equipment, get_months, get_years
+from e_logs.common.all_journals_app.views import get_groups, get_table_template
 from e_logs.common.constructor_app.views import constructor_proxy
 
 handler403 = "e_logs.common.all_journals_app.views.permission_denied"
@@ -31,10 +30,7 @@ urlpatterns = [
     path('api/templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/',
          get_table_template),
     path('api/constructor/', include('e_logs.common.constructor_app.urls')),
-    path('api/<str:plant_name>/<str:journal_name>/get_shifts/', get_shifts),
-    path('api/<str:plant_name>/<str:journal_name>/get_years/', get_years),
-    path('api/<str:plant_name>/<str:journal_name>/get_months/', get_months),
-    path('api/<str:plant_name>/<str:journal_name>/get_equipment/', get_equipment),
+    path('api/<str:plant_name>/<str:journal_name>/get_groups/', get_groups),
 ]
 
 if settings.DEBUG:
