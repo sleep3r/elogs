@@ -6,7 +6,7 @@ from typing import List, Optional
 from django.contrib.auth.models import User, Group, Permission
 from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule
 
-from e_logs.business_logic.dictionaries.models import Equipment
+from e_logs.business_logic.dictionaries.models import EquipmentDict
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.models import CustomUser
 from django.db import connection
@@ -207,17 +207,17 @@ class DatabaseFiller:
                                                     date=shift_date)
             elif journal.type == 'year':
                 for year in range(1970, timezone.now().year):
-                    YearGroup.objects.create(year=year, journal=journal)
+                    Year.objects.create(year_date=year, journal=journal)
 
             elif journal.type == 'month':
                 for year in range(1970, timezone.now().year):
                     for month in ['Январь', 'Февраль', 'Март', 'Апрель', 'Июнь', 'Июль', 'Август',
                                   'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']:
-                        MonthGroup.objects.create(year=year, month=month, journal=journal)
+                        Month.objects.create(year_date=year, month_date=month, journal=journal)
 
             elif journal.type == 'equipment':
                 for equipment in Equipment.objects.all():
-                    EquipmentGroup.objects.create(name=equipment.name, journal=journal)
+                    Equipment.objects.create(name=equipment.name, journal=journal)
 
 
     @staticmethod

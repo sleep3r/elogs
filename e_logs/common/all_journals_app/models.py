@@ -54,6 +54,11 @@ class Journal(models.Model):
     comments = GenericRelation('all_journals_app.Comment', related_query_name='journal',
                                related_name='journals')
 
+    @property
+    def group(self):
+        return ContentType.objects.get(model=self.type).model_class()
+
+
     class Meta:
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
@@ -211,17 +216,18 @@ class Shift(CellGroup):
         return shift
 
 
-class EquipmentGroup(CellGroup):
+class Equipment(CellGroup):
     name = models.CharField(max_length=1024, verbose_name='Название оборудования', default='')
 
 
-class YearGroup(CellGroup):
-    year = models.IntegerField(verbose_name='Год')
+class Year(CellGroup):
+    year_date = models.IntegerField(verbose_name='Год')
 
 
-class MonthGroup(CellGroup):
-    month = models.CharField(max_length=16, verbose_name='Месяц')
-    year = models.IntegerField(verbose_name='Год')
+class Month(CellGroup):
+    month_date = models.CharField(max_length=16, verbose_name='Месяц')
+    month_order = models.IntegerField(verbose_name='Номер месяца')
+    year_date = models.IntegerField(verbose_name='Год')
 
 
 class Cell(TimeStampedModel):

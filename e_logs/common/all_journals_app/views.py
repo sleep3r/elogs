@@ -5,32 +5,36 @@ import environ
 
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
+from django.utils import timezone
 from django.views import View
 
-from e_logs.common.all_journals_app.models import Shift, Journal, Plant, EquipmentGroup, YearGroup, MonthGroup
+from e_logs.common.all_journals_app.models import Shift, Journal, Plant, Equipment, Year, Month
 from e_logs.core.utils.webutils import logged, current_date
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
 
 
-def get_current_group(journal):
+def _get_current_group(journal):
     if journal.type == 'shift':
-        number_of_shifts = Shift.get_number_of_shifts(journal)
-        assert int(number_of_shifts) > 0, "<= 0 number of shifts"
-
-        shifts = Shift.objects.cache() \
-            .filter(journal=journal, date__lte=current_date()).order_by('-date', '-order')
+        shifts = Shift.objects.filter(journal=journal,
+                                      date__lte=current_date()).order_by('-date', 'order')
         for shift in shifts:
             if shift.is_active():
+                print(shift.id)
                 return shift
 
-        assert True, "No active shifts!"
     elif journal.type == 'year':
-        year = YearGroup.objects.filter(journal=journal).order_by('year').last()
+        year = Year.objects.filter(journal=journal).order_by('year_date').last()
         return year
 
+    elif journal.type == 'month':
+        month = Month.objects.filter(journal=journal, month_order=timezone.now().month,
+                                     year_date=timezone.now().year)
+        return month
 
+    else:
+        return Equipment.objects.filter(journal=journal).first()
 
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
@@ -72,8 +76,7 @@ class GetShifts(View):
         if journal.type == 'shift':
             shifts = Shift.objects.select_related('journal', 'journal__plant'). \
                 filter(date__range=[from_date, to_date + timedelta(days=1)],
-                       journal__name=journal_name,
-                       journal__plant__name=plant_name)
+                       journal=journal)
             shifts_dict = defaultdict(list)
 
             for shift in shifts:
@@ -104,8 +107,8 @@ class GetYears(View):
         journal = Journal.objects.get(plant=plant, name=journal_name)
 
         if journal.type == 'year':
-            years = YearGroup.objects.select_related('journal', 'journal__plant'). \
-                filter(journal__name=journal_name, journal__plant__name=plant_name)
+            years = Year.objects.select_related('journal', 'journal__plant'). \
+                filter(journal=journal)
             years_dict = defaultdict(list)
 
             for year in years:
@@ -135,8 +138,8 @@ class GetMonths(View):
         journal = Journal.objects.get(plant=plant, name=journal_name)
 
         if journal.type == 'month':
-            months = MonthGroup.objects.select_related('journal', 'journal__plant'). \
-                filter(journal__name=journal_name, journal__plant__name=plant_name)
+            months = Month.objects.select_related('journal', 'journal__plant'). \
+                filter(journal=journal)
             months_dict = defaultdict(list)
 
             for month in months:
@@ -167,9 +170,9 @@ class GetEquipment(View):
         plant = Plant.objects.get(name=plant_name)
         journal = Journal.objects.get(plant=plant, name=journal_name)
 
-        if journal.type == 'month':
-            equipment = EquipmentGroup.objects.select_related('journal', 'journal__plant'). \
-                filter(journal__name=journal_name, journal__plant__name=plant_name)
+        if journal.type == 'equipment':
+            equipment = Equipment.objects.select_related('journal', 'journal__plant'). \
+                filter(journal=journal)
             equipment_dict = defaultdict(list)
 
             for eq in equipment:

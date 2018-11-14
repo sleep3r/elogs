@@ -155,10 +155,10 @@ import { setTimeout } from 'timers';
             },
             updateShiftMode() {
                 if (((!this.timeLimits) && this.userHasPerm('edit')) || this.$store.getters['userState/isSuperuser']) {
-                    this.shiftMessage = 'Смена открыта для редактирования'
+                    this.shiftMessage = 'Журнал открыт для редактирования'
                 }
                 else if ((!this.userHasPerm('edit'))) {
-                    this.shiftMessage = 'Вы не можете редактировать эту смену'
+                    this.shiftMessage = 'Вы не можете редактировать данный журнал'
                     this.removePerm('edit')
                 }
                 else if (!this.shiftIsStarted) {

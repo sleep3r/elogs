@@ -2,7 +2,7 @@ from django.db import models
 
 
 
-class Concentrate(models.Model):
+class ConcentrateDict(models.Model):
     name = models.CharField(max_length=128)
 
     class Meta:
@@ -10,7 +10,7 @@ class Concentrate(models.Model):
         verbose_name_plural = 'Концентраты'
 
 
-class Equipment(models.Model):
+class EquipmentDict(models.Model):
     name = models.CharField(max_length=128)
 
     class Meta:
