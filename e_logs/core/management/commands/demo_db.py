@@ -62,6 +62,7 @@ class Command(BaseCommand):
             df.fill_employees()
             stdout_logger.info("Create BL...")
             df.bl_create()
+            df.fill_dicts()
             df.tasks_create()
 
             stdout_logger.info("Adding plants...")
