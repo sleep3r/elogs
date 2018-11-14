@@ -104,6 +104,11 @@
                                 $(this).height($(this).height())
                             })
                         }, 0)
+                        setTimeout(() => {
+                            $('.elog-journal-table .changing-header').each(function () {
+                                $(this).height($(this).height())
+                            })
+                        }, 0)
                     }
                 })
             }
