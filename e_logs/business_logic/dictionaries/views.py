@@ -1,12 +1,11 @@
 import json
 
-from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import URLResolver
 from django.urls.resolvers import RegexPattern
 from django.views import View
 
-from e_logs.business_logic.dictionaries.models import Concentrate, Equipment
+from e_logs.business_logic.dictionaries.models import ConcentrateDict, EquipmentDict
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import CustomUser
 from e_logs.core.views import LoginRequired
@@ -53,7 +52,7 @@ class ConcentratesAPI(View):
         name = request.GET.get('name', None)
         if name:
             return JsonResponse([concentrate.name for concentrate in
-                                 Concentrate.objects.filter(name__contains=name)],
+                                 ConcentrateDict.objects.filter(name__contains=name)],
                                     safe=False)
         else:
             return JsonResponse([], safe=False)
@@ -64,7 +63,7 @@ class EquipmentAPI(View):
         name = request.GET.get('name', None)
         if name:
             return JsonResponse([equipment.name for equipment in
-                                 Equipment.objects.filter(name__contains=name)],
+                                 EquipmentDict.objects.filter(name__contains=name)],
                                     safe=False)
         else:
             return JsonResponse([], safe=False)

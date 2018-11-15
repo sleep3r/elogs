@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "leaching_repair_equipment",
     "title": "Журнал ремонта",
-    "type": "shift",
+    "type": "equipment",
     "tables": [
         {
             "name": "repair",
