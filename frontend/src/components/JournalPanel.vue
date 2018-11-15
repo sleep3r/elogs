@@ -13,7 +13,7 @@
                     data-target="#FullCalendarModal"
                 >
             </div>
-            <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip">
+            <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip" title="Выберите год">
                 <input id="year_field"
                     type="text"
                     @mouseover="$event.target.value = ''"
@@ -22,13 +22,13 @@
                     :value="journalYear"
                     list="years_list"
                     class="date-selector__date"
-                    placeholder="Выберите год..."
+                    :placeholder="journalYear"
                 >
                 <datalist id="years_list">
                     <option v-for="event in events" :value = event.title></option>
                 </datalist>
             </div>
-            <div v-else-if="journalType === 'equipment'" class="date-selector" data-toggle="tooltip">
+            <div v-else-if="journalType === 'equipment'" class="date-selector" data-toggle="tooltip" title="Выберите оборудование">
                 <input id="equipment_field"
                     type="text"
                     @input="datalistClick('equipment_field', 'equipment_list')"
@@ -37,13 +37,13 @@
                     @mouseleave="$event.target.value = journalEquipment"
                     list="equipment_list"
                     class="date-selector__date"
-                    placeholder="Выберите оборудование..."
+                    :placeholder="journalEquipment"
                 >
                 <datalist id="equipment_list">
                     <option v-for="event in events" :value = event.title></option>
                 </datalist>
             </div>
-            <div v-else-if="journalType === 'month'" class="date-selector" data-toggle="tooltip">
+            <div v-else-if="journalType === 'month'" class="date-selector" data-toggle="tooltip" title="Выберите месяц">
                 <input id="month_field"
                     type="text"
                     @input="datalistClick('month_field', 'month_list')"
@@ -52,7 +52,7 @@
                     @mouseleave="$event.target.value = journalMonth + ' ' + journalYear"
                     list="month_list"
                     class="date-selector__date"
-                    placeholder="Выберите месяц..."
+                    :placeholder="journalMonth + ' ' + journalYear"
                 >
                 <datalist id="month_list">
                     <option v-for="event in events" :value = event.month>{{event.year}}</option>
