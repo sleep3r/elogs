@@ -1,7 +1,8 @@
 <template>
     <div class="journal__panel">
         <div class="shift-container">
-            <div class="date-selector" data-toggle="tooltip" title="Выберите дату и смену">
+
+            <div v-if="journalType === 'shift'" class="date-selector" data-toggle="tooltip" title="Выберите дату и смену">
                 <input id="shift_field"
                     type="text"
                     :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
@@ -12,6 +13,52 @@
                     data-target="#FullCalendarModal"
                 >
             </div>
+            <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip">
+                <input id="year_field"
+                    type="text"
+                    @mouseover="$event.target.value = ''"
+                    @mouseleave="$event.target.value = journalYear"
+                    @input="datalistClick('year_field', 'years_list')"
+                    :value="journalYear"
+                    list="years_list"
+                    class="date-selector__date"
+                    placeholder="Выберите год..."
+                >
+                <datalist id="years_list">
+                    <option v-for="event in events" :value = event.title></option>
+                </datalist>
+            </div>
+            <div v-else-if="journalType === 'equipment'" class="date-selector" data-toggle="tooltip">
+                <input id="equipment_field"
+                    type="text"
+                    @input="datalistClick('equipment_field', 'equipment_list')"
+                    :value="journalEquipment"
+                    @mouseover="$event.target.value = ''"
+                    @mouseleave="$event.target.value = journalEquipment"
+                    list="equipment_list"
+                    class="date-selector__date"
+                    placeholder="Выберите оборудование..."
+                >
+                <datalist id="equipment_list">
+                    <option v-for="event in events" :value = event.title></option>
+                </datalist>
+            </div>
+            <div v-else-if="journalType === 'month'" class="date-selector" data-toggle="tooltip">
+                <input id="month_field"
+                    type="text"
+                    @input="datalistClick('month_field', 'month_list')"
+                    :value="journalMonth + ' ' + journalYear"
+                    @mouseover="$event.target.value = ''"
+                    @mouseleave="$event.target.value = journalMonth + ' ' + journalYear"
+                    list="month_list"
+                    class="date-selector__date"
+                    placeholder="Выберите месяц..."
+                >
+                <datalist id="month_list">
+                    <option v-for="event in events" :value = event.month>{{event.year}}</option>
+                </datalist>
+            </div>
+
             <div class="panel-buttons">
                 <div class="mode-buttons">
                     <span v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
@@ -107,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="responsibles">
+        <div v-if="journalType === 'shift'" class="responsibles">
           Ответственные за смену:
           <label v-for="employee of responsibles">
             <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->
@@ -165,6 +212,18 @@
             },
             shiftOrder() {
                 return this.$store.getters['journalState/journalInfo'].order;
+            },
+            journalType() {
+                return this.$store.getters['journalState/journalInfo'].journal.type;
+            },
+            journalYear() {
+                return this.$store.getters['journalState/journalInfo'].year + '-й год';
+            },
+            journalMonth() {
+                return this.$store.getters['journalState/journalInfo'].month;
+            },
+            journalEquipment() {
+                return this.$store.getters['journalState/journalInfo'].equipment;
             },
         },
         methods: {
@@ -245,7 +304,7 @@
             },
             changeMode(mode) {
                 if (mode === 'edit') {
-                    if (!this.userIsResponsible) {
+                    if ((!this.userIsResponsible) && (this.journalType === 'shift'))  {
                         EventBus.$emit('open-alert', {
                             onOk: this.onAgreeResponsibleClick,
                             text: 'Вы будете назначены ответственным за этот журнал после начала его редактирования'
@@ -257,6 +316,26 @@
                 }
                 else {
                     this.$store.commit('journalState/SET_PAGE_MODE', mode);
+                }
+            },
+            datalistClick(id, list) {
+                let val = document.getElementById(id).value;
+                let opts = document.getElementById(list).childNodes;
+                let plantName = this.$route.params.plant;
+                let journalName = this.$route.params.journal;
+                for (let i = 0; i < opts.length; i++) {
+                  if (opts[i].value === val) {
+                      this.$store.dispatch('journalState/loadJournal', {
+                          'id': this.events[i].id,
+                          'plantName': plantName,
+                          'journalName': journalName
+                        })
+                            .then(() => {
+                                this.$router.push(this.events[i].url);
+
+                            });
+                    break;
+                  }
                 }
             },
             setListeners () {

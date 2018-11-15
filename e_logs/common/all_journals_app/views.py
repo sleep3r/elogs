@@ -104,7 +104,8 @@ class GetGroups(View):
     def get_years(self, user, journal):
         def year_event(year):
             return {
-                'title': '{} год'.format(year.year_date),
+                'id': year.id,
+                'title': '{}-й год'.format(year.year_date),
                 'url': '/{}/{}/{}/'.format(year.journal.plant.name, year.journal.name, year.id),
             }
 
@@ -112,7 +113,7 @@ class GetGroups(View):
 
         if journal.type == 'year':
             years = Year.objects.select_related('journal', 'journal__plant'). \
-                filter(journal=journal)
+                filter(journal=journal).order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -129,7 +130,9 @@ class GetGroups(View):
     def get_months(self, user, journal):
         def month_event(month):
             return {
-                'title': f'{month.month_date} {month.year_date} года',
+                'id':month.id,
+                'year': f'{month.year_date}-й год',
+                'month': f'{month.month_date}',
                 'url': '/{}/{}/{}/'.format(month.journal.plant.name, month.journal.name, month.id),
             }
 
@@ -137,7 +140,7 @@ class GetGroups(View):
 
         if journal.type == 'month':
             months = Month.objects.select_related('journal', 'journal__plant'). \
-                filter(journal=journal)
+                filter(journal=journal).order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:
@@ -154,6 +157,7 @@ class GetGroups(View):
     def get_equipment(self, user, journal):
         def equipment_event(equipment):
             return {
+                'id': equipment.id,
                 'title': f'{equipment.name}',
                 'url': '/{}/{}/{}/'.format(equipment.journal.plant.name,
                                            equipment.journal.name,
@@ -168,7 +172,7 @@ class GetGroups(View):
             equipment_dict = defaultdict(list)
 
             for eq in equipment:
-                equipment[str(eq.name)].append(eq)
+                equipment_dict[str(eq.name)].append(eq)
 
             for equipment in equipment_dict.values():
                 for eq in equipment:

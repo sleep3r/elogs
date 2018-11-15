@@ -63,6 +63,15 @@ class GroupAPI(LoginRequired, View):
                 "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
                 }
             )
+        elif qs.journal.type == 'year' or qs.journal.type == 'month':
+            res.update(
+               {"year":qs.year_date,
+                "month":qs.month_date if hasattr(qs, 'month_date') else None}
+            )
+        elif qs.journal.type == 'equipment':
+            res.update(
+               {"equipment":qs.name,}
+            )
 
         self.add_constraints(qs, res)
 

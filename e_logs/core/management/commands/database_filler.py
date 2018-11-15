@@ -206,11 +206,11 @@ class DatabaseFiller:
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
             elif journal.type == 'year':
-                for year in range(1970, current_date().year + 1):
+                for year in range(1999, current_date().year + 1):
                     Year.objects.get_or_create(year_date=year, journal=journal)
 
             elif journal.type == 'month':
-                for year in range(1970, current_date().year + 1):
+                for year in range(1999, current_date().year + 1):
                     for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                                  'Май','Июнь', 'Июль', 'Август',
                                                  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
