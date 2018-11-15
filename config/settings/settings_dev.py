@@ -48,10 +48,4 @@ CACHEOPS_ENABLED = True
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 
-if env('USE_DOCKER') == 'yes':
-    import socket
-
-    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS += [ip[:-1] + '1' for ip in ips]
-
 faulthandler.enable()

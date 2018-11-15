@@ -83,6 +83,7 @@ module.exports = {
                 links: [
 
                     {rel: "manifest", href: "/manifest.json"},
+                    {rel: "preload", href: "/api/messages"},
                 ],
                 lang: 'en-US',
                 bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>",

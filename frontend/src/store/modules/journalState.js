@@ -108,6 +108,11 @@ const journalState = {
                 return null
             }
         },
+        currentConstraintsModeId: state => {
+            if (state.loaded) {
+                return state.journalInfo.field_constraints_modes.current_mode || null
+            }
+        },
         fieldVerboseName: (state) => (tableName, fieldName) => {
             if (state.loaded) {
                 return fieldName;

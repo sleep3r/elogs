@@ -1,5 +1,5 @@
 <template>
-    <div v-if="mode!=='edit_constraints'" style="height: 100%;">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%;" :class="cssClass">
       <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
@@ -12,9 +12,9 @@
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
-            :value="value"
-            :type="type == 'number' ? '' : type"
-                :readonly="mode !== 'edit' || hasFormula"
+            :value="value | filterNumber(this)"
+            :type="type == 'number' ? 'custom_number' : type"
+            :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
             :style="[{ color: activeColor, fontWeight: fontWeight }]"
             @keypress="filterInput"
@@ -26,13 +26,19 @@
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
+            :list="type == 'datalist'  ? fieldName : ''"
+
         >
-        <div class="widthCell"></div>
+        <div class="widthCell">
+        </div>
         <template>
             <datalist>
                 <option v-for="person in personsList" :value="person" :key="person"></option>
             </datalist>
         </template>
+        <datalist :id="fieldName" v-if="options">
+            <option v-for="option in options" :value="option" :key="option">{{option}}</option>
+        </datalist>
         <i
             @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
@@ -84,13 +90,22 @@
     Vue.directive('close-popover', VTooltip.VClosePopover);
     Vue.component('v-popover', VTooltip.VPopover);
 
+    const KEY_MINUS = 45,
+          KEY_BACKSPACE = 8,
+          KEY_ARROW_LEFT = 37,
+          KEY_ARROW_RIGHT = 39,
+          KEY_DELETE = 46,
+          KEY_DASH = 189;
 
     export default {
         name: 'Cell',
         props: [
             'fieldName',
             'rowIndex',
-            'linked'
+            'linked',
+            'cssClass',
+            'options'
+
         ],
         data() {
             return {
@@ -126,6 +141,23 @@
                     }
                 }
             }
+        },
+        filters: {
+          filterNumber: function(value, context) {
+
+               if (context.type ==='number'
+                   && value
+                   && value.length > 0) {
+                       if (value[0] === '-') {
+                           let resultValue = '-' + ('' + value).replace(/\-/g, '');
+                           return resultValue;
+                       }
+
+                   return  ('' + value).replace(/\-/g,'');
+               }
+
+              return value;
+          }
         },
         computed: {
             getBody () {
@@ -170,7 +202,8 @@
             value: {
                 cache: false,
                 get: function () {
-                    return this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)['value'];
+                    var cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
+                    return typeof cell == "undefined" ? '' : cell['value']
                 },
                 set: function (val) {
                     // console.log('set')
@@ -190,7 +223,7 @@
             },
             fieldConstraints: function() {
                 if (this.mode == "edit_constraints") {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     // return constraints for particular constraints mode
                     return this.$store.getters['journalState/fieldConstraints'](this.tableName, this.fieldName, currentMode)
                 }
@@ -204,13 +237,13 @@
                     return this.fieldConstraints['min_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
                         constraintType: 'min_normal',
                         constraintValue: val,
-                        mode: this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                        mode: this.$store.getters['journalState/currentConstraintsModeId']
                     })
                     var payload = {
                         fields: [{
@@ -234,7 +267,7 @@
                     return this.fieldConstraints['max_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/journalInfo'].field_constraints_modes.current_mode
+                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
@@ -484,13 +517,21 @@
                 if (this.type === 'number') {
                     let keycode = e.which
                     // if non number character was pressed
-                    if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
-                        || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        if (keycode !== 47) {
-                            this.tooltipContent = 'Введите число'
-                            this.showTooltip = true;
-                            event.preventDefault();
-                        }
+                    if (!(
+                        e.shiftKey == false
+                        && ((this.value == '')
+                            || keycode == KEY_BACKSPACE
+                            || keycode == KEY_ARROW_LEFT
+                            || keycode == KEY_ARROW_RIGHT
+                            || keycode == KEY_MINUS
+                            || keycode == KEY_DELETE
+                            || (keycode >= 48 && keycode <= 57)))
+                        ) {
+                            if (keycode !== 47) {
+                                this.tooltipContent = 'Введите число'
+                                this.showTooltip = true;
+                                event.preventDefault();
+                            }
                     }
                     else {
                         this.showTooltip = false;
@@ -607,6 +648,13 @@
 </script>
 
 <style lang="scss">
+    .on-year {
+        display: inline-block;
+        input {
+            width: 60px;
+        }
+    }
+
     .tooltip {
         display: block !important;
         z-index: 10000;

@@ -72,12 +72,12 @@
                                 <span class="caption">Добавить журнал</span>
                             </a>
                         </li>
-                        <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
+                        <!-- <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
                             <a href="" @click.prevent="onOpenConstructor">
                                 <i class="fas fa-atom"></i>
                                 <span class="caption">Открыть конструктор</span>
                             </a>
-                        </li>
+                        </li> -->
                         <!-- <li class="user-menu__item" v-if="$store.getters['userState/hasPerm']('validate_cells') || $store.getters['userState/isSuperuser']">
                             <a href="" @click.prevent="onModesClick">
                                 <i class="fas fa-sliders-h"></i>
@@ -88,6 +88,18 @@
                             <a href="javascript:;" data-toggle="modal" data-target="#SchemeModal" @click="hideUserMenu">
                                 <i class="fa fa-book"></i>
                                 <span class="caption">Схема цехов </span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item" v-if="!$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
+                            <a href="javascript:;" data-toggle="modal" data-target="#NoBossInstruction" @click="hideUserMenu">
+                                <i class="fa fa-book"></i>
+                                <span class="caption">Инструкция </span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item" v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
+                            <a href="javascript:;" data-toggle="modal" data-target="#BossInstruction" @click="hideUserMenu">
+                                <i class="fa fa-book"></i>
+                                <span class="caption">Инструкция для руководства </span>
                             </a>
                         </li>
                         <li class="user-menu__item">
