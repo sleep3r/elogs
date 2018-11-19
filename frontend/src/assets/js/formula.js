@@ -39,11 +39,7 @@ export function getValue(params) {
         const field = params[3] ? params[3] : this.field;
         const index = this.isTableIndexed ? 0 : params[4] ? params[4]: this.index;
         
-        try {
-            shift_delta = -Number(shift_delta);
-        } catch (e) {
-            console.log(e);
-        }
+        shift_delta = -Number(shift_delta);
         console.log(params)
         console.log(journal, table, field, index, shift_delta)
         var shifts = store.getters['journalState/events']
@@ -69,7 +65,6 @@ export function getValue(params) {
             var shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
             res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
             let json = JSON.parse(res.getBody());
-            // console.log(json)
             if (json.value == null) {
                 result = undefined;
             } else if (isNumeric(json.value)) {

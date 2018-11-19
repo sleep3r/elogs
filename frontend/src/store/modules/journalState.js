@@ -578,32 +578,6 @@ const journalState = {
         SOCKET_RECONNECT_ERROR(state) {
             state.socket.reconnectError = true;
         },
-        INIT_FORMULA_PARSERS(state) {
-            try {
-                console.log(state)
-                let journal = state.journalInfo.journal
-                console.log(journal)
-                for (var table_name in journal.tables) {
-                    console.log(table_name)
-                    let table = journal.tables[table_name]
-                    for (var field_name in table.fields) {
-                        console.log(field_name)
-                        let field = table.fields[field_name]
-                        let formulaParser = new FormulaParser()
-                        console.log(formulaParser)
-                        Vue.set(field, "formulaParser", formulaParser.setFunction("FUNC", getValue.bind({
-                            journal: state.journalInfo.journal.name,
-                            table: table_name,
-                            field: field_name,
-                        })))
-                        
-                    }
-                }
-            }
-            catch(err) {
-                console.log("Сука блядm пидорс", err)
-            }
-        },
     },
     actions: {
         sendJournalData: function ({ commit, state, getters }, payload) {
@@ -645,7 +619,6 @@ const journalState = {
                 .then(response => {
                     commit('UPDATE_JOURNAL_INFO', getters.isSynchronized ? response.data : JSON.parse(localStorage.getItem('vuex')).journalState.journalInfo);
                     commit('SET_LOADED', true);
-                    // commit('INIT_FORMULA_PARSERS');
                     return response.data.id
                 })
                 .catch((err) => {
