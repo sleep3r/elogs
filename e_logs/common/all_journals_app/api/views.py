@@ -32,7 +32,6 @@ class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
         group, id = self.get_current_group(request, kwargs)
-        print(id)
         qs = group.objects.select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables','journal__tables__fields',
                 Prefetch('group_cells', queryset=Cell.objects.select_related(

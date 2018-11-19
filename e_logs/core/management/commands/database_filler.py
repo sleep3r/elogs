@@ -495,7 +495,7 @@ class DatabaseFiller:
 
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
@@ -518,7 +518,7 @@ class DatabaseFiller:
             field.save()
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
