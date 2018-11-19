@@ -6,4 +6,4 @@ class CommonAllJournalsAppConfig(AppConfig):
     verbose_name = 'Все журналы'
 
     def ready(self):
-        pass
+        import e_logs.common.all_journals_app.signals
