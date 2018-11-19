@@ -267,7 +267,7 @@
                     return this.fieldConstraints['max_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
+                    let currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
@@ -275,7 +275,7 @@
                         constraintValue: val,
                         mode: currentMode
                     })
-                    var payload = {
+                    let payload = {
                         fields: [{
                             name: this.fieldName,
                             table_name: this.tableName,
@@ -307,7 +307,6 @@
             showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
-
 
                 // kostyl'
                 if (this.mode === 'validate') {
@@ -345,15 +344,13 @@
 
                     if (e.clientX + popUpWidth >= appWidth) {
                         x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                    }
-                    else {
+                    } else {
                         x = e.clientX  - e.offsetX
                     }
 
                     if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
                         y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                    }
-                    else {
+                    } else {
                         y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
                     }
 
