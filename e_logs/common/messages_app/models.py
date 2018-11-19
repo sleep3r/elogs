@@ -17,7 +17,7 @@ class Message(StrAsDictMixin, models.Model):
     created = models.DateTimeField(default=timezone.now, blank=True)
 
     cell = models.ForeignKey('all_journals_app.Cell', on_delete=models.CASCADE, null=True)
-    type = models.CharField(max_length=1024, verbose_name='Тип сообщения',
+    type = models.CharField(max_length=32, verbose_name='Тип сообщения',
                             default='', choices=(('critical_value', 'Критическое значение'),
                                                  ('comment', 'Замечание'),
                                                  ('set_mode', "Режим"),

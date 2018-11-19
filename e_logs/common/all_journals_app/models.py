@@ -286,8 +286,13 @@ class Cell(TimeStampedModel):
 
 class Comment(models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
-    employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
+    employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(default=timezone.now)
+    type = models.CharField(max_length=32,
+                            verbose_name='Тип комментария',
+                            default='user_comment',
+                            choices=(('user_comment',   'Комментарий пользователя'),
+                                     ('system_comment', 'Комментарий системы')))
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True,
                                      related_name='comments',related_query_name='comment')
