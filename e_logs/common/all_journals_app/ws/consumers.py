@@ -110,12 +110,12 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def cell_versioning(self, cell, value, employee, created):
         if created:
             await self.add_comment_query(cell=cell,
-                                         text=f'Пользователь {employee.name} впервые ввёл значение: {value}',
+                                         text=f'{employee.name} впервые ввёл значение: {value}',
                                          type='system_comment')
 
         else:
             await self.add_comment_query(cell=cell,
-                                         text=f'Пользователь {employee.name} изменил значение на: {value}',
+                                         text=f'{employee.name} изменил значение на: {value}',
                                          type='system_comment')
 
     @database_sync_to_async
