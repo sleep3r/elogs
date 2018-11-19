@@ -24,14 +24,13 @@ pyOpenSSL = "*"
 service-identity = "*"
 django-environ = "*"
 django-service-objects = "*"
-celery = "*"
 django-celery-beat = "*"
 redis = "*"
 argon2-cffi = "*"
 rcssmin = "*"
 python-slugify = "*"
 django-compressor = "*"
-Twisted = { extras = [ "tls", "http2",] }
+Twisted = {extras = [ "tls", "http2",]}
 django-celery-results = "*"
 json-tricks = "*"
 plotly = "*"
@@ -41,7 +40,7 @@ dj-database-url = "*"
 djangorestframework-rapidjson = "*"
 python-rapidjson = "*"
 rapidjson = "*"
-whitenoise = { extras = [ "brotli",] }
+whitenoise = {extras = [ "brotli",]}
 django-cors-headers = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
@@ -49,9 +48,10 @@ pywebpush = "*"
 sentry-sdk = "*"
 django-debug-toolbar = "*"
 django-proxy = "*"
-"6210100" = {file = "https://github.com/darklow/django-suit/tarball/v2"}
+6210100 = {file = "https://github.com/darklow/django-suit/tarball/v2"}
 python-telegram-bot = "*"
 pysocks = "*"
+celery = {file = "https://github.com/celery/celery/tarball/master"}
 
 [dev-packages]
 icecream = "*"
