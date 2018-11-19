@@ -407,8 +407,7 @@ class SettingAPI(View):
 
         employee = request.user.employee
         setting_data = json.loads(request.body)
-        Setting.set_value(name=setting_data["name"], value=setting_data["value"],
-                          employee=employee, )
+        Setting.set_value(name=setting_data["name"], value=setting_data["value"], employee=employee)
         return JsonResponse({"status": 1})
 
 

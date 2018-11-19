@@ -24,7 +24,7 @@ def _get_current_group(journal):
                 return shift
 
     elif journal.type == 'year':
-        year = Year.objects.filter(journal=journal).order_by('year_date').last()
+        year = Year.objects.get(journal=journal, year_date=current_date().year)
         return year
 
     elif journal.type == 'month':
@@ -110,7 +110,7 @@ class GetGroups(View):
         result = []
 
         if journal.type == 'year':
-            years = Year.objects.filter(journal=journal).order_by('-year_date')
+            years = Year.objects.filter(journal=journal, year_date__lte=current_date().year).order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -136,7 +136,7 @@ class GetGroups(View):
         result = []
 
         if journal.type == 'month':
-            months = Month.objects.filter(journal=journal).order_by('-year_date')
+            months = Month.objects.filter(journal=journal, year_date__lte=current_date().year).order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:
