@@ -442,10 +442,11 @@
                         console.log(err)
                     })
             },
-            send() {
+            send(final=false) {
                 // console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
+                    'final':final,
                     'cells': [{
                         'cell_location': {
                             'group_id': this.$store.getters['journalState/journalInfo'].id,
@@ -511,7 +512,7 @@
                     });
                 }
                 // setTimeout(this._updateCells(), 0)
-                this.send()
+                this.send(true)
             },
             filterInput(e) {
                 if (this.type === 'number') {

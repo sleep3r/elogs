@@ -9,9 +9,9 @@ from django.core.management import call_command
 from django.utils import timezone
 
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.models import Shift, Cell, Journal
+from e_logs.common.all_journals_app.models import Shift, Cell, Journal, Year, Month
 from e_logs.common.messages_app.models import Message
-from e_logs.core.utils.webutils import get_or_none, current_date
+from e_logs.core.utils.webutils import get_or_none, current_date, date_range
 
 if os.environ.get('DOCKER') == 'yes':
     app = Celery('tasks', broker="redis://redis:6379")
@@ -20,19 +20,23 @@ else:
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-app.conf.update(
-    task_serializer='json',
-    accept_content=['json'],  # Ignore other content
-    result_serializer='json',
-    timezone='Europe/Moscow',
-)
+if os.environ.get('DOCKER') == 'yes':
+    app.conf.update(
+        task_serializer='json',
+        accept_content=['json'],
+        result_serializer='json',
+        timezone='Asia/Almaty',
+    )
+else:
+    app.conf.update(
+        task_serializer='json',
+        accept_content=['json'],
+        result_serializer='json',
+        timezone='Europe/Moscow',
+    )
 
 @app.task
 def create_shifts():
-    def date_range(start_date, end_date):
-        for n in range(int((end_date - start_date).days)):
-            yield start_date + timedelta(n)
-
     now_date = current_date()
     for journal in Journal.objects.all():
         if journal.type == 'shift':
@@ -40,6 +44,22 @@ def create_shifts():
             for shift_date in date_range(now_date, now_date + timedelta(days=3)):
                 for shift_order in range(1, number_of_shifts + 1):
                     Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
+
+@app.task
+def create_moths_and_years():
+    for journal in Journal.objects.all():
+        if journal.type == 'year':
+            for year in range(2017, current_date().year + 2):
+                Year.objects.get_or_create(year_date=year, journal=journal)
+
+        elif journal.type == 'month':
+            for year in range(2017, current_date().year + 2):
+                for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
+                                             'Май', 'Июнь', 'Июль', 'Август',
+                                             'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
+                    Month.objects.get_or_create(year_date=year, month_date=month,
+                                                month_order=ind,
+                                                journal=journal)
 
 @app.task
 def check_blank_shifts():

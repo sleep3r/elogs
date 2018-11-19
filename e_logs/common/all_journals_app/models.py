@@ -265,11 +265,11 @@ class Cell(TimeStampedModel):
 
     @staticmethod
     def get_or_create_cell(group_id: int, table_name: str, field_name: str, index: int) -> "Cell":
-        group = CellGroup.objects.cache().get(id=group_id)
-        field = Field.objects.cache().get_or_create(
-            table=Table.objects.get(name=table_name, journal=group.journal), name=field_name)[0]
+        group = CellGroup.objects.get(id=group_id)
+        field = Field.objects.get_or_create(table=Table.objects.get(name=table_name, journal=group.journal),
+                                            name=field_name)[0]
 
-        return Cell.objects.cache().get_or_create(group=group, field=field, index=index)[0]
+        return Cell.objects.get_or_create(group=group, field=field, index=index)
 
     class Meta:
         unique_together = ['field', 'index', 'group']
@@ -286,8 +286,13 @@ class Cell(TimeStampedModel):
 
 class Comment(models.Model):
     text = models.CharField(max_length=2048, verbose_name='Текст комментария', default='')
-    employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE)
+    employee = models.ForeignKey('login_app.Employee', on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(default=timezone.now)
+    type = models.CharField(max_length=32,
+                            verbose_name='Тип комментария',
+                            default='user_comment',
+                            choices=(('user_comment',   'Комментарий пользователя'),
+                                     ('system_comment', 'Комментарий системы')))
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True,
                                      related_name='comments',related_query_name='comment')

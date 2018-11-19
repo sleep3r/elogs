@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2a0a1fa0ff5870bb3aa5a50e1c2855382de406d0e0c466e80216c4ae23eb2a94"
+            "sha256": "d6bd077e8fb88b92f9676878a330311f4614e288b725eb8bf5ac9de98bc029ea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -177,7 +177,6 @@
                 "sha256:77dab4677e24dc654d42dfbdfed65fa760455b6bb563a0877ecc35f4cfcfc678",
                 "sha256:ad7a7411772b80a4d6c64f2f7f723200e39fb66cf614a7fdfab76d345acc7b13"
             ],
-            "index": "pypi",
             "version": "==4.2.1"
         },
         "certifi": {
@@ -532,14 +531,6 @@
                 "sha256:67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8"
             ],
             "version": "==0.17.1"
-        },
-        "graphviz": {
-            "hashes": [
-                "sha256:0e1744a45b0d707bc44f99c7b8e5f25dc22cf96b6aaf2432ac308ed9822a9cb6",
-                "sha256:d311be4fddfe832a56986ac5e1d6e8715d7fcb0208560da79d1bb0f72abef41f"
-            ],
-            "index": "pypi",
-            "version": "==0.10.1"
         },
         "gunicorn": {
             "hashes": [
@@ -1085,10 +1076,10 @@
         },
         "unidecode": {
             "hashes": [
-                "sha256:72f49d3729f3d8f5799f710b97c1451c5163102e76d64d20e170aedbbd923582",
-                "sha256:8c33dd588e0c9bc22a76eaa0c715a5434851f726131bd44a6c26471746efabf5"
+                "sha256:092cdf7ad9d1052c50313426a625b717dab52f7ac58f859e09ea020953b1ad8f",
+                "sha256:8b85354be8fd0c0e10adbf0675f6dc2310e56fda43fa8fe049123b6c475e52fb"
             ],
-            "version": "==1.0.22"
+            "version": "==1.0.23"
         },
         "uritemplate": {
             "hashes": [
@@ -1500,6 +1491,13 @@
                 "sha256:dbae1046def0efb574852fab9e90209b23f556367b5a320c0bcb871c77c3e8cc"
             ],
             "version": "==2.2.0"
+        },
+        "pygraphviz": {
+            "hashes": [
+                "sha256:50a829a305dc5a0fd1f9590748b19fece756093b581ac91e00c2c27c651d319d"
+            ],
+            "index": "pypi",
+            "version": "==1.5"
         },
         "pylint": {
             "hashes": [
