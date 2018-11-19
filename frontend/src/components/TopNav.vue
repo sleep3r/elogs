@@ -90,6 +90,18 @@
                                 <span class="caption">Схема цехов </span>
                             </a>
                         </li>
+                        <li class="user-menu__item" v-if="!$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
+                            <a href="javascript:;" data-toggle="modal" data-target="#NoBossInstruction" @click="hideUserMenu">
+                                <i class="fa fa-book"></i>
+                                <span class="caption">Инструкция </span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item" v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
+                            <a href="javascript:;" data-toggle="modal" data-target="#BossInstruction" @click="hideUserMenu">
+                                <i class="fa fa-book"></i>
+                                <span class="caption">Инструкция для руководства </span>
+                            </a>
+                        </li>
                         <li class="user-menu__item">
                             <a href="" @click.prevent="onPrint">
                                 <i class="fas fa-print"></i>

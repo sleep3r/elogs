@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "furnace_repair",
     "title": "Журнал по ремонту",
-    "type": "shift",
+    "type": "equipment",
     "tables": [
         {
             "name": "repair",

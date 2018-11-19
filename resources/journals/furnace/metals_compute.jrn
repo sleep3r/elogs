@@ -2,7 +2,7 @@
     "version": "0.1",
     "name": "metals_compute",
     "title": "Рассчёт металлов",
-    "type": "shift",
+    "type": "month",
     "tables": [
         {
             "name": "avg_month",

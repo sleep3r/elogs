@@ -6,6 +6,7 @@ from typing import List, Optional
 from django.contrib.auth.models import User, Group, Permission
 from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule
 
+from e_logs.business_logic.dictionaries.models import EquipmentDict
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.models import CustomUser
 from django.db import connection
@@ -190,7 +191,7 @@ class DatabaseFiller:
                 return user
 
     @staticmethod
-    def create_shifts():
+    def create_groups():
 
         def date_range(start_date, end_date):
             for n in range(int((end_date - start_date).days)):
@@ -204,6 +205,23 @@ class DatabaseFiller:
                     for shift_order in range(1, number_of_shifts + 1):
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
+            elif journal.type == 'year':
+                for year in range(1999, current_date().year + 1):
+                    Year.objects.get_or_create(year_date=year, journal=journal)
+
+            elif journal.type == 'month':
+                for year in range(1999, current_date().year + 1):
+                    for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
+                                                 'Май','Июнь', 'Июль', 'Август',
+                                                 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
+                        Month.objects.get_or_create(year_date=year, month_date=month,
+                                                    month_order=ind,
+                                                    journal=journal)
+
+            elif journal.type == 'equipment':
+                for equipment in EquipmentDict.objects.all():
+                    Equipment.objects.get_or_create(name=equipment.name, journal=journal)
+
 
     @staticmethod
     def fill_journals():
@@ -304,6 +322,23 @@ class DatabaseFiller:
 
         Setting.objects.create(name='allowed_positions',
                                value=Setting._dumps({"boss":2, "laborant":2}))
+
+    @staticmethod
+    def fill_dicts():
+        equipment = [
+            'Агитатор «Манн» №1',
+            'Агитатор «Манн» №2',
+            'Агитатор «Манн» №3',
+            'Сгуститель №1',
+            'Сгуститель №2',
+            'Сгуститель №3',
+            'Питатель ленточный В – 500 мм',
+            'Элеватор ЦГ-400 №1',
+            'Элеватор ЦГ-400 №2',
+            'Транспортер ленточный В – 650 мм',
+        ]
+        for eq in equipment:
+            EquipmentDict.objects.create(name=eq)
 
     @staticmethod
     def tasks_create():

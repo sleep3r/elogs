@@ -8,6 +8,8 @@
         </footer>
         <message-modal></message-modal>
         <scheme-modal></scheme-modal>
+        <boss-instruction></boss-instruction>
+        <no-boss-instruction></no-boss-instruction>
         <add-mode-modal></add-mode-modal>
         <alert-modal></alert-modal>
         <graph-modal></graph-modal>
@@ -30,6 +32,8 @@
 <script>
     import MessageModal from './MessageModal.vue';
     import SchemeModal from './SchemeModal.vue';
+    import BossInstruction from './BossInstruction.vue';
+    import NoBossInstruction from './NoBossInstrucion.vue';
     import AddModeModal from './AddModeModal.vue';
     import AlertModal from './AlertModal.vue';
     import GraphModal from './GraphModal.vue';
@@ -44,6 +48,8 @@
         components: {
             'message-modal': MessageModal,
             'schemeModal': SchemeModal,
+            'bossInstruction': BossInstruction,
+            'noBossInstruction': NoBossInstruction,
             'add-mode-modal': AddModeModal,
             'alert-modal': AlertModal,
             'graph-modal': GraphModal,

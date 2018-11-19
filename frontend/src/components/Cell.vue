@@ -12,8 +12,8 @@
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
-            :value="value"
-            :type="type == 'number' ? '' : type"
+            :value="value | filterNumber(this)"
+            :type="type == 'number' ? 'custom_number' : type"
             :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
             :style="[{ color: activeColor, fontWeight: fontWeight }]"
@@ -26,7 +26,7 @@
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
-            :list="fieldName"
+            :list="type == 'datalist'  ? fieldName : ''"
 
         >
         <div class="widthCell">
@@ -90,6 +90,12 @@
     Vue.directive('close-popover', VTooltip.VClosePopover);
     Vue.component('v-popover', VTooltip.VPopover);
 
+    const KEY_MINUS = 45,
+          KEY_BACKSPACE = 8,
+          KEY_ARROW_LEFT = 37,
+          KEY_ARROW_RIGHT = 39,
+          KEY_DELETE = 46,
+          KEY_DASH = 189;
 
     export default {
         name: 'Cell',
@@ -135,6 +141,23 @@
                     }
                 }
             }
+        },
+        filters: {
+          filterNumber: function(value, context) {
+
+               if (context.type ==='number'
+                   && value
+                   && value.length > 0) {
+                       if (value[0] === '-') {
+                           let resultValue = '-' + ('' + value).replace(/\-/g, '');
+                           return resultValue;
+                       }
+
+                   return  ('' + value).replace(/\-/g,'');
+               }
+
+              return value;
+          }
         },
         computed: {
             getBody () {
@@ -494,13 +517,21 @@
                 if (this.type === 'number') {
                     let keycode = e.which
                     // if non number character was pressed
-                    if (!(e.shiftKey == false && ((keycode == 45 && this.value == '') || keycode == 46
-                        || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                        if (keycode !== 47) {
-                            this.tooltipContent = 'Введите число'
-                            this.showTooltip = true;
-                            event.preventDefault();
-                        }
+                    if (!(
+                        e.shiftKey == false
+                        && ((this.value == '')
+                            || keycode == KEY_BACKSPACE
+                            || keycode == KEY_ARROW_LEFT
+                            || keycode == KEY_ARROW_RIGHT
+                            || keycode == KEY_MINUS
+                            || keycode == KEY_DELETE
+                            || (keycode >= 48 && keycode <= 57)))
+                        ) {
+                            if (keycode !== 47) {
+                                this.tooltipContent = 'Введите число'
+                                this.showTooltip = true;
+                                event.preventDefault();
+                            }
                     }
                     else {
                         this.showTooltip = false;

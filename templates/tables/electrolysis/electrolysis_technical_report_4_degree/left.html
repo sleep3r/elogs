@@ -7,42 +7,45 @@
             <th rowspan="2"> Принятые меры</th>
         </tr>
         <tr v-if="shiftOrder === 1">
-            <th 
-                class="th-number"
-                v-for="(hour, index) in ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00']"
-            >{{hour}}</th>
+            <th class="th-number">8:00</th>
+            <th class="th-number">9:00</th>
+            <th class="th-number">10:00</th>
+            <th class="th-number">11:00</th>
+            <th class="th-number">12:00</th>
+            <th class="th-number">13:00</th>
+            <th class="th-number">14:00</th>
+            <th class="th-number">15:00</th>
+            <th class="th-number">16:00</th>
+            <th class="th-number">17:00</th>
+            <th class="th-number">18:00</th>
+            <th class="th-number">19:00</th>
         </tr>
         <tr v-if="shiftOrder === 2">
-            <th 
-                class="th-number"
-                v-for="(hour, index) in ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']"
-            >{{hour}}</th>
+            <th class="th-number">20:00</th>
+            <th class="th-number">21:00</th>
+            <th class="th-number">22:00</th>
+            <th class="th-number">23:00</th>
+            <th class="th-number">00:00</th>
+            <th class="th-number">01:00</th>
+            <th class="th-number">02:00</th>
+            <th class="th-number">03:00</th>
+            <th class="th-number">04:00</th>
+            <th class="th-number">05:00</th>
+            <th class="th-number">06:00</th>
+            <th class="th-number">07:00</th>
+        </tr>
     </thead>
     <tbody>
     <tr>
         <th> Zn в отр., <i>г/л</i> </th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'zn' + hour" :row-index="index"></cell>
-        </td>
-        <td>
-            <cell field-name="znmismatches" row-index="0"></cell>
-        </td>
-        <td>
-            <cell field-name="znmeasures" row-index="0"></cell>
-        </td>
+        <td v-for="hourNumber of 12"><cell field-name="zn" :row-index="hourNumber"></cell></td>
+        <td><cell field-name="znmismatches" row-index="0"></cell></td>
+        <td><cell field-name="znmeasures" row-index="0"></cell></td>
     </tr>
     <tr>
         <th> Смеси, <i>г/л</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'zn_mix' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="zn_mix" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="zn_mixmismatches" row-index="0"></cell>
@@ -53,12 +56,8 @@
     </tr>
     <tr>
         <th> H₂SO₄ отр., <i>г/л</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'h2so4' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="h2so4" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2so4mismatches" row-index="0">
@@ -71,12 +70,8 @@
     </tr>
     <tr>
         <th> Удельный вес хол-го раствора, <i>г/см³</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'solute1' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="solute1" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="solute1mismatches" row-index="0">
@@ -89,12 +84,8 @@
     </tr>
     <tr>
         <th> Удельный вес отр-го раствора, <i>г/см³</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'solute2' + hour" :row-index="index">
+        <td v-for="hourNumber of 12">
+            <cell field-name="solute2" :row-index="hourNumber">
             </cell>
         </td>
         <td>
@@ -108,12 +99,8 @@
     </tr>
     <tr>
         <th> Температура смеси, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'mixture_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="mixture_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="mixture_tempmismatches" row-index="0">
@@ -125,12 +112,8 @@
     </tr>
     <tr>
         <th> Температура в ваннах, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'bath_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="bath_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="bath_tempmismatches" row-index="0">
@@ -142,12 +125,8 @@
     </tr>
     <tr>
         <th> Температура H₂O, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'h2o_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="h2o_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2o_tempmismatches" row-index="0"></cell>
@@ -160,12 +139,8 @@
 
     <tr>
         <th> Давление H₂O, <i>Па</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'h2o_pressure' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="h2o_pressure" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="h2o_pressuremismatches" row-index="0">
@@ -178,12 +153,8 @@
     </tr>
     <tr>
         <th> Давление пара, <i>Па</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'gas_pressure' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="gas_pressure" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="gas_pressuremismatches" row-index="0"></cell>
@@ -195,12 +166,8 @@
     </tr>
     <tr>
         <th> Сточные воды, <i>Рh</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'wastewater' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="wastewater" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="wastewatermismatches" row-index="0">
@@ -213,12 +180,8 @@
     </tr>
     <tr>
         <th> Температура точки 5 ВИУ, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'point5_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="point5_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point5_tempmismatches" row-index="0">
@@ -231,12 +194,8 @@
     </tr>
     <tr>
         <th> Температура точки 6 ВИУ, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'point6_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="point6_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point6_tempmismatches" row-index="0">
@@ -249,12 +208,8 @@
     </tr>
     <tr>
         <th> Температура точки 7 ВИУ, <i>ᵒC</i></th>
-        <td v-for="(hour, index) in shiftOrder === 1 ? 
-            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] 
-            : shiftOrder === 2 ? 
-            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] 
-            : ['', '', '', '', '', '', '', '', '', '', '', '']">
-            <cell :field-name="'point7_temp' + hour" :row-index="index"></cell>
+        <td v-for="hourNumber of 12">
+            <cell field-name="point7_temp" :row-index="hourNumber"></cell>
         </td>
         <td>
             <cell field-name="point7_tempmismatches" row-index="0">

@@ -24,73 +24,7 @@
                     "type": null
                 },
                 {
-                    "name": "zn20:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn21:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn22:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn23:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn00:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn01:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn02:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn03:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn04:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn05:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn06:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn07:00",
+                    "name": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -106,73 +40,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "zn_mixh2so420:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so421:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so422:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so423:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so400:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so401:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so402:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so403:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so404:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so405:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so406:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "zn_mixh2so407:00",
+                    "name": "zn_mixh2so4",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -188,73 +56,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "solute120:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute121:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute122:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute123:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute100:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute101:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute102:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute103:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute104:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute105:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute106:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/л"
-                },
-                {
-                    "name": "solute107:00",
+                    "name": "solute1",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -270,73 +72,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "solute220:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute221:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute222:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute223:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute200:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute201:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute202:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute203:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute204:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute205:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute206:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "solute207:00",
+                    "name": "solute2",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
@@ -352,73 +88,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "mixture_temp20:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp21:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp22:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp23:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp00:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp01:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp02:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp03:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp04:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp05:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp06:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "г/см³"
-                },
-                {
-                    "name": "mixture_temp07:00",
+                    "name": "mixture_temp",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
@@ -434,73 +104,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "bath_temp20:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp21:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp22:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp23:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp00:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp01:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp02:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp03:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp04:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp05:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp06:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "bath_temp07:00",
+                    "name": "bath_temp",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -516,73 +120,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "temp120:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp121:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp122:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp123:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp100:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp101:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp102:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp103:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp104:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp105:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp106:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp107:00",
+                    "name": "temp1",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -598,73 +136,7 @@
                     "type": "text"
                 },
                 {
-                    "name": "temp220:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp221:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp222:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp223:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp200:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp201:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp202:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp203:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp204:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp205:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp206:00",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temp207:00",
+                    "name": "temp2",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
@@ -680,7 +152,7 @@
                     "type": "text"
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\"> Параметры</th>\n            <th colspan=\"12\" class=\"th-common\"> Время замеров</th>\n            <th rowspan=\"2\"> Несоотвествия</th>\n            <th rowspan=\"2\"> Принятые меры</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 1\">\n            <th \n                class=\"th-number\"\n                v-for=\"(hour, index) in ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00']\"\n            >{{hour}}</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 2\">\n            <th \n                class=\"th-number\"\n                v-for=\"(hour, index) in ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00']\"\n            >{{hour}}</th>\n    </thead>\n    <tbody>\n    <tr>\n        <th> Zn в отр. <i class=\"units\">г/л</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'zn' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zninconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Смеси <i class=\"units\">г/л</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'zn_mixh2so4' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixh2so4inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixh2so4measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> H₂SO₄ отр. <i class=\"units\">г/л</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'solute1' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес хол-го раствора <i class=\"units\">г/см³</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'solute2' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес отр-го раствора <i class=\"units\">г/см³</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'mixture_temp' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mixture_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mixture_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура смеси <i class=\"units\">ᵒC</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'bath_temp' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура в ваннах <i class=\"units\">ᵒC</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'temp1' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура 1 <i class=\"units\">ᵒC</i></th>\n        <td v-for=\"(hour, index) in shiftOrder === 1 ? \n            ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'] \n            : shiftOrder === 2 ? \n            ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'] \n            : ['', '', '', '', '', '', '', '', '', '', '', '']\">\n            <cell :field-name=\"'temp2' + hour\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp2inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp2measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\"> Параметры</th>\n            <th colspan=\"12\" class=\"th-common\"> Время замеров</th>\n            <th rowspan=\"2\"> Несоотвествия</th>\n            <th rowspan=\"2\"> Принятые меры</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 1\">\n            <th class=\"th-number\">8:00</th>\n            <th class=\"th-number\">9:00</th>\n            <th class=\"th-number\">10:00</th>\n            <th class=\"th-number\">11:00</th>\n            <th class=\"th-number\">12:00</th>\n            <th class=\"th-number\">13:00</th>\n            <th class=\"th-number\">14:00</th>\n            <th class=\"th-number\">15:00</th>\n            <th class=\"th-number\">16:00</th>\n            <th class=\"th-number\">17:00</th>\n            <th class=\"th-number\">18:00</th>\n            <th class=\"th-number\">19:00</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 2\">\n            <th class=\"th-number\">20:00</th>\n            <th class=\"th-number\">21:00</th>\n            <th class=\"th-number\">22:00</th>\n            <th class=\"th-number\">23:00</th>\n            <th class=\"th-number\">00:00</th>\n            <th class=\"th-number\">01:00</th>\n            <th class=\"th-number\">02:00</th>\n            <th class=\"th-number\">03:00</th>\n            <th class=\"th-number\">04:00</th>\n            <th class=\"th-number\">05:00</th>\n            <th class=\"th-number\">06:00</th>\n            <th class=\"th-number\">07:00</th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th> Zn в отр., г/л</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"zn\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zninconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Смеси, г/л</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"zn_mixh2so4\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixh2so4inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixh2so4measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> H₂SO₄ отр., г/л</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"solute1\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес хол-го раствора, г/см³</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"solute2\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес отр-го раствора, г/см³</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"mixture_temp\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mixture_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mixture_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура смеси, ᵒC</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"bath_temp\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура в ваннах, ᵒC</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"temp1\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура 1, ᵒC</th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"temp2\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp2inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp2measures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
         },
         {
             "name": "right",

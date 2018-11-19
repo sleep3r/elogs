@@ -142,6 +142,25 @@ h2.table-title {
         }
     }
     
+    th.changing-header  {
+        padding: 0;
+
+        input {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #9FBF47 0%, transparent 10px, transparent 100%);
+            background-color: #666666 !important;
+            color: #fff;
+            font-weight: normal !important;
+        }
+    }
+
+    th.text-center {
+        input {
+            text-align: center;
+        }
+    }
+
     .th-number {
         text-align: right !important;
     }
