@@ -23,7 +23,7 @@ from e_logs.common.all_journals_app.views import _get_current_group
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-from e_logs.core.utils.webutils import current_date, date_range
+from e_logs.core.utils.webutils import current_date, date_range, user_to_response
 from e_logs.core.views import LoginRequired
 from e_logs.core.management.commands.compress_journals import compress_journal
 
@@ -218,19 +218,20 @@ class GroupAPI(LoginRequired, View):
         for cell in cells:
             if cell.table == table and cell.field == field:
                 if cell.responsible:
-                    responsible = {str(cell.responsible.user): cell.responsible.name}
+                    responsible = user_to_response(cell.responsible)
                 else:
                     responsible = {}
-                res[cell.index] = {"id": cell.id,
+                res[cell.index] = {
+                                   "id": cell.id,
                                    "value": cell.value,
                                    "responsible": responsible,
                                    "created": cell.created,
                                    "comments": [{
                                        'text': comment.text,
-                                       'user': {str(comment.employee.user): str(comment.employee)},
+                                       'user': user_to_response(comment.employee),
+                                       'type': comment.type,
                                        'created': comment.created.isoformat()}
-                                       for comment in cell.comments.all()
-                                   ]
+                                       for comment in cell.comments.all()]
                                    }
 
         return res

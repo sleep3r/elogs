@@ -21,7 +21,6 @@ def _get_current_group(journal):
                                       date__lte=current_date()).order_by('-date', 'order')
         for shift in shifts:
             if shift.is_active():
-                print(shift.id)
                 return shift
 
     elif journal.type == 'year':
@@ -85,8 +84,7 @@ class GetGroups(View):
         to_date = current_date()
 
         if journal.type == 'shift':
-            shifts = Shift.objects.select_related('journal', 'journal__plant'). \
-                filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal)
+            shifts = Shift.objects.filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal)
             shifts_dict = defaultdict(list)
 
             for shift in shifts:
@@ -112,8 +110,7 @@ class GetGroups(View):
         result = []
 
         if journal.type == 'year':
-            years = Year.objects.select_related('journal', 'journal__plant'). \
-                filter(journal=journal).order_by('-year_date')
+            years = Year.objects.filter(journal=journal).order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -139,8 +136,7 @@ class GetGroups(View):
         result = []
 
         if journal.type == 'month':
-            months = Month.objects.select_related('journal', 'journal__plant'). \
-                filter(journal=journal).order_by('-year_date')
+            months = Month.objects.filter(journal=journal).order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:
@@ -167,8 +163,7 @@ class GetGroups(View):
         result = []
 
         if journal.type == 'equipment':
-            equipment = Equipment.objects.select_related('journal', 'journal__plant'). \
-                filter(journal=journal)
+            equipment = Equipment.objects.filter(journal=journal)
             equipment_dict = defaultdict(list)
 
             for eq in equipment:
