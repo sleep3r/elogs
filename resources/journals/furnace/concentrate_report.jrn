@@ -197,55 +197,55 @@
                 },
                 {
                     "name": "containers_reciept_total",
-                    "formula": "FUNC('concentrate_report','small', 'containers_reciept1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'containers_reciept2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('containers_reciept1') + FUNC('containers_reciept2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num_total",
-                    "formula": "FUNC('concentrate_report','small', 'shipped_empty_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'shipped_empty_num2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('shipped_empty_num1') + FUNC('shipped_empty_num2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num_total",
-                    "formula": "FUNC('concentrate_report','small', 'poured_containers_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'poured_containers_num2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('poured_containers_num1') + FUNC('poured_containers_num2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers1_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_empty_containers11', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers12', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_empty_containers11') + FUNC('residue_empty_containers12')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers2_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_empty_containers21', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers22', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_empty_containers21') + FUNC('residue_empty_containers22')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_defective_containers1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_defective_containers2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_defective_containers1') + FUNC('residue_defective_containers2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_braces1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_braces2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_braces1') + FUNC('residue_braces2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_beds1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_beds2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_beds1') + FUNC('residue_beds2')",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_stops_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_stops1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_stops2', 0, CURRENT_SHIFT)",
+                    "formula": "FUNC('residue_stops1') + FUNC('residue_stops2')",
                     "type": "number",
                     "units": "шт"
                 }
