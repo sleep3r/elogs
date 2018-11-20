@@ -24,6 +24,7 @@ services:
     depends_on:
      - redis
      - db
+    restart: on-failure
   celery:
    build: .
    command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
@@ -32,9 +33,14 @@ services:
    depends_on:
     - db
     - redis
+    - web
+   restart: on-failure
   celery-beat:
    build: .
-   command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info
+   command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info --scheduler=django_celery_beat.schedulers:DatabaseScheduler
    depends_on:
     - db
     - redis
+    - web
+   restart: on-failure
+
