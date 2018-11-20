@@ -10,6 +10,7 @@ from django.views import View
 
 from e_logs.common.all_journals_app.models import Shift, Journal, Plant, Equipment, Year, Month
 from e_logs.core.utils.webutils import logged, current_date
+from e_logs.core.views import LoginRequired
 
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env("config/settings/.env")
@@ -51,7 +52,7 @@ def get_table_template(request, plant_name, journal_name, table_name):
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
 
-class GetGroups(View):
+class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):
         user = request.user
         plant = Plant.objects.get(name=plant_name)
