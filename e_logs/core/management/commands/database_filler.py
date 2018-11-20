@@ -6,6 +6,7 @@ from typing import List, Optional
 from django.contrib.auth.models import User, Group, Permission
 from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule
 
+from e_logs.business_logic.dictionaries.models import EquipmentDict
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.models import CustomUser
 from django.db import connection
@@ -190,7 +191,7 @@ class DatabaseFiller:
                 return user
 
     @staticmethod
-    def create_shifts():
+    def create_groups():
 
         def date_range(start_date, end_date):
             for n in range(int((end_date - start_date).days)):
@@ -204,6 +205,23 @@ class DatabaseFiller:
                     for shift_order in range(1, number_of_shifts + 1):
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
+            elif journal.type == 'year':
+                for year in range(1999, current_date().year + 2):
+                    Year.objects.get_or_create(year_date=year, journal=journal)
+
+            elif journal.type == 'month':
+                for year in range(1999, current_date().year + 2):
+                    for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
+                                                 'Май','Июнь', 'Июль', 'Август',
+                                                 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
+                        Month.objects.get_or_create(year_date=year, month_date=month,
+                                                    month_order=ind,
+                                                    journal=journal)
+
+            elif journal.type == 'equipment':
+                for equipment in EquipmentDict.objects.all():
+                    Equipment.objects.get_or_create(name=equipment.name, journal=journal)
+
 
     @staticmethod
     def fill_journals():
@@ -306,6 +324,23 @@ class DatabaseFiller:
                                value=Setting._dumps({"boss":2, "laborant":2}))
 
     @staticmethod
+    def fill_dicts():
+        equipment = [
+            'Агитатор «Манн» №1',
+            'Агитатор «Манн» №2',
+            'Агитатор «Манн» №3',
+            'Сгуститель №1',
+            'Сгуститель №2',
+            'Сгуститель №3',
+            'Питатель ленточный В – 500 мм',
+            'Элеватор ЦГ-400 №1',
+            'Элеватор ЦГ-400 №2',
+            'Транспортер ленточный В – 650 мм',
+        ]
+        for eq in equipment:
+            EquipmentDict.objects.create(name=eq)
+
+    @staticmethod
     def tasks_create():
         per_day_schedule, _ = IntervalSchedule.objects.get_or_create(
             every = 1,
@@ -319,6 +354,13 @@ class DatabaseFiller:
             minute = '59',
             hour = '1,7,13,15,19,23',
         )
+        every_year_schedule, _= CrontabSchedule.objects.get_or_create(
+            minute='0',
+            hour='0',
+            day_of_week='*',
+            day_of_month='1',
+            month_of_year='*',
+         )
 
         PeriodicTask.objects.create(
             interval = per_day_schedule,
@@ -334,6 +376,11 @@ class DatabaseFiller:
             crontab=shift_end_schedule,
             name='Check blank shifts',
             task='e_logs.common.all_journals_app.tasks.check_blank_shift',
+        )
+        PeriodicTask.objects.create(
+            crontab=every_year_schedule,
+            name='Create month and year groups',
+            task='e_logs.common.all_journals_app.tasks.create_moths_and_years',
         )
 
     @staticmethod
@@ -460,7 +507,7 @@ class DatabaseFiller:
 
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
@@ -483,7 +530,7 @@ class DatabaseFiller:
             field.save()
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()

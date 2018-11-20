@@ -19,11 +19,11 @@ from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Plant, Journal, Table, Field, Shift, Cell, Comment
 from e_logs.common.all_journals_app.models import CellGroup
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
-from e_logs.common.all_journals_app.views import get_current_shift
+from e_logs.common.all_journals_app.views import _get_current_group
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-from e_logs.core.utils.webutils import current_date, date_range
+from e_logs.core.utils.webutils import current_date, date_range, user_to_response
 from e_logs.core.views import LoginRequired
 from e_logs.core.management.commands.compress_journals import compress_journal
 
@@ -31,43 +31,46 @@ from e_logs.core.management.commands.compress_journals import compress_journal
 class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
-        if not kwargs.get('id', None):
-            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
-            current_shift = get_current_shift(Journal.objects.get(name=journal_name))
-            if current_shift:
-                id = current_shift.id
-            else:
-                id = Shift.objects.latest('date').id
-        else:
-            id = kwargs['id']
-        qs = Shift.objects \
-            .select_related('journal', 'journal__plant') \
-            .prefetch_related('journal__tables',
-                              'journal__tables__fields',
-                              Prefetch('group_cells',
-                                       queryset=Cell.objects.select_related('field',
-                                                                            'field__table',
-                                                                            'responsible__user',
-                                                                            'responsible').
-                                       filter(group_id=id).prefetch_related(
-                                           Prefetch('comments', queryset=Comment.objects.all().
-                                                    select_related('employee__user',
-                                                                   'employee'))))).get(id=id)
-
+        group, id = self.get_current_group(request, kwargs)
+        qs = group.objects.select_related('journal', 'journal__plant') \
+            .prefetch_related('journal__tables','journal__tables__fields',
+                Prefetch('group_cells', queryset=Cell.objects.select_related(
+                                                    'field',
+                                                    'field__table',
+                                                    'responsible__user',
+                                                    'responsible').
+        filter(group_id=id).prefetch_related(
+            Prefetch('comments', queryset=Comment.objects.all().select_related('employee__user',
+                                                                               'employee'))))).\
+        get(id=id)
 
         plant = qs.journal.plant
         res = {
             "id": qs.id,
             "plant": {"name": plant.name},
-            "order": qs.order,
-            "date": qs.date.isoformat(),
-            'start_time': qs.start_time.isoformat(),
-            "closed": qs.closed,
             "mode": get_page_mode(user=user, plant=plant),
             "field_constraints_modes": self.constraint_modes_serializer(qs),
-            "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
-            "permissions": self.get_permissions(request, qs),
-            "journal": self.journal_serializer(qs)}
+            "journal": self.journal_serializer(qs),
+            "permissions": self.get_permissions(request, qs)}
+
+        if qs.journal.type == 'shift':
+            res.update(
+               {"order": qs.order,
+                "date": qs.date.isoformat(),
+                'start_time': qs.start_time.isoformat(),
+                "closed": qs.closed,
+                "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
+                }
+            )
+        elif qs.journal.type == 'year' or qs.journal.type == 'month':
+            res.update(
+               {"year":qs.year_date,
+                "month":qs.month_date if hasattr(qs, 'month_date') else None}
+            )
+        elif qs.journal.type == 'equipment':
+            res.update(
+               {"equipment":qs.name,}
+            )
 
         self.add_constraints(qs, res)
 
@@ -101,8 +104,18 @@ class GroupAPI(LoginRequired, View):
                         }
                     }
 
+    def get_current_group(self, request, kwargs):
+        if not kwargs.get('id', None):
+            journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
+            current_group = _get_current_group(Journal.objects.get(name=journal_name))
+            id = current_group.id
+        else:
+            id = kwargs['id']
+        group = CellGroup.objects.get(id=id).journal.group
 
-    def get_permissions(self, request, shift):
+        return group, id
+
+    def get_permissions(self, request, group):
         def get_time(shift):
             if request.user.has_perm(EDIT_CELLS):
                 assignment_time = shift.end_time - timedelta(
@@ -127,29 +140,38 @@ class GroupAPI(LoginRequired, View):
         if user.is_superuser:
             PERMISSIONS = ["edit", "validate"]
 
-        elif user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                user.has_perm(VALIDATE_CELLS):
-            PERMISSIONS.append("validate")
-            if user.has_perm(EDIT_CELLS):
-                PERMISSIONS.append("edit")
+        if group.journal.type == 'shift':
+            shift = group
 
-        else:
-            if shift.closed:
-                limited_emp_id_list = Setting.of(shift)["limited_access_employee_id_list"]
-                if limited_emp_id_list and user.id in limited_emp_id_list:
-                    PERMISSIONS = ["edit"]
-
-            elif services.CheckRole.execute({"employee": user.employee, "page": shift}) and \
-                    services.CheckTime.execute({"employee": user.employee, "page": shift}):
-
-                if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                        user.has_perm(EDIT_CELLS):
+            if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
+                    user.has_perm(VALIDATE_CELLS):
+                PERMISSIONS.append("validate")
+                if user.has_perm(EDIT_CELLS):
                     PERMISSIONS.append("edit")
 
-        res = {
-            "permissions": PERMISSIONS,
-            "time": get_time(shift),
-        }
+            else:
+                if shift.closed:
+                    limited_emp_id_list = Setting.of(shift)["limited_access_employee_id_list"]
+                    if limited_emp_id_list and user.id in limited_emp_id_list:
+                        PERMISSIONS = ["edit"]
+
+                elif services.CheckRole.execute({"employee": user.employee, "page": shift}) and \
+                        services.CheckTime.execute({"employee": user.employee, "page": shift}):
+
+                    if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
+                            user.has_perm(EDIT_CELLS):
+                        PERMISSIONS.append("edit")
+
+            res = {
+                "permissions": PERMISSIONS,
+                "time": get_time(shift),
+            }
+        else:
+            res = {
+                "permissions": ["edit"] if user.has_perm(
+                                        PLANT_PERM.format(plant=group.journal.plant.name)) else [],
+                "time": None,
+            }
 
         return res
 
@@ -195,19 +217,20 @@ class GroupAPI(LoginRequired, View):
         for cell in cells:
             if cell.table == table and cell.field == field:
                 if cell.responsible:
-                    responsible = {str(cell.responsible.user): cell.responsible.name}
+                    responsible = user_to_response(cell.responsible)
                 else:
                     responsible = {}
-                res[cell.index] = {"id": cell.id,
+                res[cell.index] = {
+                                   "id": cell.id,
                                    "value": cell.value,
                                    "responsible": responsible,
                                    "created": cell.created,
                                    "comments": [{
                                        'text': comment.text,
-                                       'user': {str(comment.employee.user): str(comment.employee)},
+                                       'user': user_to_response(comment.employee),
+                                       'type': comment.type,
                                        'created': comment.created.isoformat()}
-                                       for comment in cell.comments.all()
-                                   ]
+                                       for comment in cell.comments.all()]
                                    }
 
         return res
@@ -384,8 +407,7 @@ class SettingAPI(View):
 
         employee = request.user.employee
         setting_data = json.loads(request.body)
-        Setting.set_value(name=setting_data["name"], value=setting_data["value"],
-                          employee=employee, )
+        Setting.set_value(name=setting_data["name"], value=setting_data["value"], employee=employee)
         return JsonResponse({"status": 1})
 
 

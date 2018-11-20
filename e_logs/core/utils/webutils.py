@@ -233,6 +233,8 @@ def get_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     except model.DoesNotExist:
         return None
 
+def user_to_response(employee):
+    return {str(employee.user): str(employee)} if employee else {"E-LOGS":"E-LOGS"}
 
 def model_to_representation(model: Model):
     def is_printable(field):
