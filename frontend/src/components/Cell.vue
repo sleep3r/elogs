@@ -432,7 +432,7 @@
                 }
             },
             getPersons(name, plantName) {
-                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
+                return ajax.get(window.HOSTNAME + `/api/bl/dicts/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
                 })  .then((response) => {
                         // console.log(response);
