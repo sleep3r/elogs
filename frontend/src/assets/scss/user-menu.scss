@@ -25,143 +25,146 @@
     margin-right: 10px;
 }
 
-.user-name, .user-notify {
-    position: relative;
-    cursor: pointer;
-}
-
-.user-notify .notify-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #d41919;
-    min-width: 18px;
-    font-size: 14px;
-    height: auto;
-    padding: 2px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    &:before {
-        content: "";
-        display: block;
-        padding-top: 100%;
+.header__user {
+    .user-name, .user-notify {
+        position: relative;
+        cursor: pointer;
     }
 }
 
-.user-menu-wrapper, .notify-menu-wrapper {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 1001;
-    height: 100vh;
-    visibility: hidden;
-}
+    .user-notify .notify-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #d41919;
+        min-width: 18px;
+        font-size: 14px;
+        height: auto;
+        padding: 2px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
 
-.user-menu, .notify-menu {
-    top: 50px;
-    right: 0;
-    width: 274px;
-    visibility: collapse;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: -2px 2px 20px -4px #676767bf;
-    margin: 0;
-    padding: 0;
-    z-index: 1002;
-    opacity: 0;
-    transition: 0.2s;
-
-    .menu {
-        margin: 0;
-
-        .user-menu__item {
+        &:before {
+            content: "";
             display: block;
-            position: relative;
-            line-height: 20px;
-            padding: 0;
-            border-bottom: 1px solid $color-border;
-            color: $color-menu-text;
-            background-color: #fff;
-    
-            &:last-child {
-                border-bottom: none;
-            }
-
-            .caption {
-                margin-left: 10px;
-            }
-    
-            a {
-                display: inline-block;
-                width: 100%;
-                padding: 10px;
-            }
-        }
-    
-        .user-menu__item:hover {
-            background-color: #F5F5F5;
+            padding-top: 100%;
         }
     }
-}
 
-
-
-// .user-menu::after, .notify-menu::after {
-//     content: " ";
-//     position: absolute;
-//     width: 0;
-//     height: 0;
-//     border-left: 8px solid #0000;
-//     border-right: 8px solid #0000;
-//     border-bottom: 10px solid #fff;
-//     right: 30%;
-//     bottom: 100%;
-// }
-
-.notify-menu::after {
-    right: 76%;
-}
-
-.user-messages-badge, .default-page-badge {
-    cursor: pointer;
-}
-
-.default-page-badge:active {
-    text-shadow: 1px 1px 2px black;
-    transition: 0.2s;
-}
-
-.is-home {
-    color: #70f56a;
-}
-
-.notify-menu {
-    .msg-container {
-        max-height: 400px;
-        overflow-y: scroll;
-    }
-
-    .no-msg-container {
+    .user-menu-wrapper, .notify-menu-wrapper {
+        position: absolute;
         width: 100%;
-        height: 100%;
-        padding: 10px;
-        text-align: center;
-        color: #6d6d6d;
+        left: 0;
+        top: 0;
+        z-index: 1001;
+        height: 100vh;
+        visibility: hidden;
     }
-}
 
-.message {
-    position: relative;
-    padding: 10px;
+    .user-menu, .notify-menu {
+        top: 50px;
+        right: 0;
+        width: 274px;
+        visibility: collapse;
+        position: absolute;
+        background-color: #fff;
+        box-shadow: -2px 2px 20px -4px #676767bf;
+        margin: 0;
+        padding: 0;
+        z-index: 1002;
+        opacity: 0;
+        transition: 0.2s;
 
-    .message__title .sendee { color: #008BB9; margin-right: 20px;}
-    .message__author-name { color: #a5a5a5; font-size: 12px;}
-    .message__text { margin: 0; }
-    .message__text.critical_value { color: #ff9966; }
-    .message__created { color: #707070; font-size: 12px; }
-}
+        .menu {
+            margin: 0;
+
+            .user-menu__item {
+                display: block;
+                position: relative;
+                line-height: 20px;
+                padding: 0;
+                border-bottom: 1px solid $color-border;
+                color: $color-menu-text;
+                background-color: #fff;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .caption {
+                    margin-left: 10px;
+                }
+
+                a {
+                    display: inline-block;
+                    width: 100%;
+                    padding: 10px;
+                }
+            }
+
+            .user-menu__item:hover {
+                background-color: #F5F5F5;
+            }
+        }
+    }
+
+
+
+    // .user-menu::after, .notify-menu::after {
+    //     content: " ";
+    //     position: absolute;
+    //     width: 0;
+    //     height: 0;
+    //     border-left: 8px solid #0000;
+    //     border-right: 8px solid #0000;
+    //     border-bottom: 10px solid #fff;
+    //     right: 30%;
+    //     bottom: 100%;
+    // }
+
+    .notify-menu::after {
+        right: 76%;
+    }
+
+    .user-messages-badge, .default-page-badge {
+        cursor: pointer;
+    }
+
+    .default-page-badge:active {
+        text-shadow: 1px 1px 2px black;
+        transition: 0.2s;
+    }
+
+    .is-home {
+        color: #70f56a;
+    }
+
+    .notify-menu {
+        .msg-container {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+
+        .no-msg-container {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            text-align: center;
+            color: #6d6d6d;
+        }
+    }
+
+    .message {
+        position: relative;
+        padding: 10px;
+
+        .message__title .sendee { color: #008BB9; margin-right: 20px;}
+        .message__author-name { color: #a5a5a5; font-size: 12px;}
+        .message__text { margin: 0; }
+        .message__text.critical_value { color: #ff9966; }
+        .message__created { color: #707070; font-size: 12px; }
+    }
+
