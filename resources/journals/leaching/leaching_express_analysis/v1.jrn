@@ -1,0 +1,1847 @@
+{
+    "version": "0.1",
+    "name": "leaching_express_analysis",
+    "title": "Журнал экспресс анализа",
+    "type": "shift",
+    "tables": [
+        {
+            "name": "vsns",
+            "title": "BCHC",
+            "fields": [
+                {
+                    "name": "time",
+                    "formula": "",
+                    "type": "time"
+                },
+                {
+                    "name": "vsns_cobalt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_solid_after",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "vsns_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "vsns_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_As",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vsns_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "vsns_density",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "larox_Co",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "larox_Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "larox_Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "larox_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "larox_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "liq_Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "liq_Co",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "liq_Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "liq_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "liq_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "liq_current_out",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "liq_density",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "mng_norm",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mng_fact",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mng_discrepancy",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "master",
+                    "formula": "",
+                    "type": "text"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"3\">Время</th>\n            <th colspan=\"10\" class=\"th-common\">BCHC</th>\n            <th colspan=\"5\" class=\"th-common\">Ларокс</th>\n            <th colspan=\"7\" class=\"th-common\">Очищенный раствор</th>\n            <th colspan=\"6\" class=\"th-common\">Упр. Несоответствия продукции</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв. после<br>1ст<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH (ВСНС)</th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">As<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв.<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">Уд.<br>вес<i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Выход потоку<i class=\"units\">%</i></th>\n            <th class=\"th-number\"><span>Уд.<br> вес</span><i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Норма<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Факт<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Несоотв.<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Корр.</th>\n            <th>Мастер</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_cobalt\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid_after\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_As\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_current_out\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_norm\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_fact\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_discrepancy\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_correction\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"master\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "thickeners",
+            "title": "Сгустители",
+            "fields": [
+                {
+                    "name": "time",
+                    "formula": "",
+                    "type": "time"
+                },
+                {
+                    "name": "vs10_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "vs10_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs10_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs10_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "ns10_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "ns10_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "vs11_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "vs11_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs11_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs11_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "ns11_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "ns11_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "vs12_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "vs12_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs12_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "vs12_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "ns12_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "ns12_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"4\">Время</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 10</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 11</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 12</th>\n        </tr>\n        <tr>\n            <th colspan=\"4\" class=\"th-common\">ВС 10сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 11сг.</th>\n            <th colspan=\"4\" class=\"th-common\">ВС 12сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 10сг.</th>\n            <th colspan=\"4\" class=\"th-common\">ВС 11сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 12сг.</th>\n        </tr>\n        <tr>\n          <template v-for=\"(value, index) in 3\">\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Fe<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Ж:Т</th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Ж:Т</th>\n          </template>\n        </tr>\n    </thead>\n    <tbody>\n            <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n                <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns10_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns10_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns11_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns11_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns12_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns12_liquid_solid\" :row-index=\"index\"></cell></td>\n            </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "zinc_pulp",
+            "title": "Цинковая пульпа",
+            "fields": [
+                {
+                    "name": "zn_pulp_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "zn_pulp_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "zn_pulp_temperature",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "cu_pulp_liquid_solid",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "cu_pulp_before",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "cu_pulp_after",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "cu_pulp_tv",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "iron_solution_h2so4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_tv",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_specific_weight",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_As",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "iron_solution_Cl",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "concentrate_Shlippe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "active_PAV",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м/час"
+                },
+                {
+                    "name": "high_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"3\" class=\"th-common\">Цинковая (Zn) пульпа</th>\n            <th colspan=\"4\" class=\"th-common\">Медная пульпа</th>\n            <th colspan=\"8\" class=\"th-common\">Железистый раствор <i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Концентрат Sb в р-ре соли Шлиппе <i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">Активн.<br>ПАВ <i class=\"units\">метр/час</i></th>\n            <th class=\"th-number\">Высоко Fe р-р</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">Ж:Т</th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">t°</th>\n            <th class=\"th-number\">Ж:Т</th>\n            <th class=\"th-number\">До<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">После<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">ТВ<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">H<sub>2</sub>SO<sub>4</sub><i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">ТВ<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">уд.вес<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">As<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cl<i class=\"units\">мг/л</i></th>\n            <td><cell field-name=\"concentrate_Shlippe\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"active_PAV\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"high_Fe\" row-index=\"0\"></cell></td>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"zn_pulp_liquid_solid\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"zn_pulp_pH\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"zn_pulp_temperature\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"cu_pulp_liquid_solid\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"cu_pulp_before\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"cu_pulp_after\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"cu_pulp_tv\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_h2so4\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_tv\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_Sb\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cu\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_Fe\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_specific_weight\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_As\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cl\" row-index=\"0\"></cell></td>\n            <th colspan=\"2\">Анализы оборот. сгуст.</th>\n            <td rowspan=\"3\"><cell field-name=\"high_Fe\" :row-index=\"1\"></cell></td>\n        </tr>\n        <tr>\n            <td><cell field-name=\"zn_pulp_liquid_solid\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"zn_pulp_pH\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"zn_pulp_temperature\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"cu_pulp_liquid_solid\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"cu_pulp_before\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"cu_pulp_after\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"cu_pulp_tv\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_h2so4\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_tv\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_Sb\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cu\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_Fe\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_specific_weight\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_As\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cl\" :row-index=\"1\"></cell></td>\n            <td rowspan=\"2\" colspan=\"2\"><cell field-name=\"thickener_assays\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <td><cell field-name=\"zn_pulp_liquid_solid\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"zn_pulp_pH\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"zn_pulp_temperature\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"cu_pulp_liquid_solid\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"cu_pulp_before\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"cu_pulp_after\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"cu_pulp_tv\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_h2so4\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_tv\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_Sb\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cu\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_Fe\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_specific_weight\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_As\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"iron_solution_Cl\" :row-index=\"2\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+        },
+        {
+            "name": "appt_hydrometal",
+            "title": "Аппаратчик - гидрометаллург",
+            "fields": [
+                {
+                    "name": "mann1_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "mann1_acid",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "mann1_Fe2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mann1_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mann4_pH",
+                    "formula": "",
+                    "type": "number",
+                    "units": "pH"
+                },
+                {
+                    "name": "mann4_Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mann4_Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mann4_Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "mann4_ots",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder6",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "sit_cinder_avg",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "fe_avg",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мм"
+                },
+                {
+                    "name": "fe_shave",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"4\" class=\"th-common\">1 Манн</th>\n        <th colspan=\"5\" class=\"th-common\">4 Манн</th>\n    </tr>\n    <tr>\n        <th class=\"th-number\">pH</th>\n        <th class=\"th-number\">Кислотность<i class=\"units\">г/л</i></th>\n        <th class=\"th-number\">Fe двухвал.<i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Fe Общее<i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">pH</th>\n        <th class=\"th-number\">Медь<i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Сурьма<i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Отстои</th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"mann1_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann1_acid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann1_Fe2\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann1_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann4_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann4_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann4_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann4_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mann4_ots\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n    <tbody>\n</table>\n\n<table class=\"table table-bordered elog-journal-table\">\n    <tbody>\n    <tr>\n        <th colspan=\"1\">Ситовой огарка<i class=\"units\">мм</i></th>\n        <td><cell field-name=\"sit_cinder1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sit_cinder2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sit_cinder3\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sit_cinder4\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sit_cinder5\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sit_cinder6\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th colspan=\"1\">Ситовой средн.<i class=\"units\">мм</i></th>\n        <td colspan=\"6\"><cell field-name=\"sit_cinder_avg\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th colspan=\"1\">Общее Fe среднее <i class=\"units\">мм</i></th>\n        <td colspan=\"6\"><cell field-name=\"fe_avg\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th colspan=\"1\">Fe стружка Fe <i class=\"units\">мг/л</i></th>\n        <td colspan=\"6\"><cell field-name=\"fe_shave\" row-index=\"0\"></cell></td>\n    </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "agitators",
+            "title": "Агитаторы очистки",
+            "fields": [
+                {
+                    "name": "a1314_Cd_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_before1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cd_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_before2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cd_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_before3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cd_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_after1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cd_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_after2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cd_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Cu_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a1314_Co_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_pH_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a15_Cu_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_pH_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a17_Cu_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_H2SO4_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "a19_Cu_after3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "journal_comment",
+                    "formula": "",
+                    "type": "text"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"10\" class=\"th-common\">Агитаторы очистки<i class=\"units\">мг/л</i></th>\n            <th colspan=\"3\" class=\"th-common\">Готовый раствор<i class=\"units\">мг/л</i></th>\n        </tr>\n        <tr>\n            <th>13,<br/>14</th>\n            <th class=\"th-number\">Cd</th>\n            <th class=\"th-number\">Cu</th>\n            <th class=\"th-number\">Co</th>\n            <th>15</th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cu</th>\n            <th>17</th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cu</th>\n            <th class=\"th-number\">19</th>\n            <th class=\"th-number\">H<sub>2</sub>SO<sub>4</sub></th>\n            <th class=\"th-number\">Cu</th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th rowspan=\"3\" class=\"th-mul-row\">До</th>\n        <td>\n            <cell field-name=\"a1314_Cd_before1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_before1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_before1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">До</th>\n        <td>\n            <cell field-name=\"a15_pH_before1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_before1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">До</th>\n        <td>\n            <cell field-name=\"a17_pH_before1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_before1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">До</th>\n        <td>\n            <cell field-name=\"a19_H2SO4_before1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a19_Cu_before1\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <td>\n            <cell field-name=\"a1314_Cd_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_pH_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_pH_before2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_before2\" row-index=\"0\"></cell>\n        </td>\n\n        <td>\n            <cell field-name=\"a19_H2SO4_before2\" row-index=\"0\"></cell>\n        </td>\n        <td class=\"addleftborder\">\n            <cell field-name=\"a19_Cu_before2\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <td>\n            <cell field-name=\"a1314_Cd_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_pH_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_pH_before3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_before3\" row-index=\"0\"></cell>\n        </td>\n\n        <td>\n            <cell field-name=\"a19_H2SO4_before3\" row-index=\"0\"></cell>\n        </td>\n        <td class=\"addleftborder\">\n            <cell field-name=\"a19_Cu_before3\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th rowspan=\"3\" class=\"th-mul-row\">После</th>\n        <td>\n            <cell field-name=\"a1314_Cd_after1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_after1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_after1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">После</th>\n        <td>\n            <cell field-name=\"a15_pH_after1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_after1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">После</th>\n        <td>\n            <cell field-name=\"a17_pH_after1\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_after1\" row-index=\"0\"></cell>\n        </td>\n        <th rowspan=\"3\" class=\"th-mul-row\">После</th>\n        <td>\n            <cell field-name=\"a19_H2SO4_after1\" row-index=\"0\"></cell>\n        </td>\n        <td class=\"addleftborder\">\n            <cell field-name=\"a19_Cu_after1\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <td>\n            <cell field-name=\"a1314_Cd_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_pH_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_pH_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_after2\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a19_H2SO4_after2\" row-index=\"0\"></cell>\n        </td>\n        <td class=\"addleftborder\">\n            <cell field-name=\"a19_Cu_after2\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <td>\n            <cell field-name=\"a1314_Cd_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Cu_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a1314_Co_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_pH_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a15_Cu_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_pH_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a17_Cu_after3\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"a19_H2SO4_after3\" row-index=\"0\"></cell>\n        </td>\n        <td class=\"addleftborder\">\n            <cell field-name=\"a19_Cu_after3\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th colspan=\"2\">№ 22</th>\n        <td colspan=\"13\">\n            <cell field-name=\"journal_comment\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n\n"
+        },
+        {
+            "name": "reagents",
+            "title": "Реагенты",
+            "fields": [
+                {
+                    "name": "delivery_salt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "delivery_Zn_dust",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кюбели"
+                },
+                {
+                    "name": "delivery_Mn_ore",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "delivery_Magnaflok",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "delivery_Fe_shave",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "income_salt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "income_Zn_dust",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кюбели"
+                },
+                {
+                    "name": "income_Mn_ore",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "income_Magnaflok",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "income_Fe_shave",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "outcome_salt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "outcome_Zn_1st",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Zn_2st",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Zn_3st",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "income_Zn_4st",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Zn",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Mn_ore",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "outcome_Magnaflok",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "outcome_Fe_shave",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "passed_salt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "passed_Zn_dust",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "passed_Mn_ore",
+                    "formula": "",
+                    "type": "number",
+                    "units": "т"
+                },
+                {
+                    "name": "passed_Magnaflok",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "passed_Fe_shave",
+                    "formula": "",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "state_fances",
+                    "formula": "",
+                    "type": "text"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Реагент</th>\n            <th>Доставлено</th>\n            <th>Принято</th>\n            <th class=\"th-common\">Расход</th>\n            <th>Сдано</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>Соль Шлиппе <i class=\"units\">кг</i></th>\n            <td><cell field-name=\"delivery_salt\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"income_salt\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"outcome_salt\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"passed_salt\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th class=\"th-mul-row\">Zn пыль <i class=\"units\">кюбели</i></th>\n            <td><cell field-name=\"delivery_Zn_dust\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"income_Zn_dust\" row-index=\"0\"></cell></td>\n            <td class=\"wrappercell\">\n                <table class=\"table table-bordered insidetable\">\n                    <tr>\n                        <th class=\"removeleftborder removetopborder\"> 1ст<i class=\"units\">т</i></th>\n                        <td class=\"removetopborder\"><cell field-name=\"outcome_Zn_1st\" row-index=\"0\"></cell></td>\n                        <td rowspan=\"4\" class=\"removetopborder removerightborder removebottomborder\">\n                            <cell field-name=\"outcome_Zn\" row-index=\"0\"></cell></td>\n                    </tr>\n                    <tr>\n                        <th class=\"removeleftborder\"> 2ст<i class=\"units\">т</i></th>\n                        <td><cell field-name=\"outcome_Zn_2st\" row-index=\"0\"></cell></td>\n                    </tr>\n                    <tr>\n                        <th class=\"removeleftborder removebottomborder\"> 3ст<i class=\"units\">т</i></th>\n                        <td class=\"removebottomborder\"><cell field-name=\"outcome_Zn_3st\" row-index=\"0\"></cell></td>\n                    </tr>\n                    <tr>\n                        <th class=\"removebottomborder removeleftborder\">Cd<i class=\"units\">т</i></th>\n                        <td class=\"removebottomborder\"><cell field-name=\"income_Zn_4st\" row-index=\"0\"></cell></td>\n                    </tr>\n                </table>\n            </td>\n            <td><cell field-name=\"passed_Zn_dust\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Mn руда <i class=\"units\">тн</i></th>\n            <td><cell field-name=\"delivery_Mn_ore\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"income_Mn_ore\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"outcome_Mn_ore\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"passed_Mn_ore\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Магнофлок <i class=\"units\">кг</i></th>\n            <td><cell field-name=\"delivery_Magnaflok\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"income_Magnaflok\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"outcome_Magnaflok\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"passed_Magnaflok\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Fe стружка <i class=\"units\">кг</i></th>\n            <td><cell field-name=\"delivery_Fe_shave\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"income_Fe_shave\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"outcome_Fe_shave\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"passed_Fe_shave\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Состояние ограждений:</th>\n            <td colspan=\"4\"><cell field-name=\"state_fances\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "neutral_thickeners",
+            "title": "Нейтральные сгустители",
+            "fields": [
+                {
+                    "name": "sediment1",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment6",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment7",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment8",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "sediment13",
+                    "formula": "",
+                    "type": "number",
+                    "units": "см"
+                },
+                {
+                    "name": "liquid_solid1",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid2",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid4",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid5",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid6",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid7",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid8",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "liquid_solid13",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>Нейтральные сгустители</th>\n        <th class=\"th-number\">1</th>\n        <th class=\"th-number\">2</th>\n        <th class=\"th-number\">3</th>\n        <th class=\"th-number\">4</th>\n        <th class=\"th-number\">5</th>\n        <th class=\"th-number\">6</th>\n        <th class=\"th-number\">7</th>\n        <th class=\"th-number\">8</th>\n        <th class=\"th-number\">13</th>\n    </tr>\n    </thead>\n    <tr>\n        <th>Отстои<i class=\"units\">см</i></th>\n\n        <td><cell field-name=\"sediment1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment3\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment4\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment5\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment6\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment7\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment8\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment13\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th rowspan=\"2\">Ж:Т (НС)</th>\n\n        <td><cell field-name=\"liquid_solid1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid3\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid4\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid5\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid6\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid7\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid8\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid13\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <td><cell field-name=\"liquid_solid1\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid2\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid3\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid4\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid5\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid6\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid7\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid8\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid13\" row-index=\"1\"></cell></td>\n    </tr>\n</table>\n"
+        },
+        {
+            "name": "tanks_availability",
+            "title": "Свободные ёмкости",
+            "fields": [
+                {
+                    "name": "prev_measurements_waste_tank_1-2seria",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_tank_1-2seria', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_waste_tank_1-2seria",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_waste_tank_1-2seria",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_manns_1-9",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_manns_1-9', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_manns_1-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_manns_1-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_manns_VTV_10-12",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_manns_VTV_10-12', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_manns_VTV_10-12",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_manns_VTV_10-12",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_thickener-9",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_thickener-9', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_thickener-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_thickener-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_agitator-22",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_agitator-22', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_agitator-22",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_agitator-22",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_neutral_tank",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_neutral_tank', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_neutral_tank",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_neutral_tank",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_waste_mann-2",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-2', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_waste_mann-2",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_waste_mann-2",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_waste_mann-3",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-3', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_waste_mann-3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_waste_mann-3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_waste_mann-9",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-9', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_waste_mann-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_waste_mann-9",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_-",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_-', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_-",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_-",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_removable_balance",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_removable_balance', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_removable_balance",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_removable_balance",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "prev_measurements_daily_balance",
+                    "formula": "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_daily_balance', 0, CURRENT_SHIFT - 1)",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "current_measurements_daily_balance",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "divergence_daily_balance",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n  <thead>\n    <tr>\n      <th>#</th>\n      <th class=\"th-number\">Ёмкости</th>\n      <th class=\"th-number\">Пред. замеры</th>\n      <th class=\"th-number\">Текущ. замеры</th>\n      <th class=\"th-number\">Отклонение</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr>\n      <th>1</th>\n      <th>Бак отработ. 1-2 серий</th>\n      <td><cell field-name=\"prev_measurements_waste_tank_1-2seria\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_waste_tank_1-2seria\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_waste_tank_1-2seria\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <th>Манны №1-9</th>\n      <td><cell field-name=\"prev_measurements_manns_1-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_manns_1-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_manns_1-9\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <th>Манны ВТВ №10-12</th>\n      <td><cell field-name=\"prev_measurements_manns_VTV_10-12\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_manns_VTV_10-12\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_manns_VTV_10-12\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <th>Обор-й сгуститель №9</th>\n      <td><cell field-name=\"prev_measurements_thickener-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_thickener-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_thickener-9\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <th>Агитатор 22</th>\n      <td><cell field-name=\"prev_measurements_agitator-22\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_agitator-22\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_agitator-22\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <th>Бак нейтр. р-ра, 1-й цех</th>\n      <td><cell field-name=\"prev_measurements_neutral_tank\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_neutral_tank\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_neutral_tank\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>7</th>\n      <th>Ман отраб. №2, 1-й цех</th>\n      <td><cell field-name=\"prev_measurements_waste_mann-2\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_waste_mann-2\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_waste_mann-2\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>8</th>\n      <th>Ман отраб. №3, 1-й цех</th>\n      <td><cell field-name=\"prev_measurements_waste_mann-3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_waste_mann-3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_waste_mann-3\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>9</th>\n      <th>Ман отраб. №9, 1-й цех</th>\n      <td><cell field-name=\"prev_measurements_waste_mann-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_waste_mann-9\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_waste_mann-9\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>10</th>\n      <th>-</th>\n      <td><cell field-name=\"prev_measurements_-\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_-\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_-\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>11</th>\n      <th>СМЕННЫЙ БАЛАНС</th>\n      <td><cell field-name=\"prev_measurements_removable_balance\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_removable_balance\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_measurements_removable_balance\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>12</th>\n      <th>СУТОЧНЫЙ БАЛАНС</th>\n      <td><cell field-name=\"prev_measurements_daily_balance\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"current_measurements_daily_balance\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"divergence_daily_balance\" row-index=\"0\"></cell></td>\n    </tr>\n  </tbody>\n</table>\n"
+        },
+        {
+            "name": "tanks_for_finished_products",
+            "title": "Баки готовой продукции",
+            "fields": [
+                {
+                    "name": "Cd_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Cu_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Co_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Sb_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Fe_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "correction_tank3",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "master_tank3",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "VT_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "specific_weight_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "norm_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "fact_tank3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "Cd_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Cu_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Co_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Sb_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Fe_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "correction_tank4",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "master_tank4",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "VT_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "specific_weight_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "norm_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "fact_tank4",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "Cd_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Cu_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Co_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Sb_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Fe_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "correction_tank5",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "master_tank5",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "VT_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "specific_weight_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "norm_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "fact_tank5",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n  <thead>\n      <tr>\n        <th class=\"th-number\">№ Бака</th>\n        <th class=\"th-number\">Кадмий <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Медь <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Кобальт <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Сурьма <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Железо <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">В:T</th>\n        <th class=\"th-number\">Уд.вес <i class=\"units\">мг/л</i></th>\n        <th class=\"th-number\">Норма</th>\n        <th class=\"th-number\">Факт</th>\n        <th class=\"th-number\">Коррекция</th>\n        <th>Мастер</th>\n      </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>3</th>\n      <td><cell field-name=\"Cd_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Cu_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Co_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Sb_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Fe_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"VT_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"specific_weight_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"norm_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"fact_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"correction_tank3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"master_tank3\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td><cell field-name=\"Cd_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Cu_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Co_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Sb_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Fe_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"VT_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"specific_weight_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"norm_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"fact_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"correction_tank4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"master_tank4\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td><cell field-name=\"Cd_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Cu_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Co_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Sb_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"Fe_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"VT_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"specific_weight_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"norm_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"fact_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"correction_tank5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"master_tank5\" row-index=\"0\"></cell></td>\n    </tr>\n  </tbody>\n</table>\n"
+        },
+        {
+            "name": "self_protection",
+            "title": "Самоохрана",
+            "fields": [
+                {
+                    "name": "visiting_time",
+                    "formula": "",
+                    "type": "time"
+                },
+                {
+                    "name": "visiting",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "notation",
+                    "formula": "",
+                    "type": "text"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n  <thead>\n    <tr>\n      <th colspan=\"2\" class=\"th-common\">Обход</th>\n      <th>Примечание</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr v-for=\"index of 3\">\n        <td><cell field-name=\"visiting_time\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"visiting\" :row-index=\"index\"></cell></td>\n        <td v-if=\"index === 1\" rowspan=\"3\"><cell field-name=\"notation\" row-index=\"0\"></cell></td>\n      </tr>\n  </tbody>\n</table>\n"
+        },
+        {
+            "name": "cinder",
+            "title": "Огарок",
+            "fields": [
+                {
+                    "name": "shift_total",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "day_total",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "in_process",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n  <tbody>\n  <tr>\n    <th scope=\"row\">За смену</th>\n    <td><cell field-name=\"shift_total\" row-index=\"0\"></cell></td>\n  </tr>\n  <tr>\n    <th scope=\"row\">За сутки</th>\n    <td><cell field-name=\"day_total\" row-index=\"0\"></cell></td>\n  </tr>\n  <tr>\n    <th scope=\"row\">В процессе</th>\n    <td><cell field-name=\"in_process\" row-index=\"0\"></cell></td>\n  </tr>\n  </tbody>\n</table>\n"
+        },
+        {
+            "name": "sample",
+            "title": "Пробник",
+            "fields": [
+                {
+                    "name": "time",
+                    "formula": "",
+                    "type": "time"
+                },
+                {
+                    "name": "Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "VIU_G",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "VIU_H",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Время</th>\n            <th class=\"th-number\">Cd<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in 5\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cu\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-common\" colspan=\"3\">ВИУ</th>\n        </tr>\n        <tr>\n            <th>#</th>\n            <th class=\"th-number\">Г</th>\n            <th class=\"th-number\">Х</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>I</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"0\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>II</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"1\"></cell></td>\n        </tr>\n        <tr>\n            <th>III</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"2\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "loads",
+            "title": "Нагрузки",
+            "fields": [
+                {
+                    "name": "time7",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Ампер"
+                },
+                {
+                    "name": "time12",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Ампер"
+                },
+                {
+                    "name": "counter",
+                    "formula": "",
+                    "type": "number",
+                    "units": "Ампер"
+                },
+                {
+                    "name": "bunker_cvco",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м"
+                },
+                {
+                    "name": "silos",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м"
+                },
+                {
+                    "name": "bunkers_oc",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м"
+                },
+                {
+                    "name": "description",
+                    "formula": "",
+                    "type": "text"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"2\"></th>\n        <th class=\"th-number\">I серия, А</th>\n        <th class=\"th-number\">II серия, А</th>\n        <th class=\"th-number\">III серия, А</th>\n        <th class=\"th-number\">IV серия, А</th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\">Нагрузки</th>\n            <th>7<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time7\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th>12<sup>00</sup></th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"time12\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Показания счётчика</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"counter\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"table table-bordered elog-journal-table\">\n    <tbody>\n        <tr>\n            <th colspan=\"2\">Бункера ЦВЦО</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunker_cvco\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Силоса ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"silos\" :row-index=\"index\"></cell></td>\n        </tr>\n        <tr>\n            <th colspan=\"2\">Бункера ОЦ</th>\n            <td v-for=\"(value, index) in 4\"><cell field-name=\"bunkers_oc\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "neutral",
+            "title": "Нейтральный раствор",
+            "fields": [
+                {
+                    "name": "neutral_solution",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "leach1",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "leach2",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "bak_3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "bak_4",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "summary",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "bak_seria3",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "bak_5",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "bak_6",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n  <thead>\n    <tr>\n      <th class=\"th-number\">Наличие<br>нейтр. р-ра</th>\n      <th class=\"th-common\" colspan=\"2\">Уч. выщел. N1<br>бак 3,4,5,4А</th>\n      <th class=\"th-number\">Бак 3 </th>\n      <th class=\"th-number\">Бак 4</th>\n      <th class=\"th-number\">Итого</th>\n      <th class=\"th-number\"> Бак III<br/>серии</th>\n      <th class=\"th-number\">Бак 5 </th>\n      <th class=\"th-number\">Бак 6 </th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><cell field-name=\"neutral_solution\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"leach1\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"leach2\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"bak_3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"bak_4\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"summary\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"bak_seria3\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"bak_5\" row-index=\"0\"></cell></td>\n      <td><cell field-name=\"bak_6\" row-index=\"0\"></cell></td>\n    </tr>\n  </tbody>\n</table>\n"
+        },
+        {
+            "name": "shift_info",
+            "title": "Смена",
+            "fields": [
+                {
+                    "name": "this_master",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "next_master",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "out_sol_t",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "out_sol_c",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "out_pulp_cvck",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "out_cu_kek",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "out_cd_sponge",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "out_neutr",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "out_Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "neutral_hmc",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "out_cu_pulp",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "in_filtrate_ls",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "in_fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "in_filtrate_dens",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "in_fe_hi",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                },
+                {
+                    "name": "in_poor_cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "м³"
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\" >\n    <tr>\n        <td>\n\n        </td>\n    </tr>\n    <tr>\n        <th>\n             Мастер сдал\n        </th>\n        <td colspan=\"3\"><cell field-name=\"this_master\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th>\n             Мастер принял\n        </th>\n        <td colspan=\"3\"><cell field-name=\"next_master\" row-index=\"0\"></cell></td>\n    </tr>\n    <thead>\n        <tr class=\"th-common\">\n            <th colspan=\"5\" >Откачано</th>\n        </tr>\n    </thead>\n    <tbody>\n       <tr>\n         <th>Выход ТВ <i class=\"units optional-br\">т</i></th>\n           <td><cell field-name=\"out_sol_t\" row-index=\"0\"></cell></td>\n           <td colspan=\"2\" >\n               <cell field-name=\"out_sol_c\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr >\n         <th>Пульпы ЦВЦК <i class=\"units optional-br\">т</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"out_pulp_cvck\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr >\n         <th>Медного кека <i class=\"units optional-br\">т</i></th>\n           <td><cell field-name=\"out_cu_kek\" row-index=\"0\"></cell></td>\n           <th>Cd губка <i class=\"units optional-br\">т</i></th>\n           <td><cell field-name=\"out_cd_sponge\" row-index=\"0\"></cell></td>\n       </tr>\n       <tr>\n         <th>Отработ в ЦВОЦ <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"out_neutr\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr>\n         <th>Богато-кадмиевого <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"out_Cd\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr>\n         <th>Нейтрального в ХМЦ <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"neutral_hmc\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr>\n         <th>Cu Пульпа <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"out_cu_pulp\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n    </tbody>\n    <thead>\n       <tr class=\"headings\">\n           <th colspan=\"4\" class=\"th-common\">Принято</th>\n       </tr>\n    </thead>\n    <tbody >\n       <tr><th>Фильтрат ЦВЦК, Ж:Т <i class=\"units optional-br\">м³</i></th>\n           <td>\n               <cell field-name=\"in_filtrate_ls\" row-index=\"0\"></cell>\n           </td>\n           <th>Уд. вес</th>\n           <td>\n               <cell field-name=\"in_filtrate_dens\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr><th>Железистого из ЦВОЦ <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"in_fe\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr>\n           <th>Высоко-железистый из ЦВОЦ <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"in_fe_hi\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n       <tr>\n           <th>Бедно-кадмиего <i class=\"units optional-br\">м³</i></th>\n           <td colspan=\"3\">\n               <cell field-name=\"in_poor_cd\" row-index=\"0\"></cell>\n           </td>\n       </tr>\n    </tbody>\n</table>\n\n"
+        }
+    ]
+}
