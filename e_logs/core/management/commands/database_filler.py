@@ -206,11 +206,11 @@ class DatabaseFiller:
                         Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                     date=shift_date)
             elif journal.type == 'year':
-                for year in range(1999, current_date().year + 1):
+                for year in range(1999, current_date().year + 2):
                     Year.objects.get_or_create(year_date=year, journal=journal)
 
             elif journal.type == 'month':
-                for year in range(1999, current_date().year + 1):
+                for year in range(1999, current_date().year + 2):
                     for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                                  'Май','Июнь', 'Июль', 'Август',
                                                  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
@@ -354,6 +354,13 @@ class DatabaseFiller:
             minute = '59',
             hour = '1,7,13,15,19,23',
         )
+        every_year_schedule, _= CrontabSchedule.objects.get_or_create(
+            minute='0',
+            hour='0',
+            day_of_week='*',
+            day_of_month='1',
+            month_of_year='*',
+         )
 
         PeriodicTask.objects.create(
             interval = per_day_schedule,
@@ -369,6 +376,11 @@ class DatabaseFiller:
             crontab=shift_end_schedule,
             name='Check blank shifts',
             task='e_logs.common.all_journals_app.tasks.check_blank_shift',
+        )
+        PeriodicTask.objects.create(
+            crontab=every_year_schedule,
+            name='Create month and year groups',
+            task='e_logs.common.all_journals_app.tasks.create_moths_and_years',
         )
 
     @staticmethod
@@ -495,7 +507,7 @@ class DatabaseFiller:
 
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
@@ -518,7 +530,7 @@ class DatabaseFiller:
             field.save()
         for group_id in group_ids:
             for field_name in field_names:
-                cell = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
+                cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
                     field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()

@@ -68,12 +68,15 @@ const userState = {
             })
         },
         setDefaultPage ({ commit, state, getters }, payload) {
+            console.info("setDefaultPage", payload);
+
+
             return new Promise((res, rej) => {
-                ajax.post(window.HOSTNAME + '/api/setting/', 
+                ajax.post(window.HOSTNAME + '/api/setting/',
                 {
                     "name": "defaultpage",
                     "value": payload.path,
-                }, 
+                },
                 {
                     headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
                 })
@@ -88,7 +91,7 @@ const userState = {
                     headers: {Authorization: 'Token ' + VueCookies.get('Authorization')}
                 })
                     .then((resp) => {
-                        commit('SET_DEFAULT_PAGE', resp.data.defaultPage)
+                        commit('SET_DEFAULT_PAGE', resp.data.name)
                     })
                     .then(() => {
                         res()
