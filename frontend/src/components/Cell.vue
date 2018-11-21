@@ -437,7 +437,7 @@
                 }
             },
             getPersons(name, plantName) {
-                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
+                return ajax.get(window.HOSTNAME + `/api/bl/dicts/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
                 })  .then((response) => {
                         // console.log(response);
@@ -447,10 +447,11 @@
                         console.log(err)
                     })
             },
-            send() {
+            send(final=false) {
                 // console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
+                    'final':final,
                     'cells': [{
                         'cell_location': {
                             'group_id': this.$store.getters['journalState/journalInfo'].id,
@@ -516,7 +517,7 @@
                     });
                 }
                 // setTimeout(this._updateCells(), 0)
-                this.send()
+                this.send(true)
             },
             filterInput(e) {
                 if (this.type === 'number') {
