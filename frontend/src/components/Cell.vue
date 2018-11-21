@@ -43,7 +43,9 @@
             @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
             class="far fa-envelope comment-notification"
-        ></i>
+        >
+            <span v-if="hasUnreaded" class="unreaded"></span>
+        </i>
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -166,6 +168,12 @@
             cellComments () {
                 return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)
             },
+            hasUnreaded () {
+              // получить все сообщения
+              // и автор не я
+              let unreadedComments = this.cellComments.filter(v => !(this.userName in v.user));
+              return (unreadedComments.length > 0);
+            },
             tableName: function () {
                 if (typeof this.$parent.props !== 'undefined') {
                     return this.$parent.props.name;
@@ -185,9 +193,9 @@
                 return this.$store.getters['journalState/journalInfo'].responsibles
             },
             userIsResponsible() {
-                let responsibles = this.responsibles
+                let responsibles = this.responsibles;
                 for (let i in responsibles) {
-                    if (typeof responsibles[i][this.userName] != 'undefined') {
+                    if (typeof responsibles[i][this.userName] !== 'undefined') {
                         return true
                     }
                 }
@@ -202,8 +210,8 @@
             value: {
                 cache: false,
                 get: function () {
-                    var cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
-                    return typeof cell == "undefined" ? '' : cell['value']
+                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
+                    return typeof cell === "undefined" ? '' : cell['value']
                 },
                 set: function (val) {
                     // console.log('set')
@@ -769,5 +777,16 @@
 
     .v-popover > span.trigger {
         height: 100%;
+    }
+
+    .unreaded {
+        font-size: 0;
+        border: 5px solid red;
+        border-radius: 5px;
+        background-color: red;
+
+        position: absolute;
+        left: -5px;
+        top: -2px;
     }
 </style>
