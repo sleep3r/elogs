@@ -264,22 +264,26 @@
                 {
                     "name": "master",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "senior_crane_operator",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "crane_operator",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "sling_operator",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "date",
