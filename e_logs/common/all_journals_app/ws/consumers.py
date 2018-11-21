@@ -126,7 +126,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     # ----------------------------------------------------MESSAGES------------------------------------------------------
     async def add_cell_message(self, data):
         if data['message']['type'] == "critical_value":
-            cell = await self.get_cell_from_dict(data['cell'])
+            cell, created = await self.get_or_create_cell(data['cell'])
             if cell:
                 message = data['message'].copy()
                 message['sendee'] = self.scope['user'].employee
@@ -137,7 +137,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             message['sendee'] = self.scope['user'].employee
             text = message['text']
 
-            cell = await self.get_or_create_cell(data['cell_location'])
+            cell, created = await self.get_or_create_cell(data['cell_location'])
 
             if cell:
                 comment = await self.add_comment_query(cell, text)
@@ -152,10 +152,6 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                     }
                 )
                 await self.add_cell_message_query(message, cell, shift_id=data['cell_location']['group_id'])
-
-    @database_sync_to_async
-    def get_or_create_cell(self, cell_location):
-        return Cell.get_or_create_cell(**cell_location)
 
     @database_sync_to_async
     def add_comment_query(self, cell, text, type="user_comment"):
