@@ -23,7 +23,7 @@ class Plant(models.Model):
                                      ('electrolysis', 'Электролиз')))
     settings = GenericRelation('core.Setting', related_query_name='plant', related_name='plants')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='plant',
-                                related_name='plants')
+                               related_name='plants')
 
     verbose_name = models.CharField(max_length=128, verbose_name='Название цеха')
 
@@ -32,12 +32,18 @@ class Plant(models.Model):
         verbose_name_plural = 'Цеха'
 
 
+class MenuFolder(models.Model):
+    name = models.CharField(max_length=2048, verbose_name='Название папки', default='')
+    parent = models.ForeignKey('MenuFolder', null=True, blank=True, on_delete=models.CASCADE)
+
+
 class Journal(models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Журнал')
     verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
+    parent = models.ForeignKey(MenuFolder, null=True, blank=True, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
                                 ('shift', 'Смена'),
@@ -57,7 +63,6 @@ class Journal(models.Model):
     @property
     def group(self):
         return ContentType.objects.get(model=self.type).model_class()
-
 
     class Meta:
         verbose_name = 'Журнал'
@@ -83,6 +88,7 @@ class Table(models.Model):
             qs = Cell.objects.select_related('field', 'field__table').cache() \
                 .filter(group=page, field__table=self)
             return qs
+
         return cached_cells(self, page)
 
     def get_fields(self):
@@ -126,6 +132,7 @@ class Field(models.Model):
         @cached(Plant, Journal, Table, Field)
         def cached_plant(self):
             return self.table.journal.plant
+
         return cached_plant()
 
     @cached_property
@@ -145,7 +152,7 @@ class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def tables(self):
-        @cached(timeout=60*60*3)
+        @cached(timeout=60 * 60 * 3)
         def cached_tables(self):
             return list(self.journal.tables.all())
 
@@ -181,7 +188,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
-        from e_logs.core.models import Setting # avoiding import loo
+        from e_logs.core.models import Setting  # avoiding import loo
 
         @cached_as(Setting.objects.filter(name='number_of_shifts'))
         def cached_number_of_shifts(obj):
@@ -191,7 +198,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
-        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache()\
+        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache() \
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
 
     @staticmethod
@@ -291,11 +298,11 @@ class Comment(models.Model):
     type = models.CharField(max_length=32,
                             verbose_name='Тип комментария',
                             default='user_comment',
-                            choices=(('user_comment',   'Комментарий пользователя'),
+                            choices=(('user_comment', 'Комментарий пользователя'),
                                      ('system_comment', 'Комментарий системы')))
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True,
-                                     related_name='comments',related_query_name='comment')
+                                     related_name='comments', related_query_name='comment')
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
 
