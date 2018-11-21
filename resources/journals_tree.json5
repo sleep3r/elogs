@@ -1,6 +1,6 @@
 {
-    "Обжиг": {
-        "Рассчёт металлов": {
+    "furnace": {
+        "metals_compute": {
             journal_dir: "resources/journals/furnace/metals_compute",
             type: "shift",
             versions: [
@@ -11,7 +11,7 @@
                 }
             ]
         },
-        "Поступление, расходы и остатки Zn концентратов": {
+        "report_income_outcome_schieht": {
             journal_dir: "resources/journals/furnace/report_income_outcome_schieht",
             type: "shift",
             versions: [
@@ -22,7 +22,7 @@
                 }
             ]
         },
-        "Журнал сменных производственных, тех. заданий": {
+        "technological_tasks": {
             journal_dir: "resources/journals/furnace/technological_tasks",
             type: "shift",
             versions: [
@@ -33,7 +33,7 @@
                 }
             ]
         },
-        "Журнал рапортов о проделанной работе по складам концентратов": {
+        "concentrate_report": {
             journal_dir: "resources/journals/furnace/concentrate_report",
             type: "shift",
             versions: [
@@ -44,7 +44,7 @@
                 }
             ]
         },
-        "Рабочий журнал изменения фракции": {
+        "furnace_changed_fraction": {
             journal_dir: "resources/journals/furnace/furnace_changed_fraction",
             type: "shift",
             versions: [
@@ -55,7 +55,7 @@
                 }
             ]
         },
-        "Журнал по ремонту": {
+        "furnace_repair": {
             journal_dir: "resources/journals/furnace/furnace_repair",
             type: "shift",
             versions: [
@@ -66,7 +66,7 @@
                 }
             ]
         },
-        "Технологический журнал процесса производства огарка": {
+        "reports_furnace_area": {
             journal_dir: "resources/journals/furnace/reports_furnace_area",
             type: "shift",
             versions: [
@@ -78,8 +78,8 @@
             ]
         },
     },
-    "Выщелачивание": {
-        "Журнал экспресс анализа": {
+    "leaching": {
+        "leaching_express_analysis": {
             journal_dir: "resources/journals/leaching/leaching_express_analysis",
             type: "shift",
             versions: [
@@ -90,7 +90,7 @@
                 }
             ]
         },
-        "Журнал ремонта": {
+        "leaching_repair_equipment": {
             journal_dir: "resources/journals/leaching/leaching_repair_equipment",
             type: "shift",
             versions: [
@@ -102,8 +102,8 @@
             ]
         }
     },
-    "Электролиз": {
-        "Журнал по ремонту оборудования": {
+    "electrolysis": {
+        "electrolysis_repair_report_tables": {
             journal_dir: "journals/electrolysis/electrolysis_repair_report_tables",
             type: "shift",
             versions: [
@@ -114,7 +114,7 @@
                 }
             ]
         },
-        "Технологический журнал электролиза 4-й серии": {
+        "electrolysis_technical_report_4_degree": {
             journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_4_degree",
             type: "shift",
             versions: [
@@ -125,7 +125,7 @@
                 }
             ]
         },
-        "Технологический журнал электролиза 3-й серии": {
+        "electrolysis_technical_report_3_degree": {
             journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_3_degree",
             type: "shift",
             versions: [
@@ -136,7 +136,7 @@
                 }
             ]
         },
-        "Технологические журналы электролиза 1-й и 2-й серии": {
+        "electrolysis_technical_report_12_degree": {
             journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_12_degree",
             type: "shift",
             versions: [
@@ -147,7 +147,7 @@
                 }
             ]
         },
-        "Журнал рапортов мастеров смен": {
+        "masters_report": {
             journal_dir: "resources/journals/electrolysis/masters_report",
             type: "shift",
             versions: [
