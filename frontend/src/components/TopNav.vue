@@ -2,11 +2,6 @@
     <header class="header sticky">
         <div class="header__logo" @click.prevent="$router.push('/')" data-toggle="tooltip" title="Вернуться на домашнюю страницу"><b>E-LOGS</b></div>
         <div class="header__title">
-            <!--<span class="plant_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/plantVerboseName']}}</span>-->
-            <!--<template v-if="$route.params.journal && $route.name !== 'modesPage'">-->
-                <!--<i v-if="!$store.getters['journalState/isSynchronized']" class="fa fa-circle-o-notch" id="async" aria-hidden="true" style="color: #ca0000"> Синхронизация...</i>-->
-                <!--<i v-if="$store.getters['journalState/isSynchronized']" class="fa fa-check" id="sync" aria-hidden="true" style="color: #36d686"> Синхронизировано</i>-->
-            <!--</template>-->
             <div class="offline-warn" v-if="isOffline">Внимание, вы работаете в оффлайн режиме!</div>
         </div>
         <div class="header__user">
@@ -23,7 +18,6 @@
                                 <li class="user-menu__item message" v-for="message in getUnreadedMessages" :key="message.id">
                                     <a href="" @click.prevent="onMessagesClick">
                                         <div v-if="message.sendee" class="message__title__container">
-                                            <!-- <span class="message__author-name">{{ message.user_name }}</span> -->
                                             <strong class="message__title">
                                                 <span class="sendee">{{message.sendee}}</span>
                                             </strong>
@@ -55,35 +49,17 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" :class="{'is-home': isCurrentPage}" @click="onHomeClick" data-toggle="tooltip" title="Домашняя страница"></i>
+            <i class="fas fa-home default-page-badge" :class="{'is-home': isCurrentPage }" @click="onHomeClick" data-toggle="tooltip" title="Домашняя страница"></i>
             <span class="user-name" @click="onUsernameClick" data-toggle="tooltip" title="Профиль пользователя">{{$store.getters['userState/fullname']}}</span>
             <div class="user-menu-wrapper">
                 <div class="user-menu">
                     <ul class="menu">
-                        <!-- <li class="user-menu__item"> -->
-                            <!--<a href="" @click.prevent="onSettingsClick">-->
-                                <!--<i class="fas fa-cogs"></i>-->
-                                <!--<span class="caption">Настройки</span>-->
-                            <!--</a>-->
-                        <!-- </li> -->
                         <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
                             <a href="" @click.prevent="onAddJournal">
                                 <i class="fas fa-journal-whills"></i>
                                 <span class="caption">Добавить журнал</span>
                             </a>
                         </li>
-                        <!-- <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
-                            <a href="" @click.prevent="onOpenConstructor">
-                                <i class="fas fa-atom"></i>
-                                <span class="caption">Открыть конструктор</span>
-                            </a>
-                        </li> -->
-                        <!-- <li class="user-menu__item" v-if="$store.getters['userState/hasPerm']('validate_cells') || $store.getters['userState/isSuperuser']">
-                            <a href="" @click.prevent="onModesClick">
-                                <i class="fas fa-sliders-h"></i>
-                                <span class="caption">Режимы</span>
-                            </a>
-                        </li> -->
                         <li class="user-menu__item">
                             <a href="javascript:;" data-toggle="modal" data-target="#SchemeModal" @click="hideUserMenu">
                                 <i class="fa fa-book"></i>
@@ -254,8 +230,8 @@ import { setTimeout } from 'timers';
                 }
             },
             makeDefaultPage(event) {
-                var path = window.location.pathname
-
+                let path = window.location.pathname;
+                console.log("path", path);
                 this.$store.dispatch('userState/setDefaultPage', {
                     path: path,
                 })
@@ -267,7 +243,7 @@ import { setTimeout } from 'timers';
                     })
             },
             restoreDefaultPage(event) {
-                var path = window.location.pathname
+                let path = window.location.pathname
 
                 this.$store.dispatch('userState/setDefaultPage', {
                     path: '/dashboard',
@@ -281,6 +257,8 @@ import { setTimeout } from 'timers';
             },
         },
         mounted () {
+            console.info("route->", this.$route.path, " from get->", this.$store.getters['userState/defaultPage']);
+
             let _this = this
 
             this.startCheckingOffline()
@@ -311,6 +289,10 @@ import { setTimeout } from 'timers';
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .header__user {
+        .is-home {
+            color: yellow;
+        }
+    }
 </style>
