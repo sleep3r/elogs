@@ -292,6 +292,10 @@ footer {
     .journal__panel {
         flex-direction: column;
     }
+
+    .panel-buttons {
+        margin-top: 10px;
+    }
 }
 
 @import "user-menu";

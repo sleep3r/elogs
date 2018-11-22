@@ -294,6 +294,7 @@ $color-bg: #008BB9;
 
   .body {
     padding-bottom: 20px;
+    word-break: break-word;
 
     .list {
       margin: 40px 0 0 0;
