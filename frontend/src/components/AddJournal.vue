@@ -12,20 +12,19 @@
                 <p>
                     <select name="plant" v-model="plant">
                         <option disabled selected value="">Выберите цех</option>
-                        <option value="furnace">Обжиг</option>
-                        <option value="leaching">Выщелачивание</option>
-                        <option value="electrolysis">Электролиз</option>
+                        <option v-for="plant in plants" :value="plant.name">{{plant.verbose_name}}</option>
                     </select>
                 </p>
                 <p>
                     <select name="type" v-model="type">
                         <option disabled selected value="">Выберите тип журнала</option>
                         <option value="shift">Смена</option>
-                        <option disabled value="equipment">Оборудование</option>
-                        <option disabled value="measurement">Измерение</option>
+                        <option value="equipment">Оборудование</option>
+                        <option value="month">Месяц</option>
+                        <option value="year">Год</option>
                     </select>
                 </p>
-                <p>
+                <p v-if="type === 'shift'">
                     <select name="number-of-shifts" v-model="shifts">
                         <option disabled selected value="">Выберите количество смен</option>
                         <option value="2">2</option>
@@ -34,7 +33,7 @@
                     </select>
                 </p>
             </template>
-            <p style="text-align: right;">
+            <p style="text-align: left;">
                 <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">Назад</button>
                 <button class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">{{hash ? 'Добавить' : 'Загрузить'}}</button>
             </p>
@@ -57,6 +56,11 @@
                 file: '',
                 hash: ''
             }
+        },
+        computed:{
+            plants () {
+                return this.$store.getters['journalState/plants']
+            },
         },
         methods: {
             onLoadJournalFile () {

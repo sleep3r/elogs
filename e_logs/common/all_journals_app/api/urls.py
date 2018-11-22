@@ -13,7 +13,6 @@ urlpatterns = [
     path('menu_info/', MenuInfoAPI.as_view()),
     path('settings/', csrf_exempt(SettingsAPI.as_view())),
     path('setting/', csrf_exempt(SettingAPI.as_view())),
-    path('load_journal/', csrf_exempt(LoadJournalAPI.as_view())),
     path('cell/', CellAPI.as_view()),
     path('prev-shift/', PrevShiftAPI.as_view()),
 ]
