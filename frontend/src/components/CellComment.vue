@@ -7,9 +7,9 @@
           <div class="title">{{tableName}}</div>
           <div class="subtitle">{{fieldName}}</div>
           <div class="dash">
-              <div class="item user-name"><i class="material-icons">account_circle</i><span>&nbsp;{{ responsible ? responsible : '&mdash;' }}</span></div>
-              <div class="item time"><i class="material-icons">watch_later</i><span>&nbsp;{{ cellCreatedTime ? cellCreatedTime : '&mdash;' }}</span></div>
-              <!-- <div class="item units"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal ? maxNormal : '&mdash;' }} m<sup>2</sup></span></div> -->
+              <!--<div class="item user-name"><i class="material-icons">account_circle</i><span>&nbsp;{{ responsible ? responsible : '&mdash;' }}</span></div>-->
+              <!--<div class="item time"><i class="material-icons">watch_later</i><span>&nbsp;{{ cellCreatedTime ? cellCreatedTime : '&mdash;' }}</span></div>-->
+               <!--<div class="item units"><i class="material-icons">assignment_turned_in</i><span>&nbsp;to {{maxNormal ? maxNormal : '&mdash;' }} m<sup>2</sup></span></div>-->
           </div>
         </div>
         <div class="comments">
@@ -294,7 +294,7 @@ $color-bg: #008BB9;
     position: relative;
     background-color: $color-bg;
     box-shadow: 0 3px 4px #e5e5e5;
-    min-height: 95px;
+    min-height: 65px;
   }
 
   .body {
@@ -406,7 +406,7 @@ $color-comment-text: #A5A5A5 ;
       margin-top: 10px;
       display: flex;
       justify-content: space-evenly;
-      height: 30px;
+      height: 0px;
 
       .item {
         line-height: 20px;
