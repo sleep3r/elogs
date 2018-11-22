@@ -7,7 +7,7 @@ from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.contenttypes.models import ContentType
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Comment, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Comment, CellGroup
 from e_logs.common.messages_app.models import Message
 
 
@@ -177,7 +177,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     def add_cell_message_query(self, message, cell, all_users=False, positions=None, uids=None,
                                shift_id=None):
         if shift_id:
-            plant_name = Shift.objects.get(id=shift_id).journal.plant.name
+            plant_name = CellGroup.objects.get(id=shift_id).journal.plant.name
         else:
             plant_name = None
 
