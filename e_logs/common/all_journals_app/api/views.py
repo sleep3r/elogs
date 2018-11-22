@@ -107,7 +107,9 @@ class GroupAPI(LoginRequired, View):
     def get_current_group(self, request, kwargs):
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
-            current_group = _get_current_group(Journal.objects.get(name=journal_name))
+            plant_name = parse_qs(request.GET.urlencode())['plantName'][0]
+            print(plant_name, journal_name)
+            current_group = _get_current_group(Journal.objects.get(name=journal_name, plant__name=plant_name))
             id = current_group.id
         else:
             id = kwargs['id']
@@ -409,36 +411,3 @@ class SettingAPI(View):
         setting_data = json.loads(request.body)
         Setting.set_value(name=setting_data["name"], value=setting_data["value"], employee=employee)
         return JsonResponse({"status": 1})
-
-
-class LoadJournalAPI(View):
-    def post(self, request):
-        if request.FILES.get('journal_file', None):
-            journal = request.FILES['journal_file']
-            plant_name = request.POST['plant']
-            type = request.POST['type']
-            number_of_shifts = int(request.POST['number_of_shifts'])
-            if plant_name and type and number_of_shifts:
-                try:
-                    os.remove(f'resources/journals/{plant_name}/{journal.name}')
-                except OSError:
-                    pass
-                fs = FileSystemStorage(location=f'resources/journals/{plant_name}/')
-                filename = fs.save(journal.name, journal)
-
-                journal = JournalBuilder(journal, plant_name, type)
-                new_journal = journal.create()
-
-                if new_journal.type == 'shift':
-                    self.add_shifts(new_journal, number_of_shifts)
-
-                return JsonResponse({"status": 1})
-        return JsonResponse({"status": 0})
-
-    @staticmethod
-    def add_shifts(new_journal, number_of_shifts):
-        Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
-        now_date = current_date()
-        for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
-            for shift_order in range(1, number_of_shifts + 1):
-                Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
