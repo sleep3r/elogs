@@ -43,7 +43,7 @@ class Journal(models.Model):
     name = models.CharField(max_length=128, verbose_name='Журнал')
     verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
-    parent = models.ForeignKey(MenuFolder, null=True, blank=True, on_delete=models.CASCADE, related_name='journals')
+    folder = models.ForeignKey(MenuFolder, null=True, blank=True, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
                                 ('shift', 'Смена'),
@@ -150,6 +150,8 @@ class Field(models.Model):
 
 class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    version = models.FloatField()
+    journal_path = models.FilePathField(path="resources/journals", match="*.jrn", recursive=True)
 
     def tables(self):
         @cached(timeout=60 * 60 * 3)
