@@ -1,685 +1,685 @@
 {
-   "name" : "metals_compute",
-   "type" : "month",
-   "tables" : [
-      {
-         "name" : "avg_month",
-         "title" : "Среднее содержание за месяц",
-         "fields" : [
-            {
-               "title" : "pb",
-               "units" : "%",
-               "name" : "pb",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "name" : "cu",
-               "type" : "number",
-               "title" : "cu",
-               "units" : "%"
-            },
-            {
-               "formula" : "",
-               "title" : "cd",
-               "units" : "%",
-               "name" : "cd",
-               "type" : "number"
-            },
-            {
-               "title" : "fe",
-               "units" : "%",
-               "name" : "fe",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "name" : "SiO2",
-               "type" : "number",
-               "title" : "SiO2",
-               "units" : "%",
-               "formula" : ""
-            },
-            {
-               "title" : "Zn_furn",
-               "units" : "%",
-               "name" : "Zn_furn",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "name" : "Pb2",
-               "type" : "number",
-               "title" : "Pb2",
-               "units" : "%"
-            },
-            {
-               "type" : "number",
-               "name" : "Cu2",
-               "units" : "%",
-               "title" : "Cu2",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Cd2",
-               "units" : "%",
-               "title" : "Cd2"
-            },
-            {
-               "name" : "fe2",
-               "type" : "number",
-               "title" : "fe2",
-               "units" : "%",
-               "formula" : ""
-            },
-            {
-               "name" : "S",
-               "type" : "number",
-               "title" : "S",
-               "units" : "%",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "As",
-               "units" : "%",
-               "name" : "As",
-               "type" : "number"
-            },
-            {
-               "name" : "Sb",
-               "type" : "number",
-               "title" : "Sb",
-               "units" : "%",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "S_sulf",
-               "units" : "%",
-               "name" : "S_sulf",
-               "type" : "number"
-            },
-            {
-               "name" : "vmt",
-               "type" : "number",
-               "title" : "vmt",
-               "units" : "ВМТ",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "name" : "cmt",
-               "type" : "number",
-               "title" : "cmt",
-               "units" : "СМТ"
-            },
-            {
-               "formula" : "",
-               "title" : "zn_end",
-               "units" : "тонн",
-               "name" : "zn_end",
-               "type" : "number"
-            }
-         ],
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\">Выдано концнт ВМТ</th>\n            <th class=\"th-number\">Выдано концнт СМТ</th>\n            <th class=\"th-number\">Выдано огарка<i class='units'>т</i></th>\n            <th class=\"th-number\">Zn конц<i class='units'>%</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Cd,\tFe<i class='units'>%</i></th>\n            <th class=\"th-number\">Zn огар<i class='units'>%</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Cd<i class='units'>%</i></th>\n            <th class=\"th-number\">Fe<i class='units'>%</i></th>\n            <th class=\"th-number\">SiO<sub>2</sub><i class='units'>%</i></th>\n            <th class=\"th-number\">S<i class='units'>%</i></th>\n            <th class=\"th-number\">As<i class='units'>%</i></th>\n            <th class=\"th-number\">Sb<i class='units'>%</i></th>\n            <th class=\"th-number\">S сульф<i class='units'>%</i></th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" >\n          <td><cell  field-name=\"vmt\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cmt\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"zn_end\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"pb\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cu\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cd\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"fe\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Zn_furn\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Pb2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Cu2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Cd2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"fe2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"SiO2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"S\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"As\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Sb\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"S_sulf\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
-      },
-      {
-         "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Наименование концентрата</th>\n            <th class=\"th-number\">СМТ</th>\n            <th class=\"th-number\">Zn<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Zn в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание  Pb в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Cu в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Cd<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Cd в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Содержание Au в концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">Содержание Ag в концентрате<i class='units'>г/т</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell  field-name=\"ConcName\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"cmt\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"znp\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodZn\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Pb_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodPb\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Cu_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodCu\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Cd_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodCd\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodAu\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodAg\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
-         "fields" : [
-            {
-               "formula" : "",
-               "options" : [],
-               "name" : "caption",
-               "type" : "datalist",
-               "title" : "caption"
-            },
-            {
-               "name" : "cmt",
-               "type" : "number",
-               "title" : "cmt",
-               "units" : "СМТ",
-               "formula" : ""
-            },
-            {
-               "units" : "%",
-               "title" : "znp",
-               "type" : "number",
-               "name" : "znp",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "name" : "Pb_",
-               "type" : "number",
-               "title" : "Pb_",
-               "units" : "%"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Cu_",
-               "units" : "%",
-               "title" : "Cu_"
-            },
-            {
-               "title" : "Cd_",
-               "units" : "%",
-               "name" : "Cd_",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "name" : "SodZn",
-               "type" : "number",
-               "title" : "SodZn",
-               "units" : "тонн",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "SodPb",
-               "units" : "тонн",
-               "name" : "SodPb",
-               "type" : "number"
-            },
-            {
-               "formula" : "",
-               "units" : "тонн",
-               "title" : "SodCu",
-               "type" : "number",
-               "name" : "SodCu"
-            },
-            {
-               "name" : "SodCd",
-               "type" : "number",
-               "title" : "SodCd",
-               "units" : "тонн",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "SodAu",
-               "units" : "г/т",
-               "title" : "SodAu"
-            },
-            {
-               "formula" : "",
-               "title" : "SodAg",
-               "units" : "г/т",
-               "name" : "SodAg",
-               "type" : "number"
-            },
-            {
-               "formula" : "",
-               "type" : "",
-               "name" : "ConcName",
-               "title" : "ConcName"
-            }
-         ],
-         "title" : "СНС",
-         "name" : "sns"
-      },
-      {
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> ЗГОК </th>\n            <th> Арт-ий</th>\n            <th> Усть-ТАЛ</th>\n            <th> Карагайлы</th>\n            <th> Верх-Бер</th>\n            <th> Белоусовка</th>\n            <th> Жезкент</th>\n            <th> Ер Тай</th>\n            <th> Н.Широкинский</th>\n            <th> Лесосиб</th>\n            <th> Алтын-Топкан</th>\n            <th> Итого ВМТ</th>\n            <th> ИТОГО СМТ</th>\n            <th> Выдано огарка</th>\n            <th> Потери</th>\n            <th> Огарка передано</th>\n            <th> ЦЕХ</th>\n            <th> Лента</th>\n            <th> Потеря бункеров ОВЦО</th>\n            <th> Лента итого</th>\n            <th> Отклонение</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" >\n             <td><cell  field-name=\"sgok\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"art-iy\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ust-tal\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"karagayls\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"verh-ber\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"belousovka\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"Jezkent\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"er-tay\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"NShirokinskiy\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"lesosib\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"altyn-topkan\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"itogo_vmt\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"itogo_smt\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"vydano_ogarka\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"poteri\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ogarka_peredano\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ceh\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"Lenta\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"poterya\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"lenta_itogo\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"deviation\" :row-index=\"index\" /></td>\n        </tr>\n    </tbody>\n</table>\n\n",
-         "fields" : [
-            {
-               "formula" : "",
-               "units" : "ВМТ",
-               "title" : "zgok",
-               "type" : "number",
-               "name" : "zgok"
-            },
-            {
-               "formula" : "",
-               "title" : "art-iy",
-               "units" : "ВМТ",
-               "name" : "art-iy",
-               "type" : "number"
-            },
-            {
-               "title" : "ust-tal",
-               "units" : "ВМТ",
-               "name" : "ust-tal",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "title" : "karagayls",
-               "units" : "ВМТ",
-               "name" : "karagayls",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "units" : "ВМТ",
-               "title" : "verh-ber",
-               "type" : "number",
-               "name" : "verh-ber"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "belousovka",
-               "units" : "ВМТ",
-               "title" : "belousovka"
-            },
-            {
-               "formula" : "",
-               "units" : "ВМТ",
-               "title" : "Jezkent",
-               "type" : "number",
-               "name" : "Jezkent"
-            },
-            {
-               "units" : "ВМТ",
-               "title" : "er-tay",
-               "type" : "number",
-               "name" : "er-tay",
-               "formula" : ""
-            },
-            {
-               "units" : "ВМТ",
-               "title" : "NShirokinskiy",
-               "type" : "number",
-               "name" : "NShirokinskiy",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "lesosib",
-               "units" : "ВМТ",
-               "name" : "lesosib",
-               "type" : "number"
-            },
-            {
-               "title" : "altyn-topkan",
-               "units" : "ВМТ",
-               "name" : "altyn-topkan",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "type" : "number",
-               "name" : "itogo_vmt",
-               "units" : "ВМТ",
-               "title" : "itogo_vmt",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "name" : "itogo_smt",
-               "type" : "number",
-               "title" : "itogo_smt",
-               "units" : "СМТ"
-            },
-            {
-               "formula" : "",
-               "units" : "ВМТ",
-               "title" : "vydano_ogarka",
-               "type" : "number",
-               "name" : "vydano_ogarka"
-            },
-            {
-               "title" : "poteri",
-               "units" : "ВМТ",
-               "name" : "poteri",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "type" : "number",
-               "name" : "ogarka_peredano",
-               "units" : "ВМТ",
-               "title" : "ogarka_peredano",
-               "formula" : ""
-            },
-            {
-               "type" : "number",
-               "name" : "ceh",
-               "units" : "ВМТ",
-               "title" : "ceh",
-               "formula" : ""
-            },
-            {
-               "type" : "number",
-               "name" : "Lenta",
-               "units" : "ВМТ",
-               "title" : "Lenta",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "units" : "ВМТ",
-               "title" : "poterya",
-               "type" : "number",
-               "name" : "poterya"
-            },
-            {
-               "formula" : "",
-               "name" : "lenta_itogo",
-               "type" : "number",
-               "title" : "lenta_itogo",
-               "units" : "ВМТ"
-            },
-            {
-               "title" : "deviation",
-               "name" : "deviation",
-               "type" : "text",
-               "formula" : ""
-            },
-            {
-               "name" : "sgok",
-               "type" : "",
-               "title" : "sgok",
-               "formula" : ""
-            }
-         ],
-         "name" : "sgok",
-         "title" : "ЗГОК таблица"
-      },
-      {
-         "name" : "gof",
-         "title" : "ГОФ таблица",
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th rowspan=\"2\">ГОФ</th>\n        <th colspan=\"3\" class=\"th-common\">Приход концентрата (Пасечникова)</th>\n        <th colspan=\"2\" class=\"th-common\">Остаток на\n            <span>\n                    <cell  field-name=\"remainder_date\" row-index=\"0\"></cell>\n                </span>\n        </th>\n        <th colspan=\"2\" class=\"th-common\">Итого</th>\n        <th colspan=\"2\" class=\"th-common\">Расход концентрата</th>\n        <th colspan=\"2\" class=\"th-common\">Остаток концентрата на\n            <span>\n                    <cell  field-name=\"remainder_date_guild\" row-index=\"0\"></cell>\n                </span>\n            ЦеХ\n        </th>\n        <th colspan=\"2\" class=\"th-common\">Остаток концентрата на\n            <span>\n                    <cell  field-name=\"remainder_date_Kusmanov\" row-ndex=\"0\"></cell>\n                </span>\n            Кусманов\n        </th>\n    </tr>\n    <tr>\n        <th>ВМТ</th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(title, index) in ['ЗГОК','Арт-ий', 'Усть-ТАЛ','Карагайлы','Верх-Бер', 'Белоусовка', 'Жезкент', 'Ер Тай','Н. Широкинский','Лесосиб','Алтын-Топкан']\">\n            <th v-html=\"title\"></th>\n            <td>\n                <cell  field-name=\"vmt\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt2\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc2\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt3\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc3\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt4\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc4\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt5\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc5\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt6\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc6\" :row-index=\"index\"></cell>\n            </td>\n        </tr>\n    </tbody>\n</table>\n",
-         "fields" : [
-            {
-               "name" : "vmt",
-               "type" : "number",
-               "title" : "vmt",
-               "units" : "ВМТ",
-               "formula" : ""
-            },
-            {
-               "name" : "cmt",
-               "type" : "number",
-               "title" : "cmt",
-               "units" : "СМТ",
-               "formula" : ""
-            },
-            {
-               "title" : "zinc",
-               "units" : "тонн",
-               "name" : "zinc",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "units" : "СМТ",
-               "title" : "cmt2",
-               "type" : "number",
-               "name" : "cmt2"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "zinc2",
-               "units" : "тонн",
-               "title" : "zinc2"
-            },
-            {
-               "name" : "cmt3",
-               "type" : "number",
-               "title" : "cmt3",
-               "units" : "СМТ",
-               "formula" : ""
-            },
-            {
-               "units" : "тонн",
-               "title" : "zinc3",
-               "type" : "number",
-               "name" : "zinc3",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "units" : "СМТ",
-               "title" : "cmt4",
-               "type" : "number",
-               "name" : "cmt4"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "zinc4",
-               "units" : "тонн",
-               "title" : "zinc4"
-            },
-            {
-               "formula" : "",
-               "title" : "cmt5",
-               "units" : "СМТ",
-               "name" : "cmt5",
-               "type" : "number"
-            },
-            {
-               "type" : "number",
-               "name" : "zinc5",
-               "units" : "тонн",
-               "title" : "zinc5",
-               "formula" : ""
-            },
-            {
-               "units" : "СМТ",
-               "title" : "cmt6",
-               "type" : "number",
-               "name" : "cmt6",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "zinc6",
-               "units" : "тонн",
-               "name" : "zinc6",
-               "type" : "number"
-            },
-            {
-               "type" : "number",
-               "name" : "cmt7",
-               "units" : "СМТ",
-               "title" : "cmt7",
-               "formula" : ""
-            },
-            {
-               "name" : "zinc7",
-               "type" : "number",
-               "title" : "zinc7",
-               "units" : "тонн",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "cmt8",
-               "units" : "СМТ",
-               "name" : "cmt8",
-               "type" : "number"
-            },
-            {
-               "formula" : "",
-               "units" : "тонн",
-               "title" : "zinc8",
-               "type" : "number",
-               "name" : "zinc8"
-            },
-            {
-               "formula" : "",
-               "name" : "remainder_date",
-               "type" : "date",
-               "title" : "remainder_date"
-            },
-            {
-               "formula" : "",
-               "name" : "remainder_date_guild",
-               "type" : "date",
-               "title" : "remainder_date_guild"
-            },
-            {
-               "formula" : "",
-               "type" : "date",
-               "name" : "remainder_date_Kusmanov",
-               "title" : "remainder_date_Kusmanov"
-            },
-            {
-               "formula" : "",
-               "type" : "date",
-               "name" : "discrepancy_date",
-               "title" : "discrepancy_date"
-            }
-         ]
-      },
-      {
-         "name" : "cinder_conc",
-         "title" : "Огарок",
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell  field-name=\"date_cinder\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n",
-         "fields" : [
-            {
-               "formula" : "",
-               "title" : "date_cinder",
-               "name" : "date_cinder",
-               "type" : "date"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "gold",
-               "units" : "",
-               "title" : "gold"
-            },
-            {
-               "title" : "silver",
-               "units" : "",
-               "name" : "silver",
-               "type" : "number",
-               "formula" : ""
-            }
-         ]
-      },
-      {
-         "name" : "concentrat",
-         "title" : "Концентрат",
-         "fields" : [
-            {
-               "name" : "date_conc",
-               "type" : "date",
-               "title" : "date_conc",
-               "formula" : ""
-            },
-            {
-               "type" : "number",
-               "name" : "gold",
-               "units" : "",
-               "title" : "gold",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "silver",
-               "units" : "",
-               "name" : "silver",
-               "type" : "number"
-            }
-         ],
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell  field-name=\"date_conc\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
-      },
-      {
-         "name" : "contain_zn",
-         "title" : "Содержание в",
-         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"1\" rowspan=\"2\"></th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Zn</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Pb</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Cu</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Cd</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Au</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Ag</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">В огарке<i class='units'>тонн</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>Отклонение Кусманов</th>\n            <td><cell  field-name=\"Zn_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Zn_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Pb_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Pb_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cu_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cu_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cd_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cd_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Au_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Au_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Ag_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Ag_cin\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Отклонение OTK</th>\n            <td><cell  field-name=\"Zn_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Zn_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Pb_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Pb_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cu_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cu_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cd_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cd_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Au_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Au_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Ag_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Ag_cin\" row-index=\"1\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n",
-         "fields" : [
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Zn_con",
-               "units" : "тонн",
-               "title" : "Zn_con"
-            },
-            {
-               "units" : "тонн",
-               "title" : "Pb_con",
-               "type" : "number",
-               "name" : "Pb_con",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Cu_con",
-               "units" : "тонн",
-               "title" : "Cu_con"
-            },
-            {
-               "formula" : "",
-               "units" : "тонн",
-               "title" : "Cd_con",
-               "type" : "number",
-               "name" : "Cd_con"
-            },
-            {
-               "formula" : "",
-               "name" : "Au_con",
-               "type" : "number",
-               "title" : "Au_con",
-               "units" : "г/т"
-            },
-            {
-               "formula" : "",
-               "name" : "Ag_con",
-               "type" : "number",
-               "title" : "Ag_con",
-               "units" : "г/т"
-            },
-            {
-               "units" : "тонн",
-               "title" : "Zn_cin",
-               "type" : "number",
-               "name" : "Zn_cin",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "Pb_cin",
-               "units" : "тонн",
-               "name" : "Pb_cin",
-               "type" : "number"
-            },
-            {
-               "formula" : "",
-               "name" : "Cu_cin",
-               "type" : "number",
-               "title" : "Cu_cin",
-               "units" : "тонн"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Cd_cin",
-               "units" : "тонн",
-               "title" : "Cd_cin"
-            },
-            {
-               "formula" : "",
-               "units" : "г/т",
-               "title" : "Au_cin",
-               "type" : "number",
-               "name" : "Au_cin"
-            },
-            {
-               "formula" : "",
-               "type" : "number",
-               "name" : "Ag_cin",
-               "units" : "г/т",
-               "title" : "Ag_cin"
-            }
-         ]
-      }
-   ],
-   "title" : "Рассчёт металлов",
-   "version" : "0.1"
+    "version": "0.1",
+    "name": "metals_compute",
+    "title": "Рассчёт металлов",
+    "type": "month",
+    "tables": [
+        {
+            "name": "avg_month",
+            "title": "Среднее содержание за месяц",
+            "fields": [
+                {
+                    "name": "pb",
+                    "title": "pb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "cu",
+                    "title": "cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "cd",
+                    "title": "cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "fe",
+                    "title": "fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "SiO2",
+                    "title": "SiO2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Zn_furn",
+                    "title": "Zn_furn",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Pb2",
+                    "title": "Pb2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Cu2",
+                    "title": "Cu2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Cd2",
+                    "title": "Cd2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "fe2",
+                    "title": "fe2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "S",
+                    "title": "S",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "As",
+                    "title": "As",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Sb",
+                    "title": "Sb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "S_sulf",
+                    "title": "S_sulf",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "vmt",
+                    "title": "vmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "cmt",
+                    "title": "cmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn_end",
+                    "title": "zn_end",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\">Выдано концнт ВМТ</th>\n            <th class=\"th-number\">Выдано концнт СМТ</th>\n            <th class=\"th-number\">Выдано огарка<i class='units'>т</i></th>\n            <th class=\"th-number\">Zn конц<i class='units'>%</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Cd,\tFe<i class='units'>%</i></th>\n            <th class=\"th-number\">Zn огар<i class='units'>%</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Cd<i class='units'>%</i></th>\n            <th class=\"th-number\">Fe<i class='units'>%</i></th>\n            <th class=\"th-number\">SiO<sub>2</sub><i class='units'>%</i></th>\n            <th class=\"th-number\">S<i class='units'>%</i></th>\n            <th class=\"th-number\">As<i class='units'>%</i></th>\n            <th class=\"th-number\">Sb<i class='units'>%</i></th>\n            <th class=\"th-number\">S сульф<i class='units'>%</i></th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" >\n          <td><cell  field-name=\"vmt\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cmt\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"zn_end\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"pb\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cu\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"cd\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"fe\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Zn_furn\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Pb2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Cu2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Cd2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"fe2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"SiO2\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"S\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"As\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"Sb\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"S_sulf\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "sns",
+            "title": "СНС",
+            "fields": [
+                {
+                    "name": "caption",
+                    "title": "caption",
+                    "formula": "",
+                    "type": "datalist",
+                    "options": []
+                },
+                {
+                    "name": "cmt",
+                    "title": "cmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "znp",
+                    "title": "znp",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Pb_",
+                    "title": "Pb_",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Cu_",
+                    "title": "Cu_",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "Cd_",
+                    "title": "Cd_",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "SodZn",
+                    "title": "SodZn",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "SodPb",
+                    "title": "SodPb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "SodCu",
+                    "title": "SodCu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "SodCd",
+                    "title": "SodCd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "SodAu",
+                    "title": "SodAu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "SodAg",
+                    "title": "SodAg",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "ConcName",
+                    "title": "ConcName",
+                    "formula": "",
+                    "type": ""
+                }
+            ],
+            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Наименование концентрата</th>\n            <th class=\"th-number\">СМТ</th>\n            <th class=\"th-number\">Zn<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Zn в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Pb<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание  Pb в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Cu<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Cu в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Cd<i class='units'>%</i></th>\n            <th class=\"th-number\">Содержание Cd в концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">Содержание Au в концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">Содержание Ag в концентрате<i class='units'>г/т</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell  field-name=\"ConcName\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"cmt\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"znp\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodZn\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Pb_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodPb\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Cu_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodCu\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"Cd_\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodCd\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodAu\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"SodAg\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "sgok",
+            "title": "ЗГОК таблица",
+            "fields": [
+                {
+                    "name": "zgok",
+                    "title": "zgok",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "art-iy
+                    "title": "art-iy",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "ust-tal
+                    "title": "ust-tal",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "karagayls",
+                    "title": "karagayls",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "verh-ber
+                    "title": "verh-ber",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "belousovka",
+                    "title": "belousovka",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "Jezkent",
+                    "title": "Jezkent",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "er-tay
+                    "title": "er-tay",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "NShirokinskiy",
+                    "title": "NShirokinskiy",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "lesosib",
+                    "title": "lesosib",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "altyn-topkan
+                    "title": "altyn-topkan",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "itogo_vmt",
+                    "title": "itogo_vmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "itogo_smt",
+                    "title": "itogo_smt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "vydano_ogarka",
+                    "title": "vydano_ogarka",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "poteri",
+                    "title": "poteri",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "ogarka_peredano",
+                    "title": "ogarka_peredano",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "ceh",
+                    "title": "ceh",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "Lenta",
+                    "title": "Lenta",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "poterya",
+                    "title": "poterya",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "lenta_itogo",
+                    "title": "lenta_itogo",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "deviation",
+                    "title": "deviation",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "sgok",
+                    "title": "sgok",
+                    "formula": "",
+                    "type": ""
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> ЗГОК </th>\n            <th> Арт-ий</th>\n            <th> Усть-ТАЛ</th>\n            <th> Карагайлы</th>\n            <th> Верх-Бер</th>\n            <th> Белоусовка</th>\n            <th> Жезкент</th>\n            <th> Ер Тай</th>\n            <th> Н.Широкинский</th>\n            <th> Лесосиб</th>\n            <th> Алтын-Топкан</th>\n            <th> Итого ВМТ</th>\n            <th> ИТОГО СМТ</th>\n            <th> Выдано огарка</th>\n            <th> Потери</th>\n            <th> Огарка передано</th>\n            <th> ЦЕХ</th>\n            <th> Лента</th>\n            <th> Потеря бункеров ОВЦО</th>\n            <th> Лента итого</th>\n            <th> Отклонение</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" >\n             <td><cell  field-name=\"sgok\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"art-iy\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ust-tal\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"karagayls\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"verh-ber\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"belousovka\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"Jezkent\" :row-index=\"index\"/></td>\n             <td><cell  field-name=\"er-tay\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"NShirokinskiy\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"lesosib\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"altyn-topkan\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"itogo_vmt\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"itogo_smt\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"vydano_ogarka\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"poteri\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ogarka_peredano\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"ceh\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"Lenta\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"poterya\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"lenta_itogo\" :row-index=\"index\" /></td>\n             <td><cell  field-name=\"deviation\" :row-index=\"index\" /></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+        },
+        {
+            "name": "gof",
+            "title": "ГОФ таблица",
+            "fields": [
+                {
+                    "name": "vmt",
+                    "title": "vmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "cmt",
+                    "title": "cmt",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc",
+                    "title": "zinc",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt2",
+                    "title": "cmt2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc2",
+                    "title": "zinc2",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt3",
+                    "title": "cmt3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc3",
+                    "title": "zinc3",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt4",
+                    "title": "cmt4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc4",
+                    "title": "zinc4",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt5",
+                    "title": "cmt5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc5",
+                    "title": "zinc5",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt6",
+                    "title": "cmt6",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc6",
+                    "title": "zinc6",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt7",
+                    "title": "cmt7",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc7",
+                    "title": "zinc7",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cmt8",
+                    "title": "cmt8",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zinc8",
+                    "title": "zinc8",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "remainder_date",
+                    "title": "remainder_date",
+                    "formula": "",
+                    "type": "date"
+                },
+                {
+                    "name": "remainder_date_guild",
+                    "title": "remainder_date_guild",
+                    "formula": "",
+                    "type": "date"
+                },
+                {
+                    "name": "remainder_date_Kusmanov",
+                    "title": "remainder_date_Kusmanov",
+                    "formula": "",
+                    "type": "date"
+                },
+                {
+                    "name": "discrepancy_date",
+                    "title": "discrepancy_date",
+                    "formula": "",
+                    "type": "date"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th rowspan=\"2\">ГОФ</th>\n        <th colspan=\"3\" class=\"th-common\">Приход концентрата (Пасечникова)</th>\n        <th colspan=\"2\" class=\"th-common\">Остаток на\n            <span>\n                    <cell  field-name=\"remainder_date\" row-index=\"0\"></cell>\n                </span>\n        </th>\n        <th colspan=\"2\" class=\"th-common\">Итого</th>\n        <th colspan=\"2\" class=\"th-common\">Расход концентрата</th>\n        <th colspan=\"2\" class=\"th-common\">Остаток концентрата на\n            <span>\n                    <cell  field-name=\"remainder_date_guild\" row-index=\"0\"></cell>\n                </span>\n            ЦеХ\n        </th>\n        <th colspan=\"2\" class=\"th-common\">Остаток концентрата на\n            <span>\n                    <cell  field-name=\"remainder_date_Kusmanov\" row-ndex=\"0\"></cell>\n                </span>\n            Кусманов\n        </th>\n    </tr>\n    <tr>\n        <th>ВМТ</th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n        <th>СМТ</th>\n        <th>Цинк<i class=\"units\">т</i></th>\n    </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(title, index) in ['ЗГОК','Арт-ий', 'Усть-ТАЛ','Карагайлы','Верх-Бер', 'Белоусовка', 'Жезкент', 'Ер Тай','Н. Широкинский','Лесосиб','Алтын-Топкан']\">\n            <th v-html=\"title\"></th>\n            <td>\n                <cell  field-name=\"vmt\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt2\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc2\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt3\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc3\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt4\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc4\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt5\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc5\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"cmt6\" :row-index=\"index\"></cell>\n            </td>\n            <td>\n                <cell  field-name=\"zinc6\" :row-index=\"index\"></cell>\n            </td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "cinder_conc",
+            "title": "Огарок",
+            "fields": [
+                {
+                    "name": "date_cinder",
+                    "title": "date_cinder",
+                    "formula": "",
+                    "type": "date"
+                },
+                {
+                    "name": "gold",
+                    "title": "gold",
+                    "formula": "",
+                    "type": "number",
+                    "units": "грамм"
+                },
+                {
+                    "name": "silver",
+                    "title": "silver",
+                    "formula": "",
+                    "type": "number",
+                    "units": "грамм"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell  field-name=\"date_cinder\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n          <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "concentrat",
+            "title": "Концентрат",
+            "fields": [
+                {
+                    "name": "date_conc",
+                    "title": "date_conc",
+                    "formula": "",
+                    "type": "date"
+                },
+                {
+                    "name": "gold",
+                    "title": "gold",
+                    "formula": "",
+                    "type": "number",
+                    "units": "грамм"
+                },
+                {
+                    "name": "silver",
+                    "title": "silver",
+                    "formula": "",
+                    "type": "number",
+                    "units": "грамм"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Дата</th>\n            <th>Золото</th>\n            <th>Серебро</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell  field-name=\"date_conc\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"gold\" :row-index=\"index\"></cell></td>\n            <td><cell  field-name=\"silver\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "contain_zn",
+            "title": "Содержание в",
+            "fields": [
+                {
+                    "name": "Zn_con",
+                    "title": "Zn_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Pb_con",
+                    "title": "Pb_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Cu_con",
+                    "title": "Cu_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Cd_con",
+                    "title": "Cd_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Au_con",
+                    "title": "Au_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "Ag_con",
+                    "title": "Ag_con",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "Zn_cin",
+                    "title": "Zn_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Pb_cin",
+                    "title": "Pb_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Cu_cin",
+                    "title": "Cu_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Cd_cin",
+                    "title": "Cd_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "Au_cin",
+                    "title": "Au_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "Ag_cin",
+                    "title": "Ag_cin",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"1\" rowspan=\"2\"></th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Zn</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Pb</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Cu</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Cd</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Au</th>\n            <th colspan=\"2\" class=\"th-common\">Содержание Ag</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n            <th class=\"th-number\">В&nbsp;концентрате<i class='units'>г/т</i></th>\n            <th class=\"th-number\">В&nbsp;огарке<i class='units'>тонн</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>Отклонение Кусманов</th>\n            <td><cell  field-name=\"Zn_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Zn_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Pb_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Pb_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cu_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cu_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cd_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Cd_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Au_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Au_cin\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Ag_con\" row-index=\"0\"></cell></td>\n            <td><cell  field-name=\"Ag_cin\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Отклонение OTK</th>\n            <td><cell  field-name=\"Zn_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Zn_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Pb_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Pb_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cu_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cu_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cd_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Cd_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Au_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Au_cin\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Ag_con\" row-index=\"1\"></cell></td>\n            <td><cell  field-name=\"Ag_cin\" row-index=\"1\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+        }
+    ]
 }
