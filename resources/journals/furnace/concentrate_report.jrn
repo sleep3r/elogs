@@ -1,302 +1,349 @@
 {
-    "version": "0.1",
-    "name": "concentrate_report",
-    "title": "Журнал рапортов о проделанной работе по складам концентратов",
-    "type": "shift",
-    "tables": [
-        {
-            "name": "big",
-            "title": "Поступление/отгрузка/остаток",
-            "fields": [
-                {
-                    "name": "wagon_num",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "conc_num",
-                    "formula": "",
-                    "type": "datalist",
-                    "options": []
-                },
-                {
-                    "name": "supply_time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "plan_cleaning_time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "fact_cleaning_time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "downtime",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ч"
-                },
-                {
-                    "name": "recieved_conc",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "recieved_beds",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "recieved_stops",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "recieved_braces",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\" >\n    <thead>\n        <tr>\n            <th > Номер вагона </th>\n            <th  > Наиме&shy;нование концен&shy;трата </th>\n            <th  > Время подачи </th>\n\n            <th > Время плано&shy;вой уборки </th>\n            <th > Время факти&shy;ческой уборки </th>\n\n            <th class=\"th-number\"> Время перепростоя<i class='units'>ч</i></th>\n            <th class=\"th-number\"> Поступило контей&shy;неров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило упоров<i class='units'>шт</i> </th>\n        </tr>\n    </thead>\n    <tbody>\n          <tr v-for=\"(value, index) in rowsCount\">\n              <td><cell field-name=\"wagon_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"conc_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"supply_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"plan_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"fact_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"downtime\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_conc\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_beds\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_stops\" :row-index=\"index\"></cell></td>\n          </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "small",
-            "title": "Учёт контейнеров",
-            "fields": [
-                {
-                    "name": "storage1",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "containers_reciept1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "shipped_empty_num1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "poured_containers_num1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers11",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers21",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_defective_containers1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_braces1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_beds1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_stops1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "storage2",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "containers_reciept2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "shipped_empty_num2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "poured_containers_num2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers12",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers22",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_defective_containers2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_braces2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_beds2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_stops2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "storage_total",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "containers_reciept_total",
-                    "formula": "FUNC('concentrate_report','small', 'containers_reciept1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'containers_reciept2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "shipped_empty_num_total",
-                    "formula": "FUNC('concentrate_report','small', 'shipped_empty_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'shipped_empty_num2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "poured_containers_num_total",
-                    "formula": "FUNC('concentrate_report','small', 'poured_containers_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'poured_containers_num2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers1_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_empty_containers11', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers12', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_empty_containers2_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_empty_containers21', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers22', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_defective_containers_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_defective_containers1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_defective_containers2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_braces_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_braces1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_braces2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_beds_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_beds1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_beds2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "residue_stops_total",
-                    "formula": "FUNC('concentrate_report','small', 'residue_stops1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_stops2', 0, CURRENT_SHIFT)",
-                    "type": "number",
-                    "units": "шт"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад </th>\n            <th class=\"th-number\"> Поступление контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Отгружено порожних<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Разгружено контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток пустых контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток полных контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток бракованых контейнеров<i class='units'>шт</i></th>\n            <th class=\"th-number\"> Остаток скоб<i class='units'>шт</i></th>\n            <th class=\"th-number\"> Количество поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number changing-header\"><cell field-name=\"staples-count-header\" row-index=\"0\"></cell></th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th>1</th>\n        <td><cell field-name=\"containers_reciept1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"shipped_empty_num1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"poured_containers_num1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers11\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers21\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_defective_containers1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_braces1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_beds1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_stops1\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th scope=\"row\">2</th>\n        <td><cell field-name=\"containers_reciept2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"shipped_empty_num2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"poured_containers_num2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers12\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers22\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_defective_containers2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_braces2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_beds2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_stops2\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th scope=\"row\">Итого</th>\n        <td><cell  field-name=\"containers_reciept_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"shipped_empty_num_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"poured_containers_num_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_empty_containers1_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_empty_containers2_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_defective_containers_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_braces_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_beds_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_stops_total\" row-index=\"0\"></cell></td>\n    </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "upper",
-            "title": "Состав смены",
-            "fields": [
-                {
-                    "name": "storage",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "master",
-                    "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
-                },
-                {
-                    "name": "senior_crane_operator",
-                    "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
-                },
-                {
-                    "name": "crane_operator",
-                    "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
-                },
-                {
-                    "name": "sling_operator",
-                    "formula": "",
-                    "type": "text",
-                    "units": "Фамилия И.О."
-                },
-                {
-                    "name": "date",
-                    "formula": "",
-                    "type": "date"
-                },
-                {
-                    "name": "shift",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад<i class='units'>№</i> </th>\n            <th> Мастер </th>\n            <th> Старший крановщик </th>\n            <th> Крановщик </th>\n            <th> Стропальщик </th>\n            <th> Дата </th>\n            <th> Смена </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"storage\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"master\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"senior_crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sling_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"date\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"shift\" row-index=\"0\" linked=\"shiftOrder\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
-        }
-    ]
+   "version" : "0.1",
+   "title" : "Журнал рапортов о проделанной работе по складам концентратов",
+   "name" : "concentrate_report",
+   "type" : "shift",
+   "tables" : [
+      {
+         "html" : "<table class=\"table table-bordered elog-journal-table\" >\n    <thead>\n        <tr>\n            <th > Номер вагона </th>\n            <th  > Наиме&shy;нование концен&shy;трата </th>\n            <th  > Время подачи </th>\n\n            <th > Время плано&shy;вой уборки </th>\n            <th > Время факти&shy;ческой уборки </th>\n\n            <th class=\"th-number\"> Время перепростоя<i class='units'>ч</i></th>\n            <th class=\"th-number\"> Поступило контей&shy;неров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Поступило упоров<i class='units'>шт</i> </th>\n        </tr>\n    </thead>\n    <tbody>\n          <tr v-for=\"(value, index) in rowsCount\">\n              <td><cell field-name=\"wagon_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"conc_num\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"supply_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"plan_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"fact_cleaning_time\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"downtime\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_conc\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_beds\" :row-index=\"index\"></cell></td>\n              <td><cell field-name=\"recieved_stops\" :row-index=\"index\"></cell></td>\n          </tr>\n    </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "name" : "wagon_num",
+               "type" : "number",
+               "title" : "wagon_num",
+               "units" : "№",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "conc_num",
+               "type" : "datalist",
+               "options" : [],
+               "name" : "conc_num"
+            },
+            {
+               "title" : "supply_time",
+               "type" : "time",
+               "name" : "supply_time",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "plan_cleaning_time",
+               "name" : "plan_cleaning_time",
+               "type" : "time"
+            },
+            {
+               "formula" : "",
+               "title" : "fact_cleaning_time",
+               "name" : "fact_cleaning_time",
+               "type" : "time"
+            },
+            {
+               "formula" : "",
+               "units" : "ч",
+               "title" : "downtime",
+               "type" : "number",
+               "name" : "downtime"
+            },
+            {
+               "formula" : "",
+               "title" : "recieved_conc",
+               "units" : "шт",
+               "name" : "recieved_conc",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "title" : "recieved_beds",
+               "units" : "шт",
+               "name" : "recieved_beds",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "recieved_stops",
+               "units" : "шт",
+               "title" : "recieved_stops"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "recieved_braces",
+               "units" : "шт",
+               "title" : "recieved_braces"
+            }
+         ],
+         "name" : "big",
+         "title" : "Поступление/отгрузка/остаток"
+      },
+      {
+         "name" : "small",
+         "title" : "Учёт контейнеров",
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад </th>\n            <th class=\"th-number\"> Поступление контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Отгружено порожних<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Разгружено контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток пустых контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток полных контейнеров<i class='units'>шт</i> </th>\n            <th class=\"th-number\"> Остаток бракованых контейнеров<i class='units'>шт</i></th>\n            <th class=\"th-number\"> Остаток скоб<i class='units'>шт</i></th>\n            <th class=\"th-number\"> Количество поддонов<i class='units'>шт</i> </th>\n            <th class=\"th-number changing-header\"><cell field-name=\"staples-count-header\" row-index=\"0\"></cell></th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th>1</th>\n        <td><cell field-name=\"containers_reciept1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"shipped_empty_num1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"poured_containers_num1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers11\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers21\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_defective_containers1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_braces1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_beds1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_stops1\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th scope=\"row\">2</th>\n        <td><cell field-name=\"containers_reciept2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"shipped_empty_num2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"poured_containers_num2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers12\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_empty_containers22\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_defective_containers2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_braces2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_beds2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"residue_stops2\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th scope=\"row\">Итого</th>\n        <td><cell  field-name=\"containers_reciept_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"shipped_empty_num_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"poured_containers_num_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_empty_containers1_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_empty_containers2_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_defective_containers_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_braces_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_beds_total\" row-index=\"0\"></cell></td>\n        <td><cell  field-name=\"residue_stops_total\" row-index=\"0\"></cell></td>\n    </tr>\n    </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "title" : "storage1",
+               "type" : "text",
+               "name" : "storage1",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "шт",
+               "title" : "containers_reciept1",
+               "type" : "number",
+               "name" : "containers_reciept1"
+            },
+            {
+               "title" : "shipped_empty_num1",
+               "units" : "шт",
+               "name" : "shipped_empty_num1",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "units" : "шт",
+               "title" : "poured_containers_num1",
+               "type" : "number",
+               "name" : "poured_containers_num1",
+               "formula" : ""
+            },
+            {
+               "units" : "шт",
+               "title" : "residue_empty_containers11",
+               "type" : "number",
+               "name" : "residue_empty_containers11",
+               "formula" : ""
+            },
+            {
+               "name" : "residue_empty_containers21",
+               "type" : "number",
+               "title" : "residue_empty_containers21",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "residue_defective_containers1",
+               "type" : "number",
+               "title" : "residue_defective_containers1",
+               "units" : "шт"
+            },
+            {
+               "name" : "residue_braces1",
+               "type" : "number",
+               "title" : "residue_braces1",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "residue_beds1",
+               "type" : "number",
+               "title" : "residue_beds1",
+               "units" : "шт"
+            },
+            {
+               "title" : "residue_stops1",
+               "units" : "шт",
+               "name" : "residue_stops1",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "type" : "text",
+               "name" : "storage2",
+               "title" : "storage2",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "containers_reciept2",
+               "type" : "number",
+               "title" : "containers_reciept2",
+               "units" : "шт"
+            },
+            {
+               "name" : "shipped_empty_num2",
+               "type" : "number",
+               "title" : "shipped_empty_num2",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "name" : "poured_containers_num2",
+               "type" : "number",
+               "title" : "poured_containers_num2",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "шт",
+               "title" : "residue_empty_containers12",
+               "type" : "number",
+               "name" : "residue_empty_containers12"
+            },
+            {
+               "name" : "residue_empty_containers22",
+               "type" : "number",
+               "title" : "residue_empty_containers22",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "name" : "residue_defective_containers2",
+               "type" : "number",
+               "title" : "residue_defective_containers2",
+               "units" : "шт",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "residue_braces2",
+               "units" : "шт",
+               "name" : "residue_braces2",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "title" : "residue_beds2",
+               "units" : "шт",
+               "name" : "residue_beds2",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "units" : "шт",
+               "title" : "residue_stops2",
+               "type" : "number",
+               "name" : "residue_stops2"
+            },
+            {
+               "name" : "storage_total",
+               "type" : "text",
+               "title" : "storage_total",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "containers_reciept_total",
+               "units" : "шт",
+               "title" : "containers_reciept_total",
+               "formula" : "FUNC('concentrate_report','small', 'containers_reciept1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'containers_reciept2', 0, CURRENT_SHIFT)"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'shipped_empty_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'shipped_empty_num2', 0, CURRENT_SHIFT)",
+               "units" : "шт",
+               "title" : "shipped_empty_num_total",
+               "type" : "number",
+               "name" : "shipped_empty_num_total"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'poured_containers_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'poured_containers_num2', 0, CURRENT_SHIFT)",
+               "units" : "шт",
+               "title" : "poured_containers_num_total",
+               "type" : "number",
+               "name" : "poured_containers_num_total"
+            },
+            {
+               "title" : "residue_empty_containers1_total",
+               "units" : "шт",
+               "name" : "residue_empty_containers1_total",
+               "type" : "number",
+               "formula" : "FUNC('concentrate_report','small', 'residue_empty_containers11', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers12', 0, CURRENT_SHIFT)"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'residue_empty_containers21', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers22', 0, CURRENT_SHIFT)",
+               "name" : "residue_empty_containers2_total",
+               "type" : "number",
+               "title" : "residue_empty_containers2_total",
+               "units" : "шт"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'residue_defective_containers1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_defective_containers2', 0, CURRENT_SHIFT)",
+               "name" : "residue_defective_containers_total",
+               "type" : "number",
+               "title" : "residue_defective_containers_total",
+               "units" : "шт"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'residue_braces1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_braces2', 0, CURRENT_SHIFT)",
+               "type" : "number",
+               "name" : "residue_braces_total",
+               "units" : "шт",
+               "title" : "residue_braces_total"
+            },
+            {
+               "title" : "residue_beds_total",
+               "units" : "шт",
+               "name" : "residue_beds_total",
+               "type" : "number",
+               "formula" : "FUNC('concentrate_report','small', 'residue_beds1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_beds2', 0, CURRENT_SHIFT)"
+            },
+            {
+               "formula" : "FUNC('concentrate_report','small', 'residue_stops1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_stops2', 0, CURRENT_SHIFT)",
+               "title" : "residue_stops_total",
+               "units" : "шт",
+               "name" : "residue_stops_total",
+               "type" : "number"
+            }
+         ]
+      },
+      {
+         "name" : "upper",
+         "title" : "Состав смены",
+         "fields" : [
+            {
+               "title" : "storage",
+               "type" : "text",
+               "name" : "storage",
+               "formula" : ""
+            },
+            {
+               "title" : "master",
+               "units" : "Фамилия И.О.",
+               "name" : "master",
+               "type" : "text",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "senior_crane_operator",
+               "units" : "Фамилия И.О.",
+               "title" : "senior_crane_operator"
+            },
+            {
+               "type" : "text",
+               "name" : "crane_operator",
+               "units" : "Фамилия И.О.",
+               "title" : "crane_operator",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "sling_operator",
+               "units" : "Фамилия И.О.",
+               "title" : "sling_operator"
+            },
+            {
+               "name" : "date",
+               "type" : "date",
+               "title" : "date",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "shift",
+               "type" : "text",
+               "title" : "shift"
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Склад<i class='units'>№</i> </th>\n            <th> Мастер </th>\n            <th> Старший крановщик </th>\n            <th> Крановщик </th>\n            <th> Стропальщик </th>\n            <th> Дата </th>\n            <th> Смена </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"storage\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"master\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"senior_crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"crane_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"sling_operator\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"date\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"shift\" row-index=\"0\" linked=\"shiftOrder\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+      }
+   ]
 }

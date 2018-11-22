@@ -1,46 +1,52 @@
 {
-    "version": "0.1",
-    "name": "leaching_repair_equipment",
-    "title": "Журнал ремонта",
-    "type": "equipment",
-    "tables": [
-        {
-            "name": "repair",
-            "title": "Журнал ремонтов",
-            "fields": [
-                {
-                    "name": "equipment",
-                    "formula": "",
-                    "type": "datalist",
-                    "options": []
-                },
-                {
-                    "name": "date_view",
-                    "formula": "",
-                    "type": "date"
-                },
-                {
-                    "name": "name_equipment",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "date_finish",
-                    "formula": "",
-                    "type": "date"
-                },
-                {
-                    "name": "volume_text",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "fact_time",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": " <table class=\"table table-bordered elog-journal-table\">\n     <thead>\n        <tr>\n            <th rowspan=\"2\">Наименование оборудования</th>\n            <th colspan=\"3\" class=\"th-common\">Запись о дефектах, обнаруженных при осмотрах</th>\n            <th colspan=\"3\" class=\"th-common\">Запись о работах, выполненных по устранению дефектов</th>\n        </tr>\n        <tr>\n            <th>Дата осмотра </th>\n            <th>Наименование узла в характеристика дефектов</th>\n            <th>Дата выполненных работ</th>\n            <th>Объём выполненных работ по устранению дефектов</th>\n            <th>Фактический срок службы узла, детали</th>\n        </tr>\n     </thead>\n     <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"equipment\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"date_view\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"name_equipment\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"date_finish\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"volume_text\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"fact_time\" :row-index=\"index\"></cell></td>\n        </tr>\n     </tbody>\n </table>\n"
-        }
-    ]
+   "version" : "0.1",
+   "title" : "Журнал ремонта",
+   "type" : "equipment",
+   "tables" : [
+      {
+         "fields" : [
+            {
+               "type" : "datalist",
+               "name" : "equipment",
+               "options" : [],
+               "title" : "equipment",
+               "formula" : ""
+            },
+            {
+               "name" : "date_view",
+               "type" : "date",
+               "title" : "date_view",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "name_equipment",
+               "title" : "name_equipment"
+            },
+            {
+               "name" : "date_finish",
+               "type" : "date",
+               "title" : "date_finish",
+               "formula" : ""
+            },
+            {
+               "title" : "volume_text",
+               "name" : "volume_text",
+               "type" : "text",
+               "formula" : ""
+            },
+            {
+               "name" : "fact_time",
+               "type" : "text",
+               "title" : "fact_time",
+               "formula" : ""
+            }
+         ],
+         "html" : " <table class=\"table table-bordered elog-journal-table\">\n     <thead>\n        <tr>\n            <th rowspan=\"2\">Наименование оборудования</th>\n            <th colspan=\"3\" class=\"th-common\">Запись о дефектах, обнаруженных при осмотрах</th>\n            <th colspan=\"3\" class=\"th-common\">Запись о работах, выполненных по устранению дефектов</th>\n        </tr>\n        <tr>\n            <th>Дата осмотра </th>\n            <th>Наименование узла в характеристика дефектов</th>\n            <th>Дата выполненных работ</th>\n            <th>Объём выполненных работ по устранению дефектов</th>\n            <th>Фактический срок службы узла, детали</th>\n        </tr>\n     </thead>\n     <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"equipment\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"date_view\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"name_equipment\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"date_finish\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"volume_text\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"fact_time\" :row-index=\"index\"></cell></td>\n        </tr>\n     </tbody>\n </table>\n",
+         "name" : "repair",
+         "title" : "Журнал ремонтов"
+      }
+   ],
+   "name" : "leaching_repair_equipment"
 }
