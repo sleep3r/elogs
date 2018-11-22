@@ -37,7 +37,7 @@
     </thead>
     <tbody>
     <tr>
-        <th colspan="2"> Zn, г/л отр./смесь</th>
+        <th colspan="2"> Zn<i class="units">г/л отр./смесь</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="zn" :row-index="hourNumber"></cell>
         </td>
@@ -49,7 +49,7 @@
         </td>
     </tr>
     <tr>
-        <th colspan="2"> H2SO4, г/л в отр.</th>
+        <th colspan="2"> H2SO4<i class="units">г/л в отр.</i></th>
         <td v-for="hourNumber of 12">
             <cell field-name="h2so4" :row-index="hourNumber"></cell>
         </td>
@@ -61,7 +61,7 @@
         </td>
     </tr>
     <tr>
-        <th rowspan="4"> t<sub>0</sub>C</th>
+        <th rowspan="4"> t<i class="units"><sup>0</sup>C</i></th>
         <th> смесь</th>
         <td v-for="hourNumber of 12">
             <cell field-name="zn_mix" :row-index="hourNumber"></cell>
@@ -112,7 +112,7 @@
         </td>
     </tr>
     <tr>
-        <th rowspan="2"> I, кА</th>
+        <th rowspan="2"> I<i class="units">кА</i></th>
         <th> I c.</th>
         <td v-for="hourNumber of 12">
             <cell field-name="i1" :row-index="hourNumber"></cell>
@@ -141,7 +141,7 @@
 <table class="table table-bordered elog-journal-table">
     <thead>
     <tr>
-        <th colspan="15" class="th-common"> Работа обрудования</th>
+        <th colspan="15" class="th-common"> Работа оборудования</th>
     </tr>
     <tr>
         <th></th>
@@ -154,7 +154,7 @@
         <th class="th-number">Град №7</th>
         <th class="th-number">Град №8</th>
         <th class="th-number">Град №9</th>
-        <th colspan="2" class="th-common">Кристализаторы</th>
+        <th colspan="2" class="th-common">Кристаллизаторы</th>
     </tr>
     </thead>
     <tr>
