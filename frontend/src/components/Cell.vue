@@ -41,10 +41,10 @@
         </datalist>
         <i
             @click="(e) => showPopover(e, {onlyChat: true})"
-            v-if="cellComments.length"
+            v-if="(cellComments.length) && (userCommentsCounter > 0)"
             class="far fa-envelope comment-notification"
         >
-            <span v-if="hasUnreaded" class="unreaded"></span>
+            <!--<span v-if="hasUnreaded" class="unreaded"></span>-->
         </i>
         <vue-context ref="menu">
             <ul>
@@ -164,6 +164,9 @@
         computed: {
             getBody () {
                 return $('body').get()
+            },
+            userCommentsCounter () {
+                return this.cellComments.filter((item, index) => item.type === 'user_comment').length
             },
             cellComments () {
                 return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)

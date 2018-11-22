@@ -13,14 +13,14 @@
           </div>
         </div>
         <div class="comments">
-          <div class="date">{{currentDate}}</div>
+          <div class="date">{{prettyDate(currentDate)}}</div>
           <div class="comments-list">
-            <div class="comment" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
-              <div class="comment-cloud" v-if="comment.text">
-                <div class="author">{{commentUserName(comment)}}</div>
+            <div :class="(comment.type === 'user_comment') ? 'comment' : 'system-comment'" v-for="(comment, index) in comments" :key="comment.text + '_' + comment.created + '_' + index">
+              <div :class="(comment.type === 'user_comment') ? 'comment-cloud' : 'system-comment-cloud'" v-if="(comment.text)">
+                <div v-if="comment.type === 'user_comment'" class="author">{{commentUserName(comment)}}</div>
                 <div class="body">{{comment.text}}</div>
               </div>
-              <div class="time">{{prettyTime(comment.created)}}</div>
+              <div v-if="comment.type === 'user_comment'" class="time">{{prettyTime(comment.created)}}</div>
             </div>
           </div>
         </div>
@@ -133,11 +133,12 @@ export default {
     },
     prettyDate(date) {
       date = new Date(date);
-      return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();//prints expected format.
+      return date.getDate()+'-' + (date.getMonth()+1) + '-'+date.getFullYear();//prints expected format.
     },
     prettyTime(date) {
       date = new Date(date);
-      return date.getHours() +':' + date.getMinutes();
+      return (date.getHours() < 10 && date.getHours() !== '00' ? `0${date.getHours()}` : date.getHours()) +':'
+          + (date.getMinutes() < 10 && date.getMinutes() !== '00' ? `0${date.getMinutes()}` : date.getMinutes());
     },
     showGraphModal (type) {
       this.getConfig();
@@ -161,7 +162,8 @@ export default {
                 comment: {
                     'text': this.commentText,
                     'created': date.toISOString(),
-                    'user': {'self': this.$store.getters['userState/fullname']}
+                    'user': {'self': this.$store.getters['userState/fullname']},
+                    'type': 'user_comment'
                 }
             });
             this.send();
@@ -431,9 +433,18 @@ $color-comment-text: #A5A5A5 ;
       text-align: center;
     }
 
+    .system-comment {
+      text-align: center;
+    }
+    .system-comment-cloud {
+      text-align: center;
+      margin-left: 10px;
+      font-style: italic;
+      color: $color-header;
+
+    }
     .comments-list {
-      height: 150px;
-      min-height: 101%;
+      height: 180px;
       overflow: -moz-scrollbars-vertical;
       overflow-y: scroll;
       padding-right: 20px;
