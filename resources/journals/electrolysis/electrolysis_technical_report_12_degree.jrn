@@ -10,215 +10,254 @@
             "fields": [
                 {
                     "name": "row_names",
+                    "title": "row_names",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "times",
+                    "title": "times",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "last_headers",
+                    "title": "last_headers",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "zninconsistencies",
+                    "title": "zninconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "znmeasures",
+                    "title": "znmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn_mix",
+                    "title": "zn_mix",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "zn_mixinconsistencies",
+                    "title": "zn_mixinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn_mixmeasures",
+                    "title": "zn_mixmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "h2so4",
+                    "title": "h2so4",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "h2so4inconsistencies",
+                    "title": "h2so4inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "h2so4measures",
+                    "title": "h2so4measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute1",
+                    "title": "solute1",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "solute1inconsistencies",
+                    "title": "solute1inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute1measures",
+                    "title": "solute1measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute2",
+                    "title": "solute2",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "solute2inconsistencies",
+                    "title": "solute2inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute2measures",
+                    "title": "solute2measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "mixture_temp",
+                    "title": "mixture_temp",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "mixture_tempinconsistencies",
+                    "title": "mixture_tempinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "mixture_tempmeasures",
+                    "title": "mixture_tempmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "otr",
+                    "title": "otr",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "otrn",
+                    "title": "otrn",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "otrp",
+                    "title": "otrp",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "bath_temp",
+                    "title": "bath_temp",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "bath_tempinconsistencies",
+                    "title": "bath_tempinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "bath_tempmeasures",
+                    "title": "bath_tempmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "ng",
+                    "title": "ng",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "ngi",
+                    "title": "ngi",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "ngm",
+                    "title": "ngm",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "temp1",
+                    "title": "temp1",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "temp1inconsistencies",
+                    "title": "temp1inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "temp1measures",
+                    "title": "temp1measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "i1",
+                    "title": "i1",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "i1in",
+                    "title": "i1in",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i1m",
+                    "title": "i1m",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i2",
+                    "title": "i2",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "i2in",
+                    "title": "i2in",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i2m",
+                    "title": "i2m",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -232,131 +271,153 @@
             "fields": [
                 {
                     "name": "h2so4",
+                    "title": "h2so4",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "solodka",
+                    "title": "solodka",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "glue",
+                    "title": "glue",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "stroncii",
+                    "title": "stroncii",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "magnaflok",
+                    "title": "magnaflok",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "znk",
+                    "title": "znk",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "cu1",
+                    "title": "cu1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "co1",
+                    "title": "co1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "cd1",
+                    "title": "cd1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "sb1",
+                    "title": "sb1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "fe2p1",
+                    "title": "fe2p1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "bt1",
+                    "title": "bt1",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "weight1_1",
+                    "title": "weight1_1",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
                 },
                 {
                     "name": "glue_resid_up",
+                    "title": "glue_resid_up",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "glue_resid_down",
+                    "title": "glue_resid_down",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "solodka_resid_up",
+                    "title": "solodka_resid_up",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "solodka_resid_down",
+                    "title": "solodka_resid_down",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "magnaflok_resid",
+                    "title": "magnaflok_resid",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "stroncii_resid",
+                    "title": "stroncii_resid",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "cryst1",
+                    "title": "cryst1",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "cryst2",
+                    "title": "cryst2",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -370,72 +431,84 @@
             "fields": [
                 {
                     "name": "Pb0",
+                    "title": "Pb0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Pb8",
+                    "title": "Pb8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Pb16",
+                    "title": "Pb16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd0",
+                    "title": "Cd0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd8",
+                    "title": "Cd8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd16",
+                    "title": "Cd16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe0",
+                    "title": "Fe0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe8",
+                    "title": "Fe8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe16",
+                    "title": "Fe16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu0",
+                    "title": "Cu0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu8",
+                    "title": "Cu8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu16",
+                    "title": "Cu16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"

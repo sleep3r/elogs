@@ -10,432 +10,504 @@
             "fields": [
                 {
                     "name": "concentrate__plan__January",
+                    "title": "concentrate__plan__January",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__January",
+                    "title": "zn__plan__January",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__January",
+                    "title": "ratio__plan__January",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__January",
+                    "title": "concentrate__fact__January",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__January",
+                    "title": "zn__fact__January",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__January",
+                    "title": "ratio__fact__January",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__February",
+                    "title": "concentrate__plan__February",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__February",
+                    "title": "zn__plan__February",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__February",
+                    "title": "ratio__plan__February",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__February",
+                    "title": "concentrate__fact__February",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__February",
+                    "title": "zn__fact__February",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__February",
+                    "title": "ratio__fact__February",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__March",
+                    "title": "concentrate__plan__March",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__March",
+                    "title": "zn__plan__March",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__March",
+                    "title": "ratio__plan__March",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__March",
+                    "title": "concentrate__fact__March",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__March",
+                    "title": "zn__fact__March",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__March",
+                    "title": "ratio__fact__March",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__April",
+                    "title": "concentrate__plan__April",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__April",
+                    "title": "zn__plan__April",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__April",
+                    "title": "ratio__plan__April",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__April",
+                    "title": "concentrate__fact__April",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__April",
+                    "title": "zn__fact__April",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__April",
+                    "title": "ratio__fact__April",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__May",
+                    "title": "concentrate__plan__May",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__May",
+                    "title": "zn__plan__May",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__May",
+                    "title": "ratio__plan__May",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__May",
+                    "title": "concentrate__fact__May",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__May",
+                    "title": "zn__fact__May",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__May",
+                    "title": "ratio__fact__May",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__June",
+                    "title": "concentrate__plan__June",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__June",
+                    "title": "zn__plan__June",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__June",
+                    "title": "ratio__plan__June",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__June",
+                    "title": "concentrate__fact__June",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__June",
+                    "title": "zn__fact__June",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__June",
+                    "title": "ratio__fact__June",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__July",
+                    "title": "concentrate__plan__July",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__July",
+                    "title": "zn__plan__July",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__July",
+                    "title": "ratio__plan__July",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__July",
+                    "title": "concentrate__fact__July",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__July",
+                    "title": "zn__fact__July",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__July",
+                    "title": "ratio__fact__July",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__August",
+                    "title": "concentrate__plan__August",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__August",
+                    "title": "zn__plan__August",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__August",
+                    "title": "ratio__plan__August",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__August",
+                    "title": "concentrate__fact__August",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__August",
+                    "title": "zn__fact__August",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__August",
+                    "title": "ratio__fact__August",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__September",
+                    "title": "concentrate__plan__September",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__September",
+                    "title": "zn__plan__September",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__September",
+                    "title": "ratio__plan__September",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__September",
+                    "title": "concentrate__fact__September",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__September",
+                    "title": "zn__fact__September",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__September",
+                    "title": "ratio__fact__September",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__October",
+                    "title": "concentrate__plan__October",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__October",
+                    "title": "zn__plan__October",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__October",
+                    "title": "ratio__plan__October",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__October",
+                    "title": "concentrate__fact__October",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__October",
+                    "title": "zn__fact__October",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__October",
+                    "title": "ratio__fact__October",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__November",
+                    "title": "concentrate__plan__November",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__November",
+                    "title": "zn__plan__November",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__November",
+                    "title": "ratio__plan__November",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__November",
+                    "title": "concentrate__fact__November",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__November",
+                    "title": "zn__fact__November",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__November",
+                    "title": "ratio__fact__November",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__December",
+                    "title": "concentrate__plan__December",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__December",
+                    "title": "zn__plan__December",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__December",
+                    "title": "ratio__plan__December",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__December",
+                    "title": "concentrate__fact__December",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__December",
+                    "title": "zn__fact__December",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__December",
+                    "title": "ratio__fact__December",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
@@ -449,12 +521,14 @@
             "fields": [
                 {
                     "name": "concentrate",
+                    "title": "concentrate",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -468,149 +542,174 @@
             "fields": [
                 {
                     "name": "concentrate",
+                    "title": "concentrate",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "year_plans",
+                    "title": "year_plans",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "month_smt",
+                    "title": "month_smt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "day_smt",
+                    "title": "day_smt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "tonns_a_year",
+                    "title": "tonns_a_year",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "schieht_frac",
+                    "title": "schieht_frac",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "empty",
+                    "title": "empty",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "s",
+                    "title": "s",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "h2o",
+                    "title": "h2o",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "fe",
+                    "title": "fe",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cu",
+                    "title": "cu",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "pb",
+                    "title": "pb",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "sio2",
+                    "title": "sio2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cd",
+                    "title": "cd",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cao",
+                    "title": "cao",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "mgo",
+                    "title": "mgo",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "K",
+                    "title": "K",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "na",
+                    "title": "na",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "arsenic",
+                    "title": "arsenic",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "co",
+                    "title": "co",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "au",
+                    "title": "au",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "ag",
+                    "title": "ag",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "vmt",
+                    "title": "vmt",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "norm",
+                    "title": "norm",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -624,42 +723,49 @@
             "fields": [
                 {
                     "name": "nzp_concentrate",
+                    "title": "nzp_concentrate",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "nzp_zn",
+                    "title": "nzp_zn",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "sklad_concentrate",
+                    "title": "sklad_concentrate",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "sklad_zn",
+                    "title": "sklad_zn",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "itogo_concentrate",
+                    "title": "itogo_concentrate",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "itogo_zn",
+                    "title": "itogo_zn",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "on_year",
+                    "title": "on_year",
                     "formula": "",
                     "type": ""
                 }

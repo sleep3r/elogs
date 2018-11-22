@@ -10,102 +10,119 @@
             "fields": [
                 {
                     "name": "pb",
+                    "title": "pb",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cu",
+                    "title": "cu",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cd",
+                    "title": "cd",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "fe",
+                    "title": "fe",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "SiO2",
+                    "title": "SiO2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Zn_furn",
+                    "title": "Zn_furn",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Pb2",
+                    "title": "Pb2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Cu2",
+                    "title": "Cu2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Cd2",
+                    "title": "Cd2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "fe2",
+                    "title": "fe2",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "S",
+                    "title": "S",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "As",
+                    "title": "As",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Sb",
+                    "title": "Sb",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "S_sulf",
+                    "title": "S_sulf",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "vmt",
+                    "title": "vmt",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "cmt",
+                    "title": "cmt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn_end",
+                    "title": "zn_end",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
@@ -119,78 +136,91 @@
             "fields": [
                 {
                     "name": "caption",
+                    "title": "caption",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "cmt",
+                    "title": "cmt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "znp",
+                    "title": "znp",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Pb_",
+                    "title": "Pb_",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Cu_",
+                    "title": "Cu_",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "Cd_",
+                    "title": "Cd_",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "SodZn",
+                    "title": "SodZn",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "SodPb",
+                    "title": "SodPb",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "SodCu",
+                    "title": "SodCu",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "SodCd",
+                    "title": "SodCd",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "SodAu",
+                    "title": "SodAu",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "SodAg",
+                    "title": "SodAg",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "ConcName",
+                    "title": "ConcName",
                     "formula": "",
                     "type": ""
                 }
@@ -203,131 +233,153 @@
             "fields": [
                 {
                     "name": "zgok",
+                    "title": "zgok",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "art-iy",
+                    "name": "art-iy
+                    "title": "art-iy",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "ust-tal",
+                    "name": "ust-tal
+                    "title": "ust-tal",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "karagayls",
+                    "title": "karagayls",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "verh-ber",
+                    "name": "verh-ber
+                    "title": "verh-ber",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "belousovka",
+                    "title": "belousovka",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "Jezkent",
+                    "title": "Jezkent",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "er-tay",
+                    "name": "er-tay
+                    "title": "er-tay",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "NShirokinskiy",
+                    "title": "NShirokinskiy",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "lesosib",
+                    "title": "lesosib",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "altyn-topkan",
+                    "name": "altyn-topkan
+                    "title": "altyn-topkan",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "itogo_vmt",
+                    "title": "itogo_vmt",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "itogo_smt",
+                    "title": "itogo_smt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "vydano_ogarka",
+                    "title": "vydano_ogarka",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "poteri",
+                    "title": "poteri",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "ogarka_peredano",
+                    "title": "ogarka_peredano",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "ceh",
+                    "title": "ceh",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "Lenta",
+                    "title": "Lenta",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "poterya",
+                    "title": "poterya",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "lenta_itogo",
+                    "title": "lenta_itogo",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "deviation",
+                    "title": "deviation",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "sgok",
+                    "title": "sgok",
                     "formula": "",
                     "type": ""
                 }
@@ -340,123 +392,144 @@
             "fields": [
                 {
                     "name": "vmt",
+                    "title": "vmt",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "cmt",
+                    "title": "cmt",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc",
+                    "title": "zinc",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt2",
+                    "title": "cmt2",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc2",
+                    "title": "zinc2",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt3",
+                    "title": "cmt3",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc3",
+                    "title": "zinc3",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt4",
+                    "title": "cmt4",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc4",
+                    "title": "zinc4",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt5",
+                    "title": "cmt5",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc5",
+                    "title": "zinc5",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt6",
+                    "title": "cmt6",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc6",
+                    "title": "zinc6",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt7",
+                    "title": "cmt7",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc7",
+                    "title": "zinc7",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "cmt8",
+                    "title": "cmt8",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zinc8",
+                    "title": "zinc8",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "remainder_date",
+                    "title": "remainder_date",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "remainder_date_guild",
+                    "title": "remainder_date_guild",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "remainder_date_Kusmanov",
+                    "title": "remainder_date_Kusmanov",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "discrepancy_date",
+                    "title": "discrepancy_date",
                     "formula": "",
                     "type": "date"
                 }
@@ -469,17 +542,20 @@
             "fields": [
                 {
                     "name": "date_cinder",
+                    "title": "date_cinder",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "gold",
+                    "title": "gold",
                     "formula": "",
                     "type": "number",
                     "units": "грамм"
                 },
                 {
                     "name": "silver",
+                    "title": "silver",
                     "formula": "",
                     "type": "number",
                     "units": "грамм"
@@ -493,17 +569,20 @@
             "fields": [
                 {
                     "name": "date_conc",
+                    "title": "date_conc",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "gold",
+                    "title": "gold",
                     "formula": "",
                     "type": "number",
                     "units": "грамм"
                 },
                 {
                     "name": "silver",
+                    "title": "silver",
                     "formula": "",
                     "type": "number",
                     "units": "грамм"
@@ -517,72 +596,84 @@
             "fields": [
                 {
                     "name": "Zn_con",
+                    "title": "Zn_con",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Pb_con",
+                    "title": "Pb_con",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Cu_con",
+                    "title": "Cu_con",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Cd_con",
+                    "title": "Cd_con",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Au_con",
+                    "title": "Au_con",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "Ag_con",
+                    "title": "Ag_con",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "Zn_cin",
+                    "title": "Zn_cin",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Pb_cin",
+                    "title": "Pb_cin",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Cu_cin",
+                    "title": "Cu_cin",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Cd_cin",
+                    "title": "Cd_cin",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "Au_cin",
+                    "title": "Au_cin",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "Ag_cin",
+                    "title": "Ag_cin",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"

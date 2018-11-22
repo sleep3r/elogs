@@ -10,57 +10,67 @@
             "fields": [
                 {
                     "name": "wagon_num",
+                    "title": "wagon_num",
                     "formula": "",
                     "type": "number",
                     "units": "№"
                 },
                 {
                     "name": "conc_num",
+                    "title": "conc_num",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "supply_time",
+                    "title": "supply_time",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "plan_cleaning_time",
+                    "title": "plan_cleaning_time",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "fact_cleaning_time",
+                    "title": "fact_cleaning_time",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "downtime",
+                    "title": "downtime",
                     "formula": "",
                     "type": "number",
                     "units": "ч"
                 },
                 {
                     "name": "recieved_conc",
+                    "title": "recieved_conc",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "recieved_beds",
+                    "title": "recieved_beds",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "recieved_stops",
+                    "title": "recieved_stops",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "recieved_braces",
+                    "title": "recieved_braces",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
@@ -74,177 +84,207 @@
             "fields": [
                 {
                     "name": "storage1",
+                    "title": "storage1",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "containers_reciept1",
+                    "title": "containers_reciept1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num1",
+                    "title": "shipped_empty_num1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num1",
+                    "title": "poured_containers_num1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers11",
+                    "title": "residue_empty_containers11",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers21",
+                    "title": "residue_empty_containers21",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers1",
+                    "title": "residue_defective_containers1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces1",
+                    "title": "residue_braces1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds1",
+                    "title": "residue_beds1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_stops1",
+                    "title": "residue_stops1",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "storage2",
+                    "title": "storage2",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "containers_reciept2",
+                    "title": "containers_reciept2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num2",
+                    "title": "shipped_empty_num2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num2",
+                    "title": "poured_containers_num2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers12",
+                    "title": "residue_empty_containers12",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers22",
+                    "title": "residue_empty_containers22",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers2",
+                    "title": "residue_defective_containers2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces2",
+                    "title": "residue_braces2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds2",
+                    "title": "residue_beds2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_stops2",
+                    "title": "residue_stops2",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "storage_total",
+                    "title": "storage_total",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "containers_reciept_total",
+                    "title": "containers_reciept_total",
                     "formula": "FUNC('concentrate_report','small', 'containers_reciept1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'containers_reciept2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num_total",
+                    "title": "shipped_empty_num_total",
                     "formula": "FUNC('concentrate_report','small', 'shipped_empty_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'shipped_empty_num2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num_total",
+                    "title": "poured_containers_num_total",
                     "formula": "FUNC('concentrate_report','small', 'poured_containers_num1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'poured_containers_num2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers1_total",
+                    "title": "residue_empty_containers1_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_empty_containers11', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers12', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers2_total",
+                    "title": "residue_empty_containers2_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_empty_containers21', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_empty_containers22', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers_total",
+                    "title": "residue_defective_containers_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_defective_containers1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_defective_containers2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces_total",
+                    "title": "residue_braces_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_braces1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_braces2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds_total",
+                    "title": "residue_beds_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_beds1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_beds2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_stops_total",
+                    "title": "residue_stops_total",
                     "formula": "FUNC('concentrate_report','small', 'residue_stops1', 0, CURRENT_SHIFT) + FUNC('concentrate_report','small', 'residue_stops2', 0, CURRENT_SHIFT)",
                     "type": "number",
                     "units": "шт"
@@ -258,36 +298,43 @@
             "fields": [
                 {
                     "name": "storage",
+                    "title": "storage",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "master",
+                    "title": "master",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "senior_crane_operator",
+                    "title": "senior_crane_operator",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "crane_operator",
+                    "title": "crane_operator",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "sling_operator",
+                    "title": "sling_operator",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "date",
+                    "title": "date",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "shift",
+                    "title": "shift",
                     "formula": "",
                     "type": "text"
                 }

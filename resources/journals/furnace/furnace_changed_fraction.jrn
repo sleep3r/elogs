@@ -9,30 +9,35 @@
             "title": "Изменение фракции",
             "fields": [
                 {
-                    "name": "date_create", 
+                    "name": "date_create",
+                    "title": "date_create", 
                     "formula": "", 
                     "type": "date"
                 }, 
                 {
-                    "name": "number_of_shift", 
+                    "name": "number_of_shift",
+                    "title": "number_of_shift", 
                     "formula": "", 
                     "type": "number", 
                     "units": ""
                 }, 
                 {
-                    "name": "cinder", 
+                    "name": "cinder",
+                    "title": "cinder", 
                     "formula": "", 
                     "type": "number", 
                     "units": "г"
                 }, 
                 {
-                    "name": "balance", 
+                    "name": "balance",
+                    "title": "balance", 
                     "formula": "", 
                     "type": "number", 
                     "units": "г"
                 }, 
                 {
-                    "name": "fraction", 
+                    "name": "fraction",
+                    "title": "fraction", 
                     "formula": "", 
                     "type": "number", 
                     "units": "%"
