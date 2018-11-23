@@ -194,7 +194,7 @@ import { setTimeout } from 'timers';
             }
         },
         updated () {
-            setTimeout(() => $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + 10}px`}), 0)
+            setTimeout(() => $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)}px`}), 0)
         },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})

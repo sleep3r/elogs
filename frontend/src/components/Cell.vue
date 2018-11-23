@@ -80,7 +80,6 @@
     import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
-    import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);

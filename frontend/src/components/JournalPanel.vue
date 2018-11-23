@@ -344,18 +344,29 @@
                 let lastScrollTop = 0;
                 let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 768 ? 200 : 100
 
+                $(window).width() < 678 ? journalTitleContainer.css({'top': '94px'}) : null
+
                 $(window).scroll(function(event){
                     let currentScrollTop = $(this).scrollTop();
-                    if(currentScrollTop < startedScrollHeight){
-                        journalTitleContainer.removeClass("hidden").addClass("sticky")
+
+                    if (currentScrollTop > $('.menu__panel').outerHeight() || $(window).width() >= 678) {
+                        journalTitleContainer.css({'top': '50px'})
+
+                        if(currentScrollTop < startedScrollHeight){
+                            journalTitleContainer.removeClass("hidden").addClass("sticky")
+                        }
+                        if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
+                            journalTitleContainer.removeClass("hidden").addClass("sticky");
+                        } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
+                            journalTitleContainer.removeClass("sticky").addClass("hidden");
+                        }
+                        lastScrollTop = currentScrollTop;
                     }
-                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
-                        journalTitleContainer.removeClass("hidden").addClass("sticky");
-                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
-                        journalTitleContainer.removeClass("sticky").addClass("hidden");
+                    else {
+                        journalTitleContainer.css({'top': (94 - currentScrollTop) + 'px'})
+                        lastScrollTop = currentScrollTop;
                     }
-                    lastScrollTop = currentScrollTop;
-                });
+                })
             }
         },
         mounted() {
