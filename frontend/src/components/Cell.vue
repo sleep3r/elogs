@@ -80,7 +80,6 @@
     import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
-    import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -335,7 +334,7 @@
                     })
                 }
 
-                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
+                let currentElement = $(e.srcElement).is('input') || $(e.srcElement).is('textarea') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
                 let inputOffset = 4;
 
