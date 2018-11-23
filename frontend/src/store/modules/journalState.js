@@ -343,7 +343,7 @@ const journalState = {
         ADD_RESPONSIBLE (state, payload) {
             let responsibles = state.journalInfo.responsibles
             if (typeof responsibles == "undefined") {
-                state.journalInfo.responsibles = [ payload ]
+                responsibles = [ payload ]
             }
             let currentResp = responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0]
             if (!currentResp) {
