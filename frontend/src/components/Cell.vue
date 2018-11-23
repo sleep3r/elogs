@@ -334,7 +334,7 @@
                     })
                 }
 
-                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
+                let currentElement = $(e.srcElement).is('input') || $(e.srcElement).is('textarea') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
                 let inputOffset = 4;
 
