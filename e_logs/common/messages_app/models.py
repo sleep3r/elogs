@@ -91,8 +91,10 @@ class Message(StrAsDictMixin, models.Model):
                      {"type": "send_message",
                       "text": json.dumps(
                           {
-                            'type': 'messages',
-                            'cell': cell.field.name if cell else None,
+                            'type': message['type'],
+                            'shift_id': cell.group.id if cell else None,
+                            'cell': {'table_name': cell.table.name,
+                                'field_name': cell.field.name, 'index': cell.index} if cell else None,
                             'sendee': user_to_response(message['sendee']),
                             'text': text}
                       )})
@@ -128,7 +130,7 @@ class Message(StrAsDictMixin, models.Model):
     #                       extra.errno,
     #                       extra.message
     #                       )
-    
+
     @staticmethod
     def update(cell):
         messages = filter_or_none(Message, cell=cell)

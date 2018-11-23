@@ -15,16 +15,6 @@ Vue.use(VTooltip);
 Vue.use(Notifications);
 
 Vue.config.performance = true;
-
-// import * as Sentry from '@sentry/browser';
-// Sentry.init({
-//     dsn: 'https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999',
-//     integrations: [new Sentry.Integrations.Vue({ Vue })],
-// });
-// Sentry.configureScope((scope) => {
-//     scope.setTag("server", "kazzink");
-// });
-
 Vue.config.productionTip = false;
 
 
@@ -47,46 +37,27 @@ Vue.use(VueNativeSock, dataEndpoint, {
     reconnection: true,
     connectManually: true,
     passToStoreHandler: function (eventName, event) {
-        console.log('event', event)
+        // console.log('event_data', event.data)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
             console.log('unsyncCells', unsyncCells)
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
-
-            // let plant = mv.$route.params.plant
-            // let journal = mv.$route.params.journal
-
-            // if (plant && journal) {
-            //     setTimeout(() => {
-            //         if (window.mv.$route.params.shift_id) {
-            //           this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
-            //               .then(() => {
-            //                   this.store.commit('journalState/SET_SYNCHRONIZED', true)
-            //               })
-            //         }
-            //         else if (plant && journal) {
-            //             this.store.dispatch('journalState/loadJournal', {
-            //               'plantName': plant,
-            //               'journalName': journal
-            //             })
-            //                 .then(() => {
-            //                     this.store.commit('journalState/SET_SYNCHRONIZED', true)
-            //                 })
-            //         }
-            //     }, unsyncCells.length * 100)
-            // }
         }
         else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
             if (data['type'] == 'shift_data') {
-                // console.log('shift_data', data)
-
+                console.log('shift_data', data)
                 let commitData = {'cells': []}
+                let currentShift = this.store.getters['journalState/journalInfo'].id
                 for (let i in data['cells']) {
+                    // accept only cells from current shift
+                    if (currentShift !== data['cells'][i]['group_id']) {
+                        continue
+                    }
                     let cellData = data['cells'][i]
 
                     this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible'])
@@ -102,48 +73,60 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         })
                     }
                 }
-                // console.log(commitData)
                 if (commitData['cells'].length !== 0) {
                     this.store.commit('journalState/SAVE_CELLS', commitData)
                 }
             }
-            if (data['type'] === 'messages') {
-                // console.log(data);
+            if (data['type'] === 'critical_value') {
+                console.log('critical_value', data)
 
                 if (data.cell) {
                     mv.$notify({
                         title: data.sendee[Object.keys(data.sendee)[0]],
-                        text: data.cell + ': ' + data.text,
+                        text: 'Критическое значение ' + data.cell.field_name + ': "' + data.text + '"',
+                        shiftId: data.shift_id,
                         duration: 5000,
                         type: 'warn'
                     })
-
                     this.store.dispatch('messagesState/loadUnreadedMessages')
                     this.store.dispatch('messagesState/loadMessages')
                 }
-                else {
-                    let sendee = data.sendee ? data.sendee : data.employee
-                    if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
-                        // mv.$notify({
-                        //     title: sendee[Object.keys(sendee)[0]],
-                        //     text: data['cell_location']['field_name'] + ': ' + data.message.text,
-                        //     duration: 5000,
-                        // })
+            }
+            if (data['type'] === 'comment') {
+                console.log('comment', data)
+                let sendee = data.sendee ? data.sendee : data.employee
+                if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
+                      mv.$notify({
+                          title: sendee[Object.keys(sendee)[0]],
+                          text: 'Комментарий к ячейке ' + data['cell']['field_name'] + ': "' + data.text + '"',
+                          shiftId: data.shift_id,
+                          duration: 5000,
+                      })
+                      this.store.dispatch('messagesState/loadUnreadedMessages')
+                      this.store.dispatch('messagesState/loadMessages')
+                      this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                          tableName: data['cell']['table_name'],
+                          fieldName: data['cell']['field_name'],
+                          index: data['cell']['index'],
+                          comment: {
+                              'text': data['text'],
+                              'created': Date.parse(data['created']),
+                              'user': sendee
+                          }
+                      });
 
-                        this.store.commit('journalState/SAVE_CELL_COMMENT', {
-                            tableName: data['cell_location']['table_name'],
-                            fieldName: data['cell_location']['field_name'],
-                            index: data['cell_location']['index'],
-                            comment: {
-                                'text': data['message']['text'],
-                                'created': Date.parse(data['created']),
-                                'user': sendee
-                            }
-                        });
-
-                        EventBus.$emit('scroll-to-bottom')
-                    }
+                      EventBus.$emit('scroll-to-bottom')
                 }
+            }
+            if (data['type'] === 'set_mode') {
+                console.log('set_mode', data)
+                mv.$notify({
+                    title: data.sendee[Object.keys(data.sendee)[0]],
+                    text: 'Создан режим: "' + data.text + '"',
+                    duration: 5000,
+                })
+                this.store.dispatch('messagesState/loadUnreadedMessages')
+                this.store.dispatch('messagesState/loadMessages')
             }
         }
         else {

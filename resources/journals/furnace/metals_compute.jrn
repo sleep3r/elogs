@@ -239,14 +239,14 @@
                     "units": "ВМТ"
                 },
                 {
-                    "name": "art-iy
+                    "name": "art-iy",
                     "title": "art-iy",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
-                    "name": "ust-tal
+                    "name": "ust-tal",
                     "title": "ust-tal",
                     "formula": "",
                     "type": "number",
@@ -260,7 +260,7 @@
                     "units": "ВМТ"
                 },
                 {
-                    "name": "verh-ber
+                    "name": "verh-ber",
                     "title": "verh-ber",
                     "formula": "",
                     "type": "number",
@@ -281,7 +281,7 @@
                     "units": "ВМТ"
                 },
                 {
-                    "name": "er-tay
+                    "name": "er-tay",
                     "title": "er-tay",
                     "formula": "",
                     "type": "number",
@@ -302,7 +302,7 @@
                     "units": "ВМТ"
                 },
                 {
-                    "name": "altyn-topkan
+                    "name": "altyn-topkan",
                     "title": "altyn-topkan",
                     "formula": "",
                     "type": "number",

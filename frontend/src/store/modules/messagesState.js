@@ -9,7 +9,8 @@ const messagesState = {
     },
     getters: {
         messages: state => state.messages,
-        unreadedMessages: state => state.unreadedMessages
+        unreadedMessages: state => state.unreadedMessages,
+        highlightOnLoad: state => state.highlight_on_load
     },
     mutations: {
         SET_MESSAGES (state, messages) {
@@ -26,7 +27,10 @@ const messagesState = {
         },
         READ_MESSAGE (state, id) {
             state.unreadedMessages = state.unreadedMessages.filter(item => item.id !== id)
-        }
+        },
+        HIGHLIGHT_CELL_ON_TABLE_LOAD (state, payload) {
+            Vue.set(state, 'highlight_on_load', payload)
+        },
     },
     actions: {
         loadMessages ({ commit, state, getters }, payload) {

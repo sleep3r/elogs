@@ -7,7 +7,7 @@
         <div class="header__user">
             <div @click="onNotifyClick" class="user-notify-container" data-toggle="tooltip" title="Сообщения">
                 <i class="fas fa-bell user-notify">
-                <div v-if="getUnreadedMessages > 0" class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
+                <div v-if="getUnreadedMessages.length > 0" class="notify-badge">{{getUnreadedMessages.length < 100 ? getUnreadedMessages.length : '*'}}</div>
             </i>
             </div>
             <div class="notify-menu-wrapper">
@@ -15,21 +15,35 @@
                     <template v-if="getUnreadedMessages.length">
                         <div class="msg-container">
                             <ul class="menu">
-                                <li class="user-menu__item message" v-for="message in getUnreadedMessages" :key="message.id">
-                                    <a href="" @click.prevent="onMessagesClick">
+                                <li v-for="message in getUnreadedMessages" class="user-menu__item message" :key="message.id">
+                                    <div style="padding: 10px">
                                         <div v-if="message.sendee" class="message__title__container">
                                             <strong class="message__title">
                                                 <span class="sendee">{{message.sendee}}</span>
                                             </strong>
+                                            <a href
+                                               @click="setAsRead(message.id)"
+                                               style="height: 16px; width: 16px; padding: 0px; float: right;">
+                                                <i class="fas fa-window-close"></i>
+                                            </a>
+                                            </br>
                                             <strong class="message__title">
-                                                <span class="message__info">{{message.type}}</span>
+                                                <span class="message__info">{{ messageTypeText(message) }}</span>
                                             </strong>
                                         </div>
+                                        <button v-if="message.type=='critical_value' || message.type=='comment'"
+                                                type="button"
+                                                class="btn btn-primary btn-sm"
+                                                @click="onMessagesClick(message)"
+                                                style="float: right;">
+                                          Показать
+                                        </button>
                                         <template>
-                                            <p :class="['message__text', message.type]">{{message.text}}</p>
+                                            <p :class="['message__text', message.type]">{{ message.text }}</p>
+
                                             <span class="message__created">{{new Date(message.created).toLocaleString()}}</span>
                                         </template>
-                                    </a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -39,7 +53,7 @@
                             <div style="margin-bottom: 8px;">Новых сообщений нет</div>
                             <ul class="menu">
                                 <li class="user-menu__item" v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/hasPerm']">
-                                    <a href=""  @click.prevent="onMessagesClick">
+                                    <a href=""  @click.prevent="$router.push('/messages');">
                                         <i class="fas fa-envelope user-messages-badge"></i>
                                         <span class="caption">Все сообщения</span>
                                     </a>
@@ -49,7 +63,7 @@
                     </template>
                 </div>
             </div>
-            <i class="fas fa-home default-page-badge" :class="{'is-home': isCurrentPage }" @click="onHomeClick" data-toggle="tooltip" title="Домашняя страница"></i>
+            <i class="fas fa-home default-page-badge" :class="{'is-home': isCurrentPage }" @click="onHomeClick" data-toggle="tooltip" title="Сделать домашней страницей"></i>
             <span class="user-name" @click="onUsernameClick" data-toggle="tooltip" title="Профиль пользователя">{{$store.getters['userState/fullname']}}</span>
             <div class="user-menu-wrapper">
                 <div class="user-menu">
@@ -66,22 +80,16 @@
                                 <span class="caption">Схема цехов </span>
                             </a>
                         </li>
-                        <li class="user-menu__item" v-if="!$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
-                            <a href="javascript:;" data-toggle="modal" data-target="#NoBossInstruction" @click="hideUserMenu">
-                                <i class="fa fa-book"></i>
-                                <span class="caption">Инструкция </span>
-                            </a>
-                        </li>
-                        <li class="user-menu__item" v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']">
-                            <a href="javascript:;" data-toggle="modal" data-target="#BossInstruction" @click="hideUserMenu">
-                                <i class="fa fa-book"></i>
-                                <span class="caption">Инструкция для руководства </span>
-                            </a>
-                        </li>
                         <li class="user-menu__item">
                             <a href="" @click.prevent="onPrint">
                                 <i class="fas fa-print"></i>
                                 <span class="caption">Печать</span>
+                            </a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a href="" @click.prevent="$router.push('/messages');">
+                                <i class="fas fa-envelope"></i>
+                                <span class="caption">Сообщения</span>
                             </a>
                         </li>
                         <li class="user-menu__item">
@@ -97,11 +105,10 @@
         </div>
     </header>
 </template>
-
 <script>
     import ajax from '../axios.config'
     import EventBus from '../EventBus'
-import { setTimeout } from 'timers';
+    import { setTimeout } from 'timers';
 
     export default {
         name: "TopNav",
@@ -123,6 +130,24 @@ import { setTimeout } from 'timers';
             }
         },
         methods: {
+            setAsRead (id) {
+                this.$store.dispatch('messagesState/readMessage', {id})
+                    .then(() => {
+                        this.$store.dispatch('messagesState/loadMessages')
+                    })
+            },
+            messageTypeText (message) {
+              switch (message.type) {
+                  case 'set_mode':
+                      return 'Установлен режим'
+                  case 'critical_value':
+                      return 'Критическое значение'
+                  case 'comment':
+                      return 'Комментарий к ячейке'
+                  default:
+                      return ''
+                }
+            },
             setIsCurrentPage () {
                 this.isCurrentPage = this.$route.path === this.$store.getters['userState/defaultPage']
             },
@@ -207,9 +232,20 @@ import { setTimeout } from 'timers';
                 this.$router.push('/addjournal');
                 // this.hideUserMenu();
             },
-            onMessagesClick() {
-                this.$router.push('/messages');
-                // this.hideUserMenu()
+            onMessagesClick(message) {
+                var cell = message.cell
+                cell['shiftId'] = message.shift_id
+                if (!cell) {
+                    return
+                }
+                if (this.$store.getters['journalState/journalInfo'].id !== message.shift_id) {
+                    this.$store.commit('messagesState/HIGHLIGHT_CELL_ON_TABLE_LOAD', cell)
+                    EventBus.$emit("set-menu-journal-item", { "plantName": cell.plant, "journalName": cell.journal, "shiftId": message.shift_id })
+                }
+                else {
+                    console.log(message.shift_id)
+                    EventBus.$emit('highlight' + message.shift_id + cell.journal + cell.table + cell.field + cell.index)
+                }
             },
             onModesClick() {
                 this.$router.push('/modes');

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- {% load render_bundle from webpack_loader %}{% load cacheops %}
+{% load cache %}{% load staticfiles %} -->
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="The worlds best electronic journaling system">
+    <meta name="keywords" content="journals, e-logs">
+
+{#    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/ico"/>#}
+    <title>{% block title %} E-logs {% endblock %}</title>
+
+    {% block css %}
+        {% render_bundle 'index' 'css' %}
+        {% render_bundle 'tables' 'css' %}
+    {% endblock %}
+
+    {% block extracss %}{% endblock %}
+</head>
+
+<body>
+
+<div class="elogs-container">
+    {% block top-nav %}
+        {% include "top_nav.html" %}
+    {% endblock %}
+
+    <div class="main-container">
+        <nav class="column-left">
+            {% block menu %}
+                {% include "menu.html" %}
+            {% endblock %}
+        </nav>
+        <div class="column-content">
+			{% block dashboard %}
+			{% endblock %}
+			<div id="elogs-app">
+	            <main class="journal-page" data-mode="{{ page_mode }}">
+	                <journal-panel></journal-panel>
+	                <article class="journal-tables">
+	                    {% block content %}
+	                    {% endblock %}
+	                </article>
+	            </main>
+		    </div>
+            <footer>
+                <button class="btn" data-toggle="modal" data-target="#MessageToDevelopersModal">
+                    <span>Оставить отзыв разработчикам</span>
+                    <i class="fab fa-optin-monster"></i>
+                </button>
+            </footer>
+            {% include "message_modal.html" %}
+            {% include "scheme_modal.html" %}
+        </div>
+    </div>
+</div>
+
+{% include "modals/pick_shift.html" %}
+
+{% block footer %}
+    {% render_bundle 'index' 'js' %}
+    {% render_bundle 'tables' 'js' %}
+{% endblock %}
+
+</body>
+</html>

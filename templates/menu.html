@@ -1,0 +1,65 @@
+{% load express_tags %}
+{% load i18n %}
+<div class="menu__panel">
+    <div class="menu__title">Список цехов</div>
+    <i class="menu__toggle fas fa-bars"></i>
+</div>
+<div class="menu__logo"><i class="fas fa-sitemap"></i></div>
+<ul class="menu menu--left">
+    <li class="menu__item">
+        <a href="" data-url="/dashboard" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Панель аналитики" %}</span>
+        </a>
+    </li>
+    <li class="menu__item open">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Обжиг" %}</span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="sub-menu">
+            {% for journal_path, journal_verbose in menu_data.furnace.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
+
+            {% if user|in_group:"Big boss" or user.is_superuser or user.name == 'makagonov-s-n' %}
+                <li class="menu__item">
+                    <a href="" data-url="/furnace/report_income_outcome_schieht" class="menu-item__link"><b>{% trans "Поступление, расходы и остатки Zn концентратов"%}</b></a>
+                </li>
+                <li class="menu__item">
+                    <a href="" data-url="/furnace/metals_compute" class="menu-item__link"><b>{% trans "Рассчёт металлов" %}</b></a>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+    <li class="menu__item">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Выщелачивание" %}</span>
+            <b class="arrow fa fa-angle-down"></b></a>
+        <ul class="sub-menu">
+            {% for journal_path, journal_verbose in menu_data.leaching.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li class="menu__item">
+        <a href="#" class="menu-item__link">
+            <i class="menu-item__icon fa fa-book"></i>
+            <span class="menu-item__title">{% trans "Электролиз" %}</span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+        <ul class="sub-menu">
+            {% for journal_path, journal_verbose in menu_data.electrolysis.items %}
+                <li class="menu__item">
+                    <a href="" data-url={{journal_path}} class="menu-item__link">{{ journal_verbose }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>

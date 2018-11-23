@@ -10,6 +10,7 @@
     import store from '../store/store';
     import tab from './Tabs/tab.vue';
     import tabs from './Tabs/tabs.vue';
+    import EventBus from '../EventBus'
 
     Vue.use(ToggleButton);
     Vue.component('cell', cell);
@@ -97,19 +98,16 @@
                             }
                         }
                     },
-                    components: { 'cell': cell, 'table-comment': tableComment, tab, tabs },
                     mounted() {
-                        setTimeout(() => {
-                            $('.elog-journal-table td').each(function () {
-                                $(this).height($(this).height())
-                            })
-                        }, 0)
-                        setTimeout(() => {
-                            $('.elog-journal-table .changing-header').each(function () {
-                                $(this).height($(this).height())
-                            })
-                        }, 0)
-                    }
+                        // check if some cell should be highlighted after mount
+                        let cell = this.$store.getters['messagesState/highlightOnLoad']
+                        if (cell) {
+                            this.$store.commit('messagesState/HIGHLIGHT_CELL_ON_TABLE_LOAD', null)
+                            let shiftId = this.$store.getters['journalState/journalInfo'].id
+                            EventBus.$emit('highlight' + shiftId + cell.journal + cell.table + cell.field + cell.index)
+                        }
+                    },
+                    components: { 'cell': cell, 'table-comment': tableComment, tab, tabs }
                 })
             }
         },

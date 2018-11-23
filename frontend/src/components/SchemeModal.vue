@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade pdf__modal" id="SchemeModal" tabindex="-1" role="dialog" aria-labelledby="SchemeModal" aria-hidden="true">
+    <div class="modal fade" id="SchemeModal" tabindex="-1" role="dialog" aria-labelledby="SchemeModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-large" role="document">
             <div class="modal-content modal-content-large">
                 <div class="modal-header">
@@ -24,5 +24,7 @@
 </script>
 
 <style scoped>
-
+    #scheme {
+        width: 100%;
+    }
 </style>

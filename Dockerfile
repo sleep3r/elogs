@@ -4,7 +4,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y python3.7 python3-pip python3-dev wget git vim curl npm libkrb5-dev
 
 # Install caddy
-RUN wget https://github.com/mholt/caddy/releases/download/v0.11.0/caddy_v0.11.0_linux_amd64.tar.gz
+RUN wget https://github.com/mholt/caddy/releases/download/v0.11.1/caddy_v0.11.1_linux_amd64.tar.gz
 RUN tar -xzf caddy*.tar.gz caddy
 RUN mv ./caddy /usr/local/bin
 
