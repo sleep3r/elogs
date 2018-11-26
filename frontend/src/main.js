@@ -10,6 +10,7 @@ import Notifications from 'vue-notification'
 import EventBus from './EventBus'
 
 import VTooltip from 'v-tooltip'
+
 Vue.use(VTooltip);
 
 Vue.use(Notifications);
@@ -23,8 +24,7 @@ if (process.env.NODE_ENV == 'production') {
     window.HOSTNAME = 'https://' + window.location.hostname
     window.NODE_SERVER = 'https://' + window.location.hostname + ':3001'
     window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
-}
-else {
+} else {
     var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/'
     window.HOSTNAME = 'http://' + window.location.hostname + ':8000'
     window.NODE_SERVER = 'http://' + window.location.hostname + ':3000'
@@ -44,8 +44,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
-        }
-        else if (eventName === 'SOCKET_onmessage') {
+        } else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
@@ -92,30 +91,33 @@ Vue.use(VueNativeSock, dataEndpoint, {
                     this.store.dispatch('messagesState/loadMessages')
                 }
             }
-            if (data['type'] === 'comment') {
+            if ((data['type'] === 'user_comment') || (data['type'] === 'system_comment')) {
                 console.log('comment', data)
                 let sendee = data.sendee ? data.sendee : data.employee
                 if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
-                      mv.$notify({
-                          title: sendee[Object.keys(sendee)[0]],
-                          text: 'Комментарий к ячейке ' + data['cell']['field_name'] + ': "' + data.text + '"',
-                          shiftId: data.shift_id,
-                          duration: 5000,
-                      })
-                      this.store.dispatch('messagesState/loadUnreadedMessages')
-                      this.store.dispatch('messagesState/loadMessages')
-                      this.store.commit('journalState/SAVE_CELL_COMMENT', {
-                          tableName: data['cell']['table_name'],
-                          fieldName: data['cell']['field_name'],
-                          index: data['cell']['index'],
-                          comment: {
-                              'text': data['text'],
-                              'created': Date.parse(data['created']),
-                              'user': sendee
-                          }
-                      });
+                    if (data['type'] === 'user_comment') {
+                        mv.$notify({
+                            title: sendee[Object.keys(sendee)[0]],
+                            text: 'Комментарий к ячейке ' + data['cell']['field_name'] + ': "' + data.text + '"',
+                            shiftId: data.shift_id,
+                            duration: 5000,
+                        });
+                    }
+                    this.store.dispatch('messagesState/loadUnreadedMessages')
+                    this.store.dispatch('messagesState/loadMessages')
+                    this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                        tableName: data['cell']['table_name'],
+                        fieldName: data['cell']['field_name'],
+                        index: data['cell']['index'],
+                        comment: {
+                            'text': data['text'],
+                            'type': data['type'],
+                            'created': Date.parse(data['created']),
+                            'user': sendee
+                        }
+                    });
 
-                      EventBus.$emit('scroll-to-bottom')
+                    EventBus.$emit('scroll-to-bottom')
                 }
             }
             if (data['type'] === 'set_mode') {
@@ -128,8 +130,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                 this.store.dispatch('messagesState/loadUnreadedMessages')
                 this.store.dispatch('messagesState/loadMessages')
             }
-        }
-        else {
+        } else {
             return
         }
 
