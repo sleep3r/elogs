@@ -31,7 +31,7 @@ def get_context(request, page) -> DeepDict:
 
 def add_type_specific_info(context, journal, page):
     if journal.type == 'shift':
-        context.shift_is_active_or_no_shifts = page.is_active()
+        context.shift_is_active_or_no_shifts = page.is_active(timezone.now())
         context.shift_order = page.order
         context.shift_date = page.date
 

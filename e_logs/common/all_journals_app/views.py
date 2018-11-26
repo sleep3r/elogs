@@ -21,7 +21,7 @@ def _get_current_group(journal):
         shifts = Shift.objects.filter(journal=journal, date__lte=current_date()).order_by('-date', 'order')
 
         for shift in shifts:
-            if shift.is_active():
+            if shift.is_active(timezone.now()):
                 return shift
 
     elif journal.type == 'year':

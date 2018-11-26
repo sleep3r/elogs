@@ -66,7 +66,7 @@ def create_moths_and_years():
 
 @app.task
 def check_blank_shifts():
-    for shift in filter(lambda s: s.is_active(), list(Shift.objects.filter(
+    for shift in filter(lambda s: s.is_active(timezone.now()), list(Shift.objects.filter(
             date__range=[current_date() - timedelta(days=1), current_date()]))):
         if not shift.is_active(time=timezone.now() + timedelta(minutes=1)):
             check_for_no_cells(shift)
