@@ -2,9 +2,12 @@ from django.views.decorators.csrf import csrf_exempt
 from proxy.views import proxy_view
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.core.management.commands.compress_journals import compress_journal
+from django.core.files.storage import FileSystemStorage
 from e_logs.common.all_journals_app.api.views import LoadJournalAPI
 from django.views import View
 from django.http import JsonResponse
+import hashlib
+import os
 
 
 @csrf_exempt

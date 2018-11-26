@@ -5,6 +5,7 @@ import hashlib
 from datetime import timedelta
 from shutil import copyfile
 from urllib.parse import parse_qs
+from collections import defaultdict
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.storage import FileSystemStorage
@@ -443,3 +444,19 @@ class LoadJournalAPI(View):
         for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
             for shift_order in range(1, number_of_shifts + 1):
                 Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
+
+
+class SchemeAPI(View):
+    def get(self, request):
+        res = {}
+        journals = Journal.objects.all()
+        for journal in journals:
+            tables = Table.objects.filter(journal=journal)
+            journal_dict = defaultdict(list)
+            for table in tables:
+                fields = Field.objects.filter(table=table)
+                for field in fields:
+                    journal_dict[table.name].append(field.name)
+            res[journal.name] = journal_dict
+        return JsonResponse(res)
+

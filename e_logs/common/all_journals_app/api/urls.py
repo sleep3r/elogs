@@ -16,4 +16,5 @@ urlpatterns = [
     path('load_journal/', csrf_exempt(LoadJournalAPI.as_view())),
     path('cell/', CellAPI.as_view()),
     path('prev-shift/', PrevShiftAPI.as_view()),
+    path('scheme/', SchemeAPI.as_view()),
 ]
