@@ -9,29 +9,38 @@
             "title": "Изменение фракции",
             "fields": [
                 {
-                    "name": "1",
-                    "formula": "",
-                    "type": ""
-                },
+                    "name": "date_create",
+                    "title": "date_create", 
+                    "formula": "", 
+                    "type": "date"
+                }, 
                 {
-                    "name": "2",
-                    "formula": "",
-                    "type": ""
-                },
+                    "name": "number_of_shift",
+                    "title": "number_of_shift", 
+                    "formula": "", 
+                    "type": "number", 
+                    "units": ""
+                }, 
                 {
-                    "name": "3",
-                    "formula": "",
-                    "type": ""
-                },
+                    "name": "cinder",
+                    "title": "cinder", 
+                    "formula": "", 
+                    "type": "number", 
+                    "units": "г"
+                }, 
                 {
-                    "name": "4",
-                    "formula": "",
-                    "type": ""
-                },
+                    "name": "balance",
+                    "title": "balance", 
+                    "formula": "", 
+                    "type": "number", 
+                    "units": "г"
+                }, 
                 {
-                    "name": "5",
-                    "formula": "",
-                    "type": ""
+                    "name": "fraction",
+                    "title": "fraction", 
+                    "formula": "", 
+                    "type": "number", 
+                    "units": "%"
                 }
             ],
             "html": "<table class=\"table table-bordered elog-journal-table\" id=\"redipsTable\">\n\t<thead>\n\t\t<tr>\n\t\t\t<th rowspan=\"2\" id=\"CRq2SBYCaC\">Дата</th>\n\t\t\t<th rowspan=\"2\" id=\"hTB89NxVyF\">Номер смены</th>\n\t\t\t<th colspan=\"2\" class=\"th-common\" id=\"nPwz3uHmVg\">\n\t\t\t\tМасса навески\n\t\t\t\t<i class=\"units\">г</i>\n\t\t\t</th>\n\t\t\t<th id=\"BTlenag19_\">Определяемый параметр</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th id=\"_QqbE_XjID\">\n\t\t\t\tОгарка\n\t\t\t\t<i class=\"units\">г</i>\n\t\t\t</th>\n\t\t\t<th id=\"yPC4cHCBQM\">\n\t\t\t\tОстаток на сите\n\t\t\t\t<i class=\"units\">г</i>\n\t\t\t</th>\n\t\t\t<th id=\"BQeupnG4cm\">\n\t\t\t\tФракция +0,25 мм X\n\t\t\t\t<i class=\"units\">%</i>\n\t\t\t</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n\t\t\t<td style=\"\">\n\t\t\t\t<cell  field-name=\"date_create\" :row-index=\"index\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell  field-name=\"number_of_shift\" :row-index=\"index\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell  field-name=\"cinder\" :row-index=\"index\" id=\"mBsQP6anGU\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell  field-name=\"balance\" :row-index=\"index\" id=\"7nlrspjomN\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell  field-name=\"fraction\" :row-index=\"index\" id=\"8NnNcwYQWw\" />\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n"

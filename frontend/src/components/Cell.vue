@@ -43,7 +43,9 @@
             @click="(e) => showPopover(e, {onlyChat: true})"
             v-if="cellComments.length"
             class="far fa-envelope comment-notification"
-        ></i>
+        >
+            <span v-if="hasUnreaded" class="unreaded"></span>
+        </i>
         <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
@@ -91,11 +93,14 @@
     Vue.component('v-popover', VTooltip.VPopover);
 
     const KEY_MINUS = 45,
+          KEY_PLUS = 43,
           KEY_BACKSPACE = 8,
           KEY_ARROW_LEFT = 37,
           KEY_ARROW_RIGHT = 39,
           KEY_DELETE = 46,
+          KEY_SLASH = 47,
           KEY_DASH = 189;
+
 
     export default {
         name: 'Cell',
@@ -144,12 +149,16 @@
         },
         filters: {
           filterNumber: function(value, context) {
-
                if (context.type ==='number'
                    && value
                    && value.length > 0) {
                        if (value[0] === '-') {
                            let resultValue = '-' + ('' + value).replace(/\-/g, '');
+                           return resultValue;
+                       }
+
+                       if (value[0] === '+') {
+                           let resultValue = '+' + ('' + value).replace(/\+/g, '');
                            return resultValue;
                        }
 
@@ -165,6 +174,12 @@
             },
             cellComments () {
                 return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)
+            },
+            hasUnreaded () {
+              // получить все сообщения
+              // и автор не я
+              let unreadedComments = this.cellComments.filter(v => !(this.userName in v.user));
+              return (unreadedComments.length > 0);
             },
             tableName: function () {
                 if (typeof this.$parent.props !== 'undefined') {
@@ -185,9 +200,9 @@
                 return this.$store.getters['journalState/journalInfo'].responsibles
             },
             userIsResponsible() {
-                let responsibles = this.responsibles
+                let responsibles = this.responsibles;
                 for (let i in responsibles) {
-                    if (typeof responsibles[i][this.userName] != 'undefined') {
+                    if (typeof responsibles[i][this.userName] !== 'undefined') {
                         return true
                     }
                 }
@@ -202,8 +217,8 @@
             value: {
                 cache: false,
                 get: function () {
-                    var cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
-                    return typeof cell == "undefined" ? '' : cell['value']
+                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
+                    return typeof cell === "undefined" ? '' : cell['value']
                 },
                 set: function (val) {
                     // console.log('set')
@@ -267,7 +282,7 @@
                     return this.fieldConstraints['max_normal']
                 },
                 set: function (val) {
-                    var currentMode = this.$store.getters['journalState/currentConstraintsModeId']
+                    let currentMode = this.$store.getters['journalState/currentConstraintsModeId']
                     this.$store.commit('journalState/SET_CONSTRAINT', {
                         tableName: this.tableName,
                         fieldName: this.fieldName,
@@ -275,7 +290,7 @@
                         constraintValue: val,
                         mode: currentMode
                     })
-                    var payload = {
+                    let payload = {
                         fields: [{
                             name: this.fieldName,
                             table_name: this.tableName,
@@ -307,7 +322,6 @@
             showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
-
 
                 // kostyl'
                 if (this.mode === 'validate') {
@@ -345,15 +359,13 @@
 
                     if (e.clientX + popUpWidth >= appWidth) {
                         x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                    }
-                    else {
+                    } else {
                         x = e.clientX  - e.offsetX
                     }
 
                     if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
                         y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                    }
-                    else {
+                    } else {
                         y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
                     }
 
@@ -432,7 +444,7 @@
                 }
             },
             getPersons(name, plantName) {
-                return ajax.get(window.HOSTNAME + `/api/autocomplete/?name=${name}&plant=${plantName}`, {
+                return ajax.get(window.HOSTNAME + `/api/bl/dicts/autocomplete/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
                 })  .then((response) => {
                         // console.log(response);
@@ -442,10 +454,11 @@
                         console.log(err)
                     })
             },
-            send() {
+            send(final=false) {
                 // console.log('socket')
                 this.$socket.sendObj({
                     'type': 'shift_data',
+                    'final':final,
                     'cells': [{
                         'cell_location': {
                             'group_id': this.$store.getters['journalState/journalInfo'].id,
@@ -511,30 +524,23 @@
                     });
                 }
                 // setTimeout(this._updateCells(), 0)
-                this.send()
+                this.send(true)
             },
             filterInput(e) {
                 if (this.type === 'number') {
-                    let keycode = e.which
-                    // if non number character was pressed
-                    if (!(
-                        e.shiftKey == false
-                        && ((this.value == '')
-                            || keycode == KEY_BACKSPACE
-                            || keycode == KEY_ARROW_LEFT
-                            || keycode == KEY_ARROW_RIGHT
-                            || keycode == KEY_MINUS
-                            || keycode == KEY_DELETE
-                            || (keycode >= 48 && keycode <= 57)))
-                        ) {
-                            if (keycode !== 47) {
-                                this.tooltipContent = 'Введите число'
-                                this.showTooltip = true;
-                                event.preventDefault();
-                            }
-                    }
-                    else {
+                    let keycode = e.which;
+                    if (
+                        (keycode >= 48 && keycode <= 57)
+                        || keycode == KEY_MINUS
+                        || keycode == KEY_PLUS
+                        || keycode == KEY_SLASH
+                       )
+                    {
                         this.showTooltip = false;
+                    } else {
+                        this.tooltipContent = 'Введите число';
+                        this.showTooltip = true;
+                        event.preventDefault();
                     }
                 }
             },
@@ -772,5 +778,16 @@
 
     .v-popover > span.trigger {
         height: 100%;
+    }
+
+    .unreaded {
+        font-size: 0;
+        border: 5px solid red;
+        border-radius: 5px;
+        background-color: red;
+
+        position: absolute;
+        left: -5px;
+        top: -2px;
     }
 </style>

@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="footer">
-          <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment" v-model="commentText"></textarea>
+          <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment" v-model.trim="commentText" autofocus ></textarea>
           <div class="btns">
             <div class="btn btn-add" @click="addComment" >Добавить комментарий</div>
             <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat && isNumber" id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -47,6 +47,7 @@ import ajax from '../axios.config'
 import GraphModal from './GraphModal.vue'
 import EventBus from '../EventBus'
 import { setTimeout } from 'timers';
+
 
 export default {
   name: 'CellComment',
@@ -144,16 +145,32 @@ export default {
       $('#GraphModal').attr('data-type', type)
     },
     addComment() {
-      let date = new Date();
-      this.$store.commit('journalState/SAVE_CELL_COMMENT', {
-        tableName: this.tableName,
-        fieldName: this.fieldName,
-        index: this.rowIndex,
-        comment: {'text': this.commentText, 'created': date.toISOString(), 'user': {'self': this.$store.getters['userState/fullname']}}
-      });
-      this.send();
-      this.commentText = '';
-      setTimeout(() => this.scrollToBottom(), 0)
+        function trim(x) {
+            return x.replace(/[\r\n\x20]/gmi,'');
+        }
+
+        let isFilledComment = trim(this.commentText).length > 1;
+
+        if (isFilledComment) {
+            console.info("sended comment...", this.commentText.length);
+            let date = new Date();
+            this.$store.commit('journalState/SAVE_CELL_COMMENT', {
+                tableName: this.tableName,
+                fieldName: this.fieldName,
+                index: this.rowIndex,
+                comment: {
+                    'text': this.commentText,
+                    'created': date.toISOString(),
+                    'user': {'self': this.$store.getters['userState/fullname']}
+                }
+            });
+            this.send();
+            this.commentText = '';
+            setTimeout(() => this.scrollToBottom(), 200);
+
+            document.querySelector(".comments-list").focus();
+
+        }
     },
     send() {
       this.$socket.sendObj({
@@ -277,6 +294,7 @@ $color-bg: #008BB9;
 
   .body {
     padding-bottom: 20px;
+    word-break: break-word;
 
     .list {
       margin: 40px 0 0 0;

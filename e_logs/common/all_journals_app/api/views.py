@@ -24,7 +24,7 @@ from e_logs.common.all_journals_app.views import _get_current_group
 from e_logs.common.all_journals_app.services.page_modes import get_page_mode
 from e_logs.common.login_app.models import Employee
 from e_logs.core.models import Setting
-from e_logs.core.utils.webutils import current_date, date_range
+from e_logs.core.utils.webutils import current_date, date_range, user_to_response
 from e_logs.core.views import LoginRequired
 from e_logs.core.management.commands.compress_journals import compress_journal
 
@@ -33,7 +33,6 @@ class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
         user = request.user
         group, id = self.get_current_group(request, kwargs)
-        print(id)
         qs = group.objects.select_related('journal', 'journal__plant') \
             .prefetch_related('journal__tables','journal__tables__fields',
                 Prefetch('group_cells', queryset=Cell.objects.select_related(
@@ -109,7 +108,9 @@ class GroupAPI(LoginRequired, View):
     def get_current_group(self, request, kwargs):
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
-            current_group = _get_current_group(Journal.objects.get(name=journal_name))
+            plant_name = parse_qs(request.GET.urlencode())['plantName'][0]
+            print(plant_name, journal_name)
+            current_group = _get_current_group(Journal.objects.get(name=journal_name, plant__name=plant_name))
             id = current_group.id
         else:
             id = kwargs['id']
@@ -219,19 +220,20 @@ class GroupAPI(LoginRequired, View):
         for cell in cells:
             if cell.table == table and cell.field == field:
                 if cell.responsible:
-                    responsible = {str(cell.responsible.user): cell.responsible.name}
+                    responsible = user_to_response(cell.responsible)
                 else:
                     responsible = {}
-                res[cell.index] = {"id": cell.id,
+                res[cell.index] = {
+                                   "id": cell.id,
                                    "value": cell.value,
                                    "responsible": responsible,
                                    "created": cell.created,
                                    "comments": [{
                                        'text': comment.text,
-                                       'user': {str(comment.employee.user): str(comment.employee)},
+                                       'user': user_to_response(comment.employee),
+                                       'type': comment.type,
                                        'created': comment.created.isoformat()}
-                                       for comment in cell.comments.all()
-                                   ]
+                                       for comment in cell.comments.all()]
                                    }
 
         return res
@@ -408,42 +410,8 @@ class SettingAPI(View):
 
         employee = request.user.employee
         setting_data = json.loads(request.body)
-        Setting.set_value(name=setting_data["name"], value=setting_data["value"],
-                          employee=employee, )
+        Setting.set_value(name=setting_data["name"], value=setting_data["value"], employee=employee)
         return JsonResponse({"status": 1})
-
-
-class LoadJournalAPI(View):
-    def post(self, request):
-        if request.FILES.get('journal_file', None):
-            journal = request.FILES['journal_file']
-            plant_name = request.POST['plant']
-            type = request.POST['type']
-            number_of_shifts = int(request.POST['number_of_shifts'])
-            if plant_name and type and number_of_shifts:
-                try:
-                    os.remove(f'resources/journals/{plant_name}/{journal.name}')
-                except OSError:
-                    pass
-                fs = FileSystemStorage(location=f'resources/journals/{plant_name}/')
-                filename = fs.save(journal.name, journal)
-
-                journal = JournalBuilder(journal, plant_name, type)
-                new_journal = journal.create()
-
-                if new_journal.type == 'shift':
-                    self.add_shifts(new_journal, number_of_shifts)
-
-                return JsonResponse({"status": 1})
-        return JsonResponse({"status": 0})
-
-    @staticmethod
-    def add_shifts(new_journal, number_of_shifts):
-        Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
-        now_date = current_date()
-        for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
-            for shift_order in range(1, number_of_shifts + 1):
-                Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
 
 
 class SchemeAPI(View):

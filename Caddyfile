@@ -23,7 +23,7 @@ https://{$CADDY_HOSTNAME}:3001 {
     }
 }
 
-wss://{$CADDY_HOSTNAME}/e-logs {
+https://{$CADDY_HOSTNAME}/e-logs {
     proxy / 127.0.0.1:8001/e-logs {
         websocket
     }

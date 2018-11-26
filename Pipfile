@@ -24,9 +24,8 @@ pyOpenSSL = "*"
 service-identity = "*"
 django-environ = "*"
 django-service-objects = "*"
-celery = "*"
 django-celery-beat = "*"
-redis = "*"
+redis = "==2.10.6"
 argon2-cffi = "*"
 rcssmin = "*"
 python-slugify = "*"
@@ -52,8 +51,7 @@ django-proxy = "*"
 6210100 = {file = "https://github.com/darklow/django-suit/tarball/v2"}
 python-telegram-bot = "*"
 pysocks = "*"
-pip = "*"
-graphviz = "*"
+celery = {file = "https://github.com/celery/celery/tarball/master"}
 
 [dev-packages]
 icecream = "*"

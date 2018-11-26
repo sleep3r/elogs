@@ -1,13 +1,22 @@
+import hashlib
+import os
+from datetime import timedelta
+
+from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 from proxy.views import proxy_view
+
+from e_logs.common.all_journals_app.models import Shift
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.core.management.commands.compress_journals import compress_journal
 from django.core.files.storage import FileSystemStorage
-from e_logs.common.all_journals_app.api.views import LoadJournalAPI
 from django.views import View
 from django.http import JsonResponse
 import hashlib
 import os
+
+from e_logs.core.models import Setting
+from e_logs.core.utils.webutils import current_date, date_range
 
 
 @csrf_exempt
@@ -52,3 +61,35 @@ class ConstructorUploadAPI(View):
 
         compress_journal(new_journal)
         return JsonResponse({"status": 1})
+
+class LoadJournalAPI(View):
+    def post(self, request):
+        if request.FILES.get('journal_file', None):
+            journal = request.FILES['journal_file']
+            plant_name = request.POST['plant']
+            type = request.POST['type']
+            number_of_shifts = int(request.POST['number_of_shifts'])
+            if plant_name and type and number_of_shifts:
+                try:
+                    os.remove(f'resources/journals/{plant_name}/{journal.name}')
+                except OSError:
+                    pass
+                fs = FileSystemStorage(location=f'resources/journals/{plant_name}/')
+                filename = fs.save(journal.name, journal)
+
+                journal = JournalBuilder(journal, plant_name, type)
+                new_journal = journal.create()
+
+                if new_journal.type == 'shift':
+                    self.add_shifts(new_journal, number_of_shifts)
+
+                return JsonResponse({"status": 1})
+        return JsonResponse({"status": 0})
+
+    @staticmethod
+    def add_shifts(new_journal, number_of_shifts):
+        Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
+        now_date = current_date()
+        for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
+            for shift_order in range(1, number_of_shifts + 1):
+                Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)

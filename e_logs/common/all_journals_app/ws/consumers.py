@@ -7,7 +7,7 @@ from channels.exceptions import StopConsumer
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.contenttypes.models import ContentType
 
-from e_logs.common.all_journals_app.models import Cell, Shift, Comment, Plant
+from e_logs.common.all_journals_app.models import Cell, Shift, Comment, CellGroup
 from e_logs.common.messages_app.models import Message
 
 
@@ -61,15 +61,16 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 await self.messages_receive(data)
 
             elif data['type'] == 'make_responsible':
-                await self.add_shift_resonsible(shift_id=int(data['group_id']))
+                await self.add_shift_responsible(shift_id=int(data['group_id']))
 
     async def send_message(self, event):
         await self.send(event['text'])
 
     async def shift_receive(self, data):
 
+        employee = self.scope['user'].employee
+
         for cell_data in data['cells']:
-            employee = self.scope['user'].employee
             cell_data['responsible'] = {str(employee.user): employee.name}
 
         await self.channel_layer.group_send(
@@ -80,13 +81,12 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             }
         )
 
-        for cell_data in data['cells']:
-            cell = await self.get_or_create_cell(cell_data['cell_location'])
-            value = cell_data['value']
-            await self.update_cell(cell, value)
-
-            if cell.journal.type == 'shift':
-                await self.add_shift_resonsible(shift_id=int(cell_data['cell_location']['group_id']))
+        if data['final'] == True:
+            for cell_data in data['cells']:
+                cell, created = await self.get_or_create_cell(cell_data['cell_location'])
+                value = cell_data['value']
+                await self.update_cell(cell, value)
+                await self.cell_versioning(cell, value, employee, created)
 
     async def messages_receive(self, data):
         if data['crud'] == 'add':
@@ -107,15 +107,26 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
         cell.value = value
         cell.save()
 
+    async def cell_versioning(self, cell, value, employee, created):
+        if created:
+            await self.add_comment_query(cell=cell,
+                                         text=f'{employee.name} впервые ввёл значение: {value}',
+                                         type='system_comment')
+
+        else:
+            await self.add_comment_query(cell=cell,
+                                         text=f'{employee.name} изменил значение на: {value}',
+                                         type='system_comment')
+
     @database_sync_to_async
-    def add_shift_resonsible(self, shift_id):
+    def add_shift_responsible(self, shift_id):
         shift = Shift.objects.get(id=shift_id)
         shift.responsibles.add(self.scope['user'].employee)
 
-    # ----------------------------------MESSAGES----------------------------------
+    # ----------------------------------------------------MESSAGES------------------------------------------------------
     async def add_cell_message(self, data):
         if data['message']['type'] == "critical_value":
-            cell = await self.get_cell_from_dict(data['cell'])
+            cell, created = await self.get_or_create_cell(data['cell'])
             if cell:
                 message = data['message'].copy()
                 message['sendee'] = self.scope['user'].employee
@@ -126,7 +137,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             message['sendee'] = self.scope['user'].employee
             text = message['text']
 
-            cell = await self.get_or_create_cell(data['cell_location'])
+            cell, created = await self.get_or_create_cell(data['cell_location'])
 
             if cell:
                 comment = await self.add_comment_query(cell, text)
@@ -143,16 +154,13 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 await self.add_cell_message_query(message, cell, shift_id=data['cell_location']['group_id'])
 
     @database_sync_to_async
-    def get_or_create_cell(self, cell_location):
-        return Cell.get_or_create_cell(**cell_location)
-
-    @database_sync_to_async
-    def add_comment_query(self, cell, text):
+    def add_comment_query(self, cell, text, type="user_comment"):
         comment = Comment.objects.create(
             content_type=ContentType.objects.get_for_model(cell),
             object_id=cell.id,
             text=text,
-            employee=self.scope['user'].employee)
+            type=type,
+            employee=self.scope['user'].employee if type == 'user_comment' else None)
 
         return comment
 
@@ -169,7 +177,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
     def add_cell_message_query(self, message, cell, all_users=False, positions=None, uids=None,
                                shift_id=None):
         if shift_id:
-            plant_name = Shift.objects.get(id=shift_id).journal.plant.name
+            plant_name = CellGroup.objects.get(id=shift_id).journal.plant.name
         else:
             plant_name = None
 

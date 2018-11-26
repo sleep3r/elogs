@@ -273,12 +273,11 @@ const journalState = {
                     return {};
                 }
                 var fieldConstraintsModes = state.journalInfo.field_constraints_modes.modes
-                console.log(fieldConstraintsModes)
+
                 var fieldConstraints = fields[fieldName].field_description['constraints_modes']
                 if (typeof fieldConstraints == "undefined") {
                     return {}
                 }
-                console.log(fieldConstraints)
 
                 // if constraintsMode is not null and constraints for this field exist
                 if (constraintsMode) {

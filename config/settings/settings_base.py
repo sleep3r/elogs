@@ -218,16 +218,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'color_formatter',
         },
-        'production_file': {
-            'level': 'INFO',
-            'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
-            'filename': 'logs/main/main.log',
-            'backupCount': 7,
-            'formatter': 'color_formatter',
-            'filters': ['require_debug_false'],
-            'when': 'midnight',
-        },
-        'debug_file_debug': {
+        'debug': {
             'level': 'DEBUG',
             'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_debug/main_debug_debug.log',
@@ -236,31 +227,31 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'when': 'midnight',
         },
-        'debug_file_info': {
+        'info': {
             'level': 'INFO',
             'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_info/main_debug_info.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_false'],
             'when': 'midnight',
         },
-        'debug_file_error': {
+        'error': {
             'level': 'ERROR',
             'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_error/main_debug_error.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_false'],
             'when': 'midnight',
         },
-        'debug_file_calls': {
+        'calls': {
             'level': 'DEBUG',
             'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
             'filename': 'logs/main_debug_calls/main_debug_calls.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_false'],
             'when': 'midnight',
         },
         'printed_values': {
@@ -269,7 +260,7 @@ LOGGING = {
             'filename': 'logs/printed_values/printed_values.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_false'],
             'when': 'midnight',
         },
         'db_log': {
@@ -278,7 +269,7 @@ LOGGING = {
             'filename': 'logs/db_log/db_log.log',
             'backupCount': 7,
             'formatter': 'color_formatter',
-            'filters': ['require_debug_true'],
+            'filters': ['require_debug_false'],
             'when': 'midnight',
         },
         'null': {
@@ -287,20 +278,20 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['console', 'debug_file_error'],
+            'handlers': ['console', 'error'],
             'level': 'ERROR',
             'propagate': True,
         },
         'py.warnings': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['console', 'debug', 'info', 'error'],
         },
         '': {
-            'handlers': ['production_file', 'debug_file_debug',
-                         'debug_file_info', 'debug_file_error'],
+            'handlers': ['debug',
+                         'info', 'error'],
             'level': "DEBUG",
         },
         'django': {
-            'handlers': ['console', 'debug_file_debug', 'debug_file_info', 'debug_file_error'],
+            'handlers': ['console', 'debug', 'info', 'error'],
             'level': 'INFO',
             'propagate': False,
         },
@@ -315,7 +306,7 @@ LOGGING = {
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['debug_file_debug'],
+            'handlers': ['debug'],
             'level': 'DEBUG',
         },
         'django.db.backends.mssql': {
@@ -323,7 +314,7 @@ LOGGING = {
             'handlers': ['db_log'],
         },
         'CALL': {
-            'handlers': ['debug_file_calls'],
+            'handlers': ['calls'],
         },
         'STDOUT': {
             'handlers': ['console', 'printed_values'],

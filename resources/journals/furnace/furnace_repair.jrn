@@ -1,70 +1,80 @@
 {
-    "version": "0.1",
-    "name": "furnace_repair",
-    "title": "Журнал по ремонту",
-    "type": "equipment",
-    "tables": [
-        {
-            "name": "repair",
-            "title": "Ремонты по Обжиговому цеху",
-            "fields": [
-                {
-                    "name": "position_number",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "pp",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "department",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "name_of_object",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "inv_number",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "group",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "work_center",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "tax_group",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "description",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "executor",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>№ позиции по титульному списку СУД</th>\n        <th>№ п/п</th>\n        <th>Подразделение</th>\n        <th>Наименование объекта</th>\n        <th>№ инв</th>\n        <th>Группа значимости</th>\n        <th>Рабоч центр</th>\n        <th>№ налоговой группы</th>\n        <th>Описание работ</th>\n        <th>Исполнитель</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n        <td>\n            <cell field-name=\"position_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"pp\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"department\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"name_of_object\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"inv_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"work_center\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"tax_group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"description\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"executor\" :row-index=\"index\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
-        }
-    ]
+   "tables" : [
+      {
+         "title" : "Ремонты по Обжиговому цеху",
+         "name" : "repair",
+         "fields" : [
+            {
+               "type" : "number",
+               "name" : "position_number",
+               "units" : "№",
+               "title" : "position_number",
+               "formula" : ""
+            },
+            {
+               "name" : "pp",
+               "type" : "number",
+               "title" : "pp",
+               "units" : "№",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "department",
+               "type" : "text",
+               "title" : "department"
+            },
+            {
+               "formula" : "",
+               "title" : "name_of_object",
+               "name" : "name_of_object",
+               "type" : "text"
+            },
+            {
+               "type" : "number",
+               "name" : "inv_number",
+               "units" : "№",
+               "title" : "inv_number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "",
+               "title" : "group",
+               "type" : "number",
+               "name" : "group"
+            },
+            {
+               "formula" : "",
+               "name" : "work_center",
+               "type" : "text",
+               "title" : "work_center"
+            },
+            {
+               "type" : "number",
+               "name" : "tax_group",
+               "units" : "№",
+               "title" : "tax_group",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "description",
+               "name" : "description",
+               "type" : "text"
+            },
+            {
+               "formula" : "",
+               "title" : "executor",
+               "type" : "text",
+               "name" : "executor"
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>№ позиции по титульному списку СУД</th>\n        <th>№ п/п</th>\n        <th>Подразделение</th>\n        <th>Наименование объекта</th>\n        <th>№ инв</th>\n        <th>Группа значимости</th>\n        <th>Рабоч центр</th>\n        <th>№ налоговой группы</th>\n        <th>Описание работ</th>\n        <th>Исполнитель</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n        <td>\n            <cell field-name=\"position_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"pp\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"department\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"name_of_object\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"inv_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"work_center\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"tax_group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"description\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"executor\" :row-index=\"index\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+      }
+   ],
+   "type" : "equipment",
+   "name" : "furnace_repair",
+   "title" : "Журнал по ремонту",
+   "version" : "0.1"
 }
