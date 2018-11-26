@@ -270,7 +270,7 @@ class JournalsAPI(View):
 class MenuInfoAPI(View):
     def get(self, request):
         qs = Journal.objects.all()
-        if str(request.user) not in ['shaukenov-s-s', 'makagonov-s-n'] and not request.user.is_superuser:
+        if str(request.user) not in ['шаукенов-ш-с', 'макагонов-с-н'] and not request.user.is_superuser:
             qs = qs.exclude(name__in=['metals_compute', 'report_income_outcome_schieht'])
         return JsonResponse({
             'plants': [
