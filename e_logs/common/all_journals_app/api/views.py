@@ -113,7 +113,6 @@ class GroupAPI(LoginRequired, View):
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
             plant_name = parse_qs(request.GET.urlencode())['plantName'][0]
-            print(plant_name, journal_name)
             current_group = _get_current_group(Journal.objects.get(name=journal_name, plant__name=plant_name))
             id = current_group.id
         else:
