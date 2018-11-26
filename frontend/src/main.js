@@ -48,13 +48,14 @@ Vue.use(VueNativeSock, dataEndpoint, {
             let data = JSON.parse(event.data);
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
-            if (data['type'] == 'shift_data') {
-                console.log('shift_data', data)
+            if (data['type'] === 'shift_data') {
                 let commitData = {'cells': []}
                 let currentShift = this.store.getters['journalState/journalInfo'].id
                 for (let i in data['cells']) {
+                    console.log(currentShift, data['cells'][i]['cell_location']['group_id']);
                     // accept only cells from current shift
-                    if (currentShift !== data['cells'][i]['group_id']) {
+
+                    if (currentShift !== data['cells'][i]['cell_location']['group_id']) {
                         continue
                     }
                     let cellData = data['cells'][i]
