@@ -167,8 +167,8 @@ class Shift(CellGroup):
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // int(number_of_shifts))) % 24
-        shift_time = time(hour=shift_hour, tzinfo=timezone.get_current_timezone())
-        return datetime.combine(self.date, shift_time)
+        shift_time = time(hour=shift_hour)
+        return timezone.get_current_timezone().localize(datetime.combine(self.date, shift_time))
 
     @property
     def end_time(self) -> timezone.datetime:
