@@ -8,13 +8,13 @@
                "type" : "number",
                "name" : "position_number",
                "units" : "№",
-               "title" : "position_number",
+               "title" : "№ позиции по титульному списку СУД",
                "formula" : ""
             },
             {
                "name" : "pp",
                "type" : "number",
-               "title" : "pp",
+               "title" : "№ п/п",
                "units" : "№",
                "formula" : ""
             },
@@ -22,11 +22,11 @@
                "formula" : "",
                "name" : "department",
                "type" : "text",
-               "title" : "department"
+               "title" : "Подразделение"
             },
             {
                "formula" : "",
-               "title" : "name_of_object",
+               "title" : "Наименование объекта",
                "name" : "name_of_object",
                "type" : "text"
             },
@@ -34,13 +34,13 @@
                "type" : "number",
                "name" : "inv_number",
                "units" : "№",
-               "title" : "inv_number",
+               "title" : "№ инв",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "group",
+               "title" : "Группа значимости",
                "type" : "number",
                "name" : "group"
             },
@@ -48,24 +48,24 @@
                "formula" : "",
                "name" : "work_center",
                "type" : "text",
-               "title" : "work_center"
+               "title" : "Рабоч центр"
             },
             {
                "type" : "number",
                "name" : "tax_group",
                "units" : "№",
-               "title" : "tax_group",
+               "title" : "№ налоговой группы",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "description",
+               "title" : "Описание работ",
                "name" : "description",
                "type" : "text"
             },
             {
                "formula" : "",
-               "title" : "executor",
+               "title" : "Исполнитель",
                "type" : "text",
                "name" : "executor"
             }
