@@ -1,5 +1,5 @@
 import json
-from datetime import time, datetime, timedelta, date
+from datetime import time, datetime, timedelta
 
 from cacheops import cached_as, cached
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.timezone import make_aware
 from django_extensions.db.models import TimeStampedModel
 
 from e_logs.core.utils.webutils import none_if_error, logged, default_if_error, \
@@ -23,7 +22,7 @@ class Plant(models.Model):
                                      ('electrolysis', 'Электролиз')))
     settings = GenericRelation('core.Setting', related_query_name='plant', related_name='plants')
     comments = GenericRelation('all_journals_app.Comment', related_query_name='plant',
-                                related_name='plants')
+                               related_name='plants')
 
     verbose_name = models.CharField(max_length=128, verbose_name='Название цеха')
 
@@ -58,7 +57,6 @@ class Journal(models.Model):
     def group(self):
         return ContentType.objects.get(model=self.type).model_class()
 
-
     class Meta:
         verbose_name = 'Журнал'
         verbose_name_plural = 'Журналы'
@@ -83,6 +81,7 @@ class Table(models.Model):
             qs = Cell.objects.select_related('field', 'field__table').cache() \
                 .filter(group=page, field__table=self)
             return qs
+
         return cached_cells(self, page)
 
     def get_fields(self):
@@ -126,6 +125,7 @@ class Field(models.Model):
         @cached(Plant, Journal, Table, Field)
         def cached_plant(self):
             return self.table.journal.plant
+
         return cached_plant()
 
     @cached_property
@@ -145,7 +145,7 @@ class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def tables(self):
-        @cached(timeout=60*60*3)
+        @cached(timeout=60 * 60 * 3)
         def cached_tables(self):
             return list(self.journal.tables.all())
 
@@ -167,8 +167,8 @@ class Shift(CellGroup):
     def start_time(self) -> timezone.datetime:
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // int(number_of_shifts))) % 24
-        shift_time = time(hour=shift_hour, tzinfo=timezone.get_current_timezone())
-        return datetime.combine(self.date, shift_time)
+        shift_time = time(hour=shift_hour)
+        return timezone.get_current_timezone().localize(datetime.combine(self.date, shift_time))
 
     @property
     def end_time(self) -> timezone.datetime:
@@ -176,12 +176,12 @@ class Shift(CellGroup):
         shift_length = timedelta(hours=24 // int(number_of_shifts))
         return self.start_time + shift_length
 
-    def is_active(self, time=timezone.now()) -> bool:
+    def is_active(self, time=None) -> bool:
         return self.start_time <= timezone.localtime(time) <= self.end_time
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
-        from e_logs.core.models import Setting # avoiding import loo
+        from e_logs.core.models import Setting  # avoiding import loo
 
         @cached_as(Setting.objects.filter(name='number_of_shifts'))
         def cached_number_of_shifts(obj):
@@ -191,7 +191,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_or_create(journal: Journal, shift_order: int, shift_date: timezone.datetime) -> 'Shift':
-        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache()\
+        return Shift.objects.prefetch_related('journal', 'journal__plant', 'journal__plant').cache() \
             .get_or_create(journal=journal, order=shift_order, date=shift_date)[0]
 
     @staticmethod
@@ -210,7 +210,7 @@ class Shift(CellGroup):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
                                                     date=current_date())[0]
-                if shift.is_active():
+                if shift.is_active(timezone.now()):
                     break
 
         return shift
@@ -291,11 +291,11 @@ class Comment(models.Model):
     type = models.CharField(max_length=32,
                             verbose_name='Тип комментария',
                             default='user_comment',
-                            choices=(('user_comment',   'Комментарий пользователя'),
+                            choices=(('user_comment', 'Комментарий пользователя'),
                                      ('system_comment', 'Комментарий системы')))
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True,
-                                     related_name='comments',related_query_name='comment')
+                                     related_name='comments', related_query_name='comment')
     object_id = models.PositiveIntegerField(null=True)
     target = GenericForeignKey('content_type', 'object_id')
 

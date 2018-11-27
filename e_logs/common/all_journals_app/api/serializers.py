@@ -9,8 +9,8 @@ from e_logs.common.all_journals_app.models import Plant, Cell, Table, Journal, F
     CellGroup
 from e_logs.core.models import Setting
 
-class CellSerializer(serializers.ModelSerializer):
 
+class CellSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cell
         fields = ("id", "index", "value")
@@ -30,7 +30,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 
     def get_permissions(self, obj):
         return [permission.codename for permission
-                    in Permission.objects.filter(user=self.context['request'].user)]
+                in Permission.objects.filter(user=self.context['request'].user)]
 
     @cached_as(Shift, Cell, CellGroup)
     def serialize_shift(self, obj):
@@ -64,12 +64,12 @@ class TableSerializer(serializers.ModelSerializer):
 
     def get_fields_dict(self, obj):
         return {FieldSerializer(f).data.get('name'):
-                FieldSerializer(f, context={"shift_id": self.context.get('shift_id')}).data
+                    FieldSerializer(f, context={"shift_id": self.context.get('shift_id')}).data
                 for f in obj.fields.all()}
 
     class Meta:
         model = Table
-        fields = ('id', 'name', 'fields', )
+        fields = ('id', 'name', 'fields',)
 
 
 class JournalSerializer(serializers.ModelSerializer):
@@ -77,7 +77,7 @@ class JournalSerializer(serializers.ModelSerializer):
 
     def get_tables(self, obj):
         return {TableSerializer(t).data.get('name'):
-                TableSerializer(t, context={"shift_id": self.context.get('shift_id')}).data
+                    TableSerializer(t, context={"shift_id": self.context.get('shift_id')}).data
                 for t in obj.tables.all()}
 
     class Meta:

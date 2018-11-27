@@ -18,10 +18,10 @@ environ.Env.read_env("config/settings/.env")
 
 def _get_current_group(journal):
     if journal.type == 'shift':
-        shifts = Shift.objects.filter(journal=journal,
-                                      date__lte=current_date()).order_by('-date', 'order')
+        shifts = Shift.objects.filter(journal=journal, date__lte=current_date()).order_by('-date', 'order')
+
         for shift in shifts:
-            if shift.is_active():
+            if shift.is_active(timezone.now()):
                 return shift
 
     elif journal.type == 'year':
@@ -37,6 +37,7 @@ def _get_current_group(journal):
     else:
         return Equipment.objects.filter(journal=journal).first()
 
+
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
     """ View for action with denied permission """
@@ -51,6 +52,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 def get_table_template(request, plant_name, journal_name, table_name):
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
+
 
 class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):
@@ -128,7 +130,7 @@ class GetGroups(LoginRequired, View):
     def get_months(self, user, journal):
         def month_event(month):
             return {
-                'id':month.id,
+                'id': month.id,
                 'year': f'{month.year_date}-й год',
                 'month': f'{month.month_date}',
                 'url': '/{}/{}/{}/'.format(month.journal.plant.name, month.journal.name, month.id),
@@ -177,4 +179,6 @@ class GetGroups(LoginRequired, View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get equipment for non-equipment journal')
+
+
 get_groups = GetGroups.as_view()
