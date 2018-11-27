@@ -12,30 +12,30 @@
             {
                "name" : "date1",
                "type" : "date",
-               "title" : "date1",
+               "title" : "Дата осмотра",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "node_name",
+               "title" : "Наименование узла в характеристике дефектов",
                "type" : "text",
                "name" : "node_name"
             },
             {
                "name" : "date2",
                "type" : "date",
-               "title" : "date2",
+               "title" : "Дата выполнения работ",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "work_done",
                "type" : "text",
-               "title" : "work_done"
+               "title" : "Объем выполненых работ по устранению дефектов"
             },
             {
                "formula" : "",
-               "title" : "texpl_time",
+               "title" : "Фактический срок службы узла, детали",
                "type" : "text",
                "name" : "texpl_time"
             }
