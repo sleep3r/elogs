@@ -70,15 +70,6 @@
                             '_blank')
                         }
                     },
-                    watch: {
-                        rowsCount (value) {
-                            setTimeout(() => {
-                                $('.elog-journal-table td').each(function () {
-                                    $(this).height($(this).height())
-                                })
-                            }, 0)
-                        }
-                    },
                     computed: {
                         userIsBoss: function () {
                             return this.$store.getters['userState/isBoss']
