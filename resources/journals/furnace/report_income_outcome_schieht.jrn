@@ -10,63 +10,63 @@
             "fields": [
                 {
                     "name": "concentrate__plan__January",
-                    "title": "concentrate__plan__January",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__January",
-                    "title": "zn__plan__January",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__January",
-                    "title": "ratio__plan__January",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__January",
-                    "title": "concentrate__fact__January",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__January",
-                    "title": "zn__fact__January",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__January",
-                    "title": "ratio__fact__January",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__February",
-                    "title": "concentrate__plan__February",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__February",
-                    "title": "zn__plan__February",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__February",
-                    "title": "ratio__plan__February",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
@@ -80,434 +80,434 @@
                 },
                 {
                     "name": "zn__fact__February",
-                    "title": "zn__fact__February",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__February",
-                    "title": "ratio__fact__February",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__March",
-                    "title": "concentrate__plan__March",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__March",
-                    "title": "zn__plan__March",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__March",
-                    "title": "ratio__plan__March",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__March",
-                    "title": "concentrate__fact__March",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__March",
-                    "title": "zn__fact__March",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__March",
-                    "title": "ratio__fact__March",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__April",
-                    "title": "concentrate__plan__April",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__April",
-                    "title": "zn__plan__April",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__April",
-                    "title": "ratio__plan__April",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__April",
-                    "title": "concentrate__fact__April",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__April",
-                    "title": "zn__fact__April",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__April",
-                    "title": "ratio__fact__April",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__May",
-                    "title": "concentrate__plan__May",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__May",
-                    "title": "zn__plan__May",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__May",
-                    "title": "ratio__plan__May",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__May",
-                    "title": "concentrate__fact__May",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__May",
-                    "title": "zn__fact__May",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__May",
-                    "title": "ratio__fact__May",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__June",
-                    "title": "concentrate__plan__June",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__June",
-                    "title": "zn__plan__June",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__June",
-                    "title": "ratio__plan__June",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__June",
-                    "title": "concentrate__fact__June",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__June",
-                    "title": "zn__fact__June",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__June",
-                    "title": "ratio__fact__June",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__July",
-                    "title": "concentrate__plan__July",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__July",
-                    "title": "zn__plan__July",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__July",
-                    "title": "ratio__plan__July",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__July",
-                    "title": "concentrate__fact__July",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__July",
-                    "title": "zn__fact__July",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__July",
-                    "title": "ratio__fact__July",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__August",
-                    "title": "concentrate__plan__August",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__August",
-                    "title": "zn__plan__August",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__August",
-                    "title": "ratio__plan__August",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__August",
-                    "title": "concentrate__fact__August",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__August",
-                    "title": "zn__fact__August",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__August",
-                    "title": "ratio__fact__August",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__September",
-                    "title": "concentrate__plan__September",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__September",
-                    "title": "zn__plan__September",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__September",
-                    "title": "ratio__plan__September",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__September",
-                    "title": "concentrate__fact__September",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__September",
-                    "title": "zn__fact__September",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__September",
-                    "title": "ratio__fact__September",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__October",
-                    "title": "concentrate__plan__October",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__October",
-                    "title": "zn__plan__October",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__October",
-                    "title": "ratio__plan__October",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__October",
-                    "title": "concentrate__fact__October",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__October",
-                    "title": "zn__fact__October",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__October",
-                    "title": "ratio__fact__October",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__November",
-                    "title": "concentrate__plan__November",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__November",
-                    "title": "zn__plan__November",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__November",
-                    "title": "ratio__plan__November",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__November",
-                    "title": "concentrate__fact__November",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__November",
-                    "title": "zn__fact__November",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__November",
-                    "title": "ratio__fact__November",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__plan__December",
-                    "title": "concentrate__plan__December",
+                    "title": "Конц. смт (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__plan__December",
-                    "title": "zn__plan__December",
+                    "title": "Zn (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__plan__December",
-                    "title": "ratio__plan__December",
+                    "title": "Соотношение (по плану)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "concentrate__fact__December",
-                    "title": "concentrate__fact__December",
+                    "title": "Конц. смт (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn__fact__December",
-                    "title": "zn__fact__December",
+                    "title": "Zn (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "ratio__fact__December",
-                    "title": "ratio__fact__December",
+                    "title": "Соотношение (по факту)",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
@@ -521,14 +521,14 @@
             "fields": [
                 {
                     "name": "concentrate",
-                    "title": "concentrate",
+                    "title": "Конц. смт",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "zn",
-                    "title": "zn",
+                    "title": "Zn",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -542,42 +542,42 @@
             "fields": [
                 {
                     "name": "concentrate",
-                    "title": "concentrate",
+                    "title": "Концентрат",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "year_plans",
-                    "title": "year_plans",
+                    "title": "План на год",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "month_smt",
-                    "title": "month_smt",
+                    "title": "Расход шихты за месяц",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "day_smt",
-                    "title": "day_smt",
+                    "title": "Расход шихты в сутки",
                     "formula": "",
                     "type": "number",
                     "units": "СМТ"
                 },
                 {
                     "name": "tonns_a_year",
-                    "title": "tonns_a_year",
+                    "title": "Тонн в год",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "schieht_frac",
-                    "title": "schieht_frac",
+                    "title": "Доля в шихте",
                     "formula": "",
                     "type": "number",
                     "units": "%"
@@ -590,70 +590,70 @@
                 },
                 {
                     "name": "zn",
-                    "title": "zn",
+                    "title": "Zn",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "s",
-                    "title": "s",
+                    "title": "S",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "h2o",
-                    "title": "h2o",
+                    "title": "H<sub>2</sub>O",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "fe",
-                    "title": "fe",
+                    "title": "Fe",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cu",
-                    "title": "cu",
+                    "title": "Cu",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "pb",
-                    "title": "pb",
+                    "title": "Pb",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "sio2",
-                    "title": "sio2",
+                    "title": "SiO<sub>2</sub>",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cd",
-                    "title": "cd",
+                    "title": "Cd",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "cao",
-                    "title": "cao",
+                    "title": "CaO",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "mgo",
-                    "title": "mgo",
+                    "title": "MgO",
                     "formula": "",
                     "type": "number",
                     "units": "%"
@@ -667,14 +667,14 @@
                 },
                 {
                     "name": "na",
-                    "title": "na",
+                    "title": "Na",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "arsenic",
-                    "title": "arsenic",
+                    "title": "As",
                     "formula": "",
                     "type": "number",
                     "units": "%"
@@ -688,28 +688,28 @@
                 },
                 {
                     "name": "au",
-                    "title": "au",
+                    "title": "Au",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "ag",
-                    "title": "ag",
+                    "title": "Ag",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "vmt",
-                    "title": "vmt",
+                    "title": "ВМТ",
                     "formula": "",
                     "type": "number",
                     "units": "ВМТ"
                 },
                 {
                     "name": "norm",
-                    "title": "norm",
+                    "title": "Норма/Отклоние",
                     "formula": "",
                     "type": "number",
                     "units": ""
@@ -723,49 +723,49 @@
             "fields": [
                 {
                     "name": "nzp_concentrate",
-                    "title": "nzp_concentrate",
+                    "title": "НЗП",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "nzp_zn",
-                    "title": "nzp_zn",
+                    "title": "НЗП",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "sklad_concentrate",
-                    "title": "sklad_concentrate",
+                    "title": "Склады",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "sklad_zn",
-                    "title": "sklad_zn",
+                    "title": "Склады",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "itogo_concentrate",
-                    "title": "itogo_concentrate",
+                    "title": "Итого",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "itogo_zn",
-                    "title": "itogo_zn",
+                    "title": "Итого",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "on_year",
-                    "title": "on_year",
+                    "title": "На 01.01.",
                     "formula": "",
                     "type": ""
                 }
