@@ -1635,13 +1635,13 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "norm бак 3",
+               "title" : "Норма бак 3",
                "type" : "number",
                "name" : "norm_tank3"
             },
             {
                "formula" : "",
-               "title" : "fact бак 3",
+               "title" : "Факт бак 3",
                "units" : "",
                "name" : "fact_tank3",
                "type" : "number"
@@ -1708,7 +1708,7 @@
                "formula" : ""
             },
             {
-               "title" : "norm бак 4",
+               "title" : "Норма бак 4",
                "units" : "",
                "name" : "norm_tank4",
                "type" : "number",
@@ -1717,7 +1717,7 @@
             {
                "name" : "fact_tank4",
                "type" : "number",
-               "title" : "fact бак 4",
+               "title" : "Факт бак 4",
                "units" : "",
                "formula" : ""
             },
@@ -1786,12 +1786,12 @@
                "type" : "number",
                "name" : "norm_tank5",
                "units" : "",
-               "title" : "norm бак 5",
+               "title" : "Норма бак 5",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "fact бак 5",
+               "title" : "Факт бак 5",
                "units" : "",
                "name" : "fact_tank5",
                "type" : "number"
@@ -1805,20 +1805,20 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "visiting_time",
+               "title" : "Время обхода",
                "name" : "visiting_time",
                "type" : "time"
             },
             {
                "formula" : "",
-               "title" : "visiting",
+               "title" : "Обход",
                "type" : "text",
                "name" : "visiting"
             },
             {
                "name" : "notation",
                "type" : "text",
-               "title" : "notation",
+               "title" : "Примечание",
                "formula" : ""
             }
          ]
@@ -1831,20 +1831,20 @@
                "type" : "number",
                "name" : "shift_total",
                "units" : "",
-               "title" : "shift_total"
+               "title" : "За смену"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "day_total",
                "units" : "",
-               "title" : "day_total"
+               "title" : "За сутки"
             },
             {
                "formula" : "",
                "name" : "in_process",
                "type" : "number",
-               "title" : "in_process",
+               "title" : "В процессе",
                "units" : ""
             }
          ],
@@ -1855,7 +1855,7 @@
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Время</th>\n            <th class=\"th-number\">Cd<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in 5\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cu\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-common\" colspan=\"3\">ВИУ</th>\n        </tr>\n        <tr>\n            <th>#</th>\n            <th class=\"th-number\">Г</th>\n            <th class=\"th-number\">Х</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>I</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"0\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>II</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"1\"></cell></td>\n        </tr>\n        <tr>\n            <th>III</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"2\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
          "fields" : [
             {
-               "title" : "time",
+               "title" : "Время",
                "type" : "time",
                "name" : "time",
                "formula" : ""
@@ -1875,14 +1875,14 @@
                "type" : "number"
             },
             {
-               "title" : "VIU_G",
+               "title" : "ВИУ Г",
                "units" : "",
                "name" : "VIU_G",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "VIU_H",
+               "title" : "ВИУ Х",
                "units" : "",
                "name" : "VIU_H",
                "type" : "number",
@@ -1896,20 +1896,20 @@
          "fields" : [
             {
                "units" : "Ампер",
-               "title" : "time7",
+               "title" : "Нагрузки 7:00 серия",
                "type" : "number",
                "name" : "time7",
                "formula" : ""
             },
             {
                "units" : "Ампер",
-               "title" : "time12",
+               "title" : "Нагрузки 12:00",
                "type" : "number",
                "name" : "time12",
                "formula" : ""
             },
             {
-               "title" : "counter",
+               "title" : "Показания счётчика",
                "units" : "Ампер",
                "name" : "counter",
                "type" : "number",
@@ -1919,26 +1919,26 @@
                "type" : "number",
                "name" : "bunker_cvco",
                "units" : "м",
-               "title" : "bunker_cvco",
+               "title" : "Бункера ЦВЦО",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "silos",
                "units" : "м",
-               "title" : "silos",
+               "title" : "Силоса ОЦ",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "bunkers_oc",
                "units" : "м",
-               "title" : "bunkers_oc",
+               "title" : "Бункера ОЦ",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "description",
+               "title" : "Комментарий",
                "type" : "text",
                "name" : "description"
             }
@@ -1955,33 +1955,33 @@
                "type" : "number",
                "name" : "neutral_solution",
                "units" : "",
-               "title" : "neutral_solution"
+               "title" : "Наличие<br>нейтр. р-ра,"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "leach1",
                "units" : "",
-               "title" : "leach1"
+               "title" : "Уч. выщел. N1<br>бак 3,4,5,4А"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "leach2",
                "units" : "",
-               "title" : "leach2"
+               "title" : "Уч. выщел. N1<br>бак 3,4,5,4А,"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "bak_3",
                "units" : "",
-               "title" : "bak_3"
+               "title" : "Бак 3"
             },
             {
                "name" : "bak_4",
                "type" : "number",
-               "title" : "bak_4",
+               "title" : "Бак 4",
                "units" : "",
                "formula" : ""
             },
@@ -1989,12 +1989,12 @@
                "type" : "number",
                "name" : "summary",
                "units" : "",
-               "title" : "summary",
+               "title" : "Итого",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "bak_seria3",
+               "title" : "Бак III серии",
                "units" : "",
                "name" : "bak_seria3",
                "type" : "number"
@@ -2002,7 +2002,7 @@
             {
                "name" : "bak_5",
                "type" : "number",
-               "title" : "bak_5",
+               "title" : "Бак 5 ",
                "units" : "",
                "formula" : ""
             },
@@ -2010,7 +2010,7 @@
                "formula" : "",
                "name" : "bak_6",
                "type" : "number",
-               "title" : "bak_6",
+               "title" : "Бак 6 ",
                "units" : ""
             }
          ],
@@ -2021,7 +2021,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "this_master",
+               "title" : "Мастер сдал",
                "type" : "text",
                "name" : "this_master"
             },
@@ -2029,25 +2029,25 @@
                "formula" : "",
                "name" : "next_master",
                "type" : "text",
-               "title" : "next_master"
+               "title" : "Мастер принял"
             },
             {
                "formula" : "",
                "units" : "тонн",
-               "title" : "out_sol_t",
+               "title" : "Выход ТВ",
                "type" : "number",
                "name" : "out_sol_t"
             },
             {
                "name" : "out_sol_c",
                "type" : "number",
-               "title" : "out_sol_c",
+               "title" : "Выход ТВ",
                "units" : "тонн",
                "formula" : ""
             },
             {
                "units" : "тонн",
-               "title" : "out_pulp_cvck",
+               "title" : "Выход ЦВЦК",
                "type" : "number",
                "name" : "out_pulp_cvck",
                "formula" : ""
@@ -2056,13 +2056,13 @@
                "formula" : "",
                "name" : "out_cu_kek",
                "type" : "number",
-               "title" : "out_cu_kek",
+               "title" : "Выход медного кека",
                "units" : "м³"
             },
             {
                "name" : "out_cd_sponge",
                "type" : "number",
-               "title" : "out_cd_sponge",
+               "title" : "ВЫход Cd губки",
                "units" : "тонн",
                "formula" : ""
             },
@@ -2070,7 +2070,7 @@
                "type" : "number",
                "name" : "out_neutr",
                "units" : "м³",
-               "title" : "out_neutr",
+               "title" : "Нейтрального в ХМЦ",
                "formula" : ""
             },
             {
@@ -2083,7 +2083,7 @@
             {
                "name" : "neutral_hmc",
                "type" : "number",
-               "title" : "neutral_hmc",
+               "title" : "Нейтрального в ХМЦ",
                "units" : "м³",
                "formula" : ""
             },
@@ -2092,12 +2092,12 @@
                "type" : "number",
                "name" : "out_cu_pulp",
                "units" : "м³",
-               "title" : "out_cu_pulp"
+               "title" : "Cu пульпа"
             },
             {
                "formula" : "",
                "units" : "м³",
-               "title" : "in_filtrate_ls",
+               "title" : "Фильтрат ЦВЦК",
                "type" : "number",
                "name" : "in_filtrate_ls"
             },
@@ -2105,19 +2105,19 @@
                "type" : "number",
                "name" : "in_fe",
                "units" : "м³",
-               "title" : "in_fe",
+               "title" : "Железистого из ЦВОЦ",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "in_filtrate_dens",
+               "title" : "Уд. вес",
                "type" : "number",
                "name" : "in_filtrate_dens",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "in_fe_hi",
+               "title" : "Высоко-железистый из ЦВОЦ",
                "units" : "м³",
                "name" : "in_fe_hi",
                "type" : "number"
@@ -2126,7 +2126,7 @@
                "formula" : "",
                "name" : "in_poor_cd",
                "type" : "number",
-               "title" : "in_poor_cd",
+               "title" : "Бедно-кадмиего",
                "units" : "м³"
             }
          ],
