@@ -8,6 +8,7 @@ from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSch
 
 from e_logs.business_logic.dictionaries.models import EquipmentDict
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
+from e_logs.core.journals_git import VersionControl
 from e_logs.core.models import CustomUser
 from django.db import connection
 from django.db.models import Model
@@ -198,25 +199,32 @@ class DatabaseFiller:
                 yield start_date + timedelta(n)
 
         now_date = current_date()
+        git = VersionControl()
         for journal in Journal.objects.all():
             if journal.type == 'shift':
                 number_of_shifts = Shift.get_number_of_shifts(journal)
                 for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
                     for shift_order in range(1, number_of_shifts + 1):
-                        Shift.objects.get_or_create(journal=journal, order=shift_order,
-                                                    date=shift_date)
+                        shift, created = Shift.objects.get_or_create(journal=journal, order=shift_order,
+                                                                     date=shift_date)
+                        # shift.version = git.version_of(shift)
+                        # shift.save()
             elif journal.type == 'year':
                 for year in range(2017, current_date().year + 2):
-                    Year.objects.get_or_create(year_date=year, journal=journal)
+                    year, created = Year.objects.get_or_create(year_date=year, journal=journal)
+                    year.version = git.version_of(year)
+                    year.save()
 
             elif journal.type == 'month':
                 for year in range(2017, current_date().year + 2):
                     for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                                  'Май','Июнь', 'Июль', 'Август',
                                                  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
-                        Month.objects.get_or_create(year_date=year, month_date=month,
-                                                    month_order=ind,
-                                                    journal=journal)
+                        month, created = Month.objects.get_or_create(year_date=year, month_date=month,
+                                                                     month_order=ind,
+                                                                     journal=journal)
+                        month.version = git.version_of(month)
+                        month.save()
 
             elif journal.type == 'equipment':
                 for equipment in EquipmentDict.objects.all():

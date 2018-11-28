@@ -10,7 +10,7 @@ from django.utils.functional import cached_property
 from django_extensions.db.models import TimeStampedModel
 
 from e_logs.core.utils.webutils import none_if_error, logged, default_if_error, \
-    max_cache, current_date
+    max_cache, current_date, localize
 
 
 class Plant(models.Model):
@@ -149,7 +149,7 @@ class Field(models.Model):
 
 class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
-    version = models.FloatField()
+    version = models.IntegerField(default=1)
     journal_path = models.FilePathField(path="resources/journals", match="*.jrn", recursive=True)
 
     def tables(self):
@@ -176,7 +176,7 @@ class Shift(CellGroup):
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // int(number_of_shifts))) % 24
         shift_time = time(hour=shift_hour)
-        return timezone.get_current_timezone().localize(datetime.combine(self.date, shift_time))
+        return localize(datetime.combine(self.date, shift_time))
 
     @property
     def end_time(self) -> timezone.datetime:
@@ -231,12 +231,19 @@ class Equipment(CellGroup):
 class Year(CellGroup):
     year_date = models.IntegerField(verbose_name='Год')
 
+    @property
+    def date(self):
+        return datetime(self.year_date, 1, 1)
+
 
 class Month(CellGroup):
     month_date = models.CharField(max_length=16, verbose_name='Месяц')
     month_order = models.IntegerField(verbose_name='Номер месяца')
     year_date = models.IntegerField(verbose_name='Год')
 
+    @property
+    def date(self):
+        return datetime(self.year_date, self.month_order, 1)
 
 class Cell(TimeStampedModel):
     """Specific cell in some table."""

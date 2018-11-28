@@ -1,0 +1,50 @@
+{
+    'furnace': {
+        'furnace_changed_fraction': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'concentrate_report': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'technological_tasks': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'reports_furnace_area': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'furnace_repair': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'report_income_outcome_schieht': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'metals_compute': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+    },
+    'electrolysis': {
+        'masters_report': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'electrolysis_technical_report_3_degree': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'electrolysis_technical_report_4_degree': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'electrolysis_technical_report_12_degree': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'electrolysis_repair_report_tables': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+    },
+    'leaching': {
+        'leaching_repair_equipment': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+        'leaching_express_analysis': {
+            "1": {"start":[1000, 1, 1, 0, 0], "end":[9000, 12, 31, 0, 0, 0, 0]},
+        },
+    }
+}
