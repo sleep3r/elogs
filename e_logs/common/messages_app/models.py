@@ -95,7 +95,7 @@ class Message(StrAsDictMixin, models.Model):
                               } if cell else None,
                               "sendee": user_to_response(message['sendee']),
                               "text": text,
-                              "created": message['created']}
+                              "created": message.get('created', timezone.now().isoformat())}
                       )})
 
                 # Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
