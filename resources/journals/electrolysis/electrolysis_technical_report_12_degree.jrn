@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "times",
-                    "title": "times",
+                    "title": "Время замеров",
                     "formula": "",
                     "type": null
                 },
@@ -28,7 +28,7 @@
                 },
                 {
                     "name": "zn",
-                    "title": "zn",
+                    "title": "Zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
@@ -47,7 +47,7 @@
                 },
                 {
                     "name": "zn_mix",
-                    "title": "zn_mix",
+                    "title": "Смесь",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
