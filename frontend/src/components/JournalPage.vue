@@ -43,7 +43,6 @@
 <script>
     import TableCommon from './TableCommon.vue';
     import JournalPanel from './JournalPanel.vue';
-import { setTimeout } from 'timers';
     var request = require('sync-request');
     let XLSX = require('xlsx');
 
@@ -194,7 +193,7 @@ import { setTimeout } from 'timers';
             }
         },
         updated () {
-            setTimeout(() => $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)}px`}), 0)
+            $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)}px`})
         },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})

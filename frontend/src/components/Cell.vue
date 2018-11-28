@@ -17,7 +17,7 @@
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
-            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline }]"
+            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline, minWidth: minWidth + 'px' }]"
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"
@@ -29,8 +29,7 @@
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
         >{{ tag == 'textarea' ? value : '' }}</component>
-        <div class="widthCell">
-        </div>
+        <div class="widthCell"></div>
         <template>
             <datalist>
                 <option v-for="person in personsList" :value="person" :key="person"></option>
@@ -127,11 +126,12 @@
                 height: null,
                 highlight: false,
                 backgroundColor: null,
+                minWidth: 0
             }
         },
         watch: {
             mode (value) {
-                setTimeout(() => this.setPickersListeners(), 1)
+                this.setPickersListeners()
             },
             value: function (val) {
                 if (this.responsible) {
@@ -496,8 +496,7 @@
                 });
             },
             onInput(e) {
-                $(this.$el).find('.widthCell').text(e.target.value)
-                $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').outerWidth()})
+                this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
 
                 this.value = e.target.value;
 
@@ -548,7 +547,7 @@
                         "crud":"update",
                     });
                 }
-                // setTimeout(this._updateCells(), 0)
+
                 this.send(true)
             },
             filterInput(e) {
@@ -632,20 +631,6 @@
                         }
                         break;
                 }
-            },
-            _updateCells() {
-                // console.log("updating cells")
-                let journalComponent = this.$parent.$parent.$parent
-                for (let commonTableComponentIndex in journalComponent.$children) {
-                    let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
-                    if (journalComponentChildren.$options.name === "TableCommon") {
-                        let tableComponent = journalComponentChildren.$children[0]
-                        for (let cellComponentIndex in tableComponent.$children) {
-                            let cellComponent = tableComponent.$children[cellComponentIndex]
-                            cellComponent.$forceUpdate()
-                        }
-                    }
-                }
             }
         },
         mounted() {
@@ -660,15 +645,15 @@
             //     this.send();
             // })
 
-            if (this.linked) {
+            // if (this.linked) {
                 // auto fill cell
                 // this.value = this.$store.getters['journalState/' + this.linked];
                 // this.send();
-            }
+            // }
 
-            setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
+            this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
 
-            setTimeout(() => this.setPickersListeners(), 1)
+            this.setPickersListeners()
 
             EventBus.$on('time-value-changed', (data) => {
                 if (this.tableName === data.tableName && this.fieldName === data.fieldName && this.rowIndex === data.rowIndex) {
@@ -684,7 +669,6 @@
                     self.highlight = false
                 }, 4500);
             })
-
         }
     }
 </script>
