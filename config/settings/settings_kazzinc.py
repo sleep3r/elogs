@@ -5,7 +5,7 @@ from .settings_base import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149', 'kzukgs7Elog0.kazzinc.kz', '10.77.103.88', 'elogs.kazzinc.kz']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', '88.99.2.149', 'kzukgs7Elog0.kazzinc.kz', '10.77.103.88', 'elog.kazzinc.kz']
 
 TEMPLATES = [
     {
@@ -45,7 +45,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIMEZONE="Asia/Almaty"
 
 USE_I18N = False
 
