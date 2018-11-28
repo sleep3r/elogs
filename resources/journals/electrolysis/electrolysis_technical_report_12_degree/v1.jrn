@@ -10,221 +10,260 @@
             "fields": [
                 {
                     "name": "row_names",
+                    "title": "row_names",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "times",
+                    "title": "times",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "last_headers",
+                    "title": "last_headers",
                     "formula": "",
                     "type": null
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "zninconsistencies",
+                    "title": "zninconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "znmeasures",
+                    "title": "znmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn_mix",
+                    "title": "zn_mix",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "zn_mixinconsistencies",
+                    "title": "zn_mixinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn_mixmeasures",
+                    "title": "zn_mixmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "h2so4",
+                    "title": "h2so4",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "h2so4inconsistencies",
+                    "title": "h2so4inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "h2so4measures",
+                    "title": "h2so4measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute1",
+                    "title": "solute1",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "solute1inconsistencies",
+                    "title": "solute1inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute1measures",
+                    "title": "solute1measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute2",
+                    "title": "solute2",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "solute2inconsistencies",
+                    "title": "solute2inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "solute2measures",
+                    "title": "solute2measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "mixture_temp",
+                    "title": "mixture_temp",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "mixture_tempinconsistencies",
+                    "title": "mixture_tempinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "mixture_tempmeasures",
+                    "title": "mixture_tempmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "otr",
+                    "title": "otr",
                     "formula": "",
                     "type": "number",
                     "units": "ᵒC"
                 },
                 {
                     "name": "otrn",
+                    "title": "otrn",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "otrp",
+                    "title": "otrp",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "bath_temp",
+                    "title": "bath_temp",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "bath_tempinconsistencies",
+                    "title": "bath_tempinconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "bath_tempmeasures",
+                    "title": "bath_tempmeasures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "ng",
+                    "title": "ng",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "ngi",
+                    "title": "ngi",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "ngm",
+                    "title": "ngm",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "temp1",
+                    "title": "temp1",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "temp1inconsistencies",
+                    "title": "temp1inconsistencies",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "temp1measures",
+                    "title": "temp1measures",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "i1",
+                    "title": "i1",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "i1in",
+                    "title": "i1in",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i1m",
+                    "title": "i1m",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i2",
+                    "title": "i2",
                     "formula": "",
                     "type": "number",
                     "units": "кА"
                 },
                 {
                     "name": "i2in",
+                    "title": "i2in",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "i2m",
+                    "title": "i2m",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 }
             ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th rowspan=\"2\" colspan=\"2\"> Параметры</th>\n        <th colspan=\"12\" class=\"th-common\"> Время замеров</th>\n        <th rowspan=\"2\"> Несоотвествия</th>\n        <th rowspan=\"2\"> Принятые меры</th>\n    </tr>\n    <tr v-if=\"shiftOrder === 1\">\n            <th class=\"th-number\">8:00</th>\n            <th class=\"th-number\">9:00</th>\n            <th class=\"th-number\">10:00</th>\n            <th class=\"th-number\">11:00</th>\n            <th class=\"th-number\">12:00</th>\n            <th class=\"th-number\">13:00</th>\n            <th class=\"th-number\">14:00</th>\n            <th class=\"th-number\">15:00</th>\n            <th class=\"th-number\">16:00</th>\n            <th class=\"th-number\">17:00</th>\n            <th class=\"th-number\">18:00</th>\n            <th class=\"th-number\">19:00</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 2\">\n            <th class=\"th-number\">20:00</th>\n            <th class=\"th-number\">21:00</th>\n            <th class=\"th-number\">22:00</th>\n            <th class=\"th-number\">23:00</th>\n            <th class=\"th-number\">00:00</th>\n            <th class=\"th-number\">01:00</th>\n            <th class=\"th-number\">02:00</th>\n            <th class=\"th-number\">03:00</th>\n            <th class=\"th-number\">04:00</th>\n            <th class=\"th-number\">05:00</th>\n            <th class=\"th-number\">06:00</th>\n            <th class=\"th-number\">07:00</th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th colspan=\"2\"> Zn, г/л отр./смесь</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"zn\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmismatches\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th colspan=\"2\"> H2SO4, г/л в отр.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"h2so4\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4n\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4p\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th rowspan=\"4\"> t<sub>0</sub>C</th>\n        <th> смесь</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"zn_mix\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <!--  -->\n    <tr>\n        <th> отработ.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"otr\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"otrn\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"otrp\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <!--  -->\n    <tr>\n        <th> в ваннах</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"bath_temp\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> нейтр. (град.)</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"ng\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"ngi\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"ngm\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th rowspan=\"2\"> I, кА</th>\n        <th> I c.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"i1\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i1in\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i1m\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> II c.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"i2\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i2in\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i2m\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"15\" class=\"th-common\"> Работа обрудования</th>\n    </tr>\n    <tr>\n        <th></th>\n        <th class=\"th-number\">Град №1</th>\n        <th class=\"th-number\">Град №2</th>\n        <th class=\"th-number\">Град №3</th>\n        <th class=\"th-number\">Град №4</th>\n        <th class=\"th-number\">Град №5</th>\n        <th class=\"th-number\">Град №6</th>\n        <th class=\"th-number\">Град №7</th>\n        <th class=\"th-number\">Град №8</th>\n        <th class=\"th-number\">Град №9</th>\n        <th colspan=\"2\" class=\"th-common\">Кристализаторы</th>\n    </tr>\n    </thead>\n    <tr>\n        <th> Вент. скорость<i class='units'>об/мин</i></th>\n        <td>\n            <cell field-name=\"grad1_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad2_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad3_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad4_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad5_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad6_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad7_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad8_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad9_vent\" row-index=\"0\"></cell>\n        </td>\n        <th>№1</th>\n        <td>\n            <cell field-name=\"crystal1\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Режим (з/л)</th>\n        <td>\n            <cell field-name=\"grad1_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad2_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad3_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad4_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad5_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad6_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad7_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad8_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad9_mode\" row-index=\"0\"></cell>\n        </td>\n        <th>№2</th>\n        <td>\n            <cell field-name=\"crystal2\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th colspan=\"2\">Расход нейтр. р-ра<i class='units'>м³</i></th>\n        <th colspan=\"3\">Промывка/чистка</th>\n        <th colspan=\"7\">Работа насосов</th>\n    </tr>\n    <tr>\n        <th> Общий</th>\n        <td>\n            <cell field-name=\"common1\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"common2\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"7\" rowspan=\"3\">\n            <cell field-name=\"pumps_summ\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n\n    <tr>\n        <th> 3 серии</th>\n        <td>\n            <cell field-name=\"series31\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"series32\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n\n    <tr>\n        <th> 4 серии</th>\n        <td>\n            <cell field-name=\"series41\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"series42\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n</table>\n"
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th rowspan=\"2\" colspan=\"2\"> Параметры</th>\n        <th colspan=\"12\" class=\"th-common\"> Время замеров</th>\n        <th rowspan=\"2\"> Несоотвествия</th>\n        <th rowspan=\"2\"> Принятые меры</th>\n    </tr>\n    <tr v-if=\"shiftOrder === 1\">\n            <th class=\"th-number\">8:00</th>\n            <th class=\"th-number\">9:00</th>\n            <th class=\"th-number\">10:00</th>\n            <th class=\"th-number\">11:00</th>\n            <th class=\"th-number\">12:00</th>\n            <th class=\"th-number\">13:00</th>\n            <th class=\"th-number\">14:00</th>\n            <th class=\"th-number\">15:00</th>\n            <th class=\"th-number\">16:00</th>\n            <th class=\"th-number\">17:00</th>\n            <th class=\"th-number\">18:00</th>\n            <th class=\"th-number\">19:00</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 2\">\n            <th class=\"th-number\">20:00</th>\n            <th class=\"th-number\">21:00</th>\n            <th class=\"th-number\">22:00</th>\n            <th class=\"th-number\">23:00</th>\n            <th class=\"th-number\">00:00</th>\n            <th class=\"th-number\">01:00</th>\n            <th class=\"th-number\">02:00</th>\n            <th class=\"th-number\">03:00</th>\n            <th class=\"th-number\">04:00</th>\n            <th class=\"th-number\">05:00</th>\n            <th class=\"th-number\">06:00</th>\n            <th class=\"th-number\">07:00</th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th colspan=\"2\"> Zn<i class=\"units\">г/л отр./смесь</i></th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"zn\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmismatches\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"znmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th colspan=\"2\"> H2SO4<i class=\"units\">г/л в отр.</i></th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"h2so4\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4n\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4p\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th rowspan=\"4\"> t<i class=\"units\"><sup>0</sup>C</i></th>\n        <th> смесь</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"zn_mix\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mixmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <!--  -->\n    <tr>\n        <th> отработ.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"otr\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"otrn\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"otrp\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <!--  -->\n    <tr>\n        <th> в ваннах</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"bath_temp\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempinconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_tempmeasures\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> нейтр. (град.)</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"ng\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"ngi\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"ngm\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th rowspan=\"2\"> I<i class=\"units\">кА</i></th>\n        <th> I c.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"i1\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i1in\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i1m\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> II c.</th>\n        <td v-for=\"hourNumber of 12\">\n            <cell field-name=\"i2\" :row-index=\"hourNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i2in\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"i2m\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th colspan=\"15\" class=\"th-common\"> Работа оборудования</th>\n    </tr>\n    <tr>\n        <th></th>\n        <th class=\"th-number\">Град №1</th>\n        <th class=\"th-number\">Град №2</th>\n        <th class=\"th-number\">Град №3</th>\n        <th class=\"th-number\">Град №4</th>\n        <th class=\"th-number\">Град №5</th>\n        <th class=\"th-number\">Град №6</th>\n        <th class=\"th-number\">Град №7</th>\n        <th class=\"th-number\">Град №8</th>\n        <th class=\"th-number\">Град №9</th>\n        <th colspan=\"2\" class=\"th-common\">Кристаллизаторы</th>\n    </tr>\n    </thead>\n    <tr>\n        <th> Вент. скорость<i class='units'>об/мин</i></th>\n        <td>\n            <cell field-name=\"grad1_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad2_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad3_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad4_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad5_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad6_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad7_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad8_vent\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad9_vent\" row-index=\"0\"></cell>\n        </td>\n        <th>№1</th>\n        <td>\n            <cell field-name=\"crystal1\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Режим (з/л)</th>\n        <td>\n            <cell field-name=\"grad1_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad2_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad3_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad4_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad5_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad6_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad7_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad8_mode\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"grad9_mode\" row-index=\"0\"></cell>\n        </td>\n        <th>№2</th>\n        <td>\n            <cell field-name=\"crystal2\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th colspan=\"2\">Расход нейтр. р-ра<i class='units'>м³</i></th>\n        <th colspan=\"3\">Промывка/чистка</th>\n        <th colspan=\"7\">Работа насосов</th>\n    </tr>\n    <tr>\n        <th> Общий</th>\n        <td>\n            <cell field-name=\"common1\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"common2\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"7\" rowspan=\"3\">\n            <cell field-name=\"pumps_summ\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n\n    <tr>\n        <th> 3 серии</th>\n        <td>\n            <cell field-name=\"series31\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"series32\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n\n    <tr>\n        <th> 4 серии</th>\n        <td>\n            <cell field-name=\"series41\" row-index=\"0\"></cell>\n        </td>\n        <td colspan=\"3\">\n            <cell field-name=\"series42\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n</table>\n"
         },
         {
             "name": "right",
@@ -232,137 +271,159 @@
             "fields": [
                 {
                     "name": "h2so4",
+                    "title": "h2so4",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "zn",
+                    "title": "zn",
                     "formula": "",
                     "type": "number",
                     "units": "г/л"
                 },
                 {
                     "name": "solodka",
+                    "title": "solodka",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "glue",
+                    "title": "glue",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "stroncii",
+                    "title": "stroncii",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "magnaflok",
+                    "title": "magnaflok",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "znk",
+                    "title": "znk",
                     "formula": "",
                     "type": "number",
                     "units": "г/т"
                 },
                 {
                     "name": "cu1",
+                    "title": "cu1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "co1",
+                    "title": "co1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "cd1",
+                    "title": "cd1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "sb1",
+                    "title": "sb1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "fe2p1",
+                    "title": "fe2p1",
                     "formula": "",
                     "type": "number",
                     "units": "мг/л"
                 },
                 {
                     "name": "bt1",
+                    "title": "bt1",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "weight1_1",
+                    "title": "weight1_1",
                     "formula": "",
                     "type": "number",
                     "units": "г/см³"
                 },
                 {
                     "name": "glue_resid_up",
+                    "title": "glue_resid_up",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "glue_resid_down",
+                    "title": "glue_resid_down",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "solodka_resid_up",
+                    "title": "solodka_resid_up",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "solodka_resid_down",
+                    "title": "solodka_resid_down",
                     "formula": "",
                     "type": "number",
                     "units": "%"
                 },
                 {
                     "name": "magnaflok_resid",
+                    "title": "magnaflok_resid",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "stroncii_resid",
+                    "title": "stroncii_resid",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "cryst1",
+                    "title": "cryst1",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 },
                 {
                     "name": "cryst2",
+                    "title": "cryst2",
                     "formula": "",
                     "type": "number",
                     "units": ""
                 }
             ],
-            "html": "<div class=\"row_of_tables\">\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"2\" class=\"th-common\"> Установленный технологический режим </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>H<sub>2</sub>SO<sub>4</sub></th> <td> <cell field-name=\"h2so4\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Zn в отр.<i class=\"units\">г/л</i></th> <td><cell field-name=\"zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Корень солодки<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"solodka\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Костный клей<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"glue\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Стронций<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"stroncii\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Магнафлок<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"magnaflok\" row-index=\"0\"></cell></td>\n        </tr>\n\n\n        <tr>\n            <th> Примеси </th>\n            <th class=\"th-number\"><i class=\"units no-before\">мг/л</i> </th>\n        </tr>\n\n        <tr>\n            <th> Cu </th>\n            <td> <cell field-name=\"cu1\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th> Co </th>\n            <td> <cell field-name=\"co1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Cd </th>\n            <td> <cell field-name=\"cd1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Sb </th>\n            <td> <cell field-name=\"sb1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Fe<sup>2+</sup> </th>\n            <td> <cell field-name=\"fe2p1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> BT % </th>\n            <td> <cell field-name=\"bt1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Уд. вес (ЦВМО)<i class=\"units\">г/см<sup>3</sup></i> </th>\n            <td> <cell field-name=\"weight1_1\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n    </table>\n        <table class=\"table table-bordered elog-journal-table\">\n            <thead>\n                <tr>\n                    <th colspan=\"3\" class=\"th-common\"> Остаток ПАВ<i class=\"units\">%</i></th>\n                </tr>\n            </thead>\n            <tr>\n                <th rowspan=\"2\">Костный клей</th>\n                <th>Верхний бак</th>\n                <td><cell field-name=\"glue_resid_up\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th>Нижний бак</th>\n                <td><cell field-name=\"glue_resid_down\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th rowspan=\"2\"> Корень солодки</th>\n                <th>Верхний бак</th>\n                <td><cell field-name=\"solodka_resid_up\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th>Нижний бак</th>\n                <td><cell field-name=\"solodka_resid_down\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th colspan=\"2\">Магнафлок</th>\n                <td><cell field-name=\"magnaflok_resid\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th colspan=\"2\">Стронций</th>\n                <td><cell field-name=\"stroncii_resid\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th colspan=\"3\"> Кристализаторы</th>\n            </tr>\n            <tr>\n                <th colspan=\"2\">Ж/т кр-ра №1</th>\n                <td><cell field-name=\"cryst1\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th colspan=\"2\">Ж/т кр-ра №2</th>\n                <td><cell field-name=\"cryst2\" row-index=\"0\"></cell></td>\n            </tr>\n        </table>\n</div>\n\n"
+            "html": "<div class=\"row_of_tables\">\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"2\" class=\"th-common\"> Установленный технологический режим </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>H<sub>2</sub>SO<sub>4</sub></th> <td> <cell field-name=\"h2so4\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Zn в отр.<i class=\"units\">г/л</i></th> <td><cell field-name=\"zn\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Корень солодки<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"solodka\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Костный клей<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"glue\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Стронций<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"stroncii\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th>Магнафлок<i class=\"units\">г/т</i></th>\n            <td><cell field-name=\"magnaflok\" row-index=\"0\"></cell></td>\n        </tr>\n\n\n        <tr>\n            <th> Примеси </th>\n            <th class=\"th-number\"><i class=\"units no-before\">мг/л</i> </th>\n        </tr>\n\n        <tr>\n            <th> Cu </th>\n            <td> <cell field-name=\"cu1\" row-index=\"0\"></cell></td>\n        </tr>\n\n        <tr>\n            <th> Co </th>\n            <td> <cell field-name=\"co1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Cd </th>\n            <td> <cell field-name=\"cd1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Sb </th>\n            <td> <cell field-name=\"sb1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Fe<sup>2+</sup> </th>\n            <td> <cell field-name=\"fe2p1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> BT % </th>\n            <td> <cell field-name=\"bt1\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> Уд. вес (ЦВМО)<i class=\"units\">г/см<sup>3</sup></i> </th>\n            <td> <cell field-name=\"weight1_1\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n    </table>\n        <table class=\"table table-bordered elog-journal-table\">\n            <thead>\n                <tr>\n                    <th colspan=\"3\" class=\"th-common\"> Остаток ПАВ<i class=\"units\">%</i></th>\n                </tr>\n            </thead>\n            <tr>\n                <th rowspan=\"2\">Костный клей</th>\n                <th>Верхний бак</th>\n                <td><cell field-name=\"glue_resid_up\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th>Нижний бак</th>\n                <td><cell field-name=\"glue_resid_down\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th rowspan=\"2\"> Корень солодки</th>\n                <th>Верхний бак</th>\n                <td><cell field-name=\"solodka_resid_up\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th>Нижний бак</th>\n                <td><cell field-name=\"solodka_resid_down\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th colspan=\"2\">Магнафлок</th>\n                <td><cell field-name=\"magnaflok_resid\" row-index=\"0\"></cell></td>\n            </tr>\n\n            <tr>\n                <th colspan=\"2\">Стронций</th>\n                <td><cell field-name=\"stroncii_resid\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th colspan=\"3\"> Кристаллизаторы</th>\n            </tr>\n            <tr>\n                <th colspan=\"2\">Ж/т кр-ра №1</th>\n                <td><cell field-name=\"cryst1\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th colspan=\"2\">Ж/т кр-ра №2</th>\n                <td><cell field-name=\"cryst2\" row-index=\"0\"></cell></td>\n            </tr>\n        </table>\n</div>\n\n"
         },
         {
             "name": "goods_zinc",
@@ -370,72 +431,84 @@
             "fields": [
                 {
                     "name": "Pb0",
+                    "title": "Pb0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Pb8",
+                    "title": "Pb8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Pb16",
+                    "title": "Pb16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd0",
+                    "title": "Cd0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd8",
+                    "title": "Cd8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cd16",
+                    "title": "Cd16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe0",
+                    "title": "Fe0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe8",
+                    "title": "Fe8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Fe16",
+                    "title": "Fe16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu0",
+                    "title": "Cu0",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu8",
+                    "title": "Cu8",
                     "formula": "",
                     "type": "number",
                     "units": "кг"
                 },
                 {
                     "name": "Cu16",
+                    "title": "Cu16",
                     "formula": "",
                     "type": "number",
                     "units": "кг"

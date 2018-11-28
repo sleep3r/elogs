@@ -1,807 +1,932 @@
 {
-    "version": "0.1",
-    "name": "reports_furnace_area",
-    "title": "Технологический журнал процесса производства огарка",
-    "type": "shift",
-    "tables": [
-        {
-            "name": "airmachines",
-            "title": "Участок воздуходувных машин",
-            "fields": [
-                {
-                    "name": "conc_o2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "time_start",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "cnt_in_process",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\"> Концентрация O<sub>2</sub> в помещении<i class=\"units\">%</i> </th>\n            <th class=\"th-time\"> Время пуска и остановки воздушных машин </th>\n            <th class=\"th-number\"> В работе воздуходувных машин<i class=\"units\">№</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell   field-name=\"conc_o2\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"time_start\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"cnt_in_process\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "concentration_by_time",
-            "title": "Концентрация по времени",
-            "fields": [
-                {
-                    "name": "time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "collector",
-                    "formula": "",
-                    "type": "number",
-                    "units": "мм. вод. ст."
-                },
-                {
-                    "name": "concentration",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "mixture",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "conformity",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Время </th>\n            <th class=\"th-number\"> Разряжения на коллекторе чистого газа<i class=\"units\">мм. вод. ст.</i> </th>\n            <th class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i></th>\n            <th class=\"th-number\"> Ситовой анализ смеси огарка с ленты<i class=\"units\">%</i> </th>\n            <th> Соответсвие ТИ </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"time\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"collector\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"concentration\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"mixture\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"conformity\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "main",
-            "title": "Печной участок",
-            "fields": [
-                {
-                    "name": "number",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "rate",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³/час"
-                },
-                {
-                    "name": "elasticity",
-                    "formula": "",
-                    "type": "number",
-                    "units": "кгс/м²"
-                },
-                {
-                    "name": "rate_o2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³/час"
-                },
-                {
-                    "name": "rate_o2_prc",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "temperture_in_layer",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "temperture_under",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "volume",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "pressure",
-                    "formula": "",
-                    "type": "number",
-                    "units": "мм.в.ст."
-                },
-                {
-                    "name": "uio_select",
-                    "formula": "",
-                    "type": "datalist",
-                    "options": []
-                },
-                {
-                    "name": "uio",
-                    "formula": "",
-                    "type": "number",
-                    "units": "кгс/м²"
-                },
-                {
-                    "name": "smoke",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" class=\"th-number\"> № печи </th>\n            <th rowspan=\"2\" class=\"th-number\"> Расход воздуха<i class=\"units\">м³/час</i></th>\n            <th rowspan=\"2\" class=\"th-number\"> Упругость дутья<i class=\"units\">кгс/м²</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Расход кислорода </th>\n            <th colspan=\"2\" class=\"th-common\"> Тепмпература<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\"  class=\"th-number\"> V<i class=\"units\">м³</i> </th>\n            <th class=\"th-number\"> Давление под сводом </th>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> УИО </th>\n            <th colspan=\"2\" class=\"th-common\"> Дымососы </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> <i class=\"units no-before\">м<sup>3</sup>/час</i> </th>\n            <th class=\"th-number\"> % </th>\n            <th class=\"th-number\"> в слое </th>\n            <th class=\"th-number\"> под сводом </th>\n            <th class=\"th-number\"> <i class=\"units no-before\">мм.в.ст.</i></th>\n            <th class=\"th-number\"> Левый </th>\n            <th class=\"th-number\"> Правый </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"number\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"elasticity\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate_o2\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate_o2_prc\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"temperture_in_layer\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"temperture_under\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"volume\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"pressure\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"uio_select\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"uio\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"smoke1\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"smoke2\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "udel",
-            "title": "Удельная производительность печей",
-            "fields": [
-                {
-                    "name": "ks1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "val1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "тм²/сут"
-                },
-                {
-                    "name": "ks2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "val2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "тм²/сут"
-                },
-                {
-                    "name": "ks3",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "val3",
-                    "formula": "",
-                    "type": "number",
-                    "units": "тм²/сут"
-                },
-                {
-                    "name": "__table__comment",
-                    "formula": "",
-                    "type": ""
-                }
-            ],
-            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td><cell   field-name=\"ks1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"ks2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"ks3\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val3\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n\n"
-        },
-        {
-            "name": "area_class_cinder",
-            "title": "Участок классификаци огарка",
-            "fields": [
-                {
-                    "name": "gmc4_1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "gmc4_2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "gmc1_1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "gmc1_2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "uk3",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "uk5",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "uk7",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "uk4",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "uk6",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "tonn",
-                    "formula": "",
-                    "type": "number",
-                    "units": "тонн"
-                },
-                {
-                    "name": "silos1",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos2",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos3",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos4",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos5",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos6",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos7",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos8",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "silos9",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                },
-                {
-                    "name": "elevators",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "mills",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "separators",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "summary",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th colspan=\"3\" class=\"th-common\"></th>\n                <th colspan=\"4\" class=\"th-common\"> Наличие огарка в бункерах ОЦ </th>\n                <th colspan=\"4\" class=\"th-common\"></th>\n                <th colspan=\"2\" rowspan=\"2\" class=\"th-common\"> Эксплуатация оборудования<i class='units'>№</i> </th>\n            </tr>\n            <tr>\n                <th colspan=\"3\" class=\"th-common\"> ЦВЦО<i class=\"units\">м</i> </th>\n                <th colspan=\"4\" class=\"th-common\"> Участка классификации<i class=\"units\">м</i> </th>\n                <th colspan=\"4\" class=\"th-common\"> Накопители  (силоса)<i class=\"units\">м</i> </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <th>4</th>\n                <td><cell   field-name=\"gmc4_1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"gmc4_2\" row-index=\"0\"></cell></td>\n                <th>3</th>\n                <td><cell   field-name=\"uk3\" row-index=\"0\"></cell></td>\n                <th>4</th>\n                <td><cell   field-name=\"uk4\" row-index=\"0\"></cell></td>\n                <th>1</th>\n                <td><cell   field-name=\"silos1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos4\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos7\" row-index=\"0\"></cell></td>\n                <th> Элеваторы </th>\n                <td><cell   field-name=\"elevators\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th>1</th>\n                <td><cell   field-name=\"gmc1_1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"gmc1_2\" row-index=\"0\"></cell></td>\n                <th>5</th>\n                <td><cell   field-name=\"uk5\" row-index=\"0\"></cell></td>\n                <th>6</th>\n                <td><cell   field-name=\"uk6\" row-index=\"0\"></cell></td>\n                <th>2</th>\n                <td><cell   field-name=\"silos2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos5\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos8\" row-index=\"0\"></cell></td>\n\n                <th> Мельницы </th>\n                <td><cell   field-name=\"mills\" row-index=\"0\"></cell></td>\n\n            </tr>\n            <tr>\n                <th colspan=\"2\">Всего</th>\n                <td><cell   field-name=\"summary\" row-index=\"0\"></cell></td>\n\n                <th>7</th>\n                <td><cell   field-name=\"uk7\" row-index=\"0\"></cell></td>\n                <th>Тонн:</th>\n                <td><cell   field-name=\"tonn\" row-index=\"0\"></cell></td>\n\n                <th>3</th>\n                <td><cell   field-name=\"silos3\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos6\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos9\" row-index=\"0\"></cell></td>\n\n                <th> А/сеп-ры </th>\n                <td><cell   field-name=\"separators\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n"
-        },
-        {
-            "name": "electrofilter",
-            "title": "Участок электрофильтров",
-            "fields": [
-                {
-                    "name": "M_s1_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "M_s2_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "G_s1_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "G_s2_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "s1_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "s2_t_in",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "M_s1_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "M_s2_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "G_s1_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "G_s2_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "s1_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "s2_t_out",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ᵒC"
-                },
-                {
-                    "name": "M_s1_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "M_s2_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "G_s1_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "G_s2_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "s1_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "s2_vam",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "M_s1_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "M_s2_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "G_s1_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "G_s2_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "s1_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "s2_con",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "gas1",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "gas2",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "gas3",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "M_s1_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "M_s2_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "G_s1_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "G_s2_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "s1_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "s2_fact",
-                    "formula": "",
-                    "type": "number",
-                    "units": "м³"
-                },
-                {
-                    "name": "vak1",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "vak2",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Электрофильтр </th>\n            <th colspan=\"2\" class=\"th-common\"> Температура<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\" class=\"th-number\"> Вольтамперная характеристика </th>\n            <th rowspan=\"2\" class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i> </th>\n            <th colspan=\"3\" class=\"th-common\"> Запылённость газа по системам </th>\n            <th rowspan=\"2\" class=\"th-number\"> Откачка пыли с бункеров по факту<i class=\"units\">м³</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Вакуум насос </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> Вход </th>\n            <th class=\"th-number\"> Выход </th>\n            <th> 1 </th>\n            <th> 2 </th>\n            <th> 3 </th>\n            <th> 1 </th>\n            <th> 2 </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30М </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"M_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_con\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas2\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas3\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_fact\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak2\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"M_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_fact\" row-index=\"0\"></cell></td>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30Г </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"G_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"G_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-60 </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "warehouse_concentrates",
-            "title": "Склад концентратов",
-            "fields": [
-                {
-                    "name": "shihta",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "on_station",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "unload",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "r1_per_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r1_per_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r1_unload_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "r1_unload_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "r2_per_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r2_per_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r2_unload_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "r2_unload_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "r3_per_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r3_per_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "ВМТ"
-                },
-                {
-                    "name": "r3_unload_shift",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "r3_unload_day",
-                    "formula": "",
-                    "type": "number",
-                    "units": "шт"
-                },
-                {
-                    "name": "crusher_number",
-                    "formula": "",
-                    "type": "number",
-                    "units": "№"
-                },
-                {
-                    "name": "moisture",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                }
-            ],
-            "html": "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Загрузка концентратов </th>\n            <th colspan=\"4\" class=\"th-common\"> Подход вагонов </th>\n            <th> Шихта </th>\n        </tr>\n        <tr>\n            <th colspan=\"2\" class=\"th-common\"> Разгружено п/вагонов<i class=\"units\">шт</i> </th>\n            <th> На станции </th>\n            <th> В отгрузке </th>\n            <td><cell   field-name=\"shihta\" row-index=\"0\"></cell></td>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th class=\"th-number\"> За смену, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За сутки, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За смену </th>\n            <th class=\"th-number\"> За сутки </th>\n            <td rowspan=\"4\"><cell   field-name=\"on_station\" row-index=\"0\"></cell></td>\n            <td rowspan=\"4\"><cell   field-name=\"unload\" row-index=\"0\"></cell></td>\n            <th>Дробилка №</th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r1_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"crusher_number\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r2_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_day\" row-index=\"0\"></cell></td>\n            <th> Влага<i class=\"units\">%</i> </th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r3_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"moisture\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
-        },
-        {
-            "name": "fences",
-            "title": "Ограждения",
-            "fields": [
-                {
-                    "name": "results",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "term",
-                    "formula": "",
-                    "type": "date"
-                },
-                {
-                    "name": "mark",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\"> Результаты осмотра </th>\n            <th colspan=\"2\" class=\"th-common    \"> Запись лица ответственного за исправное состояние </th>\n        </tr>\n        <tr>\n            <th>Срок устранения неисправности</th>\n            <th>Отметка об устранении неисправности</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"results\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"term\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"mark\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "places_of_sampling",
-            "title": "Места отбора пробы",
-            "fields": [
-                {
-                    "name": "time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "place",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "S_cinder",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "S_general",
-                    "formula": "",
-                    "type": "number",
-                    "units": "%"
-                },
-                {
-                    "name": "conformity",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "event",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Время </th>\n            <th> Место отбора пробы </th>\n            <th class=\"th-number\"> S в огарке<i class=\"units\">%</i> </th>\n            <th class=\"th-number\"> S общая<i class=\"units\">%</i> </th>\n            <th> Соответствие ТИ </th>\n            <th> Мероприятия по НМУ </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"time\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"place\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"S_cinder\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"S_general\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"conformity\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"event\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
-        },
-        {
-            "name": "corrective_actions",
-            "title": "Корректирующие действия",
-            "fields": [
-                {
-                    "name": "time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "character",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "correction",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "extra",
-                    "formula": "",
-                    "type": "number",
-                    "units": ""
-                },
-                {
-                    "name": "ks_comment",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>Время</th>\n        <th>Характер несоответствия ТИ</th>\n        <th>Корректирующие действия</th>\n        <th> -</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n        <td>\n            <cell   field-name=\"time\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"character\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"correction\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"extra\" :row-index=\"index\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n<br/>\n<h4>Отметка о состоянии \"кипящего слоя печей КС\"</h4>\n<table class=\"table table-bordered elog-journal-table\">\n    <tr>\n        <td>\n            <cell   field-name=\"ks_comment\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n</table>\n"
-        },
-        {
-            "name": "self_protection",
-            "title": "Самоохрана",
-            "fields": [
-                {
-                    "name": "time",
-                    "formula": "",
-                    "type": "time"
-                },
-                {
-                    "name": "comments",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "mark",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th>Время обхода объекта </th>\n                <th>Замечания </th>\n                <th>Отметка об устранении </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td><cell   field-name=\"time\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"comments\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"mark\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n\n"
-        },
-        {
-            "name": "worth",
-            "title": "Мат. Тех. Ценности",
-            "fields": [
-                {
-                    "name": "material",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "note",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "aspiration",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "kip",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "electro",
-                    "formula": "",
-                    "type": "text"
-                },
-                {
-                    "name": "extra_note",
-                    "formula": "",
-                    "type": "text"
-                }
-            ],
-            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <tr>\n        <th> Материально-технические ценности приняты на самоохрану </th>\n        <td><cell   field-name=\"material\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Замечания по работе оборудования </th>\n        <td><cell   field-name=\"note\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Аспирация и вентиляция </th>\n        <td><cell   field-name=\"aspiration\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> КИПиА </th>\n        <td><cell   field-name=\"kip\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Электроборудование </th>\n        <td><cell   field-name=\"electro\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Дополнительные замечания </th>\n        <td><cell   field-name=\"extra_note\" row-index=\"0\"></cell></td>\n    </tr>\n</table>\n\n"
-        }
-    ]
+   "title" : "Технологический журнал процесса производства огарка",
+   "name" : "reports_furnace_area",
+   "tables" : [
+      {
+         "title" : "Участок воздуходувных машин",
+         "name" : "airmachines",
+         "fields" : [
+            {
+               "formula" : "",
+               "units" : "%",
+               "title" : "Концентрация O<sub>2</sub> в помещении",
+               "type" : "number",
+               "name" : "conc_o2"
+            },
+            {
+               "formula" : "",
+               "title" : "Время пуска и остановки воздушных машин",
+               "name" : "time_start",
+               "type" : "time"
+            },
+            {
+               "units" : "№",
+               "title" : "В работе воздуходувных машин",
+               "type" : "number",
+               "name" : "cnt_in_process",
+               "formula" : ""
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\"> Концентрация O<sub>2</sub> в помещении<i class=\"units\">%</i> </th>\n            <th class=\"th-time\"> Время пуска и остановки воздушных машин </th>\n            <th class=\"th-number\"> В работе воздуходувных машин<i class=\"units\">№</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell   field-name=\"conc_o2\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"time_start\" :row-index=\"index\"></cell></td>\n            <td><cell   field-name=\"cnt_in_process\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n"
+      },
+      {
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Время </th>\n            <th class=\"th-number\"> Разряжения на коллекторе чистого газа<i class=\"units\">мм. вод. ст.</i> </th>\n            <th class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i></th>\n            <th class=\"th-number\"> Ситовой анализ смеси огарка с ленты<i class=\"units\">%</i> </th>\n            <th> Соответсвие ТИ </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"time\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"collector\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"concentration\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"mixture\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"conformity\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "type" : "time",
+               "name" : "time",
+               "title" : "Время",
+               "formula" : ""
+            },
+            {
+               "title" : "Разряжения на коллекторе чистого газа",
+               "units" : "мм. вод. ст.",
+               "name" : "collector",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "Концентрация SO<sub>2</sub>",
+               "units" : "%",
+               "name" : "concentration",
+               "type" : "number"
+            },
+            {
+               "name" : "mixture",
+               "type" : "number",
+               "title" : "Ситовой анализ смеси огарка с ленты",
+               "units" : "%",
+               "formula" : ""
+            },
+            {
+               "title" : "Соответсвие ТИ",
+               "type" : "text",
+               "name" : "conformity",
+               "formula" : ""
+            }
+         ],
+         "title" : "Концентрация по времени",
+         "name" : "concentration_by_time"
+      },
+      {
+         "fields" : [
+            {
+               "name" : "number",
+               "type" : "number",
+               "title" : "№ печи",
+               "units" : "№",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "rate",
+               "units" : "м³/час",
+               "title" : "Расход воздуха",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "elasticity",
+               "units" : "кгс/м²",
+               "title" : "Упругость дутья"
+            },
+            {
+               "name" : "rate_o2",
+               "type" : "number",
+               "title" : "Расход кислорода",
+               "units" : "м³/час",
+               "formula" : ""
+            },
+            {
+               "units" : "%",
+               "title" : "Расход кислорода %",
+               "type" : "number",
+               "name" : "rate_o2_prc",
+               "formula" : ""
+            },
+            {
+               "title" : "Тепмпература слоя",
+               "units" : "ᵒC",
+               "name" : "temperture_in_layer",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "title" : "Тепмпература под сводом",
+               "units" : "ᵒC",
+               "name" : "temperture_under",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "volume",
+               "units" : "м³",
+               "title" : "V"
+            },
+            {
+               "title" : "Давление под сводом",
+               "units" : "мм.в.ст.",
+               "name" : "pressure",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "type" : "datalist",
+               "options" : [],
+               "name" : "uio_select",
+               "title" : "УИО",
+               "formula" : ""
+            },
+            {
+               "units" : "кгс/м²",
+               "title" : "УИО",
+               "type" : "number",
+               "name" : "uio",
+               "formula" : ""
+            },
+            {
+               "name" : "smoke",
+               "type" : "text",
+               "title" : "Дымососы",
+               "formula" : ""
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" class=\"th-number\"> № печи </th>\n            <th rowspan=\"2\" class=\"th-number\"> Расход воздуха<i class=\"units\">м³/час</i></th>\n            <th rowspan=\"2\" class=\"th-number\"> Упругость дутья<i class=\"units\">кгс/м²</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Расход кислорода </th>\n            <th colspan=\"2\" class=\"th-common\"> Тепмпература<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\"  class=\"th-number\"> V<i class=\"units\">м³</i> </th>\n            <th class=\"th-number\"> Давление под сводом </th>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> УИО </th>\n            <th colspan=\"2\" class=\"th-common\"> Дымососы </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> <i class=\"units no-before\">м<sup>3</sup>/час</i> </th>\n            <th class=\"th-number\"> % </th>\n            <th class=\"th-number\"> в слое </th>\n            <th class=\"th-number\"> под сводом </th>\n            <th class=\"th-number\"> <i class=\"units no-before\">мм.в.ст.</i></th>\n            <th class=\"th-number\"> Левый </th>\n            <th class=\"th-number\"> Правый </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"number\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"elasticity\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate_o2\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"rate_o2_prc\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"temperture_in_layer\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"temperture_under\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"volume\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"pressure\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"uio_select\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"uio\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"smoke1\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"smoke2\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n",
+         "name" : "main",
+         "title" : "Печной участок"
+      },
+      {
+         "title" : "Удельная производительность печей",
+         "name" : "udel",
+         "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n                <th class=\"th-number\">КС<i class='units'>№</i></th>\n                <th class=\"th-number\"><i class=\"units no-before\">тм<sup>2</sup>/сут</i></th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td><cell   field-name=\"ks1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"ks2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"ks3\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"val3\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n\n",
+         "fields" : [
+            {
+               "formula" : "",
+               "title" : "КС",
+               "units" : "№",
+               "name" : "ks1",
+               "type" : "number"
+            },
+            {
+               "type" : "number",
+               "name" : "val1",
+               "units" : "тм²/сут",
+               "title" : "",
+               "formula" : ""
+            },
+            {
+               "title" : "ks2",
+               "units" : "№",
+               "name" : "ks2",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "",
+               "units" : "тм²/сут",
+               "name" : "val2",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "name" : "ks3",
+               "type" : "number",
+               "title" : "КС ",
+               "units" : "№"
+            },
+            {
+               "formula" : "",
+               "units" : "тм²/сут",
+               "title" : "",
+               "type" : "number",
+               "name" : "val3"
+            },
+            {
+               "formula" : "",
+               "title" : "Комментарий",
+               "type" : "",
+               "name" : "__table__comment"
+            }
+         ]
+      },
+      {
+         "title" : "Участок классификаци огарка",
+         "name" : "area_class_cinder",
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th colspan=\"3\" class=\"th-common\"></th>\n                <th colspan=\"4\" class=\"th-common\"> Наличие огарка в бункерах ОЦ </th>\n                <th colspan=\"4\" class=\"th-common\"></th>\n                <th colspan=\"2\" rowspan=\"2\" class=\"th-common\"> Эксплуатация оборудования<i class='units'>№</i> </th>\n            </tr>\n            <tr>\n                <th colspan=\"3\" class=\"th-common\"> ЦВЦО<i class=\"units\">м</i> </th>\n                <th colspan=\"4\" class=\"th-common\"> Участка классификации<i class=\"units\">м</i> </th>\n                <th colspan=\"4\" class=\"th-common\"> Накопители  (силоса)<i class=\"units\">м</i> </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <th>4</th>\n                <td><cell   field-name=\"gmc4_1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"gmc4_2\" row-index=\"0\"></cell></td>\n                <th>3</th>\n                <td><cell   field-name=\"uk3\" row-index=\"0\"></cell></td>\n                <th>4</th>\n                <td><cell   field-name=\"uk4\" row-index=\"0\"></cell></td>\n                <th>1</th>\n                <td><cell   field-name=\"silos1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos4\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos7\" row-index=\"0\"></cell></td>\n                <th> Элеваторы </th>\n                <td><cell   field-name=\"elevators\" row-index=\"0\"></cell></td>\n            </tr>\n            <tr>\n                <th>1</th>\n                <td><cell   field-name=\"gmc1_1\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"gmc1_2\" row-index=\"0\"></cell></td>\n                <th>5</th>\n                <td><cell   field-name=\"uk5\" row-index=\"0\"></cell></td>\n                <th>6</th>\n                <td><cell   field-name=\"uk6\" row-index=\"0\"></cell></td>\n                <th>2</th>\n                <td><cell   field-name=\"silos2\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos5\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos8\" row-index=\"0\"></cell></td>\n\n                <th> Мельницы </th>\n                <td><cell   field-name=\"mills\" row-index=\"0\"></cell></td>\n\n            </tr>\n            <tr>\n                <th colspan=\"2\">Всего</th>\n                <td><cell   field-name=\"summary\" row-index=\"0\"></cell></td>\n\n                <th>7</th>\n                <td><cell   field-name=\"uk7\" row-index=\"0\"></cell></td>\n                <th>Тонн:</th>\n                <td><cell   field-name=\"tonn\" row-index=\"0\"></cell></td>\n\n                <th>3</th>\n                <td><cell   field-name=\"silos3\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos6\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"silos9\" row-index=\"0\"></cell></td>\n\n                <th> А/сеп-ры </th>\n                <td><cell   field-name=\"separators\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "formula" : "",
+               "name" : "gmc4_1",
+               "type" : "number",
+               "title": "ЦВЦО 4",
+               "units" : "м"
+            },
+            {
+               "type" : "number",
+               "name" : "gmc4_2",
+               "units" : "м",
+               "title": "ЦВЦО 4",
+               "formula" : ""
+            },
+            {
+               "title": "ЦВЦО 1",
+               "units" : "м",
+               "name" : "gmc1_1",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "м",
+               "title": "ЦВЦО 1",
+               "type" : "number",
+               "name" : "gmc1_2"
+            },
+            {
+               "title": "Участка классификации 3",
+               "units" : "м",
+               "name" : "uk3",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "uk5",
+               "units" : "м",
+               "title": "Участка классификации 5"
+            },
+            {
+               "name" : "uk7",
+               "type" : "number",
+               "title": "Участка классификации 7",
+               "units" : "м",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "uk4",
+               "units" : "м",
+               "title": "Участка классификации 4",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "uk6",
+               "units" : "м",
+               "title": "Участка классификации 6",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "тонн",
+               "title" : "Тонн",
+               "type" : "number",
+               "name" : "tonn"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "silos1",
+               "units" : "м",
+               "title" : "Накопители  (силоса)"
+            },
+            {
+               "name" : "silos2",
+               "type" : "number",
+               "title" : "Накопители  (силоса)",
+               "units" : "м",
+               "formula" : ""
+            },
+            {
+               "title" : "Накопители  (силоса)",
+               "units" : "м",
+               "name" : "silos3",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "м",
+               "title" : "Накопители  (силоса)",
+               "type" : "number",
+               "name" : "silos4"
+            },
+            {
+               "formula" : "",
+               "title" : "Накопители  (силоса)",
+               "units" : "м",
+               "name" : "silos5",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "name" : "silos6",
+               "type" : "number",
+               "title" : "Накопители  (силоса)",
+               "units" : "м"
+            },
+            {
+               "formula" : "",
+               "name" : "silos7",
+               "type" : "number",
+               "title" : "Накопители  (силоса)",
+               "units" : "м"
+            },
+            {
+               "type" : "number",
+               "name" : "silos8",
+               "units" : "м",
+               "title" : " 8",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "silos9",
+               "type" : "number",
+               "title" : "9",
+               "units" : "м"
+            },
+            {
+               "title" : "Элеваторы",
+               "units" : "№",
+               "name" : "elevators",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "mills",
+               "units" : "№",
+               "title" : "Мельницы"
+            },
+            {
+               "formula" : "",
+               "units" : "№",
+               "title" : "А/сеп-ры ",
+               "type" : "number",
+               "name" : "separators"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "summary",
+               "units" : "м",
+               "title" : "Итого"
+            }
+         ]
+      },
+      {
+         "fields" : [
+            {
+               "formula" : "",
+               "title" : "ГК-30М 1 секция t ",
+               "units" : "ᵒC",
+               "name" : "M_s1_t_in",
+               "type" : "number"
+            },
+            {
+               "name" : "M_s2_t_in",
+               "type" : "number",
+               "title" : "ГК-30М 2 секция t",
+               "units" : "ᵒC",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "G_s1_t_in",
+               "units" : "ᵒC",
+               "title" : "ГК-30Г 1 секция t",
+               "formula" : ""
+            },
+            {
+               "name" : "G_s2_t_in",
+               "type" : "number",
+               "title" : "ГК-30Г 1 секция t",
+               "units" : "ᵒC",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "s1_t_in",
+               "units" : "ᵒC",
+               "name" : "s1_t_in",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "name" : "s2_t_in",
+               "type" : "number",
+               "title" : "s2_t_in",
+               "units" : "ᵒC"
+            },
+            {
+               "name" : "M_s1_t_out",
+               "type" : "number",
+               "title" : "M_s1_t_out",
+               "units" : "ᵒC",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "M_s2_t_out",
+               "units" : "ᵒC",
+               "name" : "M_s2_t_out",
+               "type" : "number"
+            },
+            {
+               "type" : "number",
+               "name" : "G_s1_t_out",
+               "units" : "ᵒC",
+               "title" : "G_s1_t_out",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "G_s2_t_out",
+               "units" : "ᵒC",
+               "title" : "G_s2_t_out"
+            },
+            {
+               "formula" : "",
+               "name" : "s1_t_out",
+               "type" : "number",
+               "title" : "s1_t_out",
+               "units" : "ᵒC"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "s2_t_out",
+               "units" : "ᵒC",
+               "title" : "s2_t_out"
+            },
+            {
+               "type" : "text",
+               "name" : "M_s1_vam",
+               "title" : "M_s1_vam",
+               "formula" : ""
+            },
+            {
+               "name" : "M_s2_vam",
+               "type" : "text",
+               "title" : "M_s2_vam",
+               "formula" : ""
+            },
+            {
+               "title" : "G_s1_vam",
+               "type" : "text",
+               "name" : "G_s1_vam",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "G_s2_vam",
+               "type" : "text",
+               "name" : "G_s2_vam"
+            },
+            {
+               "type" : "text",
+               "name" : "s1_vam",
+               "title" : "s1_vam",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "s2_vam",
+               "name" : "s2_vam",
+               "type" : "text"
+            },
+            {
+               "title" : "M_s1_con",
+               "units" : "%",
+               "name" : "M_s1_con",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "M_s2_con",
+               "units" : "%",
+               "name" : "M_s2_con",
+               "type" : "number"
+            },
+            {
+               "units" : "%",
+               "title" : "G_s1_con",
+               "type" : "number",
+               "name" : "G_s1_con",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "%",
+               "title" : "G_s2_con",
+               "type" : "number",
+               "name" : "G_s2_con"
+            },
+            {
+               "title" : "s1_con",
+               "units" : "%",
+               "name" : "s1_con",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "%",
+               "title" : "s2_con",
+               "type" : "number",
+               "name" : "s2_con"
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "gas1",
+               "title" : "gas1"
+            },
+            {
+               "title" : "gas2",
+               "name" : "gas2",
+               "type" : "text",
+               "formula" : ""
+            },
+            {
+               "title" : "gas3",
+               "type" : "text",
+               "name" : "gas3",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "м³",
+               "title" : "M_s1_fact",
+               "type" : "number",
+               "name" : "M_s1_fact"
+            },
+            {
+               "name" : "M_s2_fact",
+               "type" : "number",
+               "title" : "M_s2_fact",
+               "units" : "м³",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "G_s1_fact",
+               "units" : "м³",
+               "title" : "G_s1_fact",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "G_s2_fact",
+               "type" : "number",
+               "title" : "G_s2_fact",
+               "units" : "м³"
+            },
+            {
+               "title" : "s1_fact",
+               "units" : "м³",
+               "name" : "s1_fact",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "title" : "s2_fact",
+               "units" : "м³",
+               "name" : "s2_fact",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "vak1",
+               "type" : "text",
+               "title" : "vak1"
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "vak2",
+               "title" : "vak2"
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Электрофильтр </th>\n            <th colspan=\"2\" class=\"th-common\"> Температура<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\" class=\"th-number\"> Вольтамперная характеристика </th>\n            <th rowspan=\"2\" class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i> </th>\n            <th colspan=\"3\" class=\"th-common\"> Запылённость газа по системам </th>\n            <th rowspan=\"2\" class=\"th-number\"> Откачка пыли с бункеров по факту<i class=\"units\">м³</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Вакуум насос </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> Вход </th>\n            <th class=\"th-number\"> Выход </th>\n            <th> 1 </th>\n            <th> 2 </th>\n            <th> 3 </th>\n            <th> 1 </th>\n            <th> 2 </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30М </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"M_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_con\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas2\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas3\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_fact\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak2\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"M_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_fact\" row-index=\"0\"></cell></td>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30Г </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"G_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"G_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-60 </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
+         "name" : "electrofilter",
+         "title" : "Участок электрофильтров"
+      },
+      {
+         "title" : "Склад концентратов",
+         "name" : "warehouse_concentrates",
+         "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Загрузка концентратов </th>\n            <th colspan=\"4\" class=\"th-common\"> Подход вагонов </th>\n            <th> Шихта </th>\n        </tr>\n        <tr>\n            <th colspan=\"2\" class=\"th-common\"> Разгружено п/вагонов<i class=\"units\">шт</i> </th>\n            <th> На станции </th>\n            <th> В отгрузке </th>\n            <td><cell   field-name=\"shihta\" row-index=\"0\"></cell></td>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th class=\"th-number\"> За смену, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За сутки, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За смену </th>\n            <th class=\"th-number\"> За сутки </th>\n            <td rowspan=\"4\"><cell   field-name=\"on_station\" row-index=\"0\"></cell></td>\n            <td rowspan=\"4\"><cell   field-name=\"unload\" row-index=\"0\"></cell></td>\n            <th>Дробилка №</th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r1_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"crusher_number\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r2_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_day\" row-index=\"0\"></cell></td>\n            <th> Влага<i class=\"units\">%</i> </th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r3_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"moisture\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n",
+         "fields" : [
+            {
+               "title" : "Шихта",
+               "units" : "",
+               "name" : "shihta",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "name" : "on_station",
+               "type" : "number",
+               "title" : "На станции",
+               "units" : "",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "unload",
+               "units" : "",
+               "title" : "В отгрузке",
+               "formula" : ""
+            },
+            {
+               "units" : "ВМТ",
+               "title" : "Загрузка концентратов за смену",
+               "type" : "number",
+               "name" : "r1_per_shift",
+               "formula" : ""
+            },
+            {
+               "units" : "ВМТ",
+               "title" : "Загрузка концентратов за сутки",
+               "type" : "number",
+               "name" : "r1_per_day",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "r1_unload_shift",
+               "units" : "шт",
+               "title" : "Разгружено п/вагонов за смену",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "Разгружено п/вагонов за сутки",
+               "units" : "шт",
+               "name" : "r1_unload_day",
+               "type" : "number"
+            },
+            {
+               "formula" : "",
+               "name" : "r2_per_shift",
+               "type" : "number",
+               "title" : "2 Загрузка концентратов за смену ",
+               "units" : "ВМТ"
+            },
+            {
+               "formula" : "",
+               "name" : "r2_per_day",
+               "type" : "number",
+               "title" : "2 Загрузка концентратов за сутки",
+               "units" : "ВМТ"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "r2_unload_shift",
+               "units" : "шт",
+               "title" : "2 Загрузка концентратов за смену"
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "r2_unload_day",
+               "units" : "шт",
+               "title" : "2 Загрузка концентратов за "
+            },
+            {
+               "type" : "number",
+               "name" : "r3_per_shift",
+               "units" : "ВМТ",
+               "title" : "3 Загрузка концентратов за смену",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "r3_per_day",
+               "units" : "ВМТ",
+               "title" : "3 Загрузка концентратов за сутки"
+            },
+            {
+               "formula" : "",
+               "units" : "шт",
+               "title" : "3 Разгружено п/вагонов за смену",
+               "type" : "number",
+               "name" : "r3_unload_shift"
+            },
+            {
+               "units" : "шт",
+               "title" : "3 Разгружено п/вагонов за сутки",
+               "type" : "number",
+               "name" : "r3_unload_day",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "number",
+               "name" : "crusher_number",
+               "units" : "№",
+               "title" : "Дробилка №"
+            },
+            {
+               "units" : "%",
+               "title" : "Влага",
+               "type" : "number",
+               "name" : "moisture",
+               "formula" : ""
+            }
+         ]
+      },
+      {
+         "name" : "fences",
+         "title" : "Ограждения",
+         "fields" : [
+            {
+               "name" : "results",
+               "type" : "text",
+               "title" : "Результаты осмотра",
+               "formula" : ""
+            },
+            {
+               "title" : "Срок устранения неисправности",
+               "name" : "term",
+               "type" : "date",
+               "formula" : ""
+            },
+            {
+               "title" : "Отметка об устранении неисправности",
+               "name" : "mark",
+               "type" : "text",
+               "formula" : ""
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\"> Результаты осмотра </th>\n            <th colspan=\"2\" class=\"th-common    \"> Запись лица ответственного за исправное состояние </th>\n        </tr>\n        <tr>\n            <th>Срок устранения неисправности</th>\n            <th>Отметка об устранении неисправности</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"results\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"term\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"mark\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
+      },
+      {
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Время </th>\n            <th> Место отбора пробы </th>\n            <th class=\"th-number\"> S в огарке<i class=\"units\">%</i> </th>\n            <th class=\"th-number\"> S общая<i class=\"units\">%</i> </th>\n            <th> Соответствие ТИ </th>\n            <th> Мероприятия по НМУ </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell   field-name=\"time\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"place\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"S_cinder\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"S_general\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"conformity\" :row-index=\"index\"></cell></td>\n          <td><cell   field-name=\"event\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "formula" : "",
+               "title" : "Время",
+               "type" : "time",
+               "name" : "time"
+            },
+            {
+               "title" : "Место отбора пробы",
+               "units" : "",
+               "name" : "place",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "S_cinder",
+               "units" : "%",
+               "title" : "S в огарке",
+               "formula" : ""
+            },
+            {
+               "type" : "number",
+               "name" : "S_general",
+               "units" : "%",
+               "title" : "S общая",
+               "formula" : ""
+            },
+            {
+               "title" : "Соответствие ТИ",
+               "type" : "text",
+               "name" : "conformity",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "event",
+               "type" : "text",
+               "title" : "Мероприятия по НМУ"
+            }
+         ],
+         "title" : "Места отбора пробы",
+         "name" : "places_of_sampling"
+      },
+      {
+         "fields" : [
+            {
+               "type" : "time",
+               "name" : "time",
+               "title" : "Время",
+               "formula" : ""
+            },
+            {
+               "name" : "character",
+               "type" : "text",
+               "title" : "Характер несоответствия ТИ",
+               "formula" : ""
+            },
+            {
+               "title" : "Корректирующие действия",
+               "name" : "correction",
+               "type" : "text",
+               "formula" : ""
+            },
+            {
+               "title" : "-",
+               "units" : "",
+               "name" : "extra",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "type" : "text",
+               "name" : "ks_comment",
+               "title" : "Комментарий",
+               "formula" : ""
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>Время</th>\n        <th>Характер несоответствия ТИ</th>\n        <th>Корректирующие действия</th>\n        <th> -</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n        <td>\n            <cell   field-name=\"time\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"character\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"correction\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell   field-name=\"extra\" :row-index=\"index\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n<br/>\n<h4>Отметка о состоянии \"кипящего слоя печей КС\"</h4>\n<table class=\"table table-bordered elog-journal-table\">\n    <tr>\n        <td>\n            <cell   field-name=\"ks_comment\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n</table>\n",
+         "title" : "Корректирующие действия",
+         "name" : "corrective_actions"
+      },
+      {
+         "fields" : [
+            {
+               "formula" : "",
+               "title" : "Время обхода объекта",
+               "name" : "time",
+               "type" : "time"
+            },
+            {
+               "formula" : "",
+               "name" : "comments",
+               "type" : "text",
+               "title" : "Замечания"
+            },
+            {
+               "title" : "Отметка об устранении",
+               "type" : "text",
+               "name" : "mark",
+               "formula" : ""
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n        <thead>\n            <tr>\n                <th>Время обхода объекта </th>\n                <th>Замечания </th>\n                <th>Отметка об устранении </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td><cell   field-name=\"time\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"comments\" row-index=\"0\"></cell></td>\n                <td><cell   field-name=\"mark\" row-index=\"0\"></cell></td>\n            </tr>\n        </tbody>\n</table>\n\n",
+         "title" : "Самоохрана",
+         "name" : "self_protection"
+      },
+      {
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <tr>\n        <th> Материально-технические ценности приняты на самоохрану </th>\n        <td><cell   field-name=\"material\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Замечания по работе оборудования </th>\n        <td><cell   field-name=\"note\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Аспирация и вентиляция </th>\n        <td><cell   field-name=\"aspiration\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> КИПиА </th>\n        <td><cell   field-name=\"kip\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Электроборудование </th>\n        <td><cell   field-name=\"electro\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th> Дополнительные замечания </th>\n        <td><cell   field-name=\"extra_note\" row-index=\"0\"></cell></td>\n    </tr>\n</table>\n\n",
+         "fields" : [
+            {
+               "type" : "text",
+               "name" : "material",
+               "title" : "Материально-технические ценности приняты на самоохрану",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "type" : "text",
+               "name" : "note",
+               "title" : "Замечания по работе оборудования"
+            },
+            {
+               "formula" : "",
+               "name" : "aspiration",
+               "type" : "text",
+               "title" : "Аспирация и вентиляция"
+            },
+            {
+               "name" : "kip",
+               "type" : "text",
+               "title" : "КИПиА",
+               "formula" : ""
+            },
+            {
+               "title" : "Электроборудование",
+               "type" : "text",
+               "name" : "electro",
+               "formula" : ""
+            },
+            {
+               "type" : "text",
+               "name" : "extra_note",
+               "title" : "Дополнительные замечания",
+               "formula" : ""
+            }
+         ],
+         "title" : "Мат. Тех. Ценности",
+         "name" : "worth"
+      }
+   ],
+   "type" : "shift",
+   "version" : "0.1"
 }

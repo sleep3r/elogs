@@ -76,7 +76,6 @@ flake8 = "*"
 coverage = "*"
 django-coverage-plugin = "*"
 django-debug-toolbar = "*"
-pygraphviz = "*"
 pydotplus = "*"
 pysocks = "*"
 

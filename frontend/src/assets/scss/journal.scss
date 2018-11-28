@@ -126,7 +126,7 @@
             display: flex;
             justify-content: flex-start;
         
-            .btn {
+            .btn:not(:first-child) {
                 margin-left: 5px;
             }
         
@@ -167,8 +167,15 @@
 
 
 
-@media (max-width: 767.98px) {
+@media (max-width: 677.98px) {
     .journal_title_container {
+        width: 100%;
+
+        &.menu__hidden {
+            width: 100%;
+            top: 94px;
+        }
+
         .btn.btn-outline {
             width: 100%;
         }

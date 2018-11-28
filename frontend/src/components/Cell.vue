@@ -1,10 +1,11 @@
 <template>
-    <div v-if="mode!=='edit_constraints'" style="height: 100%;" :class="cssClass">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%; position: relative;" :class="cssClass">
       <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
         </template>
-        <input
+        <component
+            :is="tag"
             :class="['general-value', 'number-cell', 'form-control',
                     mode === 'edit' ? 'form-control__edit' : '',
                     hasFormula ? 'formula-cell' : '',
@@ -12,11 +13,11 @@
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
-            :value="value | filterNumber(this)"
-            :type="type == 'number' ? 'custom_number' : type"
+            :value="value"
+            :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder"
-            :style="[{ color: activeColor, fontWeight: fontWeight }]"
+            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline }]"
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"
@@ -26,9 +27,8 @@
             @contextmenu.prevent="$refs.menu.open"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
-            :list="type == 'datalist'  ? fieldName : ''"
-
-        >
+            :list="fieldName"
+        >{{ tag == 'textarea' ? value : '' }}</component>
         <div class="widthCell">
         </div>
         <template>
@@ -41,10 +41,10 @@
         </datalist>
         <i
             @click="(e) => showPopover(e, {onlyChat: true})"
-            v-if="cellComments.length"
+            v-if="(cellComments.length) && (userCommentsCounter > 0)"
             class="far fa-envelope comment-notification"
         >
-            <span v-if="hasUnreaded" class="unreaded"></span>
+            <!--<span v-if="hasUnreaded" class="unreaded"></span>-->
         </i>
         <vue-context ref="menu">
             <ul>
@@ -80,7 +80,6 @@
     import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
-    import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -93,11 +92,14 @@
     Vue.component('v-popover', VTooltip.VPopover);
 
     const KEY_MINUS = 45,
+          KEY_PLUS = 43,
           KEY_BACKSPACE = 8,
           KEY_ARROW_LEFT = 37,
           KEY_ARROW_RIGHT = 39,
           KEY_DELETE = 46,
+          KEY_SLASH = 47,
           KEY_DASH = 189;
+
 
     export default {
         name: 'Cell',
@@ -121,7 +123,10 @@
                 personsList: [],
                 tooltipContent: '',
                 fontWeight: 'lighter',
-                minWidth: 0
+                minWidth: 0,
+                height: null,
+                highlight: false,
+                backgroundColor: null,
             }
         },
         watch: {
@@ -146,12 +151,16 @@
         },
         filters: {
           filterNumber: function(value, context) {
-
                if (context.type ==='number'
                    && value
                    && value.length > 0) {
                        if (value[0] === '-') {
                            let resultValue = '-' + ('' + value).replace(/\-/g, '');
+                           return resultValue;
+                       }
+
+                       if (value[0] === '+') {
+                           let resultValue = '+' + ('' + value).replace(/\+/g, '');
                            return resultValue;
                        }
 
@@ -165,8 +174,20 @@
             getBody () {
                 return $('body').get()
             },
+            tag () {
+                return this.height < 40 ? 'input' : 'textarea'
+            },
+            shiftId () {
+                return this.$store.getters['journalState/journalInfo'].id
+            },
+            userCommentsCounter () {
+                return this.cellComments.filter((item, index) => item.type === 'user_comment').length
+            },
             cellComments () {
                 return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)
+            },
+            journalName () {
+                return this.$store.getters['journalState/journalInfo'].journal.name
             },
             hasUnreaded () {
               // получить все сообщения
@@ -184,6 +205,9 @@
             },
             activeColor: function () {
                 return this.critical ? 'red' : '';
+            },
+            outline: function () {
+                return this.highlight ? '2px solid #666666' : ''
             },
             critical: function () {
                 return (this.minValue && (parseInt(this.value) < parseInt(this.minValue))) ||
@@ -340,7 +364,7 @@
                     })
                 }
 
-                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
+                let currentElement = $(e.srcElement).is('input') || $(e.srcElement).is('textarea') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
                 let inputOffset = 4;
 
@@ -348,18 +372,26 @@
                     let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 280;
                     let appWidth = $('#app').outerWidth()
                     let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 424;
-                    let appHeight = $('#app').outerHeight()
+                    let windowHeight = $(window).height()
+
 
                     if (e.clientX + popUpWidth >= appWidth) {
                         x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                    } else {
+                    }
+                    else {
                         x = e.clientX  - e.offsetX
                     }
 
-                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
+                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= windowHeight &&
+                            e.clientY - popUpHeight - e.offsetY - inputOffset > 0) {
                         y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                    } else {
+                    }
+                    else if (e.clientY - e.offsetY - popUpHeight - inputOffset < 0 &&
+                            e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() <= windowHeight){
                         y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
+                    }
+                    else {
+                        y = (windowHeight - popUpHeight) / 2
                     }
 
                     if (this.mode === 'validate') {
@@ -487,7 +519,7 @@
                 // console.log(this.value)
                 e ? e.preventDefault() : null
                 if (this.critical) {
-                  console.log('critical message recieved')
+                  console.log('critical message sent')
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -504,7 +536,7 @@
                     },
                 });
                 } else {
-                  console.log('non critical message recieved')
+                  console.log('non critical message sent')
                     this.$socket.sendObj({
                         'type': 'messages',
                         'cell': {
@@ -521,26 +553,19 @@
             },
             filterInput(e) {
                 if (this.type === 'number') {
-                    let keycode = e.which
-                    // if non number character was pressed
-                    if (!(
-                        e.shiftKey == false
-                        && ((this.value == '')
-                            || keycode == KEY_BACKSPACE
-                            || keycode == KEY_ARROW_LEFT
-                            || keycode == KEY_ARROW_RIGHT
-                            || keycode == KEY_MINUS
-                            || keycode == KEY_DELETE
-                            || (keycode >= 48 && keycode <= 57)))
-                        ) {
-                            if (keycode !== 47) {
-                                this.tooltipContent = 'Введите число'
-                                this.showTooltip = true;
-                                event.preventDefault();
-                            }
-                    }
-                    else {
+                    let keycode = e.which;
+                    if (
+                        (keycode >= 48 && keycode <= 57)
+                        || keycode == KEY_MINUS
+                        || keycode == KEY_PLUS
+                        || keycode == KEY_SLASH
+                       )
+                    {
                         this.showTooltip = false;
+                    } else {
+                        this.tooltipContent = 'Введите число';
+                        this.showTooltip = true;
+                        event.preventDefault();
                     }
                 }
             },
@@ -624,6 +649,7 @@
             }
         },
         mounted() {
+            this.height = this.$el.parentElement.clientHeight;
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
             // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
@@ -649,6 +675,16 @@
                     this.value = data.value
                 }
             })
+
+            EventBus.$on('highlight' + this.shiftId + this.journalName + this.tableName + this.fieldName + this.rowIndex, () => {
+                this.$el.scrollIntoView({block: "center"})
+                this.highlight = true
+                var self = this
+                setTimeout(function() {
+                    self.highlight = false
+                }, 4500);
+            })
+
         }
     }
 </script>

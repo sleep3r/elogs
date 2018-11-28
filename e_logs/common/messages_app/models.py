@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet, Q
 from django.utils import timezone
-from pywebpush import webpush, WebPushException
 
 from e_logs.common.login_app.models import Employee
 from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, get_or_none, user_to_response
@@ -21,7 +20,7 @@ class Message(StrAsDictMixin, models.Model):
                             default='', choices=(('critical_value', 'Критическое значение'),
                                                  ('comment', 'Замечание'),
                                                  ('set_mode', "Режим"),
-                                                 ('blank_journal', "Пустой журнал"),),)
+                                                 ('blank_journal', "Пустой журнал"),), )
     text = models.TextField(verbose_name='Текст сообщения')
 
     sendee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True,
@@ -34,9 +33,6 @@ class Message(StrAsDictMixin, models.Model):
     @staticmethod
     def get_recepients(message, all_users=False, positions=None, uids=None, plant_name=None):
 
-        # if not all_users and positions is None and uids is None and plant is None:
-        #     raise ValueError
-
         recipients = []
 
         if uids:
@@ -47,18 +43,18 @@ class Message(StrAsDictMixin, models.Model):
             recipients = []
             for p in positions:
                 recipients.extend(Employee.objects.
-                           filter(plant=plant_name if plant_name else None, position=p).
-                           exclude(name=message['sendee']))
+                                  filter(plant=plant_name if plant_name else None, position=p).
+                                  exclude(name=message['sendee']))
         if plant_name:
             recipients = []
-            recipients.extend(Employee.objects.filter(Q(plant=plant_name) | Q(plant=None)).exclude(name=message['sendee']))
+            recipients.extend(
+                Employee.objects.filter(Q(plant=plant_name) | Q(plant=None)).exclude(name=message['sendee']))
 
         if all_users:
             recipients = []
             recipients.extend(Employee.objects.all().exclude(name=message['sendee']))
 
         return recipients
-
 
     @staticmethod
     def add(message, cell=None, all_users=False, positions=None, uids=None, plant_name=None):
@@ -73,28 +69,33 @@ class Message(StrAsDictMixin, models.Model):
         """
         recipients = Message.get_recepients(message, all_users, positions, uids, plant_name)
 
-
         text = message.pop('text', '')
 
         layer = get_channel_layer()
 
         for emp in recipients:
             msg = filter_or_none(Message, **message,
-                              addressee=emp, cell=cell, type__in=('comment', 'critical_value')).first()
+                                 addressee=emp, cell=cell, type__in=('comment', 'critical_value')).first()
             if msg and msg.type == 'critical_value':
                 msg.text = text
                 msg.save()
             else:
                 Message.objects.create(**message, addressee=emp, cell=cell, text=text)
-                async_to_sync(layer.group_send)\
+                async_to_sync(layer.group_send) \
                     (f'user_{emp.id}',
                      {"type": "send_message",
                       "text": json.dumps(
                           {
-                            'type': 'messages',
-                            'cell': cell.field.name if cell else None,
-                            'sendee': user_to_response(message['sendee']),
-                            'text': text}
+                              "type": message['type'],
+                              "shift_id": cell.group.id if cell else None,
+                              "cell": {
+                                  'table_name': cell.table.name,
+                                  'field_name': cell.field.name,
+                                  'index': cell.index
+                              } if cell else None,
+                              "sendee": user_to_response(message['sendee']),
+                              "text": text,
+                              "created": message['created']}
                       )})
 
                 # Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
@@ -128,7 +129,7 @@ class Message(StrAsDictMixin, models.Model):
     #                       extra.errno,
     #                       extra.message
     #                       )
-    
+
     @staticmethod
     def update(cell):
         messages = filter_or_none(Message, cell=cell)

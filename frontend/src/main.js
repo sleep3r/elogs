@@ -10,21 +10,12 @@ import Notifications from 'vue-notification'
 import EventBus from './EventBus'
 
 import VTooltip from 'v-tooltip'
+
 Vue.use(VTooltip);
 
 Vue.use(Notifications);
 
 Vue.config.performance = true;
-
-// import * as Sentry from '@sentry/browser';
-// Sentry.init({
-//     dsn: 'https://a86b628039394e4c89bea5b5b6835a8f@sentry.io/1299999',
-//     integrations: [new Sentry.Integrations.Vue({ Vue })],
-// });
-// Sentry.configureScope((scope) => {
-//     scope.setTag("server", "kazzink");
-// });
-
 Vue.config.productionTip = false;
 
 
@@ -33,8 +24,7 @@ if (process.env.NODE_ENV == 'production') {
     window.HOSTNAME = 'https://' + window.location.hostname
     window.NODE_SERVER = 'https://' + window.location.hostname + ':3001'
     window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
-}
-else {
+} else {
     var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/'
     window.HOSTNAME = 'http://' + window.location.hostname + ':8000'
     window.NODE_SERVER = 'http://' + window.location.hostname + ':3000'
@@ -47,46 +37,27 @@ Vue.use(VueNativeSock, dataEndpoint, {
     reconnection: true,
     connectManually: true,
     passToStoreHandler: function (eventName, event) {
-        console.log('event', event)
+        // console.log('event_data', event.data)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
             let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
             console.log('unsyncCells', unsyncCells)
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
-
-            // let plant = mv.$route.params.plant
-            // let journal = mv.$route.params.journal
-
-            // if (plant && journal) {
-            //     setTimeout(() => {
-            //         if (window.mv.$route.params.shift_id) {
-            //           this.store.dispatch('journalState/loadJournal', {'id': window.mv.$route.params.shift_id})
-            //               .then(() => {
-            //                   this.store.commit('journalState/SET_SYNCHRONIZED', true)
-            //               })
-            //         }
-            //         else if (plant && journal) {
-            //             this.store.dispatch('journalState/loadJournal', {
-            //               'plantName': plant,
-            //               'journalName': journal
-            //             })
-            //                 .then(() => {
-            //                     this.store.commit('journalState/SET_SYNCHRONIZED', true)
-            //                 })
-            //         }
-            //     }, unsyncCells.length * 100)
-            // }
-        }
-        else if (eventName === 'SOCKET_onmessage') {
+        } else if (eventName === 'SOCKET_onmessage') {
             let data = JSON.parse(event.data);
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
-            if (data['type'] == 'shift_data') {
-                // console.log('shift_data', data)
-
+            if (data['type'] === 'shift_data') {
                 let commitData = {'cells': []}
+                let currentShift = this.store.getters['journalState/journalInfo'].id
                 for (let i in data['cells']) {
+                    console.log(currentShift, data['cells'][i]['cell_location']['group_id']);
+                    // accept only cells from current shift
+
+                    if (currentShift !== data['cells'][i]['cell_location']['group_id']) {
+                        continue
+                    }
                     let cellData = data['cells'][i]
 
                     this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible'])
@@ -102,51 +73,65 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         })
                     }
                 }
-                // console.log(commitData)
                 if (commitData['cells'].length !== 0) {
                     this.store.commit('journalState/SAVE_CELLS', commitData)
                 }
             }
-            if (data['type'] === 'messages') {
-                // console.log(data);
+            if (data['type'] === 'critical_value') {
+                console.log('critical_value', data)
 
                 if (data.cell) {
                     mv.$notify({
                         title: data.sendee[Object.keys(data.sendee)[0]],
-                        text: data.cell + ': ' + data.text,
+                        text: 'Критическое значение ' + data.cell.field_name + ': "' + data.text + '"',
+                        shiftId: data.shift_id,
                         duration: 5000,
                         type: 'warn'
                     })
-
                     this.store.dispatch('messagesState/loadUnreadedMessages')
                     this.store.dispatch('messagesState/loadMessages')
                 }
-                else {
-                    let sendee = data.sendee ? data.sendee : data.employee
-                    if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
-                        // mv.$notify({
-                        //     title: sendee[Object.keys(sendee)[0]],
-                        //     text: data['cell_location']['field_name'] + ': ' + data.message.text,
-                        //     duration: 5000,
-                        // })
-
-                        this.store.commit('journalState/SAVE_CELL_COMMENT', {
-                            tableName: data['cell_location']['table_name'],
-                            fieldName: data['cell_location']['field_name'],
-                            index: data['cell_location']['index'],
-                            comment: {
-                                'text': data['message']['text'],
-                                'created': Date.parse(data['created']),
-                                'user': sendee
-                            }
+            }
+            if ((data['type'] === 'user_comment') || (data['type'] === 'system_comment')) {
+                console.log('comment', data)
+                let sendee = data.sendee ? data.sendee : data.employee
+                if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
+                    if (data['type'] === 'user_comment') {
+                        mv.$notify({
+                            title: sendee[Object.keys(sendee)[0]],
+                            text: 'Комментарий к ячейке ' + data['cell']['field_name'] + ': "' + data.text + '"',
+                            shiftId: data.shift_id,
+                            duration: 5000,
                         });
-
-                        EventBus.$emit('scroll-to-bottom')
                     }
+                    this.store.dispatch('messagesState/loadUnreadedMessages')
+                    this.store.dispatch('messagesState/loadMessages')
+                    this.store.commit('journalState/SAVE_CELL_COMMENT', {
+                        tableName: data['cell']['table_name'],
+                        fieldName: data['cell']['field_name'],
+                        index: data['cell']['index'],
+                        comment: {
+                            'text': data['text'],
+                            'type': data['type'],
+                            'created': Date.parse(data['created']),
+                            'user': sendee
+                        }
+                    });
+
+                    EventBus.$emit('scroll-to-bottom')
                 }
             }
-        }
-        else {
+            if (data['type'] === 'set_mode') {
+                console.log('set_mode', data)
+                mv.$notify({
+                    title: data.sendee[Object.keys(data.sendee)[0]],
+                    text: 'Создан режим: "' + data.text + '"',
+                    duration: 5000,
+                })
+                this.store.dispatch('messagesState/loadUnreadedMessages')
+                this.store.dispatch('messagesState/loadMessages')
+            }
+        } else {
             return
         }
 

@@ -45,7 +45,7 @@
         },
         mounted() {
             EventBus.$on("set-menu-journal-item", (payload) => {
-                this.pushJournalPage(payload.plantName, payload.journalName)
+                this.pushJournalPage(payload.plantName, payload.journalName, payload.shiftId)
             })
             EventBus.$on("set-menu-dashboard-item", () => {
                 this.onDashboardClick()
@@ -92,16 +92,16 @@
                     listItem.classList.toggle("open");
                 }
             },
-            pushJournalPage(plantName, journalName) {
+            pushJournalPage(plantName, journalName, shiftId=null) {
+                this.setActiveItem(plantName, journalName)
                 if (this.$store.getters['journalState/isSynchronized']) {
                         this.$store.dispatch('journalState/loadJournal', {
                           'plantName': plantName,
-                          'journalName': journalName
+                          'journalName': journalName,
+                          'id': shiftId
                         })
                             .then((id) => {
                                 this.$router.push('/' + plantName + '/' + journalName + '/' + id)
-                                this.setActiveItem()
-
                                 if ($('#app').outerWidth() < 768) {
                                     this.toggleMenu()
                                 }
@@ -132,7 +132,7 @@
                     lastScrollTop = $(this).scrollTop()
                 });
             },
-            setActiveItem() {
+            setActiveItem(plantName=this.$route.params.plant, journalName=this.$route.params.journal) {
                 this.closeAllItems()
                 function firstMatchedParent(node, selector) {
                     if (node.classList.contains(selector)) {
@@ -142,7 +142,7 @@
                 }
 
                 let link = document.querySelector(
-                    `.menu__item a[data-plant-name="${this.$route.params.plant}"][data-journal-name="${this.$route.params.journal}"]`)
+                    `.menu__item a[data-plant-name="${plantName}"][data-journal-name="${journalName}"]`)
                 if (!link) return;
 
                 let currentItem = link.parentNode;

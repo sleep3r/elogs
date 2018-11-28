@@ -85,6 +85,7 @@ h2.table-title {
 
 .elog-journal-table { // the table itself
     table-layout: auto !important; // test fixed layout
+    height: 100%;
     width: auto;
     margin-bottom: 0 !important;
     
@@ -143,7 +144,7 @@ h2.table-title {
     }
     
     th.changing-header  {
-        padding: 0;
+        padding: 0 !important;
 
         input {
             width: 100%;

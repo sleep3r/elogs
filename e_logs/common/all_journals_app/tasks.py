@@ -35,6 +35,7 @@ else:
         timezone='Europe/Moscow',
     )
 
+
 @app.task
 def create_shifts():
     now_date = current_date()
@@ -44,6 +45,7 @@ def create_shifts():
             for shift_date in date_range(now_date, now_date + timedelta(days=3)):
                 for shift_order in range(1, number_of_shifts + 1):
                     Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
+
 
 @app.task
 def create_moths_and_years():
@@ -61,12 +63,14 @@ def create_moths_and_years():
                                                 month_order=ind,
                                                 journal=journal)
 
+
 @app.task
 def check_blank_shifts():
-    for shift in filter(lambda s:s.is_active(),list(Shift.objects.filter(
+    for shift in filter(lambda s: s.is_active(timezone.now()), list(Shift.objects.filter(
             date__range=[current_date() - timedelta(days=1), current_date()]))):
-            if not shift.is_active(time=timezone.now()+timedelta(minutes=1)):
-                check_for_no_cells(shift)
+        if not shift.is_active(time=timezone.now() + timedelta(minutes=1)):
+            check_for_no_cells(shift)
+
 
 def check_for_no_cells(shift):
     if not Cell.objects.filter(group=shift).exists():
@@ -86,11 +90,13 @@ def check_for_no_cells(shift):
                              'sendee': None},
                     positions=("senior technologist",))
 
+
 @app.task
 def end_of_limited_access(page_id):
     page = get_or_none(Shift, id=page_id)
     if page:
         Setting.of(page)['limited_access_employee_id_list'] = None
+
 
 @app.task
 def send_deferred_message(type, text, ids):
@@ -100,8 +106,9 @@ def send_deferred_message(type, text, ids):
                          'sendee': None},
                 uids=ids)
 
+
 @app.task
 def dump_db():
-    output = open(f'dumps/{current_date()}.json','w')
+    output = open(f'dumps/{current_date()}.json', 'w')
     call_command('dumpdata', stdout=output)
     output.close()

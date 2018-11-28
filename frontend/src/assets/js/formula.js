@@ -8,84 +8,96 @@ function isNumeric(num) {
 }
 
 if (!String.prototype.format) {
-    String.prototype.format = function() {
+    String.prototype.format = function () {
         var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, number) {
-            return typeof args[number] != 'undefined'
-                ? args[number]
-                : match;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined' ?
+                args[number] :
+                match;
         });
     };
 }
 
 console.log("Loading formula...")
 var parser = new FormulaParser();
-window.parser = parser
-window.parser.setFunction('FUNC', function(params) {
-    try {
-        const journal = params[0];
-        const table = params[1];
-        const field = params[2];
-        const index = params[3];
-        var shift_delta = params[4];
-        try {
-            shift_delta = -Number(shift_delta)
-        }
-        catch(e) {
-            console.log(e)
-        }
+window.parser = parser;
 
+
+export function getValue(params) {
+    try {
+        console.log("function this", this)
+        console.log(params, params.length)
+        console.log(typeof(params))
+        var params_num = this.isTableIndexed ? 5 : 4;
+        while (params.length < params_num) {
+            params.splice(0, 0, false)
+            console.log(params, params.length);
+        }
+        const journal = params[0] ? params[0] : this.journal;
+        var shift_delta = params[1] ? params[1] : this.shift;
+        const table = params[2] ? params[2] : this.table;
+        const field = params[3] ? params[3] : this.field;
+        const index = this.isTableIndexed ? 0 : params[4] ? params[4]: this.index;
+        
+        shift_delta = -Number(shift_delta);
+        console.log(params)
+        console.log(journal, table, field, index, shift_delta)
         var shifts = store.getters['journalState/events']
-        const current_journal = store.getters['journalState/journalName']
-        const current_shift = store.getters['journalState/journalInfo'].id
-        const current_shift_start_time = store.getters['journalState/journalInfo'].start_time
+        const current_journal = store.getters['journalState/journalName'];
+        const current_shift = store.getters['journalState/journalInfo'].id;
+        const current_shift_start_time = store.getters['journalState/journalInfo'].start_time;
         let res = 0;
-        let result = null
+        let result = null;
         if (journal == current_journal && shift_delta == 0) {
             let formula = store.getters['journalState/fieldFormula'](table, field)
             if (formula) {
-                result =  window.parser.parse(formula)
+                result = window.parser.parse(formula)
             } else {
                 result = store.getters['journalState/cell'](table, field, index)['value']
             }
         } else {
+            var shift_index;
             for (var i in shifts) {
                 if (shifts[i].start == current_shift_start_time) {
-                    var index = i;
+                    shift_index = i;
                 }
             }
-            var shift = shifts[(index - shift_delta) % shifts.length].url.split("/")[3]
+            var shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
             res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
-            let json = JSON.parse(res.getBody())
-            // console.log(json)
+            let json = JSON.parse(res.getBody());
             if (json.value == null) {
-                result = undefined
-            }
-            else if (isNumeric(json.value)) {
+                result = undefined;
+            } else if (isNumeric(json.value)) {
                 result = Number(json.value)
-            }
-            else {
-                result = window.parser.parse(json.value).result
+            } else {
+                result = window.parser.parse(json.value).result;
             }
         }
-        return result
+        return result;
+    } catch (e) {
+        console.log(e);
     }
-    catch(e){
-        console.log(e)
-    }
-})
+}
 
-var getCellFromVariable = function(variable) {
+// window.parser.setFunction('FUNC', getValue.bind)
+
+var getCellFromVariable = function (variable) {
     var params = variable.split("(")[1].replace(/(\s)|(")|(\))/g, "").split(",")
     const journal = params[0];
     const table = params[1];
     const field = params[2];
     const index = params[3];
     const shift = params[4];
-    return {journal: journal, table: table, field: field, index: index, shift: shift}
+    return {
+        journal: journal,
+        table: table,
+        field: field,
+        index: index,
+        shift: shift
+    }
 }
 
-var getCellsFromFormula = function(formula) {
+var getCellsFromFormula = function (formula) {
     var re = /FUNC\([^\)]*\)/g;
     var variables = [];
     do {
@@ -94,10 +106,10 @@ var getCellsFromFormula = function(formula) {
             variables.push(m);
         }
     } while (m);
-    return variables.map(getCellFromVariable)
+    return variables.map(getCellFromVariable);
 }
 
-var getCellValue = function(cell) {
+var getCellValue = function (cell) {
     var res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(cell.journal, cell.table, cell.field, cell.shift))
     let json = JSON.parse(res.getBody())
     return json.value
@@ -166,3 +178,4 @@ function checkFormula(formula, cell) {
     }
 
 }
+
