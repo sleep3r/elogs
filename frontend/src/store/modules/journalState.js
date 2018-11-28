@@ -1,5 +1,7 @@
 import ajax from '../../axios.config'
 import VueCookies from 'vue-cookies'
+import {getValue} from '../../assets/js/formula'
+var FormulaParser = require('hot-formula-parser').Parser;
 
 const journalState = {
     namespaced: true,
@@ -136,6 +138,14 @@ const journalState = {
                 }
                 let field = fields[fieldName];
                 if (field.formula) {
+                    setTimeout(window.parser.setFunction("FUNC", getValue.bind({
+                        journal: state.journalInfo.journal.name,
+                        table: tableName,
+                        field: fieldName,
+                        index: rowIndex,
+                        shift: 0, 
+                        isTableIndexed: false,
+                    })), 0) // Timout for sequential functions execution
                     return {
                         value: window.parser.parse(field.formula).result
                     };

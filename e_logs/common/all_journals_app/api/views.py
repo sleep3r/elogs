@@ -5,6 +5,7 @@ import hashlib
 from datetime import timedelta
 from shutil import copyfile
 from urllib.parse import parse_qs
+from collections import defaultdict
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.storage import FileSystemStorage
@@ -416,3 +417,19 @@ class SettingAPI(View):
         setting_data = json.loads(request.body)
         Setting.set_value(name=setting_data["name"], value=setting_data["value"], employee=employee)
         return JsonResponse({"status": 1})
+
+
+class SchemeAPI(View):
+    def get(self, request):
+        res = {}
+        journals = Journal.objects.all()
+        for journal in journals:
+            tables = Table.objects.filter(journal=journal)
+            journal_dict = defaultdict(list)
+            for table in tables:
+                fields = Field.objects.filter(table=table)
+                for field in fields:
+                    journal_dict[table.name].append(field.name)
+            res[journal.name] = journal_dict
+        return JsonResponse(res)
+

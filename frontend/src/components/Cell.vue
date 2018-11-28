@@ -1,5 +1,5 @@
 <template>
-    <div v-if="mode!=='edit_constraints'" :style="{ 'height': height + 'px'}" :class="cssClass">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%; position: relative;" :class="cssClass">
       <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
@@ -372,18 +372,26 @@
                     let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 280;
                     let appWidth = $('#app').outerWidth()
                     let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 424;
-                    let appHeight = $('#app').outerHeight()
+                    let windowHeight = $(window).height()
+
 
                     if (e.clientX + popUpWidth >= appWidth) {
                         x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                    } else {
+                    }
+                    else {
                         x = e.clientX  - e.offsetX
                     }
 
-                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
+                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= windowHeight &&
+                            e.clientY - popUpHeight - e.offsetY - inputOffset > 0) {
                         y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                    } else {
+                    }
+                    else if (e.clientY - e.offsetY - popUpHeight - inputOffset < 0 &&
+                            e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() <= windowHeight){
                         y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
+                    }
+                    else {
+                        y = (windowHeight - popUpHeight) / 2
                     }
 
                     if (this.mode === 'validate') {

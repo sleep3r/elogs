@@ -15,4 +15,5 @@ urlpatterns = [
     path('setting/', csrf_exempt(SettingAPI.as_view())),
     path('cell/', CellAPI.as_view()),
     path('prev-shift/', PrevShiftAPI.as_view()),
+    path('scheme/', SchemeAPI.as_view()),
 ]
