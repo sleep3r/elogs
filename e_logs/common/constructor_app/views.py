@@ -9,8 +9,11 @@ from proxy.views import proxy_view
 from e_logs.common.all_journals_app.models import Shift
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.core.management.commands.compress_journals import compress_journal
+from django.core.files.storage import FileSystemStorage
 from django.views import View
 from django.http import JsonResponse
+import hashlib
+import os
 
 from e_logs.core.models import Setting
 from e_logs.core.utils.webutils import current_date, date_range

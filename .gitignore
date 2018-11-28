@@ -119,3 +119,6 @@ frontend/dist/*
 
 # e-logs-constructor
 e-logs-constructor
+
+#vscode
+.vscode
