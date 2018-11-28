@@ -284,10 +284,10 @@
                 payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
                 this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
 
-                let path = window.location.pathname;
-                if (path.slice(-1) !== '/'){path = path + '/'}
-                let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
-                shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
+                // let path = window.location.pathname;
+                // if (path.slice(-1) !== '/'){path = path + '/'}
+                // let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
+                // shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
             },
             userHasPerm(perm) {
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
@@ -367,6 +367,12 @@
                         lastScrollTop = currentScrollTop;
                     }
                 })
+            },
+            loadShifts () {
+                this.$store.dispatch('journalState/loadShifts', {
+                    plant: this.$route.params.plant,
+                    journal: this.$route.params.journal
+                })
             }
         },
         mounted() {
@@ -374,31 +380,22 @@
 
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
 
-            setTimeout(() => {
-                this.$store.dispatch('journalState/loadShifts', {
-                    plant: this.$route.params.plant,
-                    journal: this.$route.params.journal
-                }), 0
-            })
+            setTimeout(() => this.loadShifts(), 0)
 
             this.setListeners()
 
-            $( window ).resize(function() {
-                // console.log('resize')
-                setTimeout(() => {
-                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
-                }, 100)
-            })
-
-            $('.fc-toolbar.fc-header-toolbar button').click(function () {
-                setTimeout(() => {
-                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
-                }, 1)
-            })
-
-            // if (this.userIsResponsible) {
-            //     console.log('awdawd')
-            // }
+            // $( window ).resize(function() {
+            //     // console.log('resize')
+            //     setTimeout(() => {
+            //         $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+            //     }, 100)
+            // })
+            //
+            // $('.fc-toolbar.fc-header-toolbar button').click(function () {
+            //     setTimeout(() => {
+            //         $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+            //     }, 1)
+            // })
         }
     }
 </script>

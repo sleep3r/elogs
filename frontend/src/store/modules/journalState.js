@@ -566,6 +566,9 @@ const journalState = {
                 item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
             table.html = payload.html
         },
+        SET_EVENTS (state, payload) {
+            state.events = payload
+        },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget
             state.socket.isConnected = true
@@ -642,7 +645,7 @@ const journalState = {
         loadShifts: function ({commit, state, getters}, payload) {
             return ajax.get(window.HOSTNAME + '/api/' + payload.plant + '/' + payload.journal +'/get_groups/')
                 .then(response => {
-                    state.events = response.data;
+                    commit('SET_EVENTS', response.data)
                     $(".fc-month-button").click();
                 })
                 .catch(e => {
