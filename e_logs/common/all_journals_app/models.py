@@ -181,7 +181,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
-        from e_logs.core.models import Setting # avoiding import loo
+        from e_logs.core.models import Setting  # avoiding import loo
 
         @cached_as(Setting.objects.filter(name='number_of_shifts'))
         def cached_number_of_shifts(obj):
