@@ -55,7 +55,7 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 def get_table_template(request, plant_name, journal_name, table_name):
     version =  parse_qs(request.GET.urlencode())['v'][0]
     with open(f'resources/journals/{plant_name}/{journal_name}/v{version}.jrn', 'r') as journal_file:
-        tables = json5.load(journal_file)['tables']
+        tables = json.load(journal_file)['tables']
         for table in tables:
             if table['name'] == table_name:
                 return HttpResponse(table['html'])

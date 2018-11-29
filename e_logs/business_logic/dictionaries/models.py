@@ -12,7 +12,7 @@ class ConcentrateDict(models.Model):
 
 class EquipmentDict(models.Model):
     name = models.CharField(max_length=128)
-    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE)
+    plant = models.ForeignKey('all_journals_app.Plant', on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = 'Оборудование'
