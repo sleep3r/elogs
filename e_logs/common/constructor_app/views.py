@@ -1,13 +1,16 @@
 import hashlib
 import os
+import shutil
 from datetime import timedelta
 
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 from proxy.views import proxy_view
 
-from e_logs.common.all_journals_app.models import Shift
+from e_logs.business_logic.dictionaries.models import EquipmentDict
+from e_logs.common.all_journals_app.models import Shift, Equipment, Month, Year
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
+from e_logs.core.journals_git import VersionControl
 from e_logs.core.management.commands.compress_journals import compress_journal
 from django.core.files.storage import FileSystemStorage
 from django.views import View
@@ -44,7 +47,6 @@ class ConstructorHashAPI(View):
 
 class ConstructorUploadAPI(View):
     def post(self, request):
-        print(request.POST)
         hash = request.POST.get('hash', None)
         plant = request.POST.get('plant', None)
         type = request.POST.get('type', None)
@@ -55,41 +57,41 @@ class ConstructorUploadAPI(View):
 
         journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
         new_journal = journal.create()
+        shutil.move(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
 
-        if new_journal.type == 'shift' and number_of_shifts:
-            LoadJournalAPI.add_shifts(new_journal, int(number_of_shifts))
+        self.add_groups(new_journal, number_of_shifts)
 
-        compress_journal(new_journal)
+        git = VersionControl()
+        git.add(journal)
+
         return JsonResponse({"status": 1})
 
-class LoadJournalAPI(View):
-    def post(self, request):
-        if request.FILES.get('journal_file', None):
-            journal = request.FILES['journal_file']
-            plant_name = request.POST['plant']
-            type = request.POST['type']
-            number_of_shifts = int(request.POST['number_of_shifts'])
-            if plant_name and type and number_of_shifts:
-                try:
-                    os.remove(f'resources/journals/{plant_name}/{journal.name}')
-                except OSError:
-                    pass
-                fs = FileSystemStorage(location=f'resources/journals/{plant_name}/')
-                filename = fs.save(journal.name, journal)
-
-                journal = JournalBuilder(journal, plant_name, type)
-                new_journal = journal.create()
-
-                if new_journal.type == 'shift':
-                    self.add_shifts(new_journal, number_of_shifts)
-
-                return JsonResponse({"status": 1})
-        return JsonResponse({"status": 0})
-
     @staticmethod
-    def add_shifts(new_journal, number_of_shifts):
-        Setting.of(obj=new_journal)['number_of_shifts'] = int(number_of_shifts)
+    def add_groups(journal, shifts_num):
+        def date_range(start_date, end_date):
+            for n in range(int((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+
         now_date = current_date()
-        for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
-            for shift_order in range(1, number_of_shifts + 1):
-                Shift.objects.get_or_create(journal=new_journal, order=shift_order, date=shift_date)
+
+        if journal.type == 'shift':
+            for shift_date in date_range(now_date - timedelta(days=7), now_date + timedelta(days=7)):
+                for shift_order in range(1, shifts_num + 1):
+                    shift, created = Shift.objects.get_or_create(journal=journal, order=shift_order,
+                                                                 date=shift_date)
+        elif journal.type == 'year':
+            for year in range(2017, current_date().year + 2):
+                year, created = Year.objects.get_or_create(year_date=year, journal=journal)
+
+        elif journal.type == 'month':
+            for year in range(2017, current_date().year + 2):
+                for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
+                                             'Май', 'Июнь', 'Июль', 'Август',
+                                             'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
+                    month, created = Month.objects.get_or_create(year_date=year, month_date=month,
+                                                                 month_order=ind,
+                                                                 journal=journal)
+
+        elif journal.type == 'equipment':
+            for equipment in EquipmentDict.objects.filter(plant=journal.plant):
+                Equipment.objects.get_or_create(name=equipment.name, journal=journal)

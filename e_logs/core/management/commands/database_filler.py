@@ -207,8 +207,8 @@ class DatabaseFiller:
                     for shift_order in range(1, number_of_shifts + 1):
                         shift, created = Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                                      date=shift_date)
-                        # shift.version = git.version_of(shift)
-                        # shift.save()
+                        shift.version = git.version_of(shift)
+                        shift.save()
             elif journal.type == 'year':
                 for year in range(2017, current_date().year + 2):
                     year, created = Year.objects.get_or_create(year_date=year, journal=journal)
