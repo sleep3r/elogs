@@ -51,7 +51,9 @@ class ConstructorUploadAPI(View):
         hash = request.POST.get('hash', None)
         plant = request.POST.get('plant', None)
         type = request.POST.get('type', None)
-        number_of_shifts = int(request.POST.get('number_of_shifts', 2))
+        number_of_shifts = request.POST.get('number_of_shifts', 2)
+        if number_of_shifts:
+            number_of_shifts = int(number_of_shifts)
 
         if not hash or not plant:
             return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})

@@ -49,7 +49,6 @@ class DatabaseFiller:
         else:
             return None
 
-
         if plant == "ОЦ":
             groups.append("furnace")
         elif plant == "ЦВЦО":
@@ -58,7 +57,6 @@ class DatabaseFiller:
             groups.append("electrolysis")
         else:
             return None
-
 
         return groups
 
@@ -111,10 +109,9 @@ class DatabaseFiller:
         user.save()
         Employee(name="Галымбек Шуиншин", position="senior technologist", user=user).save()
 
-
     @staticmethod
     def fill_plants():
-        plant_names = {'furnace':"Обжиг", 'electrolysis':"Электролиз", 'leaching':"Выщелачивание"}
+        plant_names = {'furnace': "Обжиг", 'electrolysis': "Электролиз", 'leaching': "Выщелачивание"}
         Plant.objects.bulk_create([Plant(name=name, verbose_name=verbose_name)
                                    for name, verbose_name in plant_names.items()])
 
@@ -179,7 +176,6 @@ class DatabaseFiller:
                 if 'electrolysis' and 'technologist' in groups:
                     user.user_permissions.add(Permission.objects.get(codename='edit_cells'))
 
-
                 e = Employee()
                 e.name = user.first_name + ' ' + user.last_name
                 e.position = user_dict["groups"][0].lower()
@@ -218,7 +214,7 @@ class DatabaseFiller:
             elif journal.type == 'month':
                 for year in range(2017, current_date().year + 2):
                     for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
-                                                 'Май','Июнь', 'Июль', 'Август',
+                                                 'Май', 'Июнь', 'Июль', 'Август',
                                                  'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
                         month, created = Month.objects.get_or_create(year_date=year, month_date=month,
                                                                      month_order=ind,
@@ -227,9 +223,8 @@ class DatabaseFiller:
                         month.save()
 
             elif journal.type == 'equipment':
-                for equipment in EquipmentDict.objects.all():
+                for equipment in EquipmentDict.objects.filter(plant=journal.plant):
                     Equipment.objects.get_or_create(name=equipment.name, journal=journal)
-
 
     @staticmethod
     def fill_journals():
@@ -291,14 +286,14 @@ class DatabaseFiller:
         perm_names = ["Modify Leaching Plant", "Modify Furnace Plant", "Modify Electrolysis Plant",
                       "Validate Cells", "Edit Cells", "View Cells"]
         perm_codenames = ["modify_leaching", "modify_furnace", "modify_electrolysis",
-                          "validate_cells", "edit_cells",  "view_cells"]
+                          "validate_cells", "edit_cells", "view_cells"]
         group_perms = {"boss": ("validate_cells", "view_cells"),
                        "leaching": ("modify_leaching",),
                        "furnace": ("modify_furnace",),
                        "electrolysis": ("modify_electrolysis",),
-                       "senior technologist":("modify_leaching", "modify_furnace", "modify_electrolysis",
-                          "validate_cells", "view_cells",),
-                       "technologist":("validate_cells", "view_cells"),
+                       "senior technologist": ("modify_leaching", "modify_furnace", "modify_electrolysis",
+                                               "validate_cells", "view_cells",),
+                       "technologist": ("validate_cells", "view_cells"),
                        "senior master": ("validate_cells", "view_cells", "edit_cells"),
                        "master": ("view_cells", "edit_cells"),
                        "hydro": ("view_cells", "edit_cells"),
@@ -329,51 +324,252 @@ class DatabaseFiller:
                                value=Setting._dumps({"hours": 12}))
 
         Setting.objects.create(name='allowed_positions',
-                               value=Setting._dumps({"boss":2, "laborant":2}))
+                               value=Setting._dumps({"boss": 2, "laborant": 2}))
 
     @staticmethod
     def fill_dicts():
-        equipment = [
-            'Агитатор «Манн» №1',
-            'Агитатор «Манн» №2',
-            'Агитатор «Манн» №3',
-            'Сгуститель №1',
-            'Сгуститель №2',
-            'Сгуститель №3',
-            'Питатель ленточный В – 500 мм',
-            'Элеватор ЦГ-400 №1',
-            'Элеватор ЦГ-400 №2',
-            'Транспортер ленточный В – 650 мм',
-        ]
-        for eq in equipment:
-            EquipmentDict.objects.create(name=eq)
+        equipment = {
+            "furnace": ['Грейферные краны', 'Приёмный бункер', 'Ленточный конвейер', 'Измельчитель 1 (дробилка)'
+                , 'Измельчитель 2 (дробилка)'
+                , 'Наклонный ленточный конвейер (загрузочный)'
+                , 'Горизонтальный ленточный конвейер (загрузочный)'
+                , 'Печь КС (5 шт)'
+                , 'Большой бункер печи «КС» (5 шт)'
+                , 'Питатель-весоизмеритель'
+                , 'Роторный забрасыватель'
+                , 'Малый (вспомогательный) бункер печи «КС» (5 шт)'
+                , 'Конвейер ленточный («малый» питатель печи «КС») (5 шт)'
+                , 'Форкамера'
+                , 'Установка испарительного охлаждения печи'
+                , 'Барабан сепаратор УИО печи'
+                , 'Подовый шнек печи'
+                , 'Аэрохолодильник печи'
+                , 'Циклон 1-й ступени, НИОГАЗ-ЦН-15, 2шт'
+                , 'Циклон 2-й ступенни, НИОГАЗ-ЦН-15, 2шт'
+                , 'Групповые циклоны ЦН-15 (2 шт.)'
+                , 'Колокольный затвор коллектора "грязного" газа - 2 шт.'
+                , 'Конвейер с погруженными скребками КПС-500 №1'
+                , 'Конвейер с погруженными скребками КПС-500 №2'
+                , 'Конвейер с погруженными скребками КПС-500 №3'
+                , 'Шнек выгрузки печи «КС» на КПС (5 шт)'
+                , 'Дымосос левый печи ДН17НЖ (левого вращения)'
+                , 'Дымосос правой печи ДН17НЖ (правого вращения)'
+                , 'Коллектор «грязного газа»'
+                , 'Шнек №1 системы пылеудаления коллектора "грязного" газа'
+                , 'Шнек №1 системы пылеудаления коллектора "грязного" газа'
+                , 'Колокольный затвор коллектора "грязного" газа - 4 шт.'
+                , 'Электрофильтр ГК-60'
+                , 'Дымосос правый КС№2 ДС-15НЖ (правое вращение)'
+                , 'Дымосос правый КС№2 ДН17НЖ (правое вращение)'
+                , 'Подстанция электрофильтр ГК-60'
+                , 'Колокольный затвор коллектора «чистого газа»'
+                , 'Коллектор «чистого газа»'
+                , 'Бак для мазута'
+                , 'Нагнетатели 325-11м-1 3шт.'
+                , 'Нагнетатель  №1 0-325-11'
+                , 'Винтовой маслозаполненный воздушный компресссор Atlas Copco GA 18 VSD FF'
+                , 'Насос для подпитки УИО ЦНСГ-60/264 3шт.'
+                , 'Элеватор ковшевой сч ЦГ-400 №3'
+                , 'Элеватор ковшевой ЦГ-400 №4'
+                , 'Вакуум насос (насос ВВН2-50) 2 шт.'
+                , 'Циклоны 1-й и 2-й ступени (по 2 шт.) ЦН-15 4 шт.'
+                , 'Шнек из-под циклонов'
+                , 'Распределительный шнек на аэросепараторы №1 и №2'
+                , 'Аэросепараторы 327-45-56 №1 и №2 (2 шт.)'
+                , 'Мельница шаровая СМ-6004 № 2'
+                , 'Бункер над шаровой мельницей №1'
+                , 'Мельница шаровая см-6004А № 1'
+                , 'Шнек с мельницы №1 на элеваторы 1,2'
+                , 'Элеваторы ковшевой ЦГ-400 №1 и №2 (2 шт.)'
+                , 'Шнеки №1 и №2 с элеваторов №1,2'
+                , 'Распределительный шнек на аэросепаратор №3'
+                , 'Аэросепаратор 327-45-56 №3'
+                , 'Бункер над шаровой мельницей №3'
+                , 'Мельница шаровая СМ-6004А №3'
+                , 'Огарочный транспортер (конвейер ленточный)'
+                , 'Шнеки №1 и № 2 из-под аэросепаратора №3 (2 шт.)'
+                , 'Шнеки №1 и № 2 из-под аэросепаратора №1 (2 шт.)'
+                , 'Шнеки №1 и № 2 из-под аэросепаратора №2 (2 шт.)'
+                , 'Шнек с элеватора №1 на КПС-500Т'
+                , 'КПС-500Т (конвейер с погруженными скребками) на силоса'
+                , 'Силос для накопления огарка'
+                , 'Приёмные бункера цеха выщелачивания цинкового огарка'
+                , 'Шнек для сброса в свои бункера "над ситом"'
+                , 'Бункер огарка №4'
+                , 'Бункер огарка №6'
+                , 'Бункер огарка №5'
+                , 'Бункер огарка №3'
+                , 'Бункер огарка №7'
+                , 'Нагнетатель №1 0-325-11'],
+            "electrolysis": ['Электролизные ванны'
+                , 'Напорный стеклопластиковый  желоб'
+                , 'Центральный сливной желоб'
+                , 'Баки сборники'
+                , 'Коллекторы сборники отработанного электролита'
+                , 'Градирни нейтрального электролита'
+                , 'Градирни отработанного электролита'
+                , 'Кристаллизатор'
+                , 'Бак отработанного электролита'
+                , 'Баки горячего нейтрального электролита (баки ЦВЦО)'
+                , 'Баки холодного нейтрального электролита'
+                , 'Насосы для откачки отработанного электролита в бак отработанного раствора и в ЦВЦО'
+                , 'Насосы для перекачки электролита на градирни'
+                , 'Насосы подачи нейтрального раствора на 3 и 4 серии'
+                , 'Пробоотборник нейтрального электролита'
+                , 'Пробоотборник отработанного электролита'
+                , 'Пробоотборник смешанного электроли'
+                , 'Атмосферные градирни отработанного электролита'
+                , 'Баки нейтрального электролита'
+                , 'Смеситель'
+                , 'Напорный стеклопластиковый желоб'
+                , 'Электролизные ванны'
+                , 'Коллектор сбора отработанного электролита'
+                , 'Насосы для откачки растворов'
+                , 'Шламовые насосы'
+                , 'Шламовый бак'
+                , 'Сдирочные столы'
+                , 'Бак добавки'
+                , 'Бак добавки'
+                , 'Катодоочистительная машина'
+                , 'Пробоотборник отработанного электролита'
+                , 'Пробоотборник смешанного электролита'
+                , 'Баки охлажденного электролита'
+                , 'Испарители ВИУ'
+                , 'Магистраль сброса воды с конденсаторов ВИУ'
+                , 'Магистраль охлажденного электролита'
+                , 'Напорный стеклопластиковый желоб смешанного электролита'
+                , 'Распределительные желоба'
+                , 'Желоб отработанного электролита под ванной'
+                , 'Барометрический бак'
+                , 'Коллектор отработанного электролита'
+                , '1Электролизные ванны'
+                , '1Желоб поступающего нейтрал.  электролита'
+                , '1Магистраль от бака отраб. электролита'
+                , 'Чан нейтрального раствора (баки ЦВЦО)'
+                , 'Чан отработанного электролита (баки ЦВЦО)'
+                , 'Насосы охлажденного электролита'
+                , 'Насосы нейтрального раствора'
+                , 'Бак отработанного электролита'
+                , 'Шламовый бак'
+                , 'Бак горячего электролита'
+                , 'Насосы перекачки шлама'
+                , 'Насосы перекачки отработанного электролита'
+                , 'Насосы перекачки отработанного электролита'
+                , 'Желоб подачи отработанного электролита в баки ВИУ'
+                , 'Пробоотборник отработанного электролита'
+                , 'Пробоотборник нейтрального электролита'
+                , 'Катодоплавильная печь ИЦК-40'
+                , 'Индукционные трансформаторы печи'
+                , 'Разливочная карусель Котова'
+                , 'Штабелеукладчик '
+                , 'Электрокалорифер'
+                , 'Изложницы для разлива блоков цинка'
+                , 'Электронные весы ОТК'
+                , 'Весы“Геркулес”'
+                , 'Весы эл. М8100-5ТС5С-12-С'
+                , 'Весы «Mettler Toledo» –МЕ-3000'
+                , 'Обвязочная машина «Циклоп» по ТУ'
+                , 'обзочная машина «Фромм» по ТУ обвязочная лента'
+                , 'Рукавный фильтр ФРИК-235'
+                , 'Пладь фильтрации 235 м2'
+                , 'Рукавный фильтр РФГ-УМС-6'
+                , 'Пладь фильтрации 336 м2'
+                , 'Дымосос ДН-15'
+                , 'Дроссовая установка'
+                , 'Приемный бункер'
+                , 'Грохот'
+                , 'Шнек'
+                , 'Элеватор'
+                , 'Шнек'
+                , 'Бункер накопитель'
+                , 'Дымосос ДН-13,5'
+                , 'Установка по переработке цинковых и цинк – алюминиевых дроссов УК МК и РЦЗ'
+                , 'Опрокидыватель контейнеров'
+                , 'Приёмный бункер'
+                , 'Питатель - дозатор'
+                , 'Ленточный транспортер'
+                , 'Элеватор цепной'
+                , 'Вибрационный грохот ГИС-31'
+                , 'Вибрационный грохот ГИЛ-11'
+                , 'Вибрационная мельница'
+                , 'Бункер - накопитель'
+                , 'Бункер - накопитель'
+                , 'Кран - балка'],
+            "leaching": ['Транспортёр ленточный B-650мм'
+                , 'Шнековый питатель дозатор ДШ 16-5 (2 шт.)'
+                , 'Шнековый питатель дозатор ДШ 02-2'
+                , 'Элеватор ЦГ-400 (2 шт.)'
+                , 'Вагон-весы'
+                , 'Агитаторы нейтрального выщелачивания'
+                , 'Напорный бак магнофлока'
+                , 'Сгустители нейтрального выщелачивания'
+                , 'Промывочные сгустители (3 шт.)'
+                , 'Теплообменники «Альфа-Лаваль»'
+                , 'Агитаторы Аг-М9 (Аг-М10) (2 шт.) – их нет'
+                , 'Агитаторы медно-кадмиевой очистки (12 шт.) – одинаковые на всех этапах очистки'
+                , 'Сгуститель № 13 медно-кадмиевой очистки'
+                , 'Фильтр-пресс «Дифенбах» (11 шт.)'
+                , 'Фильтр-пресс «Ларокс» (4 шт.)'
+                , 'Агитаторы выщелачивания кадмиевой установки'
+                , 'Фильтр-пресс рамный (ручной) (5 шт.)'
+                , 'Насос Sulzer WPP 33-100'
+                , 'Насос АХ200-150-400 (ЮЖУРАЛГИДРОМАШ)'
+                , 'Шаровая мельница'
+                , 'Баки напорные'
+                , 'Баки нейтрального электролита'
+                , 'Баки отработанного электролита'
+                , 'Бак растворения железной стружки'
+                , 'Насос КНЗ6-30'
+                , 'Насос КНЗ8-32'
+                , 'Нейтральные чаны 3, 4, 4А, 5'
+                , 'Питатель ленточный типа 4488 ДН-У'
+                , 'Чаны отработанного электролита 2, 3'
+                , 'Чан отработанного электролита 9'
+                , 'Агитаторы Аг-13, Аг-14'
+                , 'Агитаторы Аг-15 – Аг-22'
+                , 'Бак-сборник №20'
+                , 'Площадь фильтр-прессов 17-18'
+                , 'Площадь рамных фильтр-прессов 15-16 (13-14)'
+                , 'Бак для медной пульпы ЦВОЦ'
+                , 'Мешалка оборотного кека 1'
+                , 'Бак-сборник бедно-кадмиевого раствора'
+                , 'Бункер после Сг-13'
+                , 'Бак НСПС (нижний слив промывочных сгустителей)'
+                , 'Баки ВСПС (верхний слив промывочных сгустителей)'
+                , 'Агитаторы Аг-в11 и Аг-в12'
+                , 'Бункера ВТВ (высокотемпературного выщелачивания)'
+                , 'Бак верхнего слива бункеров ВТВ'
+                , 'Бак нижнего слива ВТВ']}
+        for plant_name in equipment:
+            for eq in equipment[plant_name]:
+                EquipmentDict.objects.create(name=eq, plant=Plant.objects.get(name=plant_name))
 
     @staticmethod
     def tasks_create():
         per_day_schedule, _ = IntervalSchedule.objects.get_or_create(
-            every = 1,
-            period = IntervalSchedule.DAYS
+            every=1,
+            period=IntervalSchedule.DAYS
         )
         per_hour_schedule, _ = IntervalSchedule.objects.get_or_create(
-            every = 1,
-            period = IntervalSchedule.HOURS
+            every=1,
+            period=IntervalSchedule.HOURS
         )
         shift_end_schedule, _ = CrontabSchedule.objects.get_or_create(
-            minute = '59',
-            hour = '1,7,13,15,19,23',
+            minute='59',
+            hour='1,7,13,15,19,23',
         )
-        every_year_schedule, _= CrontabSchedule.objects.get_or_create(
+        every_year_schedule, _ = CrontabSchedule.objects.get_or_create(
             minute='0',
             hour='0',
             day_of_week='*',
             day_of_month='1',
             month_of_year='*',
-         )
+        )
 
         PeriodicTask.objects.create(
-            interval = per_day_schedule,
-            name = 'Creating shifts',
-            task = 'e_logs.common.all_journals_app.tasks.create_shifts',
+            interval=per_day_schedule,
+            name='Creating shifts',
+            task='e_logs.common.all_journals_app.tasks.create_shifts',
         )
         PeriodicTask.objects.create(
             interval=per_day_schedule,
@@ -431,7 +627,6 @@ class DatabaseFiller:
                 journal.verbose_name = verbose_name
                 journal.save()
 
-
     @staticmethod
     def create_tables_verbose_names():
         tables_verbose_names = {
@@ -441,20 +636,20 @@ class DatabaseFiller:
                                        'small': 'Учёт контейнеров', 'upper': 'Состав смены'},
                 'technological_tasks': {'main': 'Технологические задания'},
                 'reports_furnace_area': {'main': 'Печной участок',
-                                         'udel':'Удельная производительность печей',
-                                         'area_class_cinder':'Участок классификаци огарка',
-                                         'electrofilter':'Участок электрофильтров',
+                                         'udel': 'Удельная производительность печей',
+                                         'area_class_cinder': 'Участок классификаци огарка',
+                                         'electrofilter': 'Участок электрофильтров',
                                          'warehouse_concentrates': 'Склад концентратов',
-                                         'airmachines':'Участок воздуходувных машин',
-                                         'fences':'Ограждения',
-                                         'concentration_by_time':'Концентрация по времени',
-                                         'places_of_sampling':'Места отбора пробы',
-                                         'corrective_actions':'Корректирующие действия',
-                                         'self_protection':'Самоохрана', 'worth':'Мат. Тех. Ценности'},
+                                         'airmachines': 'Участок воздуходувных машин',
+                                         'fences': 'Ограждения',
+                                         'concentration_by_time': 'Концентрация по времени',
+                                         'places_of_sampling': 'Места отбора пробы',
+                                         'corrective_actions': 'Корректирующие действия',
+                                         'self_protection': 'Самоохрана', 'worth': 'Мат. Тех. Ценности'},
                 'furnace_repair': {'repair': 'Ремонты по Обжиговому цеху'},
                 'report_income_outcome_schieht': {'main': '', 'summary': 'НЗП и склады',
-                                    'supply_of_zinc_concentrates': 'Поставка цинковых концентратов',
-                                    'year_plan_schieht': 'Расчет годового плана шихты'},
+                                                  'supply_of_zinc_concentrates': 'Поставка цинковых концентратов',
+                                                  'year_plan_schieht': 'Расчет годового плана шихты'},
                 'metals_compute': {'avg_month': 'Среднее содержание за месяц',
                                    'cinder_conc': 'Огарок', 'concentrat': 'Концентрат',
                                    'contain_zn': 'Содержание в', 'gof': 'ГОФ таблица',
@@ -502,7 +697,6 @@ class DatabaseFiller:
                     t.verbose_name = table_title
                     t.save()
 
-
     @staticmethod
     def create_dashboard_sample_data():
         journal = Journal.objects.get(name="concentrate_report")
@@ -516,7 +710,7 @@ class DatabaseFiller:
         for group_id in group_ids:
             for field_name in field_names:
                 cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
-                    field_name=field_name, index=0)
+                                                        field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
 
@@ -539,17 +733,14 @@ class DatabaseFiller:
         for group_id in group_ids:
             for field_name in field_names:
                 cell, created = Cell.get_or_create_cell(group_id=group_id, table_name=table_name,
-                    field_name=field_name, index=0)
+                                                        field_name=field_name, index=0)
                 cell.value = str(random.randint(0, 100))
                 cell.save()
-
-
 
     @staticmethod
     def create_fields_descriptions():
         stdout_logger.info('Adding fields info settings...')
         fill_fields_descriptions()
-
 
     @staticmethod
     def clean_database():
