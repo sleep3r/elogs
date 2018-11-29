@@ -8,8 +8,7 @@ from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.common.all_journals_app.models import Field, Shift, Journal, Plant
 from e_logs.common.messages_app.models import Message
 from e_logs.core.models import Setting
-from e_logs.common.all_journals_app.tasks import end_of_limited_access, \
-    send_deferred_message
+from e_logs.common.all_journals_app.tasks import end_of_limited_access, send_deferred_message
 from e_logs.core.utils.webutils import get_or_none
 
 

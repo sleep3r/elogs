@@ -1,4 +1,3 @@
-import json
 from datetime import time, datetime, timedelta
 
 from cacheops import cached_as, cached
@@ -112,15 +111,6 @@ class Field(models.Model):
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
                                related_name='comment_fields')
 
-    # @cached_property
-    # def type(self):
-    #     return self.settings.get(name='field_description').val()['type']
-    #
-    # @cached_property
-    # @default_if_error('')
-    # def units(self):
-    #     return self.settings.get(name='field_description').val()['units']
-
     @cached_property
     @default_if_error([])
     def options(self):
@@ -189,7 +179,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
-        from e_logs.core.models import Setting  # avoiding import loo
+        from e_logs.core.models import Setting  # avoiding import loop
 
         @cached_as(Setting.objects.filter(name='number_of_shifts'))
         def cached_number_of_shifts(obj):
@@ -244,6 +234,7 @@ class Month(CellGroup):
     @property
     def date(self):
         return datetime(self.year_date, self.month_order, 1)
+
 
 class Cell(TimeStampedModel):
     """Specific cell in some table."""
