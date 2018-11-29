@@ -126,7 +126,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
                 'index': cell.index
             } if cell else None,
             "text": text,
-            "created": comment.created,
+            "created": comment.created.isoformat(),
             "sendee": user_to_response(),
         }
 
