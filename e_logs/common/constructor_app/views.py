@@ -19,6 +19,7 @@ import hashlib
 import os
 
 from e_logs.core.models import Setting
+from e_logs.core.utils.loggers import err_logger
 from e_logs.core.utils.webutils import current_date, date_range
 
 
@@ -55,20 +56,25 @@ class ConstructorUploadAPI(View):
         if not hash or not plant:
             return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
-        journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
-        new_journal = journal.create()
         try:
-            os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
-        except:
-            pass
-        shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
+            journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
+            new_journal = journal.create()
+            try:
+                os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
+            except:
+                pass
+            shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
 
-        self.add_groups(new_journal, number_of_shifts)
+            self.add_groups(new_journal, number_of_shifts)
 
-        git = VersionControl()
-        git.add(journal)
+            git = VersionControl()
+            git.add(journal)
 
-        return JsonResponse({"status": 1})
+            return JsonResponse({"status": 1})
+        except Exception as ex:
+            print(ex)
+            err_logger.error(ex)
+            return JsonResponse({"status": 2, "message": ex})
 
     @staticmethod
     def add_groups(journal, shifts_num):
