@@ -56,6 +56,7 @@ class GroupAPI(LoginRequired, View):
         res = {
             "id": qs.id,
             "plant": {"name": plant.name},
+            "version":qs.version,
             "mode": get_page_mode(user=user, plant=plant),
             "field_constraints_modes": self.constraint_modes_serializer(qs),
             "journal": self.journal_serializer(qs),

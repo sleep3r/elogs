@@ -1,7 +1,10 @@
+import json
 from collections import defaultdict
 from datetime import timedelta
+from urllib.parse import parse_qs
 
 import environ
+import json5
 
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
@@ -50,8 +53,13 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
 
 
 def get_table_template(request, plant_name, journal_name, table_name):
-    with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
-        return HttpResponse(table_file.read())
+    version =  parse_qs(request.GET.urlencode())['v'][0]
+    with open(f'resources/journals/{plant_name}/{journal_name}/v{version}.jrn', 'r') as journal_file:
+        tables = json5.load(journal_file)['tables']
+        for table in tables:
+            if table['name'] == table_name:
+                return HttpResponse(table['html'])
+        return HttpResponse('Ошибка при загрузке таблицы!')
 
 
 class GetGroups(LoginRequired, View):
