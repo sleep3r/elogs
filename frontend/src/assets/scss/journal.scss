@@ -106,6 +106,10 @@
             height: fit-content;
             width: 200px;
 
+            .search.dropdown:hover {
+                border-color: rgba(34, 36, 38, 0.15);
+            }
+
             input {
                 cursor: pointer;
                 outline: 0;
