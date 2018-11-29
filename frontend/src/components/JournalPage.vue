@@ -25,7 +25,7 @@
                 <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                 <journal-panel></journal-panel>
             </div>
-            <div class="journal-tables">
+            <div class="journal-tables" :style="{paddingTop: paddingTop}">
                 <template v-if="$store.getters['journalState/loaded']">
                     <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
                 </template>
@@ -52,7 +52,8 @@
         data () {
             return {
                 shiftMessage: '',
-                now: new Date()
+                now: new Date(),
+                paddingTop: '150px'
             }
         },
         watch: {
@@ -193,7 +194,7 @@
             }
         },
         updated () {
-            $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)}px`})
+            setTimeout(() => this.paddingTop = ($('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)) + 'px', 0)
         },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
@@ -210,8 +211,8 @@
             }
             else if (this.$route.params.plant && this.$route.params.journal) {
                 this.$store.dispatch('journalState/loadJournal', {
-                'plantName': this.$route.params.plant,
-                'journalName': this.$route.params.journal
+                    'plantName': this.$route.params.plant,
+                    'journalName': this.$route.params.journal
                 })
                     .then((id) => {
                         this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)

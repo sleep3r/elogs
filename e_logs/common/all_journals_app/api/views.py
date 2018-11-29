@@ -211,6 +211,7 @@ class GroupAPI(LoginRequired, View):
         res = {field.name: {
             "id": field.id,
             "name": field.name,
+            "title": field.verbose_name,
             "formula": field.formula,
             "field_description": {"type": field.type,
                                   "units": field.units},

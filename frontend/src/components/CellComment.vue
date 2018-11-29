@@ -5,8 +5,8 @@
                  v-bind:style="{opacity: preshow ? '0' : '1', left: x + 'px', top: y + 'px'}">
                 <div class="header">
                     <div class="btn-close" @click="closePopover">&times;</div>
-                    <div class="title">{{tableName}}</div>
-                    <div class="subtitle">{{fieldName}}</div>
+                    <div class="title">{{tableVerboseName}}</div>
+                    <div class="subtitle">{{fieldVerboseName}}</div>
                     <div class="dash">
                         <!--<div class="item user-name"><i class="material-icons">account_circle</i><span>&nbsp;{{ responsible ? responsible : '&mdash;' }}</span></div>-->
                         <!--<div class="item time"><i class="material-icons">watch_later</i><span>&nbsp;{{ cellCreatedTime ? cellCreatedTime : '&mdash;' }}</span></div>-->
@@ -79,6 +79,12 @@
             }
         },
         computed: {
+            tableVerboseName() {
+                return this.$store.getters['journalState/tableVerboseName'](this.tableName);
+            },
+            fieldVerboseName()  {
+                return this.$store.getters['journalState/fieldVerboseName'](this.tableName, this.fieldName);
+            },
             currentDate: function () {
                 return this.cellCreatedDate;
             },
