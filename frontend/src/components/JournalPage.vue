@@ -3,9 +3,9 @@
         <template v-if="$store.getters['journalState/loaded']">
             <div class="journal_title_container">
                 <div class="exp-time" :style="{'background-color': canEdit ? '#02a202' : '#d80000'}"><span> {{ shiftMessage }} </span></div>
-                <div style="width: 100%; padding: 20px;">
+                <div style="width: 100%; padding: 4px 15px;">
                     <div class="journal-title">
-                        <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+                        <h5 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h5>
                         <div class="actions-icons">
                             <i class="fas fa-file-excel" @click="download_xlsx()" data-toggle="tooltip" title="Скачать xlsx"></i>
                             <!-- <i
@@ -226,5 +226,9 @@
 </script>
 
 <style scoped>
+
+.journal_title {
+    margin-bottom: 0;
+}
 
 </style>
