@@ -116,8 +116,11 @@ const journalState = {
             }
         },
         fieldVerboseName: (state) => (tableName, fieldName) => {
-            if (state.loaded) {
-                return fieldName;
+            if (state.loaded
+                && state.journalInfo.journal.tables[tableName].fields[fieldName] !== void 0
+                && Object.keys(state.journalInfo.journal.tables[tableName].fields[fieldName]).indexOf('title')
+                ) {
+                    return state.journalInfo.journal.tables[tableName].fields[fieldName].title;
             } else {
                 return '';
             }
@@ -143,7 +146,7 @@ const journalState = {
                         table: tableName,
                         field: fieldName,
                         index: rowIndex,
-                        shift: 0, 
+                        shift: 0,
                         isTableIndexed: false,
                     })), 0) // Timout for sequential functions execution
                     return {
