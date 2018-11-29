@@ -50,14 +50,18 @@ class ConstructorUploadAPI(View):
         hash = request.POST.get('hash', None)
         plant = request.POST.get('plant', None)
         type = request.POST.get('type', None)
-        number_of_shifts = request.POST.get('number_of_shifts', 2)
+        number_of_shifts = int(request.POST.get('number_of_shifts', 2))
 
         if not hash or not plant:
             return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
         journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
         new_journal = journal.create()
-        shutil.move(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
+        try:
+            os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
+        except:
+            pass
+        shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
 
         self.add_groups(new_journal, number_of_shifts)
 
