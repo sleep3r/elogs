@@ -27,8 +27,7 @@ urlpatterns = [
     path('api/bl/', include('e_logs.business_logic.modes.urls')),
     path('api/bl/', include('e_logs.business_logic.blank_shifts.urls')),
     path('api/bl/dicts/', include('e_logs.business_logic.dictionaries.urls')),
-    path('api/templates/tables/<str:plant_name>/<str:journal_name>/<str:table_name>/',
-         get_table_template),
+    path('api/templates/tables/', get_table_template),
     path('api/constructor/', include('e_logs.common.constructor_app.urls')),
     path('api/<str:plant_name>/<str:journal_name>/get_groups/', get_groups),
 ]

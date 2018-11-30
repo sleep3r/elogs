@@ -27,7 +27,7 @@ export function getValue(params) {
     try {
         console.log("function this", this)
         console.log(params, params.length)
-        console.log(typeof(params))
+        console.log(typeof (params))
         var params_num = this.isTableIndexed ? 5 : 4;
         while (params.length < params_num) {
             params.splice(0, 0, false)
@@ -37,8 +37,8 @@ export function getValue(params) {
         var shift_delta = params[1] ? params[1] : this.shift;
         const table = params[2] ? params[2] : this.table;
         const field = params[3] ? params[3] : this.field;
-        const index = this.isTableIndexed ? 0 : params[4] ? params[4]: this.index;
-        
+        const index = this.isTableIndexed ? 0 : params[4] ? params[4] : this.index;
+
         shift_delta = -Number(shift_delta);
         console.log(params)
         console.log(journal, table, field, index, shift_delta)
@@ -154,28 +154,27 @@ function containsObject(obj, list) {
 
 // true when formula creates cycle
 function checkFormula(formula, cell) {
-    var cells = getCellsFromFormula(formula)
+    var cells = getCellsFromFormula(formula);
     if (containsObject(cell, cells)) {
-        return true
+        return true;
     } else {
-        values = variables.map(getCellValue)
-        results = []
+        values = variables.map(getCellValue);
+        results = [];
         for (var value in values) {
             if (!isNumeric(value)) {
-                results.push(checkFormula(value, cell))
+                results.push(checkFormula(value, cell));
             } else {
-                results.push(false)
+                results.push(false);
             }
         }
         let sum = results.reduce((a, b) => {
-            return a + b
-        }, 0)
+            return a + b;
+        }, 0);
         if (sum > 0) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     }
 
 }
-
