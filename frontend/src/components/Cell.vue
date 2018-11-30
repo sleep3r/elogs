@@ -210,8 +210,8 @@
                 return this.highlight ? '2px solid #666666' : ''
             },
             critical: function () {
-                return (this.minValue && (parseInt(this.value) < parseInt(this.minValue))) ||
-                    (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)));
+                return ((this.type === 'number') && ((this.minValue && parseInt(this.value) < parseInt(this.minValue)) ||
+                     (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)))))
             },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
