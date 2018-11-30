@@ -52,7 +52,7 @@
                "type" : "number",
                "name" : "t_sm_nesootv",
                "units" : "ᵒC",
-               "title" : "t Несоотв"
+               "title" : "Температура  Несоотв"
             },
             {
                "name" : "q_nesootv",
@@ -101,7 +101,7 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "t_sm_rosp",
+               "title" : "Температура _sm_rosp",
                "type" : "number",
                "name" : "t_sm_rosp"
             },
@@ -119,13 +119,13 @@
             },
             {
                "units" : "№",
-               "title" : "cooler1",
+               "title" : "Градирня 1 ",
                "type" : "number",
                "name" : "cooler1",
                "formula" : ""
             },
             {
-               "title" : "cooler2",
+               "title" : "Градирня 2 ",
                "units" : "№",
                "name" : "cooler2",
                "type" : "number",
@@ -133,7 +133,7 @@
             },
             {
                "units" : "№",
-               "title" : "cooler3",
+               "title" : "Градирня 3 ",
                "type" : "number",
                "name" : "cooler3",
                "formula" : ""
@@ -141,7 +141,7 @@
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler4",
+               "title" : "Градирня 4 ",
                "type" : "number",
                "name" : "cooler4"
             },
@@ -150,11 +150,11 @@
                "type" : "number",
                "name" : "cooler5",
                "units" : "№",
-               "title" : "cooler5"
+               "title" : "Градирня 5 "
             },
             {
                "units" : "№",
-               "title" : "cooler6",
+               "title" : "Градирня 6 ",
                "type" : "number",
                "name" : "cooler6",
                "formula" : ""
@@ -164,10 +164,10 @@
                "type" : "number",
                "name" : "cooler7",
                "units" : "№",
-               "title" : "cooler7"
+               "title" : "Градирня 7 "
             },
             {
-               "title" : "cooler8",
+               "title" : "Градирня 8 ",
                "units" : "№",
                "name" : "cooler8",
                "type" : "number",
@@ -198,7 +198,7 @@
                "type" : "number",
                "name" : "t_otr_rosp",
                "units" : "",
-               "title" : "t_otr_rosp",
+               "title" : "Температура _ отр. rosp",
                "formula" : ""
             },
             {
@@ -238,14 +238,14 @@
             },
             {
                "formula" : "",
-               "title" : "t_n",
+               "title" : "Температура n",
                "units" : "ᵒC",
                "name" : "t_n",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "t_gr",
+               "title" : "Температура gr",
                "units" : "ᵒC",
                "name" : "t_gr",
                "type" : "number"
@@ -490,7 +490,7 @@
                "type" : "number",
                "name" : "t_otr_rosp",
                "units" : "",
-               "title" : "t_otr_rosp"
+               "title" : "Температура  отр. rosp"
             },
             {
                "name" : "cu",
@@ -652,7 +652,7 @@
                "formula" : ""
             },
             {
-               "title" : "t_sm несоотв",
+               "title" : "Температура sm несоотв",
                "units" : "ᵒC",
                "name" : "t_sm_nesootv",
                "type" : "number",
@@ -736,7 +736,7 @@
                "title" : "Градирня 2"
             },
             {
-               "title" : "cooler3",
+               "title" : "Градирня 3 ",
                "units" : "№",
                "name" : "cooler3",
                "type" : "number",
@@ -745,20 +745,20 @@
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler4",
+               "title" : "Градирня 4 ",
                "type" : "number",
                "name" : "cooler4"
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler5",
+               "title" : "Градирня 5 ",
                "type" : "number",
                "name" : "cooler5"
             },
             {
                "units" : "№",
-               "title" : "cooler6",
+               "title" : "Градирня 6 ",
                "type" : "number",
                "name" : "cooler6",
                "formula" : ""
@@ -768,12 +768,12 @@
                "type" : "number",
                "name" : "cooler7",
                "units" : "№",
-               "title" : "cooler7"
+               "title" : "Градирня 7 "
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler8",
+               "title" : "Градирня 8 ",
                "type" : "number",
                "name" : "cooler8"
             },
@@ -801,7 +801,7 @@
             {
                "name" : "t_otr_rosp",
                "type" : "number",
-               "title" : "t_otr_rosp",
+               "title" : "Температура  отр. rosp",
                "units" : "",
                "formula" : ""
             },
@@ -844,13 +844,13 @@
                "type" : "number",
                "name" : "t_n",
                "units" : "ᵒC",
-               "title" : "t_n",
+               "title" : "Температура ",
                "formula" : ""
             },
             {
                "name" : "t_gr",
                "type" : "number",
-               "title" : "t_gr",
+               "title" : "Температура ",
                "units" : "ᵒC",
                "formula" : ""
             },
@@ -1285,7 +1285,7 @@
             {
                "type" : "",
                "name" : "zn7",
-               "title" : "zn7",
+               "title" : "Сутки +/-",
                "formula" : ""
             }
          ],
