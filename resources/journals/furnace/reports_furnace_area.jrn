@@ -507,7 +507,7 @@
             {
                "title" : "ГК-30М  Концентрация SO<sub>2</sub>",
                "units" : "%",
-               "name" : "ГК-30М Концентрация SO<sub>2</sub> ",
+               "name" : "M_s1_con",
                "type" : "number",
                "formula" : ""
             },
@@ -515,7 +515,7 @@
                "formula" : "",
                "title" : "ГК-30М  Концентрация SO<sub>2</sub> ",
                "units" : "%",
-               "name" : "ГК-30М Концентрация SO<sub>2</sub> ",
+               "name" : "M_s2_con",
                "type" : "number"
             },
             {
