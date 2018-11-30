@@ -3,16 +3,15 @@
         <div class="shift-container">
 
             <div v-if="journalType === 'shift'" class="date-selector" data-toggle="tooltip" title="Выберите дату и смену">
-                <input id="shift_field"
-                    type="text"
-                    :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
+                <button :class="['btn-white', 'btn-light', 'btn--narrow']"
                     @click="() => loadShifts('calendar')"
                     class="date-selector__date"
-                    placeholder="Выберите дату..."
                     data-toggle="modal"
                     data-target="#FullCalendarModal"
-                    style="font-size: 16px; color: rgba(0, 0, 0, 0.87);"
-                >
+                    style="font-size: 16px;"
+                          >
+                    {{shiftDate + ', ' + shiftOrder + '-ая смена'}}
+                </button>
             </div>
             <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip" title="Выберите год" @click="loadShifts">
                 <basic-select
@@ -62,8 +61,8 @@
                     <span v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
                          class="constraint_modes_button"
                     >
-                        <button :class="{ 'btn--active':
-                                mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}"
+                        <button :class="[ {'btn--active': mode=='edit_constraints'},
+                         'dropdown-toggle', 'btn', 'btn--narrow']"
                                 type="button"
                                 id="dropdownMenuButton"
                                 data-toggle="dropdown"
@@ -137,14 +136,14 @@
                     </span>
 
                     <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
-                    <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                    <button :class="['btn', 'btn-edit', 'btn--narrow', { 'btn--active': mode==='edit' }]"
                             @click="changeMode('edit')">
                         Редактирование
                     </button>
                     </template>
 
                     <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
-                        <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                        <button :class="['btn', 'btn-validate', 'btn--narrow', { 'btn--active': mode==='validate' }]"
                                 @click="changeMode('validate')">
                             Валидация
                         </button>
@@ -154,7 +153,7 @@
         </div>
         <div v-if="journalType === 'shift'" class="responsibles">
           Ответственные за смену:
-          <label v-for="employee of responsibles">
+          <label v-for="employee of responsibles" style="margin-bottom: 0;">
             <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->
             {{ Object.values(employee)[0] }} &emsp;
           </label>
@@ -437,5 +436,10 @@
     }
 </script>
 <style>
-.big-checkbox {width: 16px; height: 16px;}
+    .big-checkbox {width: 16px; height: 16px;}
+    .btn--narrow.btn--narrow {
+        padding: 0 12px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 </style>

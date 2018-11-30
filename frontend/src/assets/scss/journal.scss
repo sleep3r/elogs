@@ -93,7 +93,7 @@
 }
 
 .journal__panel {
-    margin-top: 10px;
+    margin-top: 5px;
 
     .shift-container {
         display: flex;
@@ -149,12 +149,26 @@
     border-radius: 5px;
     background-color: $color-main;
     color: white;
-    height: 38px;
     cursor: pointer;
 
     &:hover {
         background-color: darken($color-main, 15);
         color: white;
+    }
+
+}
+
+.btn-white {
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border: #1E252B solid 1px;
+
+    &:hover {
+        background-color: darken(white, 5);
+        color: black;
+        border: #1E252B solid 1px;
     }
 
 }
