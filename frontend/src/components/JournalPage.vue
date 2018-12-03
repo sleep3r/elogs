@@ -8,14 +8,14 @@
                         <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                         <div class="actions-icons">
                             <i class="fas fa-file-excel" @click="download_xlsx()" data-toggle="tooltip" title="Скачать xlsx"></i>
-                            <!-- <i
+                            <i
                                 class="fas fa-edit"
                                 v-if="$store.getters['userState/isBoss'] || $store.getters['userState/isSuperuser']"
                                 @click="openConstructor"
                                 data-toggle="tooltip"
                                 style="margin-left: 18px;"
                                 title="Открыть в конструкторе"
-                            ></i> -->
+                            ></i>
                         </div>
                     </div>
                     <journal-panel></journal-panel>

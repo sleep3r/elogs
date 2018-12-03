@@ -52,7 +52,7 @@
                 return createElement({template: "<div class=\"journal-table\" id=\"table_id_" + this.name + "\">" +
                                                     '<div class="table__title">' +
                                                         '<span class="table__title__text">' + this.title + '</span>' +
-                                                        // '<button v-if="userIsBoss || $store.getters[`userState/isSuperuser`]" class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' +
+                                                        '<button v-if="userIsBoss || $store.getters[`userState/isSuperuser`]" class="btn btn-outline" @click="openConstructor">' + 'Открыть в конструкторе' + '</button>' +
                                                     '</div>' +
                                                     this.template +
                                                     "<table-comment table-name=\"" + this.name + "\"></table-comment>" +
