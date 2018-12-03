@@ -48,9 +48,20 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
-def get_table_template(request, plant_name, journal_name, table_name):
+def get_table_template(request):
+    plant_name = request.GET.get("plant_name", None)
+    journal_name = request.GET.get("journal_name", None)
+    table_name = request.GET.get("table_name", None)
+
+    if plant_name is None:
+        plant_name = Journal.objects.get(name=journal_name).plant.name
+
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
+
+# def get_table_template(request, journal_name, table_name):
+#     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
+#         return HttpResponse(table_file.read())
 
 class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):
