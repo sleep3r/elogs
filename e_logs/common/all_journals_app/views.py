@@ -95,7 +95,7 @@ class GetGroups(LoginRequired, View):
         to_date = current_date()
 
         if journal.type == 'shift':
-            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order').\
+            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order'). \
                 filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal).cache()
             shifts_dict = defaultdict(list)
 
@@ -122,9 +122,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'year':
-            years = Year.objects.select_related('journal', 'journal__plant').only('year_date').\
-                                 filter(journal=journal, year_date__lte=current_date().year).\
-                                 cache().order_by('-year_date')
+            years = Year.objects.select_related('journal', 'journal__plant').only('year_date'). \
+                filter(journal=journal, year_date__lte=current_date().year). \
+                cache().order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -150,9 +150,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'month':
-            months = Month.objects.select_related('journal', 'journal__plant').\
-                                   filter(journal=journal, year_date__lte=current_date().year).cache()\
-                                   .order_by('-year_date')
+            months = Month.objects.select_related('journal', 'journal__plant'). \
+                filter(journal=journal, year_date__lte=current_date().year).cache() \
+                .order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:
