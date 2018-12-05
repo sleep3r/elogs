@@ -9,29 +9,29 @@
                "type" : "datalist",
                "name" : "equipment",
                "options" : [],
-               "title" : "equipment",
+               "title" : "Наименование оборудования",
                "formula" : ""
             },
             {
                "name" : "date_view",
                "type" : "date",
-               "title" : "date_view",
+               "title" : "Дата осмотра",
                "formula" : ""
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "name_equipment",
-               "title" : "name_equipment"
+               "title" : "Наименование узла в характеристика дефектов"
             },
             {
                "name" : "date_finish",
                "type" : "date",
-               "title" : "date_finish",
+               "title" : "Дата выполненных работ",
                "formula" : ""
             },
             {
-               "title" : "volume_text",
+               "title" : "Объём выполненных работ по устранению дефектов",
                "name" : "volume_text",
                "type" : "text",
                "formula" : ""
@@ -39,7 +39,7 @@
             {
                "name" : "fact_time",
                "type" : "text",
-               "title" : "fact_time",
+               "title" : "Фактический срок службы узла, детали",
                "formula" : ""
             }
          ],

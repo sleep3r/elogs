@@ -7,6 +7,11 @@ set -o nounset
 #export CELERY_BROKER_URL="${REDIS_URL}"
 #export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
 
+cd /srv
+python3.6 manage.py collectstatic --noinput
+mkdir /srv/frontend/dist/static
+cp -r /srv/staticfiles/* /srv/frontend/dist/static/
+
 python3.6 manage.py makemigrations --merge
 python3.6 manage.py migrate        # Apply database migrations
 python3.6 manage.py demo_db --recreate

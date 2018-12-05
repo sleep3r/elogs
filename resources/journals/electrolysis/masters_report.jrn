@@ -7,7 +7,7 @@
          "fields" : [
             {
                "units" : "",
-               "title" : "h2so4_fact",
+               "title" : "H2SO4 факт 1-2 серия",
                "type" : "number",
                "name" : "h2so4_fact",
                "formula" : ""
@@ -16,25 +16,25 @@
                "type" : "number",
                "name" : "zn_fact",
                "units" : "",
-               "title" : "zn_fact",
+               "title": "zn факт",
                "formula" : ""
             },
             {
                "units" : "ᵒC",
-               "title" : "t_sm_fact",
+               "title": "t_sm факт",
                "type" : "number",
                "name" : "t_sm_fact",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "q_fact",
+               "title": "q факт",
                "type" : "number",
                "name" : "q_fact",
                "formula" : ""
             },
             {
-               "title" : "h2so4_nesootv",
+               "title": "h2so4 несоотв",
                "units" : "",
                "name" : "h2so4_nesootv",
                "type" : "number",
@@ -43,7 +43,7 @@
             {
                "name" : "zn_nesootv",
                "type" : "number",
-               "title" : "zn_nesootv",
+               "title" : "Zn Несоотв",
                "units" : "",
                "formula" : ""
             },
@@ -52,23 +52,23 @@
                "type" : "number",
                "name" : "t_sm_nesootv",
                "units" : "ᵒC",
-               "title" : "t_sm_nesootv"
+               "title" : "Температура  Несоотв"
             },
             {
                "name" : "q_nesootv",
                "type" : "number",
-               "title" : "q_nesootv",
+               "title" : "Q Несоотв",
                "units" : "",
                "formula" : ""
             },
             {
-               "title" : "h2so4_mery",
+               "title" : "h2so4 принятые меры",
                "name" : "h2so4_mery",
                "type" : "text",
                "formula" : ""
             },
             {
-               "title" : "zn_mery",
+               "title": "zn принятые меры",
                "name" : "zn_mery",
                "type" : "text",
                "formula" : ""
@@ -78,10 +78,10 @@
                "type" : "number",
                "name" : "t_sm_mery",
                "units" : "",
-               "title" : "t_sm_mery"
+               "title": "t_sm принятые меры"
             },
             {
-               "title" : "q_mery",
+               "title": "q принятые меры",
                "name" : "q_mery",
                "type" : "text",
                "formula" : ""
@@ -101,7 +101,7 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "t_sm_rosp",
+               "title" : "Температура _sm_rosp",
                "type" : "number",
                "name" : "t_sm_rosp"
             },
@@ -119,13 +119,13 @@
             },
             {
                "units" : "№",
-               "title" : "cooler1",
+               "title" : "Градирня 1 ",
                "type" : "number",
                "name" : "cooler1",
                "formula" : ""
             },
             {
-               "title" : "cooler2",
+               "title" : "Градирня 2 ",
                "units" : "№",
                "name" : "cooler2",
                "type" : "number",
@@ -133,7 +133,7 @@
             },
             {
                "units" : "№",
-               "title" : "cooler3",
+               "title" : "Градирня 3 ",
                "type" : "number",
                "name" : "cooler3",
                "formula" : ""
@@ -141,7 +141,7 @@
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler4",
+               "title" : "Градирня 4 ",
                "type" : "number",
                "name" : "cooler4"
             },
@@ -150,11 +150,11 @@
                "type" : "number",
                "name" : "cooler5",
                "units" : "№",
-               "title" : "cooler5"
+               "title" : "Градирня 5 "
             },
             {
                "units" : "№",
-               "title" : "cooler6",
+               "title" : "Градирня 6 ",
                "type" : "number",
                "name" : "cooler6",
                "formula" : ""
@@ -164,10 +164,10 @@
                "type" : "number",
                "name" : "cooler7",
                "units" : "№",
-               "title" : "cooler7"
+               "title" : "Градирня 7 "
             },
             {
-               "title" : "cooler8",
+               "title" : "Градирня 8 ",
                "units" : "№",
                "name" : "cooler8",
                "type" : "number",
@@ -175,7 +175,7 @@
             },
             {
                "units" : "ᵒC",
-               "title" : "t_otr_fact",
+               "title": "t_otr факт",
                "type" : "number",
                "name" : "t_otr_fact",
                "formula" : ""
@@ -183,7 +183,7 @@
             {
                "formula" : "",
                "units" : "ᵒC",
-               "title" : "t_otr_nesootv",
+               "title": "t_otr несоотв",
                "type" : "number",
                "name" : "t_otr_nesootv"
             },
@@ -191,14 +191,14 @@
                "formula" : "",
                "name" : "t_otr_mery",
                "type" : "number",
-               "title" : "t_otr_mery",
+               "title": "t_otr принятые меры",
                "units" : ""
             },
             {
                "type" : "number",
                "name" : "t_otr_rosp",
                "units" : "",
-               "title" : "t_otr_rosp",
+               "title" : "Температура _ отр. rosp",
                "formula" : ""
             },
             {
@@ -238,14 +238,14 @@
             },
             {
                "formula" : "",
-               "title" : "t_n",
+               "title" : "Температура n",
                "units" : "ᵒC",
                "name" : "t_n",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "t_gr",
+               "title" : "Температура gr",
                "units" : "ᵒC",
                "name" : "t_gr",
                "type" : "number"
@@ -326,18 +326,18 @@
                "type" : "number",
                "name" : "h2so4_fact",
                "units" : "",
-               "title" : "h2so4_fact"
+               "title" : "H2SO4 Факт"
             },
             {
                "name" : "zn_fact",
                "type" : "number",
-               "title" : "zn_fact",
+               "title" : "Zn Факт",
                "units" : "",
                "formula" : ""
             },
             {
                "units" : "ᵒC",
-               "title" : "t_sm_fact",
+               "title" : "t см Факт",
                "type" : "number",
                "name" : "t_sm_fact",
                "formula" : ""
@@ -346,18 +346,18 @@
                "type" : "number",
                "name" : "q_fact",
                "units" : "",
-               "title" : "q_fact",
+               "title" : "Q Факт",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "h2so4_nesootv",
+               "title" : "H2SO4 Несоотв",
                "units" : "",
                "name" : "h2so4_nesootv",
                "type" : "number"
             },
             {
-               "title" : "zn_nesootv",
+               "title" : "Zn Несоотв",
                "units" : "",
                "name" : "zn_nesootv",
                "type" : "number",
@@ -368,10 +368,10 @@
                "type" : "number",
                "name" : "t_sm_nesootv",
                "units" : "ᵒC",
-               "title" : "t_sm_nesootv"
+               "title" : "t Несоотв"
             },
             {
-               "title" : "q_nesootv",
+               "title" : "Q Несоотв",
                "units" : "",
                "name" : "q_nesootv",
                "type" : "number",
@@ -380,62 +380,37 @@
             {
                "name" : "h2so4_mery",
                "type" : "text",
-               "title" : "h2so4_mery",
+               "title" : "H2SO4 принятые меры",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "zn_mery",
+               "title" : "Zn принятые меры",
                "type" : "text",
                "name" : "zn_mery"
             },
             {
                "units" : "",
-               "title" : "t_sm_mery",
+               "title" : "t принятые меры",
                "type" : "number",
                "name" : "t_sm_mery",
                "formula" : ""
             },
             {
-               "title" : "q_mery",
+               "title" : "Q принятые меры",
                "name" : "q_mery",
                "type" : "text",
                "formula" : ""
             },
             {
-               "name" : "h2so4_rosp",
-               "type" : "text",
-               "title" : "h2so4_rosp",
-               "formula" : ""
-            },
-            {
-               "type" : "text",
-               "name" : "zn_rosp",
-               "title" : "zn_rosp",
-               "formula" : ""
-            },
-            {
-               "title" : "t_sm_rosp",
-               "units" : "",
-               "name" : "t_sm_rosp",
-               "type" : "number",
-               "formula" : ""
-            },
-            {
-               "formula" : "",
-               "title" : "q_rosp",
-               "name" : "q_rosp",
-               "type" : "text"
-            },
-            {
                "type" : "text",
                "name" : "gradirni",
-               "title" : "gradirni",
+               "title" : "Градирни",
                "formula" : ""
             },
             {
                "units" : "№",
-               "title" : "cooler1",
+               "title" : "Градирня 1",
                "type" : "number",
                "name" : "cooler1",
                "formula" : ""
@@ -444,18 +419,18 @@
                "type" : "number",
                "name" : "cooler2",
                "units" : "№",
-               "title" : "cooler2",
+               "title" : "Градирня 2",
                "formula" : ""
             },
             {
                "units" : "№",
-               "title" : "cooler3",
+               "title" : "Градирня 3",
                "type" : "number",
                "name" : "cooler3",
                "formula" : ""
             },
             {
-               "title" : "cooler4",
+               "title" : "Градирня 4",
                "units" : "№",
                "name" : "cooler4",
                "type" : "number",
@@ -463,7 +438,7 @@
             },
             {
                "formula" : "",
-               "title" : "cooler5",
+               "title" : "Градирня 5",
                "units" : "№",
                "name" : "cooler5",
                "type" : "number"
@@ -471,20 +446,20 @@
             {
                "name" : "cooler6",
                "type" : "number",
-               "title" : "cooler6",
+               "title" : "Градирня 6",
                "units" : "№",
                "formula" : ""
             },
             {
                "name" : "cooler7",
                "type" : "number",
-               "title" : "cooler7",
+               "title" : "Градирня 7",
                "units" : "№",
                "formula" : ""
             },
             {
                "units" : "№",
-               "title" : "cooler8",
+               "title" : "Градирня 8",
                "type" : "number",
                "name" : "cooler8",
                "formula" : ""
@@ -493,19 +468,19 @@
                "formula" : "",
                "name" : "t_otr_fact",
                "type" : "number",
-               "title" : "t_otr_fact",
+               "title" : "t отр факт ",
                "units" : "ᵒC"
             },
             {
                "name" : "t_otr_nesootv",
                "type" : "number",
-               "title" : "t_otr_nesootv",
+               "title" : "t отр несоотв",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "t_otr_mery",
+               "title" : "t отр принятые меры",
                "type" : "number",
                "name" : "t_otr_mery",
                "formula" : ""
@@ -515,12 +490,12 @@
                "type" : "number",
                "name" : "t_otr_rosp",
                "units" : "",
-               "title" : "t_otr_rosp"
+               "title" : "Температура  отр. rosp"
             },
             {
                "name" : "cu",
                "type" : "number",
-               "title" : "cu",
+               "title" : "Сu",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -528,18 +503,18 @@
                "formula" : "",
                "name" : "co",
                "type" : "number",
-               "title" : "co",
+               "title" : "Сo",
                "units" : "мг/л"
             },
             {
-               "title" : "sb",
+               "title" : "Sb",
                "units" : "мг/л",
                "name" : "sb",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "fe",
+               "title" : "Fe",
                "units" : "мг/л",
                "name" : "fe",
                "type" : "number",
@@ -547,7 +522,7 @@
             },
             {
                "formula" : "",
-               "title" : "cd",
+               "title" : "Cd",
                "units" : "мг/л",
                "name" : "cd",
                "type" : "number"
@@ -557,10 +532,10 @@
                "type" : "number",
                "name" : "t_n",
                "units" : "ᵒC",
-               "title" : "t_n"
+               "title" : "t n"
             },
             {
-               "title" : "t_gr",
+               "title" : "t<sub>гр</sub>",
                "units" : "ᵒC",
                "name" : "t_gr",
                "type" : "number",
@@ -623,7 +598,7 @@
                "formula" : ""
             },
             {
-               "title" : "__table__comment",
+               "title" : "Комментарий таблицы",
                "type" : "",
                "name" : "__table__comment",
                "formula" : ""
@@ -636,7 +611,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "h2so4_fact",
+               "title" : "H<sub>2</sub>SO<sub>4</sub> факт",
                "units" : "",
                "name" : "h2so4_fact",
                "type" : "number"
@@ -644,13 +619,13 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "zn_fact",
+               "title" : "Zn факт",
                "type" : "number",
                "name" : "zn_fact"
             },
             {
                "units" : "ᵒC",
-               "title" : "t_sm_fact",
+               "title" : "t<sub>см</sub> факт",
                "type" : "number",
                "name" : "t_sm_fact",
                "formula" : ""
@@ -658,7 +633,7 @@
             {
                "name" : "q_fact",
                "type" : "number",
-               "title" : "q_fact",
+               "title" : "Q факт",
                "units" : "",
                "formula" : ""
             },
@@ -667,17 +642,17 @@
                "type" : "number",
                "name" : "h2so4_nesootv",
                "units" : "",
-               "title" : "h2so4_nesootv"
+               "title" : "H2SO4 несоотв"
             },
             {
                "type" : "number",
                "name" : "zn_nesootv",
                "units" : "",
-               "title" : "zn_nesootv",
+               "title" : "zn несоотв",
                "formula" : ""
             },
             {
-               "title" : "t_sm_nesootv",
+               "title" : "Температура sm несоотв",
                "units" : "ᵒC",
                "name" : "t_sm_nesootv",
                "type" : "number",
@@ -685,7 +660,7 @@
             },
             {
                "units" : "",
-               "title" : "q_nesootv",
+               "title" : "Q несоотв",
                "type" : "number",
                "name" : "q_nesootv",
                "formula" : ""
@@ -693,18 +668,18 @@
             {
                "name" : "h2so4_mery",
                "type" : "text",
-               "title" : "h2so4_mery",
+               "title" : "h2so4 принятые меры",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "zn_mery",
+               "title" : "zn принятые меры",
                "type" : "text",
                "name" : "zn_mery"
             },
             {
                "formula" : "",
-               "title" : "t_sm_mery",
+               "title" : "t<sub>см</sub> принятые меры",
                "units" : "",
                "name" : "t_sm_mery",
                "type" : "number"
@@ -712,11 +687,11 @@
             {
                "name" : "q_mery",
                "type" : "text",
-               "title" : "q_mery",
+               "title" : "Q принятые меры",
                "formula" : ""
             },
             {
-               "title" : "h2so4_rosp",
+               "title" : "H2SO4",
                "type" : "text",
                "name" : "h2so4_rosp",
                "formula" : ""
@@ -725,11 +700,11 @@
                "formula" : "",
                "type" : "text",
                "name" : "zn_rosp",
-               "title" : "zn_rosp"
+               "title" : "Zn росп"
             },
             {
                "formula" : "",
-               "title" : "t_sm_rosp",
+               "title" : "t<sub>см</sub> росп",
                "units" : "",
                "name" : "t_sm_rosp",
                "type" : "number"
@@ -737,19 +712,19 @@
             {
                "type" : "text",
                "name" : "q_rosp",
-               "title" : "q_rosp",
+               "title" : "Q росп",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "gradirni",
                "type" : "text",
-               "title" : "gradirni"
+               "title" : "Градирни"
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler1",
+               "title" : "Градирня 1",
                "type" : "number",
                "name" : "cooler1"
             },
@@ -758,10 +733,10 @@
                "type" : "number",
                "name" : "cooler2",
                "units" : "№",
-               "title" : "cooler2"
+               "title" : "Градирня 2"
             },
             {
-               "title" : "cooler3",
+               "title" : "Градирня 3 ",
                "units" : "№",
                "name" : "cooler3",
                "type" : "number",
@@ -770,20 +745,20 @@
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler4",
+               "title" : "Градирня 4 ",
                "type" : "number",
                "name" : "cooler4"
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler5",
+               "title" : "Градирня 5 ",
                "type" : "number",
                "name" : "cooler5"
             },
             {
                "units" : "№",
-               "title" : "cooler6",
+               "title" : "Градирня 6 ",
                "type" : "number",
                "name" : "cooler6",
                "formula" : ""
@@ -793,17 +768,17 @@
                "type" : "number",
                "name" : "cooler7",
                "units" : "№",
-               "title" : "cooler7"
+               "title" : "Градирня 7 "
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "cooler8",
+               "title" : "Градирня 8 ",
                "type" : "number",
                "name" : "cooler8"
             },
             {
-               "title" : "t_otr_fact",
+               "title": "t_otr факт",
                "units" : "ᵒC",
                "name" : "t_otr_fact",
                "type" : "number",
@@ -813,20 +788,20 @@
                "type" : "number",
                "name" : "t_otr_nesootv",
                "units" : "ᵒC",
-               "title" : "t_otr_nesootv",
+               "title": "t_otr несоотв",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "t_otr_mery",
+               "title": "t_otr принятые меры",
                "type" : "number",
                "name" : "t_otr_mery"
             },
             {
                "name" : "t_otr_rosp",
                "type" : "number",
-               "title" : "t_otr_rosp",
+               "title" : "Температура  отр. rosp",
                "units" : "",
                "formula" : ""
             },
@@ -869,13 +844,13 @@
                "type" : "number",
                "name" : "t_n",
                "units" : "ᵒC",
-               "title" : "t_n",
+               "title" : "Температура ",
                "formula" : ""
             },
             {
                "name" : "t_gr",
                "type" : "number",
-               "title" : "t_gr",
+               "title" : "Температура ",
                "units" : "ᵒC",
                "formula" : ""
             },
@@ -950,27 +925,27 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "percent_Pb",
+               "title": "Процент Pb",
                "type" : "number",
                "name" : "percent_Pb"
             },
             {
                "formula" : "",
-               "title" : "percent_Cu",
+               "title": "Процент Cu",
                "units" : "%",
                "name" : "percent_Cu",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "percent_Fe",
+               "title": "Процент Fe",
                "units" : "%",
                "name" : "percent_Fe",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "percent_Cd",
+               "title": "Процент Cd",
                "units" : "%",
                "name" : "percent_Cd",
                "type" : "number"
@@ -979,15 +954,22 @@
                "formula" : "",
                "name" : "percent_Al",
                "type" : "number",
-               "title" : "percent_Al",
+               "title": "Процент Al",
                "units" : "%"
             },
             {
                "formula" : "",
                "units" : "%",
-               "title" : "percent_Zn",
+               "title": "Процент Zn",
                "type" : "number",
                "name" : "percent_Zn"
+            },
+            {
+               "formula" : "",
+               "units" : "",
+               "title": "Несоответ Pb",
+               "type" : "number",
+               "name" : "divergence_Pb"
             }
          ],
          "title" : "Параметры",
@@ -998,13 +980,13 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "col1",
+               "title" : "Отгрузка",
                "type" : "number",
-               "name" : "col1"
+               "name" : "shipment"
             },
             {
                "formula" : "",
-               "title" : "col2",
+               "title" : "На отгрузку",
                "units" : "",
                "name" : "col2",
                "type" : "number"
@@ -1013,20 +995,20 @@
                "formula" : "",
                "name" : "col3",
                "type" : "number",
-               "title" : "col3",
+               "title" : "Обвзяка",
                "units" : ""
             },
             {
                "name" : "col4",
                "type" : "number",
-               "title" : "col4",
+               "title" : "ЦРС",
                "units" : "",
                "formula" : ""
             },
             {
                "name" : "col5",
                "type" : "number",
-               "title" : "col5",
+               "title" : "Остаток Zn",
                "units" : "",
                "formula" : ""
             },
@@ -1034,12 +1016,12 @@
                "formula" : "",
                "name" : "col6",
                "type" : "number",
-               "title" : "col6",
+               "title" : "Дросс",
                "units" : ""
             },
             {
                "formula" : "",
-               "title" : "desc",
+               "title" : "Примечание NH<sub>4</sub>Cl",
                "type" : "text",
                "name" : "desc"
             }
@@ -1053,16 +1035,16 @@
          "name" : "melt_area2",
          "fields" : [
             {
-               "title" : "col1",
+               "title" : "Отгрузка",
                "units" : "",
-               "name" : "col1",
+               "name" : "shipment",
                "type" : "number",
                "formula" : ""
             },
             {
                "name" : "col2",
                "type" : "number",
-               "title" : "col2",
+               "title" : "На отгрузку",
                "units" : "",
                "formula" : ""
             },
@@ -1070,12 +1052,12 @@
                "formula" : "",
                "name" : "col3",
                "type" : "number",
-               "title" : "col3",
+               "title" : "Обвзяка",
                "units" : ""
             },
             {
                "units" : "",
-               "title" : "col4",
+               "title" : "ЦРС",
                "type" : "number",
                "name" : "col4",
                "formula" : ""
@@ -1085,32 +1067,38 @@
                "type" : "number",
                "name" : "col5",
                "units" : "",
-               "title" : "col5"
+               "title" : "Остаток Zn"
             },
             {
                "formula" : "",
                "name" : "col6",
                "type" : "number",
-               "title" : "col6",
+               "title" : "Дросс",
                "units" : ""
             },
             {
-               "title" : "desc",
+               "title" : "Примечание NH<sub>4</sub>Cl",
                "type" : "text",
                "name" : "desc",
                "formula" : ""
             },
             {
                "formula" : "",
-               "name" : "dust",
+               "name" : "containers",
                "type" : "text",
-               "title" : "dust"
+               "title" : "Контейнеры"
             },
             {
-               "title" : "bunkers",
+               "title" : "Бункера",
                "type" : "text",
                "name" : "bunkers",
                "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "kubels",
+               "type" : "text",
+               "title" : "Кюбели"
             }
          ],
          "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"6\" class=\"th-common\">Плавильный участок 2</th>\n        </tr>\n        <tr>\n            <th>Отгрузка</th>\n            <th>На отгрузку</th>\n            <th>Обвзяка</th>\n            <th>ЦРС</th>\n            <th>Остаток Zn</th>\n            <th>Дросс</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td><cell field-name=\"col1\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"col2\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"col3\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"col4\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"col5\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"col6\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>Примечание NH<sub>4</sub>Cl</th>\n            <td colspan=\"5\"><cell field-name=\"desc\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <!-- <tr><th colspan=\"2\" class=\"th-common\">УППЦМ</th></tr> -->\n        <tr><th colspan=\"3\" class=\"th-common\">УППЦМ</th></tr>\n        <!-- <tr><th>Zn пыль</th><th>Бункера</th></tr> -->\n        <tr><th>Контейнеры</th><th>Кюбели</th><th>Бункера</th></tr>\n    </thead>\n    <tbody>\n        <tr>\n            <!-- <td><cell field-name=\"dust\" row-index=\"0\"></cell></td> -->\n            <td><cell field-name=\"containers\" row-index=\"0\"></cell></td>\n            <td><cell field-name=\"kubels\" row-index=\"0\"></cell></td>\n            <!--  -->\n            <td><cell field-name=\"bunkers\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>"
@@ -1122,26 +1110,26 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "zn1",
+               "title" : "Zn чуш(1)",
                "type" : "number",
                "name" : "zn1"
             },
             {
                "name" : "zn2",
                "type" : "number",
-               "title" : "zn2",
+               "title" : "Zn блоки(1)",
                "units" : "",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "zn3",
+               "title" : "Zn чуш(2) ",
                "type" : "number",
                "name" : "zn3",
                "formula" : ""
             },
             {
-               "title" : "zn4",
+               "title" : "Zn блоки (2) 7п",
                "units" : "",
                "name" : "zn4",
                "type" : "number",
@@ -1149,7 +1137,7 @@
             },
             {
                "units" : "",
-               "title" : "zn5",
+               "title" : "Zn блоки(2) 9п",
                "type" : "number",
                "name" : "zn5",
                "formula" : ""
@@ -1159,38 +1147,45 @@
                "type" : "number",
                "name" : "zn6",
                "units" : "",
-               "title" : "zn6"
+               "title" : "Zn всего"
             },
             {
                "units" : "",
-               "title" : "zn8",
+               "title" : "Общий остаток",
                "type" : "number",
                "name" : "zn8",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "zn9",
+               "title" : "Остаток чушки 1-серии",
                "type" : "number",
                "name" : "zn9",
                "formula" : ""
             },
             {
-               "title" : "zn10",
+               "title" : "Остаток чушки 2-серии",
+               "units" : "",
+               "name" : "zn9_2seria",
+               "type" : "number",
+               "formula" : ""
+            },
+            {
+               "title" : "Остаток блоки ",
                "units" : "",
                "name" : "zn10",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "skd1",
+               "title" : "1-2 серия",
                "units" : "",
                "name" : "skd1",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "skd2",
+               "title" : "+/-",
                "units" : "",
                "name" : "skd2",
                "type" : "number",
@@ -1198,7 +1193,7 @@
             },
             {
                "units" : "",
-               "title" : "skd3",
+               "title" : "3 серия",
                "type" : "number",
                "name" : "skd3",
                "formula" : ""
@@ -1206,20 +1201,20 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "skd4",
+               "title" : "+/-",
                "type" : "number",
                "name" : "skd4"
             },
             {
                "formula" : "",
-               "title" : "skd5",
+               "title" : "4 серия",
                "units" : "",
                "name" : "skd5",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "skd6",
+               "title" : "+/-",
                "units" : "",
                "name" : "skd6",
                "type" : "number"
@@ -1227,20 +1222,20 @@
             {
                "formula" : "FUNC('masters_report','zinc', 'skd1', 0, CURRENT_SHIFT) + FUNC('masters_report','zinc', 'skd3', 0, CURRENT_SHIFT) + FUNC('masters_report','zinc', 'skd5', 0, CURRENT_SHIFT)",
                "units" : "",
-               "title" : "skd7",
+               "title" : "Zn кат всего",
                "type" : "number",
                "name" : "skd7"
             },
             {
                "units" : "",
-               "title" : "skd8",
+               "title" : "+/-",
                "type" : "number",
                "name" : "skd8",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "sk1",
+               "title" : "Zn кат ПУ-1",
                "type" : "number",
                "name" : "sk1",
                "formula" : ""
@@ -1249,7 +1244,7 @@
                "formula" : "",
                "name" : "sk2",
                "type" : "number",
-               "title" : "sk2",
+               "title" : "Zn кат ПУ-1",
                "units" : ""
             },
             {
@@ -1257,12 +1252,12 @@
                "type" : "number",
                "name" : "sk3",
                "units" : "",
-               "title" : "sk3"
+               "title" : "УППЦМ"
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "sk4",
+               "title" : "Чушки<i class='units'>т</i>",
                "type" : "number",
                "name" : "sk4"
             },
@@ -1270,34 +1265,27 @@
                "type" : "number",
                "name" : "sk5",
                "units" : "",
-               "title" : "sk5",
+               "title" : "Блоки",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "sk6",
+               "title" : "Конт",
                "type" : "number",
                "name" : "sk6",
                "formula" : ""
             },
             {
-               "title" : "sk7",
+               "title" : "Сутки +/-",
                "units" : "",
                "name" : "sk7",
                "type" : "number",
                "formula" : ""
             },
             {
-               "type" : "number",
-               "name" : "sk8",
-               "units" : "",
-               "title" : "sk8",
-               "formula" : ""
-            },
-            {
                "type" : "",
                "name" : "zn7",
-               "title" : "zn7",
+               "title" : "Сутки +/-",
                "formula" : ""
             }
          ],
@@ -1310,31 +1298,31 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "time1",
+               "title" : "Время 1",
                "name" : "time1",
                "type" : "text"
             },
             {
                "type" : "text",
                "name" : "time2",
-               "title" : "time2",
+               "title" : "Время 2",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "time3",
+               "title" : "Время 3",
                "name" : "time3",
                "type" : "text"
             },
             {
-               "title" : "time4",
+               "title" : "Время 4",
                "type" : "text",
                "name" : "time4",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "defence1",
+               "title" : "Самоохрана 1",
                "type" : "text",
                "name" : "defence1"
             },
@@ -1342,46 +1330,46 @@
                "formula" : "",
                "name" : "defence2",
                "type" : "text",
-               "title" : "defence2"
+               "title" : "Самоохрана 2"
             },
             {
                "type" : "text",
                "name" : "defence3",
-               "title" : "defence3",
+               "title" : "Самоохрана 3",
                "formula" : ""
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "defence4",
-               "title" : "defence4"
+               "title" : "Самоохрана 4"
             },
             {
                "type" : "text",
                "name" : "weight1",
-               "title" : "weight1",
+               "title" : "Количество, вес (1)",
                "formula" : ""
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "passed_fio",
-               "title" : "passed_fio"
+               "title" : "Сдал ФИО"
             },
             {
                "name" : "accepted_fio",
                "type" : "text",
-               "title" : "accepted_fio",
+               "title" : "Принял ФИО",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "weight2",
+               "title" : "Количество, вес (2)",
                "name" : "weight2",
                "type" : "text"
             },
             {
-               "title" : "passed_sing",
+               "title" : "Сдал, подпись",
                "type" : "text",
                "name" : "passed_sing",
                "formula" : ""

@@ -10,60 +10,60 @@
             "fields": [
                 {
                     "name": "wagon_num",
-                    "title": "wagon_num",
+                    "title": "Номер вагона",
                     "formula": "",
                     "type": "number",
                     "units": "№"
                 },
                 {
                     "name": "conc_num",
-                    "title": "conc_num",
+                    "title": "Наиме­нование концен­трата",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "supply_time",
-                    "title": "supply_time",
+                    "title": "Время подачи ",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "plan_cleaning_time",
-                    "title": "plan_cleaning_time",
+                    "title": "Время плано­вой уборки",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "fact_cleaning_time",
-                    "title": "fact_cleaning_time",
+                    "title": "Время факти­ческой уборки",
                     "formula": "",
                     "type": "time"
                 },
                 {
                     "name": "downtime",
-                    "title": "downtime",
+                    "title": "Время перепростоя",
                     "formula": "",
                     "type": "number",
                     "units": "ч"
                 },
                 {
                     "name": "recieved_conc",
-                    "title": "recieved_conc",
+                    "title": "Поступило контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "recieved_beds",
-                    "title": "recieved_beds",
+                    "title": "Поступило поддонов",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "recieved_stops",
-                    "title": "recieved_stops",
+                    "title": "Поступило упоров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
@@ -84,62 +84,62 @@
             "fields": [
                 {
                     "name": "storage1",
-                    "title": "storage1",
+                    "title": "Склад",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "containers_reciept1",
-                    "title": "containers_reciept1",
+                    "title": "Поступление контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num1",
-                    "title": "shipped_empty_num1",
+                    "title": "Отгружено порожних",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num1",
-                    "title": "poured_containers_num1",
+                    "title": "Разгружено контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers11",
-                    "title": "residue_empty_containers11",
+                    "title": "Остаток пустых контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers21",
-                    "title": "residue_empty_containers21",
+                    "title": "Остаток полных контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers1",
-                    "title": "residue_defective_containers1",
+                    "title": "Остаток бракованных контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces1",
-                    "title": "residue_braces1",
+                    "title": "Остаток скоб",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds1",
-                    "title": "residue_beds1",
+                    "title": "Количество поддонов",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
@@ -153,62 +153,62 @@
                 },
                 {
                     "name": "storage2",
-                    "title": "storage2",
+                    "title": "Склад",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "containers_reciept2",
-                    "title": "containers_reciept2",
+                    "title": "Поступление контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "shipped_empty_num2",
-                    "title": "shipped_empty_num2",
+                    "title": "Отгружено порожних",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "poured_containers_num2",
-                    "title": "poured_containers_num2",
+                    "title": "Разгружено контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers12",
-                    "title": "residue_empty_containers12",
+                    "title": "Остаток пустых контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_empty_containers22",
-                    "title": "residue_empty_containers22",
+                    "title": "Остаток полных контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_defective_containers2",
-                    "title": "residue_defective_containers2",
+                    "title": "Остаток бракованных контейнеров",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_braces2",
-                    "title": "residue_braces2",
+                    "title": "Остаток скоб",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
                 },
                 {
                     "name": "residue_beds2",
-                    "title": "residue_beds2",
+                    "title": "Количество поддонов",
                     "formula": "",
                     "type": "number",
                     "units": "шт"
@@ -222,7 +222,7 @@
                 },
                 {
                     "name": "storage_total",
-                    "title": "storage_total",
+                    "title": "Итого",
                     "formula": "",
                     "type": "text"
                 },
@@ -289,43 +289,48 @@
             "fields": [
                 {
                     "name": "storage",
-                    "title": "storage",
+                    "title": "Склад",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                     "units": "№"
                 },
                 {
                     "name": "master",
-                    "title": "master",
+                    "title": "Мастер",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "senior_crane_operator",
-                    "title": "senior_crane_operator",
+                    "title": "Старший крановщик",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "crane_operator",
-                    "title": "crane_operator",
+                    "title": "Крановщик",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "sling_operator",
-                    "title": "sling_operator",
+                    "title": "Стропальщик",
                     "formula": "",
-                    "type": "text"
+                    "type": "text",
+                    "units": "Фамилия И.О."
                 },
                 {
                     "name": "date",
-                    "title": "date",
+                    "title": "Дата",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "shift",
-                    "title": "shift",
+                    "title": "Смена",
                     "formula": "",
                     "type": "text"
                 }

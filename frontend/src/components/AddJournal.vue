@@ -18,10 +18,10 @@
                 <p>
                     <select name="type" v-model="type">
                         <option disabled selected value="">Выберите тип журнала</option>
-                        <option value="shift">Смена</option>
-                        <option value="equipment">Оборудование</option>
-                        <option value="month">Месяц</option>
-                        <option value="year">Год</option>
+                        <option value="shift">Посменный</option>
+                        <option value="equipment">Журнал оборудования</option>
+                        <option value="month">Помесячный</option>
+                        <option value="year">Погодовой</option>
                     </select>
                 </p>
                 <p v-if="type === 'shift'">

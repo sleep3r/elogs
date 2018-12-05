@@ -7,11 +7,11 @@
             {
                "type" : "time",
                "name" : "time",
-               "title" : "time",
+               "title" : "Время",
                "formula" : ""
             },
             {
-               "title" : "vsns_cobalt",
+               "title" : "ВСНС Co",
                "units" : "мг/л",
                "name" : "vsns_cobalt",
                "type" : "number",
@@ -19,7 +19,7 @@
             },
             {
                "units" : "мг/л",
-               "title" : "vsns_Sb",
+               "title" : "ВСНС Sb",
                "type" : "number",
                "name" : "vsns_Sb",
                "formula" : ""
@@ -28,20 +28,20 @@
                "type" : "number",
                "name" : "vsns_Cu",
                "units" : "мг/л",
-               "title" : "vsns_Cu",
+               "title" : "ВСНС Cu",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "vsns_Cd",
+               "title" : "ВСНС Cd",
                "type" : "number",
                "name" : "vsns_Cd"
             },
             {
                "name" : "vsns_solid_after",
                "type" : "number",
-               "title" : "vsns_solid_after",
+               "title" : "ВСНС твёрдый после 1-ст",
                "units" : "г/л",
                "formula" : ""
             },
@@ -49,12 +49,12 @@
                "formula" : "",
                "name" : "vsns_pH",
                "type" : "number",
-               "title" : "vsns_pH",
+               "title" : "ВСНС pH",
                "units" : "pH"
             },
             {
                "units" : "мг/л",
-               "title" : "vsns_Fe",
+               "title" : "ВСНС Fe",
                "type" : "number",
                "name" : "vsns_Fe",
                "formula" : ""
@@ -63,12 +63,12 @@
                "type" : "number",
                "name" : "vsns_As",
                "units" : "мг/л",
-               "title" : "vsns_As",
+               "title" : "ВСНС As",
                "formula" : ""
             },
             {
                "units" : "г/л",
-               "title" : "vsns_solid",
+               "title" : "ВСНС твёрдый",
                "type" : "number",
                "name" : "vsns_solid",
                "formula" : ""
@@ -76,7 +76,7 @@
             {
                "formula" : "",
                "units" : "г/см³",
-               "title" : "vsns_density",
+               "title" : "ВСНС плотность",
                "type" : "number",
                "name" : "vsns_density"
             },
@@ -84,11 +84,11 @@
                "formula" : "",
                "name" : "larox_Co",
                "type" : "number",
-               "title" : "larox_Co",
+               "title" : "Ларокс Co",
                "units" : "мг/л"
             },
             {
-               "title" : "larox_Sb",
+               "title" : "Ларокс Sb",
                "units" : "мг/л",
                "name" : "larox_Sb",
                "type" : "number",
@@ -98,12 +98,12 @@
                "type" : "number",
                "name" : "larox_Cd",
                "units" : "мг/л",
-               "title" : "larox_Cd",
+               "title" : "Ларокс Cd",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "larox_solid",
+               "title" : "Ларокс solid",
                "units" : "г/л",
                "name" : "larox_solid",
                "type" : "number"
@@ -111,12 +111,12 @@
             {
                "name" : "larox_pH",
                "type" : "number",
-               "title" : "larox_pH",
+               "title" : "Ларокс pH",
                "units" : "pH",
                "formula" : ""
             },
             {
-               "title" : "liq_Cd",
+               "title" : "Очищенный раствор Cd",
                "units" : "мг/л",
                "name" : "liq_Cd",
                "type" : "number",
@@ -127,19 +127,19 @@
                "type" : "number",
                "name" : "liq_Co",
                "units" : "мг/л",
-               "title" : "liq_Co"
+               "title" : "Очищенный раствор Co"
             },
             {
                "name" : "liq_Sb",
                "type" : "number",
-               "title" : "liq_Sb",
+               "title" : "Очищенный раствор Sb",
                "units" : "мг/л",
                "formula" : ""
             },
             {
                "name" : "liq_Cu",
                "type" : "number",
-               "title" : "liq_Cu",
+               "title" : "Очищенный раствор Cu",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -147,13 +147,13 @@
                "type" : "number",
                "name" : "liq_Fe",
                "units" : "мг/л",
-               "title" : "liq_Fe",
+               "title" : "Очищенный раствор Fe",
                "formula" : ""
             },
             {
                "name" : "liq_current_out",
                "type" : "number",
-               "title" : "liq_current_out",
+               "title" : "Очищенный раствор выход по току",
                "units" : "%",
                "formula" : ""
             },
@@ -162,17 +162,17 @@
                "type" : "number",
                "name" : "liq_density",
                "units" : "г/см³",
-               "title" : "liq_density"
+               "title" : "Очищенный раствор плотность"
             },
             {
-               "title" : "mng_norm",
+               "title" : "Упр. Несоответствия продукции Норма",
                "units" : "мг/л",
                "name" : "mng_norm",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "mng_fact",
+               "title" : "Упр. Несоответствия продукции Факт",
                "units" : "мг/л",
                "name" : "mng_fact",
                "type" : "number",
@@ -183,13 +183,14 @@
                "type" : "number",
                "name" : "mng_discrepancy",
                "units" : "мг/л",
-               "title" : "mng_discrepancy"
+               "title" : "Упр. Несоответствия продукции Несоотв"
             },
             {
                "name" : "master",
                "type" : "text",
-               "title" : "master",
-               "formula" : ""
+               "title" : "Мастер",
+               "formula" : "",
+               "units": "Фамилия И.О."
             }
          ],
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"3\">Время</th>\n            <th colspan=\"10\" class=\"th-common\">BCHC</th>\n            <th colspan=\"5\" class=\"th-common\">Ларокс</th>\n            <th colspan=\"7\" class=\"th-common\">Очищенный раствор</th>\n            <th colspan=\"6\" class=\"th-common\">Упр. Несоответствия продукции</th>\n        </tr>\n        <tr>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв. после<br>1ст<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH (ВСНС)</th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">As<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв.<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">Уд.<br>вес<i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Тв<i class=\"units\">г/л</i></th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cd<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Co<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Sb<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Cu<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Fe<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Выход потоку<i class=\"units\">%</i></th>\n            <th class=\"th-number\"><span>Уд.<br> вес</span><i class=\"units\">г/см<sup>3</sup></i></th>\n            <th class=\"th-number\">Норма<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Факт<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Несоотв.<i class=\"units\">мг/л</i></th>\n            <th class=\"th-number\">Корр.</th>\n            <th>Мастер</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_cobalt\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid_after\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_As\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"vsns_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_solid\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"larox_pH\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Co\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Sb\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Cu\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_Fe\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_current_out\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"liq_density\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_norm\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_fact\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_discrepancy\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"mng_correction\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"master\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
@@ -210,13 +211,13 @@
                "type" : "number",
                "name" : "vs10_pH",
                "units" : "pH",
-               "title" : "vs10_pH",
+               "title" : "Верхний cгуститель 10 pH",
                "formula" : ""
             },
             {
                "name" : "vs10_Cu",
                "type" : "number",
-               "title" : "vs10_Cu",
+               "title" : "Верхний cгуститель 10 Cu",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -224,7 +225,7 @@
                "formula" : "",
                "name" : "vs10_Fe",
                "type" : "number",
-               "title" : "vs10_Fe",
+               "title" : "Верхний cгуститель 10 Fe",
                "units" : "мг/л"
             },
             {
@@ -232,12 +233,12 @@
                "type" : "number",
                "name" : "vs10_liquid_solid",
                "units" : "",
-               "title" : "vs10_liquid_solid"
+               "title" : "Верхний cгуститель 10  Ж:Т "
             },
             {
                "formula" : "",
                "units" : "pH",
-               "title" : "ns10_pH",
+               "title" : "Нижний cгуститель 10 pH",
                "type" : "number",
                "name" : "ns10_pH"
             },
@@ -245,32 +246,32 @@
                "formula" : "",
                "name" : "ns10_liquid_solid",
                "type" : "number",
-               "title" : "ns10_liquid_solid",
+               "title" : "Нижний cгуститель 10  Ж:Т ",
                "units" : ""
             },
             {
                "type" : "number",
                "name" : "vs11_pH",
                "units" : "pH",
-               "title" : "vs11_pH",
+               "title" : "Верхний cгуститель 11 pH",
                "formula" : ""
             },
             {
-               "title" : "vs11_Cu",
+               "title" : "Верхний cгуститель 11 Cu",
                "units" : "мг/л",
                "name" : "vs11_Cu",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "vs11_Fe",
+               "title" : "Верхний cгуститель 11 Fe",
                "units" : "мг/л",
                "name" : "vs11_Fe",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "vs11_liquid_solid",
+               "title" : "Верхний cгуститель 11  Ж:Т ",
                "units" : "",
                "name" : "vs11_liquid_solid",
                "type" : "number",
@@ -278,14 +279,14 @@
             },
             {
                "units" : "pH",
-               "title" : "ns11_pH",
+               "title" : "Нижний cгуститель 11 pH",
                "type" : "number",
                "name" : "ns11_pH",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "ns11_liquid_solid",
+               "title" : "Нижний cгуститель 11  Ж:Т ",
                "type" : "number",
                "name" : "ns11_liquid_solid",
                "formula" : ""
@@ -294,12 +295,12 @@
                "type" : "number",
                "name" : "vs12_pH",
                "units" : "pH",
-               "title" : "vs12_pH",
+               "title" : "Верхний cгуститель 12 pH",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "vs12_Cu",
+               "title" : "Верхний cгуститель 12 Cu",
                "type" : "number",
                "name" : "vs12_Cu",
                "formula" : ""
@@ -309,11 +310,11 @@
                "type" : "number",
                "name" : "vs12_Fe",
                "units" : "мг/л",
-               "title" : "vs12_Fe"
+               "title" : "Верхний cгуститель 12 Fe"
             },
             {
                "formula" : "",
-               "title" : "vs12_liquid_solid",
+               "title" : "Верхний cгуститель 12  Ж:Т ",
                "units" : "",
                "name" : "vs12_liquid_solid",
                "type" : "number"
@@ -322,7 +323,7 @@
                "formula" : "",
                "name" : "ns12_pH",
                "type" : "number",
-               "title" : "ns12_pH",
+               "title" : "Нижний cгуститель 12 pH",
                "units" : "pH"
             },
             {
@@ -330,7 +331,7 @@
                "type" : "number",
                "name" : "ns12_liquid_solid",
                "units" : "",
-               "title" : "ns12_liquid_solid"
+               "title" : "Нижний cгуститель 12  Ж:Т "
             }
          ],
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"4\">Время</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 10</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 11</th>\n            <th colspan=\"6\" class=\"th-common\">Сгуститель 12</th>\n        </tr>\n        <tr>\n            <th colspan=\"4\" class=\"th-common\">ВС 10сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 11сг.</th>\n            <th colspan=\"4\" class=\"th-common\">ВС 12сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 10сг.</th>\n            <th colspan=\"4\" class=\"th-common\">ВС 11сг.</th>\n            <th colspan=\"2\" class=\"th-common\">НС 12сг.</th>\n        </tr>\n        <tr>\n          <template v-for=\"(value, index) in 3\">\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Fe<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Ж:Т</th>\n            <th class=\"th-number\">pH</th>\n            <th class=\"th-number\">Ж:Т</th>\n          </template>\n        </tr>\n    </thead>\n    <tbody>\n            <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n                <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs10_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns10_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns10_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs11_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns11_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns11_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_Cu\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_Fe\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"vs12_liquid_solid\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns12_pH\" :row-index=\"index\"></cell></td>\n                <td><cell field-name=\"ns12_liquid_solid\" :row-index=\"index\"></cell></td>\n            </tr>\n    </tbody>\n</table>\n"
@@ -344,27 +345,27 @@
                "formula" : "",
                "name" : "zn_pulp_liquid_solid",
                "type" : "number",
-               "title" : "zn_pulp_liquid_solid",
+               "title" : "Цинковая пульпа  Ж:Т ",
                "units" : ""
             },
             {
                "name" : "zn_pulp_pH",
                "type" : "number",
-               "title" : "zn_pulp_pH",
+               "title" : "Цинковая пульпа pH",
                "units" : "pH",
                "formula" : ""
             },
             {
                "name" : "zn_pulp_temperature",
                "type" : "number",
-               "title" : "zn_pulp_temperature",
+               "title" : "Цинковая пульпа temperature",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "cu_pulp_liquid_solid",
+               "title" : "Медная пульпа  Ж:Т ",
                "type" : "number",
                "name" : "cu_pulp_liquid_solid"
             },
@@ -372,18 +373,18 @@
                "formula" : "",
                "name" : "cu_pulp_before",
                "type" : "number",
-               "title" : "cu_pulp_before",
+               "title" : "Медная пульпа before",
                "units" : "г/л"
             },
             {
                "formula" : "",
-               "title" : "cu_pulp_after",
+               "title" : "Медная пульпа after",
                "units" : "г/л",
                "name" : "cu_pulp_after",
                "type" : "number"
             },
             {
-               "title" : "cu_pulp_tv",
+               "title" : "Медная пульпа tv",
                "units" : "г/л",
                "name" : "cu_pulp_tv",
                "type" : "number",
@@ -394,24 +395,24 @@
                "type" : "number",
                "name" : "iron_solution_h2so4",
                "units" : "мг/л",
-               "title" : "iron_solution_h2so4"
+               "title" : "Железистый раствор h2so4"
             },
             {
                "formula" : "",
                "name" : "iron_solution_tv",
                "type" : "number",
-               "title" : "iron_solution_tv",
+               "title" : "Железистый раствор tv",
                "units" : "мг/л"
             },
             {
                "type" : "number",
                "name" : "iron_solution_Sb",
                "units" : "мг/л",
-               "title" : "iron_solution_Sb",
+               "title" : "Железистый раствор Sb",
                "formula" : ""
             },
             {
-               "title" : "iron_solution_Cu",
+               "title" : "Железистый раствор Cu",
                "units" : "мг/л",
                "name" : "iron_solution_Cu",
                "type" : "number",
@@ -420,14 +421,14 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "iron_solution_Fe",
+               "title" : "Железистый раствор Fe",
                "type" : "number",
                "name" : "iron_solution_Fe"
             },
             {
                "name" : "iron_solution_specific_weight",
                "type" : "number",
-               "title" : "iron_solution_specific_weight",
+               "title" : "Железистый раствор specific_weight",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -435,25 +436,25 @@
                "formula" : "",
                "name" : "iron_solution_As",
                "type" : "number",
-               "title" : "iron_solution_As",
+               "title" : "Железистый раствор As",
                "units" : "мг/л"
             },
             {
                "formula" : "",
                "name" : "iron_solution_Cl",
                "type" : "number",
-               "title" : "iron_solution_Cl",
+               "title" : "Железистый раствор Cl",
                "units" : "мг/л"
             },
             {
-               "title" : "concentrate_Shlippe",
+               "title" : "Концентрат Шлиппе",
                "units" : "г/л",
                "name" : "concentrate_Shlippe",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "active_PAV",
+               "title" : "Активн. ПАВ",
                "units" : "м/час",
                "name" : "active_PAV",
                "type" : "number",
@@ -461,7 +462,7 @@
             },
             {
                "units" : "",
-               "title" : "high_Fe",
+               "title" : "Высокое Fe р-р",
                "type" : "number",
                "name" : "high_Fe",
                "formula" : ""
@@ -474,20 +475,20 @@
             {
                "formula" : "",
                "units" : "pH",
-               "title" : "mann1_pH",
+               "title" : "1 Манн pH",
                "type" : "number",
                "name" : "mann1_pH"
             },
             {
                "formula" : "",
-               "title" : "mann1_acid",
+               "title" : "1 Манн Кислотность",
                "units" : "г/л",
                "name" : "mann1_acid",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "mann1_Fe2",
+               "title" : "1 Манн Fe2",
                "units" : "мг/л",
                "name" : "mann1_Fe2",
                "type" : "number"
@@ -495,7 +496,7 @@
             {
                "name" : "mann1_Fe",
                "type" : "number",
-               "title" : "mann1_Fe",
+               "title" : "1 Манн Fe",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -503,25 +504,25 @@
                "formula" : "",
                "name" : "mann4_pH",
                "type" : "number",
-               "title" : "mann4_pH",
+               "title" : "4 Манн pH",
                "units" : "pH"
             },
             {
                "units" : "мг/л",
-               "title" : "mann4_Cu",
+               "title" : "4 Манн Cu",
                "type" : "number",
                "name" : "mann4_Cu",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "mann4_Fe",
+               "title" : "4 Манн Fe",
                "units" : "мг/л",
                "name" : "mann4_Fe",
                "type" : "number"
             },
             {
-               "title" : "mann4_Sb",
+               "title" : "4 Манн Sb",
                "units" : "мг/л",
                "name" : "mann4_Sb",
                "type" : "number",
@@ -531,19 +532,19 @@
                "type" : "number",
                "name" : "mann4_ots",
                "units" : "мм",
-               "title" : "mann4_ots",
+               "title" : "4 Манн отс",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "sit_cinder1",
                "units" : "мм",
-               "title" : "sit_cinder1",
+               "title" : "Ситовой огарка 1 ",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "sit_cinder2",
+               "title" : "Ситовой огарка 2 ",
                "units" : "мм",
                "name" : "sit_cinder2",
                "type" : "number"
@@ -552,12 +553,12 @@
                "type" : "number",
                "name" : "sit_cinder3",
                "units" : "мм",
-               "title" : "sit_cinder3",
+               "title" : "Ситовой огарка 3 ",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "sit_cinder4",
+               "title" : "Ситовой огарка 4 ",
                "units" : "мм",
                "name" : "sit_cinder4",
                "type" : "number"
@@ -567,13 +568,13 @@
                "type" : "number",
                "name" : "sit_cinder5",
                "units" : "мм",
-               "title" : "sit_cinder5"
+               "title" : "Ситовой огарка 5 "
             },
             {
                "formula" : "",
                "name" : "sit_cinder6",
                "type" : "number",
-               "title" : "sit_cinder6",
+               "title" : "Ситовой огарка 6 ",
                "units" : "мм"
             },
             {
@@ -581,17 +582,17 @@
                "type" : "number",
                "name" : "sit_cinder_avg",
                "units" : "мм",
-               "title" : "sit_cinder_avg"
+               "title" : "Ситовой средн."
             },
             {
                "formula" : "",
                "units" : "мм",
-               "title" : "fe_avg",
+               "title" : "Общее Fe среднее",
                "type" : "number",
                "name" : "fe_avg"
             },
             {
-               "title" : "fe_shave",
+               "title" : "Fe стружка",
                "units" : "мг/л",
                "name" : "fe_shave",
                "type" : "number",
@@ -609,26 +610,26 @@
                "formula" : "",
                "name" : "a1314_Cd_before1",
                "type" : "number",
-               "title" : "a1314_Cd_before1",
+               "title" : "Агитаторы очистки 1314 Cd до 1",
                "units" : "мг/л"
             },
             {
                "formula" : "",
                "name" : "a1314_Cu_before1",
                "type" : "number",
-               "title" : "a1314_Cu_before1",
+               "title" : "Агитаторы очистки 1314 Cu до 1",
                "units" : "мг/л"
             },
             {
                "formula" : "",
-               "title" : "a1314_Co_before1",
+               "title" : "Агитаторы очистки 1314 Co до 1",
                "units" : "мг/л",
                "name" : "a1314_Co_before1",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "a15_pH_before1",
+               "title" : "Агитаторы очистки 15 pH до 1",
                "units" : "мг/л",
                "name" : "a15_pH_before1",
                "type" : "number"
@@ -637,19 +638,19 @@
                "formula" : "",
                "name" : "a15_Cu_before1",
                "type" : "number",
-               "title" : "a15_Cu_before1",
+               "title" : "Агитаторы очистки 15 Cu до 1",
                "units" : "мг/л"
             },
             {
                "formula" : "",
-               "title" : "a17_pH_before1",
+               "title" : "Агитаторы очистки 17 pH до 1",
                "units" : "мг/л",
                "name" : "a17_pH_before1",
                "type" : "number"
             },
             {
                "units" : "мг/л",
-               "title" : "a17_Cu_before1",
+               "title" : "Агитаторы очистки 17 Cu до 1",
                "type" : "number",
                "name" : "a17_Cu_before1",
                "formula" : ""
@@ -663,7 +664,7 @@
             },
             {
                "units" : "мг/л",
-               "title" : "a19_Cu_before1",
+               "title" : "Агитаторы очистки 19 Cu до (1)",
                "type" : "number",
                "name" : "a19_Cu_before1",
                "formula" : ""
@@ -671,20 +672,20 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a1314_Cd_before2",
+               "title" : "Агитаторы очистки 1314 Cd до (2)",
                "type" : "number",
                "name" : "a1314_Cd_before2"
             },
             {
                "units" : "мг/л",
-               "title" : "a1314_Cu_before2",
+               "title" : "Агитаторы очистки 1314 Cu до (2)",
                "type" : "number",
                "name" : "a1314_Cu_before2",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "a1314_Co_before2",
+               "title" : "Агитаторы очистки 1314 Co до (2)",
                "type" : "number",
                "name" : "a1314_Co_before2",
                "formula" : ""
@@ -692,7 +693,7 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a15_pH_before2",
+               "title" : "Агитаторы очистки 15 pH до (2)",
                "type" : "number",
                "name" : "a15_pH_before2"
             },
@@ -701,19 +702,19 @@
                "type" : "number",
                "name" : "a15_Cu_before2",
                "units" : "мг/л",
-               "title" : "a15_Cu_before2"
+               "title" : "Агитаторы очистки 15 Cu до (2)"
             },
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a17_pH_before2",
+               "title" : "Агитаторы очистки 17 pH до (2)",
                "type" : "number",
                "name" : "a17_pH_before2"
             },
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a17_Cu_before2",
+               "title" : "Агитаторы очистки 17 Cu до (2)",
                "type" : "number",
                "name" : "a17_Cu_before2"
             },
@@ -726,14 +727,14 @@
             },
             {
                "formula" : "",
-               "title" : "a19_Cu_before2",
+               "title" : "Агитаторы очистки 19 Cu до (2)",
                "units" : "мг/л",
                "name" : "a19_Cu_before2",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "a1314_Cd_before3",
+               "title" : "Агитаторы очистки 1314 Cd до (3)",
                "units" : "мг/л",
                "name" : "a1314_Cd_before3",
                "type" : "number"
@@ -742,11 +743,11 @@
                "formula" : "",
                "name" : "a1314_Cu_before3",
                "type" : "number",
-               "title" : "a1314_Cu_before3",
+               "title" : "Агитаторы очистки 1314 Cu до (3)",
                "units" : "мг/л"
             },
             {
-               "title" : "a1314_Co_before3",
+               "title" : "Агитаторы очистки 1314 Co до (3)",
                "units" : "мг/л",
                "name" : "a1314_Co_before3",
                "type" : "number",
@@ -756,11 +757,11 @@
                "type" : "number",
                "name" : "a15_pH_before3",
                "units" : "мг/л",
-               "title" : "a15_pH_before3",
+               "title" : "Агитаторы очистки 15 pH до (3)",
                "formula" : ""
             },
             {
-               "title" : "a15_Cu_before3",
+               "title" : "Агитаторы очистки 15 Cu до (3)",
                "units" : "мг/л",
                "name" : "a15_Cu_before3",
                "type" : "number",
@@ -771,11 +772,11 @@
                "type" : "number",
                "name" : "a17_pH_before3",
                "units" : "мг/л",
-               "title" : "a17_pH_before3"
+               "title" : "Агитаторы очистки 17 pH до (3)"
             },
             {
                "units" : "мг/л",
-               "title" : "a17_Cu_before3",
+               "title" : "Агитаторы очистки 17 Cu до (3)",
                "type" : "number",
                "name" : "a17_Cu_before3",
                "formula" : ""
@@ -790,20 +791,20 @@
             {
                "name" : "a19_Cu_before3",
                "type" : "number",
-               "title" : "a19_Cu_before3",
+               "title" : "Агитаторы очистки 19 Cu до (3)",
                "units" : "мг/л",
                "formula" : ""
             },
             {
                "name" : "a1314_Cd_after1",
                "type" : "number",
-               "title" : "a1314_Cd_after1",
+               "title" : "Агитаторы очистки 1314 Cd после 1",
                "units" : "мг/л",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "a1314_Cu_after1",
+               "title" : "Агитаторы очистки 1314 Cu после 1",
                "type" : "number",
                "name" : "a1314_Cu_after1",
                "formula" : ""
@@ -813,31 +814,31 @@
                "type" : "number",
                "name" : "a1314_Co_after1",
                "units" : "мг/л",
-               "title" : "a1314_Co_after1"
+               "title" : "Агитаторы очистки 1314 Co после 1"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "a15_pH_after1",
                "units" : "мг/л",
-               "title" : "a15_pH_after1"
+               "title" : "Агитаторы очистки 15 pH после 1"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "a15_Cu_after1",
                "units" : "мг/л",
-               "title" : "a15_Cu_after1"
+               "title" : "Агитаторы очистки 15 Cu после 1"
             },
             {
                "type" : "number",
                "name" : "a17_pH_after1",
                "units" : "мг/л",
-               "title" : "a17_pH_after1",
+               "title" : "Агитаторы очистки 17 pH после 1",
                "formula" : ""
             },
             {
-               "title" : "a17_Cu_after1",
+               "title" : "Агитаторы очистки 17 Cu после 1",
                "units" : "мг/л",
                "name" : "a17_Cu_after1",
                "type" : "number",
@@ -853,7 +854,7 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a19_Cu_after1",
+               "title" : "Агитаторы очистки 19 Cu после 1",
                "type" : "number",
                "name" : "a19_Cu_after1"
             },
@@ -861,11 +862,11 @@
                "type" : "number",
                "name" : "a1314_Cd_after2",
                "units" : "мг/л",
-               "title" : "a1314_Cd_after2",
+               "title" : "Агитаторы очистки 1314 Cd после 2",
                "formula" : ""
             },
             {
-               "title" : "a1314_Cu_after2",
+               "title" : "Агитаторы очистки 1314 Cu после 2",
                "units" : "мг/л",
                "name" : "a1314_Cu_after2",
                "type" : "number",
@@ -873,7 +874,7 @@
             },
             {
                "formula" : "",
-               "title" : "a1314_Co_after2",
+               "title" : "Агитаторы очистки 1314 Co после 2",
                "units" : "мг/л",
                "name" : "a1314_Co_after2",
                "type" : "number"
@@ -881,27 +882,27 @@
             {
                "name" : "a15_pH_after2",
                "type" : "number",
-               "title" : "a15_pH_after2",
+               "title" : "Агитаторы очистки 15 pH после 2",
                "units" : "мг/л",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "a15_Cu_after2",
+               "title" : "Агитаторы очистки 15 Cu после 2",
                "units" : "мг/л",
                "name" : "a15_Cu_after2",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "a17_pH_after2",
+               "title" : "Агитаторы очистки 17 pH после 2",
                "units" : "мг/л",
                "name" : "a17_pH_after2",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "a17_Cu_after2",
+               "title" : "Агитаторы очистки 17 Cu после 2",
                "units" : "мг/л",
                "name" : "a17_Cu_after2",
                "type" : "number"
@@ -916,14 +917,14 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a19_Cu_after2",
+               "title" : "Агитаторы очистки 19 Cu после 2",
                "type" : "number",
                "name" : "a19_Cu_after2"
             },
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a1314_Cd_after3",
+               "title" : "Агитаторы очистки 1314 Cd после 3",
                "type" : "number",
                "name" : "a1314_Cd_after3"
             },
@@ -931,12 +932,12 @@
                "type" : "number",
                "name" : "a1314_Cu_after3",
                "units" : "мг/л",
-               "title" : "a1314_Cu_after3",
+               "title" : "Агитаторы очистки 1314 Cu после 3",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "a1314_Co_after3",
+               "title" : "Агитаторы очистки 1314 Co после 3",
                "units" : "мг/л",
                "name" : "a1314_Co_after3",
                "type" : "number"
@@ -944,7 +945,7 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a15_pH_after3",
+               "title" : "Агитаторы очистки 15 pH после 3",
                "type" : "number",
                "name" : "a15_pH_after3"
             },
@@ -952,11 +953,11 @@
                "formula" : "",
                "name" : "a15_Cu_after3",
                "type" : "number",
-               "title" : "a15_Cu_after3",
+               "title" : "Агитаторы очистки 15 Cu после 3",
                "units" : "мг/л"
             },
             {
-               "title" : "a17_pH_after3",
+               "title" : "Агитаторы очистки 17 pH после 3",
                "units" : "мг/л",
                "name" : "a17_pH_after3",
                "type" : "number",
@@ -966,7 +967,7 @@
                "type" : "number",
                "name" : "a17_Cu_after3",
                "units" : "мг/л",
-               "title" : "a17_Cu_after3",
+               "title" : "Агитаторы очистки 17 Cu после 3",
                "formula" : ""
             },
             {
@@ -979,12 +980,12 @@
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "a19_Cu_after3",
+               "title" : "Агитаторы очистки 19 Cu после 3",
                "type" : "number",
                "name" : "a19_Cu_after3"
             },
             {
-               "title" : "journal_comment",
+               "title" : "Комментарий",
                "type" : "text",
                "name" : "journal_comment",
                "formula" : ""
@@ -1000,18 +1001,18 @@
                "type" : "number",
                "name" : "delivery_salt",
                "units" : "кг",
-               "title" : "delivery_salt"
+               "title" : "Доставлено _salt"
             },
             {
                "formula" : "",
-               "title" : "delivery_Zn_dust",
+               "title" : "Доставлено _Zn пыль",
                "units" : "кюбели",
                "name" : "delivery_Zn_dust",
                "type" : "number"
             },
             {
                "units" : "т",
-               "title" : "delivery_Mn_ore",
+               "title" : "Доставлено _Mn руда",
                "type" : "number",
                "name" : "delivery_Mn_ore",
                "formula" : ""
@@ -1019,7 +1020,7 @@
             {
                "name" : "delivery_Magnaflok",
                "type" : "number",
-               "title" : "delivery_Magnaflok",
+               "title" : "Доставлено _Magnaflok",
                "units" : "кг",
                "formula" : ""
             },
@@ -1028,7 +1029,7 @@
                "type" : "number",
                "name" : "delivery_Fe_shave",
                "units" : "кг",
-               "title" : "delivery_Fe_shave"
+               "title" : "Доставлено _Fe_shave"
             },
             {
                "units" : "кг",
@@ -1038,7 +1039,7 @@
                "formula" : ""
             },
             {
-               "title" : "income_Zn_dust",
+               "title" : "Принято  Zn пыль",
                "units" : "кюбели",
                "name" : "income_Zn_dust",
                "type" : "number",
@@ -1047,7 +1048,7 @@
             {
                "name" : "income_Mn_ore",
                "type" : "number",
-               "title" : "income_Mn_ore",
+               "title" : "Принято  Mn руда",
                "units" : "т",
                "formula" : ""
             },
@@ -1055,20 +1056,20 @@
                "formula" : "",
                "name" : "income_Magnaflok",
                "type" : "number",
-               "title" : "income_Magnaflok",
+               "title" : "Принято  Магнафлок  ",
                "units" : "кг"
             },
             {
                "name" : "income_Fe_shave",
                "type" : "number",
-               "title" : "income_Fe_shave",
+               "title" : "Принято  Fe_shave",
                "units" : "кг",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "кг",
-               "title" : "outcome_salt",
+               "title" : "Расход соль",
                "type" : "number",
                "name" : "outcome_salt"
             },
@@ -1076,7 +1077,7 @@
                "type" : "number",
                "name" : "outcome_Zn_1st",
                "units" : "т",
-               "title" : "outcome_Zn_1st",
+               "title" : "Расход Zn 1-ст",
                "formula" : ""
             },
             {
@@ -1084,18 +1085,18 @@
                "type" : "number",
                "name" : "outcome_Zn_2st",
                "units" : "т",
-               "title" : "outcome_Zn_2st"
+               "title" : "Расход Zn 2-ст"
             },
             {
                "formula" : "",
-               "title" : "outcome_Zn_3st",
+               "title" : "Расход Zn 3-ст",
                "units" : "т",
                "name" : "outcome_Zn_3st",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "income_Zn_4st",
+               "title" : "Принято  Zn 4-ст",
                "units" : "т",
                "name" : "income_Zn_4st",
                "type" : "number"
@@ -1105,11 +1106,11 @@
                "type" : "number",
                "name" : "outcome_Zn",
                "units" : "т",
-               "title" : "outcome_Zn"
+               "title" : "Расход  Zn"
             },
             {
                "formula" : "",
-               "title" : "outcome_Mn_ore",
+               "title" : "Расход  Mn руда",
                "units" : "т",
                "name" : "outcome_Mn_ore",
                "type" : "number"
@@ -1118,12 +1119,12 @@
                "formula" : "",
                "name" : "outcome_Magnaflok",
                "type" : "number",
-               "title" : "outcome_Magnaflok",
+               "title" : "Расход  Магнафлок  ",
                "units" : "кг"
             },
             {
                "formula" : "",
-               "title" : "outcome_Fe_shave",
+               "title" : "Расход  Fe_shave",
                "units" : "кг",
                "name" : "outcome_Fe_shave",
                "type" : "number"
@@ -1138,7 +1139,7 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "passed_Zn_dust",
+               "title" : "passed_Zn пыль",
                "type" : "number",
                "name" : "passed_Zn_dust"
             },
@@ -1146,13 +1147,13 @@
                "type" : "number",
                "name" : "passed_Mn_ore",
                "units" : "т",
-               "title" : "passed_Mn_ore",
+               "title" : "Сдано Mn руда",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "кг",
-               "title" : "passed_Magnaflok",
+               "title" : "Сдано Magnaflok",
                "type" : "number",
                "name" : "passed_Magnaflok"
             },
@@ -1160,7 +1161,7 @@
                "formula" : "",
                "name" : "passed_Fe_shave",
                "type" : "number",
-               "title" : "passed_Fe_shave",
+               "title" : "Сдано Fe_shave",
                "units" : "кг"
             },
             {
@@ -1179,12 +1180,12 @@
                "type" : "number",
                "name" : "sediment1",
                "units" : "см",
-               "title" : "sediment1",
+               "title" : "Отстои 1",
                "formula" : ""
             },
             {
                "units" : "см",
-               "title" : "sediment2",
+               "title" : "Отстои 2",
                "type" : "number",
                "name" : "sediment2",
                "formula" : ""
@@ -1193,11 +1194,11 @@
                "type" : "number",
                "name" : "sediment3",
                "units" : "см",
-               "title" : "sediment3",
+               "title" : "Отстои 3",
                "formula" : ""
             },
             {
-               "title" : "sediment4",
+               "title" : "Отстои 4",
                "units" : "см",
                "name" : "sediment4",
                "type" : "number",
@@ -1208,26 +1209,26 @@
                "type" : "number",
                "name" : "sediment5",
                "units" : "см",
-               "title" : "sediment5"
+               "title" : "Отстои 5"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "sediment6",
                "units" : "см",
-               "title" : "sediment6"
+               "title" : "Отстои 6"
             },
             {
                "formula" : "",
                "units" : "см",
-               "title" : "sediment7",
+               "title" : "Отстои 7",
                "type" : "number",
                "name" : "sediment7"
             },
             {
                "formula" : "",
                "units" : "см",
-               "title" : "sediment8",
+               "title" : "Отстои 8",
                "type" : "number",
                "name" : "sediment8"
             },
@@ -1236,13 +1237,13 @@
                "type" : "number",
                "name" : "sediment13",
                "units" : "см",
-               "title" : "sediment13"
+               "title" : "Отстои 13"
             },
             {
                "formula" : "",
                "name" : "liquid_solid1",
                "type" : "number",
-               "title" : "liquid_solid1",
+               "title" : "Ж:Т(НС) 1",
                "units" : ""
             },
             {
@@ -1250,11 +1251,11 @@
                "type" : "number",
                "name" : "liquid_solid2",
                "units" : "",
-               "title" : "liquid_solid2"
+               "title" : "Ж:Т(НС) 2"
             },
             {
                "formula" : "",
-               "title" : "liquid_solid3",
+               "title" : "Ж:Т(НС) 3",
                "units" : "",
                "name" : "liquid_solid3",
                "type" : "number"
@@ -1263,13 +1264,13 @@
                "type" : "number",
                "name" : "liquid_solid4",
                "units" : "",
-               "title" : "liquid_solid4",
+               "title" : "Ж:Т(НС) 4",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "liquid_solid5",
+               "title" : "Ж:Т(НС) 5",
                "type" : "number",
                "name" : "liquid_solid5"
             },
@@ -1277,26 +1278,26 @@
                "type" : "number",
                "name" : "liquid_solid6",
                "units" : "",
-               "title" : "liquid_solid6",
+               "title" : "Ж:Т(НС) 6",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "liquid_solid7",
                "type" : "number",
-               "title" : "liquid_solid7",
+               "title" : "Ж:Т(НС) 7",
                "units" : ""
             },
             {
                "formula" : "",
-               "title" : "liquid_solid8",
+               "title" : "Ж:Т(НС) 8",
                "units" : "",
                "name" : "liquid_solid8",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "liquid_solid13",
+               "title" : "Ж:Т(НС) 13",
                "units" : "",
                "name" : "liquid_solid13",
                "type" : "number"
@@ -1312,7 +1313,7 @@
          "fields" : [
             {
                "units" : "",
-               "title" : "prev_measurements_waste_tank_1-2seria",
+               "title" : "Пред. замеры, Бак отработ 1-2seria",
                "type" : "number",
                "name" : "prev_measurements_waste_tank_1-2seria",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_tank_1-2seria', 0, CURRENT_SHIFT - 1)"
@@ -1322,32 +1323,32 @@
                "type" : "number",
                "name" : "current_measurements_waste_tank_1-2seria",
                "units" : "",
-               "title" : "current_measurements_waste_tank_1-2seria"
+               "title" : "Текущ. замеры, Бак отработ 1-2seria"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "divergence_waste_tank_1-2seria",
                "units" : "",
-               "title" : "divergence_waste_tank_1-2seria"
+               "title" : "Отклонение, Бак отработ 1-2seria"
             },
             {
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_manns_1-9', 0, CURRENT_SHIFT - 1)",
                "name" : "prev_measurements_manns_1-9",
                "type" : "number",
-               "title" : "prev_measurements_manns_1-9",
+               "title" : "Пред. замеры Манны №1-9 ",
                "units" : ""
             },
             {
                "name" : "current_measurements_manns_1-9",
                "type" : "number",
-               "title" : "current_measurements_manns_1-9",
+               "title" : "Текущ. замеры Манны №1-9 ",
                "units" : "",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "divergence_manns_1-9",
+               "title" : "Отклонение Манны №1-9 ",
                "units" : "",
                "name" : "divergence_manns_1-9",
                "type" : "number"
@@ -1355,7 +1356,7 @@
             {
                "name" : "prev_measurements_manns_VTV_10-12",
                "type" : "number",
-               "title" : "prev_measurements_manns_VTV_10-12",
+               "title" : "Пред. замеры Манны ВТВ №10-12",
                "units" : "",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_manns_VTV_10-12', 0, CURRENT_SHIFT - 1)"
             },
@@ -1364,18 +1365,18 @@
                "type" : "number",
                "name" : "current_measurements_manns_VTV_10-12",
                "units" : "",
-               "title" : "current_measurements_manns_VTV_10-12"
+               "title" : "Текущ. замеры Манны ВТВ №10-12"
             },
             {
                "units" : "",
-               "title" : "divergence_manns_VTV_10-12",
+               "title" : "Отклонение Манны ВТВ №10-12",
                "type" : "number",
                "name" : "divergence_manns_VTV_10-12",
                "formula" : ""
             },
             {
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_thickener-9', 0, CURRENT_SHIFT - 1)",
-               "title" : "prev_measurements_thickener-9",
+               "title" : "Пред. замеры thickener-9",
                "units" : "",
                "name" : "prev_measurements_thickener-9",
                "type" : "number"
@@ -1383,21 +1384,21 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "current_measurements_thickener-9",
+               "title" : "Текущ. замеры thickener-9",
                "type" : "number",
                "name" : "current_measurements_thickener-9"
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "divergence_thickener-9",
+               "title" : "Отклонение thickener-9",
                "type" : "number",
                "name" : "divergence_thickener-9"
             },
             {
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_agitator-22', 0, CURRENT_SHIFT - 1)",
                "units" : "",
-               "title" : "prev_measurements_agitator-22",
+               "title" : "Пред. замеры agitator-22",
                "type" : "number",
                "name" : "prev_measurements_agitator-22"
             },
@@ -1406,11 +1407,11 @@
                "type" : "number",
                "name" : "current_measurements_agitator-22",
                "units" : "",
-               "title" : "current_measurements_agitator-22"
+               "title" : "Текущ. замеры agitator-22"
             },
             {
                "formula" : "",
-               "title" : "divergence_agitator-22",
+               "title" : "Отклонение agitator-22",
                "units" : "",
                "name" : "divergence_agitator-22",
                "type" : "number"
@@ -1419,40 +1420,40 @@
                "type" : "number",
                "name" : "prev_measurements_neutral_tank",
                "units" : "",
-               "title" : "prev_measurements_neutral_tank",
+               "title" : "Пред. замеры Бак нейтр. р-ра",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_neutral_tank', 0, CURRENT_SHIFT - 1)"
             },
             {
                "formula" : "",
                "name" : "current_measurements_neutral_tank",
                "type" : "number",
-               "title" : "current_measurements_neutral_tank",
+               "title" : "Текущ. замеры Бак нейтр. р-ра",
                "units" : ""
             },
             {
                "type" : "number",
                "name" : "divergence_neutral_tank",
                "units" : "",
-               "title" : "divergence_neutral_tank",
+               "title" : "Отклонение Бак нейтр. р-ра",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "prev_measurements_waste_mann-2",
+               "title" : "Пред. замеры Ман отраб. 2",
                "type" : "number",
                "name" : "prev_measurements_waste_mann-2",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-2', 0, CURRENT_SHIFT - 1)"
             },
             {
                "formula" : "",
-               "title" : "current_measurements_waste_mann-2",
+               "title" : "Текущ. замеры Ман отраб. 2",
                "units" : "",
                "name" : "current_measurements_waste_mann-2",
                "type" : "number"
             },
             {
                "units" : "",
-               "title" : "divergence_waste_mann-2",
+               "title" : "Отклонение Ман отраб. 2",
                "type" : "number",
                "name" : "divergence_waste_mann-2",
                "formula" : ""
@@ -1461,12 +1462,12 @@
                "type" : "number",
                "name" : "prev_measurements_waste_mann-3",
                "units" : "",
-               "title" : "prev_measurements_waste_mann-3",
+               "title" : "Пред. замеры Ман отраб. 3",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-3', 0, CURRENT_SHIFT - 1)"
             },
             {
                "units" : "",
-               "title" : "current_measurements_waste_mann-3",
+               "title" : "Текущ. замеры Ман отраб. 3",
                "type" : "number",
                "name" : "current_measurements_waste_mann-3",
                "formula" : ""
@@ -1474,7 +1475,7 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "divergence_waste_mann-3",
+               "title" : "Отклонение Ман отраб. 3",
                "type" : "number",
                "name" : "divergence_waste_mann-3"
             },
@@ -1482,18 +1483,18 @@
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_waste_mann-9', 0, CURRENT_SHIFT - 1)",
                "name" : "prev_measurements_waste_mann-9",
                "type" : "number",
-               "title" : "prev_measurements_waste_mann-9",
+               "title" : "Пред. замеры Ман отраб. 9",
                "units" : ""
             },
             {
                "name" : "current_measurements_waste_mann-9",
                "type" : "number",
-               "title" : "current_measurements_waste_mann-9",
+               "title" : "Текущ. замеры Ман отраб. 9",
                "units" : "",
                "formula" : ""
             },
             {
-               "title" : "divergence_waste_mann-9",
+               "title" : "Отклонение Ман отраб. 9",
                "units" : "",
                "name" : "divergence_waste_mann-9",
                "type" : "number",
@@ -1501,21 +1502,21 @@
             },
             {
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_-', 0, CURRENT_SHIFT - 1)",
-               "title" : "prev_measurements_-",
+               "title" : "Пред. замеры -",
                "units" : "",
                "name" : "prev_measurements_-",
                "type" : "number"
             },
             {
                "units" : "",
-               "title" : "current_measurements_-",
+               "title" : "Текущ. замеры -",
                "type" : "number",
                "name" : "current_measurements_-",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "divergence_-",
+               "title" : "Отклонение -",
                "units" : "",
                "name" : "divergence_-",
                "type" : "number"
@@ -1523,12 +1524,12 @@
             {
                "name" : "prev_measurements_removable_balance",
                "type" : "number",
-               "title" : "prev_measurements_removable_balance",
+               "title" : "Пред. замеры СМЕННЫЙ БАЛАНС",
                "units" : "",
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_removable_balance', 0, CURRENT_SHIFT - 1)"
             },
             {
-               "title" : "current_measurements_removable_balance",
+               "title" : "Текущ. замеры СМЕННЫЙ БАЛАНС",
                "units" : "",
                "name" : "current_measurements_removable_balance",
                "type" : "number",
@@ -1538,26 +1539,26 @@
                "formula" : "",
                "name" : "divergence_removable_balance",
                "type" : "number",
-               "title" : "divergence_removable_balance",
+               "title" : "Отклонение СМЕННЫЙ БАЛАНС",
                "units" : ""
             },
             {
                "formula" : "FUNC('leaching_express_analysis','tanks_availability', 'current_measurements_daily_balance', 0, CURRENT_SHIFT - 1)",
                "name" : "prev_measurements_daily_balance",
                "type" : "number",
-               "title" : "prev_measurements_daily_balance",
+               "title" : "Пред. замеры Суточный БАЛАНС",
                "units" : ""
             },
             {
                "formula" : "",
                "units" : "",
-               "title" : "current_measurements_daily_balance",
+               "title" : "Текущ. замеры Суточный БАЛАНС",
                "type" : "number",
                "name" : "current_measurements_daily_balance"
             },
             {
                "units" : "",
-               "title" : "divergence_daily_balance",
+               "title" : "Отклонение Суточный БАЛАНС",
                "type" : "number",
                "name" : "divergence_daily_balance",
                "formula" : ""
@@ -1574,32 +1575,32 @@
                "formula" : "",
                "name" : "Cd_tank3",
                "type" : "number",
-               "title" : "Cd_tank3",
+               "title" : "Cd бак 3",
                "units" : "мг/л"
             },
             {
-               "title" : "Cu_tank3",
+               "title" : "Cu бак 3",
                "units" : "мг/л",
                "name" : "Cu_tank3",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "Co_tank3",
+               "title" : "Co бак 3",
                "units" : "мг/л",
                "name" : "Co_tank3",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "Sb_tank3",
+               "title" : "Sb бак 3",
                "units" : "мг/л",
                "name" : "Sb_tank3",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "Fe_tank3",
+               "title" : "Fe бак 3",
                "units" : "мг/л",
                "name" : "Fe_tank3",
                "type" : "number",
@@ -1609,10 +1610,10 @@
                "formula" : "",
                "name" : "correction_tank3",
                "type" : "text",
-               "title" : "correction_tank3"
+               "title" : "Коррекция бак 3"
             },
             {
-               "title" : "master_tank3",
+               "title" : "Мастер бак 3",
                "type" : "text",
                "name" : "master_tank3",
                "formula" : ""
@@ -1621,12 +1622,12 @@
                "formula" : "",
                "name" : "VT_tank3",
                "type" : "number",
-               "title" : "VT_tank3",
+               "title" : "VT бак 3",
                "units" : ""
             },
             {
                "formula" : "",
-               "title" : "specific_weight_tank3",
+               "title" : "Уд.вес бак 3",
                "units" : "мг/л",
                "name" : "specific_weight_tank3",
                "type" : "number"
@@ -1634,48 +1635,48 @@
             {
                "formula" : "",
                "units" : "",
-               "title" : "norm_tank3",
+               "title" : "Норма бак 3",
                "type" : "number",
                "name" : "norm_tank3"
             },
             {
                "formula" : "",
-               "title" : "fact_tank3",
+               "title" : "Факт бак 3",
                "units" : "",
                "name" : "fact_tank3",
                "type" : "number"
             },
             {
                "formula" : "",
-               "title" : "Cd_tank4",
+               "title" : "Cd бак 4",
                "units" : "мг/л",
                "name" : "Cd_tank4",
                "type" : "number"
             },
             {
                "units" : "мг/л",
-               "title" : "Cu_tank4",
+               "title" : "Cu бак 4",
                "type" : "number",
                "name" : "Cu_tank4",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "Co_tank4",
+               "title" : "Co бак 4",
                "type" : "number",
                "name" : "Co_tank4",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "Sb_tank4",
+               "title" : "Sb бак 4",
                "type" : "number",
                "name" : "Sb_tank4",
                "formula" : ""
             },
             {
                "units" : "мг/л",
-               "title" : "Fe_tank4",
+               "title" : "Fe бак 4",
                "type" : "number",
                "name" : "Fe_tank4",
                "formula" : ""
@@ -1683,17 +1684,17 @@
             {
                "name" : "correction_tank4",
                "type" : "text",
-               "title" : "correction_tank4",
+               "title" : "Коррекция бак 4",
                "formula" : ""
             },
             {
                "name" : "master_tank4",
                "type" : "text",
-               "title" : "master_tank4",
+               "title" : "Мастер бак 4",
                "formula" : ""
             },
             {
-               "title" : "VT_tank4",
+               "title" : "В:T бак 4",
                "units" : "",
                "name" : "VT_tank4",
                "type" : "number",
@@ -1703,11 +1704,11 @@
                "type" : "number",
                "name" : "specific_weight_tank4",
                "units" : "мг/л",
-               "title" : "specific_weight_tank4",
+               "title" : "Уд.вес бак 4",
                "formula" : ""
             },
             {
-               "title" : "norm_tank4",
+               "title" : "Норма бак 4",
                "units" : "",
                "name" : "norm_tank4",
                "type" : "number",
@@ -1716,14 +1717,14 @@
             {
                "name" : "fact_tank4",
                "type" : "number",
-               "title" : "fact_tank4",
+               "title" : "Факт бак 4",
                "units" : "",
                "formula" : ""
             },
             {
                "name" : "Cd_tank5",
                "type" : "number",
-               "title" : "Cd_tank5",
+               "title" : "Cd бак 5",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -1731,13 +1732,13 @@
                "formula" : "",
                "name" : "Cu_tank5",
                "type" : "number",
-               "title" : "Cu_tank5",
+               "title" : "Cu бак 5",
                "units" : "мг/л"
             },
             {
                "name" : "Co_tank5",
                "type" : "number",
-               "title" : "Co_tank5",
+               "title" : "Co бак 5",
                "units" : "мг/л",
                "formula" : ""
             },
@@ -1746,23 +1747,23 @@
                "type" : "number",
                "name" : "Sb_tank5",
                "units" : "мг/л",
-               "title" : "Sb_tank5"
+               "title" : "Sb бак 5"
             },
             {
                "type" : "number",
                "name" : "Fe_tank5",
                "units" : "мг/л",
-               "title" : "Fe_tank5",
+               "title" : "Fe бак 5",
                "formula" : ""
             },
             {
                "type" : "text",
                "name" : "correction_tank5",
-               "title" : "correction_tank5",
+               "title" : "Коррекция бак 5",
                "formula" : ""
             },
             {
-               "title" : "master_tank5",
+               "title" : "Мастер бак 5",
                "name" : "master_tank5",
                "type" : "text",
                "formula" : ""
@@ -1770,14 +1771,14 @@
             {
                "name" : "VT_tank5",
                "type" : "number",
-               "title" : "VT_tank5",
+               "title" : "В:T бак 5",
                "units" : "",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "мг/л",
-               "title" : "specific_weight_tank5",
+               "title" : "Уд.вес бак 5",
                "type" : "number",
                "name" : "specific_weight_tank5"
             },
@@ -1785,12 +1786,12 @@
                "type" : "number",
                "name" : "norm_tank5",
                "units" : "",
-               "title" : "norm_tank5",
+               "title" : "Норма бак 5",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "fact_tank5",
+               "title" : "Факт бак 5",
                "units" : "",
                "name" : "fact_tank5",
                "type" : "number"
@@ -1804,20 +1805,20 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "visiting_time",
+               "title" : "Время обхода",
                "name" : "visiting_time",
                "type" : "time"
             },
             {
                "formula" : "",
-               "title" : "visiting",
+               "title" : "Обход",
                "type" : "text",
                "name" : "visiting"
             },
             {
                "name" : "notation",
                "type" : "text",
-               "title" : "notation",
+               "title" : "Примечание",
                "formula" : ""
             }
          ]
@@ -1830,20 +1831,20 @@
                "type" : "number",
                "name" : "shift_total",
                "units" : "",
-               "title" : "shift_total"
+               "title" : "За смену"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "day_total",
                "units" : "",
-               "title" : "day_total"
+               "title" : "За сутки"
             },
             {
                "formula" : "",
                "name" : "in_process",
                "type" : "number",
-               "title" : "in_process",
+               "title" : "В процессе",
                "units" : ""
             }
          ],
@@ -1854,7 +1855,7 @@
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th>Время</th>\n            <th class=\"th-number\">Cd<i class='units'>мг/л</i></th>\n            <th class=\"th-number\">Cu<i class='units'>мг/л</i></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"(value, index) in 5\">\n            <td><cell field-name=\"time\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cd\" :row-index=\"index\"></cell></td>\n            <td><cell field-name=\"Cu\" :row-index=\"index\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-common\" colspan=\"3\">ВИУ</th>\n        </tr>\n        <tr>\n            <th>#</th>\n            <th class=\"th-number\">Г</th>\n            <th class=\"th-number\">Х</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>I</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"0\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th>II</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"1\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"1\"></cell></td>\n        </tr>\n        <tr>\n            <th>III</th>\n            <td><cell field-name=\"VIU_G\" :row-index=\"2\"></cell></td>\n            <td><cell field-name=\"VIU_H\" :row-index=\"2\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
          "fields" : [
             {
-               "title" : "time",
+               "title" : "Время",
                "type" : "time",
                "name" : "time",
                "formula" : ""
@@ -1874,14 +1875,14 @@
                "type" : "number"
             },
             {
-               "title" : "VIU_G",
+               "title" : "ВИУ Г",
                "units" : "",
                "name" : "VIU_G",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "VIU_H",
+               "title" : "ВИУ Х",
                "units" : "",
                "name" : "VIU_H",
                "type" : "number",
@@ -1895,20 +1896,20 @@
          "fields" : [
             {
                "units" : "Ампер",
-               "title" : "time7",
+               "title" : "Нагрузки 7:00 серия",
                "type" : "number",
                "name" : "time7",
                "formula" : ""
             },
             {
                "units" : "Ампер",
-               "title" : "time12",
+               "title" : "Нагрузки 12:00",
                "type" : "number",
                "name" : "time12",
                "formula" : ""
             },
             {
-               "title" : "counter",
+               "title" : "Показания счётчика",
                "units" : "Ампер",
                "name" : "counter",
                "type" : "number",
@@ -1918,26 +1919,26 @@
                "type" : "number",
                "name" : "bunker_cvco",
                "units" : "м",
-               "title" : "bunker_cvco",
+               "title" : "Бункера ЦВЦО",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "silos",
                "units" : "м",
-               "title" : "silos",
+               "title" : "Силоса ОЦ",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "bunkers_oc",
                "units" : "м",
-               "title" : "bunkers_oc",
+               "title" : "Бункера ОЦ",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "description",
+               "title" : "Комментарий",
                "type" : "text",
                "name" : "description"
             }
@@ -1954,33 +1955,33 @@
                "type" : "number",
                "name" : "neutral_solution",
                "units" : "",
-               "title" : "neutral_solution"
+               "title" : "Наличие<br>нейтр. р-ра,"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "leach1",
                "units" : "",
-               "title" : "leach1"
+               "title" : "Уч. выщел. N1<br>бак 3,4,5,4А"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "leach2",
                "units" : "",
-               "title" : "leach2"
+               "title" : "Уч. выщел. N1<br>бак 3,4,5,4А,"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "bak_3",
                "units" : "",
-               "title" : "bak_3"
+               "title" : "Бак 3"
             },
             {
                "name" : "bak_4",
                "type" : "number",
-               "title" : "bak_4",
+               "title" : "Бак 4",
                "units" : "",
                "formula" : ""
             },
@@ -1988,12 +1989,12 @@
                "type" : "number",
                "name" : "summary",
                "units" : "",
-               "title" : "summary",
+               "title" : "Итого",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "bak_seria3",
+               "title" : "Бак III серии",
                "units" : "",
                "name" : "bak_seria3",
                "type" : "number"
@@ -2001,7 +2002,7 @@
             {
                "name" : "bak_5",
                "type" : "number",
-               "title" : "bak_5",
+               "title" : "Бак 5 ",
                "units" : "",
                "formula" : ""
             },
@@ -2009,7 +2010,7 @@
                "formula" : "",
                "name" : "bak_6",
                "type" : "number",
-               "title" : "bak_6",
+               "title" : "Бак 6 ",
                "units" : ""
             }
          ],
@@ -2020,7 +2021,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "this_master",
+               "title" : "Мастер сдал",
                "type" : "text",
                "name" : "this_master"
             },
@@ -2028,25 +2029,25 @@
                "formula" : "",
                "name" : "next_master",
                "type" : "text",
-               "title" : "next_master"
+               "title" : "Мастер принял"
             },
             {
                "formula" : "",
                "units" : "тонн",
-               "title" : "out_sol_t",
+               "title" : "Выход ТВ",
                "type" : "number",
                "name" : "out_sol_t"
             },
             {
                "name" : "out_sol_c",
                "type" : "number",
-               "title" : "out_sol_c",
+               "title" : "Выход ТВ",
                "units" : "тонн",
                "formula" : ""
             },
             {
                "units" : "тонн",
-               "title" : "out_pulp_cvck",
+               "title" : "Выход ЦВЦК",
                "type" : "number",
                "name" : "out_pulp_cvck",
                "formula" : ""
@@ -2055,13 +2056,13 @@
                "formula" : "",
                "name" : "out_cu_kek",
                "type" : "number",
-               "title" : "out_cu_kek",
+               "title" : "Выход медного кека",
                "units" : "м³"
             },
             {
                "name" : "out_cd_sponge",
                "type" : "number",
-               "title" : "out_cd_sponge",
+               "title" : "ВЫход Cd губки",
                "units" : "тонн",
                "formula" : ""
             },
@@ -2069,7 +2070,7 @@
                "type" : "number",
                "name" : "out_neutr",
                "units" : "м³",
-               "title" : "out_neutr",
+               "title" : "Нейтрального в ХМЦ",
                "formula" : ""
             },
             {
@@ -2082,7 +2083,7 @@
             {
                "name" : "neutral_hmc",
                "type" : "number",
-               "title" : "neutral_hmc",
+               "title" : "Нейтрального в ХМЦ",
                "units" : "м³",
                "formula" : ""
             },
@@ -2091,12 +2092,12 @@
                "type" : "number",
                "name" : "out_cu_pulp",
                "units" : "м³",
-               "title" : "out_cu_pulp"
+               "title" : "Cu пульпа"
             },
             {
                "formula" : "",
                "units" : "м³",
-               "title" : "in_filtrate_ls",
+               "title" : "Фильтрат ЦВЦК",
                "type" : "number",
                "name" : "in_filtrate_ls"
             },
@@ -2104,19 +2105,19 @@
                "type" : "number",
                "name" : "in_fe",
                "units" : "м³",
-               "title" : "in_fe",
+               "title" : "Железистого из ЦВОЦ",
                "formula" : ""
             },
             {
                "units" : "",
-               "title" : "in_filtrate_dens",
+               "title" : "Уд. вес",
                "type" : "number",
                "name" : "in_filtrate_dens",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "in_fe_hi",
+               "title" : "Высоко-железистый из ЦВОЦ",
                "units" : "м³",
                "name" : "in_fe_hi",
                "type" : "number"
@@ -2125,7 +2126,7 @@
                "formula" : "",
                "name" : "in_poor_cd",
                "type" : "number",
-               "title" : "in_poor_cd",
+               "title" : "Бедно-кадмиего",
                "units" : "м³"
             }
          ],

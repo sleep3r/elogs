@@ -3,9 +3,9 @@
         <template v-if="$store.getters['journalState/loaded']">
             <div class="journal_title_container">
                 <div class="exp-time" :style="{'background-color': canEdit ? '#02a202' : '#d80000'}"><span> {{ shiftMessage }} </span></div>
-                <div style="width: 100%; padding: 20px;">
+                <div style="width: 100%; padding: 6px 15px;">
                     <div class="journal-title">
-                        <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
+                        <h5 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h5>
                         <div class="actions-icons">
                             <i class="fas fa-file-excel" @click="download_xlsx()" data-toggle="tooltip" title="Скачать xlsx"></i>
                             <!-- <i
@@ -25,7 +25,7 @@
                 <h4 class="journal_title" v-if="$route.name === 'defaultJournalPage'">{{$store.getters['journalState/journalVerboseName']}}</h4>
                 <journal-panel></journal-panel>
             </div>
-            <div class="journal-tables">
+            <div class="journal-tables" :style="{paddingTop: paddingTop}">
                 <template v-if="$store.getters['journalState/loaded']">
                     <tablecommon v-for="(table, index) in $store.getters['journalState/tables']" :name="table" :index="index" :key="$store.getters['journalState/journalName']+'_'+table"></tablecommon>
                 </template>
@@ -43,7 +43,6 @@
 <script>
     import TableCommon from './TableCommon.vue';
     import JournalPanel from './JournalPanel.vue';
-import { setTimeout } from 'timers';
     var request = require('sync-request');
     let XLSX = require('xlsx');
 
@@ -53,7 +52,8 @@ import { setTimeout } from 'timers';
         data () {
             return {
                 shiftMessage: '',
-                now: new Date()
+                now: new Date(),
+                paddingTop: '110px'
             }
         },
         watch: {
@@ -194,7 +194,7 @@ import { setTimeout } from 'timers';
             }
         },
         updated () {
-            setTimeout(() => $('.journal-tables').css({'padding-top': `${$('.journal_title_container').height() + 10}px`}), 0)
+            setTimeout(() => this.paddingTop = ($('.journal_title_container').height() + ($(window).width() < 678 ? 104 : 10)) + 'px', 0)
         },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
@@ -211,8 +211,8 @@ import { setTimeout } from 'timers';
             }
             else if (this.$route.params.plant && this.$route.params.journal) {
                 this.$store.dispatch('journalState/loadJournal', {
-                'plantName': this.$route.params.plant,
-                'journalName': this.$route.params.journal
+                    'plantName': this.$route.params.plant,
+                    'journalName': this.$route.params.journal
                 })
                     .then((id) => {
                         this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
@@ -226,5 +226,9 @@ import { setTimeout } from 'timers';
 </script>
 
 <style scoped>
+
+.journal_title {
+    margin-bottom: 0;
+}
 
 </style>

@@ -233,8 +233,10 @@ def get_or_none(model, *args, **kwargs) -> Optional[QuerySet]:
     except model.DoesNotExist:
         return None
 
-def user_to_response(employee):
-    return {str(employee.user): str(employee)} if employee else {"E-LOGS":"E-LOGS"}
+
+def user_to_response(employee=None):
+    return {str(employee.user): str(employee)} if employee else {"E-LOGS": "E-LOGS"}
+
 
 def model_to_representation(model: Model):
     def is_printable(field):
@@ -256,20 +258,23 @@ def model_to_representation(model: Model):
             model._meta.get_fields(include_parents=False)
             if is_printable(f)}
 
+
 def current_date():
     return timezone.get_current_timezone().normalize(timezone.now()).date()
+
 
 class StrAsDictMixin:
     # def __str__(self: Model):
     #     return str(self.__class__.__name__) + format(model_to_representation(self))
     pass
 
+
 def zipdir(basedir, archivename):
     assert os.path.isdir(basedir)
     with ZipFile(archivename, "w") as z:
         for root, dirs, files in os.walk(basedir):
-            #NOTE: ignore empty directories
+            # NOTE: ignore empty directories
             for fn in files:
                 absfn = os.path.join(root, fn)
-                zfn = absfn[len(basedir)+len(os.sep):] #XXX: relative path
+                zfn = absfn[len(basedir) + len(os.sep):]  # XXX: relative path
                 z.write(absfn, zfn)

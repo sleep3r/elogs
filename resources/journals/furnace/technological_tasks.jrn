@@ -10,75 +10,75 @@
             "fields": [
                 {
                     "name": "date_create",
-                    "title": "date_create",
+                    "title": "Дата распоряжения",
                     "formula": "",
                     "type": "date"
                 },
                 {
                     "name": "comments",
-                    "title": "comments",
+                    "title": "Комментарии",
                     "formula": "",
                     "type": "text"
                 },
                 {
                     "name": "caption1",
-                    "title": "caption1",
+                    "title": "Шихта Концентрат",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "weight1",
-                    "title": "weight1",
+                    "title": "Масса",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "caption2",
-                    "title": "caption2",
+                    "title": "Шихта Концентрат",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "weight2",
-                    "title": "weight2",
+                    "title": "Масса",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "caption3",
-                    "title": "caption3",
+                    "title": "Шихта Концентрат",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "weight3",
-                    "title": "weight3",
+                    "title": "Масса",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "caption4",
-                    "title": "caption4",
+                    "title": "Шихта Концентрат",
                     "formula": "",
                     "type": "datalist",
                     "options": []
                 },
                 {
                     "name": "weight4",
-                    "title": "weight4",
+                    "title": "Масса",
                     "formula": "",
                     "type": "number",
                     "units": "тонн"
                 },
                 {
                     "name": "employee",
-                    "title": "employee",
+                    "title": "Заполнил",
                     "formula": "",
                     "type": "text",
                     "units": "Фамилия И.О."

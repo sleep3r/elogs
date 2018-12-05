@@ -94,6 +94,7 @@ export default {
       }
   },
   mounted(){
+      if ($(window).width() < 678) $('.dashboard').css({'padding-top': '114px'})
       let self = this;
       // this.$store.commit("UPDATE_JOURNAL_INFO", {plant: {name: "Панель аналитики"}})
       // console.log(this.$store)
