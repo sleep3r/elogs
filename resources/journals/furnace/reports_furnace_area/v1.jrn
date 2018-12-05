@@ -386,7 +386,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "ГК-30М 1 секция t ",
+               "title" : "ГК-30М 1 секция Температура ",
                "units" : "ᵒC",
                "name" : "M_s1_t_in",
                "type" : "number"
@@ -394,7 +394,7 @@
             {
                "name" : "M_s2_t_in",
                "type" : "number",
-               "title" : "ГК-30М 2 секция t",
+               "title" : "ГК-30М 2 секция Температура",
                "units" : "ᵒC",
                "formula" : ""
             },
@@ -402,19 +402,19 @@
                "type" : "number",
                "name" : "G_s1_t_in",
                "units" : "ᵒC",
-               "title" : "ГК-30Г 1 секция t",
+               "title" : "ГК-30Г 1 секция Температура",
                "formula" : ""
             },
             {
                "name" : "G_s2_t_in",
                "type" : "number",
-               "title" : "ГК-30Г 1 секция t",
+               "title" : "ГК-30Г 1 секция Температура",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "s1_t_in",
+               "title" : "ГК-60 Температура (вход)",
                "units" : "ᵒC",
                "name" : "s1_t_in",
                "type" : "number"
@@ -423,19 +423,19 @@
                "formula" : "",
                "name" : "s2_t_in",
                "type" : "number",
-               "title" : "s2_t_in",
+               "title" : "ГК-60 Температура (вход)",
                "units" : "ᵒC"
             },
             {
                "name" : "M_s1_t_out",
                "type" : "number",
-               "title" : "M_s1_t_out",
+               "title" : "ГК-30М Температура (выход)  ",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "M_s2_t_out",
+               "title" : "ГК-30М Температура (выход)  ",
                "units" : "ᵒC",
                "name" : "M_s2_t_out",
                "type" : "number"
@@ -444,7 +444,7 @@
                "type" : "number",
                "name" : "G_s1_t_out",
                "units" : "ᵒC",
-               "title" : "G_s1_t_out",
+               "title" : "ГК-30Г Температура (выход)",
                "formula" : ""
             },
             {
@@ -452,13 +452,13 @@
                "type" : "number",
                "name" : "G_s2_t_out",
                "units" : "ᵒC",
-               "title" : "G_s2_t_out"
+               "title" : "ГК-30Г Температура (выход)"
             },
             {
                "formula" : "",
                "name" : "s1_t_out",
                "type" : "number",
-               "title" : "s1_t_out",
+               "title" : "ГК-60 Температура (выход)",
                "units" : "ᵒC"
             },
             {
@@ -466,46 +466,46 @@
                "type" : "number",
                "name" : "s2_t_out",
                "units" : "ᵒC",
-               "title" : "s2_t_out"
+               "title" : "ГК-60 Температура (выход)"
             },
             {
                "type" : "text",
                "name" : "M_s1_vam",
-               "title" : "M_s1_vam",
+               "title" : "ГК-30М   Вольтамперная характеристика",
                "formula" : ""
             },
             {
                "name" : "M_s2_vam",
                "type" : "text",
-               "title" : "M_s2_vam",
+               "title" : "ГК-30М   Вольтамперная характеристика",
                "formula" : ""
             },
             {
-               "title" : "G_s1_vam",
+               "title" : "ГК-30Г Вольтамперная характеристика",
                "type" : "text",
                "name" : "G_s1_vam",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "G_s2_vam",
+               "title" : "ГК-30Г Вольтамперная характеристика",
                "type" : "text",
                "name" : "G_s2_vam"
             },
             {
                "type" : "text",
                "name" : "s1_vam",
-               "title" : "s1_vam",
+               "title" : "ГК-60 Вольтамперная характеристика",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "s2_vam",
+               "title" : "ГК-60 Вольтамперная характеристика",
                "name" : "s2_vam",
                "type" : "text"
             },
             {
-               "title" : "M_s1_con",
+               "title" : "ГК-30М  Концентрация SO<sub>2</sub>",
                "units" : "%",
                "name" : "M_s1_con",
                "type" : "number",
@@ -513,14 +513,14 @@
             },
             {
                "formula" : "",
-               "title" : "M_s2_con",
+               "title" : "ГК-30М  Концентрация SO<sub>2</sub> ",
                "units" : "%",
                "name" : "M_s2_con",
                "type" : "number"
             },
             {
                "units" : "%",
-               "title" : "G_s1_con",
+               "title" : "ГК-30Г Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "G_s1_con",
                "formula" : ""
@@ -528,12 +528,12 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "G_s2_con",
+               "title" : "ГК-30Г Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "G_s2_con"
             },
             {
-               "title" : "s1_con",
+               "title" : "ГК-60 Концентрация SO<sub>2</sub> ",
                "units" : "%",
                "name" : "s1_con",
                "type" : "number",
@@ -542,7 +542,7 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "s2_con",
+               "title" : "ГК-60 Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "s2_con"
             },
@@ -550,16 +550,16 @@
                "formula" : "",
                "type" : "text",
                "name" : "gas1",
-               "title" : "gas1"
+               "title" : "Запылённость газа 1"
             },
             {
-               "title" : "gas2",
+               "title" : "Запылённость газа 2",
                "name" : "gas2",
                "type" : "text",
                "formula" : ""
             },
             {
-               "title" : "gas3",
+               "title" : "Запылённость газа 3",
                "type" : "text",
                "name" : "gas3",
                "formula" : ""
@@ -567,14 +567,14 @@
             {
                "formula" : "",
                "units" : "м³",
-               "title" : "M_s1_fact",
+               "title" : "ГК-30М  Откачка пыли с бункеров по факту",
                "type" : "number",
                "name" : "M_s1_fact"
             },
             {
                "name" : "M_s2_fact",
                "type" : "number",
-               "title" : "M_s2_fact",
+               "title" : "ГК-30М  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "formula" : ""
             },
@@ -582,25 +582,25 @@
                "type" : "number",
                "name" : "G_s1_fact",
                "units" : "м³",
-               "title" : "G_s1_fact",
+               "title" : "ГК-30Г  Откачка пыли с бункеров по факту",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "G_s2_fact",
                "type" : "number",
-               "title" : "G_s2_fact",
+               "title" : "ГК-30Г  Откачка пыли с бункеров по факту",
                "units" : "м³"
             },
             {
-               "title" : "s1_fact",
+               "title" : "ГК-60  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "name" : "s1_fact",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "s2_fact",
+               "title" : "ГК-60  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "name" : "s2_fact",
                "type" : "number",
@@ -610,13 +610,13 @@
                "formula" : "",
                "name" : "vak1",
                "type" : "text",
-               "title" : "vak1"
+               "title" : "Вакуум насос 1"
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "vak2",
-               "title" : "vak2"
+               "title" : "Вакуум насос 2"
             }
          ],
          "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Электрофильтр </th>\n            <th colspan=\"2\" class=\"th-common\"> Температура<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\" class=\"th-number\"> Вольтамперная характеристика </th>\n            <th rowspan=\"2\" class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i> </th>\n            <th colspan=\"3\" class=\"th-common\"> Запылённость газа по системам </th>\n            <th rowspan=\"2\" class=\"th-number\"> Откачка пыли с бункеров по факту<i class=\"units\">м³</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Вакуум насос </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> Вход </th>\n            <th class=\"th-number\"> Выход </th>\n            <th> 1 </th>\n            <th> 2 </th>\n            <th> 3 </th>\n            <th> 1 </th>\n            <th> 2 </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30М </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"M_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_con\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas2\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas3\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_fact\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak2\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"M_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_fact\" row-index=\"0\"></cell></td>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30Г </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"G_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"G_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-60 </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",

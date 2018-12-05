@@ -34,6 +34,7 @@ def compress_journal(journal: Journal):
             fd = DeepDict()
             fd.name = f.name
             fd.formula = f.formula
+            fd.title = f.verbose_name
             try:
                 fd.type = f.type
                 if fd.type == 'number':
