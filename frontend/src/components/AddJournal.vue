@@ -1,14 +1,18 @@
 <template>
     <div class="load-journal-content">
         <form enctype="multipart/form-data">
-            <h3 style="margin-bottom: 30px;">Загрузить журнал</h3>
+            <h3 style="margin-bottom: 30px;">Загрузка журнала</h3>
             <span :style="{display: errorText ? 'block' : 'none'}" class="alert alert-danger">{{errorText}}</span>
             <template v-if="!hash">
                 <p>
-                    <input accept=".jrn" id="journal_upload_button" type="file" value="Обзор" name="journal_file" @change="handleFileUpload"/>
+                    <input accept=".jrn" id="journal_upload_button" type="file" value="Обзор" name="journal_file"
+                           @change="handleFileUpload"/>
                 </p>
             </template>
-            <template v-if="hash">
+            <template v-if="hash && plant">
+                <h5><b>{{this.journalVerboseName}}</b> будет изменен.</h5>
+            </template>
+            <template v-else="hash">
                 <p>
                     <select name="plant" v-model="plant">
                         <option disabled selected value="">Выберите цех</option>
@@ -33,9 +37,19 @@
                     </select>
                 </p>
             </template>
-            <p style="text-align: left;">
-                <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">Назад</button>
-                <button class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">{{hash ? 'Добавить' : 'Загрузить'}}</button>
+            <p v-if="hash && this.plant" style="text-align: left;">
+                <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
+                    Отмена
+                </button>
+                <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить</button>
+            </p>
+            <p v-else-if="hash" style="text-align: left;">
+                <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
+                    Отмена
+                </button>
+                <button class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">
+                    {{hash ? 'Сохранить' : 'Загрузить'}}
+                </button>
             </p>
         </form>
     </div>
@@ -47,23 +61,30 @@
 
     export default {
         name: "SettingsPage",
-        data () {
+        data() {
             return {
                 errorText: '',
                 plant: '',
+                journal: '',
                 type: '',
                 shifts: '',
                 file: '',
-                hash: ''
+                hash: '',
             }
         },
-        computed:{
-            plants () {
+        computed: {
+            plants() {
                 return this.$store.getters['journalState/plants']
             },
+            plantVerboseName() {
+                return this.plants.filter((item) => (item.name === this.plant))[0].verbose_name;
+            },
+            journalVerboseName() {
+                return this.$store.getters['journalState/plants'].filter(item => item.name === this.plant)[0].journals.filter(item => item.name === this.journal)[0].verbose_name;
+            }
         },
         methods: {
-            onLoadJournalFile () {
+            onLoadJournalFile() {
                 if (this.file) {
                     let formData = new FormData();
 
@@ -72,7 +93,7 @@
                     axios.post(window.HOSTNAME + '/api/constructor/hash/', formData,
                         {
                             headers: {
-                                Authorization: 'Token ' + VueCookies.get('Authorization'), 
+                                Authorization: 'Token ' + VueCookies.get('Authorization'),
                                 'content-type': "multipart/form-data"
                             }
                         }
@@ -88,12 +109,41 @@
                                 type: 'error'
                             })
                         })
-                }
-                else {
+                } else {
                     this.errorText = 'Выберите файл!'
                 }
             },
-            onLoadJournalData () {
+            onAlterJournal() {
+                let formData = new FormData();
+
+                formData.append("plant", this.plant);
+                formData.append("journal_name", this.journal);
+                formData.append("hash", this.hash);
+
+                axios.post(window.HOSTNAME + '/api/constructor/alter/', formData,
+                    {
+                        headers: {
+                            Authorization: 'Token ' + VueCookies.get('Authorization')
+                        }
+                    }
+                )
+                    .then((res) => {
+                        this.$notify({
+                            text: `Журнал успешно загружен!
+                            Обновите страницу.`,
+                            duration: 3000,
+                            type: 'success'
+                        })
+                    })
+                    .catch(err => {
+                        this.$notify({
+                            text: 'Не удалось загрузить журнал!',
+                            duration: 3000,
+                            type: 'error'
+                        })
+                    })
+            },
+            onLoadJournalData() {
 
                 let formData = new FormData();
 
@@ -132,13 +182,13 @@
                         })
                     })
             },
-            handleFileUpload(e){
+            handleFileUpload(e) {
                 this.file = e.target.files[0];
                 if (this.file) {
                     this.errorText = ''
                 }
             },
-            getURLParameter (paramName) {
+            getURLParameter(paramName) {
                 let url = window.location.search.substring(1);
                 let urlParams = url.split('&');
                 for (let i = 0; i < urlParams.length; i++) {
@@ -150,9 +200,13 @@
                 return "";
             }
         },
-        mounted () {
+        mounted() {
             if (this.getURLParameter('hash')) {
-                this.hash = this.getURLParameter('hash')
+                this.hash = this.getURLParameter('hash');
+                if ((this.getURLParameter('plant'))) {
+                    this.plant = this.getURLParameter('plant');
+                    this.journal = this.getURLParameter('journalName')
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from proxy.views import proxy_view
 
 from e_logs.business_logic.dictionaries.models import EquipmentDict
-from e_logs.common.all_journals_app.models import Shift, Equipment, Month, Year
+from e_logs.common.all_journals_app.models import Shift, Equipment, Month, Year, Journal
 from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 from e_logs.core.journals_git import VersionControl
 from e_logs.core.management.commands.compress_journals import compress_journal
@@ -46,6 +46,30 @@ class ConstructorHashAPI(View):
         return JsonResponse({"hash": journal_hash})
 
 
+class ConstructorAlterJournalAPI(View):
+    def post(self, request):
+        hash = request.POST.get('hash', None)
+        plant = request.POST.get('plant', None)
+        journal_name = request.POST.get('journal_name', None)
+
+        try:
+            git = VersionControl()
+            journal = Journal.objects.get(plant__name=plant, name=journal_name)
+            last_version = git.version_of(journal)
+
+            shutil.copy(f'resources/temp/{hash}.jrn',
+                        f'resources/journals/{plant}/{journal.name}/v{last_version + 1}.jrn')
+
+            git.commit(journal)
+
+
+            return JsonResponse({"status": 1})
+        except Exception as ex:
+            print(ex)
+            err_logger.error(ex)
+            return JsonResponse({"status": 2, "message": ex})
+
+
 class ConstructorUploadAPI(View):
     def post(self, request):
         hash = request.POST.get('hash', None)
@@ -79,7 +103,7 @@ class ConstructorUploadAPI(View):
             return JsonResponse({"status": 2, "message": ex})
 
     @staticmethod
-    def add_groups(journal, shifts_num):
+    def add_groups(journal, shifts_num=None):
         def date_range(start_date, end_date):
             for n in range(int((end_date - start_date).days)):
                 yield start_date + timedelta(n)

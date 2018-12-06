@@ -131,7 +131,7 @@
             openConstructor() {
                 window.open(`${window.location.hostname === 'localhost' ?
                     'http://127.0.0.1:8085'
-                    : window.FRONT_CONSTRUCTOR_HOSTNAME}/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true`,
+                    : window.FRONT_CONSTRUCTOR_HOSTNAME}/journal/${this.$route.params.journal}?plant=${this.$route.params.plant}&imported=true&version=${this.$store.getters['journalState/journalVersion']}`,
                 '_blank')
             },
             download_xlsx() {
