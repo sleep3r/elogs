@@ -26,9 +26,11 @@ class VersionControl():
     def commit(self, journal):
         journal_entry = self.versions[journal.plant.name][journal.name]
         journal_version = self.version_of(journal)
-        journal_entry[journal_version + 1] = {"start": journal_entry[journal_version]['start'], "end": self.max_time()}
+        journal_entry[str(journal_version + 1)] = {"start": journal_entry[str(journal_version)]['start'],
+                                                   "end": self.max_time()}
         self.__write()
-        for group in CellGroup.objects.filter(journal=journal):
+
+        for group in journal.group.objects.filter(journal=journal):
             if not isinstance(group, Equipment):
                 date = group.end_time if group.journal.type == 'shift' else localize(group.date)
                 if date >= timezone.now():
@@ -37,7 +39,6 @@ class VersionControl():
             else:
                 group.version = group.version + 1
                 group.save()
-
 
     def add(self, journal):
         self.versions[journal.plant.name].pop(journal.name, None)  # if journal entry exists
