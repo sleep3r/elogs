@@ -56,7 +56,7 @@ class GroupAPI(LoginRequired, View):
         res = {
             "id": qs.id,
             "plant": {"name": plant.name},
-            "version":qs.version,
+            "version": qs.version,
             "mode": get_page_mode(user=user, plant=plant),
             "field_constraints_modes": self.constraint_modes_serializer(qs),
             "journal": self.journal_serializer(qs),
@@ -201,7 +201,7 @@ class GroupAPI(LoginRequired, View):
                 "name": table.name,
                 "title": table.verbose_name,
                 "fields": self.field_serializer(qs, table), }
-            for table in tables}
+            for table in tables if os.path.exists(qs.tables_path / f'{table.name}.html')}
 
         return res
 
@@ -434,4 +434,3 @@ class SchemeAPI(View):
                     journal_dict[table.name].append(field.name)
             res[journal.name] = journal_dict
         return JsonResponse(res)
-

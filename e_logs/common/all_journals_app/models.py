@@ -1,4 +1,5 @@
 from datetime import time, datetime, timedelta
+from django.conf import settings
 
 from cacheops import cached_as, cached
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -148,6 +149,10 @@ class CellGroup(models.Model):
             return list(self.journal.tables.all())
 
         return cached_tables(self)
+
+    @property
+    def tables_path(self):
+        return settings.JOURNAL_TEMPLATES_DIR / self.journal.plant.name / self.journal.name / f'v{self.version}'
 
 
 class Shift(CellGroup):
