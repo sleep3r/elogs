@@ -62,6 +62,8 @@ class ConstructorAlterJournalAPI(View):
 
             git.commit(journal)
 
+            journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant, journal.type)
+            journal.create()
 
             return JsonResponse({"status": 1})
         except Exception as ex:
