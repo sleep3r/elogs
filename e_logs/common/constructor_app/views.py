@@ -52,24 +52,24 @@ class ConstructorAlterJournalAPI(View):
         plant = request.POST.get('plant', None)
         journal_name = request.POST.get('journal_name', None)
 
-        try:
-            git = VersionControl()
-            journal = Journal.objects.get(plant__name=plant, name=journal_name)
-            last_version = git.version_of(journal)
+        # try:
+        git = VersionControl()
+        journal = Journal.objects.get(plant__name=plant, name=journal_name)
+        last_version = git.version_of(journal)
 
-            shutil.copy(f'resources/temp/{hash}.jrn',
-                        f'resources/journals/{plant}/{journal.name}/v{last_version + 1}.jrn')
+        shutil.copy(f'resources/temp/{hash}.jrn',
+                    f'resources/journals/{plant}/{journal.name}/v{last_version + 1}.jrn')
 
-            git.commit(journal)
+        git.commit(journal)
 
-            journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant, journal.type)
-            journal.create()
+        journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant, journal.type)
+        journal.create()
 
-            return JsonResponse({"status": 1})
-        except Exception as ex:
-            print(ex)
-            err_logger.error(ex)
-            return JsonResponse({"status": 2, "message": ex})
+        return JsonResponse({"status": 1})
+        # except Exception as ex:
+        #     print(ex)
+        #     err_logger.error(ex)
+        #     return JsonResponse({"status": 2, "message": str(ex)})
 
 
 class ConstructorUploadAPI(View):
