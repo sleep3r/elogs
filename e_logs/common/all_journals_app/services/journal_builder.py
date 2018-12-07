@@ -52,7 +52,15 @@ class JournalBuilder:
 
         return new_journal
 
-    def __create_journal(self, tables_path, rewrite=True):
+    def extract_tables(self, tables_path):
+        for table in self.tables:
+            template_filename = os.path.join(tables_path, table['name'] + '.html')
+            os.makedirs(os.path.dirname(template_filename), exist_ok=True)
+
+            with open(template_filename, 'w') as temp_file:
+                temp_file.write(table['html'])
+
+    def __create_journal(self):
         journal, created = Journal.objects.get_or_create(name=self.name, verbose_name=self.title,
                                                          plant=self.plant, type=self.type)
         return journal
