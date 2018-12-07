@@ -398,7 +398,7 @@ class CellAPI(View):
         return JsonResponse(res, safe=False)
 
 
-class SettingAPI(View):
+class SettingAPI(LoginRequired, View):
     def get(self, request):
         # DEBUG
         # user = CustomUser.objects.get(username="inframine")
