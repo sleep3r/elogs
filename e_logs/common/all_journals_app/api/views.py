@@ -101,15 +101,17 @@ class GroupAPI(LoginRequired, View):
             for mode in modes:
                 constraints = FieldConstraints.objects.filter(mode=mode)
                 for constraint in constraints:
-                    field = constraint.field
-                    desc = res['journal']['tables'][field.table.name]['fields'][field.name][
-                        'field_description']
-                    desc['constraints_modes'] = {
-                        mode.id: {
-                            'min_normal': constraint.min_normal,
-                            'max_normal': constraint.max_normal
+                    try:
+                        field = constraint.field
+                        desc = res['journal']['tables'][field.table.name]['fields'][field.name]['field_description']
+                        desc['constraints_modes'] = {
+                            mode.id: {
+                                'min_normal': constraint.min_normal,
+                                'max_normal': constraint.max_normal
+                            }
                         }
-                    }
+                    except:
+                        pass
 
     def get_current_group(self, request, kwargs):
         if not kwargs.get('id', None):
