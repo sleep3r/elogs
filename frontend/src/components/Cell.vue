@@ -95,7 +95,8 @@
           KEY_BACKSPACE = 8,
           KEY_ARROW_LEFT = 37,
           KEY_ARROW_RIGHT = 39,
-          KEY_DELETE = 46,
+          KEY_COMMA = 44,
+          KEY_DOT = 46,
           KEY_SLASH = 47,
           KEY_DASH = 189;
 
@@ -553,11 +554,16 @@
             filterInput(e) {
                 if (this.type === 'number') {
                     let keycode = e.which;
+                    console.log("keycode=>", keycode);
                     if (
                         (keycode >= 48 && keycode <= 57)
                         || keycode == KEY_MINUS
                         || keycode == KEY_PLUS
                         || keycode == KEY_SLASH
+                        || keycode == KEY_ARROW_LEFT
+                        || keycode == KEY_ARROW_RIGHT
+                        || keycode == KEY_COMMA
+                        || keycode == KEY_DOT
                        )
                     {
                         this.showTooltip = false;
