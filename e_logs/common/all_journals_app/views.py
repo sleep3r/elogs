@@ -13,7 +13,7 @@ from e_logs.core.utils.webutils import logged, current_date
 from e_logs.core.views import LoginRequired
 
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env("config/settings/.env")
+environ.Env.read_env(".env")
 
 
 def _get_current_group(journal):

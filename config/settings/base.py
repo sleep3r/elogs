@@ -40,7 +40,7 @@ ASGI_APPLICATION = 'config.routing.application'
 SECRET_KEY = env('SECRET_KEY')
 NOTIFICATION_KEY = env('NOTIFICATION_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("HOSTNAME")]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("DOMAIN_NAME")]
 FEEDBACK_TG_BOT = {
     "token": env("TG_TOKEN"),
     "channel": env("TG_CHANNEL"),
@@ -52,9 +52,8 @@ FEEDBACK_TG_BOT = {
     }
 }
 
-DATABASE_URL = env('DATABASE_URL')
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600)
 }
 
 TEMPLATES = [
