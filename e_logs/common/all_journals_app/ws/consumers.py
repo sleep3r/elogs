@@ -31,7 +31,7 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             await self.accept()
 
         except:
-            await self.close()
+            await self.websocket_disconnect(event)
 
     async def websocket_disconnect(self, event):
         try:
