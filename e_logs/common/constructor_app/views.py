@@ -55,14 +55,14 @@ class ConstructorAlterJournalAPI(View):
         # try:
         git = VersionControl()
         journal = Journal.objects.get(plant__name=plant, name=journal_name)
-        last_version = git.version_of(journal)
+        version = git.version_of(journal) + 1
 
         shutil.copy(f'resources/temp/{hash}.jrn',
-                    f'resources/journals/{plant}/{journal.name}/v{last_version + 1}.jrn')
+                    f'resources/journals/{plant}/{journal.name}/v{version}.jrn')
 
         git.commit(journal)
 
-        journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant, journal.type)
+        journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant.name, version, journal.type)
         journal.create()
 
         return JsonResponse({"status": 1})

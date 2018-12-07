@@ -14,7 +14,7 @@ from e_logs.core.utils.webutils import get_or_none
 
 # noinspection PyMethodMayBeStatic
 class JournalBuilder:
-    def __init__(self, file, plant_name, type=None):
+    def __init__(self, file, plant_name, version, type=None):
         env = environ.Env(DEBUG=(bool, False))
         required_version = env('CONSTRUCTOR_VERSION')
 
@@ -33,7 +33,7 @@ class JournalBuilder:
             self.name = meta['name']
             self.title = meta['title']
             self.tables = meta['tables']
-            self.tables_path = settings.JOURNAL_TEMPLATES_DIR / self.plant.name / self.name
+            self.version = version
         else:
             raise SemanticError(
                 message=f"Некорректная версия, требуется не ниже v{required_version}")
@@ -47,9 +47,13 @@ class JournalBuilder:
             for field in table['fields']:
                 self.__create_field(table=new_table, field_meta=field)
 
+        self.extract_tables()
+
         return new_journal
 
-    def extract_tables(self, tables_path):
+    def extract_tables(self):
+        tables_path = settings.JOURNAL_TEMPLATES_DIR / self.plant.name / self.name /  f'v{self.version}'
+
         for table in self.tables:
             template_filename = os.path.join(tables_path, table['name'] + '.html')
             os.makedirs(os.path.dirname(template_filename), exist_ok=True)
@@ -76,10 +80,3 @@ class JournalBuilder:
                                                      verbose_name=field_meta.get('title', ''),
                                                      formula=field_meta.pop('formula', ''))
         return field
-
-    def __delete_journal(self, journal):
-        tables = Table.objects.filter(journal=journal)
-        fields = Field.objects.filter(table__in=tables)
-        fields.delete()
-        tables.delete()
-        journal.delete()

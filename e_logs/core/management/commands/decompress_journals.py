@@ -20,7 +20,9 @@ def decompress_journals():
                     if version.endswith(f'.{settings.JOURNAL_EXTENSION}'):
                         stdout_logger.info(journal_dir)
                         journal = JournalBuilder(
-                            settings.JOURNALS_DIR / plant_name / journal_dir / version, plant_name)
+                            settings.JOURNALS_DIR / plant_name / journal_dir / version, plant_name,
+                            version.strip('v.jrn')
+                        )
                         journal.create()
 
 
