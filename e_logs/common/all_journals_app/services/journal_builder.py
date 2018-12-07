@@ -33,16 +33,13 @@ class JournalBuilder:
             self.name = meta['name']
             self.title = meta['title']
             self.tables = meta['tables']
+            self.tables_path = settings.JOURNAL_TEMPLATES_DIR / self.plant.name / self.name
         else:
             raise SemanticError(
                 message=f"Некорректная версия, требуется не ниже v{required_version}")
 
     def create(self):
-        journal_rel_dir = self.plant.name
-
-        tables_path = settings.JOURNAL_TEMPLATES_DIR / journal_rel_dir / self.name
-
-        new_journal = self.__create_journal(tables_path)
+        new_journal = self.__create_journal()
 
         for table in self.tables:
             new_table = self.__create_table(journal=new_journal, table_meta=table)
