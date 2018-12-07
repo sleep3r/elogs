@@ -24,7 +24,7 @@
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
             @blur="showTooltip=false"
-            @contextmenu.prevent="$refs.menu.open"
+            @contextmenu.prevent="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
@@ -127,7 +127,8 @@
                 height: null,
                 highlight: false,
                 backgroundColor: null,
-                minWidth: 0
+                minWidth: 0,
+                indexedLine: null,
             }
         },
         watch: {
@@ -337,6 +338,11 @@
             },
         },
         methods: {
+            openMenu () {
+                if (this.indexedLine && (this.mode == 'edit')) {
+                    this.$refs.menu.open()
+                }
+            },
             showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
@@ -645,19 +651,9 @@
             this.height = this.$el.parentElement.clientHeight;
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
-            // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
             this.type = desc['type'] || 'text';
-
-            // this.$root.$on('send', () => {
-            //     this.send();
-            // })
-
-            // if (this.linked) {
-                // auto fill cell
-                // this.value = this.$store.getters['journalState/' + this.linked];
-                // this.send();
-            // }
+            this.indexedLine = this.$el.parentElement.parentElement.classList.contains('indexed-line')
 
             this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
 
