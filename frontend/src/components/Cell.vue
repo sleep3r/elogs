@@ -497,7 +497,9 @@
                 });
             },
             onInput(e) {
-                this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
+                if (this.tag != 'textarea') {
+                    this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
+                }
 
                 this.value = e.target.value;
 
