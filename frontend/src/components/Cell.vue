@@ -16,6 +16,7 @@
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
+<<<<<<< HEAD
             :placeholder="placeholder + '\u200e'"
             :style="[{
               color: activeColor,
@@ -23,6 +24,10 @@
               outline: outline,
               minWidth: minWidth + 'px',
               textAlign: textAlign }]"
+=======
+            :placeholder="placeholder + ' '"
+            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline, minWidth: minWidth + 'px' }]"
+>>>>>>> 1342e47528900ec9b39eb2a9f85969448a628355
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"

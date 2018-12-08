@@ -39,13 +39,6 @@ input[type="number"].general-value {
 .general-value::placeholder { /* placeholder style */
     color: $placeholder-color;
     font-style: italic;
-    overflow: hidden;
-    
-    // Some really evil black magic to stop input italic text cutting off
-    // https://stackoverflow.com/questions/11909947/css-text-indent-equivalent-on-the-right-side
-    // https://stackoverflow.com/questions/20798667/why-is-a-trailing-punctuation-mark-rendered-at-the-start-with-directionrtl
-    text-indent: 0.2em;
-    direction: rtl; // I also added "&lrm;" to each placeholder to fix punctuation line-end bug
 }
 
 /* ------------------------ POPUPS FOR CHECK NUMBER INPUTS ---------------------- */
