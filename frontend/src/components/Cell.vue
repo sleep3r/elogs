@@ -29,7 +29,7 @@
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
             @blur="showTooltip=false"
-            @contextmenu.prevent="openMenu"
+            @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
@@ -351,8 +351,9 @@
             },
         },
         methods: {
-            openMenu () {
+            openMenu (e) {
                 if (this.indexedLine && (this.mode == 'edit')) {
+                    e.preventDefault()
                     this.$refs.menu.open()
                 }
             },
