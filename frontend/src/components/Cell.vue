@@ -484,7 +484,7 @@
                     }
                 }
 
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let currentId = shortid.generate()
                     $(this.$el).find('input').attr('list', currentId)
                     $(this.$el).find('datalist').attr('id', currentId)
@@ -525,7 +525,7 @@
                 this.value = e.target.value;
 
                 // console.log('oninput')
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let plantName = this.$store.getters['journalState/plantName'];
                     this.getPersons(e.target.value, plantName)
                 }
