@@ -1,0 +1,57 @@
+http://{$DOMAIN_NAME} {
+    redir {
+        if {scheme} is http
+        / https://{host}{uri}
+    }
+}
+
+https://{$DOMAIN_NAME}/admin {
+    proxy / django:8002/admin {
+        transparent
+    }
+}
+
+https://{$DOMAIN_NAME}/api {
+    proxy / django:8002/api {
+        transparent
+    }
+}
+
+https://{$DOMAIN_NAME}:3001 {
+    proxy / django:3000 {
+        transparent
+    }
+}
+
+https://{$DOMAIN_NAME}/e-logs {
+    proxy / django:8001/e-logs {
+        websocket
+    }
+}
+
+https://{$DOMAIN_NAME}:8085 {
+    #rewrite {
+    #    regexp .*
+    #    to {path} /
+    #}
+    proxy / node:8003 {
+        transparent
+    }
+    #root /e-logs-constructor/frontend/dist
+}
+
+https://{$DOMAIN_NAME} {
+    #rewrite {
+    #    regexp .*
+    #    to {path} /
+    #}
+    proxy / django:8002 {
+        transparent
+    }
+    cache {
+        match_path /static
+        default_max_age 15m
+        path /tmp/caddy-cache
+    }
+    #root /srv/frontend/dist
+}
