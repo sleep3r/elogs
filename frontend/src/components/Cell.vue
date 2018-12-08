@@ -17,7 +17,12 @@
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder + '\u200e'"
-            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline, minWidth: minWidth + 'px' }]"
+            :style="[{
+              color: activeColor,
+              fontWeight: fontWeight,
+              outline: outline,
+              minWidth: minWidth + 'px',
+              textAlign: textAlign }]"
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"
@@ -210,6 +215,14 @@
             },
             outline: function () {
                 return this.highlight ? '2px solid #666666' : ''
+            },
+            textAlign: function () {
+                if ((this.type == 'text')) {
+                    return 'left'
+                }
+                else {
+                  return 'right'
+                }
             },
             critical: function () {
                 return ((this.type === 'number') && ((this.minValue && parseInt(this.value) < parseInt(this.minValue)) ||
