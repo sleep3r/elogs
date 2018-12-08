@@ -111,7 +111,7 @@ h2.table-title {
     
     thead {
         th {
-            padding: 8px 14px;
+            padding: 8px 5px;
             background-color: $base_gray;
             color: white;
         }
@@ -119,7 +119,7 @@ h2.table-title {
     
     tbody {
         th {
-            padding: 8px 14px;
+            padding: 8px 5px;
             background-color: white;
             color: $th-text-color;
             font-weight: bold;
@@ -186,7 +186,7 @@ h2.table-title {
     
     .units:not(.no-before)::before {
         content: ", "; // Comma before units
-        white-space: nowrap;
+        white-space: pre-line;
     }
     
     // -------------------------- COMMENTS BUTTON --------------------
@@ -265,6 +265,40 @@ h2.table-title {
 }
 
 @media (max-width: 1172px) {
+    .elog-journal-table { // the table itself
+        thead {
+            th {
+                padding: 8px 2px !important;
+            }
+        }
+        
+        tbody {
+            th {
+                padding: 8px 2px !important;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1172px) and (max-width: 1272px) {
+    .elog-journal-table { // the table itself
+        thead {
+            th {
+                padding: 8px 3px !important;
+            }
+        }
+        
+        tbody {
+            th {
+                padding: 8px 3px !important;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1272px) and (max-width: 1472px) {
     .elog-journal-table { // the table itself
         thead {
             th {

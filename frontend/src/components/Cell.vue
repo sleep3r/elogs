@@ -16,7 +16,7 @@
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
-            :placeholder="placeholder"
+            :placeholder="placeholder + '\u200e'"
             :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline, minWidth: minWidth + 'px' }]"
             @keypress="filterInput"
             @keydown="changeFocus"

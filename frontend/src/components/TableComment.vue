@@ -1,7 +1,7 @@
 <template>
     <div class="table__comment">
         <div v-if="mode==='edit'">
-          <a href="javascript:;" @click="onClick">Комментарий<i class="fas fa-envelope ico-comment"></i></a>
+          <a href="javascript:;" @click="onClick">Комментарий</a>
           <div :class="['comment__text', { collapse: isCollapsed }]">
               <textarea
                       class="table-comment"
