@@ -36,7 +36,8 @@
                         <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment"
                                   v-model.trim="commentText" autofocus></textarea>
                         <i class="fa fa-paper-plane send__button" aria-hidden="true"
-                           @click="addComment" title="Отправить комментарий (Enter)"></i>
+                           data-toggle="tooltip" title="Отправить комментарий (Enter)"
+                           @click="addComment"></i>
                     </div>
                     <div class="btns">
                         <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat && isNumber"
@@ -257,7 +258,9 @@
 
             EventBus.$on('scroll-to-bottom', () => {
                 setTimeout(() => this.scrollToBottom(), 0)
-            })
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
         }
     }
 </script>
