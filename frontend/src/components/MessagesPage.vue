@@ -12,7 +12,7 @@
                             <span class="sendee">{{message.sendee}}</span>
                         </strong>
                         <strong class="message__title">
-                            <span class="message__info">{{message.type}}</span>
+                            <span class="message__info">{{ messageTypeText(message) }}</span>
                         </strong>
                         <strong class="message__title">
                             <a :href="message.link">{{message.cell ? message.cell.field.name : null}}</a>
@@ -26,23 +26,15 @@
                 </li>
             </div>
         </ul>
-        <!-- <div class="loading" style="display: none;text-align: center">
-            ЗАГРУЗКА...
-        </div> -->
-        <!--{% if page_obj.has_next %}-->
-        <!-- <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a> -->
-        <!--{% endif %}-->
     </div>
 </template>
 
 <script>
-    // import Waypoints from 'waypoints'
-
     export default {
         name: "MessagesPage",
         data() {
             return {
-                
+
             }
         },
         computed: {
@@ -51,6 +43,18 @@
             }
         },
         methods: {
+            messageTypeText (message) {
+              switch (message.type) {
+                  case 'set_mode':
+                      return 'Установлен режим'
+                  case 'critical_value':
+                      return 'Критическое значение'
+                  case 'comment':
+                      return 'Комментарий к ячейке'
+                  default:
+                      return ''
+                }
+            },
             setAsRead (id) {
                 this.$store.dispatch('messagesState/readMessage', {id})
                     .then(() => {
@@ -60,17 +64,6 @@
         },
         mounted() {
             this.$store.dispatch('messagesState/loadMessages')
-            
-            // let infinite = new Waypoint.Infinite({
-            //     element: $('.messages__container')[0],
-            //     onBeforePageLoad: function () {
-            //         $('.loading').show();
-            //     },
-            //     onAfterPageLoad: function () {
-            //         $('.loading').hide();
-            //     },
-            //     items: ".message",
-            // });
         }
     }
 </script>
