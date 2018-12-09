@@ -16,7 +16,6 @@
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
-
             :placeholder="placeholder + ' '"
             :style="[{
               color: activeColor,
@@ -29,7 +28,7 @@
             @change="onChanged"
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
-            @blur="showTooltip=false"
+            @blur="showTooltip=false;$refs.menu.close()"
             @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
@@ -353,9 +352,15 @@
         },
         methods: {
             openMenu (e) {
-                if (this.indexedLine && (this.mode == 'edit')) {
-                    e.preventDefault()
-                    this.$refs.menu.open()
+                if (this.mode == 'edit') {
+                    // if last line, do nothing
+                    if ((this.$parent.rowsCount-1) == this.rowIndex) {
+                        e.preventDefault()
+                    }
+                    else if (this.indexedLine) {
+                        e.preventDefault()
+                        this.$refs.menu.open()
+                    }
                 }
             },
             showPopover (e, options) {
