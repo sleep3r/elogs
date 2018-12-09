@@ -104,6 +104,7 @@
           KEY_COMMA = 44,
           KEY_DOT = 46,
           KEY_SLASH = 47,
+          KEY_COLON = 58,
           KEY_DASH = 189;
 
 
@@ -587,6 +588,7 @@
                         || keycode == KEY_ARROW_RIGHT
                         || keycode == KEY_COMMA
                         || keycode == KEY_DOT
+                        || keycode == KEY_COLON
                        )
                     {
                         this.showTooltip = false;
