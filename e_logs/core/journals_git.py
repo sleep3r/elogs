@@ -1,6 +1,7 @@
 import json5
 from datetime import datetime
 
+from django.db import DatabaseError
 from django.utils import timezone
 
 from e_logs.common.all_journals_app.models import CellGroup, Journal, Equipment
@@ -26,14 +27,15 @@ class VersionControl():
     def commit(self, journal):
         journal_entry = self.versions[journal.plant.name][journal.name]
         journal_version = self.version_of(journal)
-        journal_entry[str(journal_version + 1)] = {"start": journal_entry[str(journal_version)]['start'],
-                                                   "end": self.max_time()}
+        now_time = list(timezone.localtime().timetuple())
+        journal_entry[str(journal_version)]['end'] = now_time
+        journal_entry[str(journal_version + 1)] = {"start": now_time, "end": self.max_time()}
         self.__write()
 
         for group in journal.group.objects.filter(journal=journal):
             if not isinstance(group, Equipment):
                 date = group.end_time if group.journal.type == 'shift' else localize(group.date)
-                if date >= timezone.now():
+                if date >= timezone.localtime():
                     group.version = group.version + 1
                     group.save()
             else:
