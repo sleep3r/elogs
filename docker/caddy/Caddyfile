@@ -48,10 +48,5 @@ https://{$DOMAIN_NAME} {
     proxy / django:8002 {
         transparent
     }
-    cache {
-        match_path /static
-        default_max_age 15m
-        path /tmp/caddy-cache
-    }
     #root /srv/frontend/dist
 }
