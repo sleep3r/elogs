@@ -28,5 +28,5 @@ for cell in Cell.objects.all():
     dump.append(c)
 
 
-pickleFile = open("cells_dump", 'wb')
+pickleFile = open("./resources/data/kazzinc_cells_dump", 'wb')
 pickle.dump(dump, pickleFile)

@@ -3,7 +3,7 @@ import pickle
 from e_logs.common.all_journals_app.models import Cell, Shift, Journal, Table, Field, Plant, Year, Month, Equipment
 
 
-pickleFile = open("cells_dump", 'rb')
+pickleFile = open("./resources/data/kazzinc_cells_dump", 'rb')
 dump = pickle.load(pickleFile)
 for cell in dump:
     try:
