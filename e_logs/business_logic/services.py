@@ -28,7 +28,7 @@ class SetMode(Service):
 
     def process(self):
         mode = Mode.objects.create(message=self.cleaned_data['message'],
-                                   beginning=timezone.now(),
+                                   beginning=timezone.localtime(),
                                    journal=Journal.objects.get(
                                        plant=Plant.objects.get(name=self.cleaned_data['plant']),
                                        name=self.cleaned_data['journal']))
@@ -125,11 +125,11 @@ class CheckTime(Service):
         employee = self.data['employee']
         assignment_time = Setting.of(page)['shift_assignment_time']
 
-        if timezone.now() > page.end_time - timedelta(**assignment_time) and \
+        if timezone.localtime() > page.end_time - timedelta(**assignment_time) and \
                 employee not in page.responsibles.all():
             return False
 
-        if timezone.now() > page.end_time + timedelta(hours=12):
+        if timezone.localtime() > page.end_time + timedelta(hours=12):
             return False
 
         # shift = get_or_none(Shift, date=page.date, order=int(page.order-1), journal=page.journal)
@@ -156,7 +156,7 @@ class SetLimitedAccess(Service):
         if page and page.closed == True:
             Setting.of(page)['limited_access_employee_id_list'] = self.data['emp_id_list']
 
-            end_time = timezone.now() + timedelta(**self.data['time'])
+            end_time = timezone.localtime() + timedelta(**self.data['time'])
             end_of_limited_access.apply_async((page.id,), eta=end_time)
 
             for min in (60, 40, 20):

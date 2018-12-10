@@ -93,7 +93,7 @@ class Message(StrAsDictMixin, models.Model):
                     } if cell else None,
                     "sendee": user_to_response(message['sendee']),
                     "text": text,
-                    "created": message.get('created', timezone.now().isoformat())
+                    "created": message.get('created', timezone.localtime().isoformat())
                 }
                 async_to_sync(layer.group_send)(f'user_{emp.id}', {"type": "send_message", "text": json.dumps(data)})
 

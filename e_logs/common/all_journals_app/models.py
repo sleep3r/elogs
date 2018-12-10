@@ -213,7 +213,7 @@ class Shift(CellGroup):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
                                                     date=current_date())[0]
-                if shift.is_active(timezone.now()):
+                if shift.is_active(timezone.localtime()):
                     break
 
         return shift
