@@ -1,26 +1,21 @@
-import hashlib
 import os
 import shutil
+import hashlib
 from datetime import timedelta
 
-from django.core.files.storage import FileSystemStorage
-from django.views.decorators.csrf import csrf_exempt
 from proxy.views import proxy_view
-
-from e_logs.business_logic.dictionaries.models import EquipmentDict
-from e_logs.common.all_journals_app.models import Shift, Equipment, Month, Year, Journal
-from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
-from e_logs.core.journals_git import VersionControl
-from e_logs.core.management.commands.compress_journals import compress_journal
+from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.views import View
 from django.http import JsonResponse
-import hashlib
-import os
 
-from e_logs.core.models import Setting
+from e_logs.core.journals_git import VersionControl
 from e_logs.core.utils.loggers import err_logger
-from e_logs.core.utils.webutils import current_date, date_range
+from e_logs.core.utils.webutils import current_date
+from e_logs.business_logic.dictionaries.models import EquipmentDict
+from e_logs.common.all_journals_app.models import Shift, Equipment, Month, Year, Journal
+from e_logs.common.all_journals_app.services.journal_builder import JournalBuilder
 
 
 @csrf_exempt
@@ -47,62 +42,59 @@ class ConstructorHashAPI(View):
 
 
 class ConstructorAlterJournalAPI(View):
-    def post(self, request):
-        hash = request.POST.get('hash', None)
-        plant = request.POST.get('plant', None)
-        journal_name = request.POST.get('journal_name', None)
+    with cache.lock("alter_journal"):
+        def post(self, request):
+            hash = request.POST.get('hash', None)
+            plant = request.POST.get('plant', None)
+            journal_name = request.POST.get('journal_name', None)
 
-        # try:
-        git = VersionControl()
-        journal = Journal.objects.get(plant__name=plant, name=journal_name)
-        version = git.version_of(journal) + 1
+            git = VersionControl()
+            journal = Journal.objects.get(plant__name=plant, name=journal_name)
+            version = git.version_of(journal) + 1
 
-        shutil.copy(f'resources/temp/{hash}.jrn',
-                    f'resources/journals/{plant}/{journal.name}/v{version}.jrn')
+            shutil.copy(f'resources/temp/{hash}.jrn',
+                        f'resources/journals/{plant}/{journal.name}/v{version}.jrn')
 
-        git.commit(journal)
+            git.commit(journal)
 
-        journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant.name, version, journal.type)
-        journal.create()
+            journal = JournalBuilder(f'resources/temp/{hash}.jrn', journal.plant.name, version, journal.type)
+            journal.create()
 
-        return JsonResponse({"status": 1})
-        # except Exception as ex:
-        #     print(ex)
-        #     err_logger.error(ex)
-        #     return JsonResponse({"status": 2, "message": str(ex)})
+            return JsonResponse({"status": 1})
 
 
 class ConstructorUploadAPI(View):
     def post(self, request):
-        hash = request.POST.get('hash', None)
-        plant = request.POST.get('plant', None)
-        type = request.POST.get('type', None)
-        number_of_shifts = request.POST.get('number_of_shifts', 2)
-        if number_of_shifts:
-            number_of_shifts = int(number_of_shifts)
+        with cache.lock("load_journal"):
+            hash = request.POST.get('hash', None)
+            plant = request.POST.get('plant', None)
+            type = request.POST.get('type', None)
+            number_of_shifts = request.POST.get('number_of_shifts', 2)
+            if number_of_shifts:
+                number_of_shifts = int(number_of_shifts)
 
-        if not hash or not plant:
-            return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
+            if not hash or not plant:
+                return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
-        try:
-            journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
-            new_journal = journal.create()
             try:
-                os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
-            except:
-                pass
-            shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
+                journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
+                new_journal = journal.create()
+                try:
+                    os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
+                except:
+                    pass
+                shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
 
-            self.add_groups(new_journal, number_of_shifts)
+                self.add_groups(new_journal, number_of_shifts)
 
-            git = VersionControl()
-            git.add(journal)
+                git = VersionControl()
+                git.add(journal)
 
-            return JsonResponse({"status": 1})
-        except Exception as ex:
-            print(ex)
-            err_logger.error(ex)
-            return JsonResponse({"status": 2, "message": ex})
+                return JsonResponse({"status": 1})
+            except Exception as ex:
+                print(ex)
+                err_logger.error(ex)
+                return JsonResponse({"status": 2, "message": ex})
 
     @staticmethod
     def add_groups(journal, shifts_num=None):
