@@ -16,7 +16,6 @@
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
-
             :placeholder="placeholder + ' '"
             :style="[{
               color: activeColor,
@@ -29,7 +28,7 @@
             @change="onChanged"
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
-            @blur="showTooltip=false"
+            @blur="showTooltip=false;$refs.menu.close()"
             @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
@@ -104,6 +103,7 @@
           KEY_COMMA = 44,
           KEY_DOT = 46,
           KEY_SLASH = 47,
+          KEY_COLON = 58,
           KEY_DASH = 189;
 
 
@@ -353,9 +353,15 @@
         },
         methods: {
             openMenu (e) {
-                if (this.indexedLine && (this.mode == 'edit')) {
-                    e.preventDefault()
-                    this.$refs.menu.open()
+                if (this.mode == 'edit') {
+                    // if last line, do nothing
+                    if ((this.$parent.rowsCount-1) == this.rowIndex) {
+                        e.preventDefault()
+                    }
+                    else if (this.indexedLine) {
+                        e.preventDefault()
+                        this.$refs.menu.open()
+                    }
                 }
             },
             showPopover (e, options) {
@@ -587,6 +593,7 @@
                         || keycode == KEY_ARROW_RIGHT
                         || keycode == KEY_COMMA
                         || keycode == KEY_DOT
+                        || keycode == KEY_COLON
                        )
                     {
                         this.showTooltip = false;
