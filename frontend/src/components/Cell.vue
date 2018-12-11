@@ -7,17 +7,21 @@
         <component
             :is="tag"
             :class="['general-value', 'number-cell', 'form-control',
-                    mode === 'edit' ? 'form-control__edit' : '',
+                    mode === 'edit' && type !== 'number_colon' ? 'form-control__edit' : '',
                     hasFormula ? 'formula-cell' : '',
                     mode === 'view' ? 'no-shadow' : '',
+                    type === 'number_colon' ? 'mask-colon':'',
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
+            :ref="getId"
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
             :placeholder="placeholder + ' '"
             :style="[{
+              float: type === 'number_colon' ? 'left':'none',
+              width: type === 'number_colon' ? '80%':'',
               color: activeColor,
               fontWeight: fontWeight,
               outline: outline,
@@ -34,6 +38,9 @@
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
         >{{ tag == 'textarea' ? value : '' }}</component>
+        <template>
+            <span v-if="type === 'number_colon'" class="has-colon" style="float: left; line-height: 36px">:1</span>
+        </template>
         <div class="widthCell"></div>
         <template>
             <datalist>
@@ -148,7 +155,7 @@
                         this.fontWeight = 'bold'
                         this.tooltipContent = Object.values(this.responsible)[0] + ' печатает...'
                         this.showTooltip = true;
-                        var self = this
+                        let self = this;
                         setTimeout(function() {
                             self.showTooltip = false;
                             self.fontWeight = 'lighter'
@@ -179,6 +186,9 @@
           }
         },
         computed: {
+            getId () {
+              return this.fieldName + "_" + this.rowIndex;
+            },
             getBody () {
                 return $('body').get()
             },
@@ -250,11 +260,11 @@
             value: {
                 cache: false,
                 get: function () {
-                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
-                    return typeof cell === "undefined" ? '' : cell['value']
+                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex);
+                    let result = typeof cell === "undefined" ? '' : cell['value'];
+                    return result;
                 },
                 set: function (val) {
-                    // console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -524,10 +534,9 @@
                 });
             },
             onInput(e) {
-                if (this.tag != 'textarea') {
+                if (this.tag !== 'textarea') {
                     this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
                 }
-
                 this.value = e.target.value;
 
                 // console.log('oninput')
@@ -548,7 +557,7 @@
                 // console.log(this.value)
                 e ? e.preventDefault() : null
                 if (this.critical) {
-                  console.log('critical message sent')
+                  console.log('critical message sent');
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -565,7 +574,7 @@
                     },
                 });
                 } else {
-                  console.log('non critical message sent')
+                  console.log('non critical message sent');
                     this.$socket.sendObj({
                         'type': 'messages',
                         'cell': {
@@ -583,7 +592,6 @@
             filterInput(e) {
                 if (this.type === 'number') {
                     let keycode = e.which;
-                    console.log("keycode=>", keycode);
                     if (
                         (keycode >= 48 && keycode <= 57)
                         || keycode == KEY_MINUS
