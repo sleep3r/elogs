@@ -16,11 +16,11 @@ input[hidden] {
     border: 1px solid gray;
     margin-bottom: 5px;
     table-layout: fixed;
-    
+
     td {
         padding: 0;
     }
-    
+
     span {
         margin-right: 0 !important;
     }
@@ -88,27 +88,27 @@ h2.table-title {
     height: 100%;
     width: auto;
     margin-bottom: 0 !important;
-    
+
     font: {
         family: 'Roboto Condensed', sans-serif;
         weight: 300;
         style: normal;
     }
-    
+
     border: {
         collapse: collapse !important;
     }
-    
+
     tr:nth-child(even) {
         background-color: $tr-even-background;
     }
-    
+
     td, th {
         border: 1px solid $table-borders !important;
         vertical-align: middle !important;
         font-size: 14px;
     }
-    
+
     thead {
         th {
             padding: 8px 5px;
@@ -116,7 +116,7 @@ h2.table-title {
             color: white;
         }
     }
-    
+
     tbody {
         th {
             padding: 8px 5px;
@@ -125,7 +125,7 @@ h2.table-title {
             font-weight: bold;
         }
     }
-    
+
     th {
         font: {
             family: 'Roboto Condensed', sans-serif;
@@ -136,13 +136,13 @@ h2.table-title {
         hyphens: auto;
         padding-top: 6px;
         padding-bottom: 6px;
-        
+
         input {
             background-color: #E9ECEF !important;
             border-radius: 2px !important;
         }
     }
-    
+
     th.changing-header  {
         padding: 0 !important;
 
@@ -165,43 +165,43 @@ h2.table-title {
     .th-number {
         text-align: right !important;
     }
-    
+
     .th-common { // class for th common for several columns
         text-align: center !important;
     }
-    
+
     .th-mul-row {
         vertical-align: middle !important;
     }
-    
+
     td {
         padding: 0 !important; /* to have inputs inside cells*/
         position: relative;
     }
-    
+
     // ------------------------- UNITS SHIT ------------------------
     .units {
         white-space: nowrap;
     }
-    
+
     .units:not(.no-before)::before {
         content: ", "; // Comma before units
         white-space: pre-line;
     }
-    
+
     // -------------------------- COMMENTS BUTTON --------------------
-    
+
     // Indicator on comments button, overrides bootstrap
     .table-comment-button {
         .badge {
             color: white;
             background-color: $base-blue;
         }
-        
+
         :hover {
             text-decoration: underline
         }
-        
+
         :active {
             color: $accent-green;
         }
@@ -242,6 +242,7 @@ h2.table-title {
     height: 100%;
     margin: 0 !important;
     border: none;
+    width: 100%;
 }
 
 .insidetable tr > td:first-child,
@@ -264,6 +265,12 @@ h2.table-title {
     border-bottom: none !important;
 }
 
+.insidetable {
+    th { white-space: nowrap; overflow: visible; }
+    td { width: 40%; }
+    td:last-child { width: 50%; }
+}
+
 @media (max-width: 1172px) {
     .elog-journal-table { // the table itself
         thead {
@@ -271,7 +278,7 @@ h2.table-title {
                 padding: 8px 2px !important;
             }
         }
-        
+
         tbody {
             th {
                 padding: 8px 2px !important;
@@ -288,7 +295,7 @@ h2.table-title {
                 padding: 8px 3px !important;
             }
         }
-        
+
         tbody {
             th {
                 padding: 8px 3px !important;
@@ -305,7 +312,7 @@ h2.table-title {
                 padding: 8px 4px !important;
             }
         }
-        
+
         tbody {
             th {
                 padding: 8px 4px !important;
