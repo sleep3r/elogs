@@ -1,0 +1,52 @@
+{% load express_tags %} {# Loading our tags #}
+{% set_global_context "info" table_fields_descriptions|keyval:field_name %}
+{% set_global_context "field_comment_name" field_name|add:"_comment" %}
+{% set_global_context "field_comment_responsible_name" field_comment_name|add:"_responsible" %}
+{% set_global_context "field_responsible_name" field_name|add:"_responsible" %}
+{% set_global_context "field_comment_responsible" table_cells_data|keyval:field_comment_responsible_name|keyval:index %}
+{% set_global_context "val" table_cells_data|keyval:field_name|keyval:index|keyval:"value" %}
+{% set_global_context "id" table_cells_data|keyval:field_name|keyval:index|keyval:"id" %}
+{% set_global_context "comment" table_cells_data|keyval:field_name|keyval:index|keyval:"comment" %}
+{% set_global_context "field_responsible" table_cells_data|keyval:field_name|keyval:index|keyval:"responsible" %}
+{% set_global_context "cell_id" journal_page|stack:"-"|stack:table_name|stack:"-"|stack:field_name|stack:"-"|stack:index %}
+{% if validate %}
+    {% set_global_context "onclick" "onclick=\"showPopup(\'{}\')\""|formatter:field_name %}
+{% else %}
+    {% set_global_context "onclick" "" %}
+{% endif %}
+    <input class="number-cell form-control general-value {{ field_name }}_{{ index }}"
+           oninput="Cell.onInput(this)"
+           onchange="Cell.onChange(this)"
+           responsible="{{ field_responsible }}"
+           title="{% if field_responsible %}{% if val %}Заполнил: {{ field_responsible }}{% endif %}{% endif %}"
+           value="{% firstof auto_val val %}"
+           data-info="{{ info }}"
+           table-name="{{ table_name }}"
+           journal-page="{{ journal_page }}"
+           name="{{ field_name }}"
+           index="{{ index }}"
+           id="{{ cell_id }}"
+           db-id = "{{id}}"
+            data-pagmode="{{ page_mode }}"
+            {% if page_mode == 'view' or page_mode == 'validate' %}
+           readonly="readonly"
+            {% endif %}
+            {% if page_mode == 'validate' %}
+           onclick="PopUp.showValidate(this)"
+            {% elif page_mode == 'view' %}
+           onclick="PopUp.showInfo(this)"
+            {% else %}
+           onclick="this.select()"
+            {%endif %}
+           comment="{{ comment }}"
+           comment-id="{{ cell_id }}-comment"
+           comment-author="{{ field_comment_responsible }}"
+    />
+
+{% if page_mode == "view" and comment|length > 0  %}
+    <i class="far fa-envelope comment-notification"  onclick="PopUp.showView(this)"></i>
+{% endif %}
+
+{% if page_mode == "validate" and comment|length > 0  %}
+    <i class="far fa-envelope comment-notification" ></i>
+{% endif %}

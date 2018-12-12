@@ -9,19 +9,19 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "conc_o2",
+               "title" : "Концентрация O<sub>2</sub> в помещении",
                "type" : "number",
                "name" : "conc_o2"
             },
             {
                "formula" : "",
-               "title" : "time_start",
+               "title" : "Время пуска и остановки воздушных машин",
                "name" : "time_start",
                "type" : "time"
             },
             {
                "units" : "№",
-               "title" : "cnt_in_process",
+               "title" : "В работе воздуходувных машин",
                "type" : "number",
                "name" : "cnt_in_process",
                "formula" : ""
@@ -35,11 +35,11 @@
             {
                "type" : "time",
                "name" : "time",
-               "title" : "time",
+               "title" : "Время",
                "formula" : ""
             },
             {
-               "title" : "collector",
+               "title" : "Разряжения на коллекторе чистого газа",
                "units" : "мм. вод. ст.",
                "name" : "collector",
                "type" : "number",
@@ -47,7 +47,7 @@
             },
             {
                "formula" : "",
-               "title" : "concentration",
+               "title" : "Концентрация SO<sub>2</sub>",
                "units" : "%",
                "name" : "concentration",
                "type" : "number"
@@ -55,12 +55,12 @@
             {
                "name" : "mixture",
                "type" : "number",
-               "title" : "mixture",
+               "title" : "Ситовой анализ смеси огарка с ленты",
                "units" : "%",
                "formula" : ""
             },
             {
-               "title" : "conformity",
+               "title" : "Соответсвие ТИ",
                "type" : "text",
                "name" : "conformity",
                "formula" : ""
@@ -74,7 +74,7 @@
             {
                "name" : "number",
                "type" : "number",
-               "title" : "number",
+               "title" : "№ печи",
                "units" : "№",
                "formula" : ""
             },
@@ -82,7 +82,7 @@
                "type" : "number",
                "name" : "rate",
                "units" : "м³/час",
-               "title" : "rate",
+               "title" : "Расход воздуха",
                "formula" : ""
             },
             {
@@ -90,31 +90,31 @@
                "type" : "number",
                "name" : "elasticity",
                "units" : "кгс/м²",
-               "title" : "elasticity"
+               "title" : "Упругость дутья"
             },
             {
                "name" : "rate_o2",
                "type" : "number",
-               "title" : "rate_o2",
+               "title" : "Расход кислорода",
                "units" : "м³/час",
                "formula" : ""
             },
             {
                "units" : "%",
-               "title" : "rate_o2_prc",
+               "title" : "Расход кислорода %",
                "type" : "number",
                "name" : "rate_o2_prc",
                "formula" : ""
             },
             {
-               "title" : "temperture_in_layer",
+               "title" : "Тепмпература слоя",
                "units" : "ᵒC",
                "name" : "temperture_in_layer",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "temperture_under",
+               "title" : "Тепмпература под сводом",
                "units" : "ᵒC",
                "name" : "temperture_under",
                "type" : "number",
@@ -125,10 +125,10 @@
                "type" : "number",
                "name" : "volume",
                "units" : "м³",
-               "title" : "volume"
+               "title" : "V"
             },
             {
-               "title" : "pressure",
+               "title" : "Давление под сводом",
                "units" : "мм.в.ст.",
                "name" : "pressure",
                "type" : "number",
@@ -138,12 +138,12 @@
                "type" : "datalist",
                "options" : [],
                "name" : "uio_select",
-               "title" : "uio_select",
+               "title" : "УИО",
                "formula" : ""
             },
             {
                "units" : "кгс/м²",
-               "title" : "uio",
+               "title" : "УИО",
                "type" : "number",
                "name" : "uio",
                "formula" : ""
@@ -151,7 +151,7 @@
             {
                "name" : "smoke",
                "type" : "text",
-               "title" : "smoke",
+               "title" : "Дымососы",
                "formula" : ""
             }
          ],
@@ -166,7 +166,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "ks1",
+               "title" : "КС",
                "units" : "№",
                "name" : "ks1",
                "type" : "number"
@@ -175,7 +175,7 @@
                "type" : "number",
                "name" : "val1",
                "units" : "тм²/сут",
-               "title" : "val1",
+               "title" : "",
                "formula" : ""
             },
             {
@@ -187,7 +187,7 @@
             },
             {
                "formula" : "",
-               "title" : "val2",
+               "title" : "",
                "units" : "тм²/сут",
                "name" : "val2",
                "type" : "number"
@@ -196,19 +196,19 @@
                "formula" : "",
                "name" : "ks3",
                "type" : "number",
-               "title" : "ks3",
+               "title" : "КС ",
                "units" : "№"
             },
             {
                "formula" : "",
                "units" : "тм²/сут",
-               "title" : "val3",
+               "title" : "",
                "type" : "number",
                "name" : "val3"
             },
             {
                "formula" : "",
-               "title" : "__table__comment",
+               "title" : "Комментарий",
                "type" : "",
                "name" : "__table__comment"
             }
@@ -223,18 +223,18 @@
                "formula" : "",
                "name" : "gmc4_1",
                "type" : "number",
-               "title" : "gmc4_1",
+               "title": "ЦВЦО 4",
                "units" : "м"
             },
             {
                "type" : "number",
                "name" : "gmc4_2",
                "units" : "м",
-               "title" : "gmc4_2",
+               "title": "ЦВЦО 4",
                "formula" : ""
             },
             {
-               "title" : "gmc1_1",
+               "title": "ЦВЦО 1",
                "units" : "м",
                "name" : "gmc1_1",
                "type" : "number",
@@ -243,12 +243,12 @@
             {
                "formula" : "",
                "units" : "м",
-               "title" : "gmc1_2",
+               "title": "ЦВЦО 1",
                "type" : "number",
                "name" : "gmc1_2"
             },
             {
-               "title" : "uk3",
+               "title": "Участка классификации 3",
                "units" : "м",
                "name" : "uk3",
                "type" : "number",
@@ -259,12 +259,12 @@
                "type" : "number",
                "name" : "uk5",
                "units" : "м",
-               "title" : "uk5"
+               "title": "Участка классификации 5"
             },
             {
                "name" : "uk7",
                "type" : "number",
-               "title" : "uk7",
+               "title": "Участка классификации 7",
                "units" : "м",
                "formula" : ""
             },
@@ -272,20 +272,20 @@
                "type" : "number",
                "name" : "uk4",
                "units" : "м",
-               "title" : "uk4",
+               "title": "Участка классификации 4",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "uk6",
                "units" : "м",
-               "title" : "uk6",
+               "title": "Участка классификации 6",
                "formula" : ""
             },
             {
                "formula" : "",
                "units" : "тонн",
-               "title" : "tonn",
+               "title" : "Тонн",
                "type" : "number",
                "name" : "tonn"
             },
@@ -294,17 +294,17 @@
                "type" : "number",
                "name" : "silos1",
                "units" : "м",
-               "title" : "silos1"
+               "title" : "Накопители  (силоса)"
             },
             {
                "name" : "silos2",
                "type" : "number",
-               "title" : "silos2",
+               "title" : "Накопители  (силоса)",
                "units" : "м",
                "formula" : ""
             },
             {
-               "title" : "silos3",
+               "title" : "Накопители  (силоса)",
                "units" : "м",
                "name" : "silos3",
                "type" : "number",
@@ -313,13 +313,13 @@
             {
                "formula" : "",
                "units" : "м",
-               "title" : "silos4",
+               "title" : "Накопители  (силоса)",
                "type" : "number",
                "name" : "silos4"
             },
             {
                "formula" : "",
-               "title" : "silos5",
+               "title" : "Накопители  (силоса)",
                "units" : "м",
                "name" : "silos5",
                "type" : "number"
@@ -328,32 +328,32 @@
                "formula" : "",
                "name" : "silos6",
                "type" : "number",
-               "title" : "silos6",
+               "title" : "Накопители  (силоса)",
                "units" : "м"
             },
             {
                "formula" : "",
                "name" : "silos7",
                "type" : "number",
-               "title" : "silos7",
+               "title" : "Накопители  (силоса)",
                "units" : "м"
             },
             {
                "type" : "number",
                "name" : "silos8",
                "units" : "м",
-               "title" : "silos8",
+               "title" : " 8",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "silos9",
                "type" : "number",
-               "title" : "silos9",
+               "title" : "9",
                "units" : "м"
             },
             {
-               "title" : "elevators",
+               "title" : "Элеваторы",
                "units" : "№",
                "name" : "elevators",
                "type" : "number",
@@ -364,12 +364,12 @@
                "type" : "number",
                "name" : "mills",
                "units" : "№",
-               "title" : "mills"
+               "title" : "Мельницы"
             },
             {
                "formula" : "",
                "units" : "№",
-               "title" : "separators",
+               "title" : "А/сеп-ры ",
                "type" : "number",
                "name" : "separators"
             },
@@ -378,7 +378,7 @@
                "type" : "number",
                "name" : "summary",
                "units" : "м",
-               "title" : "summary"
+               "title" : "Итого"
             }
          ]
       },
@@ -386,7 +386,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "M_s1_t_in",
+               "title" : "ГК-30М 1 секция Температура ",
                "units" : "ᵒC",
                "name" : "M_s1_t_in",
                "type" : "number"
@@ -394,7 +394,7 @@
             {
                "name" : "M_s2_t_in",
                "type" : "number",
-               "title" : "M_s2_t_in",
+               "title" : "ГК-30М 2 секция Температура",
                "units" : "ᵒC",
                "formula" : ""
             },
@@ -402,19 +402,19 @@
                "type" : "number",
                "name" : "G_s1_t_in",
                "units" : "ᵒC",
-               "title" : "G_s1_t_in",
+               "title" : "ГК-30Г 1 секция Температура",
                "formula" : ""
             },
             {
                "name" : "G_s2_t_in",
                "type" : "number",
-               "title" : "G_s2_t_in",
+               "title" : "ГК-30Г 1 секция Температура",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "s1_t_in",
+               "title" : "ГК-60 Температура (вход)",
                "units" : "ᵒC",
                "name" : "s1_t_in",
                "type" : "number"
@@ -423,19 +423,19 @@
                "formula" : "",
                "name" : "s2_t_in",
                "type" : "number",
-               "title" : "s2_t_in",
+               "title" : "ГК-60 Температура (вход)",
                "units" : "ᵒC"
             },
             {
                "name" : "M_s1_t_out",
                "type" : "number",
-               "title" : "M_s1_t_out",
+               "title" : "ГК-30М Температура (выход)  ",
                "units" : "ᵒC",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "M_s2_t_out",
+               "title" : "ГК-30М Температура (выход)  ",
                "units" : "ᵒC",
                "name" : "M_s2_t_out",
                "type" : "number"
@@ -444,7 +444,7 @@
                "type" : "number",
                "name" : "G_s1_t_out",
                "units" : "ᵒC",
-               "title" : "G_s1_t_out",
+               "title" : "ГК-30Г Температура (выход)",
                "formula" : ""
             },
             {
@@ -452,13 +452,13 @@
                "type" : "number",
                "name" : "G_s2_t_out",
                "units" : "ᵒC",
-               "title" : "G_s2_t_out"
+               "title" : "ГК-30Г Температура (выход)"
             },
             {
                "formula" : "",
                "name" : "s1_t_out",
                "type" : "number",
-               "title" : "s1_t_out",
+               "title" : "ГК-60 Температура (выход)",
                "units" : "ᵒC"
             },
             {
@@ -466,46 +466,46 @@
                "type" : "number",
                "name" : "s2_t_out",
                "units" : "ᵒC",
-               "title" : "s2_t_out"
+               "title" : "ГК-60 Температура (выход)"
             },
             {
                "type" : "text",
                "name" : "M_s1_vam",
-               "title" : "M_s1_vam",
+               "title" : "ГК-30М   Вольтамперная характеристика",
                "formula" : ""
             },
             {
                "name" : "M_s2_vam",
                "type" : "text",
-               "title" : "M_s2_vam",
+               "title" : "ГК-30М   Вольтамперная характеристика",
                "formula" : ""
             },
             {
-               "title" : "G_s1_vam",
+               "title" : "ГК-30Г Вольтамперная характеристика",
                "type" : "text",
                "name" : "G_s1_vam",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "G_s2_vam",
+               "title" : "ГК-30Г Вольтамперная характеристика",
                "type" : "text",
                "name" : "G_s2_vam"
             },
             {
                "type" : "text",
                "name" : "s1_vam",
-               "title" : "s1_vam",
+               "title" : "ГК-60 Вольтамперная характеристика",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "s2_vam",
+               "title" : "ГК-60 Вольтамперная характеристика",
                "name" : "s2_vam",
                "type" : "text"
             },
             {
-               "title" : "M_s1_con",
+               "title" : "ГК-30М  Концентрация SO<sub>2</sub>",
                "units" : "%",
                "name" : "M_s1_con",
                "type" : "number",
@@ -513,14 +513,14 @@
             },
             {
                "formula" : "",
-               "title" : "M_s2_con",
+               "title" : "ГК-30М  Концентрация SO<sub>2</sub> ",
                "units" : "%",
                "name" : "M_s2_con",
                "type" : "number"
             },
             {
                "units" : "%",
-               "title" : "G_s1_con",
+               "title" : "ГК-30Г Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "G_s1_con",
                "formula" : ""
@@ -528,12 +528,12 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "G_s2_con",
+               "title" : "ГК-30Г Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "G_s2_con"
             },
             {
-               "title" : "s1_con",
+               "title" : "ГК-60 Концентрация SO<sub>2</sub> ",
                "units" : "%",
                "name" : "s1_con",
                "type" : "number",
@@ -542,7 +542,7 @@
             {
                "formula" : "",
                "units" : "%",
-               "title" : "s2_con",
+               "title" : "ГК-60 Концентрация SO<sub>2</sub> ",
                "type" : "number",
                "name" : "s2_con"
             },
@@ -550,16 +550,16 @@
                "formula" : "",
                "type" : "text",
                "name" : "gas1",
-               "title" : "gas1"
+               "title" : "Запылённость газа 1"
             },
             {
-               "title" : "gas2",
+               "title" : "Запылённость газа 2",
                "name" : "gas2",
                "type" : "text",
                "formula" : ""
             },
             {
-               "title" : "gas3",
+               "title" : "Запылённость газа 3",
                "type" : "text",
                "name" : "gas3",
                "formula" : ""
@@ -567,14 +567,14 @@
             {
                "formula" : "",
                "units" : "м³",
-               "title" : "M_s1_fact",
+               "title" : "ГК-30М  Откачка пыли с бункеров по факту",
                "type" : "number",
                "name" : "M_s1_fact"
             },
             {
                "name" : "M_s2_fact",
                "type" : "number",
-               "title" : "M_s2_fact",
+               "title" : "ГК-30М  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "formula" : ""
             },
@@ -582,25 +582,25 @@
                "type" : "number",
                "name" : "G_s1_fact",
                "units" : "м³",
-               "title" : "G_s1_fact",
+               "title" : "ГК-30Г  Откачка пыли с бункеров по факту",
                "formula" : ""
             },
             {
                "formula" : "",
                "name" : "G_s2_fact",
                "type" : "number",
-               "title" : "G_s2_fact",
+               "title" : "ГК-30Г  Откачка пыли с бункеров по факту",
                "units" : "м³"
             },
             {
-               "title" : "s1_fact",
+               "title" : "ГК-60  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "name" : "s1_fact",
                "type" : "number",
                "formula" : ""
             },
             {
-               "title" : "s2_fact",
+               "title" : "ГК-60  Откачка пыли с бункеров по факту",
                "units" : "м³",
                "name" : "s2_fact",
                "type" : "number",
@@ -610,13 +610,13 @@
                "formula" : "",
                "name" : "vak1",
                "type" : "text",
-               "title" : "vak1"
+               "title" : "Вакуум насос 1"
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "vak2",
-               "title" : "vak2"
+               "title" : "Вакуум насос 2"
             }
          ],
          "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Электрофильтр </th>\n            <th colspan=\"2\" class=\"th-common\"> Температура<i class=\"units\">ᵒC</i> </th>\n            <th rowspan=\"2\" class=\"th-number\"> Вольтамперная характеристика </th>\n            <th rowspan=\"2\" class=\"th-number\"> Концентрация SO<sub>2</sub><i class=\"units\">%</i> </th>\n            <th colspan=\"3\" class=\"th-common\"> Запылённость газа по системам </th>\n            <th rowspan=\"2\" class=\"th-number\"> Откачка пыли с бункеров по факту<i class=\"units\">м³</i> </th>\n            <th colspan=\"2\" class=\"th-common\"> Вакуум насос </th>\n        </tr>\n        <tr>\n            <th class=\"th-number\"> Вход </th>\n            <th class=\"th-number\"> Выход </th>\n            <th> 1 </th>\n            <th> 2 </th>\n            <th> 3 </th>\n            <th> 1 </th>\n            <th> 2 </th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30М </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"M_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_con\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas2\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"gas3\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s1_fact\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak1\" row-index=\"0\"></cell></td>\n            <td rowspan=\"6\"><cell   field-name=\"vak2\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"M_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"M_s2_fact\" row-index=\"0\"></cell></td>\n\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-30Г </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"G_s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"G_s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"G_s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th rowspan=\"2\" class=\"th-mul-row\"> ГК-60 </th>\n            <th> 1&nbsp;секция </th>\n            <td><cell   field-name=\"s1_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s1_fact\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <th> 2&nbsp;секция </th>\n            <td><cell   field-name=\"s2_t_in\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_t_out\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_vam\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_con\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"s2_fact\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n",
@@ -629,7 +629,7 @@
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\" colspan=\"2\" class=\"th-common\"> Загрузка концентратов </th>\n            <th colspan=\"4\" class=\"th-common\"> Подход вагонов </th>\n            <th> Шихта </th>\n        </tr>\n        <tr>\n            <th colspan=\"2\" class=\"th-common\"> Разгружено п/вагонов<i class=\"units\">шт</i> </th>\n            <th> На станции </th>\n            <th> В отгрузке </th>\n            <td><cell   field-name=\"shihta\" row-index=\"0\"></cell></td>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th class=\"th-number\"> За смену, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За сутки, <i>ВМТ</i> </th>\n            <th class=\"th-number\"> За смену </th>\n            <th class=\"th-number\"> За сутки </th>\n            <td rowspan=\"4\"><cell   field-name=\"on_station\" row-index=\"0\"></cell></td>\n            <td rowspan=\"4\"><cell   field-name=\"unload\" row-index=\"0\"></cell></td>\n            <th>Дробилка №</th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r1_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r1_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"crusher_number\" row-index=\"0\"></cell></td>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r2_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r2_unload_day\" row-index=\"0\"></cell></td>\n            <th> Влага<i class=\"units\">%</i> </th>\n        </tr>\n        <tr>\n            <td><cell   field-name=\"r3_per_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_per_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_shift\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"r3_unload_day\" row-index=\"0\"></cell></td>\n            <td><cell   field-name=\"moisture\" row-index=\"0\"></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n",
          "fields" : [
             {
-               "title" : "shihta",
+               "title" : "Шихта",
                "units" : "",
                "name" : "shihta",
                "type" : "number",
@@ -638,7 +638,7 @@
             {
                "name" : "on_station",
                "type" : "number",
-               "title" : "on_station",
+               "title" : "На станции",
                "units" : "",
                "formula" : ""
             },
@@ -646,19 +646,19 @@
                "type" : "number",
                "name" : "unload",
                "units" : "",
-               "title" : "unload",
+               "title" : "В отгрузке",
                "formula" : ""
             },
             {
                "units" : "ВМТ",
-               "title" : "r1_per_shift",
+               "title" : "Загрузка концентратов за смену",
                "type" : "number",
                "name" : "r1_per_shift",
                "formula" : ""
             },
             {
                "units" : "ВМТ",
-               "title" : "r1_per_day",
+               "title" : "Загрузка концентратов за сутки",
                "type" : "number",
                "name" : "r1_per_day",
                "formula" : ""
@@ -667,12 +667,12 @@
                "type" : "number",
                "name" : "r1_unload_shift",
                "units" : "шт",
-               "title" : "r1_unload_shift",
+               "title" : "Разгружено п/вагонов за смену",
                "formula" : ""
             },
             {
                "formula" : "",
-               "title" : "r1_unload_day",
+               "title" : "Разгружено п/вагонов за сутки",
                "units" : "шт",
                "name" : "r1_unload_day",
                "type" : "number"
@@ -681,14 +681,14 @@
                "formula" : "",
                "name" : "r2_per_shift",
                "type" : "number",
-               "title" : "r2_per_shift",
+               "title" : "2 Загрузка концентратов за смену ",
                "units" : "ВМТ"
             },
             {
                "formula" : "",
                "name" : "r2_per_day",
                "type" : "number",
-               "title" : "r2_per_day",
+               "title" : "2 Загрузка концентратов за сутки",
                "units" : "ВМТ"
             },
             {
@@ -696,20 +696,20 @@
                "type" : "number",
                "name" : "r2_unload_shift",
                "units" : "шт",
-               "title" : "r2_unload_shift"
+               "title" : "2 Загрузка концентратов за смену"
             },
             {
                "formula" : "",
                "type" : "number",
                "name" : "r2_unload_day",
                "units" : "шт",
-               "title" : "r2_unload_day"
+               "title" : "2 Загрузка концентратов за "
             },
             {
                "type" : "number",
                "name" : "r3_per_shift",
                "units" : "ВМТ",
-               "title" : "r3_per_shift",
+               "title" : "3 Загрузка концентратов за смену",
                "formula" : ""
             },
             {
@@ -717,18 +717,18 @@
                "type" : "number",
                "name" : "r3_per_day",
                "units" : "ВМТ",
-               "title" : "r3_per_day"
+               "title" : "3 Загрузка концентратов за сутки"
             },
             {
                "formula" : "",
                "units" : "шт",
-               "title" : "r3_unload_shift",
+               "title" : "3 Разгружено п/вагонов за смену",
                "type" : "number",
                "name" : "r3_unload_shift"
             },
             {
                "units" : "шт",
-               "title" : "r3_unload_day",
+               "title" : "3 Разгружено п/вагонов за сутки",
                "type" : "number",
                "name" : "r3_unload_day",
                "formula" : ""
@@ -738,11 +738,11 @@
                "type" : "number",
                "name" : "crusher_number",
                "units" : "№",
-               "title" : "crusher_number"
+               "title" : "Дробилка №"
             },
             {
                "units" : "%",
-               "title" : "moisture",
+               "title" : "Влага",
                "type" : "number",
                "name" : "moisture",
                "formula" : ""
@@ -756,17 +756,17 @@
             {
                "name" : "results",
                "type" : "text",
-               "title" : "results",
+               "title" : "Результаты осмотра",
                "formula" : ""
             },
             {
-               "title" : "term",
+               "title" : "Срок устранения неисправности",
                "name" : "term",
                "type" : "date",
                "formula" : ""
             },
             {
-               "title" : "mark",
+               "title" : "Отметка об устранении неисправности",
                "name" : "mark",
                "type" : "text",
                "formula" : ""
@@ -779,12 +779,12 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "time",
+               "title" : "Время",
                "type" : "time",
                "name" : "time"
             },
             {
-               "title" : "place",
+               "title" : "Место отбора пробы",
                "units" : "",
                "name" : "place",
                "type" : "number",
@@ -794,18 +794,18 @@
                "type" : "number",
                "name" : "S_cinder",
                "units" : "%",
-               "title" : "S_cinder",
+               "title" : "S в огарке",
                "formula" : ""
             },
             {
                "type" : "number",
                "name" : "S_general",
                "units" : "%",
-               "title" : "S_general",
+               "title" : "S общая",
                "formula" : ""
             },
             {
-               "title" : "conformity",
+               "title" : "Соответствие ТИ",
                "type" : "text",
                "name" : "conformity",
                "formula" : ""
@@ -814,7 +814,7 @@
                "formula" : "",
                "name" : "event",
                "type" : "text",
-               "title" : "event"
+               "title" : "Мероприятия по НМУ"
             }
          ],
          "title" : "Места отбора пробы",
@@ -825,23 +825,23 @@
             {
                "type" : "time",
                "name" : "time",
-               "title" : "time",
+               "title" : "Время",
                "formula" : ""
             },
             {
                "name" : "character",
                "type" : "text",
-               "title" : "character",
+               "title" : "Характер несоответствия ТИ",
                "formula" : ""
             },
             {
-               "title" : "correction",
+               "title" : "Корректирующие действия",
                "name" : "correction",
                "type" : "text",
                "formula" : ""
             },
             {
-               "title" : "extra",
+               "title" : "-",
                "units" : "",
                "name" : "extra",
                "type" : "number",
@@ -850,7 +850,7 @@
             {
                "type" : "text",
                "name" : "ks_comment",
-               "title" : "ks_comment",
+               "title" : "Комментарий",
                "formula" : ""
             }
          ],
@@ -862,7 +862,7 @@
          "fields" : [
             {
                "formula" : "",
-               "title" : "time",
+               "title" : "Время обхода объекта",
                "name" : "time",
                "type" : "time"
             },
@@ -870,10 +870,10 @@
                "formula" : "",
                "name" : "comments",
                "type" : "text",
-               "title" : "comments"
+               "title" : "Замечания"
             },
             {
-               "title" : "mark",
+               "title" : "Отметка об устранении",
                "type" : "text",
                "name" : "mark",
                "formula" : ""
@@ -889,29 +889,29 @@
             {
                "type" : "text",
                "name" : "material",
-               "title" : "material",
+               "title" : "Материально-технические ценности приняты на самоохрану",
                "formula" : ""
             },
             {
                "formula" : "",
                "type" : "text",
                "name" : "note",
-               "title" : "note"
+               "title" : "Замечания по работе оборудования"
             },
             {
                "formula" : "",
                "name" : "aspiration",
                "type" : "text",
-               "title" : "aspiration"
+               "title" : "Аспирация и вентиляция"
             },
             {
                "name" : "kip",
                "type" : "text",
-               "title" : "kip",
+               "title" : "КИПиА",
                "formula" : ""
             },
             {
-               "title" : "electro",
+               "title" : "Электроборудование",
                "type" : "text",
                "name" : "electro",
                "formula" : ""
@@ -919,7 +919,7 @@
             {
                "type" : "text",
                "name" : "extra_note",
-               "title" : "extra_note",
+               "title" : "Дополнительные замечания",
                "formula" : ""
             }
          ],

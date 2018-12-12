@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs" style="overflow-x: auto; display: -webkit-box; margin-bottom: 10px;">
 
     <li class="nav-item">
-        <a data-toggle="tab" href="#January_table" class="nav-link " aria-controls="January_table">Январь</a>
+        <a data-toggle="tab" href="#January_table" class="nav-link active" aria-controls="January_table">Январь</a>
     </li>
 
     <li class="nav-item">
@@ -37,7 +37,7 @@
     </li>
 
     <li class="nav-item">
-        <a data-toggle="tab" href="#October_table" class="nav-link active" aria-controls="October_table">Октябрь</a>
+        <a data-toggle="tab" href="#October_table" class="nav-link" aria-controls="October_table">Октябрь</a>
     </li>
 
     <li class="nav-item">
@@ -66,7 +66,7 @@
                 <tbody>
 
 
-                <tr v-for="(value, index) in rowsCount">
+                <tr v-for="(value, index) in rowsCount" class="indexed-line">
 
                     <td>
                         <cell field-name="concentrate__plan__January" :row-index="index"></cell>

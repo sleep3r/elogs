@@ -5,7 +5,7 @@
 
 .general-value, .widthCell {
     /*important because it's really important and to override bootstrap*/
-    padding: 8px 14px;
+    padding: 8px 5px;
     height: 100% !important;
     border-radius: 0 !important;
     border: none !important;
@@ -28,6 +28,7 @@
 
 .general-value {
     background-color: transparent !important;
+    overflow: hidden;
     /*background: white;*/
 }
 
@@ -133,10 +134,20 @@ input[type="number"].general-value {
 }
 
 
-
-
 @media (max-width: 1172px) {
-    .general-value, .widthCell {
+    .general-value, .widthCell, th {
+        padding: 8px 2px !important;
+    }
+}
+
+@media (min-width: 1172px) and (max-width: 1272px) {
+    .general-value, .widthCell, th {
+        padding: 8px 3px !important;
+    }
+}
+
+@media (min-width: 1272px) and (max-width: 1472px) {
+    .general-value, .widthCell, th {
         padding: 8px 4px !important;
     }
 }

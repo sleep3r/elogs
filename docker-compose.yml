@@ -1,46 +1,73 @@
 version: '3'
 
+volumes:
+  production_caddy: {}
+
 services:
   db:
     image: "quay.io/inframine/e-logs:db"
     hostname: "db"
     ports:
      - "1433:1433"
+
   redis:
     image: "redis"
     hostname: "redis"
     ports:
      - "6379:6379"
-  web:
-    build: .
-    ports:
-      - "8085:8085"
-      - "8000:8000"
-      - "80:80"
-      - "443:443"
-    command: bash -c "./docker/entrypoint.sh"
-    environment:
-      - CADDY_HOSTNAME=elogs.online
+
+  django: &django
+    build:
+      context: .
+      dockerfile: ./docker/django/Dockerfile
     depends_on:
-     - redis
-     - db
-    restart: on-failure
+      - redis
+      - db
+    env_file:
+      - ./.env
+    command:
+      - /entrypoint
+
+  node: &node
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    command:
+      - /entrypoint
+
+  caddy:
+    build:
+      context: .
+      dockerfile: ./docker/caddy/Dockerfile
+    image: elogs_prod_caddy
+    depends_on:
+      - django
+    volumes:
+      - production_caddy:/root/.caddy
+    env_file:
+      - ./.env
+    ports:
+      - "0.0.0.0:8085:8085"
+      - "0.0.0.0:8000:8000"
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+
   celery:
-   build: .
-   command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
-   environment:
-    - C_FORCE_ROOT=true
-   depends_on:
-    - db
-    - redis
-    - web
-   restart: on-failure
+    <<: *django
+    command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
+    depends_on:
+      - db
+      - redis
+      - django
+    restart: on-failure
+
   celery-beat:
-   build: .
-   command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info --scheduler=django_celery_beat.schedulers:DatabaseScheduler
-   depends_on:
-    - db
-    - redis
-    - web
-   restart: on-failure
+    <<: *django
+    command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info --scheduler=django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - db
+      - redis
+      - django
+    restart: on-failure
+
 

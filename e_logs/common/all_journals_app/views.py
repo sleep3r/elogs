@@ -13,15 +13,15 @@ from e_logs.core.utils.webutils import logged, current_date
 from e_logs.core.views import LoginRequired
 
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env("config/settings/.env")
+environ.Env.read_env(".env")
 
 
 def _get_current_group(journal):
     if journal.type == 'shift':
-        shifts = Shift.objects.filter(journal=journal,
-                                      date__lte=current_date()).order_by('-date', 'order')
+        shifts = Shift.objects.filter(journal=journal, date__lte=current_date()).order_by('-date', 'order')
+
         for shift in shifts:
-            if shift.is_active():
+            if shift.is_active(timezone.now()):
                 return shift
 
     elif journal.type == 'year':
@@ -36,6 +36,7 @@ def _get_current_group(journal):
 
     else:
         return Equipment.objects.filter(journal=journal).first()
+
 
 @logged
 def permission_denied(request, exception, template_name='errors/403.html') -> HttpResponse:
@@ -58,10 +59,6 @@ def get_table_template(request):
 
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
-
-# def get_table_template(request, journal_name, table_name):
-#     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
-#         return HttpResponse(table_file.read())
 
 class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):
@@ -96,7 +93,8 @@ class GetGroups(LoginRequired, View):
         to_date = current_date()
 
         if journal.type == 'shift':
-            shifts = Shift.objects.filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal)
+            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order').\
+                filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal).cache()
             shifts_dict = defaultdict(list)
 
             for shift in shifts:
@@ -122,7 +120,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'year':
-            years = Year.objects.filter(journal=journal, year_date__lte=current_date().year).order_by('-year_date')
+            years = Year.objects.select_related('journal', 'journal__plant').only('year_date').\
+                                 filter(journal=journal, year_date__lte=current_date().year).\
+                                 cache().order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -139,7 +139,7 @@ class GetGroups(LoginRequired, View):
     def get_months(self, user, journal):
         def month_event(month):
             return {
-                'id':month.id,
+                'id': month.id,
                 'year': f'{month.year_date}-й год',
                 'month': f'{month.month_date}',
                 'url': '/{}/{}/{}/'.format(month.journal.plant.name, month.journal.name, month.id),
@@ -148,7 +148,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'month':
-            months = Month.objects.filter(journal=journal, year_date__lte=current_date().year).order_by('-year_date')
+            months = Month.objects.select_related('journal', 'journal__plant').\
+                                   filter(journal=journal, year_date__lte=current_date().year).cache()\
+                                   .order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:
@@ -175,7 +177,7 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'equipment':
-            equipment = Equipment.objects.filter(journal=journal)
+            equipment = Equipment.objects.select_related('journal', 'journal__plant').filter(journal=journal).cache()
             equipment_dict = defaultdict(list)
 
             for eq in equipment:
@@ -188,4 +190,6 @@ class GetGroups(LoginRequired, View):
             return JsonResponse(result, safe=False)
         else:
             raise TypeError('Attempt to get equipment for non-equipment journal')
+
+
 get_groups = GetGroups.as_view()

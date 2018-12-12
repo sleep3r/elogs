@@ -31,21 +31,28 @@ from e_logs.core.management.commands.compress_journals import compress_journal
 
 class GroupAPI(LoginRequired, View):
     def get(self, request, *args, **kwargs):
-        user = request.user
         group, id = self.get_current_group(request, kwargs)
         qs = group.objects.select_related('journal', 'journal__plant') \
-            .prefetch_related('journal__tables','journal__tables__fields',
-                Prefetch('group_cells', queryset=Cell.objects.select_related(
-                                                    'field',
-                                                    'field__table',
-                                                    'responsible__user',
-                                                    'responsible').
-        filter(group_id=id).prefetch_related(
-            Prefetch('comments', queryset=Comment.objects.all().select_related('employee__user',
-                                                                               'employee'))))).\
-        get(id=id)
+            .prefetch_related('journal__tables', 'journal__tables__fields',
+                              Prefetch('group_cells', queryset=Cell.objects.select_related(
+                                  'field',
+                                  'field__table',
+                                  'responsible__user',
+                                  'responsible').
+                                       filter(group_id=id).prefetch_related(
+                                  Prefetch('comments', queryset=Comment.objects.all().select_related('employee__user',
+                                                                                                     'employee'))))). \
+            get(id=id)
 
+        res = self.get_context(request, qs)
+
+        self.add_constraints(qs, res)
+
+        return JsonResponse(res, safe=False)
+
+    def get_context(self, request, qs):
         plant = qs.journal.plant
+        user = request.user
         res = {
             "id": qs.id,
             "plant": {"name": plant.name},
@@ -56,31 +63,29 @@ class GroupAPI(LoginRequired, View):
 
         if qs.journal.type == 'shift':
             res.update(
-               {"order": qs.order,
-                "date": qs.date.isoformat(),
-                'start_time': qs.start_time.isoformat(),
-                "closed": qs.closed,
-                "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
-                }
+                {"order": qs.order,
+                 "date": qs.date.isoformat(),
+                 'start_time': qs.start_time.isoformat(),
+                 "closed": qs.closed,
+                 "responsibles": [{str(e.user): str(e)} for e in qs.responsibles.all()],
+                 }
             )
         elif qs.journal.type == 'year' or qs.journal.type == 'month':
             res.update(
-               {"year":qs.year_date,
-                "month":qs.month_date if hasattr(qs, 'month_date') else None}
+                {"year": qs.year_date,
+                 "month": qs.month_date if hasattr(qs, 'month_date') else None}
             )
         elif qs.journal.type == 'equipment':
             res.update(
-               {"equipment":qs.name,}
+                {"equipment": qs.name, }
             )
 
-        self.add_constraints(qs, res)
-
-        return JsonResponse(res, safe=False)
+        return res
 
     def constraint_modes_serializer(self, qs):
         return {
             "modes": [{
-                "id":mode.id,
+                "id": mode.id,
                 "is_active": mode.is_active,
                 "message": mode.message,
             } for mode in Mode.objects.filter(journal=qs.journal)
@@ -109,7 +114,6 @@ class GroupAPI(LoginRequired, View):
         if not kwargs.get('id', None):
             journal_name = parse_qs(request.GET.urlencode())['journalName'][0]
             plant_name = parse_qs(request.GET.urlencode())['plantName'][0]
-            print(plant_name, journal_name)
             current_group = _get_current_group(Journal.objects.get(name=journal_name, plant__name=plant_name))
             id = current_group.id
         else:
@@ -172,7 +176,7 @@ class GroupAPI(LoginRequired, View):
         else:
             res = {
                 "permissions": ["edit"] if user.has_perm(
-                                        PLANT_PERM.format(plant=group.journal.plant.name)) else [],
+                    PLANT_PERM.format(plant=group.journal.plant.name)) else [],
                 "time": None,
             }
 
@@ -206,9 +210,10 @@ class GroupAPI(LoginRequired, View):
         res = {field.name: {
             "id": field.id,
             "name": field.name,
+            "title": field.verbose_name,
             "formula": field.formula,
-            "field_description": {"type":field.type,
-                                  "units":field.units},
+            "field_description": {"type": field.type,
+                                  "units": field.units},
             "cells": self.cell_serializer(qs, table, field)}
             for field in fields}
 
@@ -224,17 +229,17 @@ class GroupAPI(LoginRequired, View):
                 else:
                     responsible = {}
                 res[cell.index] = {
-                                   "id": cell.id,
-                                   "value": cell.value,
-                                   "responsible": responsible,
-                                   "created": cell.created,
-                                   "comments": [{
-                                       'text': comment.text,
-                                       'user': user_to_response(comment.employee),
-                                       'type': comment.type,
-                                       'created': comment.created.isoformat()}
-                                       for comment in cell.comments.all()]
-                                   }
+                    "id": cell.id,
+                    "value": cell.value,
+                    "responsible": responsible,
+                    "created": cell.created,
+                    "comments": [{
+                        'text': comment.text,
+                        'user': user_to_response(comment.employee),
+                        'type': comment.type,
+                        'created': comment.created.isoformat()}
+                        for comment in cell.comments.all()]
+                }
 
         return res
 
@@ -247,9 +252,10 @@ class PrevShiftAPI(View):
         journal = cellgroup.journal
         cellgroups = CellGroup.objects.filter(journal=journal)
         shifts = [Shift.objects.get(id=x.id) for x in cellgroups]
-        sorted_shifts = sorted(shifts, key=lambda x : (x.date, x.order))
-        prev_shift =sorted_shifts[sorted_shifts.index(shift) - 1]
+        sorted_shifts = sorted(shifts, key=lambda x: (x.date, x.order))
+        prev_shift = sorted_shifts[sorted_shifts.index(shift) - 1]
         return JsonResponse(prev_shift.id, safe=False)
+
 
 class PlantsAPI(View):
     def get(self, request):
@@ -271,7 +277,7 @@ class JournalsAPI(View):
 class MenuInfoAPI(View):
     def get(self, request):
         qs = Journal.objects.all()
-        if str(request.user) not in ['shaukenov-s-s', 'makagonov-s-n'] and not request.user.is_superuser:
+        if str(request.user) not in ['шаукенов-ш-с', 'макагонов-с-н'] and not request.user.is_superuser:
             qs = qs.exclude(name__in=['metals_compute', 'report_income_outcome_schieht'])
         return JsonResponse({
             'plants': [

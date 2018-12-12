@@ -116,8 +116,11 @@ const journalState = {
             }
         },
         fieldVerboseName: (state) => (tableName, fieldName) => {
-            if (state.loaded) {
-                return fieldName;
+            if (state.loaded
+                && state.journalInfo.journal.tables[tableName].fields[fieldName] !== void 0
+                && Object.keys(state.journalInfo.journal.tables[tableName].fields[fieldName]).indexOf('title')
+                ) {
+                    return state.journalInfo.journal.tables[tableName].fields[fieldName].title;
             } else {
                 return '';
             }
@@ -143,7 +146,7 @@ const journalState = {
                         table: tableName,
                         field: fieldName,
                         index: rowIndex,
-                        shift: 0, 
+                        shift: 0,
                         isTableIndexed: false,
                     })), 0) // Timout for sequential functions execution
                     return {
@@ -273,11 +276,15 @@ const journalState = {
                     return {};
                 }
                 var fieldConstraintsModes = state.journalInfo.field_constraints_modes.modes
-
-                var fieldConstraints = fields[fieldName].field_description['constraints_modes']
+                var desc = fields[fieldName].field_description
+                if (typeof desc == "undefined") {
+                    return {}
+                }
+                var fieldConstraints = desc['constraints_modes']
                 if (typeof fieldConstraints == "undefined") {
                     return {}
                 }
+                // console.log(fieldConstraints)
 
                 // if constraintsMode is not null and constraints for this field exist
                 if (constraintsMode) {
@@ -347,9 +354,13 @@ const journalState = {
             state.loaded = loaded;
         },
         ADD_RESPONSIBLE (state, payload) {
-            let currentResp = state.journalInfo.responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0]
+            let responsibles = state.journalInfo.responsibles
+            if (typeof responsibles == "undefined") {
+                responsibles = [ payload ]
+            }
+            let currentResp = responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0]
             if (!currentResp) {
-              state.journalInfo.responsibles.push(payload)
+                state.journalInfo.responsibles.push(payload)
             }
         },
         REMOVE_PERMISSION (state, payload) {
@@ -558,6 +569,9 @@ const journalState = {
                 item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
             table.html = payload.html
         },
+        SET_EVENTS (state, payload) {
+            state.events = payload
+        },
         SOCKET_ONOPEN (state, event)  {
             Vue.prototype.$socket = event.currentTarget
             state.socket.isConnected = true
@@ -583,6 +597,7 @@ const journalState = {
             // send all journal cells
             let data = {
                 'type': 'shift_data',
+                'final': true,
                 'cells': []
             }
             let tables = state.journalInfo.journal.tables
@@ -634,7 +649,7 @@ const journalState = {
         loadShifts: function ({commit, state, getters}, payload) {
             return ajax.get(window.HOSTNAME + '/api/' + payload.plant + '/' + payload.journal +'/get_groups/')
                 .then(response => {
-                    state.events = response.data;
+                    commit('SET_EVENTS', response.data)
                     $(".fc-month-button").click();
                 })
                 .catch(e => {

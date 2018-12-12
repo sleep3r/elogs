@@ -83,7 +83,6 @@ module.exports = {
                 links: [
 
                     {rel: "manifest", href: "/manifest.json"},
-                    {rel: "preload", href: "/api/messages"},
                 ],
                 lang: 'en-US',
                 bodyHtmlSnippet: "<noscript> Ваш браузер не поддерживает Javascript</noscript>",
@@ -110,7 +109,7 @@ module.exports = {
         ],
     },
 
-    baseUrl: (process.env.NODE_ENV === 'production') ? '/' : undefined,
+    baseUrl: (process.env.NODE_ENV === 'production') ? '/static/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,
     runtimeCompiler: true,

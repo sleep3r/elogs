@@ -1,36 +1,47 @@
 <template>
-    <div v-if="mode!=='edit_constraints'" style="height: 100%;" :class="cssClass">
+    <div v-if="mode!=='edit_constraints'" style="height: 100%; position: relative;" :class="cssClass">
       <!-- Regular cell -->
         <template>
             <span v-if="hasFormula" class="formula-marker" style="margin-top: 10px;"><b><i>F</i></b></span>
         </template>
-        <input
+        <component
+            :is="tag"
             :class="['general-value', 'number-cell', 'form-control',
-                    mode === 'edit' ? 'form-control__edit' : '',
+                    mode === 'edit' && type !== 'number_colon' ? 'form-control__edit' : '',
                     hasFormula ? 'formula-cell' : '',
                     mode === 'view' ? 'no-shadow' : '',
+                    type === 'number_colon' ? 'mask-colon':'',
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
-            :value="value | filterNumber(this)"
-            :type="type == 'number' ? 'custom_number' : type"
+            :ref="getId"
+            :value="value"
+            :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
-            :placeholder="placeholder"
-            :style="[{ color: activeColor, fontWeight: fontWeight }]"
+            :placeholder="placeholder + ' '"
+            :style="[{
+              float: type === 'number_colon' ? 'left':'none',
+              width: type === 'number_colon' ? '80%':'',
+              color: activeColor,
+              fontWeight: fontWeight,
+              outline: outline,
+              minWidth: minWidth + 'px',
+              textAlign: textAlign }]"
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
-            @blur="showTooltip=false"
-            @contextmenu.prevent="$refs.menu.open"
+            @blur="showTooltip=false;$refs.menu.close()"
+            @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
-            :list="type == 'datalist'  ? fieldName : ''"
-
-        >
-        <div class="widthCell">
-        </div>
+            :list="fieldName"
+        >{{ tag == 'textarea' ? value : '' }}</component>
+        <template>
+            <span v-if="type === 'number_colon'" class="has-colon" style="float: left; line-height: 36px">:1</span>
+        </template>
+        <div class="widthCell"></div>
         <template>
             <datalist>
                 <option v-for="person in personsList" :value="person" :key="person"></option>
@@ -41,10 +52,10 @@
         </datalist>
         <i
             @click="(e) => showPopover(e, {onlyChat: true})"
-            v-if="cellComments.length"
+            v-if="(cellComments.length) && (userCommentsCounter > 0)"
             class="far fa-envelope comment-notification"
         >
-            <span v-if="hasUnreaded" class="unreaded"></span>
+            <!--<span v-if="hasUnreaded" class="unreaded"></span>-->
         </i>
         <vue-context ref="menu">
             <ul>
@@ -80,7 +91,6 @@
     import ClockPicker from './ClockPicker.vue'
     import { VueContext } from 'vue-context';
     import EventBus from '../EventBus';
-    import { setTimeout } from 'timers';
 
     Vue.directive('tooltip', VTooltip);
     Vue.directive('close-popover', VClosePopover);
@@ -97,8 +107,10 @@
           KEY_BACKSPACE = 8,
           KEY_ARROW_LEFT = 37,
           KEY_ARROW_RIGHT = 39,
-          KEY_DELETE = 46,
+          KEY_COMMA = 44,
+          KEY_DOT = 46,
           KEY_SLASH = 47,
+          KEY_COLON = 58,
           KEY_DASH = 189;
 
 
@@ -124,12 +136,17 @@
                 personsList: [],
                 tooltipContent: '',
                 fontWeight: 'lighter',
-                minWidth: 0
+                minWidth: 0,
+                height: null,
+                highlight: false,
+                backgroundColor: null,
+                minWidth: 0,
+                indexedLine: null,
             }
         },
         watch: {
             mode (value) {
-                setTimeout(() => this.setPickersListeners(), 1)
+                this.setPickersListeners()
             },
             value: function (val) {
                 if (this.responsible) {
@@ -138,7 +155,7 @@
                         this.fontWeight = 'bold'
                         this.tooltipContent = Object.values(this.responsible)[0] + ' печатает...'
                         this.showTooltip = true;
-                        var self = this
+                        let self = this;
                         setTimeout(function() {
                             self.showTooltip = false;
                             self.fontWeight = 'lighter'
@@ -169,11 +186,26 @@
           }
         },
         computed: {
+            getId () {
+              return this.fieldName + "_" + this.rowIndex;
+            },
             getBody () {
                 return $('body').get()
             },
+            tag () {
+                return this.height < 40 ? 'input' : 'textarea'
+            },
+            shiftId () {
+                return this.$store.getters['journalState/journalInfo'].id
+            },
+            userCommentsCounter () {
+                return this.cellComments.filter((item, index) => item.type === 'user_comment').length
+            },
             cellComments () {
                 return this.$store.getters['journalState/cellComments'](this.tableName, this.fieldName, this.rowIndex)
+            },
+            journalName () {
+                return this.$store.getters['journalState/journalInfo'].journal.name
             },
             hasUnreaded () {
               // получить все сообщения
@@ -192,9 +224,20 @@
             activeColor: function () {
                 return this.critical ? 'red' : '';
             },
+            outline: function () {
+                return this.highlight ? '2px solid #666666' : ''
+            },
+            textAlign: function () {
+                if ((this.type == 'text')) {
+                    return 'left'
+                }
+                else {
+                  return 'right'
+                }
+            },
             critical: function () {
-                return (this.minValue && (parseInt(this.value) < parseInt(this.minValue))) ||
-                    (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)));
+                return ((this.type === 'number') && ((this.minValue && parseInt(this.value) < parseInt(this.minValue)) ||
+                     (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)))))
             },
             responsibles() {
                 return this.$store.getters['journalState/journalInfo'].responsibles
@@ -217,11 +260,11 @@
             value: {
                 cache: false,
                 get: function () {
-                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
-                    return typeof cell === "undefined" ? '' : cell['value']
+                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex);
+                    let result = typeof cell === "undefined" ? '' : cell['value'];
+                    return result;
                 },
                 set: function (val) {
-                    // console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -319,6 +362,18 @@
             },
         },
         methods: {
+            openMenu (e) {
+                if (this.mode == 'edit') {
+                    // if last line, do nothing
+                    if ((this.$parent.rowsCount-1) == this.rowIndex) {
+                        e.preventDefault()
+                    }
+                    else if (this.indexedLine) {
+                        e.preventDefault()
+                        this.$refs.menu.open()
+                    }
+                }
+            },
             showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
@@ -347,7 +402,7 @@
                     })
                 }
 
-                let currentElement = $(e.srcElement).is('input') ? $(e.srcElement) : $(e.srcElement).siblings('input')
+                let currentElement = $(e.srcElement).is('input') || $(e.srcElement).is('textarea') ? $(e.srcElement) : $(e.srcElement).siblings('input')
 
                 let inputOffset = 4;
 
@@ -355,18 +410,26 @@
                     let popUpWidth = $('.cell-popup').outerWidth() ? $('.cell-popup').outerWidth() : 280;
                     let appWidth = $('#app').outerWidth()
                     let popUpHeight = $('.cell-popup').outerHeight() ? $('.cell-popup').outerHeight() : 424;
-                    let appHeight = $('#app').outerHeight()
+                    let windowHeight = $(window).height()
+
 
                     if (e.clientX + popUpWidth >= appWidth) {
                         x = e.clientX - e.offsetX - popUpWidth + currentElement.outerWidth()
-                    } else {
+                    }
+                    else {
                         x = e.clientX  - e.offsetX
                     }
 
-                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= appHeight) {
+                    if (e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() >= windowHeight &&
+                            e.clientY - popUpHeight - e.offsetY - inputOffset > 0) {
                         y = e.clientY - popUpHeight - e.offsetY - inputOffset
-                    } else {
+                    }
+                    else if (e.clientY - e.offsetY - popUpHeight - inputOffset < 0 &&
+                            e.clientY - e.offsetY + popUpHeight + currentElement.outerHeight() <= windowHeight){
                         y = e.clientY - e.offsetY + inputOffset + currentElement.outerHeight()
+                    }
+                    else {
+                        y = (windowHeight - popUpHeight) / 2
                     }
 
                     if (this.mode === 'validate') {
@@ -437,7 +500,7 @@
                     }
                 }
 
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let currentId = shortid.generate()
                     $(this.$el).find('input').attr('list', currentId)
                     $(this.$el).find('datalist').attr('id', currentId)
@@ -471,13 +534,13 @@
                 });
             },
             onInput(e) {
-                $(this.$el).find('.widthCell').text(e.target.value)
-                $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').outerWidth()})
-
+                if (this.tag !== 'textarea') {
+                    this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
+                }
                 this.value = e.target.value;
 
                 // console.log('oninput')
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let plantName = this.$store.getters['journalState/plantName'];
                     this.getPersons(e.target.value, plantName)
                 }
@@ -494,7 +557,7 @@
                 // console.log(this.value)
                 e ? e.preventDefault() : null
                 if (this.critical) {
-                  console.log('critical message recieved')
+                  console.log('critical message sent');
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -511,7 +574,7 @@
                     },
                 });
                 } else {
-                  console.log('non critical message recieved')
+                  console.log('non critical message sent');
                     this.$socket.sendObj({
                         'type': 'messages',
                         'cell': {
@@ -523,7 +586,7 @@
                         "crud":"update",
                     });
                 }
-                // setTimeout(this._updateCells(), 0)
+
                 this.send(true)
             },
             filterInput(e) {
@@ -534,6 +597,11 @@
                         || keycode == KEY_MINUS
                         || keycode == KEY_PLUS
                         || keycode == KEY_SLASH
+                        || keycode == KEY_ARROW_LEFT
+                        || keycode == KEY_ARROW_RIGHT
+                        || keycode == KEY_COMMA
+                        || keycode == KEY_DOT
+                        || keycode == KEY_COLON
                        )
                     {
                         this.showTooltip = false;
@@ -607,47 +675,33 @@
                         }
                         break;
                 }
-            },
-            _updateCells() {
-                // console.log("updating cells")
-                let journalComponent = this.$parent.$parent.$parent
-                for (let commonTableComponentIndex in journalComponent.$children) {
-                    let journalComponentChildren = journalComponent.$children[commonTableComponentIndex]
-                    if (journalComponentChildren.$options.name === "TableCommon") {
-                        let tableComponent = journalComponentChildren.$children[0]
-                        for (let cellComponentIndex in tableComponent.$children) {
-                            let cellComponent = tableComponent.$children[cellComponentIndex]
-                            cellComponent.$forceUpdate()
-                        }
-                    }
-                }
             }
         },
         mounted() {
+            this.height = this.$el.parentElement.clientHeight;
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
-            // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
             this.type = desc['type'] || 'text';
+            this.indexedLine = this.$el.parentElement.parentElement.classList.contains('indexed-line')
 
-            // this.$root.$on('send', () => {
-            //     this.send();
-            // })
+            this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
 
-            if (this.linked) {
-                // auto fill cell
-                // this.value = this.$store.getters['journalState/' + this.linked];
-                // this.send();
-            }
-
-            setTimeout(() => $(this.$el).find('input').css({'min-width': $(this.$el).find('.widthCell').text(this.value).outerWidth() + 'px'}), 0)
-
-            setTimeout(() => this.setPickersListeners(), 1)
+            this.setPickersListeners()
 
             EventBus.$on('time-value-changed', (data) => {
                 if (this.tableName === data.tableName && this.fieldName === data.fieldName && this.rowIndex === data.rowIndex) {
                     this.value = data.value
                 }
+            })
+
+            EventBus.$on('highlight' + this.shiftId + this.journalName + this.tableName + this.fieldName + this.rowIndex, () => {
+                this.$el.scrollIntoView({block: "center"})
+                this.highlight = true
+                var self = this
+                setTimeout(function() {
+                    self.highlight = false
+                }, 4500);
             })
         }
     }

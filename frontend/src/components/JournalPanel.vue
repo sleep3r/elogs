@@ -3,60 +3,57 @@
         <div class="shift-container">
 
             <div v-if="journalType === 'shift'" class="date-selector" data-toggle="tooltip" title="Выберите дату и смену">
-                <input id="shift_field"
-                    type="text"
-                    :value="shiftDate + ', ' + shiftOrder + '-ая смена'"
-                    @click="showCalendar=true"
+                <button :class="['btn-white', 'btn-light', 'btn--narrow']"
+                    @click="() => loadShifts('calendar')"
                     class="date-selector__date"
-                    placeholder="Выберите дату..."
                     data-toggle="modal"
                     data-target="#FullCalendarModal"
-                >
+                    style="font-size: 16px;"
+                          >
+                    {{shiftDate + ', ' + shiftOrder + '-ая смена'}}
+                </button>
             </div>
-            <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip" title="Выберите год">
-                <input id="year_field"
-                    type="text"
-                    @mouseover="$event.target.value = ''"
-                    @mouseleave="$event.target.value = journalYear"
-                    @input="datalistClick('year_field', 'years_list')"
-                    :value="journalYear"
-                    list="years_list"
-                    class="date-selector__date"
+            <div v-else-if="journalType === 'year'" class="date-selector" data-toggle="tooltip" title="Выберите год" @click="loadShifts">
+                <basic-select
+                    :options="events.map(item => {
+                        return {
+                            value: item.id,
+                            text: item.title
+                        }
+                    })"
+                    :selectedOption="yearItem"
                     :placeholder="journalYear"
+                    @select="datalistClick"
                 >
-                <datalist id="years_list">
-                    <option v-for="event in events" :value = event.title></option>
-                </datalist>
+                </basic-select>
             </div>
-            <div v-else-if="journalType === 'equipment'" class="date-selector" data-toggle="tooltip" title="Выберите оборудование">
-                <input id="equipment_field"
-                    type="text"
-                    @input="datalistClick('equipment_field', 'equipment_list')"
-                    :value="journalEquipment"
-                    @mouseover="$event.target.value = ''"
-                    @mouseleave="$event.target.value = journalEquipment"
-                    list="equipment_list"
-                    class="date-selector__date"
-                    :placeholder="journalEquipment"
+            <div v-else-if="journalType === 'equipment'" class="date-selector" data-toggle="tooltip" title="Выберите оборудование" @click="loadShifts">
+                <basic-select
+                        :options="events.map(item => {
+                            return {
+                                value: item.id,
+                                text: item.title
+                            }
+                        })"
+                        :selectedOption="equipmentItem"
+                        :placeholder="journalEquipment"
+                        @select="datalistClick"
                 >
-                <datalist id="equipment_list">
-                    <option v-for="event in events" :value = event.title></option>
-                </datalist>
+                </basic-select>
             </div>
-            <div v-else-if="journalType === 'month'" class="date-selector" data-toggle="tooltip" title="Выберите месяц">
-                <input id="month_field"
-                    type="text"
-                    @input="datalistClick('month_field', 'month_list')"
-                    :value="journalMonth + ' ' + journalYear"
-                    @mouseover="$event.target.value = ''"
-                    @mouseleave="$event.target.value = journalMonth + ' ' + journalYear"
-                    list="month_list"
-                    class="date-selector__date"
-                    :placeholder="journalMonth + ' ' + journalYear"
+            <div v-else-if="journalType === 'month'" class="date-selector" data-toggle="tooltip" title="Выберите месяц" @click="loadShifts">
+                <basic-select
+                        :options="events.map(item => {
+                            return {
+                                value: item.id,
+                                text: item.month + ' ' + item.year
+                            }
+                        })"
+                        :selectedOption="monthItem"
+                        :placeholder="journalMonth + ' ' + journalYear"
+                        @select="datalistClick"
                 >
-                <datalist id="month_list">
-                    <option v-for="event in events" :value = event.month>{{event.year}}</option>
-                </datalist>
+                </basic-select>
             </div>
 
             <div class="panel-buttons">
@@ -64,8 +61,8 @@
                     <span v-if="$store.getters['userState/isSuperuser'] || $store.getters['userState/isBoss']"
                          class="constraint_modes_button"
                     >
-                        <button :class="{ 'btn--active':
-                                mode=='edit_constraints', 'dropdown-toggle': true, 'btn': true}"
+                        <button :class="[ {'btn--active': mode=='edit_constraints'},
+                         'dropdown-toggle', 'btn', 'btn--narrow']"
                                 type="button"
                                 id="dropdownMenuButton"
                                 data-toggle="dropdown"
@@ -139,14 +136,14 @@
                     </span>
 
                     <template v-if="userHasPerm('edit') || $store.getters['userState/isSuperuser']">
-                    <button :class="['btn', 'btn-edit', { 'btn--active': mode==='edit' }]"
+                    <button :class="['btn', 'btn-edit', 'btn--narrow', { 'btn--active': mode==='edit' }]"
                             @click="changeMode('edit')">
                         Редактирование
                     </button>
                     </template>
 
                     <template v-if="userHasPerm('validate') || $store.getters['userState/isSuperuser']">
-                        <button :class="['btn', 'btn-validate', { 'btn--active': mode==='validate' }]"
+                        <button :class="['btn', 'btn-validate', 'btn--narrow', { 'btn--active': mode==='validate' }]"
                                 @click="changeMode('validate')">
                             Валидация
                         </button>
@@ -156,7 +153,7 @@
         </div>
         <div v-if="journalType === 'shift'" class="responsibles">
           Ответственные за смену:
-          <label v-for="employee of responsibles">
+          <label v-for="employee of responsibles" style="margin-bottom: 0;">
             <!-- <img style="height: 30px; width: 30px;" src="../assets/images/no-avatar.png"> -->
             {{ Object.values(employee)[0] }} &emsp;
           </label>
@@ -167,6 +164,7 @@
     import $ from 'jquery'
     import EventBus from '../EventBus'
     import ajax from '../axios.config'
+    import { BasicSelect } from 'vue-search-select'
     let XLSX = require('xlsx');
 
     export default {
@@ -176,7 +174,19 @@
                 showCalendar: false,
                 employeeName: 'Employee name',
                 employeePosition: 'position',
-                newConstraintModeMessage: ''
+                newConstraintModeMessage: '',
+                yearItem: {
+                    value: '',
+                    text: ''
+                },
+                equipmentItem: {
+                    value: '',
+                    text: ''
+                },
+                monthItem: {
+                    value: '',
+                    text: ''
+                }
             }
         },
         computed: {
@@ -215,6 +225,9 @@
             },
             journalType() {
                 return this.$store.getters['journalState/journalInfo'].journal.type;
+            },
+            journalShift() {
+                return this.$store.getters['journalState/journalInfo'].id;
             },
             journalYear() {
                 return this.$store.getters['journalState/journalInfo'].year + '-й год';
@@ -284,10 +297,10 @@
                 payload[this.$store.getters['userState/username']] = this.$store.getters['userState/username']
                 this.$store.commit('journalState/ADD_RESPONSIBLE', payload)
 
-                let path = window.location.pathname;
-                if (path.slice(-1) !== '/'){path = path + '/'}
-                let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
-                shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
+                // let path = window.location.pathname;
+                // if (path.slice(-1) !== '/'){path = path + '/'}
+                // let shift_event = document.querySelector(`a[href='${path}'].fc-event`);
+                // shift_event.setAttribute("style", "background-color:#169F85;border-color:#169F85");
             },
             userHasPerm(perm) {
                 for (let p of this.$store.getters['journalState/journalInfo'].permissions.permissions) {
@@ -318,24 +331,21 @@
                     this.$store.commit('journalState/SET_PAGE_MODE', mode);
                 }
             },
-            datalistClick(id, list) {
-                let val = document.getElementById(id).value;
-                let opts = document.getElementById(list).childNodes;
+            datalistClick(item) {
+                this.yearItem = item;
                 let plantName = this.$route.params.plant;
                 let journalName = this.$route.params.journal;
-                for (let i = 0; i < opts.length; i++) {
-                  if (opts[i].value === val) {
-                      this.$store.dispatch('journalState/loadJournal', {
-                          'id': this.events[i].id,
-                          'plantName': plantName,
-                          'journalName': journalName
-                        })
-                            .then(() => {
-                                this.$router.push(this.events[i].url);
 
-                            });
-                    break;
-                  }
+                if (this.yearItem.value) {
+                    this.$store.dispatch('journalState/loadJournal', {
+                        'id': this.yearItem.value,
+                        'plantName': plantName,
+                        'journalName': journalName
+                    })
+                        .then(() => {
+                            $(".tooltip").tooltip("hide")
+                            this.$router.push(`/${plantName}/${journalName}/${this.yearItem.value}`)
+                        })
                 }
             },
             setListeners () {
@@ -344,53 +354,92 @@
                 let lastScrollTop = 0;
                 let startedScrollHeight = $(window).width() < 678 ? 400 : $(window).width() < 768 ? 200 : 100
 
+                $(window).width() < 678 ? journalTitleContainer.css({'top': '94px'}) : null
+
                 $(window).scroll(function(event){
                     let currentScrollTop = $(this).scrollTop();
-                    if(currentScrollTop < startedScrollHeight){
-                        journalTitleContainer.removeClass("hidden").addClass("sticky")
+
+                    if (currentScrollTop > $('.menu__panel').outerHeight() || $(window).width() >= 678) {
+                        journalTitleContainer.css({'top': '50px'})
+
+                        if(currentScrollTop < startedScrollHeight){
+                            journalTitleContainer.removeClass("hidden").addClass("sticky")
+                        }
+                        if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
+                            journalTitleContainer.removeClass("hidden").addClass("sticky");
+                        } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
+                            journalTitleContainer.removeClass("sticky").addClass("hidden");
+                        }
+                        lastScrollTop = currentScrollTop;
                     }
-                    if((lastScrollTop - currentScrollTop > 2) && (currentScrollTop > startedScrollHeight)) {
-                        journalTitleContainer.removeClass("hidden").addClass("sticky");
-                    } else if((currentScrollTop - lastScrollTop > 10) && (currentScrollTop > startedScrollHeight)) {
-                        journalTitleContainer.removeClass("sticky").addClass("hidden");
+                    else {
+                        journalTitleContainer.css({'top': (94 - currentScrollTop) + 'px'})
+                        lastScrollTop = currentScrollTop;
                     }
-                    lastScrollTop = currentScrollTop;
-                });
+                })
+            },
+            loadShifts (type) {
+                this.$store.dispatch('journalState/loadShifts', {
+                    plant: this.$route.params.plant,
+                    journal: this.$route.params.journal
+                })
+                    .then(() => {
+                        if(type && type === 'calendar') {
+                            setTimeout(() => this.showCalendar=true, 0)
+                        }
+                    })
             }
         },
         mounted() {
             let self = this;
 
-            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
-
-            setTimeout(() => {
-                this.$store.dispatch('journalState/loadShifts', {
-                    plant: this.$route.params.plant,
-                    journal: this.$route.params.journal
-                }), 0
-            })
+            if (this.journalType === 'year') {
+                this.yearItem = {
+                    value: this.journalShift,
+                    text: this.journalYear
+                }
+            }
+            else if (this.journalType === 'equipment') {
+                this.equipmentItem = {
+                    value: this.journalShift,
+                    text: this.journalEquipment
+                }
+            }
+            else if (this.journalType === 'month') {
+                this.monthItem = {
+                    value: this.journalShift,
+                    text: this.journalMonth + ' ' + this.journalYear
+                }
+            }
 
             this.setListeners()
 
-            $( window ).resize(function() {
-                // console.log('resize')
-                setTimeout(() => {
-                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
-                }, 100)
-            })
-
-            $('.fc-toolbar.fc-header-toolbar button').click(function () {
-                setTimeout(() => {
-                    $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
-                }, 1)
-            })
-
-            // if (this.userIsResponsible) {
-            //     console.log('awdawd')
-            // }
+            // $( window ).resize(function() {
+            //     // console.log('resize')
+            //     setTimeout(() => {
+            //         $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+            //     }, 100)
+            // })
+            //
+            // $('.fc-toolbar.fc-header-toolbar button').click(function () {
+            //     setTimeout(() => {
+            //         $('.fc-scroller.fc-day-grid-container').css({'overflow': 'auto', 'height': '400px'})
+            //     }, 1)
+            // })
+        },
+        beforeDestroy() {
+          this.$store.commit('journalState/SET_EVENTS', [])
+        },
+        components: {
+            BasicSelect
         }
     }
 </script>
 <style>
-.big-checkbox {width: 16px; height: 16px;}
+    .big-checkbox {width: 16px; height: 16px;}
+    .btn--narrow.btn--narrow {
+        padding: 0 12px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 </style>

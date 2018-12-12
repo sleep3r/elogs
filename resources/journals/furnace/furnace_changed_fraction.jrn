@@ -10,36 +10,36 @@
             "fields": [
                 {
                     "name": "date_create",
-                    "title": "date_create", 
-                    "formula": "", 
+                    "title": "Дата",
+                    "formula": "",
                     "type": "date"
-                }, 
+                },
                 {
                     "name": "number_of_shift",
-                    "title": "number_of_shift", 
-                    "formula": "", 
-                    "type": "number", 
+                    "title": "Номер смены",
+                    "formula": "",
+                    "type": "number",
                     "units": ""
-                }, 
+                },
                 {
                     "name": "cinder",
-                    "title": "cinder", 
-                    "formula": "", 
-                    "type": "number", 
+                    "title": "Огарка",
+                    "formula": "",
+                    "type": "number",
                     "units": "г"
-                }, 
+                },
                 {
                     "name": "balance",
-                    "title": "balance", 
-                    "formula": "", 
-                    "type": "number", 
+                    "title": "Остаток на сите",
+                    "formula": "",
+                    "type": "number",
                     "units": "г"
-                }, 
+                },
                 {
                     "name": "fraction",
-                    "title": "fraction", 
-                    "formula": "", 
-                    "type": "number", 
+                    "title": "Фракция +0,25 мм X",
+                    "formula": "",
+                    "type": "number",
                     "units": "%"
                 }
             ],

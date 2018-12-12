@@ -1,0 +1,15 @@
+{% load express_tags %}
+{% load staticfiles %}
+{% load i18n %}
+
+<div>
+    {% for table_path in tables_paths %}
+        {% get_table_name table_path as table_name %}
+        <template v-if="$store.getters.loaded">
+          <TableCommon name="{{ table_name }}" ></TableCommon>
+        </template>
+        <template v-else >
+            <span>Loading...</span>
+        </template>
+    {% endfor %}
+</div>
