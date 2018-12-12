@@ -30,7 +30,6 @@
     "jquery": "^3.3.1",
     "jquery-confirm": "^3.3.2",
     "lodash": "^4.17.10",
-    "lodash.camelcase": "^4.3.0",
     "material-design-icons": "^3.0.1",
     "moment": "^2.22.2",
     "nonblockjs": "^1.0.8",
