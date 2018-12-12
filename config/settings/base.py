@@ -51,6 +51,10 @@ FEEDBACK_TG_BOT = {
         "password": env("TG_PROXY_PASSWORD")
     }
 }
+FEEDBACK_MAIL = {
+    "mail": env("MAIL"),
+    "password": env("MAIL_PASSWORD")
+}
 
 DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600)

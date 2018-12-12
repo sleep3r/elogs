@@ -4,8 +4,14 @@ from django.db import models
 
 from django.conf import settings
 from e_logs.core.utils.webutils import StrAsDictMixin
+from e_logs.core.utils.loggers import err_logger
 from .services.telegram_bot import TelegramBot
+from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
+from email.header import Header
+
 import os
+import smtplib
 
 
 class Feedback(StrAsDictMixin, models.Model):
@@ -20,7 +26,18 @@ class Feedback(StrAsDictMixin, models.Model):
         {text}
         """
     )
-    print(settings.FEEDBACK_TG_BOT["proxy"])
+
+    # MAIL = textwrap.dedent(
+    #     """
+    #     From: {email}
+    #     To: {email}
+    #     Subject: "Kazzinc Elog Feedback"
+
+    #     {msg}
+    #     """
+    # )
+
+
 
     bot = TelegramBot(channel=settings.FEEDBACK_TG_BOT["channel"],
                       token=settings.FEEDBACK_TG_BOT["token"],
@@ -47,6 +64,13 @@ class Feedback(StrAsDictMixin, models.Model):
             theme=self.theme,
             text=self.text,
         )
+        # self._send_telegram(msg)
+        self._send_mail(msg)
+
+
+
+
+    def _send_telegram(self, msg):
         Feedback.bot.send_message(msg)
         filenames = self.filenames.split(",")
         if filenames[0]:
@@ -57,3 +81,23 @@ class Feedback(StrAsDictMixin, models.Model):
                 files.append(open(filepath, "rb"))
             Feedback.bot.send_media(files)
         return self
+    
+    def _send_mail(self, msg):
+        msg = msg.replace('\n', '<br/>')
+        print(msg)
+        mail = settings.FEEDBACK_MAIL["mail"]
+        password = settings.FEEDBACK_MAIL["password"]
+        msg = MIMEText(msg, "html", _charset="UTF-8")
+        msg['Subject'] = Header("Kazzinc Elog Feedback", "utf-8")
+        # mail_text = Feedback.MAIL.format(
+        #     email=mail,
+        #     msg=msg
+        # )
+        try:  
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.ehlo()
+            server.login(mail, password)
+            server.sendmail(mail, mail, msg.as_string())
+            server.close()
+        except Exception as e:
+            err_logger.critical("Почта накрылась!", e)
