@@ -1,5 +1,7 @@
-from .settings_base import *
+from .base import *
 
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 ALLOWED_HOSTS = ['*']
 

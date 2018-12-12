@@ -7,28 +7,40 @@
         <component
             :is="tag"
             :class="['general-value', 'number-cell', 'form-control',
-                    mode === 'edit' ? 'form-control__edit' : '',
+                    mode === 'edit' && type !== 'number_colon' ? 'form-control__edit' : '',
                     hasFormula ? 'formula-cell' : '',
                     mode === 'view' ? 'no-shadow' : '',
+                    type === 'number_colon' ? 'mask-colon':'',
                     ]"
             :name="fieldName"
             :row-index="rowIndex"
+            :ref="getId"
             :value="value"
             :type="type == 'number' ? '' : type"
             :readonly="mode !== 'edit' || hasFormula"
-            :placeholder="placeholder"
-            :style="[{ color: activeColor, fontWeight: fontWeight, outline: outline, minWidth: minWidth + 'px' }]"
+            :placeholder="placeholder + ' '"
+            :style="[{
+              float: type === 'number_colon' ? 'left':'none',
+              width: type === 'number_colon' ? '80%':'',
+              color: activeColor,
+              fontWeight: fontWeight,
+              outline: outline,
+              minWidth: minWidth + 'px',
+              textAlign: textAlign }]"
             @keypress="filterInput"
             @keydown="changeFocus"
             @change="onChanged"
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
-            @blur="showTooltip=false"
-            @contextmenu.prevent="$refs.menu.open"
+            @blur="showTooltip=false;$refs.menu.close()"
+            @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
         >{{ tag == 'textarea' ? value : '' }}</component>
+        <template>
+            <span v-if="type === 'number_colon'" class="has-colon" style="float: left; line-height: 36px">:1</span>
+        </template>
         <div class="widthCell"></div>
         <template>
             <datalist>
@@ -95,8 +107,10 @@
           KEY_BACKSPACE = 8,
           KEY_ARROW_LEFT = 37,
           KEY_ARROW_RIGHT = 39,
-          KEY_DELETE = 46,
+          KEY_COMMA = 44,
+          KEY_DOT = 46,
           KEY_SLASH = 47,
+          KEY_COLON = 58,
           KEY_DASH = 189;
 
 
@@ -126,7 +140,8 @@
                 height: null,
                 highlight: false,
                 backgroundColor: null,
-                minWidth: 0
+                minWidth: 0,
+                indexedLine: null,
             }
         },
         watch: {
@@ -140,7 +155,7 @@
                         this.fontWeight = 'bold'
                         this.tooltipContent = Object.values(this.responsible)[0] + ' печатает...'
                         this.showTooltip = true;
-                        var self = this
+                        let self = this;
                         setTimeout(function() {
                             self.showTooltip = false;
                             self.fontWeight = 'lighter'
@@ -171,6 +186,9 @@
           }
         },
         computed: {
+            getId () {
+              return this.fieldName + "_" + this.rowIndex;
+            },
             getBody () {
                 return $('body').get()
             },
@@ -209,6 +227,14 @@
             outline: function () {
                 return this.highlight ? '2px solid #666666' : ''
             },
+            textAlign: function () {
+                if ((this.type == 'text')) {
+                    return 'left'
+                }
+                else {
+                  return 'right'
+                }
+            },
             critical: function () {
                 return ((this.type === 'number') && ((this.minValue && parseInt(this.value) < parseInt(this.minValue)) ||
                      (this.maxValue && (parseInt(this.value) > parseInt(this.maxValue)))))
@@ -234,11 +260,11 @@
             value: {
                 cache: false,
                 get: function () {
-                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex)
-                    return typeof cell === "undefined" ? '' : cell['value']
+                    let cell = this.$store.getters['journalState/cell'](this.tableName, this.fieldName, this.rowIndex);
+                    let result = typeof cell === "undefined" ? '' : cell['value'];
+                    return result;
                 },
                 set: function (val) {
-                    // console.log('set')
                     this.$store.commit('journalState/SET_SYNCHRONIZED', navigator.onLine)
                     this.$store.commit('journalState/SAVE_CELLS', {'cells': [{
                         tableName: this.tableName,
@@ -336,6 +362,18 @@
             },
         },
         methods: {
+            openMenu (e) {
+                if (this.mode == 'edit') {
+                    // if last line, do nothing
+                    if ((this.$parent.rowsCount-1) == this.rowIndex) {
+                        e.preventDefault()
+                    }
+                    else if (this.indexedLine) {
+                        e.preventDefault()
+                        this.$refs.menu.open()
+                    }
+                }
+            },
             showPopover (e, options) {
                 let x = e.clientX;
                 let y = e.clientY;
@@ -462,7 +500,7 @@
                     }
                 }
 
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let currentId = shortid.generate()
                     $(this.$el).find('input').attr('list', currentId)
                     $(this.$el).find('datalist').attr('id', currentId)
@@ -496,12 +534,13 @@
                 });
             },
             onInput(e) {
-                this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
-
+                if (this.tag !== 'textarea') {
+                    this.minWidth = $(this.$el).find('.widthCell').text(e.target.value).outerWidth()
+                }
                 this.value = e.target.value;
 
                 // console.log('oninput')
-                if ($(this.$el).find('input').attr('placeholder') === 'Фамилия И.О.') {
+                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
                     let plantName = this.$store.getters['journalState/plantName'];
                     this.getPersons(e.target.value, plantName)
                 }
@@ -518,7 +557,7 @@
                 // console.log(this.value)
                 e ? e.preventDefault() : null
                 if (this.critical) {
-                  console.log('critical message sent')
+                  console.log('critical message sent');
                     this.$socket.sendObj({
                     'type': 'messages',
                     'cell': {
@@ -535,7 +574,7 @@
                     },
                 });
                 } else {
-                  console.log('non critical message sent')
+                  console.log('non critical message sent');
                     this.$socket.sendObj({
                         'type': 'messages',
                         'cell': {
@@ -558,6 +597,11 @@
                         || keycode == KEY_MINUS
                         || keycode == KEY_PLUS
                         || keycode == KEY_SLASH
+                        || keycode == KEY_ARROW_LEFT
+                        || keycode == KEY_ARROW_RIGHT
+                        || keycode == KEY_COMMA
+                        || keycode == KEY_DOT
+                        || keycode == KEY_COLON
                        )
                     {
                         this.showTooltip = false;
@@ -637,19 +681,9 @@
             this.height = this.$el.parentElement.clientHeight;
             // initializing data
             let desc = this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName);
-            // console.log(this.$store.getters['journalState/fieldDescription'](this.tableName, this.fieldName))
             this.placeholder = desc['units'] || '';
             this.type = desc['type'] || 'text';
-
-            // this.$root.$on('send', () => {
-            //     this.send();
-            // })
-
-            // if (this.linked) {
-                // auto fill cell
-                // this.value = this.$store.getters['journalState/' + this.linked];
-                // this.send();
-            // }
+            this.indexedLine = this.$el.parentElement.parentElement.classList.contains('indexed-line')
 
             this.minWidth = $(this.$el).find('.widthCell').text(this.value).outerWidth()
 

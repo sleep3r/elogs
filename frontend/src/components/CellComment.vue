@@ -32,10 +32,14 @@
                     </div>
                 </div>
                 <div class="footer">
-                    <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment"
-                              v-model.trim="commentText" autofocus></textarea>
+                    <div class="comment__texarea--container">
+                        <textarea placeholder="Введите текст комментария" class="comment-text" @keyup.enter="addComment"
+                                  v-model.trim="commentText" autofocus></textarea>
+                        <i class="fa fa-paper-plane send__button" aria-hidden="true"
+                           data-toggle="tooltip" title="Отправить комментарий (Enter)"
+                           @click="addComment"></i>
+                    </div>
                     <div class="btns">
-                        <div class="btn btn-add" @click="addComment">Добавить комментарий</div>
                         <div class="btn btn-graph dropdown dropdown-toggle" v-if="!onlyChat && isNumber"
                              id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
@@ -254,7 +258,9 @@
 
             EventBus.$on('scroll-to-bottom', () => {
                 setTimeout(() => this.scrollToBottom(), 0)
-            })
+            });
+
+            $('[data-toggle="tooltip"]').tooltip({delay: {show: 200, hide: 0}})
         }
     }
 </script>
@@ -541,4 +547,24 @@
             }
         }
     }
+
+    .comment__texarea--container {
+        position: relative;
+    }
+
+    .send__button {
+        position: absolute;
+        left: 240px;
+        top: 41px;
+        opacity: 0.45;
+        font-size: 16px;
+    }
+
+    .send__button:hover {
+        opacity: 1;
+        color: #00B7FF;
+    }
+    //.send__button:hover {
+    //    opacity: 1;
+    //}
 </style>
