@@ -53,7 +53,8 @@ FEEDBACK_TG_BOT = {
 }
 FEEDBACK_MAIL = {
     "mail": env("MAIL"),
-    "password": env("MAIL_PASSWORD")
+    "password": env("MAIL_PASSWORD"),
+    "to": env("MAIL")
 }
 
 DATABASES = {

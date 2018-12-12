@@ -87,6 +87,7 @@ class Feedback(StrAsDictMixin, models.Model):
         print(msg)
         mail = settings.FEEDBACK_MAIL["mail"]
         password = settings.FEEDBACK_MAIL["password"]
+        to_mail = settings.FEEDBACK_MAIL["to"]
         msg = MIMEText(msg, "html", _charset="UTF-8")
         msg['Subject'] = Header("Kazzinc Elog Feedback", "utf-8")
         # mail_text = Feedback.MAIL.format(
@@ -97,7 +98,7 @@ class Feedback(StrAsDictMixin, models.Model):
             server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             server.ehlo()
             server.login(mail, password)
-            server.sendmail(mail, mail, msg.as_string())
+            server.sendmail(mail, to_mail, msg.as_string())
             server.close()
         except Exception as e:
             err_logger.critical("Почта накрылась!", e)
