@@ -60,10 +60,6 @@ def get_table_template(request):
     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
 
-# def get_table_template(request, journal_name, table_name):
-#     with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
-#         return HttpResponse(table_file.read())
-
 class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):
         user = request.user
