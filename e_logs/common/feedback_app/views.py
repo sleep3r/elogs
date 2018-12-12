@@ -21,9 +21,7 @@ def send_message(request):
             filepath = os.path.join(dirpath, hash)
             with open(filepath, "wb") as f:
                 f.write(content)
-            filenames.append(hash)
-    else:
-        print(request.FILES)
+            filenames.append(filepath)
 
     user = request.user
     employee = Employee.objects.get(user=user)
@@ -38,9 +36,9 @@ def send_message(request):
         text=data["message"]
     )
 
-    try:
-        fb.send_feedback()
-    except Exception as e:
-        print(e)
+    # try:
+    fb.send_feedback()
+    # except Exception as e:
+    #     print(e)
     fb.save()
     return {"result": 1}

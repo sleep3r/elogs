@@ -29,6 +29,15 @@ MIDDLEWARE = [] + MIDDLEWARE + \
              ]
 HTML_MINIFY = True
 
+# ------------------------- Feedback ---------------------------------------------------------
+
+FEEDBACK_MAIL = {
+    "mail": env("MAIL"),
+    "password": env("MAIL_PASSWORD"),
+    "to": env("TO_MAIL")
+}
+
+
 # ------------------------- Sentry Shit ---------------------------------------------------------
 
 sentry_sdk.init(
