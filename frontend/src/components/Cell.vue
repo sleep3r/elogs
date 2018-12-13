@@ -37,6 +37,7 @@
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
             :list="fieldName"
+            :maxlength="type === 'number_colon' ? 6:''"
         >{{ tag == 'textarea' ? value : '' }}</component>
         <template>
             <span v-if="type === 'number_colon'" class="has-colon" style="float: left; line-height: 36px">:1</span>
