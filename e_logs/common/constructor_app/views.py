@@ -69,32 +69,27 @@ class ConstructorUploadAPI(View):
             hash = request.POST.get('hash', None)
             plant = request.POST.get('plant', None)
             type = request.POST.get('type', None)
-            number_of_shifts = request.POST.get('number_of_shifts', 2)
+            number_of_shifts = request.POST.get('number_of_shifts', None)
             if number_of_shifts:
                 number_of_shifts = int(number_of_shifts)
 
             if not hash or not plant:
                 return JsonResponse({"status": 2, "message": "Couldnt upload without hash or plant"})
 
+            journal = JournalBuilder(file=f'resources/temp/{hash}.jrn', plant_name=plant, type=type, version=1)
+            new_journal = journal.create()
             try:
-                journal = JournalBuilder(f'resources/temp/{hash}.jrn', plant, type)
-                new_journal = journal.create()
-                try:
-                    os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
-                except:
-                    pass
-                shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
+                os.makedirs(f'resources/journals/{plant}/{new_journal.name}/')
+            except:
+                pass
+            shutil.copy(f'resources/temp/{hash}.jrn', f'resources/journals/{plant}/{new_journal.name}/v1.jrn')
 
-                self.add_groups(new_journal, number_of_shifts)
+            self.add_groups(new_journal, number_of_shifts)
 
-                git = VersionControl()
-                git.add(journal)
+            git = VersionControl()
+            git.add(journal)
 
-                return JsonResponse({"status": 1})
-            except Exception as ex:
-                print(ex)
-                err_logger.error(ex)
-                return JsonResponse({"status": 2, "message": ex})
+            return JsonResponse({"status": 1})
 
     @staticmethod
     def add_groups(journal, shifts_num=None):
