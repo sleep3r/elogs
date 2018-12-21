@@ -9,10 +9,17 @@
                            @change="handleFileUpload"/>
                 </p>
             </template>
-            <template v-if="hash && plant">
+            <template v-if="altered">
                 <h5><b>{{this.journalVerboseName}}</b> будет изменен.</h5>
+
+                <p style="text-align: left;">
+                    <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
+                        Отмена
+                    </button>
+                    <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить {{altered}}</button>
+                </p>
             </template>
-            <template v-else="hash">
+            <template v-else-if="!hash">
                 <p>
                     <select name="plant" v-model="plant">
                         <option disabled selected value="">Выберите цех</option>
@@ -37,18 +44,16 @@
                     </select>
                 </p>
             </template>
-            <p v-if="hash && this.plant" style="text-align: left;">
+
+            <h5 v-if="hash"><b>Новый журнал будет загружен</b></h5>
+
+            <p style="text-align: left;">
                 <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
                     Отмена
                 </button>
-                <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить</button>
-            </p>
-            <p v-else-if="hash" style="text-align: left;">
-                <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
-                    Отмена
-                </button>
+
                 <button class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">
-                    {{hash ? 'Сохранить' : 'Загрузить'}}
+                    {{hash ? 'Загрузить' : 'Продолжить'}}
                 </button>
             </p>
         </form>
@@ -70,6 +75,7 @@
                 shifts: '',
                 file: '',
                 hash: '',
+                altered: false,
             }
         },
         computed: {
@@ -129,15 +135,14 @@
                 )
                     .then((res) => {
                         this.$notify({
-                            text: `Журнал успешно загружен!
-                            Обновите страницу.`,
+                            text: `Журнал успешно изменен!`,
                             duration: 3000,
                             type: 'success'
                         })
                     })
                     .catch(err => {
                         this.$notify({
-                            text: 'Не удалось загрузить журнал!',
+                            text: 'Не удалось изменить журнал!',
                             duration: 3000,
                             type: 'error'
                         })
@@ -152,13 +157,6 @@
                 formData.append("number_of_shifts", this.shifts);
                 formData.append("hash", this.hash);
 
-                // let data = {
-                //     'plant': this.plant,
-                //     'type': this.type,
-                //     'number_of_shifts': this.shifts,
-                //     'hash': this.hash
-                // }
-
                 axios.post(window.HOSTNAME + '/api/constructor/upload/', formData,
                     {
                         headers: {
@@ -168,11 +166,11 @@
                 )
                     .then((res) => {
                         this.$notify({
-                            text: `Журнал успешно загружен! 
-                            Обновите страницу.`,
+                            text: `Журнал успешно загружен!`,
                             duration: 3000,
                             type: 'success'
-                        })
+                        });
+                        // window.location.reload();
                     })
                     .catch(err => {
                         this.$notify({
@@ -205,7 +203,8 @@
                 this.hash = this.getURLParameter('hash');
                 if ((this.getURLParameter('plant'))) {
                     this.plant = this.getURLParameter('plant');
-                    this.journal = this.getURLParameter('journalName')
+                    this.journal = this.getURLParameter('journalName');
+                    this.altered = true;
                 }
             }
         }
