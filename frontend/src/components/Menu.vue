@@ -10,7 +10,7 @@
                     <span class="menu-item__title">Панель аналитики</span>
                 </span>
             </li>
-            <li class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
+            <li :name = "plant.name" class="menu__item" v-for="plant in getPlants" :key="plant.name" @click="onMenuItemClick">
                 <a href="#" class="menu-item__link">
                     <i class="menu-item__icon fa fa-book"></i>
                     <span class="menu-item__title">{{plant.verbose_name}}</span>
@@ -18,8 +18,9 @@
                 </a>
                 <ul class="sub-menu">
                     <!--{% for journal_path, journal_verbose in menu_data.furnace.items %}-->
-                    <li class="menu__item" v-for="journal in plant.journals" :key="journal.name">
-                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name" class="menu-item__link">{{journal.verbose_name}}</a>
+                    <li :name = "journal.name" class="menu__item" v-for="journal in plant.journals" :key="journal.name">
+                        <a href="" :data-plant-name="plant.name" :data-journal-name="journal.name"
+                           class="menu-item__link">{{journal.verbose_name}}</a>
                     </li>
                 </ul>
             </li>
@@ -39,7 +40,7 @@
             }
         },
         computed: {
-            getPlants () {
+            getPlants() {
                 return this.$store.getters['journalState/plants']
             }
         },
@@ -57,19 +58,18 @@
                     setTimeout(() => this.setListeners(), 0)
                     if (location.pathname !== '/dashboard') {
                         setTimeout(() => this.setActiveItem(), 0)
-                    }
-                    else {
+                    } else {
                         setTimeout(() => this.onDashboardClick(), 0)
                     }
                 })
         },
         methods: {
-            toggleMenu () {
+            toggleMenu() {
                 $('.column-left').toggleClass('menu__hidden')
                 $('.column-content').toggleClass('menu__hidden')
                 $('.journal_title_container').toggleClass('menu__hidden')
             },
-            onMenuItemClick () {
+            onMenuItemClick() {
                 const selectorMenuItem = "li.menu__item";
                 const selectorLink = "a.menu-item__link";
                 event.preventDefault();
@@ -92,23 +92,23 @@
                     listItem.classList.toggle("open");
                 }
             },
-            pushJournalPage(plantName, journalName, shiftId=null) {
+            pushJournalPage(plantName, journalName, shiftId = null) {
                 this.setActiveItem(plantName, journalName)
                 if (this.$store.getters['journalState/isSynchronized']) {
-                        this.$store.dispatch('journalState/loadJournal', {
-                          'plantName': plantName,
-                          'journalName': journalName,
-                          'id': shiftId
+                    this.$store.dispatch('journalState/loadJournal', {
+                        'plantName': plantName,
+                        'journalName': journalName,
+                        'id': shiftId
+                    })
+                        .then((id) => {
+                            this.$router.push('/' + plantName + '/' + journalName + '/' + id)
+                            if ($('#app').outerWidth() < 768) {
+                                this.toggleMenu()
+                            }
                         })
-                            .then((id) => {
-                                this.$router.push('/' + plantName + '/' + journalName + '/' + id)
-                                if ($('#app').outerWidth() < 768) {
-                                    this.toggleMenu()
-                                }
-                            })
-                    }
+                }
             },
-            onDashboardClick () {
+            onDashboardClick() {
                 const selectorMenuItem = 'li.menu__item';
                 const selectorLink = 'span.menu-item__link[data-url="/dashboard"]';
                 // event.preventDefault();
@@ -118,22 +118,22 @@
                 listItem.classList.toggle("open")
                 this.$router.push('/dashboard')
             },
-            setListeners () {
+            setListeners() {
                 let menu = $('.menu.menu--left');
                 let lastScrollTop = 0;
 
                 $(window).scroll(function (event) {
                     if (lastScrollTop >= $(this).scrollTop()) {
                         menu.scrollTop(menu.scrollTop() - lastScrollTop + $(this).scrollTop())
-                    }
-                    else {
+                    } else {
                         menu.scrollTop(menu.scrollTop() + $(this).scrollTop() - lastScrollTop)
                     }
                     lastScrollTop = $(this).scrollTop()
                 });
             },
-            setActiveItem(plantName=this.$route.params.plant, journalName=this.$route.params.journal) {
+            setActiveItem(plantName = this.$route.params.plant, journalName = this.$route.params.journal) {
                 this.closeAllItems()
+
                 function firstMatchedParent(node, selector) {
                     if (node.classList.contains(selector)) {
                         return node;
@@ -156,10 +156,22 @@
                 let allItems = document.querySelectorAll(".menu--left .menu__item");
                 for (let key in allItems) {
                     let menuItem = allItems[key];
-                    if (typeof(menuItem) === 'object') {
+                    if (typeof (menuItem) === 'object') {
                         menuItem.classList.remove("open");
                     }
                 }
+            },
+            addJournalItem(plantName, journalName) {
+                let plantList = document.querySelector(`li.menu__item[name=${plantName}]`).querySelector('ul.sub-menu');
+                let journalItem = document.createElement("li");
+                journalItem.className = 'menu__item';
+                let journalLink = document.createElement("a href");
+                journalLink.className = 'menu-item__link';
+                journalLink.setAttribute("data-plant-name", plantName);
+                journalLink.setAttribute("data-journal-name", journalName);
+                journalLink.innerText = 'HUY';
+                journalItem.appendChild(journalLink);
+                plantList.appendChild(journalItem);
             }
         }
     }
