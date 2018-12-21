@@ -23,7 +23,7 @@ class TelegramBot:
             disable_web_page_preview=True)
 
     def send_media(self, files):
-        media = [telegram.InputMediaPhoto(media=file) for file in files]
+        media = [telegram.InputMediaPhoto(media=open(filepath, "rb")) for filepath in files]
         self._bot.sendMediaGroup(
             self.channel,
             media)

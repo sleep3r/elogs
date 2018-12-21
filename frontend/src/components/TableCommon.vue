@@ -113,13 +113,16 @@
             self.title = self.$store.getters['journalState/tableVerboseName'](currentTable.table)
             self.template = self.$store.getters['journalState/tableHTML'](currentTable)
 
-            let templateUrl = `${window.HOSTNAME}/api/templates/tables/${this.$store.getters['journalState/plantName']}/${this.$store.getters['journalState/journalName']}/${this.name}/?v=${this.$store.getters['journalState/journalVersion']}`;
+            let templateUrl = window.HOSTNAME+'/api/templates/tables/?'
+                + `plant_name=${this.$store.getters['journalState/plantName']}`
+                + `&journal_name=${this.$store.getters['journalState/journalName']}`
+                + `&table_name=${this.name}&version=${this.$store.getters['journalState/journalVersion']}`;
             ajax.get(templateUrl)
                 .then(function (response) {
                     let $mainElement = $("<div />").append(($(response.data).clone()))
                     $mainElement.find('table').each(function () {
                         if ($(this).parent().is('div')) {
-                            $(this).wrap("<div style='overflow-x: auto; overflow-y: hidden; margin-bottom: 20px;'></div>")
+                            $(this).wrap("<div style='overflow-x: auto; overflow-y: hidden; margin-bottom: 10px;'></div>")
                         }
                     })
                     self.template = $mainElement[0].outerHTML

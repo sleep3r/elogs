@@ -153,8 +153,7 @@ class GroupAPI(LoginRequired, View):
         if group.journal.type == 'shift':
             shift = group
 
-            if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                    user.has_perm(VALIDATE_CELLS):
+            if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and user.has_perm(VALIDATE_CELLS):
                 PERMISSIONS.append("validate")
                 if user.has_perm(EDIT_CELLS):
                     PERMISSIONS.append("edit")
@@ -168,8 +167,7 @@ class GroupAPI(LoginRequired, View):
                 elif services.CheckRole.execute({"employee": user.employee, "page": shift}) and \
                         services.CheckTime.execute({"employee": user.employee, "page": shift}):
 
-                    if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                            user.has_perm(EDIT_CELLS):
+                    if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and user.has_perm(EDIT_CELLS):
                         PERMISSIONS.append("edit")
 
             res = {

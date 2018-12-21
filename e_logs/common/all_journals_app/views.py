@@ -16,7 +16,7 @@ from e_logs.core.utils.webutils import logged, current_date
 from e_logs.core.views import LoginRequired
 
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env("config/settings/.env")
+environ.Env.read_env(".env")
 
 
 def _get_current_group(journal):
@@ -52,11 +52,17 @@ def permission_denied(request, exception, template_name='errors/403.html') -> Ht
         template.render(request=request, context={'exception': str(exception)}))
 
 
-def get_table_template(request, plant_name, journal_name, table_name):
-    version = parse_qs(request.GET.urlencode())['v'][0]
+def get_table_template(request):
+    plant_name = request.GET.get("plant_name", None)
+    journal_name = request.GET.get("journal_name", None)
+    table_name = request.GET.get("table_name", None)
+    version = request.GET.get("version", None)
+
+    if plant_name is None:
+        plant_name = Journal.objects.get(name=journal_name).plant.name
+
     with open(f'templates/tables/{plant_name}/{journal_name}/v{version}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
-
 
 class GetGroups(LoginRequired, View):
     def get(self, request, plant_name: str, journal_name: str):

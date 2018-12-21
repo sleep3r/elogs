@@ -604,6 +604,7 @@ const journalState = {
             // send all journal cells
             let data = {
                 'type': 'shift_data',
+                'final': true,
                 'cells': []
             }
             let tables = state.journalInfo.journal.tables

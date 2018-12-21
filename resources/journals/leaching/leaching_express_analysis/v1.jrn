@@ -230,7 +230,7 @@
             },
             {
                "formula" : "",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "vs10_liquid_solid",
                "units" : "",
                "title" : "Верхний cгуститель 10  Ж:Т "
@@ -245,7 +245,7 @@
             {
                "formula" : "",
                "name" : "ns10_liquid_solid",
-               "type" : "number",
+               "type" : "number_colon",
                "title" : "Нижний cгуститель 10  Ж:Т ",
                "units" : ""
             },
@@ -274,7 +274,7 @@
                "title" : "Верхний cгуститель 11  Ж:Т ",
                "units" : "",
                "name" : "vs11_liquid_solid",
-               "type" : "number",
+               "type" : "number_colon",
                "formula" : ""
             },
             {
@@ -287,7 +287,7 @@
             {
                "units" : "",
                "title" : "Нижний cгуститель 11  Ж:Т ",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "ns11_liquid_solid",
                "formula" : ""
             },
@@ -317,7 +317,7 @@
                "title" : "Верхний cгуститель 12  Ж:Т ",
                "units" : "",
                "name" : "vs12_liquid_solid",
-               "type" : "number"
+               "type" : "number_colon"
             },
             {
                "formula" : "",
@@ -328,7 +328,7 @@
             },
             {
                "formula" : "",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "ns12_liquid_solid",
                "units" : "",
                "title" : "Нижний cгуститель 12  Ж:Т "
@@ -344,7 +344,7 @@
             {
                "formula" : "",
                "name" : "zn_pulp_liquid_solid",
-               "type" : "number",
+               "type" : "number_colon",
                "title" : "Цинковая пульпа  Ж:Т ",
                "units" : ""
             },
@@ -366,7 +366,7 @@
                "formula" : "",
                "units" : "",
                "title" : "Медная пульпа  Ж:Т ",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "cu_pulp_liquid_solid"
             },
             {
@@ -1242,13 +1242,13 @@
             {
                "formula" : "",
                "name" : "liquid_solid1",
-               "type" : "number",
+               "type" : "number_colon",
                "title" : "Ж:Т(НС) 1",
                "units" : ""
             },
             {
                "formula" : "",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "liquid_solid2",
                "units" : "",
                "title" : "Ж:Т(НС) 2"
@@ -1258,10 +1258,10 @@
                "title" : "Ж:Т(НС) 3",
                "units" : "",
                "name" : "liquid_solid3",
-               "type" : "number"
+               "type" : "number_colon"
             },
             {
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "liquid_solid4",
                "units" : "",
                "title" : "Ж:Т(НС) 4",
@@ -1271,11 +1271,11 @@
                "formula" : "",
                "units" : "",
                "title" : "Ж:Т(НС) 5",
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "liquid_solid5"
             },
             {
-               "type" : "number",
+               "type" : "number_colon",
                "name" : "liquid_solid6",
                "units" : "",
                "title" : "Ж:Т(НС) 6",
@@ -1284,7 +1284,7 @@
             {
                "formula" : "",
                "name" : "liquid_solid7",
-               "type" : "number",
+               "type" : "number_colon",
                "title" : "Ж:Т(НС) 7",
                "units" : ""
             },
@@ -1293,14 +1293,14 @@
                "title" : "Ж:Т(НС) 8",
                "units" : "",
                "name" : "liquid_solid8",
-               "type" : "number"
+               "type" : "number_colon"
             },
             {
                "formula" : "",
                "title" : "Ж:Т(НС) 13",
                "units" : "",
                "name" : "liquid_solid13",
-               "type" : "number"
+               "type" : "number_colon"
             }
          ],
          "html" : "\n<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>Нейтральные сгустители</th>\n        <th class=\"th-number\">1</th>\n        <th class=\"th-number\">2</th>\n        <th class=\"th-number\">3</th>\n        <th class=\"th-number\">4</th>\n        <th class=\"th-number\">5</th>\n        <th class=\"th-number\">6</th>\n        <th class=\"th-number\">7</th>\n        <th class=\"th-number\">8</th>\n        <th class=\"th-number\">13</th>\n    </tr>\n    </thead>\n    <tr>\n        <th>Отстои<i class=\"units\">см</i></th>\n\n        <td><cell field-name=\"sediment1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment3\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment4\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment5\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment6\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment7\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment8\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"sediment13\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <th rowspan=\"2\">Ж:Т (НС)</th>\n\n        <td><cell field-name=\"liquid_solid1\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid2\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid3\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid4\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid5\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid6\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid7\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid8\" row-index=\"0\"></cell></td>\n        <td><cell field-name=\"liquid_solid13\" row-index=\"0\"></cell></td>\n    </tr>\n    <tr>\n        <td><cell field-name=\"liquid_solid1\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid2\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid3\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid4\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid5\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid6\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid7\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid8\" row-index=\"1\"></cell></td>\n        <td><cell field-name=\"liquid_solid13\" row-index=\"1\"></cell></td>\n    </tr>\n</table>\n",

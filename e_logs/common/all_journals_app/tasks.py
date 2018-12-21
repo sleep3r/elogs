@@ -1,12 +1,13 @@
 import os
 from datetime import timedelta
 
-from config import settings_setup
-
 from celery import Celery
+
+from config import settings_setup
 
 from django.core.management import call_command
 from django.utils import timezone
+from django.conf import settings
 
 from e_logs.core.journals_git import VersionControl
 from e_logs.core.models import Setting
@@ -14,27 +15,10 @@ from e_logs.common.all_journals_app.models import Shift, Cell, Journal, Year, Mo
 from e_logs.common.messages_app.models import Message
 from e_logs.core.utils.webutils import get_or_none, current_date, date_range
 
-if os.environ.get('DOCKER') == 'yes':
-    app = Celery('tasks', broker="redis://redis:6379")
-else:
-    app = Celery('tasks', broker="redis://localhost:6379")
+
+app = Celery('tasks', broker=os.environ.get('CELERY_BROKER_URL'))
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
-
-if os.environ.get('DOCKER') == 'yes':
-    app.conf.update(
-        task_serializer='json',
-        accept_content=['json'],
-        result_serializer='json',
-        timezone='Asia/Almaty',
-    )
-else:
-    app.conf.update(
-        task_serializer='json',
-        accept_content=['json'],
-        result_serializer='json',
-        timezone='Europe/Moscow',
-    )
 
 
 @app.task

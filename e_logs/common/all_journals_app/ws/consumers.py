@@ -29,17 +29,17 @@ class CommonConsumer(AsyncJsonWebsocketConsumer):
             await self.accept()
 
         except:
-            await self.close()
+            await self.websocket_disconnect(event)
 
     async def websocket_disconnect(self, event):
         try:
             await self.channel_layer.group_discard(
-                self.user_channel,
+                f"user_{self.scope['user'].employee.id}",
                 self.channel_name,
             )
 
             await self.channel_layer.group_discard(
-                self.data_channel,
+                'data',
                 self.channel_name,
             )
         except:

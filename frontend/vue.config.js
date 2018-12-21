@@ -109,7 +109,7 @@ module.exports = {
         ],
     },
 
-    baseUrl: (process.env.NODE_ENV === 'production') ? '/' : undefined,
+    baseUrl: (process.env.NODE_ENV === 'production') ? '/static/' : undefined,
     outputDir: undefined,
     assetsDir: undefined,
     runtimeCompiler: true,

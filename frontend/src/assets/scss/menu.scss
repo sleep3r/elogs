@@ -114,12 +114,24 @@
     background-color: $color-active;
 }
 
+
+.menu li.menu__item.open > ul > li.menu__item.open {
+    border-right: 3px solid $color-active;
+
+}
+
+.menu li.menu__item.open > ul > li.menu__item.open:hover {
+    border-right: 3px solid $color-border;
+}
+
+
 .sub-menu > li {
     padding: 10px;
 }
 
 .sub-menu > .menu__item {
     border-left: 1px dotted $color-border;
+    border-right: 3px solid #e0e0e0;
 }
 
 .menu > li.menu__item:hover {

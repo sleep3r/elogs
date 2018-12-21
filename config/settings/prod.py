@@ -1,4 +1,4 @@
-from .settings_base import *
+from .base import *
 
 DEBUG = False
 
@@ -28,6 +28,15 @@ MIDDLEWARE = [] + MIDDLEWARE + \
                  'htmlmin.middleware.MarkRequestMiddleware',
              ]
 HTML_MINIFY = True
+
+# ------------------------- Feedback ---------------------------------------------------------
+
+FEEDBACK_MAIL = {
+    "mail": env("MAIL"),
+    "password": env("MAIL_PASSWORD"),
+    "to": env("TO_MAIL")
+}
+
 
 # ------------------------- Sentry Shit ---------------------------------------------------------
 

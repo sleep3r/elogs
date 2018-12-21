@@ -170,6 +170,7 @@
                 "sha256:f9dc52cd70907aafb99a773b66b156f2f995c7a0d284397c487c8b71ddbef2f9",
                 "sha256:fc7212e36ebeb81aebf7949c92897b622490d7c0e333a479c0395591e7994600"
             ],
+            "markers": "extra == 'brotli'",
             "version": "==1.0.7"
         },
         "celery": {
