@@ -16,7 +16,7 @@
                     <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
                         Отмена
                     </button>
-                    <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить {{altered}}</button>
+                    <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить</button>
                 </p>
             </template>
             <template v-else-if="!hash">
@@ -45,14 +45,14 @@
                 </p>
             </template>
 
-            <h5 v-if="hash"><b>Новый журнал будет загружен</b></h5>
+            <h5 v-if="hash && !altered"><b>Новый журнал будет загружен</b></h5>
 
             <p style="text-align: left;">
-                <button v-if="hash" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
+                <button v-if="hash && !altered" class="btn" style="margin-right: 10px;" @click.prevent="hash = ''; file = ''">
                     Отмена
                 </button>
 
-                <button class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">
+                <button v-if="!altered" class="btn" type="submit" @click.prevent="hash ? onLoadJournalData() : onLoadJournalFile()">
                     {{hash ? 'Загрузить' : 'Продолжить'}}
                 </button>
             </p>
@@ -170,7 +170,7 @@
                             duration: 3000,
                             type: 'success'
                         });
-                        // window.location.reload();
+                        this.$store.dispatch('journalState/loadPlants');
                     })
                     .catch(err => {
                         this.$notify({
