@@ -29,6 +29,10 @@ class JournalBuilder:
                 self.type = meta['type']
             else:
                 self.type = type
+                with open(file, 'w') as f_in:
+                    meta['type'] = type
+                    json.dump(meta, f_in)
+
             self.plant = Plant.objects.get_or_create(name=plant_name)[0]
             self.name = meta['name']
             self.title = meta['title']
