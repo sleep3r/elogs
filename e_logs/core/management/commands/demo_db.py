@@ -60,13 +60,14 @@ class Command(BaseCommand):
 
             stdout_logger.info("Adding Employees...")
             df.fill_employees()
+
+            stdout_logger.info("Adding plants...")
+            df.fill_plants()
+
             stdout_logger.info("Create BL...")
             df.bl_create()
             df.fill_dicts()
             df.tasks_create()
-
-            stdout_logger.info("Adding plants...")
-            df.fill_plants()
 
             stdout_logger.info("Decompress Journals...")
             decompress_journals()

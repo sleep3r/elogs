@@ -1,5 +1,5 @@
-import json
 from datetime import time, datetime, timedelta
+from django.conf import settings
 
 from cacheops import cached_as, cached
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -10,7 +10,7 @@ from django.utils.functional import cached_property
 from django_extensions.db.models import TimeStampedModel
 
 from e_logs.core.utils.webutils import none_if_error, logged, default_if_error, \
-    max_cache, current_date
+    max_cache, current_date, localize
 
 
 class Plant(models.Model):
@@ -31,12 +31,18 @@ class Plant(models.Model):
         verbose_name_plural = 'Цеха'
 
 
+class MenuFolder(models.Model):
+    name = models.CharField(max_length=2048, verbose_name='Название папки', default='')
+    parent = models.ForeignKey('MenuFolder', null=True, blank=True, on_delete=models.CASCADE)
+
+
 class Journal(models.Model):
     """Abstract journal entity."""
 
     name = models.CharField(max_length=128, verbose_name='Журнал')
     verbose_name = models.CharField(max_length=256, verbose_name='Название журнала')
     plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name='journals')
+    folder = models.ForeignKey(MenuFolder, null=True, blank=True, on_delete=models.CASCADE, related_name='journals')
     type = models.CharField(max_length=128,
                             choices=(
                                 ('shift', 'Смена'),
@@ -106,15 +112,6 @@ class Field(models.Model):
     comments = GenericRelation('all_journals_app.Comment', related_query_name='comment_field',
                                related_name='comment_fields')
 
-    # @cached_property
-    # def type(self):
-    #     return self.settings.get(name='field_description').val()['type']
-    #
-    # @cached_property
-    # @default_if_error('')
-    # def units(self):
-    #     return self.settings.get(name='field_description').val()['units']
-
     @cached_property
     @default_if_error([])
     def options(self):
@@ -143,6 +140,8 @@ class Field(models.Model):
 
 class CellGroup(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    version = models.IntegerField(default=1)
+    journal_path = models.FilePathField(path="resources/journals", match="*.jrn", recursive=True)
 
     def tables(self):
         @cached(timeout=60 * 60 * 3)
@@ -150,6 +149,10 @@ class CellGroup(models.Model):
             return list(self.journal.tables.all())
 
         return cached_tables(self)
+
+    @property
+    def tables_path(self):
+        return settings.JOURNAL_TEMPLATES_DIR / self.journal.plant.name / self.journal.name / f'v{self.version}'
 
 
 class Shift(CellGroup):
@@ -168,7 +171,7 @@ class Shift(CellGroup):
         number_of_shifts = Shift.get_number_of_shifts(self.journal)
         shift_hour = (8 + (self.order - 1) * (24 // int(number_of_shifts))) % 24
         shift_time = time(hour=shift_hour)
-        return timezone.get_current_timezone().localize(datetime.combine(self.date, shift_time))
+        return localize(datetime.combine(self.date, shift_time))
 
     @property
     def end_time(self) -> timezone.datetime:
@@ -181,7 +184,7 @@ class Shift(CellGroup):
 
     @staticmethod
     def get_number_of_shifts(obj) -> int:
-        from e_logs.core.models import Setting  # avoiding import loo
+        from e_logs.core.models import Setting  # avoiding import loop
 
         @cached_as(Setting.objects.filter(name='number_of_shifts'))
         def cached_number_of_shifts(obj):
@@ -210,7 +213,7 @@ class Shift(CellGroup):
                 shift = Shift.objects.get_or_create(journal=journal,
                                                     order=shift_order,
                                                     date=current_date())[0]
-                if shift.is_active(timezone.now()):
+                if shift.is_active(timezone.localtime()):
                     break
 
         return shift
@@ -223,11 +226,19 @@ class Equipment(CellGroup):
 class Year(CellGroup):
     year_date = models.IntegerField(verbose_name='Год')
 
+    @property
+    def date(self):
+        return datetime(self.year_date, 1, 1)
+
 
 class Month(CellGroup):
     month_date = models.CharField(max_length=16, verbose_name='Месяц')
     month_order = models.IntegerField(verbose_name='Номер месяца')
     year_date = models.IntegerField(verbose_name='Год')
+
+    @property
+    def date(self):
+        return datetime(self.year_date, self.month_order, 1)
 
 
 class Cell(TimeStampedModel):

@@ -1,7 +1,10 @@
+import json
 from collections import defaultdict
 from datetime import timedelta
+from urllib.parse import parse_qs
 
 import environ
+import json5
 
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
@@ -21,7 +24,7 @@ def _get_current_group(journal):
         shifts = Shift.objects.filter(journal=journal, date__lte=current_date()).order_by('-date', 'order')
 
         for shift in shifts:
-            if shift.is_active(timezone.now()):
+            if shift.is_active(timezone.localtime()):
                 return shift
 
     elif journal.type == 'year':
@@ -53,11 +56,12 @@ def get_table_template(request):
     plant_name = request.GET.get("plant_name", None)
     journal_name = request.GET.get("journal_name", None)
     table_name = request.GET.get("table_name", None)
+    version = request.GET.get("version", None)
 
     if plant_name is None:
         plant_name = Journal.objects.get(name=journal_name).plant.name
 
-    with open(f'templates/tables/{plant_name}/{journal_name}/{table_name}.html', 'r') as table_file:
+    with open(f'templates/tables/{plant_name}/{journal_name}/v{version}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
 
 class GetGroups(LoginRequired, View):
@@ -93,7 +97,7 @@ class GetGroups(LoginRequired, View):
         to_date = current_date()
 
         if journal.type == 'shift':
-            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order').\
+            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order'). \
                 filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal).cache()
             shifts_dict = defaultdict(list)
 
@@ -120,9 +124,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'year':
-            years = Year.objects.select_related('journal', 'journal__plant').only('year_date').\
-                                 filter(journal=journal, year_date__lte=current_date().year).\
-                                 cache().order_by('-year_date')
+            years = Year.objects.select_related('journal', 'journal__plant').only('year_date'). \
+                filter(journal=journal, year_date__lte=current_date().year). \
+                cache().order_by('-year_date')
             years_dict = defaultdict(list)
 
             for year in years:
@@ -148,9 +152,9 @@ class GetGroups(LoginRequired, View):
         result = []
 
         if journal.type == 'month':
-            months = Month.objects.select_related('journal', 'journal__plant').\
-                                   filter(journal=journal, year_date__lte=current_date().year).cache()\
-                                   .order_by('-year_date')
+            months = Month.objects.select_related('journal', 'journal__plant'). \
+                filter(journal=journal, year_date__lte=current_date().year).cache() \
+                .order_by('-year_date')
             months_dict = defaultdict(list)
 
             for month in months:

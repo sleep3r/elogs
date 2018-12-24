@@ -36,7 +36,8 @@ export default {
   },
   mounted() {
     let self = this;
-    let templateUrl = '/templates/tables/' + this.plantName + '/' + this.journalName + '/' + this.tableName + ".html";
+    let version = this.$store.getters['journalState/journalVersion'];
+    let templateUrl = `/templates/tables/${this.plantName}/${this.journalName}/${this.tableName}?v=${version}`;
     console.info(templateUrl);
     axios.get(templateUrl)
       .then(function (response) {
