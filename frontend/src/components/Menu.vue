@@ -161,18 +161,6 @@
                     }
                 }
             },
-            addJournalItem(plantName, journalName) {
-                let plantList = document.querySelector(`li.menu__item[name=${plantName}]`).querySelector('ul.sub-menu');
-                let journalItem = document.createElement("li");
-                journalItem.className = 'menu__item';
-                let journalLink = document.createElement("a href");
-                journalLink.className = 'menu-item__link';
-                journalLink.setAttribute("data-plant-name", plantName);
-                journalLink.setAttribute("data-journal-name", journalName);
-                journalLink.innerText = 'HUY';
-                journalItem.appendChild(journalLink);
-                plantList.appendChild(journalItem);
-            }
         }
     }
 </script>
