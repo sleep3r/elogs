@@ -96,7 +96,7 @@
 
                     formData.append("journal_file", this.file);
 
-                    axios.post(window.HOSTNAME + '/api/constructor/hash/', formData,
+                    axios.post(window.HOSTNAME + '/api/constructor/journal/', formData,
                         {
                             headers: {
                                 Authorization: 'Token ' + VueCookies.get('Authorization'),

@@ -32,11 +32,7 @@ class ConstructorJournalAPI(View):
         with open(filepath, "r") as f:
             data = f.read()
         return data
-
-
-
-
-class ConstructorHashAPI(View):
+    
     def post(self, request):
         journal = request.FILES['journal_file']
 
