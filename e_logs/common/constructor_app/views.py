@@ -23,6 +23,18 @@ def constructor_proxy(request, path):
     remoteurl = 'http://localhost:3000/' + path
     return proxy_view(request, remoteurl)
 
+class ConstructorJournalAPI(View):
+    def get(self, request):
+        plant = request.GET.get("plant", None)
+        journal = request.GET.get("journal", None)
+        version = request.GET.get("version", None)
+        filepath = "../../../resources/journals/{plant}/{journal}/{version}.jrn"
+        with open(filepath, "r") as f:
+            data = f.read()
+        return data
+
+
+
 
 class ConstructorHashAPI(View):
     def post(self, request):
