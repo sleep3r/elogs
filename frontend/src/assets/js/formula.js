@@ -1,7 +1,9 @@
 import formulaParser from 'hot-formula-parser'
 import store from '../../store/store'
+import ajax from '../../axios.config'
 var FormulaParser = require('hot-formula-parser').Parser;
 var request = require('sync-request');
+
 
 function isNumeric(num) {
     return !isNaN(num)
@@ -40,6 +42,7 @@ export function getValue(params) {
         const index = this.isTableIndexed ? 0 : params[4] ? params[4] : this.index;
 
         shift_delta = -Number(shift_delta);
+        // console.log(journal, shift_delta, table, field, index)
         console.log(params)
         console.log(journal, table, field, index, shift_delta)
         var shifts = store.getters['journalState/events']
@@ -56,21 +59,36 @@ export function getValue(params) {
                 result = store.getters['journalState/cell'](table, field, index)['value']
             }
         } else {
-            var shift_index;
+            let shift_index;
             for (var i in shifts) {
                 if (shifts[i].start == current_shift_start_time) {
                     shift_index = i;
                 }
             }
-            var shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
-            res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
-            let json = JSON.parse(res.getBody());
-            if (json.value == null) {
-                result = undefined;
-            } else if (isNumeric(json.value)) {
-                result = Number(json.value)
+            console.log(shift_index);
+            let shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
+            console.log(shift);
+            let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field)
+            if (formula) {
+                result = window.parser.parse(formula)
             } else {
-                result = window.parser.parse(json.value).result;
+                console.log("kekeke")
+                result = store.getters['formulaState/cell'](journal, shift, table, field, index)['value']
+                if (!result) {
+                    ajax.get(window.HOSTNAME + "/api/cell/",
+                        {
+                            params: {
+                                journal: journal,
+                                table: table,
+                                field: field,
+                                shift: shift,
+                            }
+                        })
+                        .then(response => {
+                            store.commit('formulaState/ADD_CELL', response.data)
+                        }
+                    )
+                }
             }
         }
         return result;
