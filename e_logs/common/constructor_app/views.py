@@ -1,6 +1,7 @@
 import os
 import shutil
 import hashlib
+import json
 from datetime import timedelta
 
 from proxy.views import proxy_view
@@ -8,7 +9,7 @@ from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from e_logs.core.journals_git import VersionControl
 from e_logs.core.utils.loggers import err_logger
@@ -28,23 +29,25 @@ class ConstructorJournalAPI(View):
         plant = request.GET.get("plant", None)
         journal = request.GET.get("journal", None)
         version = request.GET.get("version", None)
-        filepath = "../../../resources/journals/{plant}/{journal}/{version}.jrn"
+        current_dir = os.path.dirname(__file__)
+        filepath = os.path.join(current_dir, f"../../../resources/journals/{plant}/{journal}/v{version}.jrn")
         with open(filepath, "r") as f:
             data = f.read()
-        return data
+        return HttpResponse(data, content_type="application/json")
     
     def post(self, request):
-        journal = request.FILES['journal_file']
-
-        fs = FileSystemStorage(location=f'resources/temp/')
-        filename = fs.save(journal.name, journal)
+        journal = json.loads(request.body)
+        current_dir = os.path.dirname(__file__)
+        filepath = os.path.join(current_dir, f"../../../resources/temp/{journal['name']}")
+        with open(filepath, "w") as f:
+            json.dump(journal, f)
 
         hasher = hashlib.md5()
-        with open(f'resources/temp/{filename}', 'rb') as afile:
-            buf = afile.read()
-            hasher.update(buf)
+        hasher.update(json.dumps(journal).encode())
+
         journal_hash = hasher.hexdigest()
-        os.rename(f'resources/temp/{filename}', f'resources/temp/{journal_hash}.jrn')
+        filepath_w_hash = os.path.join(current_dir, f"../../../resources/temp/{journal_hash}.jrn")
+        os.rename(filepath, filepath_w_hash)
 
         return JsonResponse({"hash": journal_hash})
 

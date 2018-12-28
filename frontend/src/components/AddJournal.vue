@@ -96,11 +96,11 @@
 
                     formData.append("journal_file", this.file);
 
-                    axios.post(window.HOSTNAME + '/api/constructor/journal/', formData,
+                    axios.post(window.HOSTNAME + '/api/constructor/journal/', this.file,
                         {
                             headers: {
                                 Authorization: 'Token ' + VueCookies.get('Authorization'),
-                                'content-type': "multipart/form-data"
+                                'content-type': "application/json"
                             }
                         }
                     )
@@ -181,10 +181,15 @@
                     })
             },
             handleFileUpload(e) {
-                this.file = e.target.files[0];
-                if (this.file) {
-                    this.errorText = ''
+                var reader = new FileReader();
+                let self = this;
+                reader.onload = function(e) {
+                    self.file = reader.result;
+                    if (self.file) {
+                        self.errorText = ''
+                    }
                 }
+                reader.readAsText(e.target.files[0]);
             },
             getURLParameter(paramName) {
                 let url = window.location.search.substring(1);
