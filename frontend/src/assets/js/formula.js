@@ -27,13 +27,9 @@ window.parser = parser;
 
 export function getValue(params) {
     try {
-        console.log("function this", this)
-        console.log(params, params.length)
-        console.log(typeof (params))
         var params_num = this.isTableIndexed ? 5 : 4;
         while (params.length < params_num) {
             params.splice(0, 0, false)
-            console.log(params, params.length);
         }
         const journal = params[0] ? params[0] : this.journal;
         var shift_delta = params[1] ? params[1] : this.shift;
@@ -43,9 +39,8 @@ export function getValue(params) {
 
         shift_delta = -Number(shift_delta);
         // console.log(journal, shift_delta, table, field, index)
-        console.log(params)
-        console.log(journal, table, field, index, shift_delta)
-        var shifts = store.getters['journalState/events']
+        var shifts = store.getters['formulaState/shifts']()
+        console.log(shifts)
         const current_journal = store.getters['journalState/journalName'];
         const current_shift = store.getters['journalState/journalInfo'].id;
         const current_shift_start_time = store.getters['journalState/journalInfo'].start_time;
@@ -65,14 +60,11 @@ export function getValue(params) {
                     shift_index = i;
                 }
             }
-            console.log(shift_index);
-            let shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
-            console.log(shift);
+            let shift = shifts[(shift_index - shift_delta) % shifts.length].id
             let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field)
             if (formula) {
                 result = window.parser.parse(formula)
             } else {
-                console.log("kekeke")
                 result = store.getters['formulaState/cell'](journal, shift, table, field, index)['value']
                 if (!result) {
                     ajax.get(window.HOSTNAME + "/api/cell/",
@@ -85,7 +77,14 @@ export function getValue(params) {
                             }
                         })
                         .then(response => {
-                            store.commit('formulaState/ADD_CELL', response.data)
+                            let value = response.data.value
+                            store.commit('formulaState/ADD_CELL', {
+                                journalName: journal,
+                                tableName: table,
+                                fieldName: field,
+                                shiftNum: shift,
+                                value: value,
+                            })
                         }
                     )
                 }
