@@ -244,17 +244,33 @@ class GroupAPI(LoginRequired, View):
         return res
 
 
-class PrevShiftAPI(View):
+class LastShiftsIDs(View):
     def get(self, request):
-        shift_id = request.GET.get("shift_id", None)
-        shift = Shift.objects.filter(id=shift_id).first()
-        cellgroup = CellGroup.objects.filter(id=shift_id).first()
-        journal = cellgroup.journal
-        cellgroups = CellGroup.objects.filter(journal=journal)
-        shifts = [Shift.objects.get(id=x.id) for x in cellgroups]
-        sorted_shifts = sorted(shifts, key=lambda x: (x.date, x.order))
-        prev_shift = sorted_shifts[sorted_shifts.index(shift) - 1]
-        return JsonResponse(prev_shift.id, safe=False)
+        def shift_desc(shift):
+            return {
+                'id': shift.id,
+                'start': shift.start_time,
+            }
+        result = []
+        plantName = request.GET.get("plant", None)
+        journalName = request.GET.get("journal", None)
+        days = int(request.GET.get("days", 30))
+
+        print(journalName, plantName)
+        if not journalName or not plantName:
+            raise TypeError('Journal or Plant parameters have not been passed')
+        plant = Plant.objects.get(name=plantName)
+        journal = Journal.objects.get(plant=plant, name=journalName)
+        from_date = current_date() - timedelta(days=days)
+        to_date = current_date()
+
+        if journal.type == 'shift':
+            shifts = Shift.objects.select_related('journal', 'journal__plant').only('order').\
+                filter(date__range=[from_date, to_date + timedelta(days=1)], journal=journal).cache()
+            result = [shift_desc(shift) for shift in shifts]
+            return JsonResponse(result, safe=False)
+        else:
+            raise TypeError('Attempt to get shifts for non-shift journal')
 
 
 class PlantsAPI(View):
