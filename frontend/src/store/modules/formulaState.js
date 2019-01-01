@@ -16,30 +16,23 @@ const formulaState = {
         shifts: (state) => () => {
             return state.shifts;
         },
-        cell: (state) => (journalName, shiftNum, tableName, fieldName, rowIndex) => {
+        fieldValue: (state) => (journalName, shiftNum, tableName, fieldName, rowIndex) => {
             let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
             let shift = journal[shiftNum] ? journal[shiftNum] : {}
             let table = shift[tableName] ? shift[tableName] : {};
-            let field = table[fieldName];
-            console.log(journal, shift, table, field);
-            return {
-                value: field
-            };
+            let field = table[fieldName] ? table[fieldName]: {};
+            return field.value;
         },
         fieldFormula: (state) => (journalName, shiftNum, tableName, fieldName) => {
-            console.log(journalName)
-            console.log(state.journalsInfo[journalName])
             let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
             let shift =  journal[shiftNum] ? journal[shiftNum] : {};
             let table = shift[tableName] ? shift[tableName] : {};
             let field = table[fieldName] ? table[fieldName] : {};
-            return field.formula || '';
+            return field.formula;
         },
     },
     mutations: {
         ADD_CELL (state, payload) {
-            console.log(payload)
-            console.log("formulaState/mutations/ADD_CELL");
             let journalName = payload.journalName
             let shiftNum = payload.shiftNum
             let tableName = payload.tableName
@@ -61,7 +54,10 @@ const formulaState = {
                 Vue.set(
                     state.journalsInfo[payload.journalName][shiftNum][payload.tableName], 
                     payload.fieldName, 
-                    payload.value
+                    {
+                        value: payload.value,
+                        formula: payload.formula,
+                    }
                 )
             }
         },

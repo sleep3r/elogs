@@ -2,7 +2,6 @@ import formulaParser from 'hot-formula-parser'
 import store from '../../store/store'
 import ajax from '../../axios.config'
 var FormulaParser = require('hot-formula-parser').Parser;
-var request = require('sync-request');
 
 
 function isNumeric(num) {
@@ -38,11 +37,8 @@ export function getValue(params) {
         const index = this.isTableIndexed ? 0 : params[4] ? params[4] : this.index;
 
         shift_delta = -Number(shift_delta);
-        // console.log(journal, shift_delta, table, field, index)
         var shifts = store.getters['formulaState/shifts']()
-        console.log(shifts)
         const current_journal = store.getters['journalState/journalName'];
-        const current_shift = store.getters['journalState/journalInfo'].id;
         const current_shift_start_time = store.getters['journalState/journalInfo'].start_time;
         let res = 0;
         let result = null;
@@ -62,32 +58,45 @@ export function getValue(params) {
             }
             let shift = shifts[(shift_index - shift_delta) % shifts.length].id
             let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field)
+            let value = store.getters['formulaState/fieldValue'](journal, shift, table, field, index)
             if (formula) {
+                window.parser.setFunction("FUNC", getValue.bind({
+                    journal: state.journalInfo.journal.name,
+                    table: table,
+                    field: field,
+                    index: index,
+                    shift: shift,
+                    isTableIndexed: false,
+                }))
                 result = window.parser.parse(formula)
+            }
+            // value === undefined – value have not been downloaded
+            // value === null – value downloaded and is null
+            // value === str - true value
+            else if (value !== undefined) {
+                result = value;
             } else {
-                result = store.getters['formulaState/cell'](journal, shift, table, field, index)['value']
-                if (!result) {
-                    ajax.get(window.HOSTNAME + "/api/cell/",
-                        {
-                            params: {
-                                journal: journal,
-                                table: table,
-                                field: field,
-                                shift: shift,
-                            }
-                        })
-                        .then(response => {
-                            let value = response.data.value
-                            store.commit('formulaState/ADD_CELL', {
-                                journalName: journal,
-                                tableName: table,
-                                fieldName: field,
-                                shiftNum: shift,
-                                value: value,
-                            })
+                ajax.get(window.HOSTNAME + "/api/cell/",
+                    {
+                        params: {
+                            journal: journal,
+                            table: table,
+                            field: field,
+                            shift: shift,
                         }
-                    )
-                }
+                    })
+                    .then(response => {
+                        let value = response.data.value
+                        let formula = response.data.formula
+                        store.commit('formulaState/ADD_CELL', {
+                            journalName: journal,
+                            tableName: table,
+                            fieldName: field,
+                            shiftNum: shift,
+                            value: value,
+                            formula: formula,
+                        })
+                    })
             }
         }
         return result;

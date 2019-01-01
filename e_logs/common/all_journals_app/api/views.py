@@ -404,12 +404,12 @@ class CellAPI(View):
 
         field_formula = field.formula if field else None
         field_id = field.id if field else None
-        if field_formula:
-            value = field_formula
-        else:
-            cell = Cell.objects.filter(group=shift, field=field_id).first()
-            value = cell.value if cell else None
-        res = {"value": value}
+        cell = Cell.objects.filter(group=shift, field=field_id).first()
+        value = cell.value if cell else None
+        res = {
+            "formula": field_formula,
+            "value": value
+        }
         return JsonResponse(res, safe=False)
 
 

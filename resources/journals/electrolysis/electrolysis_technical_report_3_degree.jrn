@@ -266,7 +266,7 @@
                 },
                 {
                     "name": "tank2_1",
-                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'tank2_2', 0, )",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'tank2_2')",
                     "title": "Напорный бак №2",
                     "type": "number",
                     "units": ""
