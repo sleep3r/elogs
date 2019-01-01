@@ -77,6 +77,14 @@ const journalState = {
                 return '';
             }
         },
+        shiftID: state => {
+            if (state.loaded) {
+                return state.journalInfo.id;
+            } else {
+                return -1;
+            }
+
+        },
         tableVerboseName: (state) => (tableName) => {
             if (state.loaded) {
                 let table = state.journalInfo.journal.tables[tableName]

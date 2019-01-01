@@ -275,6 +275,14 @@
                         responsible: {[this.$store.getters['userState/username']]: this.$store.getters['userState/fullname']},
                         notSynchronized: !navigator.onLine
                     }]});
+                    this.$store.commit('formulaState/UPDATE_CELL_VALUE', {
+                        journalName: this.$store.getters['journalState/journalName'],
+                        shiftNum: this.$store.getters['journalState/shiftID'],
+                        tableName: this.tableName,
+                        fieldName: this.fieldName,
+                        index: this.rowIndex,
+                        value: val,
+                    })
                     if (this.type === 'time' || this.type === 'date') {
                         this.onChanged()
                     }

@@ -61,6 +61,29 @@ const formulaState = {
                 )
             }
         },
+        UPDATE_CELL_VALUE (state, payload) {
+            let journalName = payload.journalName
+            let shiftNum = payload.shiftNum
+            let tableName = payload.tableName
+            let fieldName = payload.fieldName
+            let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
+            let shift;
+            let table;
+            let field;
+            if (!(_.isEmpty(journal))) {
+                shift =  journal[shiftNum] ? journal[shiftNum] : {};
+            }
+            if (!(_.isEmpty(shift))) {
+                table =  shift[tableName] ? shift[tableName] : {};
+            }
+            if (!(_.isEmpty(table))) {
+                field =  table[fieldName] ? table[fieldName] : {};
+            }
+            if (!(_.isEmpty(table))) {
+                field.value = payload.value
+            }
+            console.log(journal, shift, table, field)
+        },
         ADD_SHIFTS (state, payload) {
             state.shifts = payload
         }
