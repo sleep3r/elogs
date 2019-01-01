@@ -443,7 +443,7 @@
                "formula" : ""
             },
             {
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum2', 0, CURRENT_SHIFT - 1)",
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum2')",
                "name" : "pumpnum1",
                "type" : "number",
                "title" : "Номер насоса",
@@ -457,7 +457,7 @@
                "formula" : ""
             },
             {
-               "formula" : "FUNC('electrolysis_technical_report_4_degree', 'right', 'pumpnum4', 0, CURRENT_SHIFT - 1)",
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum4')",
                "units" : "№",
                "title" : "Номер насоса",
                "type" : "number",
@@ -475,7 +475,7 @@
                "title" : "Номер насоса",
                "type" : "number",
                "name" : "pumpnum5",
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum6', 0, CURRENT_SHIFT - 1)"
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum6')"
             },
             {
                "type" : "number",
@@ -489,7 +489,7 @@
                "type" : "number",
                "title" : "Номер насоса",
                "units" : "№",
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum8', 0, CURRENT_SHIFT - 1)"
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum8')"
             },
             {
                "title" : "Номер насоса",
@@ -558,7 +558,7 @@
                "name" : "pumpnum9",
                "units" : "№",
                "title" : "Номер насоса",
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum10', 0, CURRENT_SHIFT - 1)"
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum10')"
             },
             {
                "formula" : "",
@@ -568,7 +568,7 @@
                "units" : "№"
             },
             {
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum12', 0, CURRENT_SHIFT - 1)",
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum12')",
                "units" : "№",
                "title" : "Номер насоса",
                "type" : "number",
@@ -588,7 +588,7 @@
                "formula" : ""
             },
             {
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum14', 0, CURRENT_SHIFT - 1)",
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum14')",
                "title" : "Номер насоса",
                "units" : "№",
                "name" : "pumpnum13",
@@ -602,7 +602,7 @@
                "formula" : ""
             },
             {
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum16', 0, CURRENT_SHIFT - 1)",
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum16')",
                "type" : "number",
                "name" : "pumpnum15",
                "units" : "№",
@@ -620,7 +620,7 @@
                "name" : "pumpnum17",
                "units" : "№",
                "title" : "Номер насоса",
-               "formula" : "FUNC('electrolysis_technical_report_4_degree','right', 'pumpnum18', 0, CURRENT_SHIFT - 1)"
+               "formula" : "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum18')"
             },
             {
                "name" : "pumpnum18",

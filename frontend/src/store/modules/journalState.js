@@ -148,14 +148,14 @@ const journalState = {
                 }
                 let field = fields[fieldName];
                 if (field.formula) {
-                    setTimeout(window.parser.setFunction("FUNC", getValue.bind({
+                    window.parser.setFunction("FUNC", getValue.bind({
                         journal: state.journalInfo.journal.name,
                         table: tableName,
                         field: fieldName,
                         index: rowIndex,
                         shift: 0,
                         isTableIndexed: false,
-                    })), 0) // Timout for sequential functions execution
+                    }))// Timout for sequential functions execution
                     return {
                         value: window.parser.parse(field.formula).result
                     };

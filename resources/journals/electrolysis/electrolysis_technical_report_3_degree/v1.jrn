@@ -224,7 +224,7 @@
                 },
                 {
                     "name": "grad1_1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'grad1_2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'grad1_2')",
                     "title": "Градирня №1",
                     "type": "number",
                     "units": ""
@@ -238,7 +238,7 @@
                 },
                 {
                     "name": "grad2_1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'grad2_2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'grad2_2')",
                     "title": "Градирня №2",
                     "type": "number",
                     "units": ""
@@ -252,7 +252,7 @@
                 },
                 {
                     "name": "tank1_1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'tank1_2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'tank1_2')",
                     "title": "Напорный бак №1",
                     "type": "number",
                     "units": ""
@@ -266,7 +266,7 @@
                 },
                 {
                     "name": "tank2_1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'tank2_2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'tank2_2')",
                     "title": "Напорный бак №2",
                     "type": "number",
                     "units": ""
@@ -280,7 +280,7 @@
                 },
                 {
                     "name": "cons1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'cons2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'cons2')",
                     "title": "Расход",
                     "type": "number",
                     "units": ""
@@ -357,7 +357,7 @@
                 },
                 {
                     "name": "pumpnum1",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum2', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum2')",
                     "title" : "Насос № 1",
                     "type": "number",
                     "units": "№"
@@ -371,7 +371,7 @@
                 },
                 {
                     "name": "pumpnum3",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum4', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum4')",
                     "title" : "Насос № 3",
                     "type": "number",
                     "units": "№"
@@ -385,7 +385,7 @@
                 },
                 {
                     "name": "pumpnum5",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum6', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum6')",
                     "title" : "Насос № 5",
                     "type": "number",
                     "units": "№"
@@ -399,7 +399,7 @@
                 },
                 {
                     "name": "pumpnum7",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum8', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'pumpnum8')",
                     "title" : "Насос № 7",
                     "type": "number",
                     "units": "№"
@@ -413,7 +413,7 @@
                 },
                 {
                     "name": "pumpnum9",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum10', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum10')",
                     "title" : "Насос № 9",
                     "type": "number",
                     "units": "№"
@@ -427,7 +427,7 @@
                 },
                 {
                     "name": "pumpnum11",
-                    "formula": "FUNC('electrolysis_technical_report_3_degree','right', 'pumpnum12', 0, CURRENT_SHIFT - 1)",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum12')",
                     "title" : "Насос № 11",
                     "type": "number",
                     "units": "№"

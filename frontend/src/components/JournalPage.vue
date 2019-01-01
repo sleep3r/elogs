@@ -204,12 +204,20 @@
             let shift_id = this.$route.params.shift_id;
             window.parser.setVariable("CURRENT_SHIFT", "0")
             if (this.$route.params.shift_id) {
+                this.$store.dispatch('formulaState/loadLastShifts', {
+                    'plantName': this.$route.params.plant,
+                    'journalName': this.$route.params.journal
+                })
                 this.$store.dispatch('journalState/loadJournal', {'id': this.$route.params.shift_id})
                     .then((id) => {
                         this.$router.push('/' + this.$route.params.plant + '/' + this.$route.params.journal + '/' + id)
                     })
             }
             else if (this.$route.params.plant && this.$route.params.journal) {
+                this.$store.dispatch('formulaState/loadLastShifts', {
+                    'plantName': this.$route.params.plant,
+                    'journalName': this.$route.params.journal
+                })
                 this.$store.dispatch('journalState/loadJournal', {
                     'plantName': this.$route.params.plant,
                     'journalName': this.$route.params.journal

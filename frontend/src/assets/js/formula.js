@@ -1,7 +1,8 @@
 import formulaParser from 'hot-formula-parser'
 import store from '../../store/store'
+import ajax from '../../axios.config'
 var FormulaParser = require('hot-formula-parser').Parser;
-var request = require('sync-request');
+
 
 function isNumeric(num) {
     return !isNaN(num)
@@ -25,13 +26,9 @@ window.parser = parser;
 
 export function getValue(params) {
     try {
-        console.log("function this", this)
-        console.log(params, params.length)
-        console.log(typeof (params))
         var params_num = this.isTableIndexed ? 5 : 4;
         while (params.length < params_num) {
             params.splice(0, 0, false)
-            console.log(params, params.length);
         }
         const journal = params[0] ? params[0] : this.journal;
         var shift_delta = params[1] ? params[1] : this.shift;
@@ -40,11 +37,8 @@ export function getValue(params) {
         const index = this.isTableIndexed ? 0 : params[4] ? params[4] : this.index;
 
         shift_delta = -Number(shift_delta);
-        console.log(params)
-        console.log(journal, table, field, index, shift_delta)
-        var shifts = store.getters['journalState/events']
+        var shifts = store.getters['formulaState/shifts']()
         const current_journal = store.getters['journalState/journalName'];
-        const current_shift = store.getters['journalState/journalInfo'].id;
         const current_shift_start_time = store.getters['journalState/journalInfo'].start_time;
         let res = 0;
         let result = null;
@@ -56,21 +50,53 @@ export function getValue(params) {
                 result = store.getters['journalState/cell'](table, field, index)['value']
             }
         } else {
-            var shift_index;
+            let shift_index;
             for (var i in shifts) {
                 if (shifts[i].start == current_shift_start_time) {
                     shift_index = i;
                 }
             }
-            var shift = shifts[(shift_index - shift_delta) % shifts.length].url.split("/")[3]
-            res = request("GET", window.HOSTNAME + "/api/cell/?journal={0}&table={1}&field={2}&shift={3}".format(journal, table, field, shift))
-            let json = JSON.parse(res.getBody());
-            if (json.value == null) {
-                result = undefined;
-            } else if (isNumeric(json.value)) {
-                result = Number(json.value)
+            let shift = shifts[(shift_index - shift_delta) % shifts.length].id
+            let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field)
+            let value = store.getters['formulaState/fieldValue'](journal, shift, table, field, index)
+            if (formula) {
+                window.parser.setFunction("FUNC", getValue.bind({
+                    journal: state.journalInfo.journal.name,
+                    table: table,
+                    field: field,
+                    index: index,
+                    shift: shift,
+                    isTableIndexed: false,
+                }))
+                result = window.parser.parse(formula)
+            }
+            // value === undefined – value have not been downloaded
+            // value === null – value downloaded and is null
+            // value === str - true value
+            else if (value !== undefined) {
+                result = value;
             } else {
-                result = window.parser.parse(json.value).result;
+                ajax.get(window.HOSTNAME + "/api/cell/",
+                    {
+                        params: {
+                            journal: journal,
+                            table: table,
+                            field: field,
+                            shift: shift,
+                        }
+                    })
+                    .then(response => {
+                        let value = response.data.value
+                        let formula = response.data.formula
+                        store.commit('formulaState/ADD_CELL', {
+                            journalName: journal,
+                            tableName: table,
+                            fieldName: field,
+                            shiftNum: shift,
+                            value: value,
+                            formula: formula,
+                        })
+                    })
             }
         }
         return result;

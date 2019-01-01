@@ -32,7 +32,7 @@
             @change="onChanged"
             @input="onInput"
             @click="(e) => showPopover(e, {onlyChat: false})"
-            @blur="showTooltip=false;$refs.menu.close()"
+            @blur="showTooltip=false;"
             @contextmenu="openMenu"
             v-tooltip="{content: tooltipContent, show: showTooltip,
                 trigger: 'manual', placement: 'top', boundariesElement: getBody}"
@@ -58,13 +58,13 @@
         >
             <!--<span v-if="hasUnreaded" class="unreaded"></span>-->
         </i>
-        <vue-context ref="menu">
+        <!-- <vue-context ref="menu">
             <ul>
                 <li @click="deleteRow()">Удалить строку</li>
                 <li @click="addRow()">Добавить строку</li>
                 <li @click="flushRow()">Очистить строку</li>
             </ul>
-        </vue-context>
+        </vue-context> -->
     </div>
 
     <div v-else-if="type=='number'">
