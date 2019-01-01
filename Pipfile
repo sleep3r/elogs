@@ -32,6 +32,7 @@ python-slugify = "*"
 django-compressor = "*"
 Twisted = {extras = [ "tls", "http2",]}
 django-celery-results = "*"
+json5 = "*"
 json-tricks = "*"
 plotly = "*"
 django-htmlmin = "*"

@@ -178,6 +178,8 @@ def parse(s: str) -> timezone.datetime:
 def max_cache(func):
     return cached(timeout=settings.MAX_CACHE_TIME)(func)
 
+def localize(datetime):
+    return timezone.get_current_timezone().localize(datetime)
 
 def model_to_dict(model: Model) -> dict:
     return {f.name: getattr(model, f.name) for f in model._meta.get_fields(include_parents=False)}

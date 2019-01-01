@@ -113,10 +113,10 @@
             self.title = self.$store.getters['journalState/tableVerboseName'](currentTable.table)
             self.template = self.$store.getters['journalState/tableHTML'](currentTable)
 
-            let templateUrl = window.HOSTNAME+'/api/templates/tables/?' 
-                + `plant_name=${this.$store.getters['journalState/plantName']}` 
-                + `&journal_name=${this.$store.getters['journalState/journalName']}` 
-                + `&table_name=${this.name}`;
+            let templateUrl = window.HOSTNAME+'/api/templates/tables/?'
+                + `plant_name=${this.$store.getters['journalState/plantName']}`
+                + `&journal_name=${this.$store.getters['journalState/journalName']}`
+                + `&table_name=${this.name}&version=${this.$store.getters['journalState/journalVersion']}`;
             ajax.get(templateUrl)
                 .then(function (response) {
                     let $mainElement = $("<div />").append(($(response.data).clone()))

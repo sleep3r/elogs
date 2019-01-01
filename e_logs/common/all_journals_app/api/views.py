@@ -56,6 +56,7 @@ class GroupAPI(LoginRequired, View):
         res = {
             "id": qs.id,
             "plant": {"name": plant.name},
+            "version": qs.version,
             "mode": get_page_mode(user=user, plant=plant),
             "field_constraints_modes": self.constraint_modes_serializer(qs),
             "journal": self.journal_serializer(qs),
@@ -100,15 +101,17 @@ class GroupAPI(LoginRequired, View):
             for mode in modes:
                 constraints = FieldConstraints.objects.filter(mode=mode)
                 for constraint in constraints:
-                    field = constraint.field
-                    desc = res['journal']['tables'][field.table.name]['fields'][field.name][
-                        'field_description']
-                    desc['constraints_modes'] = {
-                        mode.id: {
-                            'min_normal': constraint.min_normal,
-                            'max_normal': constraint.max_normal
+                    try:
+                        field = constraint.field
+                        desc = res['journal']['tables'][field.table.name]['fields'][field.name]['field_description']
+                        desc['constraints_modes'] = {
+                            mode.id: {
+                                'min_normal': constraint.min_normal,
+                                'max_normal': constraint.max_normal
+                            }
                         }
-                    }
+                    except:
+                        pass
 
     def get_current_group(self, request, kwargs):
         if not kwargs.get('id', None):
@@ -150,8 +153,7 @@ class GroupAPI(LoginRequired, View):
         if group.journal.type == 'shift':
             shift = group
 
-            if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                    user.has_perm(VALIDATE_CELLS):
+            if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and user.has_perm(VALIDATE_CELLS):
                 PERMISSIONS.append("validate")
                 if user.has_perm(EDIT_CELLS):
                     PERMISSIONS.append("edit")
@@ -165,8 +167,7 @@ class GroupAPI(LoginRequired, View):
                 elif services.CheckRole.execute({"employee": user.employee, "page": shift}) and \
                         services.CheckTime.execute({"employee": user.employee, "page": shift}):
 
-                    if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and \
-                            user.has_perm(EDIT_CELLS):
+                    if user.has_perm(PLANT_PERM.format(plant=shift.journal.plant.name)) and user.has_perm(EDIT_CELLS):
                         PERMISSIONS.append("edit")
 
             res = {
@@ -200,7 +201,7 @@ class GroupAPI(LoginRequired, View):
                 "name": table.name,
                 "title": table.verbose_name,
                 "fields": self.field_serializer(qs, table), }
-            for table in tables}
+            for table in tables if os.path.exists(qs.tables_path / f'{table.name}.html')}
 
         return res
 
@@ -413,7 +414,7 @@ class CellAPI(View):
         return JsonResponse(res, safe=False)
 
 
-class SettingAPI(View):
+class SettingAPI(LoginRequired, View):
     def get(self, request):
         # DEBUG
         # user = CustomUser.objects.get(username="inframine")
@@ -449,4 +450,3 @@ class SchemeAPI(View):
                     journal_dict[table.name].append(field.name)
             res[journal.name] = journal_dict
         return JsonResponse(res)
-

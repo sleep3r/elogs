@@ -9,6 +9,7 @@ from django.core.management import call_command
 from django.utils import timezone
 from django.conf import settings
 
+from e_logs.core.journals_git import VersionControl
 from e_logs.core.models import Setting
 from e_logs.common.all_journals_app.models import Shift, Cell, Journal, Year, Month
 from e_logs.common.messages_app.models import Message
@@ -22,37 +23,48 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 @app.task
 def create_shifts():
+    git = VersionControl()
     now_date = current_date()
     for journal in Journal.objects.all():
         if journal.type == 'shift':
             number_of_shifts = Shift.get_number_of_shifts(journal)
             for shift_date in date_range(now_date, now_date + timedelta(days=3)):
                 for shift_order in range(1, number_of_shifts + 1):
-                    Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
+                    shift, created = Shift.objects.get_or_create(journal=journal, order=shift_order, date=shift_date)
+                    if created:
+                        shift.version = git.version_of(journal)
+                        shift.save()
 
 
 @app.task
 def create_moths_and_years():
+    git = VersionControl()
     for journal in Journal.objects.all():
         if journal.type == 'year':
             for year in range(2017, current_date().year + 2):
-                Year.objects.get_or_create(year_date=year, journal=journal)
+                y, created = Year.objects.get_or_create(year_date=year, journal=journal)
+                if created:
+                    y.version = git.version_of(journal)
+                    y.save()
 
         elif journal.type == 'month':
             for year in range(2017, current_date().year + 2):
                 for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                              'Май', 'Июнь', 'Июль', 'Август',
                                              'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):
-                    Month.objects.get_or_create(year_date=year, month_date=month,
-                                                month_order=ind,
-                                                journal=journal)
+                    m, created = Month.objects.get_or_create(year_date=year, month_date=month,
+                                                             month_order=ind,
+                                                             journal=journal)
+                    if created:
+                        m.version = git.version_of(journal)
+                        m.save()
 
 
 @app.task
 def check_blank_shifts():
-    for shift in filter(lambda s: s.is_active(timezone.now()), list(Shift.objects.filter(
+    for shift in filter(lambda s: s.is_active(timezone.localtime()), list(Shift.objects.filter(
             date__range=[current_date() - timedelta(days=1), current_date()]))):
-        if not shift.is_active(time=timezone.now() + timedelta(minutes=1)):
+        if not shift.is_active(time=timezone.localtime() + timedelta(minutes=1)):
             check_for_no_cells(shift)
 
 

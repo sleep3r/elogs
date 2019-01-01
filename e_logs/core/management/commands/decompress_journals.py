@@ -15,12 +15,15 @@ from .database_filler import Journal
 def decompress_journals():
     for plant_name in os.listdir(settings.JOURNALS_DIR):
         if plant_name[0] != '.' and os.path.isdir(settings.JOURNALS_DIR / plant_name):
-            for file_name in os.listdir(settings.JOURNALS_DIR / plant_name):
-                if file_name.endswith(f'.{settings.JOURNAL_EXTENSION}'):
-                    stdout_logger.info(file_name)
-                    journal = JournalBuilder(
-                        settings.JOURNALS_DIR / plant_name / file_name, plant_name)
-                    journal.create()
+            for journal_dir in os.listdir(settings.JOURNALS_DIR / plant_name):
+                for version in os.listdir(settings.JOURNALS_DIR / plant_name / journal_dir):
+                    if version.endswith(f'.{settings.JOURNAL_EXTENSION}'):
+                        stdout_logger.info(journal_dir)
+                        journal = JournalBuilder(
+                            settings.JOURNALS_DIR / plant_name / journal_dir / version, plant_name,
+                            version.strip('v.jrn')
+                        )
+                        journal.create()
 
 
 class Command(BaseCommand):

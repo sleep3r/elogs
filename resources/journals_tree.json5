@@ -1,0 +1,162 @@
+{
+    "Обжиг": {
+        "Рассчёт металлов": {
+            journal_dir: "resources/journals/furnace/metals_compute",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Поступление, расходы и остатки Zn концентратов": {
+            journal_dir: "resources/journals/furnace/report_income_outcome_schieht",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Журнал сменных производственных, тех. заданий": {
+            journal_dir: "resources/journals/furnace/technological_tasks",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Журнал рапортов о проделанной работе по складам концентратов": {
+            journal_dir: "resources/journals/furnace/concentrate_report",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Рабочий журнал изменения фракции": {
+            journal_dir: "resources/journals/furnace/furnace_changed_fraction",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Журнал по ремонту": {
+            journal_dir: "resources/journals/furnace/furnace_repair",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Технологический журнал процесса производства огарка": {
+            journal_dir: "resources/journals/furnace/reports_furnace_area",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+    },
+    "Выщелачивание": {
+        "Журнал экспресс анализа": {
+            journal_dir: "resources/journals/leaching/leaching_express_analysis",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Журнал ремонта": {
+            journal_dir: "resources/journals/leaching/leaching_repair_equipment",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        }
+    },
+    "Электролиз": {
+        "Журнал по ремонту оборудования": {
+            journal_dir: "journals/electrolysis/electrolysis_repair_report_tables",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Технологический журнал электролиза 4-й серии": {
+            journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_4_degree",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Технологический журнал электролиза 3-й серии": {
+            journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_3_degree",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Технологические журналы электролиза 1-й и 2-й серии": {
+            journal_dir: "resources/journals/electrolysis/electrolysis_technical_report_12_degree",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+        "Журнал рапортов мастеров смен": {
+            journal_dir: "resources/journals/electrolysis/masters_report",
+            type: "shift",
+            versions: [
+                {
+                    start_date: null,
+                    end_date: null,
+                    file: "v1.jrn",
+                }
+            ]
+        },
+    }
+}

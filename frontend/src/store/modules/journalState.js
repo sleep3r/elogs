@@ -62,6 +62,13 @@ const journalState = {
                 return '';
             }
         },
+        journalVersion: state => {
+            if (state.loaded) {
+                return state.journalInfo.version;
+            } else {
+                return -1;
+            }
+        },
         journalVerboseName: (state, getters) => {
             if (state.loaded) {
                 let plant = getters['plantName']
