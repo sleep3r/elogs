@@ -12,7 +12,7 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Prefetch
 from django.forms import model_to_dict
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.conf import settings
 
 from e_logs.business_logic import services
@@ -390,6 +390,20 @@ class FieldsAPI(View):
         res = [{"name": field.name, "verboseName": field.verbose_name} for field in queryset]
         return JsonResponse(res, safe=False)
 
+class FieldAPI(View):
+    def get(self, request):
+        journal_name = request.GET.get('journal', None)
+        table_name = request.GET.get('table', None)
+        field_name = request.GET.get('field', None)
+        journal = Journal.objects.filter(name=journal_name).first()
+        table = Table.objects.filter(name=table_name, journal=journal).first()
+        field = Field.objects.filter(name=field_name, table=table).first()
+        if field:
+            res = field.__dict__
+            del res["_state"]
+            return JsonResponse(res, safe=False)
+        else:
+            return HttpResponseBadRequest()
 
 class CellAPI(View):
     def get(self, request):
