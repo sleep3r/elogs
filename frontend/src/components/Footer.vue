@@ -68,7 +68,6 @@
         },
         mounted () {
             EventBus.$on('preshow-cell-comment', (props) => {
-                console.log('preshow')
                 this.cellComment.tableName = props.tableName
                 this.cellComment.fieldName = props.fieldName
                 this.cellComment.rowIndex = props.rowIndex
@@ -80,7 +79,6 @@
 
             EventBus.$on('show-cell-comment', (props) => {
                 $('body').css({'overflow': 'hidden'})
-                console.log('show')
                 this.cellComment.tableName = props.tableName
                 this.cellComment.fieldName = props.fieldName
                 this.cellComment.rowIndex = props.rowIndex
