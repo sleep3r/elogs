@@ -9,6 +9,7 @@ from django.utils import timezone
 from pywebpush import webpush, WebPushException
 
 from e_logs.common.login_app.models import Employee
+from e_logs.core.utils.loggers import err_logger
 from e_logs.core.utils.webutils import filter_or_none, StrAsDictMixin, user_to_response
 
 
@@ -60,7 +61,6 @@ class Message(StrAsDictMixin, models.Model):
     @staticmethod
     def add(message, cell=None, all_users=False, positions=None, uids=None, plant_name=None):
         """
-        TODO: add builder class
         'message': {
                     'text': "some text",
                     'link': Optional[URI],
@@ -73,14 +73,14 @@ class Message(StrAsDictMixin, models.Model):
 
         text = message.pop('text', '')
 
-        layer = get_channel_layer()
-
         for emp in recipients:
             msg = filter_or_none(Message, **message,
                                  addressee=emp, cell=cell, type__in=('comment', 'critical_value')).first()
+
             if msg and msg.type == 'critical_value':
                 msg.text = text
                 msg.save()
+
             else:
                 Message.objects.create(**message, addressee=emp, cell=cell, text=text)
                 data = {
@@ -95,7 +95,8 @@ class Message(StrAsDictMixin, models.Model):
                     "text": text,
                     "created": message.get('created', timezone.localtime().isoformat())
                 }
-                async_to_sync(layer.group_send)(f'user_{emp.id}', {"type": "send_message", "text": json.dumps(data)})
+                async_to_sync(get_channel_layer().group_send)(f'user_{emp.id}', {"type": "send_message",
+                                                                                 "text": json.dumps(data)})
 
                 # Message.push_notification(title='E-LOGS', body='Новое сообщение', user_id=emp.id)
 
@@ -117,14 +118,14 @@ class Message(StrAsDictMixin, models.Model):
                     }
                 )
             except WebPushException as ex:
-                print('I can\'t do that: {}'.format(repr(ex)))
-                print(ex)
+                err_logger.error('Processed AccessError')('I can\'t do that: {}'.format(repr(ex)))
+                err_logger.error('Processed AccessError')(ex)
                 if ex.response and ex.response.json():
                     extra = ex.response.json()
-                    print('Remote service replied with a {}:{}, {}',
-                          extra.code,
-                          extra.errno,
-                          extra.message)
+                    err_logger.error('Processed AccessError')('Remote service replied with a {}:{}, {}',
+                                                              extra.code,
+                                                              extra.errno,
+                                                              extra.message)
 
     @staticmethod
     def update(cell):
@@ -134,6 +135,10 @@ class Message(StrAsDictMixin, models.Model):
                 message.is_read = True
                 message.save()
 
+    @staticmethod
+    def get_unread(employee) -> QuerySet:
+        return Message.objects.filter(is_read=False, addressee=employee)
+
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'
@@ -142,10 +147,6 @@ class Message(StrAsDictMixin, models.Model):
             models.Index(fields=['addressee']),
             models.Index(fields=['created']),
         ]
-
-    @staticmethod
-    def get_unread(employee) -> QuerySet:
-        return Message.objects.filter(is_read=False, addressee=employee)
 
 
 class UserSubscription(models.Model):
