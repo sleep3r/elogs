@@ -11,14 +11,15 @@ from e_logs.core.models import CustomUser
 from e_logs.core.views import LoginRequired
 
 
-class DictionariesApi(LoginRequired, View):
+class DictionariesApi(View):
     def get(self, request):
-        urls = {}
+        urls = []
         resolver = URLResolver(RegexPattern(r'^/'), 'e_logs.business_logic.dictionaries.urls')
         for url in filter(lambda x: isinstance(x[0], str), list(resolver.reverse_dict.items())):
-            urls[url[0]] = '/api/bl/dicts/' + url[1][0][0][0]
+            link = '/api/bl/dicts/' + url[1][0][0][0]
+            urls.append({"title": url[0], "link": link, 'name':link.split('/')[-2]})
 
-        return JsonResponse(urls)
+        return JsonResponse(urls, safe=False)
 
 
 class AutocompleteAPI(View):

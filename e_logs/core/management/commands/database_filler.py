@@ -6,7 +6,7 @@ from typing import List, Optional
 from django.contrib.auth.models import User, Group, Permission
 from django_celery_beat.models import PeriodicTask, IntervalSchedule, CrontabSchedule
 
-from e_logs.business_logic.dictionaries.models import EquipmentDict
+from e_logs.business_logic.dictionaries.models import EquipmentDict, ConcentrateDict
 from e_logs.business_logic.modes.models import Mode, FieldConstraints
 from e_logs.core.journals_git import VersionControl
 from e_logs.core.models import CustomUser
@@ -401,8 +401,7 @@ class DatabaseFiller:
                 , 'Бункер огарка №3'
                 , 'Бункер огарка №7'
                 , 'Нагнетатель №1 0-325-11'],
-            "electrolysis": ['Электролизные ванны'
-                , 'Напорный стеклопластиковый  желоб'
+            "electrolysis": ['Напорный стеклопластиковый  желоб'
                 , 'Центральный сливной желоб'
                 , 'Баки сборники'
                 , 'Коллекторы сборники отработанного электролита'
@@ -442,9 +441,8 @@ class DatabaseFiller:
                 , 'Желоб отработанного электролита под ванной'
                 , 'Барометрический бак'
                 , 'Коллектор отработанного электролита'
-                , '1Электролизные ванны'
-                , '1Желоб поступающего нейтрал.  электролита'
-                , '1Магистраль от бака отраб. электролита'
+                , '1 Желоб поступающего нейтрал.  электролита'
+                , '1 Магистраль от бака отраб. электролита'
                 , 'Чан нейтрального раствора (баки ЦВЦО)'
                 , 'Чан отработанного электролита (баки ЦВЦО)'
                 , 'Насосы охлажденного электролита'
@@ -540,9 +538,23 @@ class DatabaseFiller:
                 , 'Бункера ВТВ (высокотемпературного выщелачивания)'
                 , 'Бак верхнего слива бункеров ВТВ'
                 , 'Бак нижнего слива ВТВ']}
+
+        concentrates = ['Пиритный концентрат',
+                        'Цинковый концентрат Усть-Таловка',
+                        'Цинковый концентрат Жезкент',
+                        'РСР цинковый концентрат',
+                        'Цинковый концентрат Шубинский'
+                        'Цинковый концентрат шламов Тишинского рудника',
+                        'Цинковый концентрат Жайремский месторождение Западное',
+                        'Цинковый концентрат на РМК',
+                        'Цинковый концентрат Белоусовка']
+
         for plant_name in equipment:
             for eq in equipment[plant_name]:
                 EquipmentDict.objects.create(name=eq, plant=Plant.objects.get(name=plant_name))
+
+        for concentrate in concentrates:
+            ConcentrateDict.objects.create(name=concentrate)
 
     @staticmethod
     def tasks_create():
