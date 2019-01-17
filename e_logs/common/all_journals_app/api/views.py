@@ -453,14 +453,22 @@ class SettingAPI(LoginRequired, View):
 
 class SchemeAPI(View):
     def get(self, request):
-        res = {}
-        journals = Journal.objects.all()
-        for journal in journals:
-            tables = Table.objects.filter(journal=journal)
-            journal_dict = defaultdict(list)
-            for table in tables:
-                fields = Field.objects.filter(table=table)
-                for field in fields:
-                    journal_dict[table.name].append(field.name)
-            res[journal.name] = journal_dict
-        return JsonResponse(res)
+        res = [{
+            "name": journal.name,
+            "verbose_name": journal.verbose_name,
+            "tables": [
+                {
+                    "name": table.name,
+                    "verbose_name": table.verbose_name,
+                    "fields":[
+                        {
+                            "name": field.name,
+                            "verbose_name": field.verbose_name,
+                        }
+                        for field in Field.objects.filter(table=table)
+                    ]
+                }
+                for table in Table.objects.filter(journal=journal)
+            ]
+        } for journal in Journal.objects.all()]
+        return JsonResponse(res, safe=False)
