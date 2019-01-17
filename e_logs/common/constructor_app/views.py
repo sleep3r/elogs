@@ -24,21 +24,20 @@ def constructor_proxy(request, path):
     remoteurl = 'http://localhost:3000/' + path
     return proxy_view(request, remoteurl)
 
+
 class ConstructorJournalAPI(View):
     def get(self, request):
         plant = request.GET.get("plant", None)
         journal = request.GET.get("journal", None)
         version = request.GET.get("version", None)
-        current_dir = os.path.dirname(__file__)
-        filepath = os.path.join(current_dir, f"../../../resources/journals/{plant}/{journal}/v{version}.jrn")
+        filepath = os.path.abspath(f"../../../resources/journals/{plant}/{journal}/v{version}.jrn")
         with open(filepath, "r") as f:
             data = f.read()
         return HttpResponse(data, content_type="application/json")
     
     def post(self, request):
         journal = json.loads(request.body)
-        current_dir = os.path.dirname(__file__)
-        filepath = os.path.join(current_dir, f"../../../resources/temp/{journal['name']}")
+        filepath = os.path.abspath(f"../../../resources/temp/{journal['name']}")
         with open(filepath, "w") as f:
             json.dump(journal, f)
 
@@ -46,7 +45,7 @@ class ConstructorJournalAPI(View):
         hasher.update(json.dumps(journal).encode())
 
         journal_hash = hasher.hexdigest()
-        filepath_w_hash = os.path.join(current_dir, f"../../../resources/temp/{journal_hash}.jrn")
+        filepath_w_hash = os.path.abspath(f"../../../resources/temp/{journal_hash}.jrn")
         os.rename(filepath, filepath_w_hash)
 
         return JsonResponse({"hash": journal_hash})
