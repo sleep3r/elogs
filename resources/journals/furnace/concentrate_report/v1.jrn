@@ -298,28 +298,28 @@
                     "name": "master",
                     "title": "Мастер",
                     "formula": "",
-                    "type": "text",
+                    "type": "datalist_lastnames",
                     "units": "Фамилия И.О."
                 },
                 {
                     "name": "senior_crane_operator",
                     "title": "Старший крановщик",
                     "formula": "",
-                    "type": "text",
+                    "type": "datalist_lastnames",
                     "units": "Фамилия И.О."
                 },
                 {
                     "name": "crane_operator",
                     "title": "Крановщик",
                     "formula": "",
-                    "type": "text",
+                    "type": "datalist_lastnames",
                     "units": "Фамилия И.О."
                 },
                 {
                     "name": "sling_operator",
                     "title": "Стропальщик",
                     "formula": "",
-                    "type": "text",
+                    "type": "datalist_lastnames",
                     "units": "Фамилия И.О."
                 },
                 {

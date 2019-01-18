@@ -515,8 +515,8 @@
                     $(this.$el).find('datalist').attr('id', currentId)
                 }
             },
-            getPersons(name, plantName) {
-                return ajax.get(window.HOSTNAME + `/api/bl/dicts/autocomplete/?name=${name}&plant=${plantName}`, {
+            getListData(name, listType, plantName) {
+                return ajax.get(window.HOSTNAME + `/api/bl/dicts/${listType}/?name=${name}&plant=${plantName}`, {
                     withCredentials: true
                 })  .then((response) => {
                         // console.log(response);
@@ -549,9 +549,10 @@
                 this.value = e.target.value;
 
                 // console.log('oninput')
-                if ($(this.$el).find('input').attr('placeholder').startsWith('Фамилия И.О.')) {
+                if (this.type.startsWith('datalist_')) {
+                    let listType = this.type.split('_')[1];
                     let plantName = this.$store.getters['journalState/plantName'];
-                    this.getPersons(e.target.value, plantName)
+                    this.getListData(e.target.value, listType, plantName)
                 }
 
                 this.send();
