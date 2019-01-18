@@ -87,6 +87,9 @@
                             else {
                                 return maxRowIndex + 1 + (isForPrint ? 10 : 0) || 1 + (isForPrint ? 10 : 0)
                             }
+                        },
+                        year: function () {
+                            return this.$store.getters['journalState/journalInfo'].year
                         }
                     },
                     mounted() {
