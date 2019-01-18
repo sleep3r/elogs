@@ -364,7 +364,7 @@
                     this.$store.getters['journalState/fieldFormula'](
                         this.tableName, this.fieldName,
                     )
-                )
+                ) || this.type === "formula"
             },
             mode() {
                 return this.$store.getters['journalState/journalInfo'].mode;

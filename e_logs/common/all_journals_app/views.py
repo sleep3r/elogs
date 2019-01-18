@@ -1,10 +1,9 @@
 import json
 from collections import defaultdict
 from datetime import timedelta
-from urllib.parse import parse_qs
 
 import environ
-import json5
+import os
 
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.template import loader, TemplateDoesNotExist
@@ -60,6 +59,9 @@ def get_table_template(request):
 
     if plant_name is None:
         plant_name = Journal.objects.get(name=journal_name).plant.name
+    if version is None:
+        version = len(os.listdir(f'templates/tables/{plant_name}/{journal_name}/'))
+
 
     with open(f'templates/tables/{plant_name}/{journal_name}/v{version}/{table_name}.html', 'r') as table_file:
         return HttpResponse(table_file.read())
