@@ -30,14 +30,18 @@ class ConstructorJournalAPI(View):
         plant = request.GET.get("plant", None)
         journal = request.GET.get("journal", None)
         version = request.GET.get("version", None)
-        filepath = os.path.abspath(f"../../../resources/journals/{plant}/{journal}/v{version}.jrn")
+        current_path = os.path.dirname(__file__)
+        filepath = os.path.abspath(
+            os.path.join(current_path, f"../../../resources/journals/{plant}/{journal}/v{version}.jrn"))
         with open(filepath, "r") as f:
             data = f.read()
         return HttpResponse(data, content_type="application/json")
     
     def post(self, request):
         journal = json.loads(request.body)
-        filepath = os.path.abspath(f"../../../resources/temp/{journal['name']}")
+        current_path = os.path.dirname(__file__)
+        filepath = os.path.abspath(
+            os.path.join(current_path, f"../../../resources/temp/{journal['name']}"))
         with open(filepath, "w") as f:
             json.dump(journal, f)
 
@@ -45,7 +49,8 @@ class ConstructorJournalAPI(View):
         hasher.update(json.dumps(journal).encode())
 
         journal_hash = hasher.hexdigest()
-        filepath_w_hash = os.path.abspath(f"../../../resources/temp/{journal_hash}.jrn")
+        filepath_w_hash = os.path.abspath(
+            os.path.join(current_path, f"../../../resources/temp/{journal_hash}.jrn"))
         os.rename(filepath, filepath_w_hash)
 
         return JsonResponse({"hash": journal_hash})
