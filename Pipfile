@@ -1,4 +1,3 @@
-
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -54,6 +53,7 @@ django-proxy = "*"
 python-telegram-bot = "*"
 pysocks = "*"
 celery = {file = "https://github.com/celery/celery/tarball/master"}
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 icecream = "*"
@@ -81,4 +81,4 @@ pydotplus = "*"
 pysocks = "*"
 
 [requires]
-python_version = "3.7.1"
+python_version = "3.7.2"
