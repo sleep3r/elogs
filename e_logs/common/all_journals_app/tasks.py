@@ -41,14 +41,14 @@ def create_moths_and_years():
     git = VersionControl()
     for journal in Journal.objects.all():
         if journal.type == 'year':
-            for year in range(2017, current_date().year + 2):
+            for year in range(2017, current_date().year + 4):
                 y, created = Year.objects.get_or_create(year_date=year, journal=journal)
                 if created:
                     y.version = git.version_of(journal)
                     y.save()
 
         elif journal.type == 'month':
-            for year in range(2017, current_date().year + 2):
+            for year in range(2017, current_date().year + 4):
                 for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                              'Май', 'Июнь', 'Июль', 'Август',
                                              'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):

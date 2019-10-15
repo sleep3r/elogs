@@ -36,7 +36,7 @@ class ConstructorJournalAPI(View):
         with open(filepath, "r") as f:
             data = f.read()
         return HttpResponse(data, content_type="application/json")
-    
+
     def post(self, request):
         journal = json.loads(request.body)
         current_path = os.path.dirname(__file__)
@@ -120,11 +120,11 @@ class ConstructorUploadAPI(View):
                     shift, created = Shift.objects.get_or_create(journal=journal, order=shift_order,
                                                                  date=shift_date)
         elif journal.type == 'year':
-            for year in range(2017, current_date().year + 2):
+            for year in range(2017, current_date().year + 4):
                 year, created = Year.objects.get_or_create(year_date=year, journal=journal)
 
         elif journal.type == 'month':
-            for year in range(2017, current_date().year + 2):
+            for year in range(2017, current_date().year + 4):
                 for ind, month in enumerate(['Январь', 'Февраль', 'Март', 'Апрель',
                                              'Май', 'Июнь', 'Июль', 'Август',
                                              'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], 1):

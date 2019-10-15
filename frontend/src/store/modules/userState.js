@@ -31,7 +31,7 @@ const userState = {
                 password: payload.password
             })
                 .then((resp) => {
-                    return ajax.get(window.HOSTNAME + '/api/auth/users/me', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
+                    return ajax.get(window.HOSTNAME + '/api/auth/users/me/', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
                         .then((userData) => {
                             commit('SET_USER', userData.data)
                             return userData

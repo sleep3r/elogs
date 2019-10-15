@@ -21,8 +21,9 @@ environ.Env.read_env(".env")
 def _get_current_group(journal):
     if journal.type == 'shift':
         shifts = Shift.objects.filter(journal=journal, date__lte=current_date()).order_by('-date', 'order')
-
+        print(timezone.localtime())
         for shift in shifts:
+            print(shift.is_active(timezone.localtime()))
             if shift.is_active(timezone.localtime()):
                 return shift
 

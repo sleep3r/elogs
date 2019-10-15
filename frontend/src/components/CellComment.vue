@@ -44,7 +44,7 @@
                              id="graphMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="fas fa-chart-line"></i>&nbsp;Построить график</span>
                             <div class="dropdown-menu" aria-labelledby="graphMenuButton">
-                                <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftTimeline')">Временной
+                                <a class="dropdown-item" href="" @click.prevent="ShowGraphModal('ShiftTimeline')">Временной
                                     ряд</a>
                                 <a class="dropdown-item" href="" @click.prevent="addToDashboard('ShiftHistogram')">Гистограмма</a>
                             </div>
@@ -164,7 +164,7 @@
             showGraphModal(type) {
                 this.getConfig();
                 $('.tooltip.popover').css({'visibility': 'hidden'});
-                $('#GraphModal').attr('data-type', type)
+                $('#GraphModal').addClass("show")
             },
             addComment() {
                 function trim(x) {
@@ -235,11 +235,15 @@
                         })
                     })
             },
-            getConfig() {
+            getFieldId() {
                 let self = this;
-                ajax.get(
-                    window.HOSTNAME + '/api/dashboard/get-config',
-                    {withCredentials: true},
+                ajax.post(
+                    window.HOSTNAME + '/api/api/field_id',
+                    {
+                        'journal_name': this.$store.state.journalState.journalInfo.journal.name,
+                        'table_name': this.tableName,
+                        'field_name': this.fieldName,
+                    }
                 )
                     .then(function (response) {
                         let config = response.data.config;

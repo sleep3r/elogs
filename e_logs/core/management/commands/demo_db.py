@@ -1,5 +1,4 @@
 from cacheops import invalidate_all
-from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 from e_logs.core.management.commands.decompress_journals import decompress_journals
@@ -75,7 +74,6 @@ class Command(BaseCommand):
             stdout_logger.info("Adding groups...")
             df.create_number_of_shifts()
             df.create_groups()
-
 
             stdout_logger.info("Adding settings...")
             # df.create_journals_verbose_names()

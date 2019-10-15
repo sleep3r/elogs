@@ -18,7 +18,9 @@ class VersionControl():
             group = obj
             for version, time in self.versions[group.journal.plant.name][group.journal.name].items():
                 date = group.end_time if group.journal.type == 'shift' else localize(group.date)
-                if localize(datetime(*time['start'])) < date <= localize(datetime(*time['end'])):
+                # print(time['start'])
+                # print(time['end'])
+                if localize(datetime(*time['start'][:7])) < date <= localize(datetime(*time['end'][:7])):
                     return int(version)
         elif isinstance(obj, Journal):
             journal = obj

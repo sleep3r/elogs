@@ -12,38 +12,32 @@ from e_logs.core.utils.webutils import user_to_response
 
 class CommonConsumer(AsyncJsonWebsocketConsumer):
     async def websocket_connect(self, event):
-        try:
-            self.data_channel = 'data'
-            self.user_channel = f"user_{self.scope['user'].employee.id}"
+        self.data_channel = 'data'
+        self.user_channel = f"user_{self.scope['user'].employee.id}"
 
-            await self.channel_layer.group_add(
-                self.user_channel,
-                self.channel_name,
-            )
+        await self.channel_layer.group_add(
+            self.user_channel,
+            self.channel_name,
+        )
 
-            await self.channel_layer.group_add(
-                self.data_channel,
-                self.channel_name,
-            )
+        await self.channel_layer.group_add(
+            self.data_channel,
+            self.channel_name,
+        )
 
-            await self.accept()
-
-        except:
-            await self.websocket_disconnect(event)
+        await self.accept()
 
     async def websocket_disconnect(self, event):
-        try:
-            await self.channel_layer.group_discard(
-                f"user_{self.scope['user'].employee.id}",
-                self.channel_name,
-            )
+        print(event)
+        await self.channel_layer.group_discard(
+            f"user_{self.scope['user'].employee.id}",
+            self.channel_name,
+        )
 
-            await self.channel_layer.group_discard(
-                'data',
-                self.channel_name,
-            )
-        except:
-            pass
+        await self.channel_layer.group_discard(
+            'data',
+            self.channel_name,
+        )
 
         await self.close()
         raise StopConsumer()

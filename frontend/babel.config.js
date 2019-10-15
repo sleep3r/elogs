@@ -9,4 +9,4 @@ module.exports = {
   },
   plugins: ['syntax-dynamic-import'],
   compact: true
-}
+};

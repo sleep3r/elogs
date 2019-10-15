@@ -21,11 +21,11 @@ const brotliSettings = {
     extension: 'br',
     skipLarger: true,
     mode: 0,
-    quality: 11, // maximum compression
+    quality: 3, // maximum compression
     lgblock: 0
 };
 const gzipSettings = {
-    gzipOptions: { level: 9 }, // maximum compression
+    gzipOptions: { level: 3 }, // maximum compression
     skipGrowingFiles: true
 };
 

@@ -30,15 +30,12 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'ELogs',
-        'HOST': '192.168.22.129',
-        'PORT': '',
+        'ENGINE': 'postgres',
+        'NAME': 'elogs',
+        'HOST': 'localhost',
+        'PORT': '5432',
         'USER': 'admin',
-        'PASSWORD': 'Moscow2018',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
-        },
+        'PASSWORD': 'Moscow2018'
     },
 }
 

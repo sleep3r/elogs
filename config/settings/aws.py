@@ -40,16 +40,12 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'postgres',
         'NAME': 'elogs',
-        'HOST': 'db',
-        'PORT': '1433',
-        'USER': 'sa',
-        'PASSWORD': 'Singapore2017',
-
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'USER': 'asu',
+        'PASSWORD': '374tuamcPkf',
     },
 }
 

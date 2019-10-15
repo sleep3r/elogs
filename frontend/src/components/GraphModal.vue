@@ -8,8 +8,8 @@
                     </button>
                     <h5 class="modal-title"> Построение графика </h5>
                 </div>
-                <div class="modal-body">
-                    <!-- <graph idx='3185' type='ShiftTimeline'></graph> -->
+                <div v-if="idx" class="modal-body">
+                     <graph :idx='idx' :type='type'></graph>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
@@ -33,7 +33,8 @@
         },
         data () {
             return {
-                
+                idx: null,
+                type: null,
             }
         },
         computed: {
@@ -46,8 +47,16 @@
             },
             closeModal () {
                 $('#GraphModal').find('button[aria-label=Close]').click()
+            },
+            showGraph(payload) {
+                this.idx = payload.idx
+                this.type = payload.type
             }
+        },
+        mount() {
+            EventBus.$on("show-graph-in-modal", (payload) => this.showGraph(payload))
         }
+
     }
 </script>
 

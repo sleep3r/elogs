@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django-pyodbc-azure = "*"
 djangorestframework = "*"
 django-rest-swagger = "*"
 django-filter = "*"
@@ -18,7 +17,7 @@ django-cacheops = "*"
 django-pickling = "*"
 django-redis = "*"
 lz4 = "*"
-Django = "==2.1.4"
+Django = "*"
 channels_redis = "*"
 pyOpenSSL = "*"
 service-identity = "*"
@@ -54,6 +53,7 @@ python-telegram-bot = "*"
 pysocks = "*"
 celery = {file = "https://github.com/celery/celery/tarball/master"}
 djangorestframework-simplejwt = "*"
+psycopg2 = "*"
 
 [dev-packages]
 icecream = "*"
@@ -76,9 +76,10 @@ pylint-django = "*"
 flake8 = "*"
 coverage = "*"
 django-coverage-plugin = "*"
-django-debug-toolbar = "*"
+django-debug-toolbar = "==2.0"
 pydotplus = "*"
 pysocks = "*"
+setuptools = "*"
 
 [requires]
-python_version = "3.7.2"
+python_version = "3.7.4"

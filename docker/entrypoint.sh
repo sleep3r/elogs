@@ -8,13 +8,13 @@ set -o nounset
 #export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
 
 cd /srv
-python3.6 manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 mkdir /srv/frontend/dist/static
 cp -r /srv/staticfiles/* /srv/frontend/dist/static/
 
-python3.6 manage.py makemigrations --merge
-python3.6 manage.py migrate        # Apply database migrations
-python3.6 manage.py demo_db --recreate
+python3 manage.py makemigrations --merge
+python3 manage.py migrate        # Apply database migrations
+python3 manage.py demo_db --recreate
 
 touch /srv/logs/gunicorn.log
 touch /srv/logs/access.log

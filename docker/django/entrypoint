@@ -4,13 +4,13 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-python3.6 manage.py makemigrations --merge
-python3.6 manage.py migrate
-python3.6 manage.py demo_db --recreate
-python3.6 manage.py shell < scripts/import_cells.py
+python3 manage.py makemigrations --merge
+python3 manage.py migrate
+python3 manage.py demo_db --recreate
+python3 manage.py shell < scripts/import_cells.py
 
 cd /srv
-python3.6 manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 mkdir /srv/frontend/dist/static
 cp -r /srv/staticfiles/* /srv/frontend/dist/static/
 

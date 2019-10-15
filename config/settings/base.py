@@ -3,9 +3,10 @@ from pathlib import Path
 
 import dj_database_url
 import environ
-import sentry_sdk
-from sentry_sdk.integrations.celery import CeleryIntegration
-from sentry_sdk.integrations.django import DjangoIntegration
+
+# import sentry_sdk
+# from sentry_sdk.integrations.celery import CeleryIntegration
+# from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -48,18 +49,12 @@ FEEDBACK_TG_BOT = {
     "proxy": {
         "url": env("TG_PROXY_URL"),
         "username": env("TG_PROXY_USERNAME"),
-        "password": env("TG_PROXY_PASSWORD")
-    }
+        "password": env("TG_PROXY_PASSWORD"),
+    },
 }
-FEEDBACK_MAIL = {
-    "mail": env("MAIL"),
-    "password": env("MAIL_PASSWORD"),
-    "to": env("MAIL")
-}
+FEEDBACK_MAIL = {"mail": env("MAIL"), "password": env("MAIL_PASSWORD"), "to": env("MAIL")}
 
-DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600)
-}
+DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'), conn_max_age=600)}
 
 TEMPLATES = [
     {
@@ -73,21 +68,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-
-            'libraries': {
-                'express_tags': 'e_logs.core.templatetags.express_tags',
-            }
+            'libraries': {'express_tags': 'e_logs.core.templatetags.express_tags'},
         },
-    },
+    }
 ]
 
 # APPS
 # ------------------------------------------------------------------------------
 THIRD_PARTY_APPS = [
-    'channels',
     'rest_framework',
     'rest_framework.authtoken',
-    'djoser',
     'rest_framework_swagger',
     'django_filters',
     'webpack_loader',
@@ -98,10 +88,11 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'corsheaders',
+    'djoser',
+    'channels'
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
-
     'e_logs.common.login_app.apps.LoginApp',
     'e_logs.common.all_journals_app.apps.CommonAllJournalsAppConfig',
     'e_logs.common.messages_app.apps.CommonMessagesAppConfig',
@@ -109,7 +100,6 @@ LOCAL_APPS = [
     'e_logs.common.data_visualization_app.apps.DataVisualizationAppConfig',
     'e_logs.common.settings_app.apps.SettingsAppConfig',
     'e_logs.common.constructor_app.apps.ConstructorAppConfig',
-
     'e_logs.business_logic.modes.apps.BLModesConfig',
     'e_logs.business_logic.dictionaries.apps.DictionariesConfig',
     'e_logs.business_logic.blank_shifts.apps.BLBlankShiftsConfig',
@@ -118,10 +108,9 @@ DJANGO_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    # 'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.humanize',
-    'e_logs.core.apps.SuitConfig',# Handy template tags
+    'e_logs.core.apps.SuitConfig',  # Handy template tags
     'django.contrib.admin',
     'django.contrib.staticfiles',
 ]
@@ -135,7 +124,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # TODO: ?
     'e_logs.core.middleware.CustomAuthenticationMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -151,18 +143,10 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 WEBPACK_LOADER = {
@@ -172,7 +156,7 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
-        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+        'IGNORE': ['.+\.hot-update.js', '.+\.map'],
     }
 }
 
@@ -201,30 +185,22 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue'
-        }
+        'require_debug_false': {'()': 'django.utils.log.RequireDebugFalse'},
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'},
     },
     'formatters': {
         'main_formatter': {
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'datefmt': "%d/%b/%Y %H:%M:%S",
         },
         'color_formatter': {
             '()': 'e_logs.core.utils.formatters.ColorsFormatter',
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'datefmt': "%d/%b/%Y %H:%M:%S",
         },
     },
     'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'color_formatter',
-        },
+        'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler', 'formatter': 'color_formatter'},
         'debug': {
             'level': 'DEBUG',
             'class': 'e_logs.core.utils.formatters.MkdirTimedRotatingFileHandler',
@@ -279,57 +255,24 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'when': 'midnight',
         },
-        'null': {
-            "class": 'logging.NullHandler',
-        }
+        'null': {"class": 'logging.NullHandler'},
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['console', 'error'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'py.warnings': {
-            'handlers': ['console', 'debug', 'info', 'error'],
-        },
-        '': {
-            'handlers': ['debug',
-                         'info', 'error'],
-            'level': "DEBUG",
-        },
-        'django': {
-            'handlers': ['console', 'debug', 'info', 'error'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'django.server': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'django.db': {
-            'handlers': ['db_log'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'django.db.backends': {
-            'handlers': ['debug'],
-            'level': 'DEBUG',
-        },
-        'django.db.backends.mssql': {
-            'level': 'DEBUG',
-            'handlers': ['db_log'],
-        },
-        'CALL': {
-            'handlers': ['calls'],
-        },
-        'STDOUT': {
-            'handlers': ['console', 'printed_values'],
-        },
-        'STDERR': {
-            'handlers': ['console', 'printed_values'],
-        },
-    }
+        'django.request': {'handlers': ['console', 'error'], 'level': 'ERROR', 'propagate': True},
+        'py.warnings': {'handlers': ['console', 'debug', 'info', 'error']},
+        '': {'handlers': ['debug', 'info', 'error'], 'level': "DEBUG"},
+
+        'django': {'handlers': ['console', 'debug', 'info', 'error'], 'level': 'INFO', 'propagate': False},
+        'django.server': {'handlers': ['console'], 'level': 'INFO', 'propagate': True},
+
+        'django.db': {'handlers': ['db_log'], 'level': 'INFO', 'propagate': False},
+        'django.db.backends': {'handlers': ['debug'], 'level': 'DEBUG'},
+        'django.db.backends.mssql': {'level': 'DEBUG', 'handlers': ['db_log']},
+
+        'CALL': {'handlers': ['calls']},
+        'STDOUT': {'handlers': ['console', 'printed_values']},
+        'STDERR': {'handlers': ['console', 'printed_values']},
+    },
 }
 
 REST_FRAMEWORK = {
@@ -352,9 +295,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser',
         # 'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
@@ -375,9 +316,7 @@ DJOSER = {
     'SERIALIZERS': {},
 }
 
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
-}
+JWT_AUTH = {'JWT_ALLOW_REFRESH': True}
 
 # --------------------------------- CACHING STAFF ---------------------------------------
 
@@ -385,7 +324,7 @@ MAX_CACHE_TIME = 60 * 60 * 5
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379?db=0",  # redis is inside docker so we'll not .env it
+        "LOCATION": env("REDIS_URL") + "?db=5",  # redis is inside docker so we'll not .env it
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
@@ -407,12 +346,11 @@ DJANGO_REDIS_IGNORE_EXCEPTIONS = True
 DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 CACHEOPS_REDIS = {
-    'host': 'localhost',  # redis-server is on same machine
+    'host': 'redis',  # redis-server is on same machine
     'port': 6379,  # default redis port
     'db': 1,  # SELECT non-default redis database
     # using separate redis db or redis instance
     # is highly recommended
-
     # 'socket_timeout': 3,
 }
 
@@ -427,15 +365,12 @@ CACHEOPS = {
     # as well as request.user or post.author access,
     # where Post.author is a foreign key to auth.User
     'auth.user': {'ops': 'get', 'timeout': 60 * 15},
-
     # Automatically cache all gets and queryset fetches
     # to other django.contrib.auth models for an hour
     'auth.*': {'ops': {'fetch', 'get'}, 'timeout': 60 * 60},
-
     # Cache all queries to Permission
     # 'all' is an alias for {'get', 'fetch', 'count', 'aggregate', 'exists'}
     'auth.permission': {'ops': 'all', 'timeout': 60 * 60},
-
     # Enable manual caching on all other models with default timeout of an hour
     # Use Post.objects.cache().get(...)
     #  or Tags.objects.filter(...).order_by(...).cache()
@@ -443,7 +378,6 @@ CACHEOPS = {
     # Invalidation is still automatic
     # '*.*': {'timeout': 60*60},
     '*.*': {'ops': 'all', 'timeout': 60 * 60},
-
     'core.models.Setting': {'ops': 'all', 'timeout': 60 * 60},
     'common.all_journals_app.models.Cell': {'ops': 'all', 'timeout': 60 * 60},
     'common.all_journals_app.models.Journal': {'ops': 'all', 'timeout': 60 * 60},
@@ -454,14 +388,12 @@ CACHEOPS = {
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("localhost", 6379)],
-        },
-    },
+        "CONFIG": {"hosts": [("redis", 6379)]},
+    }
 }
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -473,27 +405,19 @@ CORS_ORIGIN_ALLOW_ALL = True  # TODO: change to whitelist in production
 CORS_ALLOW_CREDENTIALS = True  # for cookie
 
 CORS_ORIGIN_WHITELIST = (
-    '127.0.0.1:8000/',
-    '127.0.0.1:8080/',
-    'http://localhost:8080/'
-    'http://localhost:8000/',
-    'localhost:8080'
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    'http://localhost:8000',
 )
 
-CORS_ALLOW_METHODS = (
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-)
+CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
 
 CSRF_TRUSTED_ORIGINS = (
     '127.0.0.1:8000/',
     '127.0.0.1:8080/',
-    'http://localhost:8080/'
-    'http://localhost:8000/'
+    'http://localhost:8080/',
+    'http://localhost:8000/',
 )
 
 CORS_URLS_REGEX = r'^.*$'  # TODO: change to api or smth

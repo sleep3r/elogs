@@ -19,7 +19,8 @@
                     <button class="btn" type="submit" @click.prevent="onAlterJournal()">Изменить</button>
                 </p>
             </template>
-            <template v-else-if="!hash">
+            <!--<template v-else-if="hash">-->
+            <template>
                 <p>
                     <select name="plant" v-model="plant">
                         <option disabled selected value="">Выберите цех</option>

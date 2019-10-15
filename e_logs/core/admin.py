@@ -17,7 +17,7 @@ admin.site.unregister(TaskResult)
 admin.site.unregister(CrontabSchedule)
 admin.site.unregister(IntervalSchedule)
 admin.site.unregister(SolarSchedule)
-admin.site.unregister(Token)
+# admin.site.unregister(Token)
 admin.site.unregister(Group)
 
 

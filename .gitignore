@@ -101,7 +101,6 @@ logs/main_debug_calls/
 logs/main_debug_debug/
 logs/main_debug_error/
 logs/main_debug_info/
-*.log
 logs/main_debug_calls/*
 logs/main_debug_debug/*
 logs/main_debug_error/*
@@ -118,8 +117,9 @@ logs/printed_values
 frontend/dist/*
 
 # e-logs-constructor
-e-logs-constructor
+#e-logs-constructor
 
 #vscode
 .vscode
 e_logs/common/feedback_app/media
+media/
