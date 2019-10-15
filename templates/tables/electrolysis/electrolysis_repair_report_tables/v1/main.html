@@ -1,0 +1,24 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th colspan="3" class="th-common">Запись о дефектах, обнаруженных при осмотрах</th>
+            <th colspan="4" class="th-common"> Запись о работах, выполненных по устранению дефектов</th>
+        </tr>
+        <tr>
+            <th> Дата осмотра </th>
+            <th> Наименование узла в характеристике дефектов </th>
+            <th> Дата выполнения работ </th>
+            <th> Объем выполненых работ по устранению дефектов </th>
+            <th> Фактический срок службы узла, детали</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(value, index) in rowsCount" class="indexed-line">
+          <td><cell field-name="date1" :row-index="index"></cell></td>
+          <td><cell field-name="node_name" :row-index="index"></cell></td>
+          <td><cell field-name="date2" :row-index="index"></cell></td>
+          <td><cell field-name="work_done" :row-index="index"></cell></td>
+          <td><cell field-name="expl_time" :row-index="index"></cell></td>
+      </tr>
+    </tbody>
+</table>

@@ -1,0 +1,42 @@
+
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="2">Дата распоряжения</th>
+            <th rowspan="2">Комментарии</th>
+            <th class="th-common">Шихта</th>
+            <th rowspan="2">Заполнил</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr v-for="(value, index) in rowsCount" class="indexed-line">
+                <td ><cell field-name="date_create" :row-index="index"></cell></td>
+                <td ><cell field-name="comments" :row-index="index"></cell></td>
+                <td >
+                    <table class="table table-bordered insidetable elog-journal-table">
+                        <tr>
+                            <th>Концентрат</th>
+                            <th>Масса</th>
+                        </tr>
+                        <tr>
+                            <td><cell field-name="caption1" :row-index="index"></cell></td>
+                            <td><cell field-name="weight1" :row-index="index"></cell></td>
+                        </tr>
+                        <tr>
+                            <td><cell field-name="caption2" :row-index="index"></cell></td>
+                            <td><cell field-name="weight2" :row-index="index"></cell></td>
+                        </tr>
+                        <tr>
+                            <td><cell field-name="caption3" :row-index="index"></cell></td>
+                            <td><cell field-name="weight3" :row-index="index"></cell></td>
+                        </tr>
+                        <tr>
+                            <td><cell field-name="caption4" :row-index="index"></cell></td>
+                            <td><cell field-name="weight4" :row-index="index"></cell></td>
+                        </tr>
+                    </table>
+                </td>
+                <td ><cell field-name="employee" :row-index="index"></cell></td>
+            </tr>
+    </tbody>
+</table>

@@ -1,0 +1,61 @@
+{% extends 'base_page.html' %}
+{% load staticfiles %}
+{% load tz %}
+{% load i18n %}
+
+{% block title %}
+    Все сообщения
+{% endblock %}
+
+
+{% block journal_panel %}
+{% endblock %}
+
+{% block content %}
+    <div class="messages">
+        <ul class="messages__list">
+            {% if not messages %}
+                <h1 style="text-align: center">Нет сообщений</h1>
+            {% endif %}
+            {% for message in messages %}
+                <li class="message">
+                {% if message.sendee != None %}
+                    <img class="message__image" src = "{% static 'images/no-avatar.png' %}" >
+                    <span class="message__author-name">{{ user_name }}</span>
+                    <strong class="message__title">
+                        <a class="sendee" href="#">{{message.sendee}}</a>
+                        <span class="message__info"></span>
+                        <a href="{{message.link}}">{{message.cell.field.name}}</a>
+                    </strong>
+                {% endif %}
+                    <p class="message__text {{ message.type }}">{{message.text}}</p>
+                    <span class="message__created">{{message.created}}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="loading" style="display: none;text-align: center">
+            ЗАГРУЗКА...
+        </div>
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{#    <script src = "{% static 'vendors/waypoints/jquery.waypoints.min.js' %}"></script>#}
+{#    <script src = "{% static 'vendors/waypoints/shortcuts/infinite.min.js' %}"></script>#}
+{#    <script>#}
+{#        let infinite = new Waypoint.Infinite({#}
+{#            element: $('.notifs')[0],#}
+{#            onBeforePageLoad: function () {#}
+{#                $('.loading').show();#}
+{#            },#}
+{#            onAfterPageLoad: function () {#}
+{#                $('.loading').hide();#}
+{#            },#}
+{#            items: ".notif",#}
+{#        });#}
+{#    </script>#}
+{% endblock %}

@@ -1,0 +1,46 @@
+<table class="table table-bordered elog-journal-table" id="redipsTable">
+	<thead>
+		<tr>
+			<th rowspan="2" id="CRq2SBYCaC">Дата</th>
+			<th rowspan="2" id="hTB89NxVyF">Номер смены</th>
+			<th colspan="2" class="th-common" id="nPwz3uHmVg">
+				Масса навески
+				<i class="units">г</i>
+			</th>
+			<th id="BTlenag19_">Определяемый параметр</th>
+		</tr>
+		<tr>
+			<th id="_QqbE_XjID">
+				Огарка
+				<i class="units">г</i>
+			</th>
+			<th id="yPC4cHCBQM">
+				Остаток на сите
+				<i class="units">г</i>
+			</th>
+			<th id="BQeupnG4cm">
+				Фракция +0,25 мм X
+				<i class="units">%</i>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="(value, index) in rowsCount" class="indexed-line">
+			<td style="">
+				<cell  field-name="date_create" :row-index="index" />
+			</td>
+			<td>
+				<cell  field-name="number_of_shift" :row-index="index" />
+			</td>
+			<td>
+				<cell  field-name="cinder" :row-index="index" id="mBsQP6anGU" />
+			</td>
+			<td>
+				<cell  field-name="balance" :row-index="index" id="7nlrspjomN" />
+			</td>
+			<td>
+				<cell  field-name="fraction" :row-index="index" id="8NnNcwYQWw" />
+			</td>
+		</tr>
+	</tbody>
+</table>

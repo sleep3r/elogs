@@ -1,0 +1,48 @@
+
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th>Время</th>
+            <th class="th-number">Cd<i class='units'>мг/л</i></th>
+            <th class="th-number">Cu<i class='units'>мг/л</i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, index) in 5">
+            <td><cell field-name="time" :row-index="index"></cell></td>
+            <td><cell field-name="Cd" :row-index="index"></cell></td>
+            <td><cell field-name="Cu" :row-index="index"></cell></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th class="th-common" colspan="3">ВИУ</th>
+        </tr>
+        <tr>
+            <th>#</th>
+            <th class="th-number">Г</th>
+            <th class="th-number">Х</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>I</th>
+            <td><cell field-name="VIU_G" :row-index="0"></cell></td>
+            <td><cell field-name="VIU_H" :row-index="0"></cell></td>
+        </tr>
+        <tr>
+            <th>II</th>
+            <td><cell field-name="VIU_G" :row-index="1"></cell></td>
+            <td><cell field-name="VIU_H" :row-index="1"></cell></td>
+        </tr>
+        <tr>
+            <th>III</th>
+            <td><cell field-name="VIU_G" :row-index="2"></cell></td>
+            <td><cell field-name="VIU_H" :row-index="2"></cell></td>
+        </tr>
+    </tbody>
+</table>

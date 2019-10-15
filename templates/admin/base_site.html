@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | E-logs{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">E-LOGS ADMIN</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block welcome-msg %}
+    <span class="welcome">
+        Добро пожаловать,
+        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+    </span>
+{% endblock %}
+
+{% block userlinks %}
+                {% if site_url %}
+                    <a href="{{ site_url }}" class="icon-link view-site-link" data-title="Перейти к журналам">Перейти к журналам</a>
+                    <span class="separator">/</span>
+
+                {% endif %}
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a href="{{ docsroot }}" class="icon-link documentation-link" data-title="Документация">Документация</a>
+                        <span class="separator">/</span>
+                    {% endif %}
+                {% endif %}
+                {% if user.has_usable_password %}
+                    <a href="{% url 'admin:password_change' %}" class="icon-link change-password-link" data-title="Изменить пароль">Изменить пароль</a>
+                    <span class="separator">/</span>
+                {% endif %}
+                <a href="{% url 'admin:logout' %}" class="icon-link logout-link" data-title="Выйти">Выйти</a>
+
+{% endblock %}
+{% block footer_links %}{% endblock %}
+{% block copyright %}{% endblock %}
+{% block footer_branding %}© Inframine{% endblock %}

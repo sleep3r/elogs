@@ -1,0 +1,577 @@
+{
+    "version": "0.1",
+    "name": "electrolysis_technical_report_3_degree",
+    "title": "Технологический журнал электролиза 3-й серии",
+    "type": "shift",
+    "tables": [
+        {
+            "name": "left",
+            "title": "Время замеров и работа оборудования",
+            "fields": [
+                {
+                    "name": "row_names",
+                    "formula": "",
+                    "title": "row_names",
+                    "type": null
+                },
+                {
+                    "name": "times",
+                    "formula": "",
+                    "title": "times",
+                    "type": null
+                },
+                {
+                    "name": "last_headers",
+                    "formula": "",
+                    "title": "last_headers",
+                    "type": null
+                },
+                {
+                    "name": "zn",
+                    "formula": "",
+                    "title": "zn",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответсвия",
+                    "type": "text",
+                    "units": ""
+                },
+                {
+                    "name": "zn_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text",
+                    "units": ""
+                },
+                {
+                    "name": "zn_mix",
+                    "formula": "",
+                    "title": "Смеси ",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "zn_mix_inconsistencies",
+                    "formula": "",
+                    "title": "Смеси ",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "zn_mix_steps",
+                    "formula": "",
+                    "title": "Смеси ",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "h2so4",
+                    "formula": "",
+                    "title": "H₂SO₄ отр.ш ",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "2so4_inconsistencies",
+                    "formula": "",
+                    "title": "Несоотвествия",
+                    "type": "text"
+                },
+                {
+                    "name" : "h2so4_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "solute1",
+                    "formula": "",
+                    "title": "Удельный вес хол-го раствора",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "solute1_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "solute1_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "solute2",
+                    "formula": "",
+                    "title": "Удельный вес отр-го раствора",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "solute2_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "solute2_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "mixture_temp",
+                    "formula": "",
+                    "title": "Температура смеси",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "mixture_temp_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "mixture_temp_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "bath_temp",
+                    "formula": "",
+                    "title": "Температура в ваннах",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "bath_temp_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "bath_temp_steps",
+                    "formula": "",
+                    "title": "Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "mix_temp",
+                    "formula": "",
+                    "title": "Температура смеси",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "mix_temp_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "mix_temp_steps",
+                    "formula": "",
+                    "title": "Температура, Принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "temp1",
+                    "formula": "",
+                    "title": "Температура ",
+                    "type": "number",
+                    "units": "ᵒC"
+                },
+                {
+                    "name": "temp1_inconsistencies",
+                    "formula": "",
+                    "title": "Несоответствия",
+                    "type": "text"
+                },
+                {
+                    "name" : "temp1_steps",
+                    "formula": "",
+                    "title": "Температура, Принятые меры",
+                    "type": "text"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\"> Параметры</th>\n            <th colspan=\"12\" class=\"th-common\"> Время замеров</th>\n            <th rowspan=\"2\"> Несоотвествия</th>\n            <th rowspan=\"2\"> Принятые меры</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 1\">\n            <th class=\"th-number\">8:00</th>\n            <th class=\"th-number\">9:00</th>\n            <th class=\"th-number\">10:00</th>\n            <th class=\"th-number\">11:00</th>\n            <th class=\"th-number\">12:00</th>\n            <th class=\"th-number\">13:00</th>\n            <th class=\"th-number\">14:00</th>\n            <th class=\"th-number\">15:00</th>\n            <th class=\"th-number\">16:00</th>\n            <th class=\"th-number\">17:00</th>\n            <th class=\"th-number\">18:00</th>\n            <th class=\"th-number\">19:00</th>\n        </tr>\n        <tr v-if=\"shiftOrder === 2\">\n            <th class=\"th-number\">20:00</th>\n            <th class=\"th-number\">21:00</th>\n            <th class=\"th-number\">22:00</th>\n            <th class=\"th-number\">23:00</th>\n            <th class=\"th-number\">00:00</th>\n            <th class=\"th-number\">01:00</th>\n            <th class=\"th-number\">02:00</th>\n            <th class=\"th-number\">03:00</th>\n            <th class=\"th-number\">04:00</th>\n            <th class=\"th-number\">05:00</th>\n            <th class=\"th-number\">06:00</th>\n            <th class=\"th-number\">07:00</th>\n        </tr>\n    </thead>\n    <tbody>\n    <tr>\n        <th> Zn в отр.<i class=\"units\">г/л</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"zn\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Смеси<i class=\"units\">г/л</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"zn_mix\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mix_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"zn_mix_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> H₂SO₄ отр.ш  <i class=\"units\">г/л</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"h2so4\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"h2so4_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес хол-го раствора<i class=\"units\">г/см³</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"solute1\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute1_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Удельный вес отр-го раствора<i class=\"units\">г/см³</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"solute2\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"solute2_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура смеси<i class=\"units\">ᵒC</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"mix_temp\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mix_temp_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"mix_temp__steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура в ваннах<i class=\"units\">ᵒC</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"bath_temp\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_temp_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"bath_temp_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    <tr>\n        <th> Температура 1<i class=\"units\">ᵒC</i></th>\n        <td v-for=\"rowNumber of 12\">\n            <cell field-name=\"temp1\" :row-index=\"rowNumber\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1_inconsistencies\" row-index=\"0\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"temp1_steps\" row-index=\"0\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "right",
+            "title": "Технологический режим, ПАВ и кристаллизаторы",
+            "fields": [
+                {
+                    "name": "h2so4",
+                    "formula": "",
+                    "title": "H<sub>2</sub>SO<sub>4</sub>",
+                    "type": "text",
+                    "units": ""
+                },
+                {
+                    "name": "zn",
+                    "formula": "",
+                    "title": "Zn в отр",
+                    "type": "number",
+                    "units": "г/л"
+                },
+                {
+                    "name": "grad1_1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'grad1_2')",
+                    "title": "Градирня №1",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "grad1_2",
+                    "formula": "",
+                    "title": "Градирня №1",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "grad2_1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'grad2_2')",
+                    "title": "Градирня №2",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "grad2_2",
+                    "formula": "",
+                    "title": "Градирня №2",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "tank1_1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'tank1_2')",
+                    "title": "Напорный бак №1",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "tank1_2",
+                    "formula": "",
+                    "title": "Напорный бак №1",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "tank2_1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'tank2_2')",
+                    "title": "Напорный бак №2",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "tank2_2",
+                    "formula": "",
+                    "title": "Напорный бак №2",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "cons1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'cons2')",
+                    "title": "Расход",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "cons2",
+                    "formula": "",
+                    "title": "Расход",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "znk",
+                    "formula": "",
+                    "title": "znk",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "cu1",
+                    "formula": "",
+                    "title": "Cu",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "co1",
+                    "formula": "",
+                    "title": "Co",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "cd1",
+                    "formula": "",
+                    "title": "Cd",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "sb1",
+                    "formula": "",
+                    "title": "Sb",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "fe2p1",
+                    "formula": "",
+                    "title": "fe<sup>2+</sup>",
+                    "type": "number",
+                    "units": "мг/л"
+                },
+                {
+                    "name": "bt1",
+                    "formula": "",
+                    "title": "ВТ %",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "weight1_1",
+                    "formula": "",
+                    "title": "Уд. вес (ЦВМО)",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "weight2_1",
+                    "formula": "",
+                    "title": "Уд. вес (5 чан)",
+                    "type": "number",
+                    "units": "г/см³"
+                },
+                {
+                    "name": "pumpnum1",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum2')",
+                    "title" : "Насос № 1",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum2",
+                    "formula": "",
+                    "title" : "Насос № 2",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum3",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum4')",
+                    "title" : "Насос № 3",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum4",
+                    "formula": "",
+                    "title" : "Насос № 4",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum5",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum6')",
+                    "title" : "Насос № 5",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum6",
+                    "formula": "",
+                    "title" : "Насос № 6",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum7",
+                    "formula": "FUNC(CURRENT_SHIFT - 1, 'right', 'pumpnum8')",
+                    "title" : "Насос № 7",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum8",
+                    "formula": "",
+                    "title" : "Насос № 8",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum9",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum10')",
+                    "title" : "Насос № 9",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum10",
+                    "formula": "",
+                    "title" : "Насос № 10",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum11",
+                    "formula": "FUNC(CURRENT_SHIFT - 1,'right', 'pumpnum12')",
+                    "title" : "Насос № 11",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "pumpnum12",
+                    "formula": "",
+                    "title" : "Насос № 12",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "zump_pump",
+                    "formula": "",
+                    "title": "Зумпфоровый насос",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "shlam_pump1",
+                    "formula": "",
+                    "title": "Шламовый насос",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "shlam_pump2",
+                    "formula": "",
+                    "title": "Шламовый насос 2",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "shlam_pump3",
+                    "formula": "",
+                    "title": "Шламовый насос 3",
+                    "type": "number",
+                    "units": "№"
+                },
+                {
+                    "name": "reason1",
+                    "formula": "",
+                    "title": "Причина остановки насоса, принятые меры",
+                    "type": "text"
+                },
+                {
+                    "name": "reason2",
+                    "formula": "",
+                    "title": "Причина остановки насоса, принятые меры",
+                    "type": "text"
+                }
+            ],
+            "html": "<div class=\"row_of_tables\">\n    <table class=\"table table-bordered elog-journal-table\">\n        <thead>\n        <tr>\n            <th colspan=\"3\" class=\"th-common\"> Установленный технологический режим</th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th>H<sub>2</sub>SO<sub>4</sub></th>\n            <td colspan=\"2\">\n                <cell field-name=\"h2so4\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th>Zn в отр.<i class=\"units\">г/л</i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"zn\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th></th>\n            <th>Пример смены</th>\n            <th>Сдача смены</th>\n        </tr>\n        <tr>\n            <th>Градирня №1</th>\n            <td>\n                <cell field-name=\"grad1_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"grad1_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Градирня №2</th>\n            <td>\n                <cell field-name=\"grad2_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"grad2_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Напорный бак №1</th>\n            <td>\n                <cell field-name=\"tank1_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"tank1_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Напорные бак №2</th>\n            <td>\n                <cell field-name=\"tank2_1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"tank2_2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th>Расход</th>\n            <td>\n                <cell field-name=\"cons1\" row-index=\"0\"></cell>\n            </td>\n            <td>\n                <cell field-name=\"cons2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        </tbody>\n        <thead>\n        <tr>\n            <th class=\"th-common\">Примеси</th>\n            <th colspan=\"2\" class=\"th-number\"><i class=\"units no-before\">мг/л</i></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th> Cu</th>\n            <td colspan=\"2\">\n                <cell field-name=\"cu1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Co</th>\n            <td colspan=\"2\">\n                <cell field-name=\"co1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Cd</th>\n            <td colspan=\"2\">\n                <cell field-name=\"cd1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Sb</th>\n            <td colspan=\"2\">\n                <cell field-name=\"sb1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Fe<sup>2+</sup></th>\n            <td colspan=\"2\">\n                <cell field-name=\"fe2p1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> BT %</th>\n            <td colspan=\"2\">\n                <cell field-name=\"bt1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        <tr>\n            <th> Уд. вес (ЦВМО)<i class=\"units\">г/см<sup>3</sup></i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"weight1_1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Уд. вес (5 чан)<i class=\"units\">г/см<sup>3</sup></i></th>\n            <td colspan=\"2\">\n                <cell field-name=\"weight2_1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n        </tbody>\n    </table>\n\n    <table class=\"table table-bordered elog-journal-table\">\n        <thead>\n        <tr>\n            <th colspan=\"4\" class=\"th-common\">\n                Склад растворов\n            </th>\n        </tr>\n        <tr>\n            <th colspan=\"2\"> Насосы на прием смены<i class=\"units\">№</i></th>\n            <th colspan=\"2\"> Насосы на окончание смены<i class=\"units\">№</i></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum1\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum3\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum4\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum5\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum6\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum7\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum8\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum9\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum10\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum11\" row-index=\"0\"></cell>\n            </td>\n            <th> Насос №</th>\n            <td>\n                <cell field-name=\"pumpnum12\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Причина остановки насоса, принятые меры</th>\n        </tr>\n\n        <tr>\n            <td colspan=\"4\">\n                <cell field-name=\"reason1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Зумпфоровые насосы<i class=\"units\">№</i></th>\n        </tr>\n\n        <tr>\n            <th> Зумпфоровый насос</th>\n            <td>\n                <cell field-name=\"zump_pump\" row-index=\"0\"></cell>\n            </td>\n            <th> Шламовый насос</th>\n            <td>\n                <cell field-name=\"shlam_pump1\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th> Шламовый насос</th>\n            <td>\n                <cell field-name=\"shlam_pump2\" row-index=\"0\"></cell>\n            </td>\n            <th> Шламовый насос</th>\n            <td>\n                <cell field-name=\"shlam_pump3\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        <tr>\n            <th colspan=\"4\"> Причина остановки насоса, принятые меры</th>\n        </tr>\n\n        <tr>\n            <td colspan=\"4\">\n                <cell field-name=\"reason2\" row-index=\"0\"></cell>\n            </td>\n        </tr>\n\n        </tbody>\n    </table>\n</div>\n"
+        },
+        {
+            "name": "goods_zinc",
+            "title": "Товарный цинк",
+            "fields": [
+                {
+                    "name": "Pb0",
+                    "formula": "",
+                    "title": "Pb (c 8:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Pb8",
+                    "formula": "",
+                    "title" : "Pb (с 8:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Pb16",
+                    "formula": "",
+                    "title" : "Pb (с 16:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cd0",
+                    "formula": "",
+                    "title" : "Cd (с 0:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cd8",
+                    "formula": "",
+                    "title" : "Cd (с 8:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cd16",
+                    "formula": "",
+                    "title" : "Cd (с 16:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Fe0",
+                    "formula": "",
+                    "title" : "Fe (с 0:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Fe8",
+                    "formula": "",
+                    "title" : "Fe (с 8:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Fe16",
+                    "formula": "",
+                    "title" : "Fe (с 16:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cu0",
+                    "formula": "",
+                    "title" : "Cu (с 0:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cu8",
+                    "formula": "",
+                    "title" : "Cu (с 8:00)",
+                    "type": "number",
+                    "units": "кг"
+                },
+                {
+                    "name": "Cu16",
+                    "formula": "",
+                    "title" : "Cu (с 16:00)",
+                    "type": "number",
+                    "units": "кг"
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n\t\t\t<th id=\"BGGl5fR-fp\"></th>\n\t\t\t<th id=\"J0gu89l056\">Pb, <i>кг</i></th>\n\t\t\t<th id=\"jJcXmKRq9S\">Cd, <i>кг</i></th>\n\t\t\t<th id=\"hIhmwf4MHR\">Fe, <i>кг</i></th>\n\t\t\t<th style=\"\" id=\"95H_SoMotBW\">Cu, <i>кг</i></th>\n\t\t</tr>\n    </thead>\n    <tbody>\n\t\t<tr>\n\t\t\t<th id=\"skQ0eHtlKd1\">С 0</th>\n\t\t\t<td>\n                <cell field-name=\"Pb0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu0\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th id=\"a90uu8ajNcq\">С 8</th>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Pb8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu8\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th id=\"7zxxwAlgLVB\">С 16</th>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Pb16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cd16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Fe16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<cell field-name=\"Cu16\" row-index=\"0\" />\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>"
+        }
+    ]
+}

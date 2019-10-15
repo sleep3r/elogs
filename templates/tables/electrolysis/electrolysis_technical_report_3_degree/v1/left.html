@@ -1,0 +1,136 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="2"> Параметры</th>
+            <th colspan="12" class="th-common"> Время замеров</th>
+            <th rowspan="2"> Несоотвествия</th>
+            <th rowspan="2"> Принятые меры</th>
+        </tr>
+        <tr v-if="shiftOrder === 1">
+            <th class="th-number">8:00</th>
+            <th class="th-number">9:00</th>
+            <th class="th-number">10:00</th>
+            <th class="th-number">11:00</th>
+            <th class="th-number">12:00</th>
+            <th class="th-number">13:00</th>
+            <th class="th-number">14:00</th>
+            <th class="th-number">15:00</th>
+            <th class="th-number">16:00</th>
+            <th class="th-number">17:00</th>
+            <th class="th-number">18:00</th>
+            <th class="th-number">19:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 2">
+            <th class="th-number">20:00</th>
+            <th class="th-number">21:00</th>
+            <th class="th-number">22:00</th>
+            <th class="th-number">23:00</th>
+            <th class="th-number">00:00</th>
+            <th class="th-number">01:00</th>
+            <th class="th-number">02:00</th>
+            <th class="th-number">03:00</th>
+            <th class="th-number">04:00</th>
+            <th class="th-number">05:00</th>
+            <th class="th-number">06:00</th>
+            <th class="th-number">07:00</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th> Zn в отр.<i class="units">г/л</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="zn" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Смеси<i class="units">г/л</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="zn_mix" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_mix_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_mix_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> H₂SO₄ отр.ш  <i class="units">г/л</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="h2so4" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="h2so4_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="h2so4_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Удельный вес хол-го раствора<i class="units">г/см³</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="solute1" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="solute1_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="solute1_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Удельный вес отр-го раствора<i class="units">г/см³</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="solute2" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="solute2_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="solute2_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Температура смеси<i class="units">ᵒC</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="mix_temp" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="mix_temp_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="mix_temp__steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Температура в ваннах<i class="units">ᵒC</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="bath_temp" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="bath_temp_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="bath_temp_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Температура 1<i class="units">ᵒC</i></th>
+        <td v-for="rowNumber of 12">
+            <cell field-name="temp1" :row-index="rowNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="temp1_inconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="temp1_steps" row-index="0"></cell>
+        </td>
+    </tr>
+    </tbody>
+</table>

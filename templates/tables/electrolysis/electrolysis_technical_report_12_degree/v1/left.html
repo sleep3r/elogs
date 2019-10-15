@@ -1,0 +1,265 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th rowspan="2" colspan="2"> Параметры</th>
+        <th colspan="12" class="th-common"> Время замеров</th>
+        <th rowspan="2"> Несоотвествия</th>
+        <th rowspan="2"> Принятые меры</th>
+    </tr>
+    <tr v-if="shiftOrder === 1">
+            <th class="th-number">8:00</th>
+            <th class="th-number">9:00</th>
+            <th class="th-number">10:00</th>
+            <th class="th-number">11:00</th>
+            <th class="th-number">12:00</th>
+            <th class="th-number">13:00</th>
+            <th class="th-number">14:00</th>
+            <th class="th-number">15:00</th>
+            <th class="th-number">16:00</th>
+            <th class="th-number">17:00</th>
+            <th class="th-number">18:00</th>
+            <th class="th-number">19:00</th>
+        </tr>
+        <tr v-if="shiftOrder === 2">
+            <th class="th-number">20:00</th>
+            <th class="th-number">21:00</th>
+            <th class="th-number">22:00</th>
+            <th class="th-number">23:00</th>
+            <th class="th-number">00:00</th>
+            <th class="th-number">01:00</th>
+            <th class="th-number">02:00</th>
+            <th class="th-number">03:00</th>
+            <th class="th-number">04:00</th>
+            <th class="th-number">05:00</th>
+            <th class="th-number">06:00</th>
+            <th class="th-number">07:00</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th colspan="2"> Zn<i class="units">г/л отр./смесь</i></th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="zn" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="znmismatches" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="znmeasures" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2"> H2SO4<i class="units">г/л в отр.</i></th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="h2so4" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="h2so4n" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="h2so4p" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="4"> t<i class="units"><sup>0</sup>C</i></th>
+        <th> смесь</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="zn_mix" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_mixinconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="zn_mixmeasures" row-index="0"></cell>
+        </td>
+    </tr>
+    <!--  -->
+    <tr>
+        <th> отработ.</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="otr" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="otrn" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="otrp" row-index="0"></cell>
+        </td>
+    </tr>
+    <!--  -->
+    <tr>
+        <th> в ваннах</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="bath_temp" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="bath_tempinconsistencies" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="bath_tempmeasures" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> нейтр. (град.)</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="ng" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="ngi" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="ngm" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="2"> I<i class="units">кА</i></th>
+        <th> I c.</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="i1" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="i1in" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="i1m" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> II c.</th>
+        <td v-for="hourNumber of 12">
+            <cell field-name="i2" :row-index="hourNumber"></cell>
+        </td>
+        <td>
+            <cell field-name="i2in" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="i2m" row-index="0"></cell>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th colspan="15" class="th-common"> Работа оборудования</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th class="th-number">Град №1</th>
+        <th class="th-number">Град №2</th>
+        <th class="th-number">Град №3</th>
+        <th class="th-number">Град №4</th>
+        <th class="th-number">Град №5</th>
+        <th class="th-number">Град №6</th>
+        <th class="th-number">Град №7</th>
+        <th class="th-number">Град №8</th>
+        <th class="th-number">Град №9</th>
+        <th colspan="2" class="th-common">Кристаллизаторы</th>
+    </tr>
+    </thead>
+    <tr>
+        <th> Вент. скорость<i class='units'>об/мин</i></th>
+        <td>
+            <cell field-name="grad1_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad2_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad3_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad4_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad5_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad6_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad7_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad8_vent" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad9_vent" row-index="0"></cell>
+        </td>
+        <th>№1</th>
+        <td>
+            <cell field-name="crystal1" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th> Режим (з/л)</th>
+        <td>
+            <cell field-name="grad1_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad2_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad3_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad4_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad5_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad6_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad7_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad8_mode" row-index="0"></cell>
+        </td>
+        <td>
+            <cell field-name="grad9_mode" row-index="0"></cell>
+        </td>
+        <th>№2</th>
+        <td>
+            <cell field-name="crystal2" row-index="0"></cell>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="2">Расход нейтр. р-ра<i class='units'>м³</i></th>
+        <th colspan="3">Промывка/чистка</th>
+        <th colspan="7">Работа насосов</th>
+    </tr>
+    <tr>
+        <th> Общий</th>
+        <td>
+            <cell field-name="common1" row-index="0"></cell>
+        </td>
+        <td colspan="3">
+            <cell field-name="common2" row-index="0"></cell>
+        </td>
+        <td colspan="7" rowspan="3">
+            <cell field-name="pumps_summ" row-index="0"></cell>
+        </td>
+    </tr>
+
+    <tr>
+        <th> 3 серии</th>
+        <td>
+            <cell field-name="series31" row-index="0"></cell>
+        </td>
+        <td colspan="3">
+            <cell field-name="series32" row-index="0"></cell>
+        </td>
+    </tr>
+
+    <tr>
+        <th> 4 серии</th>
+        <td>
+            <cell field-name="series41" row-index="0"></cell>
+        </td>
+        <td colspan="3">
+            <cell field-name="series42" row-index="0"></cell>
+        </td>
+    </tr>
+</table>

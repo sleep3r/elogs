@@ -1,0 +1,30 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th> Номер вагона </th>
+            <th> Наиме­нование концен­трата </th>
+            <th> Время подачи </th>
+
+            <th> Время плано­вой уборки </th>
+            <th> Время факти­ческой уборки </th>
+
+            <th class="th-number"> Время перепростоя<i class="units">ч</i></th>
+            <th class="th-number"> Поступило контей­неров<i class="units">шт</i> </th>
+            <th class="th-number"> Поступило поддонов<i class="units">шт</i> </th>
+            <th class="th-number"> Поступило упоров<i class="units">шт</i> </th>
+        </tr>
+    </thead>
+    <tbody>
+          <tr v-for="(value, index) in rowsCount" class="indexed-line">
+              <td><cell field-name="wagon_num" :row-index="index"></cell></td>
+              <td><cell field-name="conc_num" :row-index="index"></cell></td>
+              <td><cell field-name="supply_time" :row-index="index"></cell></td>
+              <td><cell field-name="plan_cleaning_time" :row-index="index"></cell></td>
+              <td><cell field-name="fact_cleaning_time" :row-index="index"></cell></td>
+              <td><cell field-name="downtime" :row-index="index"></cell></td>
+              <td><cell field-name="recieved_conc" :row-index="index"></cell></td>
+              <td><cell field-name="recieved_beds" :row-index="index"></cell></td>
+              <td><cell field-name="recieved_stops" :row-index="index"></cell></td>
+          </tr>
+    </tbody>
+</table>

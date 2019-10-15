@@ -1,0 +1,45 @@
+{
+   "version" : "0.1",
+   "title" : "Журнал по ремонту оборудования",
+   "name" : "electrolysis_repair_report_tables",
+   "type" : "equipment",
+   "tables" : [
+      {
+         "title" : "Ремонт",
+         "name" : "main",
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th colspan=\"3\" class=\"th-common\">Запись о дефектах, обнаруженных при осмотрах</th>\n            <th colspan=\"4\" class=\"th-common\"> Запись о работах, выполненных по устранению дефектов</th>\n        </tr>\n        <tr>\n            <th> Дата осмотра </th>\n            <th> Наименование узла в характеристике дефектов </th>\n            <th> Дата выполнения работ </th>\n            <th> Объем выполненых работ по устранению дефектов </th>\n            <th> Фактический срок службы узла, детали</th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell field-name=\"date1\" :row-index=\"index\"></cell></td>\n          <td><cell field-name=\"node_name\" :row-index=\"index\"></cell></td>\n          <td><cell field-name=\"date2\" :row-index=\"index\"></cell></td>\n          <td><cell field-name=\"work_done\" :row-index=\"index\"></cell></td>\n          <td><cell field-name=\"expl_time\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n",
+         "fields" : [
+            {
+               "name" : "date1",
+               "type" : "date",
+               "title" : "Дата осмотра",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "Наименование узла в характеристике дефектов",
+               "type" : "text",
+               "name" : "node_name"
+            },
+            {
+               "name" : "date2",
+               "type" : "date",
+               "title" : "Дата выполнения работ",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "work_done",
+               "type" : "text",
+               "title" : "Объем выполненых работ по устранению дефектов"
+            },
+            {
+               "formula" : "",
+               "title" : "Фактический срок службы узла, детали",
+               "type" : "text",
+               "name" : "texpl_time"
+            }
+         ]
+      }
+   ]
+}

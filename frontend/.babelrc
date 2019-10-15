@@ -1,0 +1,10 @@
+{
+    "presets": ["@babel/preset-env"],
+    "env": {
+        "production": {
+            "presets": ["minify"]
+        }
+    },
+    "plugins": ["syntax-dynamic-import"],
+    "compact": true
+}

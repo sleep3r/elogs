@@ -1,0 +1,75 @@
+/*------------------------------------*\
+  # Common definitions
+\*------------------------------------*/
+@import "variables";
+
+a, a:hover {
+  color: #495057;
+}
+
+textarea {
+    resize: none;
+}
+
+/*------------------------------------*\
+  # Framework
+\*------------------------------------*/
+
+// really cool mixin allows you to do {
+//  @include vendor-prefix('box-sizing', 'border-box');
+//}
+@mixin vendor-prefix($name, $value) {
+  @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+    #{$vendor}#{$name}: #{$value};
+  }
+}
+
+.hidden {
+    visibility: collapse;
+}
+
+.shown {
+    visibility: visible;
+}
+
+.visible {
+    visibility: visible !important;
+}
+
+.bordered.bordered {
+    border: 1px solid $border-color;
+}
+
+// ---- sliding elements ----
+.slide-up, .slide-down {
+    overflow-y: hidden;
+    @include vendor-prefix('transition', 'max-height 0.3s ease-in-out');
+}
+
+.slide-up {
+    max-height: 0;
+}
+
+.slide-down {
+    max-height: 100vh;
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spinner .6s linear infinite;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}

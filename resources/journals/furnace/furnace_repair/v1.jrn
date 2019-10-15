@@ -1,0 +1,80 @@
+{
+   "tables" : [
+      {
+         "title" : "Ремонты по Обжиговому цеху",
+         "name" : "repair",
+         "fields" : [
+            {
+               "type" : "number",
+               "name" : "position_number",
+               "units" : "№",
+               "title" : "№ позиции по титульному списку СУД",
+               "formula" : ""
+            },
+            {
+               "name" : "pp",
+               "type" : "number",
+               "title" : "№ п/п",
+               "units" : "№",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "name" : "department",
+               "type" : "text",
+               "title" : "Подразделение"
+            },
+            {
+               "formula" : "",
+               "title" : "Наименование объекта",
+               "name" : "name_of_object",
+               "type" : "text"
+            },
+            {
+               "type" : "number",
+               "name" : "inv_number",
+               "units" : "№",
+               "title" : "№ инв",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "units" : "",
+               "title" : "Группа значимости",
+               "type" : "number",
+               "name" : "group"
+            },
+            {
+               "formula" : "",
+               "name" : "work_center",
+               "type" : "text",
+               "title" : "Рабоч центр"
+            },
+            {
+               "type" : "number",
+               "name" : "tax_group",
+               "units" : "№",
+               "title" : "№ налоговой группы",
+               "formula" : ""
+            },
+            {
+               "formula" : "",
+               "title" : "Описание работ",
+               "name" : "description",
+               "type" : "text"
+            },
+            {
+               "formula" : "",
+               "title" : "Исполнитель",
+               "type" : "text",
+               "name" : "executor"
+            }
+         ],
+         "html" : "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n    <tr>\n        <th>№ позиции по титульному списку СУД</th>\n        <th>№ п/п</th>\n        <th>Подразделение</th>\n        <th>Наименование объекта</th>\n        <th>№ инв</th>\n        <th>Группа значимости</th>\n        <th>Рабоч центр</th>\n        <th>№ налоговой группы</th>\n        <th>Описание работ</th>\n        <th>Исполнитель</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n        <td>\n            <cell field-name=\"position_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"pp\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"department\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"name_of_object\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"inv_number\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"work_center\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"tax_group\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"description\" :row-index=\"index\"></cell>\n        </td>\n        <td>\n            <cell field-name=\"executor\" :row-index=\"index\"></cell>\n        </td>\n    </tr>\n    </tbody>\n</table>\n"
+      }
+   ],
+   "type" : "equipment",
+   "name" : "furnace_repair",
+   "title" : "Журнал по ремонту",
+   "version" : "0.1"
+}

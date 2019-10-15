@@ -1,0 +1,35 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th>Время</th>
+        <th>Характер несоответствия ТИ</th>
+        <th>Корректирующие действия</th>
+        <th> -</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(value, index) in rowsCount" class="indexed-line">
+        <td>
+            <cell   field-name="time" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell   field-name="character" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell   field-name="correction" :row-index="index"></cell>
+        </td>
+        <td>
+            <cell   field-name="extra" :row-index="index"></cell>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<h4>Отметка о состоянии "кипящего слоя печей КС"</h4>
+<table class="table table-bordered elog-journal-table">
+    <tr>
+        <td>
+            <cell   field-name="ks_comment" row-index="0"></cell>
+        </td>
+    </tr>
+</table>

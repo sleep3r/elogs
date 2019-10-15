@@ -1,0 +1,57 @@
+/**
+*
+* CONTENTS
+* Config....................Common variables, colors
+* Layout....................Main sections for layout
+*   Header..................Header
+*   Menu....................Left menu.scss
+*   Footer..................footer.scss
+*
+* Journal...................Journal container styles
+* Tables....................Table styles
+* Values....................Styles for cells, inputs
+* Notifications.............Messages for users
+* Fractional................Fractional screen
+* Slide.....................Comments slide down
+* Popup.....................Popup for each cell comment
+* Scheme....................Scheme of workshops
+*
+*/
+
+
+
+// ------------------------------------- Libs -------------------------------------
+@import "~fullcalendar/dist/fullcalendar.css";
+//@import "~fullcalendar/dist/fullcalendar.print.css";
+@import "~bootstrap-scss";
+
+@import "~jquery-confirm/css/jquery-confirm.css";
+@import "~pnotify/dist/PNotifyBrightTheme.css";
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~clockpicker/dist/bootstrap-clockpicker.min.css';
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css';
+
+
+// ------------------------------------- Fonts and typefaces -------------------------
+@import '~typeface-roboto-condensed/index.css';
+@import '~typeface-roboto/index.css';
+//@import '~material-design-icons/iconfont/material-icons.css';
+
+
+// ------------------------------------- Modules -------------------------------------
+@import "common.scss";
+@import "variables";
+@import "layout.scss";
+@import "notifications";
+@import "calendar.scss";
+@import "data-visualization.scss";
+@import "feedback";
+// @import "popup";
+@import "scheme";
+@import "modes";

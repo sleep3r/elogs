@@ -1,0 +1,776 @@
+{
+    "version": "0.1",
+    "name": "report_income_outcome_schieht",
+    "title": "Поступление, расходы и остатки Zn концентратов",
+    "type": "year",
+    "tables": [
+        {
+            "name": "main",
+            "title": "",
+            "fields": [
+                {
+                    "name": "concentrate__plan__January",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__January",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__January",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__January",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__January",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__January",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__February",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__February",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__February",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__February",
+                    "title": "concentrate__fact__February",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__February",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__February",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__March",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__March",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__March",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__March",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__March",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__March",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__April",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__April",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__April",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__April",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__April",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__April",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__May",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__May",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__May",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__May",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__May",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__May",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__June",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__June",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__June",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__June",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__June",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__June",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__July",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__July",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__July",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__July",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__July",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__July",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__August",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__August",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__August",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__August",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__August",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__August",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__September",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__September",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__September",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__September",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__September",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__September",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__October",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__October",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__October",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__October",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__October",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__October",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__November",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__November",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__November",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__November",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__November",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__November",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__plan__December",
+                    "title": "Конц. смт (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__plan__December",
+                    "title": "Zn (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__plan__December",
+                    "title": "Соотношение (по плану)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "concentrate__fact__December",
+                    "title": "Конц. смт (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn__fact__December",
+                    "title": "Zn (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "ratio__fact__December",
+                    "title": "Соотношение (по факту)",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                }
+            ],
+            "html": "<ul class=\"nav nav-tabs\" style=\"overflow-x: auto; display: -webkit-box; margin-bottom: 10px;\">\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#January_table\" class=\"nav-link active\" aria-controls=\"January_table\">\u042F\u043D\u0432\u0430\u0440\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#February_table\" class=\"nav-link\" aria-controls=\"February_table\">\u0424\u0435\u0432\u0440\u0430\u043B\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#March_table\" class=\"nav-link\" aria-controls=\"March_table\">\u041C\u0430\u0440\u0442</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#April_table\" class=\"nav-link\" aria-controls=\"April_table\">\u0410\u043F\u0440\u0435\u043B\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#May_table\" class=\"nav-link\" aria-controls=\"May_table\">\u041C\u0430\u0439</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#June_table\" class=\"nav-link\" aria-controls=\"June_table\">\u0418\u044E\u043D\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#July_table\" class=\"nav-link\" aria-controls=\"July_table\">\u0418\u044E\u043B\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#August_table\" class=\"nav-link\" aria-controls=\"August_table\">\u0410\u0432\u0433\u0443\u0441\u0442</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#September_table\" class=\"nav-link\" aria-controls=\"September_table\">\u0421\u0435\u043D\u0442\u044F\u0431\u0440\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#October_table\" class=\"nav-link\" aria-controls=\"October_table\">\u041E\u043A\u0442\u044F\u0431\u0440\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#November_table\" class=\"nav-link\" aria-controls=\"November_table\">\u041D\u043E\u044F\u0431\u0440\u044C</a>\r\n    </li>\r\n\r\n    <li class=\"nav-item\">\r\n        <a data-toggle=\"tab\" href=\"#December_table\" class=\"nav-link\" aria-controls=\"December_table\">\u0414\u0435\u043A\u0430\u0431\u0440\u044C</a>\r\n    </li>\r\n\r\n</ul>\r\n<div class=\"tab-content\">\r\n\r\n    <div class=\"tab-pane fade show active\" id=\"January_table\">\r\n\r\n        <div style=\"display: inline-block\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__January\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"February_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                        <th> Zn (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                        <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__February\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"March_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__March\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"April_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__April\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"May_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__May\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"June_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__June\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"July_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__July\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"August_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__August\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade in\" id=\"September_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__September\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"October_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__October\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"November_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__November\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"tab-pane fade \" id=\"December_table\">\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u043F\u043B\u0430\u043D\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__plan__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__plan__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__plan__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <div style=\"display:inline-block;\">\r\n            <input class=\"index-input\" hidden=\"\" name=\"index\" value=\"0\">\r\n            <table class=\"table table-bordered elog-journal-table\">\r\n                <thead>\r\n                <tr>\r\n                    <th> \u041A\u043E\u043D\u0446. \u0441\u043C\u0442 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)</th>\r\n                    <th> Zn (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                    <th> \u0421\u043E\u043E\u0442\u043D\u043E\u0448\u0435\u043D\u0438\u0435 (\u043F\u043E \u0444\u0430\u043A\u0442\u0443)<i class=\"units\">\u0442\u043E\u043D\u043D</i></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n\r\n\r\n                <tr v-for=\"(value, index) in rowsCount\">\r\n\r\n                    <td>\r\n                        <cell field-name=\"concentrate__fact__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"zn__fact__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                    <td>\r\n                        <cell field-name=\"ratio__fact__December\" :row-index=\"index\"></cell>\r\n                    </td>\r\n                </tr>\r\n\r\n\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
+        },
+        {
+            "name": "supply_of_zinc_concentrates",
+            "title": "Поставка цинковых концентратов",
+            "fields": [
+                {
+                    "name": "concentrate",
+                    "title": "Конц. смт",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "zn",
+                    "title": "Zn",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th class=\"th-number\"> Конц. смт </th>\n            <th class=\"th-number\"> Zn </th>\n        </tr>\n    </thead>\n    <tbody>\n      <tr v-for=\"(value, index) in rowsCount\" class=\"indexed-line\">\n          <td><cell field-name=\"concentrate\" :row-index=\"index\"></cell></td>\n          <td><cell field-name=\"zn\" :row-index=\"index\"></cell></td>\n      </tr>\n    </tbody>\n</table>\n"
+        },
+        {
+            "name": "year_plan_schieht",
+            "title": "Расчет годового плана шихты",
+            "fields": [
+                {
+                    "name": "concentrate",
+                    "title": "Концентрат",
+                    "formula": "",
+                    "type": "datalist",
+                    "options": []
+                },
+                {
+                    "name": "year_plans",
+                    "title": "План на год",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "month_smt",
+                    "title": "Расход шихты за месяц",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "day_smt",
+                    "title": "Расход шихты в сутки",
+                    "formula": "",
+                    "type": "number",
+                    "units": "СМТ"
+                },
+                {
+                    "name": "tonns_a_year",
+                    "title": "Тонн в год",
+                    "formula": "",
+                    "type": "number",
+                    "units": "тонн"
+                },
+                {
+                    "name": "schieht_frac",
+                    "title": "Доля в шихте",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "empty",
+                    "title": "empty",
+                    "formula": "",
+                    "type": "text"
+                },
+                {
+                    "name": "zn",
+                    "title": "Zn",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "s",
+                    "title": "S",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "h2o",
+                    "title": "H<sub>2</sub>O",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "fe",
+                    "title": "Fe",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "cu",
+                    "title": "Cu",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "pb",
+                    "title": "Pb",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "sio2",
+                    "title": "SiO<sub>2</sub>",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "cd",
+                    "title": "Cd",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "cao",
+                    "title": "CaO",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "mgo",
+                    "title": "MgO",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "K",
+                    "title": "K",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "na",
+                    "title": "Na",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "arsenic",
+                    "title": "As",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "co",
+                    "title": "co",
+                    "formula": "",
+                    "type": "number",
+                    "units": "%"
+                },
+                {
+                    "name": "au",
+                    "title": "Au",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "ag",
+                    "title": "Ag",
+                    "formula": "",
+                    "type": "number",
+                    "units": "г/т"
+                },
+                {
+                    "name": "vmt",
+                    "title": "ВМТ",
+                    "formula": "",
+                    "type": "number",
+                    "units": "ВМТ"
+                },
+                {
+                    "name": "norm",
+                    "title": "Норма/Отклоние",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                }
+            ],
+            "html": "<table class=\"table table-bordered elog-journal-table\">\n    <thead>\n        <tr>\n            <th> Концентрат</th>\n            <th class=\"th-number\"> План&nbsp;на год<i class='units'>СМТ</i></th>\n            <th class=\"th-number\"> Расход шихты за месяц<i class='units'>СМТ</i></th>\n            <th class=\"th-number\" style=\"min-width: 30px;\"></th>\n            <th class=\"th-number\"> Расход&nbsp;шихты в&nbsp;сутки<i class='units'>СМТ</i></th>\n            <th class=\"th-number\"> Тонн&nbsp;в&nbsp;год</th>\n            <th class=\"th-number\"> Доля в шихте<i class='units'>%</i></th>\n            <th class=\"th-number\"> Zn<i class='units'>%</i></th>\n            <th class=\"th-number\"> S<i class='units'>%</i></th>\n            <th class=\"th-number\"> H<sub>2</sub>O<i class='units'>%</i></th>\n            <th class=\"th-number\"> Fe<i class='units'>%</i></th>\n            <th class=\"th-number\"> Cu<i class='units'>%</i></th>\n            <th class=\"th-number\"> Pb<i class='units'>%</i></th>\n            <th class=\"th-number\"> SiO<sub>2</sub><i class='units'>%</i></th>\n            <th class=\"th-number\"> Cd<i class='units'>%</i></th>\n            <th class=\"th-number\"> CaO<i class='units'>%</i></th>\n            <th class=\"th-number\"> MgO<i class='units'>%</i></th>\n            <th class=\"th-number\"> K<i class='units'>%</i></th>\n            <th class=\"th-number\"> Na<i class='units'>%</i></th>\n            <th class=\"th-number\"> As<i class='units'>%</i></th>\n            <th class=\"th-number\"> Co<i class='units'>%</i></th>\n            <th class=\"th-number\"> Au<i class='units'>г/т</i></th>\n            <th class=\"th-number\"> Ag<i class='units'>г/т</i></th>\n            <th class=\"th-number\"> <i class='units no-before'>ВМТ</i></th>\n            <th class=\"th-number\"> Норма/Отклоние</th>\n        </tr>\n    </thead>\n    <tr v-for=\"(value, index) in rowsCount\">\n        <td><cell field-name=\"concentrate\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"year_plans\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"month_smt\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"empty_field\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"day_smt\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"tonns_a_year\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"schieht_frac\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"zn\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"s\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"h2o\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"fe\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"cu\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"pb\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"sio2\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"cd\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"cao\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"mgo\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"K\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"na\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"arsenic\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"co\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"au\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"ag\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"vmt\" :row-index=\"index\"></cell></td>\n        <td><cell field-name=\"norm\" :row-index=\"index\"></cell></td>\n    </tr>\n</table>\n"
+        },
+        {
+            "name": "summary",
+            "title": "НЗП и склады",
+            "fields": [
+                {
+                    "name": "nzp_concentrate",
+                    "title": "НЗП",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "nzp_zn",
+                    "title": "НЗП",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "sklad_concentrate",
+                    "title": "Склады",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "sklad_zn",
+                    "title": "Склады",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "itogo_concentrate",
+                    "title": "Итого",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "itogo_zn",
+                    "title": "Итого",
+                    "formula": "",
+                    "type": "number",
+                    "units": ""
+                },
+                {
+                    "name": "on_year",
+                    "title": "На 01.01.",
+                    "formula": "",
+                    "type": ""
+                }
+            ],
+            "html": "<table class='table table-bordered elog-journal-table'>\n    <thead>\n        <tr>\n            <th></th>\n            <th colspan='2' class='th-common'><span> На 01.01.{{this.year}} года </span></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <th>НЗП</th>\n            <td><cell field-name='nzp_concentrate' row-index='0'></cell></td>\n            <td><cell field-name='nzp_zn' row-index='0'></cell></td>\n        </tr>\n        <tr>\n            <th>Склады</th>\n<td><cell field-name='sklad_concentrate' row-index='0'></cell></td>\n            <td><cell field-name='sklad_zn' row-index='0'></cell></td>\n        </tr>\n        <tr>\n            <th>Итого</th>\n            <td><cell field-name='itogo_concentrate' row-index='0'></cell></td>\n            <td><cell field-name='itogo_zn' row-index='0'></cell></td>\n        </tr>\n    </tbody>\n</table>\n\n"
+        }
+    ]
+}

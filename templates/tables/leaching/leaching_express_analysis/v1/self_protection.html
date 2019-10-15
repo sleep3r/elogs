@@ -1,0 +1,16 @@
+
+<table class="table table-bordered elog-journal-table">
+  <thead>
+    <tr>
+      <th colspan="2" class="th-common">Обход</th>
+      <th>Примечание</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr v-for="index of 3">
+        <td><cell field-name="visiting_time" :row-index="index"></cell></td>
+        <td><cell field-name="visiting" :row-index="index"></cell></td>
+        <td v-if="index === 1" rowspan="3"><cell field-name="notation" row-index="0"></cell></td>
+      </tr>
+  </tbody>
+</table>

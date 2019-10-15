@@ -1,0 +1,16 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th class="th-number"> Концентрация O<sub>2</sub> в помещении<i class="units">%</i> </th>
+            <th class="th-time"> Время пуска и остановки воздушных машин </th>
+            <th class="th-number"> В работе воздуходувных машин<i class="units">№</i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, index) in rowsCount" class="indexed-line">
+            <td><cell   field-name="conc_o2" :row-index="index"></cell></td>
+            <td><cell   field-name="time_start" :row-index="index"></cell></td>
+            <td><cell   field-name="cnt_in_process" :row-index="index"></cell></td>
+        </tr>
+    </tbody>
+</table>

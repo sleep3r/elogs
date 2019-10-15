@@ -1,0 +1,86 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+    <tr>
+        <th rowspan="2">ГОФ</th>
+        <th colspan="3" class="th-common">Приход концентрата (Пасечникова)</th>
+        <th colspan="2" class="th-common">Остаток на
+            <span>
+                    <cell  field-name="remainder_date" row-index="0"></cell>
+                </span>
+        </th>
+        <th colspan="2" class="th-common">Итого</th>
+        <th colspan="2" class="th-common">Расход концентрата</th>
+        <th colspan="2" class="th-common">Остаток концентрата на
+            <span>
+                    <cell  field-name="remainder_date_guild" row-index="0"></cell>
+                </span>
+            ЦеХ
+        </th>
+        <th colspan="2" class="th-common">Остаток концентрата на
+            <span>
+                    <cell  field-name="remainder_date_Kusmanov" row-ndex="0"></cell>
+                </span>
+            Кусманов
+        </th>
+    </tr>
+    <tr>
+        <th>ВМТ</th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+        <th>СМТ</th>
+        <th>Цинк<i class="units">т</i></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(title, index) in ['ЗГОК','Арт-ий', 'Усть-ТАЛ','Карагайлы','Верх-Бер', 'Белоусовка', 'Жезкент', 'Ер Тай','Н. Широкинский','Лесосиб','Алтын-Топкан']">
+            <th v-html="title"></th>
+            <td>
+                <cell  field-name="vmt" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt2" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc2" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt3" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc3" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt4" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc4" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt5" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc5" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="cmt6" :row-index="index"></cell>
+            </td>
+            <td>
+                <cell  field-name="zinc6" :row-index="index"></cell>
+            </td>
+        </tr>
+    </tbody>
+</table>

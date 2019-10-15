@@ -1,0 +1,52 @@
+
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th rowspan="4">Время</th>
+            <th colspan="6" class="th-common">Сгуститель 10</th>
+            <th colspan="6" class="th-common">Сгуститель 11</th>
+            <th colspan="6" class="th-common">Сгуститель 12</th>
+        </tr>
+        <tr>
+            <th colspan="4" class="th-common">ВС 10сг.</th>
+            <th colspan="2" class="th-common">НС 11сг.</th>
+            <th colspan="4" class="th-common">ВС 12сг.</th>
+            <th colspan="2" class="th-common">НС 10сг.</th>
+            <th colspan="4" class="th-common">ВС 11сг.</th>
+            <th colspan="2" class="th-common">НС 12сг.</th>
+        </tr>
+        <tr>
+          <template v-for="(value, index) in 3">
+            <th class="th-number">pH</th>
+            <th class="th-number">Cu<i class='units'>мг/л</i></th>
+            <th class="th-number">Fe<i class='units'>мг/л</i></th>
+            <th class="th-number">Ж:Т</th>
+            <th class="th-number">pH</th>
+            <th class="th-number">Ж:Т</th>
+          </template>
+        </tr>
+    </thead>
+    <tbody>
+            <tr v-for="(value, index) in rowsCount" class="indexed-line">
+                <td><cell field-name="time" :row-index="index"></cell></td>
+                <td><cell field-name="vs10_pH" :row-index="index"></cell></td>
+                <td><cell field-name="vs10_Cu" :row-index="index"></cell></td>
+                <td><cell field-name="vs10_Fe" :row-index="index"></cell></td>
+                <td><cell field-name="vs10_liquid_solid" :row-index="index"></cell></td>
+                <td><cell field-name="ns10_pH" :row-index="index"></cell></td>
+                <td><cell field-name="ns10_liquid_solid" :row-index="index"></cell></td>
+                <td><cell field-name="vs11_pH" :row-index="index"></cell></td>
+                <td><cell field-name="vs11_Cu" :row-index="index"></cell></td>
+                <td><cell field-name="vs11_Fe" :row-index="index"></cell></td>
+                <td><cell field-name="vs11_liquid_solid" :row-index="index"></cell></td>
+                <td><cell field-name="ns11_pH" :row-index="index"></cell></td>
+                <td><cell field-name="ns11_liquid_solid" :row-index="index"></cell></td>
+                <td><cell field-name="vs12_pH" :row-index="index"></cell></td>
+                <td><cell field-name="vs12_Cu" :row-index="index"></cell></td>
+                <td><cell field-name="vs12_Fe" :row-index="index"></cell></td>
+                <td><cell field-name="vs12_liquid_solid" :row-index="index"></cell></td>
+                <td><cell field-name="ns12_pH" :row-index="index"></cell></td>
+                <td><cell field-name="ns12_liquid_solid" :row-index="index"></cell></td>
+            </tr>
+    </tbody>
+</table>

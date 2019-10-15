@@ -1,0 +1,192 @@
+/*------------------------------------*\
+  # MENU
+\*------------------------------------*/
+@import "variables";
+
+.column-left.menu__hidden {
+    .menu.menu--left, .menu__sub-title, .menu__logo{
+        opacity: 0;
+    }
+}
+
+.menu.menu--left {
+    height: calc(100vh - 94px);
+}
+
+.column-left {
+    height: 100%;
+}
+
+.menu__panel {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}
+
+.menu__panel--modes {
+    justify-content: space-between;
+}
+
+.menu__title {
+    display: block;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: $color-text;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    text-shadow: 2px 2px #CCCCCC;
+}
+
+.menu__toggle {
+    display: block;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.menu__logo {
+    color: $color-text;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.menu {
+    list-style: none;
+    background-color: $color-normal;
+    padding: 0;
+    border: 1px solid #e5e5e5;
+    overflow-y: auto;
+    transition: 0.2s;
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+.menu > .menu__item {
+    display: block;
+    position: relative;
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid $color-border;
+    color: $color-menu-text;
+}
+
+.menu > .menu__item.open {
+    padding-bottom: 0;
+}
+
+.menu .sub-menu {
+    background-color: $color-level2;
+    position: relative;
+    list-style: none;
+    padding-left: 10px;
+    margin-left: 0;
+}
+
+.menu > .menu__item > .sub-menu {
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.menu li a {
+    color: $color-menu-text;
+}
+
+.menu .sub-menu {
+    display: none;
+}
+
+.menu li.open .sub-menu {
+    display: block;
+}
+
+.menu li.open {
+    background-color: $color-active;
+}
+
+
+.menu li.menu__item.open > ul > li.menu__item.open {
+    border-right: 3px solid $color-active;
+
+}
+
+.menu li.menu__item.open > ul > li.menu__item.open:hover {
+    border-right: 3px solid $color-border;
+}
+
+
+.sub-menu > li {
+    padding: 10px;
+}
+
+.sub-menu > .menu__item {
+    border-left: 1px dotted $color-border;
+    border-right: 3px solid #e0e0e0;
+}
+
+.menu > li.menu__item:hover {
+    background-color: $color-active;
+    cursor: pointer;
+}
+
+.sub-menu > .menu__item:not(.parent):hover {
+    background-color: #F5F7FA;
+    border-right: 3px solid $color-border;
+}
+
+.sub-menu > .menu__item.parent:hover > a {
+    font-weight: bold;
+}
+
+.sub-menu > .menu__item::before {
+    content: "";
+    background: #425668;
+    bottom: auto;
+    height: 8px;
+    left: 6px;
+    margin-top: 4px;
+    position: absolute;
+    right: auto;
+    width: 8px;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.menu .arrow {
+    display: block;
+    width: 14px !important;
+    height: 14px;
+    line-height: 14px;
+    text-shadow: none;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    padding: 0;
+    text-align: center;
+}
+
+.menu-item__icon {
+    display: inline-block;
+    font-style: italic !important;
+    min-width: 30px;
+    margin-right: 2px;
+    text-align: center;
+    font-size: 14px;
+}
+
+@media (max-width: 677.98px) {
+    .menu.menu--left, .menu__sub-title, .menu__logo {
+        opacity: 1 !important;
+    }
+}

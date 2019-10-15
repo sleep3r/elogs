@@ -1,0 +1,16 @@
+<table class="table table-bordered elog-journal-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Золото</th>
+            <th>Серебро</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="(value, index) in rowsCount" class="indexed-line">
+            <td><cell  field-name="date_conc" :row-index="index"></cell></td>
+            <td><cell  field-name="gold" :row-index="index"></cell></td>
+            <td><cell  field-name="silver" :row-index="index"></cell></td>
+        </tr>
+    </tbody>
+</table>
