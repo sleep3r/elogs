@@ -62,8 +62,8 @@ services:
       - production_caddy:/root/.caddy
     env_file:
       - ./.env
-    entrypoint:
-      ACME_AGREE=true
+    environment:
+      ACME_AGREE: true
     ports:
       - "8085:8085"
       - "8000:8000"
