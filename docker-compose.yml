@@ -19,19 +19,31 @@ services:
     expose:
       - "6379"
 
-  django: &django
+  django:
     build:
       context: .
       dockerfile: ./docker/django/Dockerfile
+    image: yampolskiydv/elogs_back
+    container_name: django_cont
+    env_file:
+      - ./.env
     depends_on:
       - redis
       - postgres
-    env_file:
-      - ./.env
     command:
       - /entrypoint
 #    volumes:
 #      - ./:/srv/
+
+  migrator:
+    image: yampolskiydv/elogs_back
+    container_name: migrator_cont
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - postgres
+    entrypoint: '/apply_migrations.sh'
 
   constructor:
     build: e-logs-constructor
@@ -55,7 +67,10 @@ services:
       - "443:443"
 
   celery:
-    <<: *django
+    image: yampolskiydv/elogs_back
+    container_name: celery_cont
+    env_file:
+      - ./.env
     command: celery -A e_logs.common.all_journals_app.tasks worker --loglevel=info
     depends_on:
       - postgres
@@ -64,7 +79,10 @@ services:
     restart: on-failure
 
   celery-beat:
-    <<: *django
+    image: yampolskiydv/elogs_back
+    container_name: celery_beat_cont
+    env_file:
+      - ./.env
     command: celery -A e_logs.common.all_journals_app.tasks beat --loglevel=info --scheduler=django_celery_beat.schedulers:DatabaseScheduler
     depends_on:
       - postgres

@@ -20,6 +20,7 @@ RUN npm i && npm run build
 
 COPY . /srv
 COPY ./docker/django/entrypoint /entrypoint
+COPY ./docker/django/apply_migrations.sh /apply_migrations.sh
 WORKDIR /srv
 
 EXPOSE 80 8000 443 8085

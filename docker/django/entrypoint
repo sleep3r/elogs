@@ -4,16 +4,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-python3 manage.py flush --noinput
-python3 manage.py makemigrations --merge
-python3 manage.py migrate
-
-python3 manage.py demo_db --recreate
-python3 manage.py shell < scripts/import_cells.py
-
 cd /srv
 python3 manage.py collectstatic --noinput
-mkdir /srv/frontend/dist/static
+mkdir -p /srv/frontend/dist/static
 cp -r /srv/staticfiles/* /srv/frontend/dist/static/
 
 touch /srv/logs/gunicorn.log
