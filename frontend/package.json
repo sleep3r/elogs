@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve & PORT=8085 npm run serve --prefix ../e-logs-constructor/frontend & npm start --prefix ../e-logs-constructor/backend",
     "serve-front": "vue-cli-service serve & PORT=8085 npm run serve --prefix ../e-logs-constructor/frontend",
-    "build": "vue-cli-service build --modern && node scripts/compress.js",
+    "build": "vue-cli-service build && node scripts/compress.js",
     "lint": "vue-cli-service lint",
     "compress": "node scripts/compress.js"
   },
