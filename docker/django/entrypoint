@@ -5,9 +5,6 @@ set -o pipefail
 set -o nounset
 
 cd /srv
-python3 manage.py collectstatic --noinput
-mkdir -p /srv/frontend/dist/static
-cp -r /srv/staticfiles/* /srv/frontend/dist/static/
 
 touch /srv/logs/gunicorn.log
 touch /srv/logs/access.log

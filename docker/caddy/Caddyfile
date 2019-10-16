@@ -1,52 +1,60 @@
-http://{$DOMAIN_NAME} {
+http://dimitrius.club {
+    header / Host "dimitrius.club"
     redir {
         if {scheme} is http
-        / https://{host}{uri}
+        / https://dimitrius.club/
     }
 }
 
-https://{$DOMAIN_NAME}/admin {
+https://dimitrius.club/admin
+    log stdout
+    header / Host "dimitrius.club"
     proxy / django:8002/admin {
         transparent
     }
 }
 
-https://{$DOMAIN_NAME}/api {
+https://dimitrius.club/api {
+    log stdout
+    header / Host "dimitrius.club"
     proxy / django:8002/api {
         transparent
     }
 }
 
-https://{$DOMAIN_NAME}:3001 {
+https://dimitrius.club:3001 {
+    log stdout
+    header / Host "dimitrius.club"
     proxy / django:3000 {
         transparent
     }
 }
 
-https://{$DOMAIN_NAME}/e-logs {
+https://dimitrius.club/e-logs {
+    log stdout
+    header / Host "dimitrius.club"
     proxy / django:8001/e-logs {
         websocket
     }
 }
 
-https://{$DOMAIN_NAME}:8085 {
+https://dimitrius.club:8085 {
     #rewrite {
     #    regexp .*
     #    to {path} /
     #}
+    log stdout
     proxy / node:8003 {
         transparent
     }
     #root /e-logs-constructor/frontend/dist
 }
 
-https://{$DOMAIN_NAME} {
-    #rewrite {
-    #    regexp .*
-    #    to {path} /
-    #}
+https://dimitrius.club {
+    log stdout
+    header / Host "dimitrius.club"
     proxy / django:8002 {
         transparent
     }
-    #root /srv/frontend/dist
 }
+

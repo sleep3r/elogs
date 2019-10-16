@@ -4,6 +4,10 @@ volumes:
   production_caddy:
   pg_data:
 
+networks:
+  caddy-net:
+  db-net:
+
 services:
   postgres:
     image: "postgres"
@@ -12,12 +16,16 @@ services:
     volumes:
       - ./docker/postgres/init_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - db-net
 
   redis:
     image: "redis"
     hostname: "redis"
     expose:
       - "6379"
+    networks:
+      - db-net
 
   django:
     build:
@@ -25,6 +33,14 @@ services:
       dockerfile: ./docker/django/Dockerfile
     image: yampolskiydv/elogs_back
     container_name: django_cont
+    expose:
+      - "80"
+      - "8001"
+      - "8002"
+      - "8085"
+    ports:
+      - "8001:8001"
+      - "8002:8002"
     env_file:
       - ./.env
     depends_on:
@@ -34,6 +50,10 @@ services:
       - celery-beat
     command:
       - /entrypoint
+    networks:
+      - db-net
+      - caddy-net
+
 #    volumes:
 #      - ./:/srv/
 
@@ -46,29 +66,35 @@ services:
       - redis
       - postgres
     entrypoint: '/apply_migrations.sh'
+    networks:
+      - db-net
 
   constructor:
     build: e-logs-constructor
     init: true
+    expose:
+      - "8003"
+    networks:
+      - caddy-net
 
   caddy:
     build:
       context: .
       dockerfile: ./docker/caddy/Dockerfile
     image: elogs_prod_caddy
-    depends_on:
-      - django
     volumes:
       - production_caddy:/root/.caddy
     env_file:
       - ./.env
     environment:
-      ACME_AGREE: true
+      ACME_AGREE: "true"
     ports:
       - "8085:8085"
       - "8000:8000"
       - "80:80"
       - "443:443"
+    networks:
+      - caddy-net
 
   celery:
     image: yampolskiydv/elogs_back
@@ -80,6 +106,8 @@ services:
       - postgres
       - redis
     restart: on-failure
+    networks:
+      - db-net
 
   celery-beat:
     image: yampolskiydv/elogs_back
@@ -91,3 +119,5 @@ services:
       - postgres
       - redis
     restart: on-failure
+    networks:
+      - db-net

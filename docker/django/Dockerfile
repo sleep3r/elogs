@@ -18,9 +18,13 @@ WORKDIR /srv/frontend
 COPY ./frontend /srv/frontend
 RUN npm i && npm run build
 
+WORKDIR /srv
 COPY . /srv
 COPY ./docker/django/entrypoint /entrypoint
 COPY ./docker/django/apply_migrations.sh /apply_migrations.sh
+RUN python3 manage.py collectstatic --noinput && \
+    mkdir -p /srv/frontend/dist/static && \
+    cp -r /srv/staticfiles/* /srv/frontend/dist/static/
 WORKDIR /srv
 
 EXPOSE 80 8000 443 8085
