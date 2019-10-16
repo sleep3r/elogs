@@ -30,6 +30,8 @@ services:
     depends_on:
       - redis
       - postgres
+      - celery
+      - celery-beat
     command:
       - /entrypoint
 #    volumes:
