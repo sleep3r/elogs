@@ -77,7 +77,6 @@ services:
     depends_on:
       - postgres
       - redis
-      - django
     restart: on-failure
 
   celery-beat:
@@ -89,5 +88,4 @@ services:
     depends_on:
       - postgres
       - redis
-      - django
     restart: on-failure
