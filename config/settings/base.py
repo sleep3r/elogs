@@ -41,7 +41,7 @@ ASGI_APPLICATION = 'config.routing.application'
 SECRET_KEY = env('SECRET_KEY')
 NOTIFICATION_KEY = env('NOTIFICATION_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("DOMAIN_NAME"), 'django']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("DOMAIN_NAME"), 'dimitrius.club', 'django']
 FEEDBACK_TG_BOT = {
     "token": env("TG_TOKEN"),
     "channel": env("TG_CHANNEL"),
@@ -260,12 +260,12 @@ LOGGING = {
     'loggers': {
         'django.request': {'handlers': ['console', 'error'], 'level': 'ERROR', 'propagate': True},
         'py.warnings': {'handlers': ['console', 'debug', 'info', 'error']},
-        '': {'handlers': ['debug', 'info', 'error', 'console'], 'level': "DEBUG"},
+        '': {'handlers': ['debug', 'info', 'error'], 'level': "DEBUG"},
 
         'django': {'handlers': ['console', 'debug', 'info', 'error'], 'level': 'INFO', 'propagate': False},
         'django.server': {'handlers': ['console'], 'level': 'INFO', 'propagate': True},
 
-        'django.db': {'handlers': ['db_log', 'console'], 'level': 'INFO', 'propagate': False},
+        'django.db': {'handlers': ['db_log'], 'level': 'INFO', 'propagate': False},
         'django.db.backends': {'handlers': ['debug'], 'level': 'DEBUG'},
         'django.db.backends.mssql': {'level': 'DEBUG', 'handlers': ['db_log']},
 

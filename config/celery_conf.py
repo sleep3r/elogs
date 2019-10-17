@@ -6,10 +6,9 @@ from config import settings_setup
 
 from celery import Celery
 
-if os.environ.get('DOCKER') == 'yes':
-    app = Celery('main', broker="redis://redis:6379")
-else:
-    app = Celery('main', broker="redis://redis:6379")
+env = environ.Env(DEBUG=(bool, False))
+
+app = Celery('main', broker=env("REDIS_URL"))
 
 env = environ.Env(DEBUG=(bool, False))
 
