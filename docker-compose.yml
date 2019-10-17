@@ -15,7 +15,6 @@ services:
 
   redis:
     image: "redis"
-    hostname: "redis"
     expose:
       - "6379"
 

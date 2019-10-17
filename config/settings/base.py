@@ -41,7 +41,7 @@ ASGI_APPLICATION = 'config.routing.application'
 SECRET_KEY = env('SECRET_KEY')
 NOTIFICATION_KEY = env('NOTIFICATION_KEY')
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("DOMAIN_NAME")]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', env("DOMAIN_NAME"), 'dimitrius.club', 'django']
 FEEDBACK_TG_BOT = {
     "token": env("TG_TOKEN"),
     "channel": env("TG_CHANNEL"),
@@ -320,6 +320,7 @@ JWT_AUTH = {'JWT_ALLOW_REFRESH': True}
 
 # --------------------------------- CACHING STAFF ---------------------------------------
 
+REDIS_URL = env("REDIS_URL")
 MAX_CACHE_TIME = 60 * 60 * 5
 CACHES = {
     "default": {
@@ -346,8 +347,8 @@ DJANGO_REDIS_IGNORE_EXCEPTIONS = True
 DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
 CACHEOPS_REDIS = {
-    'host': 'redis',  # redis-server is on same machine
-    'port': 6379,  # default redis port
+    'host': env("REDIS_HOST"),  # redis-server is on same machine
+    'port': env("REDIS_PORT"),  # default redis port
     'db': 1,  # SELECT non-default redis database
     # using separate redis db or redis instance
     # is highly recommended
@@ -388,12 +389,12 @@ CACHEOPS = {
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {"hosts": [("redis", 6379)]},
+        "CONFIG": {"hosts": [(env('REDIS_HOST'), env('REDIS_PORT'))]},
     }
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_BROKER_URL = env("REDIS_URL")
+CELERY_RESULT_BACKEND = env("REDIS_URL")
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
