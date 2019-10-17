@@ -63,28 +63,28 @@ const router = new Router({
             component: LoginPage
         }
     ]
-})
+});
 
 router.beforeEach((to, from, next) => {
     if (!VueCookies.get('Authorization') && to.path !== '/login') {
-        $('.modal-backdrop').css({'display': 'none'})
+        $('.modal-backdrop').css({'display': 'none'});
         next('/login')
     }
     else {
-        console.dir(VueCookies.get('Authorization'))
-        console.log(to)
+        console.dir(VueCookies.get('Authorization'));
+        console.log(to);
         if (to.path == "/") {
-            let defaultPage = store.getters['userState/defaultPage']
-            console.log('dp', defaultPage)
+            let defaultPage = store.getters['userState/defaultPage'];
+            console.log('dp', defaultPage);
             if (defaultPage) {
-                var location = defaultPage.split("/")
-                console.log('location', location)
+                var location = defaultPage.split("/");
+                console.log('location', location);
 
                 if (location.length > 2) {
                     var payload = {
                         "plantName": location[1],
                         "journalName": location[2],
-                    }
+                    };
                     EventBus.$emit("set-menu-journal-item", payload)
                 }
                 else if (location[1] == "dashboard") {
@@ -100,6 +100,6 @@ router.beforeEach((to, from, next) => {
             next()
         }
     }
-})
+});
 
 export default router

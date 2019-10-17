@@ -71,7 +71,7 @@ const journalState = {
         },
         journalVerboseName: (state, getters) => {
             if (state.loaded) {
-                let plant = getters['plantName']
+                let plant = getters['plantName'];
                 return state.plantsInfo.filter(item => item.name === plant)[0].journals.filter(item => item.name === state.journalInfo.journal.name)[0].verbose_name;
             } else {
                 return '';
@@ -87,7 +87,7 @@ const journalState = {
         },
         tableVerboseName: (state) => (tableName) => {
             if (state.loaded) {
-                let table = state.journalInfo.journal.tables[tableName]
+                let table = state.journalInfo.journal.tables[tableName];
                 if (table) {
                     return table.title
                 }
@@ -105,7 +105,7 @@ const journalState = {
         },
         constraintsModeIsActive: (state) => (id) => {
             if (state.loaded) {
-                var modes = state.journalInfo.field_constraints_modes.modes
+                var modes = state.journalInfo.field_constraints_modes.modes;
                 for (let i in modes) {
                     if (modes[i]['id'] == id) {
                         return modes[i].is_active
@@ -115,8 +115,8 @@ const journalState = {
         },
         currentConstraintsMode: state => {
             if (state.loaded) {
-                var id = state.journalInfo.field_constraints_modes.current_mode
-                var modes = state.journalInfo.field_constraints_modes.modes
+                var id = state.journalInfo.field_constraints_modes.current_mode;
+                var modes = state.journalInfo.field_constraints_modes.modes;
                 for (let i in modes) {
                     if (modes[i]['id'] == id) {
                         return modes[i]
@@ -163,7 +163,7 @@ const journalState = {
                         index: rowIndex,
                         shift: 0,
                         isTableIndexed: false,
-                    }))// Timout for sequential functions execution
+                    }));// Timout for sequential functions execution
                     return {
                         value: window.parser.parse(field.formula).result
                     };
@@ -218,18 +218,18 @@ const journalState = {
             }
         },
         unsyncJournalCells: (state, getters) => () => {
-            let unsyncCells = []
+            let unsyncCells = [];
             getters.tables.map((table, index) => {
-                let currentTable = state.journalInfo.journal.tables[table]
+                let currentTable = state.journalInfo.journal.tables[table];
                 for (let field in currentTable.fields) {
-                    let currentCells = currentTable.fields[field].cells
+                    let currentCells = currentTable.fields[field].cells;
                     for (let cell in currentCells) {
                         if (currentCells[cell].notSynchronized) {
                             unsyncCells.push(currentCells[cell])
                         }
                     }
                 }
-            })
+            });
             return unsyncCells
         },
         maxRowIndex: (state) => (tableName) => {
@@ -253,7 +253,7 @@ const journalState = {
         },
         rowIsEmpty: (state) => (tableName, index) => {
             if (state.loaded) {
-                let fields = state.journalInfo.journal.tables[tableName].fields
+                let fields = state.journalInfo.journal.tables[tableName].fields;
                 for (let field in fields) {
                     if ('cells' in fields[field]) {
                         if (index in fields[field].cells) {
@@ -290,12 +290,12 @@ const journalState = {
                     // console.log("WARNING! Trying to get field desctiption of unexistent field: " + fieldName);
                     return {};
                 }
-                var fieldConstraintsModes = state.journalInfo.field_constraints_modes.modes
-                var desc = fields[fieldName].field_description
+                var fieldConstraintsModes = state.journalInfo.field_constraints_modes.modes;
+                var desc = fields[fieldName].field_description;
                 if (typeof desc == "undefined") {
                     return {}
                 }
-                var fieldConstraints = desc['constraints_modes']
+                var fieldConstraints = desc['constraints_modes'];
                 if (typeof fieldConstraints == "undefined") {
                     return {}
                 }
@@ -307,10 +307,10 @@ const journalState = {
                 }
                 else {
                     for (var i in fieldConstraintsModes) {
-                        var mode = fieldConstraintsModes[i]['id']
-                        var modeIsActive = fieldConstraintsModes[i]['is_active']
+                        var mode = fieldConstraintsModes[i]['id'];
+                        var modeIsActive = fieldConstraintsModes[i]['is_active'];
                         // if mode is active and field has this mode
-                        console.log(mode, modeIsActive)
+                        console.log(mode, modeIsActive);
                         if ((modeIsActive) && (typeof fieldConstraints[mode] !== 'undefined')) {
                             return fieldConstraints[mode]
                         }
@@ -338,7 +338,7 @@ const journalState = {
         tableHTML: (state) => (payload) => {
             if (state.loaded) {
                 let tableItem = state.tablesHTML.filter(item =>
-                    item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+                    item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0];
                 if (tableItem) {
                     return tableItem.html
                 }
@@ -369,24 +369,24 @@ const journalState = {
             state.loaded = loaded;
         },
         ADD_RESPONSIBLE (state, payload) {
-            let responsibles = state.journalInfo.responsibles
+            let responsibles = state.journalInfo.responsibles;
             if (typeof responsibles == "undefined") {
                 responsibles = [ payload ]
             }
-            let currentResp = responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0]
+            let currentResp = responsibles.filter(item => Object.keys(item)[0] == Object.keys(payload)[0])[0];
             if (!currentResp) {
                 state.journalInfo.responsibles.push(payload)
             }
         },
         REMOVE_PERMISSION (state, payload) {
-            var permissions = state.journalInfo.permissions.permissions
+            var permissions = state.journalInfo.permissions.permissions;
             var index = permissions.indexOf(payload);
-            console.log('index of permission: ' + index)
+            console.log('index of permission: ' + index);
             if (index !== -1) permissions.splice(index, 1);
         },
         SAVE_CELLS (state, payload) {
             if (state.loaded) {
-                let data = payload['cells']
+                let data = payload['cells'];
                 for (let i in data) {
                     let fields = state.journalInfo.journal.tables[data[i].tableName].fields;
                     if (!(data[i].fieldName in fields)) {
@@ -464,22 +464,22 @@ const journalState = {
         },
         SET_CONSTRAINT (state, payload) {
             if (state.loaded) {
-                var field = state.journalInfo.journal.tables[payload['tableName']].fields[payload.fieldName]
+                var field = state.journalInfo.journal.tables[payload['tableName']].fields[payload.fieldName];
                 if ("constraints_modes" in field.field_description) {
-                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']];
                     if (fieldConstraints) {
                         Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
                     }
                     else {
-                        Vue.set(field.field_description.constraints_modes, payload['mode'], {})
-                        var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                        Vue.set(field.field_description.constraints_modes, payload['mode'], {});
+                        var fieldConstraints = field.field_description.constraints_modes[payload['mode']];
                         Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
                     }
                 }
                 else {
-                    Vue.set(field.field_description, "constraints_modes", {})
-                    Vue.set(field.field_description.constraints_modes, payload['mode'], {})
-                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']]
+                    Vue.set(field.field_description, "constraints_modes", {});
+                    Vue.set(field.field_description.constraints_modes, payload['mode'], {});
+                    var fieldConstraints = field.field_description.constraints_modes[payload['mode']];
                     Vue.set(fieldConstraints, payload['constraintType'], payload['constraintValue'])
                 }
 
@@ -496,7 +496,7 @@ const journalState = {
         },
         TOGGLE_CONSTRAINTS_MODE (state, payload) {
             if (state.loaded) {
-                var constraintModes = state.journalInfo.field_constraints_modes.modes
+                var constraintModes = state.journalInfo.field_constraints_modes.modes;
                 for (let i=0; i<constraintModes.length; i++) {
                     if (constraintModes[i].id == payload.id) {
                         constraintModes[i]['is_active'] = payload.active
@@ -506,7 +506,7 @@ const journalState = {
         },
         DELETE_CONSTRAINTS_MODE (state, payload) {
           if (state.loaded) {
-              var constraintModes = state.journalInfo.field_constraints_modes.modes
+              var constraintModes = state.journalInfo.field_constraints_modes.modes;
               for (let i=0; i<constraintModes.length; i++) {
                   if (constraintModes[i].id == payload.id) {
                       constraintModes.splice(i, 1);
@@ -519,7 +519,7 @@ const journalState = {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 for (let field in fields) {
                     if ('cells' in fields[field]) {
-                        let cells = fields[field]['cells']
+                        let cells = fields[field]['cells'];
                         for (let i=0; i<=payload.maxRowIndex; i++) {
                             if (i == payload.index) {
                                 Vue.set(cells, i, {'value': ''});
@@ -540,7 +540,7 @@ const journalState = {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 for (let field in fields) {
                     if ('cells' in fields[field]) {
-                        let cells = fields[field]['cells']
+                        let cells = fields[field]['cells'];
                         for (let i=payload.maxRowIndex; i>=0; i--) {
                             if (i >= payload.index) {
                                 if (cells[i]) {
@@ -561,7 +561,7 @@ const journalState = {
                 let fields = state.journalInfo.journal.tables[payload.tableName].fields;
                 for (let field in fields) {
                     if ('cells' in fields[field]) {
-                        let cells = fields[field]['cells']
+                        let cells = fields[field]['cells'];
                         for (let i=payload.maxRowIndex; i>=0; i--) {
                             if (i == payload.index) {
                                 Vue.set(cells, i, {'value': ''})
@@ -581,14 +581,14 @@ const journalState = {
         },
         UPDATE_TABLE_HTML (state, payload) {
             let table = state.tablesHTML.filter(item =>
-                item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0]
+                item.plant === payload.plant && item.journal === payload.journal && item.table === payload.table)[0];
             table.html = payload.html
         },
         SET_EVENTS (state, payload) {
             state.events = payload
         },
         SOCKET_ONOPEN (state, event)  {
-            Vue.prototype.$socket = event.currentTarget
+            Vue.prototype.$socket = event.currentTarget;
             state.socket.isConnected = true
         },
         SOCKET_ONCLOSE (state, event)  {
@@ -614,12 +614,12 @@ const journalState = {
                 'type': 'shift_data',
                 'final': true,
                 'cells': []
-            }
-            let tables = state.journalInfo.journal.tables
+            };
+            let tables = state.journalInfo.journal.tables;
             for (let table in tables) {
-                let fields = tables[table].fields
+                let fields = tables[table].fields;
                     for (let field in fields) {
-                        let cells = fields[field].cells
+                        let cells = fields[field].cells;
                         for (let index in cells) {
                             data.cells.push({
                                 'cell_location': {
@@ -637,7 +637,7 @@ const journalState = {
         },
         loadJournal: function ({ commit, state, getters }, payload) {
             commit('SET_LOADED', false);
-            let id = payload['id'] ? payload['id'] : ''
+            let id = payload['id'] ? payload['id'] : '';
             return ajax
                 .get(window.HOSTNAME+'/api/shifts/' + id, {
                     params: {
@@ -664,7 +664,7 @@ const journalState = {
         loadShifts: function ({commit, state, getters}, payload) {
             return ajax.get(window.HOSTNAME + '/api/' + payload.plant + '/' + payload.journal +'/get_groups/')
                 .then(response => {
-                    commit('SET_EVENTS', response.data)
+                    commit('SET_EVENTS', response.data);
                     $(".fc-month-button").click();
                 })
                 .catch(e => {
@@ -672,7 +672,7 @@ const journalState = {
                 });
         },
         sendUnsyncCell: function ({ commit, state, getters }, payload) {
-            console.log('unsyncCell', payload)
+            console.log('unsyncCell', payload);
             window.mv.$socket.sendObj({
                 'type': 'shift_data',
                 'unsync':true,
@@ -687,6 +687,6 @@ const journalState = {
             })
         },
     }
-}
+};
 
 export default journalState

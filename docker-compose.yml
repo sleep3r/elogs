@@ -71,8 +71,9 @@ services:
   constructor:
     build: e-logs-constructor
     init: true
-    expose:
-      - "8003"
+    ports:
+      - "8003:8003"
+      - "3000:3000"
     networks:
       - caddy-net
 

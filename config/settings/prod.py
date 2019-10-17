@@ -58,6 +58,6 @@ FEEDBACK_MAIL = {
 # )
 
 # ------------------------------------------- SECURITY -----------------------------------
-SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+# SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 # SESSION_COOKIE_SECURE = True  # need this for security, though can break smth
 # SESSION_COOKIE_HTTPONLY = False  # seems like we can uncomment it and use django auth

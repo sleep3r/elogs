@@ -20,14 +20,14 @@ Vue.config.productionTip = false;
 
 
 if (process.env.NODE_ENV == 'production') {
-    var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/'
-    window.HOSTNAME = 'https://' + window.location.hostname
-    window.NODE_SERVER = 'https://' + window.location.hostname + ':3001'
+    var dataEndpoint = 'wss://' + window.location.hostname + '/e-logs/';
+    window.HOSTNAME = 'https://' + window.location.hostname;
+    window.NODE_SERVER = 'https://' + window.location.hostname + ':3001';
     window.FRONT_CONSTRUCTOR_HOSTNAME = "https://" + window.location.hostname + ":8085";
 } else {
-    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/'
-    window.HOSTNAME = 'http://' + window.location.hostname + ':8000'
-    window.NODE_SERVER = 'http://' + window.location.hostname + ':3000'
+    var dataEndpoint = 'ws://' + window.location.hostname + ':8000/e-logs/';
+    window.HOSTNAME = 'http://' + window.location.hostname + ':8000';
+    window.NODE_SERVER = 'http://' + window.location.hostname + ':3000';
     window.FRONT_CONSTRUCTOR_HOSTNAME = "http://" + window.location.hostname + ":8085";
 }
 
@@ -39,8 +39,8 @@ Vue.use(VueNativeSock, dataEndpoint, {
     passToStoreHandler: function (eventName, event) {
         // console.log('event_data', event.data)
         if (eventName === 'SOCKET_onopen' && !this.store.getters['journalState/isSynchronized']) {
-            let unsyncCells = this.store.getters['journalState/unsyncJournalCells']()
-            console.log('unsyncCells', unsyncCells)
+            let unsyncCells = this.store.getters['journalState/unsyncJournalCells']();
+            console.log('unsyncCells', unsyncCells);
             unsyncCells.map((item, index) => {
                 this.store.dispatch('journalState/sendUnsyncCell', item)
             })
@@ -49,8 +49,8 @@ Vue.use(VueNativeSock, dataEndpoint, {
             // console.log('data', JSON.parse(event.data))
             // console.log('event', event)
             if (data['type'] === 'shift_data') {
-                let commitData = {'cells': []}
-                let currentShift = this.store.getters['journalState/journalInfo'].id
+                let commitData = {'cells': []};
+                let currentShift = this.store.getters['journalState/journalInfo'].id;
                 for (let i in data['cells']) {
                     console.log(currentShift, data['cells'][i]['cell_location']['group_id']);
                     // accept only cells from current shift
@@ -58,9 +58,9 @@ Vue.use(VueNativeSock, dataEndpoint, {
                     if (currentShift !== data['cells'][i]['cell_location']['group_id']) {
                         continue
                     }
-                    let cellData = data['cells'][i]
+                    let cellData = data['cells'][i];
 
-                    this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible'])
+                    this.store.commit('journalState/ADD_RESPONSIBLE', cellData['responsible']);
                     // if received cell value is inputed by this user,
                     // store has it already
                     if (!(this.store.getters['userState/username'] in cellData['responsible'])) {
@@ -78,7 +78,7 @@ Vue.use(VueNativeSock, dataEndpoint, {
                 }
             }
             if (data['type'] === 'critical_value') {
-                console.log('critical_value', data)
+                console.log('critical_value', data);
 
                 if (data.cell) {
                     mv.$notify({
@@ -87,14 +87,14 @@ Vue.use(VueNativeSock, dataEndpoint, {
                         shiftId: data.shift_id,
                         duration: 5000,
                         type: 'warn'
-                    })
-                    this.store.dispatch('messagesState/loadUnreadedMessages')
+                    });
+                    this.store.dispatch('messagesState/loadUnreadedMessages');
                     this.store.dispatch('messagesState/loadMessages')
                 }
             }
             if ((data['type'] === 'user_comment') || (data['type'] === 'system_comment')) {
-                console.log('comment', data)
-                let sendee = data.sendee ? data.sendee : data.employee
+                console.log('comment', data);
+                let sendee = data.sendee ? data.sendee : data.employee;
                 if (!Object.keys(sendee).includes(this.store.getters['userState/username'])) {
                     if (data['type'] === 'user_comment') {
                         mv.$notify({
@@ -104,8 +104,8 @@ Vue.use(VueNativeSock, dataEndpoint, {
                             duration: 5000,
                         });
                     }
-                    this.store.dispatch('messagesState/loadUnreadedMessages')
-                    this.store.dispatch('messagesState/loadMessages')
+                    this.store.dispatch('messagesState/loadUnreadedMessages');
+                    this.store.dispatch('messagesState/loadMessages');
                     this.store.commit('journalState/SAVE_CELL_COMMENT', {
                         tableName: data['cell']['table_name'],
                         fieldName: data['cell']['field_name'],
@@ -122,17 +122,17 @@ Vue.use(VueNativeSock, dataEndpoint, {
                 }
             }
             if (data['type'] === 'set_mode') {
-                console.log('set_mode', data)
+                console.log('set_mode', data);
                 mv.$notify({
                     title: data.sendee[Object.keys(data.sendee)[0]],
                     text: 'Создан режим: "' + data.text + '"',
                     duration: 5000,
-                })
-                this.store.dispatch('messagesState/loadUnreadedMessages')
+                });
+                this.store.dispatch('messagesState/loadUnreadedMessages');
                 this.store.dispatch('messagesState/loadMessages')
             }
         } else {
-            return
+
         }
 
     }
@@ -142,7 +142,7 @@ store.subscribe((mutation, state) => {
     if (!VueCookies.get('Authorization')) {
         router.push('/login')
     }
-})
+});
 
 window.mv = new Vue({
     el: '#app',

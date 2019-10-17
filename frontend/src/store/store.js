@@ -11,9 +11,9 @@ import VueCookies from "vue-cookies";
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage
-})
+});
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 let store = new Vuex.Store({
     modules: {
@@ -25,6 +25,6 @@ let store = new Vuex.Store({
         messagesState
     },
     plugins: [vuexLocal.plugin]
-})
+});
 
 export default store

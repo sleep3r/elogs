@@ -89,7 +89,7 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'corsheaders',
     'djoser',
-    'channels'
+    'channels',
 ]
 LOCAL_APPS = [
     'e_logs.core.apps.CoreConfig',
@@ -110,7 +110,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.humanize',
-    'e_logs.core.apps.SuitConfig',  # Handy template tags
+    # 'e_logs.core.apps.SuitConfig',  # Handy template tags
     'django.contrib.admin',
     'django.contrib.staticfiles',
 ]
@@ -124,10 +124,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',  # TODO: ?
     'e_logs.core.middleware.CustomAuthenticationMiddleware',
-
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -261,14 +259,11 @@ LOGGING = {
         'django.request': {'handlers': ['console', 'error'], 'level': 'ERROR', 'propagate': True},
         'py.warnings': {'handlers': ['console', 'debug', 'info', 'error']},
         '': {'handlers': ['debug', 'info', 'error'], 'level': "DEBUG"},
-
         'django': {'handlers': ['console', 'debug', 'info', 'error'], 'level': 'INFO', 'propagate': False},
         'django.server': {'handlers': ['console'], 'level': 'INFO', 'propagate': True},
-
         'django.db': {'handlers': ['db_log'], 'level': 'INFO', 'propagate': False},
         'django.db.backends': {'handlers': ['debug'], 'level': 'DEBUG'},
         'django.db.backends.mssql': {'level': 'DEBUG', 'handlers': ['db_log']},
-
         'CALL': {'handlers': ['calls']},
         'STDOUT': {'handlers': ['console', 'printed_values']},
         'STDERR': {'handlers': ['console', 'printed_values']},

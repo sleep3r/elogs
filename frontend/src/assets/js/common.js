@@ -87,7 +87,7 @@ Date.prototype.incrementMonth = function () {
 
 Date.prototype.getMonthWithYear = function() {
     return this.getFullYear() + '-' + this.getMonth();
-}
+};
 
 
 /**
@@ -112,7 +112,7 @@ $(document).ready(function () {
             $("table #" + cell_id + "").addClass("highlight");
         }, 1000);
     }
-    
+
     // JournalPanel.init();
 });
 

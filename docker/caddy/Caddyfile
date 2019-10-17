@@ -39,15 +39,17 @@ https://dimitrius.club/e-logs {
 }
 
 https://dimitrius.club:8085 {
-    #rewrite {
-    #    regexp .*
-    #    to {path} /
-    #}
     log stdout
-    proxy / node:8003 {
+    proxy / constructor:8003 {
         transparent
     }
-    #root /e-logs-constructor/frontend/dist
+}
+
+http://dimitrius.club:8085 {
+    log stdout
+    proxy / constructor:8003 {
+        transparent
+    }
 }
 
 https://dimitrius.club {

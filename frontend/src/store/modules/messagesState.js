@@ -67,6 +67,6 @@ const messagesState = {
                 })
         }
     }
-}
+};
 
 export default messagesState

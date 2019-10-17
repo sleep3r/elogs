@@ -19,7 +19,7 @@ if (!String.prototype.format) {
     };
 }
 
-console.log("Loading formula...")
+console.log("Loading formula...");
 var parser = new FormulaParser();
 window.parser = parser;
 
@@ -37,13 +37,13 @@ export function getValue(params) {
         const index = this.isTableIndexed ? 0 : params[4] ? params[4] : this.index;
 
         shift_delta = -Number(shift_delta);
-        var shifts = store.getters['formulaState/shifts']()
+        var shifts = store.getters['formulaState/shifts']();
         const current_journal = store.getters['journalState/journalName'];
         const current_shift_start_time = store.getters['journalState/journalInfo'].start_time;
         let res = 0;
         let result = null;
         if (journal == current_journal && shift_delta == 0) {
-            let formula = store.getters['journalState/fieldFormula'](table, field)
+            let formula = store.getters['journalState/fieldFormula'](table, field);
             if (formula) {
                 result = window.parser.parse(formula)
             } else {
@@ -56,9 +56,9 @@ export function getValue(params) {
                     shift_index = i;
                 }
             }
-            let shift = shifts[(shift_index - shift_delta) % shifts.length].id
-            let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field)
-            let value = store.getters['formulaState/fieldValue'](journal, shift, table, field, index)
+            let shift = shifts[(shift_index - shift_delta) % shifts.length].id;
+            let formula = store.getters['formulaState/fieldFormula'](journal, shift, table, field);
+            let value = store.getters['formulaState/fieldValue'](journal, shift, table, field, index);
             if (formula) {
                 window.parser.setFunction("FUNC", getValue.bind({
                     journal: state.journalInfo.journal.name,
@@ -67,7 +67,7 @@ export function getValue(params) {
                     index: index,
                     shift: shift,
                     isTableIndexed: false,
-                }))
+                }));
                 result = window.parser.parse(formula)
             }
             // value === undefined – value have not been downloaded
@@ -86,8 +86,8 @@ export function getValue(params) {
                         }
                     })
                     .then(response => {
-                        let value = response.data.value
-                        let formula = response.data.formula
+                        let value = response.data.value;
+                        let formula = response.data.formula;
                         store.commit('formulaState/ADD_CELL', {
                             journalName: journal,
                             tableName: table,

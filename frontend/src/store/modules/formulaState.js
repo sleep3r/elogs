@@ -18,7 +18,7 @@ const formulaState = {
         },
         fieldValue: (state) => (journalName, shiftNum, tableName, fieldName, rowIndex) => {
             let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
-            let shift = journal[shiftNum] ? journal[shiftNum] : {}
+            let shift = journal[shiftNum] ? journal[shiftNum] : {};
             let table = shift[tableName] ? shift[tableName] : {};
             let field = table[fieldName] ? table[fieldName]: {};
             return field.value;
@@ -33,10 +33,10 @@ const formulaState = {
     },
     mutations: {
         ADD_CELL (state, payload) {
-            let journalName = payload.journalName
-            let shiftNum = payload.shiftNum
-            let tableName = payload.tableName
-            let fieldName = payload.fieldName
+            let journalName = payload.journalName;
+            let shiftNum = payload.shiftNum;
+            let tableName = payload.tableName;
+            let fieldName = payload.fieldName;
             let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
             if (_.isEmpty(journal)) {
                 Vue.set(state.journalsInfo, payload.journalName, {})
@@ -49,11 +49,11 @@ const formulaState = {
             if (_.isEmpty(table)) {
                 Vue.set(state.journalsInfo[journalName][shiftNum], tableName, {})
             }
-            let field = table[fieldName]
+            let field = table[fieldName];
             if (!field) {
                 Vue.set(
-                    state.journalsInfo[payload.journalName][shiftNum][payload.tableName], 
-                    payload.fieldName, 
+                    state.journalsInfo[payload.journalName][shiftNum][payload.tableName],
+                    payload.fieldName,
                     {
                         value: payload.value,
                         formula: payload.formula,
@@ -62,10 +62,10 @@ const formulaState = {
             }
         },
         UPDATE_CELL_VALUE (state, payload) {
-            let journalName = payload.journalName
-            let shiftNum = payload.shiftNum
-            let tableName = payload.tableName
-            let fieldName = payload.fieldName
+            let journalName = payload.journalName;
+            let shiftNum = payload.shiftNum;
+            let tableName = payload.tableName;
+            let fieldName = payload.fieldName;
             let journal = state.journalsInfo[journalName] ? state.journalsInfo[journalName] : {};
             let shift;
             let table;
@@ -98,6 +98,6 @@ const formulaState = {
             });
         }
     }
-}
+};
 
 export default formulaState

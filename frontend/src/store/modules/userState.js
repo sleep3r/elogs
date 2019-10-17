@@ -33,11 +33,11 @@ const userState = {
                 .then((resp) => {
                     return ajax.get(window.HOSTNAME + '/api/auth/users/me/', {headers: {Authorization: 'Token ' + resp.data.auth_token}})
                         .then((userData) => {
-                            commit('SET_USER', userData.data)
+                            commit('SET_USER', userData.data);
                             return userData
                         })
                         .then((res) => {
-                            VueCookies.set('Authorization', resp.data.auth_token, Infinity)
+                            VueCookies.set('Authorization', resp.data.auth_token, Infinity);
                             return res
                         })
                         .then((res) => {
@@ -99,6 +99,6 @@ const userState = {
             })
         }
     }
-}
+};
 
 export default userState

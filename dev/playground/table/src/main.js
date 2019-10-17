@@ -9,7 +9,7 @@ Vue.config.errorHandler = function (err, vm, info) {
     console.error("error: ", err);
     console.info(vm);
     console.info("hook name ->", info);
-}
+};
 
 
 
